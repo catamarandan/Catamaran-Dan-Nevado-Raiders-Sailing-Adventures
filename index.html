@@ -1,349 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catamaran Dan | Sailing Adventures</title>
-  <meta name="description" content="Catamaran Dan — sailing adventures, Hobie Getaway Shamrock, Nevado Ranch Camp basecamp, and the Blue Rim Five expedition." />
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catamaran Dan — Nevada Rader Sailing Adventures</title>
+  <meta name="description" content="Small boats. Big horizons. Expedition sailing, coastal exploration, and real seamanship — launched from Arizona to coastlines around the world." />
 
-<body>
-  <header class="site-header">
-    <div class="container nav">
-      <div class="brand">Catamaran Dan</div>
-      <nav class="nav-links">
-        <a class="active" href="index.html">Home</a>
-        <a href="blue-rim-five.html">Blue Rim Five</a>
-      </nav>
-    </div>
-  </header>
+  <style>
+    :root{
+      --bg0:#070a10;
+      --bg1:#0b1220;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --line:rgba(255,255,255,.12);
+      --accent:#49c6ff;
+      --accent2:#8cffc8;
+      --warn:#ffd27a;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+      --pad: clamp(18px, 3vw, 28px);
+      --h1: clamp(34px, 5vw, 56px);
+      --h2: clamp(22px, 3vw, 30px);
+      --h3: 18px;
+      --p: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h1>Sailing Small Boats — Big Horizons</h1>
-        <p class="lede">
-          Expedition sailing, coastal exploration, and real seamanship —
-          launched from the high country of Arizona to coastlines around the world.
-        </p>
-        <a class="cta" href="blue-rim-five.html">Explore Blue Rim Five →</a>
-      </div>
-    </section>
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(73,198,255,.15), transparent 55%),
+        radial-gradient(900px 500px at 75% 20%, rgba(140,255,200,.10), transparent 55%),
+        radial-gradient(900px 600px at 55% 90%, rgba(255,210,122,.09), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      line-height:1.55;
+    }
 
-    <section>
-      <div class="container">
-        <h2>Who is Catamaran Dan</h2>
-        <p>
-          Catamaran Dan is a lifelong sailor, U.S. Navy submariner, and expedition skipper
-          focused on small-boat sailing adventures built around skill, self-reliance,
-          and authentic exploration.
-        </p>
-        <p class="callout">
-          This is not luxury yachting. This is hands-on sailing and learning by doing.
-        </p>
-      </div>
-    </section>
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
 
-    <section>
-      <div class="container">
-        <h2>The Boat</h2>
-        <h3>Hobie Cat Getaway — <em>Shamrock</em></h3>
-        <p>
-          <em>Shamrock</em> is a beach-launchable, trailerable catamaran designed for
-          coastal raids, island hopping, and shallow-water access that larger boats
-          simply can’t reach.
-        </p>
-        <p><strong>Small boat. Serious range.</strong></p>
-      </div>
-    </section>
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--pad) 80px; }
 
-    <section>
-      <div class="container">
-        <h2>Base Camp</h2>
-        <h3>Nevado Ranch Camp — Arizona</h3>
-        <p>
-          Operations are staged from Nevado Ranch Camp in Arizona’s White Mountains —
-          an unlikely but deliberate launch point for global sailing expeditions.
-        </p>
-        <ul>
-          <li>Expedition planning</li>
-          <li>Boat preparation</li>
-          <li>Skill development</li>
-          <li>Route design</li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <h2>Crew & Partnership</h2>
-        <p>
-          Catamaran Dan is open to finding a <strong>female first mate</strong>
-          to join him on future sailing adventures and expedition legs.
-        </p>
-        <p class="callout">
-          Seamanship, curiosity, adaptability, and humor matter more than résumés.
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <h2>The Big Expedition</h2>
-        <h3>Blue Rim Five</h3>
-        <p>
-          Blue Rim Five is a long-range global sailing expedition focused on coastlines,
-          islands, and human connection — using small, capable boats and a go-anywhere mindset.
-        </p>
-        <a class="cta" href="blue-rim-five.html">Learn more →</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Catamaran Dan • Sailing • Exploration • Basecamp Operations</p>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blue Rim Five | Catamaran Dan</title>
-  <meta name="description" content="Blue Rim Five — a global sailing expedition led by Catamaran Dan." />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
-  <header class="site-header">
-    <div class="container nav">
-      <div class="brand">Catamaran Dan</div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a class="active" href="blue-rim-five.html">Blue Rim Five</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h1>Blue Rim Five</h1>
-        <p class="lede">A Global Sailing Expedition</p>
-        <p class="sublede">
-          Exploring coastlines, islands, and cultures by small boat — with purpose.
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <h2>What is Blue Rim Five</h2>
-        <p>
-          Blue Rim Five is a multi-year global sailing expedition following the
-          world’s coastlines rather than racing across open oceans.
-        </p>
-        <p>
-          The focus is navigation, seamanship, and connection with people and place —
-          not speed, luxury, or shortcuts.
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <h2>How it’s Done</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Small, capable boats</h3>
-            <p>
-              Trailerable and shallow-draft vessels allow access where large yachts cannot go.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Coastal focus</h3>
-            <p>
-              Routes prioritize learning, exploration, and real navigation challenges.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Basecamp supported</h3>
-            <p>
-              Nevado Ranch Camp serves as the planning and reset hub between expedition legs.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <h2>Status</h2>
-        <p>
-          Blue Rim Five is in active development, with vessel preparation,
-          shakedown sailing, and route planning underway.
-        </p>
-        <a class="cta" href="index.html">← Back to Home</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Catamaran Dan • Blue Rim Five Global Sailing Expedition</p>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
-:root {
-  --bg: #0b0f14;
-  --panel: #0f1722;
-  --text: #e8eef7;
-  --muted: #b7c4d6;
-  --line: rgba(232,238,247,.12);
-  --max: 980px;
-}
-
-* { box-sizing: border-box; }
-
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
-
-a {
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(232,238,247,.25);
-}
-
-a:hover {
-  border-bottom-color: rgba(232,238,247,.8);
-}
-
-.container {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.site-header {
-  position: sticky;
-  top: 0;
-  background: rgba(11,15,20,.9);
-  border-bottom: 1px solid var(--line);
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 0;
-}
-
-.brand {
-  font-weight: 600;
-  letter-spacing: .3px;
-}
-
-.nav-links a {
-  margin-left: 16px;
-  opacity: .8;
-}
-
-.nav-links a.active {
-  opacity: 1;
-  border-bottom: 1px solid rgba(232,238,247,.6);
-}
-
-.hero {
-  padding: 70px 0 40px;
-  border-bottom: 1px solid var(--line);
-}
-
-h1 {
-  font-size: 42px;
-  line-height: 1.1;
-  margin-bottom: 12px;
-}
-
-h2 {
-  margin-top: 0;
-}
-
-.lede {
-  font-size: 18px;
-  color: var(--muted);
-  max-width: 60ch;
-}
-
-.sublede {
-  color: var(--muted);
-}
-
-section {
-  padding: 36px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.cta {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 10px 14px;
-  border: 1px solid rgba(232,238,247,.2);
-  border-radius: 10px;
-}
-
-.callout {
-  margin-top: 14px;
-  padding: 14px;
-  background: rgba(15,23,34,.4);
-  border-left: 3px solid rgba(232,238,247,.3);
-  border-radius: 8px;
-  color: var(--muted);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.card {
-  padding: 16px;
-  background: rgba(15,23,34,.4);
-  border: 1px solid rgba(232,238,247,.15);
-  border-radius: 14px;
-}
-
-.site-footer {
-  padding: 24px 0;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-@media (max-width: 800px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  h1 {
-    font-size: 34px;
-  }
-}
-
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,16,.62);
+      border-bottom: 1px solid var
