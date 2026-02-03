@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catamaran Dan — Nevado Raiders Sailing Adventures</title>
+
+  <style>
+    :root{
+      --bg1:#0b2a3a;
+      --bg2:#020814;
+      --text:#f2f6f8;
+      --muted: rgba(242,246,248,0.78);
+      --cardA: rgba(255,255,255,0.09);
+      --cardB: rgba(255,255,255,0.03);
+      --shadow: rgba(0,0,0,0.48);
+      --line: rgba(255,255,255,0.10);
+      --accent: rgba(130, 220, 255, 0.28);
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a{
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* NAV */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(2,8,20,0.85), rgba(2,8,20,0.55));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.9rem 1.2rem;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand strong{
+      font-size: 1.05rem;
+      letter-spacing: 0.2px;
+    }
+
+    .brand span{
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+
+    .nav-links{
+      display:flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a{
+      font-size: 0.92rem;
+      padding: 0.35rem 0.55rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      opacity: 0.92;
+    }
+
+    .nav-links a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* HERO */
+    .hero{
+      min-height: 72vh;
+      background: url("images/hero-hobie.jpg") center / cover no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 30% 20%, rgba(130,220,255,0.22), rgba(0,0,0,0.0) 55%),
+                  linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.70));
+      z-index: 0;
+    }
+
+    .hero-overlay{
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      margin: 0 1.2rem;
+      background: rgba(0,0,0,0.48);
+      border: 1px solid var(--line);
+      padding: 2.4rem 2.6rem;
+      border-radius: 18px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 22px 45px var(--shadow);
+    }
+
+    .hero h1{
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      margin: 0 0 0.6rem 0;
+      letter-spacing: 0.3px;
+    }
+
+    .hero p{
+      font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+      margin: 0.2rem 0 0 0;
+      color: var(--muted);
+    }
+
+    .hero-badges{
+      margin-top: 1.1rem;
+      display:flex;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      justify-content:center;
+    }
+
+    .badge{
+      font-size: 0.85rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: rgba(242,246,248,0.92);
+      white-space: nowrap;
+    }
+
+    /* LAYOUT */
+    .container{
+      max-width: 1200px;
+      margin: -3.8rem auto 4.2rem;
+      padding: 0 1.2rem;
+    }
+
+    .section-title{
+      margin: 2.2rem 0 1rem;
+      font-size: 1.35rem;
+      opacity: 0.95;
+      letter-spacing: 0.2px;
+    }
+
+    .lead{
+      margin-top: 0.8rem;
+      color: var(--muted);
+      max-width: 900px;
+    }
+
+    .grid{
+      margin-top: 1.3rem;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card{
+      background: linear-gradient(160deg, var(--cardA), var(--cardB));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.6rem;
+      box-shadow: 0 22px 45px var(--shadow);
+    }
+
+    .card h2{
+      margin: 0 0 0.55rem 0;
+      font-size: 1.15rem;
+    }
+
+    .card p{
+      margin: 0.55rem 0 0 0;
+      color: rgba(242,246,248,0.88);
+    }
+
+    .card ul{
+      margin: 0.7rem 0 0 1.1rem;
+      padding: 0;
+      color: rgba(242,246,248,0.88);
+    }
+
+    .callout{
+      margin-top: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.2rem 1.4rem;
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.35);
+    }
+
+    .cta-row{
+      display:flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 0.9rem;
+    }
+
+    .btn{
+      display:inline-block;
+      padding: 0.65rem 0.95rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .btn:hover{
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    footer{
+      text-align:center;
+      opacity: 0.7;
+      font-size: 0.88rem;
+      padding: 2.8rem 1rem 2.2rem;
+      border-top: 1px solid var(--line);
+      background: rgba(0,0,0,0.25);
+    }
+
+    /* RESPONSIVE TWEAKS */
+    @media (max-width: 520px){
+      .hero-overlay{
+        padding: 1.6rem 1.2rem;
+      }
+      .nav-links{
+        gap: 0.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <strong>Catamaran Dan</strong>
+        <span>Nevado Raiders Sailing Adventures</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#boat">The Boat</a>
+        <a href="#bluerim">Blue Rim Five™</a>
+        <a href="#basecamp">Base Camp</a>
+        <a href="#crew">Crew</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero image">
+    <div class="hero-overlay">
+      <h1>Catamaran Dan</h1>
+      <p>Nevado Raiders Sailing Adventures — built for coastal raids, island hopping, and shallow-water access.</p>
+
+      <div class="hero-badges">
+        <span class="badge">Hobie Getaway “Shamrocket”</span>
+        <span class="badge">Sea of Cortez: fall / early winter 2026</span>
+        <span class="badge">Blue Rim Five™: May 2027 target departure</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="container">
+
+    <h2 class="section-title">What this site is</h2>
+    <p class="lead">
+      A simple, fast GitHub Pages home base for Catamaran Dan’s sailing adventures —
+      plus the early build-out of the Blue Rim Five™ Global Sailing Expedition.
+      Photos, trip reports, and clear “how to join / how to partner” steps come next.
+    </p>
+
+    <div class="grid">
+
+      <section id="boat" class="card">
+        <h2>The Boat — Hobie Cat Getaway “Shamrocket”</h2>
+        <p>
+          Shamrocket is a beach-launchable, trailerable catamaran built for coastal raids,
+          island hopping, and shallow-water access that bigger boats simply can’t reach.
+        </p>
+        <p><strong>Small boat. Serious range.</strong></p>
+      </section>
+
+      <section id="bluerim" class="card">
+        <h2>Blue Rim Five™ — Global Sailing Expedition</h2>
+        <p>
+          The long-arc plan: coastal legs, islands, and river mouths reachable by sea —
+          building a real expedition community one stretch of coastline at a time.
+        </p>
+        <ul>
+          <li>Sea of Cortez shakedown cruise: fall / early winter 2026</li>
+          <li>Main expedition departure target: May 2027</li>
+          <li>Documented and shared with audiences worldwide</li>
+        </ul>
+      </section>
+
+      <section id="basecamp" class="card">
+        <h2>Base Camp — Nevado Ranch Camp (Arizona)</h2>
+        <p>
+          Operations are staged from the White Mountains — an unlikely but deliberate launch point
+          for expedition planning, training, and recovery between legs.
+        </p>
+        <ul>
+          <li>Expedition planning</li>
+          <li>Boat preparation</li>
+          <li>Skill development</li>
+          <li>Route design</li>
+        </ul>
+      </section>
+
+      <section id="crew" class="card">
+        <h2>Crew & Partnership</h2>
+        <p>
+          Catamaran Dan is open to finding a <strong>female first mate</strong> to join future sailing adventures
+          and expedition legs.
+        </p>
+        <p>
+          Seamanship, curiosity, adaptability, and humor matter more than résumés.
+        </p>
+        <p>
+          <em>This page is a starting point — the mission is growing.</em>
+        </p>
+      </section>
+
+    </div>
+
+    <div class="callout">
+      <strong>Quick setup checklist:</strong>
+      <ul>
+        <li>Repo root contains <code>index.html</code></li>
+        <li>Repo has folder <code>images/</code> with <code>hero-hobie.jpg</code></li>
+        <li>Hard refresh the live site after commits (Ctrl+Shift+R)</li>
+      </ul>
+
+      <div class="cta-row">
+        <a class="btn" href="#boat">Jump to the Boat</a>
+        <a class="btn" href="#bluerim">Jump to Blue Rim Five™</a>
+        <a class="btn" href="#crew">Jump to Crew</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Catamaran Dan — Nevada Rader Sailing Adventures<br>
+    Built on GitHub Pages · © 2026 Nevado Ranch Camp LLC
+  </footer>
+
+</body>
+</html>
