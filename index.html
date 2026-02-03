@@ -1,61 +1,250 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Catamaran Dan — Nevada Rader Sailing Adventures</title>
-  <meta name="description" content="Small boats. Big horizons. Expedition sailing, coastal exploration, and real seamanship — launched from Arizona to coastlines around the world." />
+  <meta name="description" content="Small boats. Big horizons. Catamaran Dan, Shamrocket, and future expedition sailing adventures." />
 
   <style>
     :root{
       --bg0:#070a10;
       --bg1:#0b1220;
       --card:rgba(255,255,255,.06);
-      --card2:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.10);
       --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.70);
-      --muted2:rgba(255,255,255,.55);
+      --muted:rgba(255,255,255,.72);
       --line:rgba(255,255,255,.12);
       --accent:#49c6ff;
       --accent2:#8cffc8;
-      --warn:#ffd27a;
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 26px;
-      --max: 1120px;
-      --pad: clamp(18px, 3vw, 28px);
-      --h1: clamp(34px, 5vw, 56px);
-      --h2: clamp(22px, 3vw, 30px);
-      --h3: 18px;
-      --p: 16px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --shadow:0 18px 55px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:26px;
+      --max:1120px;
+      --pad:clamp(18px, 3vw, 28px);
+      --h1:clamp(34px, 5vw, 56px);
+      --h2:clamp(22px, 3vw, 30px);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: var(--sans);
-      color: var(--text);
-      background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(73,198,255,.15), transparent 55%),
-        radial-gradient(900px 500px at 75% 20%, rgba(140,255,200,.10), transparent 55%),
-        radial-gradient(900px 600px at 55% 90%, rgba(255,210,122,.09), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      line-height:1.55;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 650px at 20% 10%, rgba(73,198,255,.25), transparent 60%),
+                  radial-gradient(900px 520px at 80% 30%, rgba(140,255,200,.18), transparent 55%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
     }
 
-    a{ color: var(--accent); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
 
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--pad) 80px; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 18px var(--pad) 60px; }
 
     /* Top bar */
     .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(7,10,16,.62);
-      border-bottom: 1px solid var
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding: 14px 0;
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
+      line-height:1.1;
+    }
+    .brand b{ font-size:16px; letter-spacing:.2px; }
+    .brand span{ font-size:12px; color:var(--muted); }
+
+    .nav{
+      display:flex; gap:14px; flex-wrap:wrap;
+      font-size:14px; color:var(--muted);
+    }
+    .nav a{
+      padding:8px 10px; border-radius:12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .nav a:hover{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.14);
+      text-decoration:none;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 10px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-inner{
+      padding: clamp(22px, 4vw, 38px);
+      display:grid;
+      gap:18px;
+    }
+    h1{ margin:0; font-size:var(--h1); letter-spacing:-.5px; }
+    .lead{ margin:0; color:var(--muted); font-size:16px; line-height:1.6; max-width: 75ch; }
+
+    .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 6px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:600;
+    }
+    .btn:hover{ background: rgba(255,255,255,.10); text-decoration:none; }
+    .btn.primary{
+      border-color: rgba(73,198,255,.35);
+      background: linear-gradient(180deg, rgba(73,198,255,.22), rgba(73,198,255,.10));
+    }
+
+    /* Grid cards */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    @media (max-width: 880px){
+      .card{ grid-column: span 12; }
+    }
+    h2{ margin:0 0 10px; font-size: var(--h2); }
+    .card p{ margin:0 0 10px; color:var(--muted); line-height:1.6; }
+    .bullets{ margin:10px 0 0; padding-left: 18px; color:var(--muted); }
+    .bullets li{ margin:6px 0; }
+
+    /* Footer */
+    footer{
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 13px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .tiny{ color: rgba(255,255,255,.55); }
+    .tag{
+      display:inline-flex; align-items:center;
+      padding:6px 10px; border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color: rgba(255,255,255,.75);
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <b>Catamaran Dan</b>
+        <span>“Sailing Small Boats — Big Horizons”</span>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="#blue-rim-five">Blue Rim Five</a>
+        <a href="#shamrocket">Shamrocket</a>
+        <a href="#crew">Crew</a>
+      </nav>
+    </div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Sailing Small Boats — Big Horizons</h1>
+        <p class="lead">
+          Expedition sailing, coastal exploration, and real seamanship — launched from the high country of Arizona to coastlines around the world.
+          This is the early home base for <strong>Nevada Rader Sailing Adventures</strong> and the future <strong>Blue Rim Five Global Sailing Expedition</strong>.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn primary" href="#blue-rim-five">Explore Blue Rim Five →</a>
+          <a class="btn" href="#shamrocket">Meet Shamrocket →</a>
+        </div>
+
+        <div class="cta-row">
+          <span class="tag">Small expedition boats + guardian vessels</span>
+          <span class="tag">Go-anywhere ethos (when risks make sense)</span>
+          <span class="tag">Skill, safety, and stories</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card" id="shamrocket">
+        <h2>The Boat — Hobie Cat Getaway “Shamrocket”</h2>
+        <p>
+          <em>Shamrocket</em> is a beach-launchable, trailerable catamaran built for coastal raids, island hopping, and shallow-water access
+          that bigger boats simply can’t reach.
+        </p>
+        <p><strong>Small boat. Serious range.</strong></p>
+      </article>
+
+      <article class="card" id="blue-rim-five">
+        <h2>Blue Rim Five — Global Sailing Expedition</h2>
+        <p>
+          The long-arc plan: coastal legs, islands, and river mouths reachable by sea — building a real expedition community one stretch of coastline at a time.
+        </p>
+        <ul class="bullets">
+          <li>Sea of Cortez shakedown cruise: fall/early winter 2026</li>
+          <li>Main expedition departure target: May 2027</li>
+          <li>Documented and shared with audiences worldwide</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Base Camp — Nevado Ranch Camp (Arizona)</h2>
+        <p>
+          Operations are staged from the White Mountains — an unlikely but deliberate launch point for expedition planning, training,
+          and recovery between legs.
+        </p>
+        <ul class="bullets">
+          <li>Expedition planning</li>
+          <li>Boat preparation</li>
+          <li>Skill development</li>
+          <li>Route design</li>
+        </ul>
+      </article>
+
+      <article class="card" id="crew">
+        <h2>Crew & Partnership</h2>
+        <p>
+          Catamaran Dan is open to finding a <strong>female first mate</strong> to join future sailing adventures and expedition legs.
+        </p>
+        <p>
+          Seamanship, curiosity, adaptability, and humor matter more than résumés.
+        </p>
+        <p class="tiny">
+          (This page is a starting point — we’ll add photos, trip reports, and clear “how to join / how to partner” steps next.)
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      <div>
+        <div><strong>Catamaran Dan</strong> — Nevada Rader Sailing Adventures</div>
+        <div class="tiny">Built on GitHub Pages</div>
+      </div>
+      <div class="tiny">© <span id="yr"></span> Nevado Ranch Camp LLC (Operating entity)</div>
+    </footer>
+  </div>
+
+  <script>
+    // harmless, just sets the year
+    document.getElementById("yr").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
