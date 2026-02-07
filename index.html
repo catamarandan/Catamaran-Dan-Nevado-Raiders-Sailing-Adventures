@@ -1,335 +1,393 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catamaran Dan — Nevado Raiders Sailing Adventures</title>
-
-<style>
-  /* existing styles above */
-
-  .recipe-image {
-    width: 100%;
-    max-height: 260px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-  }
-
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catamaran Dan | Nevado Raiders™ | Blue Rim 5™</title>
+  <meta name="description" content="Catamaran Dan — Nevado Raiders™ and the Blue Rim 5™ Global Sailing Expedition. Adventure sailing, real-world skills, cultural exchange, and go-anywhere exploration." />
   <style>
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #0b2a3a, #020814);
-  color: #f2f6f8;
-}
-
- /* Two-card layout for Blue Rim + Ove Ironhand */
-.card-row {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.card-row .card {
-  flex: 1;
-}
-
-/* Mobile fallback */
-@media (max-width: 900px) {
-  .card-row {
-    flex-direction: column;
-  }
-}
-   
-.hero-image {
-  display: block;
-  width: 100%;
-  max-width: 520px;      /* controls width */
- max-height: 200px;      /* HARD cap: stops it being huge */
-  height: auto;
-  object-fit: cover;     /* keeps it nice looking */
-  margin: 0 auto 0.6rem;
-  border-radius: 14px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-}
-.hero {
-  height: auto;
-  padding: 2.5rem 0 1.25rem;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-overlay {
-  background: rgba(0, 0, 0, 0.35);
-  padding: 1rem 1.2rem;       /* MUCH smaller */
-  border-radius: 16px;
-  text-align: center;
-  backdrop-filter: blur(4px);
- display: flex;
-flex-direction: column;
-align-items: center;
-gap: 1.2rem;
-
-  max-width: none;            /* remove 1200px panel */
-  width: auto;                /* remove full-width */
-margin-left: auto;
-  margin-right: auto;
-}
-.container {
-  max-width: 1200px;
-  margin: 2.5rem auto 0;   /* pushes cards DOWN */
-  padding: 0 1.5rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.4rem;
-}
-@media (max-width: 1100px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-  .card-image {
-  display: block;
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  margin-top: -1.6rem;
-margin-right: 0;
-margin-bottom: 1.2rem;
-margin-left: 0;
-
-  border-radius: 16px 16px 12px 12px;
- }
-    
-  .dan-inset {
-  display: block;
-  max-width: 240px;
-  width: 90%;
-  margin-top: 1.5rem;
-margin-bottom: 2.5rem;
-margin-left: auto;
-margin-right: auto;
-
-  border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
-}
-
-
-
-.card {
-  background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-  border-radius: 18px;
-  padding: 1.6rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-}
-
-.card h2 {
-  margin-top: 0;
-}
-
-  footer {
-     opacity: 0.65;
-  font-size: 0.85rem;
-  padding: 2.5rem 1rem 1.8rem;
-}
-</style>
-
- 
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1a2e;
+      --card:#101f3a;
+      --text:#eaf0ff;
+      --muted:#b8c6ef;
+      --line:rgba(255,255,255,.12);
+      --accent:#4da3ff;
+      --accent2:#7cf0ff;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 15% 10%, rgba(77,163,255,.25), transparent 55%),
+        radial-gradient(900px 700px at 85% 15%, rgba(124,240,255,.18), transparent 60%),
+        radial-gradient(900px 900px at 50% 110%, rgba(77,163,255,.12), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px;}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,.70);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+      font-weight:800; letter-spacing:.4px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:99px;
+      background: linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow: 0 0 0 4px rgba(77,163,255,.18);
+    }
+    .navlinks{display:flex; gap:14px; flex-wrap:wrap}
+    .navlinks a{
+      text-decoration:none; padding:8px 10px; border-radius:12px;
+      color:var(--muted);
+      border:1px solid transparent;
+    }
+    .navlinks a:hover{border-color:var(--line); color:var(--text); background:rgba(255,255,255,.04)}
+    .hero{
+      margin-top:22px;
+      border:1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background: #071024;
+      min-height: 360px;
+      display:grid;
+    }
+    /* Put your hero image file in the repo as hero.png */
+    .hero::before{
+      content:"";
+      grid-area:1/1;
+      background: url("hero.png") center / cover no-repeat;
+      filter: saturate(1.05) contrast(1.05);
+      transform: scale(1.02);
+    }
+    .hero::after{
+      content:"";
+      grid-area:1/1;
+      background:
+        linear-gradient(90deg, rgba(11,18,32,.92) 0%, rgba(11,18,32,.55) 45%, rgba(11,18,32,.15) 100%),
+        linear-gradient(180deg, rgba(11,18,32,.20) 0%, rgba(11,18,32,.85) 100%);
+    }
+    .heroInner{
+      grid-area:1/1;
+      padding:34px 26px;
+      display:flex; flex-direction:column; gap:14px;
+      max-width: 780px;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      font-size:.92rem; color:var(--muted);
+      padding:7px 10px; border:1px solid var(--line); border-radius:999px;
+      width:fit-content; background:rgba(255,255,255,.04);
+    }
+    .kicker b{color:var(--text)}
+    h1{
+      margin:0;
+      font-size: clamp(2rem, 3.2vw, 3.1rem);
+      line-height:1.1;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: 1.05rem;
+      max-width: 66ch;
+    }
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:6px}
+    .btn{
+      text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:700;
+    }
+    .btn:hover{background:rgba(255,255,255,.08)}
+    .btnPrimary{
+      border-color: rgba(77,163,255,.55);
+      background: linear-gradient(135deg, rgba(77,163,255,.25), rgba(124,240,255,.12));
+    }
+    .btnPrimary:hover{background: linear-gradient(135deg, rgba(77,163,255,.33), rgba(124,240,255,.18))}
+    .grid{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 12;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16,31,58,.65);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      min-height: 200px;
+    }
+    .cardTop{
+      padding:18px 18px 10px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .card h2{margin:0; font-size:1.25rem; letter-spacing:-.2px}
+    .card p{margin:0; color:var(--muted)}
+    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+    .tag{
+      font-size:.82rem;
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+    }
+    .media{
+      margin-top:auto;
+      border-top:1px solid var(--line);
+      display:grid;
+      grid-template-columns: 1fr;
+      background: rgba(7,16,36,.35);
+    }
+    .media img{
+      width:100%;
+      height: 240px;
+      object-fit: cover;
+      display:block;
+    }
+    .cardFooter{
+      padding:14px 18px 18px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .small{
+      font-size:.95rem;
+    }
+    .split{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .panel{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15,26,46,.55);
+      box-shadow: var(--shadow);
+      padding:16px 18px;
+    }
+    .panel h3{margin:0 0 8px; font-size:1.05rem}
+    .panel ul{margin:8px 0 0 18px; color:var(--muted)}
+    footer{
+      margin-top:22px;
+      border-top:1px solid var(--line);
+      padding-top:18px;
+      color:var(--muted);
+      font-size:.95rem;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .fine{opacity:.9}
+    @media (min-width: 860px){
+      .card.heroCard{min-height: 260px}
+      .card.col6{grid-column: span 6}
+      .card.col4{grid-column: span 4}
+      .card.col8{grid-column: span 8}
+      .media img{height: 260px}
+      .split{grid-template-columns: 1fr 1fr}
+    }
+  </style>
 </head>
 
 <body>
-<section class="hero">
-  <div class="hero-overlay">
-    <img
-      src="nevadoraiders.jpg"
-      alt="Nevado Raiders Sailing Adventures"
-      class="hero-image"
-    />
-<img
-src="dan.jpg"
-alt="Catamaran Dan — Ove Ironhand"
-class="dan-inset"
-/>
-  </div>
-</section>
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="dot"></span>
+        <span>Catamaran Dan</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#nevadoraiders">Nevado Raiders™</a>
+        <a href="#bluerim5">Blue Rim 5™</a>
+        <a href="#rimerunner">Rim Runner™</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-  
-    <!-- CONTENT -->
-  <div class="container">
-    <div class="grid">
-
-     <div class="card">
-
-
-  <h2>The Boat — Hobie Cat Getaway “Shamrocket”</h2>
-  <p>
-    Shamrocket is a beach-launchable, trailerable catamaran built for
-    coastal raids, island hopping, and shallow-water access that bigger
-    boats simply can’t reach. With guardian vessels in place, long crossings
-    can be made.
-  </p>
-  <p><strong>Small boat. Serious range.</strong></p>
-</div>
-
-      <div class="card">
- <img class="card-image" src="bluerim5.png" alt="Blue Rim Five global sailing expedition">
-        <h2>Blue Rim Five — Global Sailing Expedition</h2>
-
-
-        <p>
-          The long-arc plan: coastal legs, islands, and river mouths reachable
-          by sea — building a real expedition community one stretch of
-          coastline at a time.
+  <main id="top" class="wrap">
+    <section class="hero" aria-label="Hero">
+      <div class="heroInner">
+        <span class="kicker"><b>Go-anywhere ethos</b> • Virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</span>
+        <h1>Nevado Raiders™ &amp; the Blue Rim 5™ Global Sailing Expedition</h1>
+        <p class="sub">
+          I’m Catamaran Dan — U.S. Navy submariner, Blue Nose, Shellback, USCG 200-ton captain, and lifelong sailor.
+          We’re just getting started building a global sailing adventure community focused on real-world skills, cultural exchange,
+          peace, and taking care of one another.
         </p>
-        <ul>
-          <li>Sea of Cortez shakedown cruise: fall / early winter 2026</li>
-          <li>Main expedition departure target: May 2027</li>
-          <li>Documented and shared with audiences worldwide</li>
-        </ul>
-   
+        <div class="ctaRow">
+          <a class="btn btnPrimary" href="#contact">Join the Raider list</a>
+          <a class="btn" href="#bluerim5">Explore Blue Rim 5™</a>
+          <a class="btn" href="#nevadoraiders">Explore Nevado Raiders™</a>
+        </div>
+      </div>
+    </section>
 
-      <div class="card">
-  <img class="card-image" src="ranch.jpg" alt="Nevado Ranch Camp Arizona">
-        <h2>Base Camp — Nevado Ranch Camp (Arizona)</h2>
-        <p>
-          Operations are staged from the White Mountains — an unlikely but
-          deliberate launch point for expedition planning, training, and
-          recovery between legs.
-        </p>
+    <section class="grid" aria-label="Cards">
+
+      <article id="bluerim5" class="card col6">
+        <div class="cardTop">
+          <h2>Blue Rim 5™ — Global Sailing Expedition</h2>
+          <p class="small">
+            A go-anywhere, expedition sailing adventure that we’ll document and share with audiences worldwide — built on honesty,
+            grit, and human connection in a rapidly warming world.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Departure: May 2027</span>
+            <span class="tag">Shakedown: Fall/Winter 2026</span>
+            <span class="tag">Coasts • Islands • River mouths</span>
+          </div>
+        </div>
+        <div class="media">
+          <!-- Put bluerim5.jpg in your repo (or change filename) -->
+          <img src="bluerim5.jpg" alt="Blue Rim 5 Global Sailing Expedition">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="https://www.catamarandan.org" target="_blank" rel="noopener">Blue Rim 5™ page</a>
+          <a class="btn" href="#contact">Get involved</a>
+        </div>
+      </article>
+
+      <article id="nevadoraiders" class="card col6">
+        <div class="cardTop">
+          <h2>Nevado Raiders™ — Expedition Sailing Adventures</h2>
+          <p class="small">
+            We’re building an inclusive fleet model: small expedition sailboats (Hobie Getaway, Catalina 22 Sport, and similar vessels)
+            <b>and</b> larger guardian vessels (sailing and power). Lakes, rivers, and coasts worldwide — virtually anywhere, if it makes sense.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Skills • Seamanship • Navigation</span>
+            <span class="tag">Cultural exchange</span>
+            <span class="tag">Community &amp; safety</span>
+          </div>
+        </div>
+        <div class="media">
+          <!-- Put nevadoraiders.jpg in your repo (or change filename) -->
+          <img src="nevadoraiders.jpg" alt="Nevado Raiders Sailing Adventures">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Join the Raiders™</a>
+          <a class="btn" href="#rimerunner">Rim Runner™ lore</a>
+        </div>
+      </article>
+
+      <article class="card col8">
+        <div class="cardTop">
+          <h2>Catamaran Dan — Sailing, Storytelling, and Real-World Skill</h2>
+          <p class="small">
+            20+ years teaching sailing, building teams, and keeping people safe on the water. We’re just getting started — and we’re
+            inviting explorers, sailors, and culture-builders to come with us.
+          </p>
+          <div class="tagRow">
+            <span class="tag">USCG Captain (200-ton)</span>
+            <span class="tag">ASA Instructor (mono &amp; multi)</span>
+            <span class="tag">Navy SC Watchstander</span>
+          </div>
+        </div>
+        <div class="media">
+          <!-- Put dan.jpg in your repo (or change filename) -->
+          <img src="dan.jpg" alt="Catamaran Dan portrait">
+        </div>
+        <div class="cardFooter">
+          <a class="btn" href="https://www.linkedin.com/in/7b26852b7" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btnPrimary" href="#contact">Contact</a>
+        </div>
+      </article>
+
+      <article id="rimerunner" class="card col4">
+        <div class="cardTop">
+          <h2>Rim Runner™ — “Better Beachy than Bitchy™”</h2>
+          <p class="small">
+            Signature cocktail lore with a fixed ritual: first toast facing the horizon — “Better Beachy than Bitchy™”.
+            Second toast — “Better beachy than busted.” When the glass is empty: “Anchor down!”
+          </p>
+          <div class="tagRow">
+            <span class="tag">Ritual • Story • Brand</span>
+            <span class="tag">Merch planned</span>
+          </div>
+        </div>
+        <div class="media">
+          <!-- Put rimrunner.jpg in your repo (or change filename) -->
+          <img src="rimrunner.jpg" alt="Rim Runner cocktail">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Partner / sponsor</a>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="split" aria-label="Details panels">
+      <div class="panel">
+        <h3>Operating model (current)</h3>
         <ul>
-          <li>Expedition planning</li>
-          <li>Boat preparation</li>
-          <li>Skill development</li>
-          <li>Route design</li>
+          <li>Each participating boat/owner covers their own expenses (food, local fees, guides, fuel, activities).</li>
+          <li>Nevado Raiders™ / Catamaran Dan are not paying participant expenses at this stage.</li>
+          <li>May evolve with sponsorships and funding.</li>
         </ul>
       </div>
 
-      <div class="card">
-         <img class="card-image" src="firstmate.JPG" alt="Female First Mate">
-        <h2>Crew & Partnership</h2>
-        <p>
-          Catamaran Dan is open to finding a <strong>female first mate</strong>
-          to join future sailing adventures and expedition legs. So, based on what
-          QN, my digital navigator, that knows everything about me, learned from
-          the 150+ questions it asked me (I provided detailed responses to all...to 
-          be clear, I gave no preference to hair color), QN generated the image of
-          my ideal first-mate (see pic above). I wonder how close I can get:)
-        </p>
-        <p>
-          Seamanship, curiosity, adaptability, and humor matter more than
-          résumés.
-        </p>
-     
+      <div class="panel">
+        <h3>What we’re building (near-term)</h3>
+        <ul>
+          <li>Sea of Cortez shakedown cruise: fall / early winter 2026.</li>
+          <li>Blue Rim 5™ Global Sailing Expedition departure: May 2027.</li>
+          <li>Recruiting sailors, storytellers, safety-minded guardians, and culture partners.</li>
+        </ul>
+      </div>
+    </section>
 
+    <section id="contact" class="panel" style="margin-top:14px">
+      <h3>Contact</h3>
+      <p class="small" style="margin:0; color:var(--muted)">
+        Email is the fastest way to connect right now.
+      </p>
+      <div class="ctaRow" style="margin-top:12px">
+        <a class="btn btnPrimary" href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+        <a class="btn" href="https://www.catamarandan.org" target="_blank" rel="noopener">www.catamarandan.org</a>
+      </div>
+      <p class="fine" style="margin:12px 0 0; color:var(--muted)">
+        Note: Put your images in the repo with these exact names: <b>hero.png</b>, <b>bluerim5.jpg</b>, <b>nevadoraiders.jpg</b>, <b>dan.jpg</b>, <b>rimrunner.jpg</b>.
+        If your files have different names, change the <code>src="..."</code> lines to match.
+      </p>
+    </section>
 
+    <footer>
+      <div>© <span id="y"></span> Catamaran Dan • Nevado Raiders™ • Blue Rim 5™ • Rim Runner™</div>
+      <div class="fine">Built for GitHub Pages. Keep it simple, ship it, improve it in small steps.</div>
+    </footer>
+  </main>
 
-  <div class="card rim-runner">
-  <img class="card-image" src="rim glass.png" alt="Rim Runner™ Cocktail">
-
-  <h2>Rim Runner™ Cocktail</h2>
-
-  <p>
-    The original <strong>storm in a glass</strong> — born near the Equator in 1984
-    (see photo below), launched in 2025, and now carried forward by sailors, explorers,
-    and shoreline storytellers everywhere.
-  </p>
- 
-
-
-  <div class="card rim-runner-recipe">
-  <img class="recipe-image"
-      src="RIM LIGHTNING.jpg"
-      alt="Rim Runner™ Recipe Inspiration">
-      <h2>Rim Runner™ — Recipe</h2>
-
-   <ul>
-    <li>Blue ocean base with fresh citrus &amp; coconut</li>
-     <li>Dark “storm cloud” float on top</li>
-   </ul>
-
-    <p><strong>Toast ritual:</strong></p>
- <p style="opacity:0.9;">
-
-   
-   First drink: “Better Beachy than Bitchy™”<br>
- Second: Better beachy than busted.<br>
- Empty glass? <em>Anchor down.</em>
-</p>
-  <p><strong>Glass &amp; Rim</strong></p>
-  <ul>
-    <li>Heavy straight-sided rocks glass with a <strong>blue rim band</strong>.</li>
-    <li>Rim mix: <strong>2 parts coarse sea salt</strong>, <strong>1 part sugar</strong>.</li>
-    <li>Wet the <strong>outside</strong> rim with lime, dip, fill with fresh ice.</li>
-  </ul>
-
-  <p><strong style="color:#7ee081;">Classic Rum Version — “Equatorial Blue Base”</strong></p>
-  <ul>
-    <li>1½ oz white rum</li>
-    <li>¾ oz blue curaçao</li>
-    <li>1 oz pineapple juice</li>
-    <li>½ oz fresh lime juice</li>
-    <li>1 oz coconut water</li>
-    <li>1–2 dashes ginger or aromatic bitters</li>
-  </ul>
-
-  <p><strong>Method</strong></p>
-  <p style="opacity:0.9;">
-    Shake with ice ~10 seconds. Strain over fresh ice into the prepared glass.
-  </p>
-
-  <p><strong style="color:#7c5cff;">Dark Storm Clouds (Float)</strong></p>
-  <p style="opacity:0.9;">
-    ½–¾ oz dark rum, floated gently over the back of a bar spoon to form the dark band.
-  
-  </p>
-
-  <hr style="opacity:0.2; margin: 1.1rem 0;">
-
-  <p><strong style="color:#d28b36;">Bourbon Storm™ — The Bourbon Expression</strong></p>
-  <p style="opacity:0.9;">
-    Same base as above. Float ½–¾ oz bourbon as the storm band on top.
-  </p>
-
-  <p><strong style="color:#3ddad7;">Rim Runner™ Zero (No Alcohol)</strong></p>
-  <ul>
-    <li>2 oz pineapple juice</li>
-    <li>1 oz coconut water</li>
-    <li>1 oz orange juice <em>or</em> white grape juice</li>
-    <li>½ oz fresh lime juice</li>
-    <li>½–¾ oz blue curaçao <em>syrup</em> (NA)</li>
-  </ul>
-  <p style="opacity:0.9;">
-    NA float: ½–¾ oz iced tea or cola floated gently for the dark band.
-  </p>
- </div>
-</div> <!-- closes .card rim-runner -->
-  </div> <!-- closes .grid -->
-</div> <!-- closes .container -->
-<footer>
-
-  <div class="footer-text" style="margin-bottom: 2rem;">
-Catamaran Dan – Nevado Raiders Sailing Adventures<br>
-Email: NevadoRaiders@gmail.com<br>
-
-Built on GitHub Pages · © 2026 Nevada Ranch Camp LLC. All rights reserved.
-  </div>
-  <img
-    src="BETTER.PNG"
-    alt="Better Beachy than Bitchy™"
-    style="max-width: 520px; width: 90%; display: block; margin: 3rem auto 1.5rem auto;"
-
-</footer>
- 
+  <script>
+    // year in footer
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
