@@ -1,237 +1,453 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Catamaran Dan | Nevado Raiders™ | Blue Rim 5™</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catamaran Dan | Nevado Raiders™ | Blue Rim 5™</title>
+  <meta name="description" content="Catamaran Dan — Nevado Raiders™ and the Blue Rim 5™ Global Sailing Expedition. Expedition sailing, real-world skills, cultural exchange, and go-anywhere exploration." />
 
-<style>
-:root{
-  --bg:#0b1220;
-  --card:#101f3a;
-  --text:#eaf0ff;
-  --muted:#b8c6ef;
-  --line:rgba(255,255,255,.12);
-  --accent:#4da3ff;
-  --shadow:0 12px 30px rgba(0,0,0,.35);
-  --radius:18px;
-  --max:1120px;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,Segoe UI,Roboto,Arial;
-  background:radial-gradient(900px 700px at 10% 10%,rgba(77,163,255,.18),transparent 60%),var(--bg);
-  color:var(--text);
-}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:var(--max);margin:auto;padding:22px}
+  <style>
+    :root{
+      --bg:#081021;
+      --panel:#0c1830;
+      --card:#0f2142;
+      --text:#eef3ff;
+      --muted:#b7c5ef;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 45px rgba(0,0,0,.42);
+      --radius:18px;
+      --max:1200px;
+      --accent:#4da3ff;
+      --accent2:#7cf0ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(77,163,255,.22), transparent 55%),
+        radial-gradient(900px 700px at 85% 15%, rgba(124,240,255,.12), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 18px 60px;}
 
-header{
-  position:sticky;top:0;z-index:10;
-  background:rgba(11,18,32,.75);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.nav{
-  display:flex;justify-content:space-between;align-items:center;
-}
-.brand{font-weight:800;display:flex;align-items:center;gap:10px}
-.dot{width:12px;height:12px;border-radius:50%;background:var(--accent)}
-.navlinks{display:flex;gap:14px;white-space:nowrap}
-.navlinks a{color:var(--muted);font-weight:600}
-.navlinks a:hover{color:var(--text)}
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(8,16,33,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:850; letter-spacing:.3px;
+    }
+    .dot{
+      width:12px;height:12px;border-radius:999px;
+      background: linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow: 0 0 0 4px rgba(77,163,255,.18);
+    }
+    .navlinks{display:flex; gap:14px; flex-wrap:wrap}
+    .navlinks a{
+      color:var(--muted);
+      font-weight:750;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+    }
+    .navlinks a:hover{
+      color:var(--text);
+      border-color:var(--line);
+      background:rgba(255,255,255,.04);
+    }
 
-.hero{
-  margin-top:22px;
-  border-radius:22px;
-  overflow:hidden;
-  position:relative;
-  min-height:380px;
-  box-shadow:var(--shadow);
-}
-.hero::before{
-  content:"";
-  position:absolute;inset:0;
-  background:url("hero.png") center/cover no-repeat;
-}
-.hero::after{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(11,18,32,.9),rgba(11,18,32,.4));
-}
-.heroInner{
-  position:relative;
-  padding:36px;
-  max-width:720px;
-}
-.hero h1{font-size:clamp(2rem,3vw,3rem);margin:0}
-.hero p{color:var(--muted);font-size:1.05rem}
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius: calc(var(--radius) + 8px);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      position:relative;
+      min-height: 360px;
+      background:#061026;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background: url("hero.png") center / cover no-repeat;
+      filter: saturate(1.12) contrast(1.12);
+      transform: scale(1.02);
+    }
+    /* Lighter overlay so the hero never looks "faded" */
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg, rgba(8,16,33,.66) 0%, rgba(8,16,33,.40) 52%, rgba(8,16,33,.22) 100%),
+        linear-gradient(180deg, rgba(8,16,33,.10) 0%, rgba(8,16,33,.58) 100%);
+    }
+    .heroInner{
+      position:relative;
+      padding:34px 28px;
+      max-width: 900px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(8,16,33,.35);
+      color: rgba(255,255,255,.92);
+      font-weight:800;
+      font-size:.92rem;
+    }
+    h1{
+      margin:12px 0 10px;
+      font-size: clamp(2.1rem, 3.1vw, 3.3rem);
+      letter-spacing:-.6px;
+      line-height:1.08;
+      text-shadow: 0 10px 28px rgba(0,0,0,.55);
+    }
+    .heroSub{
+      margin:0;
+      max-width:72ch;
+      color: rgba(255,255,255,.88);
+      font-size: 1.05rem;
+      text-shadow: 0 8px 22px rgba(0,0,0,.55);
+    }
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(8,16,33,.35);
+      color:var(--text);
+      font-weight:850;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btnPrimary{
+      border-color: rgba(77,163,255,.55);
+      background: linear-gradient(135deg, rgba(77,163,255,.28), rgba(124,240,255,.12));
+    }
+    .btnPrimary:hover{
+      background: linear-gradient(135deg, rgba(77,163,255,.36), rgba(124,240,255,.18));
+    }
 
-.grid{
-  margin-top:26px;
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:16px;
-}
-.card{
-  grid-column:span 6;
-  background:var(--card);
-  border-radius:var(--radius);
-  overflow:hidden;
-  box-shadow:var(--shadow);
-  display:flex;
-  flex-direction:column;
-}
-.card.full{grid-column:span 12}
-.card.small{grid-column:span 4}
-.card h2{margin:0;font-size:1.2rem}
-.card p{color:var(--muted)}
-.cardTop{padding:18px}
-.media img{width:100%;height:260px;object-fit:cover}
-.media.dual{display:grid;grid-template-columns:1fr 1fr}
-.cardFooter{padding:14px;border-top:1px solid var(--line)}
+    /* 8-card grid (4 per row on desktop) */
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 12;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15,33,66,.70);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
+    }
+    .cardTop{
+      padding:16px 16px 10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .card h2{margin:0; font-size:1.15rem; letter-spacing:-.2px}
+    .card p{margin:0; color:var(--muted); font-size:.98rem}
+    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+    .tag{
+      font-size:.80rem;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-weight:700;
+    }
+    .media{
+      margin-top:auto;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(6,16,38,.45);
+    }
+    .media img{
+      width:100%;
+      height: 210px;
+      object-fit: cover;
+      display:block;
+    }
+    .media.dual{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:1px;
+      background: rgba(255,255,255,.10);
+    }
+    .media.dual img{height: 210px; background: rgba(6,16,38,.45)}
+    .cardFooter{
+      padding:12px 16px 16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex; gap:10px; flex-wrap:wrap;
+      background: rgba(6,16,38,.25);
+    }
 
-.panel{
-  margin-top:22px;
-  background:rgba(15,26,46,.55);
-  border-radius:var(--radius);
-  padding:18px;
-}
-footer{
-  margin-top:26px;
-  padding-top:16px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:.9rem;
-}
+    /* Panels + footer */
+    .panel{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(12,24,48,.55);
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .panel h3{margin:0 0 8px; font-size:1.05rem}
+    .panel ul{margin:8px 0 0 18px; color:var(--muted)}
+    footer{
+      margin-top:18px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+      color:var(--muted);
+      font-size:.95rem;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
 
-@media(max-width:900px){
-  .card,.card.full,.card.small{grid-column:span 12}
-  .navlinks{overflow-x:auto}
-}
-</style>
+    /* Desktop layout: 4 cards per row (each spans 3 columns) */
+    @media (min-width: 1100px){
+      .card.quarter{grid-column: span 3;}
+      .media.dual{grid-template-columns: 1fr 1fr;}
+      .media.dual img{height: 220px;}
+    }
+    /* Mid layout: 2 cards per row (each spans 6 columns) */
+    @media (min-width: 720px) and (max-width: 1099px){
+      .card.quarter{grid-column: span 6;}
+    }
+  </style>
 </head>
 
 <body>
-<header>
-  <div class="wrap nav">
-    <div class="brand"><span class="dot"></span>Catamaran Dan</div>
-    <nav class="navlinks">
-      <a href="#nevadoraiders">Nevado Raiders™</a>
-      <a href="#bluerim5">Blue Rim 5™</a>
-      <a href="#shamrocket">Shamrocket</a>
-      <a href="#fleet">Fleet</a>
-      <a href="#culture">Culture</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Catamaran Dan</span>
+      </div>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#nevadoraiders">Nevado Raiders™</a>
+        <a href="#bluerim5">Blue Rim 5™</a>
+        <a href="#shamrocket">Shamrocket</a>
+        <a href="#culture">Culture</a>
+        <a href="#rimerunner">Rim Runner™</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<main class="wrap">
+  <main class="wrap" id="top">
+    <section class="hero" aria-label="Hero">
+      <div class="heroInner">
+        <span class="badge">Virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</span>
+        <h1>Nevado Raiders™ &amp; the Blue Rim 5™</h1>
+        <p class="heroSub">
+          Expedition sailing adventures focused on seamanship, cultural exchange, peace, human connection,
+          and shared responsibility to care for one another.
+        </p>
+        <div class="ctaRow">
+          <a class="btn btnPrimary" href="#contact">Join the Raider list</a>
+          <a class="btn" href="#bluerim5">Explore Blue Rim 5™</a>
+          <a class="btn" href="#nevadoraiders">Explore Nevado Raiders™</a>
+        </div>
+      </div>
+    </section>
 
-<section class="hero">
-  <div class="heroInner">
-    <h1>Nevado Raiders™ & the Blue Rim 5™</h1>
-    <p>Expedition sailing. Cultural exchange. Peace, responsibility, and real seamanship — virtually anywhere it makes sense.</p>
-  </div>
-</section>
+    <!-- 8 CARDS | 4 PER ROW ON DESKTOP -->
+    <section class="grid" aria-label="Cards">
 
-<section class="grid">
+      <!-- 1 -->
+      <article id="nevadoraiders" class="card quarter">
+        <div class="cardTop">
+          <h2>Nevado Raiders™</h2>
+          <p>Expedition sailing adventures with an inclusive fleet model and a safety-first culture.</p>
+          <div class="tagRow">
+            <span class="tag">Seamanship</span>
+            <span class="tag">Community</span>
+            <span class="tag">Safety</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="nevadoraiders.jpg" alt="Nevado Raiders image" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Join</a>
+        </div>
+      </article>
 
-<!-- 1 -->
-<article id="bluerim5" class="card">
-  <div class="cardTop">
-    <h2>Blue Rim 5™</h2>
-    <p>Global sailing expedition launching 2027. Honest, documented, and human.</p>
-  </div>
-  <div class="media"><img src="bluerim5.png"></div>
-</article>
+      <!-- 2 -->
+      <article id="bluerim5" class="card quarter">
+        <div class="cardTop">
+          <h2>Blue Rim 5™</h2>
+          <p>Global sailing expedition launching May 2027, with a Sea of Cortez shakedown in fall/winter 2026.</p>
+          <div class="tagRow">
+            <span class="tag">May 2027</span>
+            <span class="tag">2026 shakedown</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="bluerim5.png" alt="Blue Rim 5 image" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn" href="https://www.catamarandan.org" target="_blank" rel="noopener">Site</a>
+          <a class="btn btnPrimary" href="#contact">Get involved</a>
+        </div>
+      </article>
 
-<!-- 2 -->
-<article id="nevadoraiders" class="card">
-  <div class="cardTop">
-    <h2>Nevado Raiders™</h2>
-    <p>Inclusive expedition sailing adventures with safety-first culture.</p>
-  </div>
-  <div class="media"><img src="nevadoraiders.jpg"></div>
-</article>
+      <!-- 3 -->
+      <article id="shamrocket" class="card quarter">
+        <div class="cardTop">
+          <h2>Shamrocket (Hobie Getaway)</h2>
+          <p>Beach-launchable, trailerable, and built for shallow-water access that bigger boats can’t reach.</p>
+          <div class="tagRow">
+            <span class="tag">Trailerable</span>
+            <span class="tag">Shallow draft</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="hobie3.JPG" alt="Hobie Getaway Shamrocket" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Sail with us</a>
+        </div>
+      </article>
 
-<!-- 3 -->
-<article id="shamrocket" class="card full">
-  <div class="cardTop">
-    <h2>Shamrocket — Hobie Getaway</h2>
-    <p>Trailerable. Beachable. Small boat, serious range.</p>
-  </div>
-  <div class="media dual">
-    <img src="shamrocket.jpg">
-    <img src="shamrocket_2.jpg">
-  </div>
-</article>
+      <!-- 4 -->
+      <article id="about" class="card quarter">
+        <div class="cardTop">
+          <h2>Catamaran Dan</h2>
+          <p>USCG 200-ton captain • ASA instructor • U.S. Navy submariner (Blue Nose, Shellback).</p>
+          <div class="tagRow">
+            <span class="tag">Captain</span>
+            <span class="tag">Instructor</span>
+            <span class="tag">Navy</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="dan.png" alt="Catamaran Dan image" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn" href="https://www.linkedin.com/in/7b26852b7" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btnPrimary" href="#contact">Contact</a>
+        </div>
+      </article>
 
-<!-- 4 -->
-<article class="card small">
-  <div class="cardTop">
-    <h2>Catamaran Dan</h2>
-    <p>USCG Captain. Navy submariner. Builder.</p>
-  </div>
-  <div class="media"><img src="dan.png"></div>
-</article>
+      <!-- 5 -->
+      <article id="fleet" class="card quarter">
+        <div class="cardTop">
+          <h2>Fleet Model (And/And)</h2>
+          <p>Small expedition sailboats and larger guardian vessels (sailing and power). Inclusive and scalable.</p>
+          <div class="tagRow">
+            <span class="tag">Small boats</span>
+            <span class="tag">Guardian vessels</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="dragons.jpg" alt="Fleet model image" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Bring a boat</a>
+        </div>
+      </article>
 
-<!-- 5 -->
-<article id="fleet" class="card small">
-  <div class="cardTop">
-    <h2>Fleet Model</h2>
-    <p>Small expedition boats + guardian vessels.</p>
-  </div>
-  <div class="media"><img src="fleet.jpg"></div>
-</article>
+      <!-- 6 -->
+      <article id="culture" class="card quarter">
+        <div class="cardTop">
+          <h2>Culture &amp; Peace</h2>
+          <p>Human connection in every port: respect, curiosity, and shared responsibility to care for one another.</p>
+          <div class="tagRow">
+            <span class="tag">Respect</span>
+            <span class="tag">Connection</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="dining.jpg" alt="Culture and community image" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Partner</a>
+        </div>
+      </article>
 
-<!-- 6 -->
-<article id="culture" class="card small">
-  <div class="cardTop">
-    <h2>Culture & Peace</h2>
-    <p>People matter. Seamanship is the bridge.</p>
-  </div>
-  <div class="media"><img src="culture.jpg"></div>
-</article>
+      <!-- 7 (two images) -->
+      <article id="rimerunner" class="card quarter">
+        <div class="cardTop">
+          <h2>Rim Runner™</h2>
+          <p>First toast facing the horizon: “Better Beachy than Bitchy™”. Then: “Better beachy than busted.” Empty glass: “Anchor down!”</p>
+          <div class="tagRow">
+            <span class="tag">Ritual</span>
+            <span class="tag">Merch planned</span>
+          </div>
+        </div>
+        <div class="media dual">
+          <img src="cocktail.jpg" alt="Rim Runner cocktail" loading="lazy">
+          <img src="RIM LIGHTNING.jpg" alt="Rim Lightning inspiration (1984)" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Sponsor / partner</a>
+        </div>
+      </article>
 
-<!-- 7 -->
-<article class="card full">
-  <div class="cardTop">
-    <h2>Rim Runner™</h2>
-    <p>“Better Beachy than Bitchy™” — ritual, story, and brand.</p>
-  </div>
-  <div class="media"><img src="rimrunner.jpg"></div>
-</article>
+      <!-- 8 -->
+      <article id="sponsors" class="card quarter">
+        <div class="cardTop">
+          <h2>Sponsors &amp; Partners</h2>
+          <p>We build trust the hard way: conservative projections, under-promise, over-deliver, and do what we said we’d do.</p>
+          <div class="tagRow">
+            <span class="tag">Gear</span>
+            <span class="tag">Brands</span>
+            <span class="tag">Support</span>
+          </div>
+        </div>
+        <div class="media">
+          <img src="deck.jpg" alt="Sponsors / gear image" loading="lazy">
+        </div>
+        <div class="cardFooter">
+          <a class="btn btnPrimary" href="#contact">Sponsor inquiry</a>
+        </div>
+      </article>
 
-<!-- 8 -->
-<article class="card">
-  <div class="cardTop">
-    <h2>Sponsors & Partners</h2>
-    <p>Under-promise. Over-deliver. Earn trust.</p>
-  </div>
-  <div class="media"><img src="fleet.jpg"></div>
-</article>
+    </section>
 
-</section>
+    <section class="panel" id="contact" aria-label="Contact">
+      <h3>Contact</h3>
+      <p style="margin:0; color:var(--muted)">
+        Email is the fastest way to connect right now.
+      </p>
+      <div class="ctaRow" style="margin-top:12px">
+        <a class="btn btnPrimary" href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+        <a class="btn" href="https://www.catamarandan.org" target="_blank" rel="noopener">www.catamarandan.org</a>
+      </div>
+    </section>
 
-<section id="contact" class="panel">
-  <h3>Contact</h3>
-  <p>NevadoRaiders@gmail.com<br>www.catamarandan.org</p>
-</section>
+    <footer>
+      <div>© <span id="y"></span> Catamaran Dan • Nevado Raiders™ • Blue Rim 5™ • Rim Runner™</div>
+      <div style="opacity:.9">Built for GitHub Pages. Keep it simple, ship it, improve it in small steps.</div>
+    </footer>
+  </main>
 
-<footer>
-  © <span id="y"></span> Catamaran Dan • Nevado Raiders™ • Blue Rim 5™
-</footer>
-
-</main>
-
-<script>
-document.getElementById("y").textContent=new Date().getFullYear();
-</script>
-</body>
-</html>
-
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
