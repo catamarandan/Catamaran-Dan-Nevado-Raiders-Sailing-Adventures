@@ -34,7 +34,6 @@
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
 
-    /* HERO */
     .hero{
       position:relative;
       border-radius:28px;
@@ -57,15 +56,10 @@
       background: rgba(16,31,58,.55);
       color:var(--muted);
       font-weight:650;
-      letter-spacing:.2px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
     h1{
       margin:18px 0 8px;
       font-size: clamp(30px, 4vw, 54px);
-      line-height:1.05;
-      letter-spacing:-.5px;
     }
     .sub{
       margin:0;
@@ -75,7 +69,6 @@
       line-height:1.6;
     }
 
-    /* STACK */
     .stack{
       margin-top:18px;
       display:flex;
@@ -83,30 +76,20 @@
       gap:14px;
     }
 
-    /* CARD ROW */
     .row{
       display:grid;
       grid-template-columns: 320px 1fr;
       gap:14px;
-      align-items:stretch;
-
       border:1px solid var(--line);
       border-radius:22px;
       overflow:hidden;
       background: linear-gradient(180deg, rgba(16,31,58,.92), rgba(15,27,51,.92));
       box-shadow: var(--shadow);
       cursor:pointer;
-      transition: transform .15s ease, border-color .15s ease, filter .15s ease;
     }
-    .row:hover{ transform: translateY(-2px); border-color: rgba(77,163,255,.35); }
-    .row:active{ transform: translateY(0px); filter: brightness(0.98); }
 
-    /* LEFT: images */
     .media{
       padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
       background: rgba(11,18,32,.35);
       border-right:1px solid var(--line);
     }
@@ -116,286 +99,97 @@
       border-radius:16px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
     }
     .shot img{
       width:100%;
       height:100%;
       object-fit:cover;
-      display:block;
     }
 
-    /* RIGHT: text */
     .content{
       padding:16px 18px 18px;
       display:flex;
       flex-direction:column;
       gap:10px;
-      min-width:0;
     }
     .topline{
       display:flex;
-      flex-wrap:wrap;
-      align-items:baseline;
       gap:10px;
+      align-items:baseline;
+      flex-wrap:wrap;
     }
     .title{
       margin:0;
-      font-size: 26px;
-      line-height:1.12;
-      letter-spacing:-.3px;
+      font-size:26px;
     }
     .kicker{
-      margin:0;
-      color: var(--muted);
+      color:var(--muted);
       font-weight:650;
-      font-size: 13px;
-      letter-spacing:.3px;
-      text-transform: uppercase;
+      font-size:13px;
+      text-transform:uppercase;
     }
     .desc{
-      margin:0;
-      color: var(--text);
-      opacity:.95;
-      font-size: 16px;
+      font-size:16px;
       line-height:1.65;
-      max-width: 880px;
-    }
-    .meta{
-      margin-top:auto;
-      padding-top:10px;
-      border-top:1px solid rgba(255,255,255,.10);
-      color: var(--muted);
-      font-size: 14px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .hint{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color: rgba(234,240,255,.90);
-    }
-    .dot{
-      width:7px; height:7px; border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(77,163,255,.15);
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px){
-      .row{ grid-template-columns: 1fr; }
-      .media{ border-right:none; border-bottom:1px solid var(--line); }
-      .shot{ aspect-ratio: 16 / 9; }
-      .title{ font-size: 22px; }
-      .desc{ font-size: 15px; }
+    @media (max-width:900px){
+      .row{grid-template-columns:1fr}
+      .media{border-right:none;border-bottom:1px solid var(--line)}
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
+<main class="wrap">
 
-    <section class="hero" aria-label="Hero">
-      <div class="chip">Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</div>
-      <h1>Catamaran Dan's Nevado Raiders™ &amp; the Blue Rim 5™ sailing expedition.</h1>
-      <p class="sub">
-        A modern expedition sailing movement: small boats, guardian vessels, real seamanship, cultural respect,
-        and a no-nonsense awareness of a rapidly warming world.
-      </p>
-    </section>
+<section class="hero">
+  <div class="chip">Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</div>
+  <h1>Catamaran Dan's Nevado Raiders™ &amp; the Blue Rim 5™</h1>
+  <p class="sub">
+    A modern expedition sailing movement built on real seamanship, cultural respect,
+    and honesty about a rapidly warming world.
+  </p>
+</section>
 
-    <section class="stack" aria-label="Card stack">
+<section class="stack">
 
-      <!-- 1 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="nevadoraiders.jpg" alt="Nevado Raiders image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="nevadoraiders_2.jpg" alt="Nevado Raiders image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Nevado Raiders™</h2>
-            <p class="kicker">Modern Viking sailing expedition</p>
-          </div>
-          <p class="desc">
-            Forged at Nevado Ranch in Arizona and proven on the water—Nevado Raiders™ blends seamanship, self-reliance,
-            and exploration with deep respect for coastlines and cultures. Small expedition boats and guardian vessels,
-            real skills, real humility, real responsibility. All interested parties are encouraged to apply.
-          </p>
-          <div class="meta">
-           
-      
-          </div>
-        </div>
-      </article>
+<!-- FIRST MATE CARD -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot">
+      <img src="firstmate.jpg" alt="First Mate aboard expedition sailboat">
+    </div>
+  </div>
+  <div class="content">
+    <div class="topline">
+      <h2 class="title">First Mate</h2>
+      <p class="kicker">Expedition partner • leadership role</p>
+    </div>
+    <p class="desc">
+      We’re seeking a capable, grounded, adventurous woman to step into a true First Mate role—
+      an equal partner in seamanship, leadership, and daily life aboard. This is not a passenger role.
+      The First Mate helps run the boat, supports crew and Young Raiders, engages with coastal communities,
+      and co-navigates a life shaped by wind, water, and purpose.
+      <br><br>
+      <strong>To express interest, email:</strong><br>
+      NevadoRaiders@gmail.com
+    </p>
+  </div>
+</article>
 
-      <!-- 2 -->
-      <article class="row" data-href="https://www.catamarandan.org">
-        <div class="media">
-          <div class="shot"><img src="bluerim5.jpg" alt="Blue Rim 5 image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="bluerim5_2.jpg" alt="Blue Rim 5 image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Blue Rim 5™</h2>
-            <p class="kicker">Small boat with guardian vessels global sailing expedition</p>
-          </div>
-          <p class="desc">
-            Currently scheduled to launch in Fall 2026—documented, honest, and human. We will sail virtually anywhere
-            on Earth, as long as it makes sense and the risks are acceptable.
-          </p>
-          <div class="meta">
-            
-          </div>
-        </div>
-      </article>
+</section>
+</main>
 
-      <!-- 3 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="shamrocket.jpg" alt="Shamrocket image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="shamrocket_2.jpg" alt="Shamrocket image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Shamrocket</h2>
-            <p class="kicker">Hobie Getaway</p>
-          </div>
-          <p class="desc">
-            Both shallow-water capable—built for close-to-the-water learning and real seamanship sailing
-            vessels such as the Hobie Getaway catamaran and monohulls such as the Catalina 22 Sport.
-            Also a training platform for Raiders skills and coastal confidence.
-          </p>
-          <div class="meta">
-           
-          </div>
-        </div>
-      </article>
-
-      <!-- 4 -->
-      <article class="row" data-href="https://www.linkedin.com/in/7b26852b7">
-        <div class="media">
-          <div class="shot"><img src="dan.jpg" alt="Catamaran Dan image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="dan_2.jpg" alt="Catamaran Dan image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Catamaran Dan</h2>
-            <p class="kicker">Captain • instructor • submariner</p>
-          </div>
-          <p class="desc">
-            USCG Captain • ASA instructor • U.S. Navy submariner (Blue Nose, Shellback) and adventure
-            sailor. Building a safety-first expedition sailing community focused on real-world skills and responsible adventure.
-          </p>
-          <div class="meta">
-           
-          </div>
-        </div>
-      </article>
-
-      <!-- 5 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="dragons.jpg" alt="Fleet model image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="dragons_2.jpg" alt="Fleet model image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Fleet Model</h2>
-            <p class="kicker">Small boats + guardian vessels</p>
-          </div>
-          <p class="desc">
-            Small expedition sailboats (Hobie Getaway, Catalina 22 Sport, Nacra 570, and similar) plus guardian vessels—
-            safer, smarter, farther. Bring a boat, join a crew, or critical support as a guardian.
-          </p>
-          <div class="meta">
-            
-                  </div>
-        </div>
-      </article>
-
-      <!-- 6 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="dining.jpg" alt="<img src="cultural_exchange.jpg" alt="Cultural exchange with local communities">" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="dining_2.jpg" alt="<img src="cultural_exchange.jpg" alt="Cultural exchange with local communities">" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Cultural Exchange</h2>
-            <p class="kicker">Respect • peace • connection</p>
-          </div>
-          <p class="desc">
-            We show up with humility—not entitlement. Respect local communities, rules, and waters. Leave coastlines better
-            informed, not more damaged. Human connection and shared responsibility are central.
-          </p>
-          <div class="meta">
-           
-        </div>
-        </div>
-      </article>
-
-      <!-- 7 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="rimrunner.jpg" alt="Rim Runner image 1" onerror="this.parentElement.style.display='none'"></div>
-        
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Rim Runner™</h2>
-            <p class="kicker">Signature cocktail lore</p>
-          </div>
-          <p class="desc">
-            First toast (facing the horizon): “Better Beachy than Bitchy™”. Second: “Better beachy than busted.”
-            Empty glass: “Anchor down!”
-          </p>
-          <div class="meta">
-        
-           
-          </div>
-        </div>
-      </article>
-
-      <!-- 8 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="rim_lightning.jpg" alt="Rim Lightning image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="rim_lightning_2.jpg" alt="Rim Lightning image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Rim Lightning (1984)</h2>
-            <p class="kicker">The original spark</p>
-          </div>
-          <p class="desc">
-            The image and the moment in 1984that helped forge the Rim Runner™ story and the expedition mindset—anchor down,
-            eyes up, horizon ahead.
-          </p>
-          <div class="meta">
-      
-           
-          </div>
-        </div>
-      </article>
-
-    </section>
-  </main>
-
-  <script>
-    // Whole-card click
-    document.querySelectorAll(".row[data-href]").forEach(card => {
-      card.addEventListener("click", () => {
-        const href = card.getAttribute("data-href");
-        if (!href || href === "#") return;
-        window.location.href = href;
-      });
+<script>
+  document.querySelectorAll(".row[data-href]").forEach(card=>{
+    card.addEventListener("click",()=>{
+      const href=card.getAttribute("data-href");
+      if(!href||href==="#")return;
+      window.location.href=href;
     });
-  </script>
-</body>
-</html>
+  });
+</script>
 
+</body>
 </html>
