@@ -32,7 +32,7 @@
       color:var(--text);
     }
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 40px}
 
     /* HERO */
     .hero{
@@ -59,7 +59,6 @@
       font-weight:650;
       letter-spacing:.2px;
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
     h1{
       margin:18px 0 8px;
@@ -89,7 +88,6 @@
       grid-template-columns: 320px 1fr;
       gap:14px;
       align-items:stretch;
-
       border:1px solid var(--line);
       border-radius:22px;
       overflow:hidden;
@@ -99,9 +97,8 @@
       transition: transform .15s ease, border-color .15s ease, filter .15s ease;
     }
     .row:hover{ transform: translateY(-2px); border-color: rgba(77,163,255,.35); }
-    .row:active{ transform: translateY(0px); filter: brightness(0.98); }
 
-    /* LEFT: images */
+    /* MEDIA */
     .media{
       padding:14px;
       display:flex;
@@ -125,325 +122,192 @@
       display:block;
     }
 
-    /* Slightly shrink Rim Runner image height for balance */
+    /*********************************************************
+     * NEW CODE — NEVADO RAIDERS IMAGE FIX
+     *********************************************************/
+    .raiders-card .shot{
+      aspect-ratio: auto;
+    }
+    .raiders-card .shot img{
+      object-fit: contain;
+      background: rgba(0,0,0,.25);
+    }
+
+    /* Rim Runner tweak */
     .rimrunner-card .shot{ max-height: 185px; }
     .rimrunner-card .shot img{ height:100%; }
 
-    /* RIGHT: text */
-    .content{
-      padding:16px 18px 18px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      min-width:0;
+    /* TEXT */
+    .content{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; }
+    .topline{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; }
+    .title{ margin:0; font-size:26px; }
+    .kicker{ margin:0; color:var(--muted); font-size:13px; font-weight:650; text-transform:uppercase; }
+    .desc{ margin:0; font-size:16px; line-height:1.65; }
+
+    /* FOOTER */
+    .footer{
+      margin-top:40px;
+      padding:28px 18px 34px;
+      border-top:1px solid var(--line);
+      text-align:center;
+      color:var(--muted);
     }
-    .topline{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:baseline;
-      gap:10px;
+    .footer img{
+      max-width:320px;
+      width:100%;
+      height:auto;
+      margin:0 auto 14px;
+      display:block;
     }
-    .title{
-      margin:0;
-      font-size: 26px;
-      line-height:1.12;
-      letter-spacing:-.3px;
-    }
-    .kicker{
-      margin:0;
-      color: var(--muted);
-      font-weight:650;
-      font-size: 13px;
-      letter-spacing:.3px;
-      text-transform: uppercase;
-    }
-    .desc{
-      margin:0;
-      color: var(--text);
-      opacity:.95;
-      font-size: 16px;
-      line-height:1.65;
-      max-width: 880px;
+    .footer p{
+      margin:6px 0 0;
+      font-size:14px;
+      line-height:1.6;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px){
-      .row{ grid-template-columns: 1fr; }
+    @media (max-width:900px){
+      .row{ grid-template-columns:1fr; }
       .media{ border-right:none; border-bottom:1px solid var(--line); }
-      .shot{ aspect-ratio: 16 / 9; }
-      .title{ font-size: 22px; }
-      .desc{ font-size: 15px; }
-      .rimrunner-card .shot{ max-height:none; }
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
+<main class="wrap">
 
-    <section class="hero" aria-label="Hero">
-      <div class="chip">Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</div>
-      <h1>Catamaran Dan's Nevado Raiders™ &amp; the Blue Rim 5™ Sailing Expedition</h1>
-      <p class="sub">
-        A modern expedition sailing movement: small boats, guardian vessels, real seamanship, cultural respect,
-        and a no-nonsense awareness of a rapidly warming world.
-      </p>
-    </section>
+<section class="hero">
+  <div class="chip">Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</div>
+  <h1>Catamaran Dan's Nevado Raiders™ &amp; the Blue Rim 5™ Sailing Expedition</h1>
+  <p class="sub">
+    A modern expedition sailing movement: small boats, guardian vessels, real seamanship, cultural respect,
+    and a no-nonsense awareness of a rapidly warming world.
+  </p>
+</section>
 
-    <section class="stack" aria-label="Card stack">
+<section class="stack">
 
-      <!-- 1 (UPDATED) -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="nevadoraiders.jpg" alt="Nevado Raiders image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="nevadoraiders_2.jpg" alt="Nevado Raiders image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Nevado Raiders™</h2>
-            <p class="kicker">A modern Viking expedition movement</p>
-          </div>
-          <p class="desc">
-            Nevado Raiders™ is a modern Viking-spirited expedition movement for people who still feel the pull of the horizon—
-            forged at Nevado Ranch in the high country of Arizona and proven on the water in small boats and guardian vessels.
-            We blend seamanship, self-reliance, and exploration with deep respect for coastlines, cultures, and a rapidly warming world.
-            <br><br>
-            <strong>Three pillars:</strong> <strong>The Sea</strong> (small expedition sailboats—Hobie Getaway, Catalina 22 Sport, Nacra 570, and similar—where the learning is real),
-            <strong>The Land</strong> (Nevado Ranch Camp—our longhouse base for training, prep, and stories),
-            and <strong>The Spirit</strong> (discipline, courage, humility, and responsibility—no cosplay).
-            <br><br>
-            <strong>What it means to be a Raider™:</strong> take care of your crew and your hosts; step off the screen onto real decks, beaches, and docks;
-            learn from every mile; and put kids and families first through Young Raiders™—a moving classroom on real coastlines.
-            <br><br>
-            <strong>The model:</strong> small boats travel shallow and close to the water; guardian vessels stand watch so we go farther, safer, and smarter.
-            Membership is free, but it isn’t casual—we’re looking for humble, coachable, safety-committed doers.
-            <br><br>
-            <strong>The Raiders™ Code:</strong> prepare always • protect your crew • respect every coastline • own mistakes • leave a wake worth following • never stop learning • adventure with purpose • kids and families first.
-          </p>
-        </div>
-      </article>
+<!-- 1 -->
+<article class="row raiders-card" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="nevadoraiders.jpg" alt="Nevado Raiders emblem"></div>
+    <div class="shot"><img src="nevadoraiders_2.jpg" alt="Nevado Raiders image"></div>
+  </div>
+  <div class="content">
+    <div class="topline">
+      <h2 class="title">Nevado Raiders™</h2>
+      <p class="kicker">A modern Viking expedition movement</p>
+    </div>
+    <p class="desc">
+      Nevado Raiders™ is a modern Viking-spirited expedition movement forged at Nevado Ranch and proven on the water in small boats
+      and guardian vessels. Three pillars guide us: The Sea, The Land, and The Spirit—discipline, courage, humility, and responsibility.
+    </p>
+  </div>
+</article>
 
-      <!-- 2 -->
-      <article class="row" data-href="https://www.catamarandan.org">
-        <div class="media">
-          <div class="shot"><img src="bluerim5.jpg" alt="Blue Rim 5 image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="bluerim5_2.jpg" alt="Blue Rim 5 image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Blue Rim 5™</h2>
-            <p class="kicker">Small boat with guardian vessels global sailing expedition</p>
-          </div>
-          <p class="desc">
-            Currently scheduled to launch in Fall 2026—documented, honest, and human. We will sail virtually anywhere
-            on Earth, as long as it makes sense and the risks are acceptable.
-          </p>
-        </div>
-      </article>
+<!-- 2 -->
+<article class="row" data-href="https://www.catamarandan.org">
+  <div class="media">
+    <div class="shot"><img src="bluerim5.jpg"></div>
+    <div class="shot"><img src="bluerim5_2.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Blue Rim 5™</h2>
+    <p class="desc">A global sailing expedition—small boats supported by guardian vessels.</p>
+  </div>
+</article>
 
-      <!-- 3 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="shamrocket.jpg" alt="Shamrocket image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="shamrocket_2.jpg" alt="Shamrocket image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Shamrocket</h2>
-            <p class="kicker">Hobie Getaway</p>
-          </div>
-          <p class="desc">
-            Both shallow-water capable—built for close-to-the-water learning and real seamanship sailing
-            vessels such as the Hobie Getaway catamaran and monohulls such as the Catalina 22 Sport.
-            Also a training platform for Raiders skills and coastal confidence.
-          </p>
-        </div>
-      </article>
+<!-- 3 -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="shamrocket.jpg"></div>
+    <div class="shot"><img src="shamrocket_2.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Shamrocket</h2>
+    <p class="desc">Hobie Getaway training and expedition platform.</p>
+  </div>
+</article>
 
-      <!-- 4 -->
-      <article class="row" data-href="https://www.linkedin.com/in/7b26852b7">
-        <div class="media">
-          <div class="shot"><img src="dan.jpg" alt="Catamaran Dan image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="dan_2.jpg" alt="Catamaran Dan image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Catamaran Dan</h2>
-            <p class="kicker">Captain • instructor • submariner</p>
-          </div>
-          <p class="desc">
-            USCG Captain • ASA instructor • U.S. Navy submariner (Blue Nose, Shellback) and adventure
-            sailor. Building a safety-first expedition sailing community focused on real-world skills and responsible adventure.
-          </p>
-        </div>
-      </article>
+<!-- 4 -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="dan.jpg"></div>
+    <div class="shot"><img src="dan_2.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Catamaran Dan</h2>
+    <p class="desc">Captain • instructor • U.S. Navy submariner</p>
+  </div>
+</article>
 
-      <!-- 5 (NEW) -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="firstmate.jpg" alt="First Mate concept image" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">First Mate</h2>
-            <p class="kicker">Expedition partner • leadership role</p>
-          </div>
-          <p class="desc">
-            The image shown here was generated by ChatGPT (QN) after asking me well over 150 questions about the kind of First Mate
-            I’m looking for—skills, temperament, steadiness, humor, resilience, and how someone shows up when things are real.
-            I never specified hair color or surface traits. Knowing me as well as it does, this is what QN produced.
-            <br><br>
-            This is a true First Mate role: an equal partner in seamanship, leadership, and daily life aboard—standing watch,
-            handling lines, thinking clearly under pressure, supporting crew and Young Raiders, and showing respect to the people
-            and places we visit.
-            <br><br>
-            With a smirk: how close can reality come to the ideal? 🙂
-            <br><br>
-            To express interest: <strong>NevadoRaiders@gmail.com</strong>
-          </p>
-        </div>
-      </article>
+<!-- 5 -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="firstmate.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">First Mate</h2>
+    <p class="desc">An equal expedition partner in seamanship and leadership.</p>
+  </div>
+</article>
 
-      <!-- 6 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="dragons.jpg" alt="Fleet model image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="dragons_2.jpg" alt="Fleet model image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Fleet Model</h2>
-            <p class="kicker">Small boats + guardian vessels</p>
-          </div>
-          <p class="desc">
-            Small expedition sailboats (Hobie Getaway, Catalina 22 Sport, Nacra 570, and similar) plus guardian vessels—
-            safer, smarter, farther. Bring a boat, join a crew, or critical support as a guardian.
-          </p>
-        </div>
-      </article>
+<!-- 6 -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="dragons.jpg"></div>
+    <div class="shot"><img src="dragons_2.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Viking Spirit</h2>
+    <p class="desc">Old values. Modern raids. Exploration, self-reliance, camaraderie, and adaptability.</p>
+  </div>
+</article>
 
-      <!-- 7 (Cultural Exchange - second image removed) -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="dining.jpg" alt="Cultural exchange with local communities" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Cultural Exchange</h2>
-            <p class="kicker">Respect • peace • connection</p>
-          </div>
-          <p class="desc">
-            We show up with humility—not entitlement. Respect local communities, rules, and waters. Leave coastlines better
-            informed, not more damaged. Human connection and shared responsibility are central.
-          </p>
-        </div>
-      </article>
+<!-- 7 -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="dining.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Cultural Exchange</h2>
+    <p class="desc">Respect local waters, cultures, and communities.</p>
+  </div>
+</article>
 
-      <!-- 8 (Rim Runner - expanded) -->
-      <article class="row rimrunner-card" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="rimrunner.jpg" alt="Rim Runner image 1" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Rim Runner™ &amp; Bourbon Storm™</h2>
-            <p class="kicker">Storm-glass rituals • code + recipes</p>
-          </div>
-          <p class="desc">
-            What the Mint Julep is to horse racing, <strong>Bourbon Storm™</strong> is to the yachting community.
-            Rim Runner™ and Bourbon Storm™ are storm-glass rituals born from real ocean weather—created by Catamaran Dan,
-            a former U.S. Navy submariner, Blue Nose, and Shellback who crossed the equator under sail in 1984. For forty-one years,
-            the recipe stayed private. In 2025, it’s finally being released to the world as the signature ritual of the yachting community.
-            <br><br>
-            <strong>Born Between Blue Sky and Dark Storm Clouds</strong><br>
-            Rim Runner™ began on a blue-sky Pacific day in 1984, right on the equator. The morning was calm—deep blue ocean, scattered white clouds,
-            steady wind. Then the mood shifted: clouds stacked, white turned gray, and a hard band of dark storm rolled in. For a couple of hours,
-            the ocean woke up—more wind, more rain, steeper waves. And then, just as quickly, it passed. Blue returned around the edges, and the sea still
-            heaved from the memory.
-            <br><br>
-            In that after-storm calm, an idea landed: <em>Could this exact moment be put in a glass?</em>
-            <br><br>
-            <strong>The Rim Runner™ Code</strong><br>
-            <strong>1st drink:</strong> Face the horizon—or the direction of the nearest water if you’re inland. Raise your glass and say, clearly and fast:<br>
-            <strong>“Better Beachy than Bitchy™”</strong><br>
-            <strong>If a second round:</strong> “Beachy, not busted.”<br>
-            <strong>Built-in sobriety test:</strong> If after a second round you cannot say “Better Beachy than Bitchy™” three times in a row—clearly and quickly—hand your keys to a sober driver and call it.<br>
-            <strong>Empty glass:</strong> Tap once and say: <strong>“Anchor down.”</strong>
-            <br><br>
-            <strong>Three Ways to Ride the Storm</strong><br>
-            One story, three expressions—classic rum, bourbon-forward, and zero-proof. The ritual stays the same; only the storm layer changes.
-            <br><br>
+<!-- 8 -->
+<article class="row rimrunner-card" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="rimrunner.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Rim Runner™</h2>
+    <p class="desc">Storm-glass ritual and signature expedition cocktail.</p>
+  </div>
+</article>
 
-            <strong>Rim Runner™ – Classic Rum Version</strong><br>
-            <strong>Glass &amp; Rim:</strong> Heavy straight-sided rocks glass with a blue rim band. Mix <strong>2 parts coarse sea salt</strong> + <strong>1 part sugar</strong>.
-            Lightly wet the outside of the rim with a lime wedge, dip into mix, fill with fresh ice.<br>
-            <strong>Equatorial Blue Base:</strong><br>
-            • 1½ oz white rum<br>
-            • ¾ oz blue curaçao<br>
-            • 1 oz pineapple juice<br>
-            • ½ oz fresh lime juice<br>
-            • 1 oz coconut water<br>
-            • 1–2 dashes ginger or aromatic bitters<br>
-            <strong>Method:</strong> Shake with ice ~10 seconds. Strain over fresh ice into prepared glass.<br>
-            <strong>Dark Storm Clouds (Float):</strong> ½–¾ oz dark rum, gently floated over the back of a bar spoon.
-            <br><br>
+<!-- 9 -->
+<article class="row" data-href="#">
+  <div class="media">
+    <div class="shot"><img src="rim_lightning.jpg"></div>
+    <div class="shot"><img src="rim_lightning_2.jpg"></div>
+  </div>
+  <div class="content">
+    <h2 class="title">Rim Lightning (1984)</h2>
+    <p class="desc">The original spark.</p>
+  </div>
+</article>
 
-            <strong>Bourbon Storm™ – The Bourbon Expression</strong><br>
-            What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting community.<br>
-            <strong>Glass &amp; Rim:</strong> Same blue-rim rocks glass and 2:1 salt–sugar “cloud” rim.<br>
-            <strong>Equatorial Blue Base:</strong> Same as Rim Runner™ (shake and strain over fresh ice).<br>
-            <strong>Bourbon Storm Cloud (Float):</strong> ½–¾ oz bourbon, floated over the back of a bar spoon as a dark storm band on top.
-            Your bourbon is the star here—the first nose, first sip, and finish are built around that top layer.
-            <br><br>
+</section>
+</main>
 
-            <strong>Rim Runner™ Zero</strong> (No alcohol)<br>
-            <strong>Glass &amp; Rim:</strong> Same blue-rim glass. Same 2:1 salt–sugar rim. Fresh ice.<br>
-            <strong>Blue Ocean (NA Base):</strong><br>
-            • 2 oz pineapple juice<br>
-            • 1 oz coconut water<br>
-            • 1 oz orange juice or white grape juice<br>
-            • ½ oz fresh lime juice<br>
-            • ½–¾ oz blue curaçao syrup (or similar blue NA syrup)<br>
-            <strong>Method:</strong> Shake with ice and strain over fresh ice.<br>
-            <strong>Dark Storm Clouds (NA Float):</strong> ½–¾ oz iced tea or cola, gently floated over the back of a spoon.
-            <br><br>
-            Not since the Shirley Temple has a non-alcoholic drink carried this much story and ritual.
-          </p>
-        </div>
-      </article>
+<footer class="footer">
+  <img src="better_beachy_than_bitchy.png" alt="Better Beachy than Bitchy™">
+  <p>“Better Beachy than Bitchy™”<br>Anchor down. Horizon ahead.</p>
+  <p>© Catamaran Dan • Nevado Raiders™ • Blue Rim 5™</p>
+</footer>
 
-      <!-- 9 -->
-      <article class="row" data-href="#">
-        <div class="media">
-          <div class="shot"><img src="rim_lightning.jpg" alt="Rim Lightning image 1" onerror="this.parentElement.style.display='none'"></div>
-          <div class="shot"><img src="rim_lightning_2.jpg" alt="Rim Lightning image 2" onerror="this.parentElement.style.display='none'"></div>
-        </div>
-        <div class="content">
-          <div class="topline">
-            <h2 class="title">Rim Lightning (1984)</h2>
-            <p class="kicker">The original spark</p>
-          </div>
-          <p class="desc">
-            The image and the moment in 1984 that helped forge the Rim Runner™ story and the expedition mindset—anchor down,
-            eyes up, horizon ahead.
-          </p>
-        </div>
-      </article>
-
-    </section>
-  </main>
-
-  <script>
-    // Whole-card click
-    document.querySelectorAll(".row[data-href]").forEach(card => {
-      card.addEventListener("click", () => {
-        const href = card.getAttribute("data-href");
-        if (!href || href === "#") return;
-        window.location.href = href;
-      });
-    });
-  </script>
 </body>
 </html>
+
 
 
