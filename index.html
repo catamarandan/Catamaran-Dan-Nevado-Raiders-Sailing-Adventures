@@ -1,226 +1,116 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catamaran Dan | Nevado Raiders™ | Blue Rim 5™</title>
-  <meta name="description" content="Catamaran Dan's Nevado Raiders™ and the Blue Rim 5™ Global Sailing Expedition." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Catamaran Dan | Nevado Raiders™ | Blue Rim 5™</title>
+<meta name="description" content="Catamaran Dan's Nevado Raiders™ and the Blue Rim 5™ Global Sailing Expedition." />
 
-  <style>
-    :root{
-      --bg:#0b1220;
-      --card:#101f3a;
-      --card2:#0f1b33;
-      --text:#eaf0ff;
-      --muted:#b8c6ef;
-      --line:rgba(255,255,255,.12);
-      --accent:#4da3ff;
-      --shadow:0 14px 34px rgba(0,0,0,.40);
-      --radius:18px;
-      --max:1200px;
-    }
+<style>
+:root{
+  --bg:#0b1220;
+  --card:#101f3a;
+  --card2:#0f1b33;
+  --text:#eaf0ff;
+  --muted:#b8c6ef;
+  --line:rgba(255,255,255,.12);
+  --accent:#4da3ff;
+  --shadow:0 14px 34px rgba(0,0,0,.40);
+  --radius:18px;
+  --max:1200px;
+}
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+*{box-sizing:border-box}
+html,body{height:100%}
 
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(1200px 520px at 50% -10%, rgba(77,163,255,.22), transparent 60%),
-        radial-gradient(900px 450px at 10% 20%, rgba(124,240,255,.12), transparent 55%),
-        var(--bg);
-      color:var(--text);
-    }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(1200px 520px at 50% -10%, rgba(77,163,255,.22), transparent 60%),
+    radial-gradient(900px 450px at 10% 20%, rgba(124,240,255,.12), transparent 55%),
+    var(--bg);
+  color:var(--text);
+}
 
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
+a{color:inherit; text-decoration:none}
+.wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
 
-    /* HERO */
-    .hero{
-      position:relative;
-      border-radius:28px;
-      overflow:hidden;
-      padding:42px 26px 34px;
-      box-shadow: var(--shadow);
-      border:1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(11,18,32,.20), rgba(11,18,32,.92)),
-        url("hero.png") center / cover no-repeat;
-      min-height: 320px;
-    }
-    .chip{
-      display:inline-flex;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(16,31,58,.55);
-      color:var(--muted);
-      font-weight:650;
-    }
-    h1{
-      margin:18px 0 8px;
-      font-size: clamp(30px, 4vw, 54px);
-      line-height:1.05;
-    }
-    .sub{
-      margin:0;
-      max-width: 920px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height:1.6;
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-    }
+/* HERO */
+.hero{
+  position:relative;
+  border-radius:28px;
+  overflow:hidden;
+  padding:42px 26px 34px;
+  box-shadow: var(--shadow);
+  border:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(11,18,32,.20), rgba(11,18,32,.92)),
+    url("hero.png") center / cover no-repeat;
+  min-height: 320px;
+}
+.chip{
+  display:inline-flex;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(16,31,58,.55);
+  color:var(--muted);
+  font-weight:650;
+}
+h1{
+  margin:18px 0 8px;
+  font-size: clamp(30px, 4vw, 54px);
+  line-height:1.05;
+}
+.sub{
+  margin:0;
+  max-width: 920px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height:1.6;
+  text-shadow: 0 1px 2px rgba(0,0,0,.35);
+}
 
-    .stack{margin-top:18px; display:flex; flex-direction:column; gap:14px}
+.stack{margin-top:18px; display:flex; flex-direction:column; gap:14px}
 
-    .row{
-      display:grid;
-      grid-template-columns: 320px 1fr;
-      gap:14px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      overflow:hidden;
-      background: linear-gradient(180deg, rgba(16,31,58,.92), rgba(15,27,51,.92));
-      box-shadow: var(--shadow);
-    }
+@media(max-width:900px){
+  .row{grid-template-columns:1fr}
+}
 
-    /* LEFT MEDIA COLUMN */
-    .media{
-      padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      background: rgba(11,18,32,.35);
-      border-right:1px solid var(--line);
-    }
-
-    .shot{
-      width:100%;
-      border-radius:16px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-    }
-
-    /* Default: preserve full image (no cropping) + rounded corners */
-    .shot img{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:contain;
-    }
-
-    /* Right content */
-    .content{
-      padding:16px 18px 18px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      color: var(--text);
-    }
-
-    /* Force readable text everywhere inside cards */
-    .content,
-    .content p,
-    .content li,
-    .content span,
-    .title,
-    .desc,
-    .mini{
-      color: var(--text);
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-    }
-
-    .kicker{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-    }
-    .title{margin:0; font-size:26px}
-    .desc{margin:0; font-size:16px; line-height:1.65}
-
-    .meta{
-      margin-top:6px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .pill{
-      display:inline-flex;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(11,18,32,.35);
-      color: var(--muted);
-      font-size:13px;
-      font-weight:650;
-      text-shadow:none;
-    }
-    .mini{
-      margin:8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .cta{
-      margin-top:8px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .cta a{
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    /* SPECIAL CARD FIXES */
-    .firstmate-card .shot img{object-position:top center}
-
-    /* Optional: Raiders logos often look better contained */
-    .raiders-card .shot img{object-fit:contain}
-
-    /* Shamrocket: keep both images fully visible (no crop) */
-    .shamrocket-card .shot img{object-fit:contain}
-
-    @media(max-width:900px){
-      .row{grid-template-columns:1fr}
-      .media{border-right:none;border-bottom:1px solid var(--line)}
-    }
-
-    /* FOOTER */
-    .footer{
-      margin-top:40px;
-      padding:28px 18px 34px;
-      border-top:1px solid var(--line);
-      text-align:center;
-      color:var(--muted);
-    }
-    .footer img{max-width:320px;width:100%;margin:0 auto 14px;display:block}
-  </style>
+/* FOOTER */
+.footer{
+  margin-top:40px;
+  padding:28px 18px 34px;
+  border-top:1px solid var(--line);
+  text-align:center;
+  color:var(--muted);
+}
+.footer img{max-width:320px;width:100%;margin:0 auto 14px;display:block}
+</style>
 </head>
 
 <body>
 <main class="wrap">
 
 <section class="hero">
-  <div class="chip">Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</div>
 
-  <h1>Catamaran Dan's Nevado Raiders™ &amp; Blue Rim 5™</h1>
+<div class="chip">
+Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable
+</div>
 
-  <!-- CATAMARAN DAN VISUAL ANCHOR -->
-  <div style="
-    display:flex;
-    align-items:center;
-    gap:16px;
-    margin:16px 0 8px;
-    max-width:760px;
-  ">
-    <img
+<h1>Catamaran Dan's Nevado Raiders™ &amp; Blue Rim 5™</h1>
+
+<!-- CATAMARAN DAN VISUAL ANCHOR -->
+<div style="
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin:16px 0 8px;
+  max-width:760px;
+">
+
+<img
   src="dan.png"
   alt="Catamaran Dan"
   style="
@@ -234,598 +124,48 @@
   "
 >
 
-    <img
-  src="truck.JPG"
+<img
+  src="truck.jpg"
+  alt="Expedition Truck"
   style="
-    width:88px;
-    height:88px;
-    border-radius:12px;
+    width:140px;
+    height:100px;
+    border-radius:14px;
     object-fit:cover;
     border:1px solid rgba(255,255,255,.25);
-    box-shadow:0 8px 20px rgba(0,0,0,.35);
+    box-shadow:0 10px 26px rgba(0,0,0,.35);
     flex-shrink:0;
   "
 >
 
+<p style="
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.55;
+  text-shadow: 0 1px 2px rgba(0,0,0,.35);
+">
+Led by <strong>Catamaran Dan</strong> — U.S. Coast Guard–licensed captain, sailing instructor,
+former U.S. Navy submariner, and expedition leader.
+</p>
 
-      alt="Catamaran Dan"
-      style="
-        width:88px;
-        height:88px;
-        border-radius:50%;
-        object-fit:cover;
-        border:1px solid rgba(255,255,255,.25);
-        box-shadow:0 8px 20px rgba(0,0,0,.35);
-        flex-shrink:0;
-      "
-    >
-    <p style="
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.55;
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-    ">
-      Led by <strong>Catamaran Dan</strong> — U.S. Coast Guard–licensed captain, sailing instructor,
-      former U.S. Navy submariner, and expedition leader.
-    </p>
-  </div>
+</div>
 
-  <p class="sub">
-    Small boats. Guardian vessels. Real seamanship. Cultural respect.
-    A rapidly warming world demands real leadership on the water.
-  </p>
+<p class="sub">
+Small boats. Guardian vessels. Real seamanship. Cultural respect.
+A rapidly warming world demands real leadership on the water.
+</p>
+
 </section>
 
-<section class="stack">
-
-<!-- 1) NEVADO RAIDERS -->
-<article class="row raiders-card">
-  <div class="media">
-    <div class="shot"><img src="nevadoraiders.jpg" alt="Nevado Raiders™"></div>
-    <div class="shot"><img src="nevadoranch.jpg" alt="Nevado Ranch Camp"></div>
-  </div>
-  <div class="content">
-    <p class="kicker">A modern Viking expedition movement</p>
-    <h2 class="title">Nevado Raiders™</h2>
-
-    <!-- START CARD: NEVADO RAIDERS TEXT (LOCKED) -->
-    <p class="desc"><strong>Catamaran Dan is actively recruiting sailors, small expedition boats, <em>and</em> guardian vessels</strong> to join him on the Nevado Raiders™ series of planned <strong>coastal expeditions</strong>—traveling virtually anywhere on Earth, <strong>as long as it makes sense and the risks are acceptable</strong>.</p>
-
-    <p class="desc"><strong>Nevado Raiders™</strong> is a <strong>Viking-influenced</strong>, modern expedition movement for people who still feel the pull of the horizon—and who are ready to <strong>sail it together</strong>. Inspired by the exploration mindset of the Norse seafarers, these are not armchair adventures. They are real miles, real weather, real decisions, and real responsibility on the water. This is a call to capable sailors and crews who want to be part of a coordinated expedition fleet—not followers and not passengers.</p>
-
-    <p class="desc">The Viking influence behind Nevado Raiders™ is not symbolic—it is practical. <strong>Viking longboats were shallow-draft vessels capable of both close-shore travel and open-ocean crossings.</strong> They worked tight to coastlines, crossed bars, entered rivers and estuaries, and landed directly on beaches—yet they also crossed open water between distant lands when preparation, conditions, and fleet strength allowed. The Nevado Ranch Camp in the White Mountains of Eastern Arizona is our private, and very kush retreat where we plan, party, and then raid.</p>
-    <!-- END CARD: NEVADO RAIDERS TEXT (LOCKED) -->
-
-    <div class="meta">
-      <span class="pill">Small boats, real skill</span>
-      <span class="pill">Guardian vessels</span>
-      <span class="pill">Training + real miles</span>
-    </div>
-  </div>
-</article>
-
-<!-- 2) BLUE RIM 5 -->
-<article class="row">
-  <div class="media">
-    <div class="shot"><img src="bluerim5.jpg" alt="Blue Rim 5™"></div>
-  </div>
-  <div class="content">
-    <p class="kicker">Blue Rim 5™ Global Sailing Expedition</p>
-    <h2 class="title">Blue Rim 5™</h2>
-
-    <p class="desc">
-      <strong>Blue Rim 5™</strong> is a long-range, multi-year global sailing expedition tracing the blue edge of the planet—coastlines, islands,
-      harbors, and river mouths reachable under sail. It moves one leg at a time with a mixed fleet of small expedition sailboats
-      and larger guardian vessels, following a simple rule:
-      <strong>we go where it makes sense, when it makes sense—and stop or reroute when it doesn’t.</strong>
-    </p>
-
-    <p class="desc">
-      This expedition is <strong>not a race</strong>. No leg is intended to be hurried. Progress is measured in seamanship, understanding,
-      and human connection—not miles per day.
-    </p>
-
-    <p class="desc">
-      Blue Rim 5™ is not a cruise, not a yacht club, and not a packaged tour. Crews join for the legs that fit their lives and operate
-      as independent vessels with shared purpose. <strong>Each captain/vessel/crew covers their own expenses</strong> (food, fuel, maintenance,
-      fees, local activities, and personal costs). Only expenses <strong>explicitly incurred by the fleet as a whole</strong>—and agreed to in advance—
-      are shared and <strong>divided evenly among participating vessels</strong>.
-    </p>
-
-    <p class="desc">
-      Kids and families are central to the mission—putting young people on real shorelines so they can see, first-hand, how a dangerously
-      warming world is already reshaping life along the waterline.
-    </p>
-
-    <div class="meta">
-      <span class="pill">Small boats + guardian vessels</span>
-      <span class="pill">Multi-year, leg-by-leg</span>
-      <span class="pill">Kids &amp; coastlines first</span>
-    </div>
-
-    <p class="mini">
-      The model is built for the century we actually live in: start small, learn fast, build the fleet, and keep going as long as the risks are acceptable.
-      <strong>We will not trace the planet’s rim and lie to children about what’s happening to it.</strong>
-    </p>
-
-    <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-    <p class="kicker">Leadership &amp; Seamanship</p>
-    <p class="mini">
-      Blue Rim 5™ is led by <strong>Catamaran Dan</strong>, an experienced mariner whose background combines formal qualification, instruction, military discipline,
-      and decades of real-world adventure sailing.
-    </p>
-    <div class="meta">
-      <span class="pill">USCG Captain (200-ton)</span>
-      <span class="pill">Sailing Instructor (mono + multi)</span>
-      <span class="pill">U.S. Navy Submariner</span>
-      <span class="pill">Blue Nose + Shellback</span>
-      <span class="pill">Graduate-level education</span>
-    </div>
-    <p class="mini">
-      This combination shapes the culture of Blue Rim 5™: calm decision-making, conservative risk management, and preparation over bravado—
-      knowing when to go, when to wait, and when to say no.
-    </p>
-  </div>
-</article>
-
-<!-- BLUE RIM 5 — EXPEDITION OVERVIEW -->
-<article class="row">
-  <div class="media">
-    <div class="shot">
-      <img src="bluerim5_map.jpg" alt="Blue Rim 5™ early expedition route map">
-    </div>
-  </div>
-
-  <div class="content">
-    <p class="kicker">Expedition overview • first chapters</p>
-    <h2 class="title">Blue Rim 5™ — First Chapters</h2>
-
-    <p class="desc">
-      The opening chapters of Blue Rim 5™ are designed to unfold over multiple years,
-      moving deliberately along coastlines rather than racing between destinations.
-      The focus is on learning regions deeply, building seamanship through repetition,
-      spending real time in the water, and forming lasting connections with local communities.
-    </p>
-
-    <p class="desc">
-      Rather than fixed dates, the expedition is organized around flexible time blocks,
-      allowing weather, safety, and opportunity to guide progress.
-    </p>
-
-    <p class="kicker">Blue Rim 5™ — Life Ashore &amp; Passage Philosophy</p>
-
-    <p class="desc">
-      When the <strong>Blue Rim 5™ fleet</strong> makes landfall, we don’t rush and we don’t consume.
-      We slow down. We swim, snorkel, and spend time in the water that brought us there—learning
-      reefs, currents, and shorelines the way sailors always have.
-    </p>
-
-    <p class="desc">
-      We go ashore deliberately, meeting the people who live along these coasts not as spectators,
-      but as guests. We share meals when invited, trade stories, and—when the moment is right—music.
-      We hike inland, visit local “must-see” places that carry real meaning, and take the time to
-      understand how a place works beyond its anchorages.
-    </p>
-
-    <p class="desc">
-      One crew member always remains with the vessels, maintaining watch and respect for both boat
-      and community.
-    </p>
-
-    <p class="desc">
-      The <strong>Blue Rim 5™ fleet</strong> favors daylight navigation and conservative passage
-      planning. We do not sail at night unless conditions, safety, or geography require it to reach
-      the next destination. Clear landfalls, rested crews, and good judgment matter more than speed
-      or schedules.
-    </p>
-
-    <p class="desc"><em>Daylight. Deliberation. Discipline.</em></p>
-
-    <p class="desc">
-      These stops—and the way we move between them—aren’t boxes to check. They’re how the expedition
-      stays human. Every coast has its own rhythm, and the <strong>Blue Rim 5™ fleet</strong> listens
-      long enough to hear it before moving on.
-    </p>
-
-    <p class="kicker">Early expedition timeframe (approximate)</p>
-
-    <ul class="mini">
-      <li><strong>Gulf Coast &amp; Florida — ~3 months</strong><br>
-        Skill-building, routines, shallow-water cruising, and preparation</li>
-
-      <li><strong>Bahamas — ~2 months</strong><br>
-        Core water chapter with extended anchoring, snorkeling, and repetition</li>
-
-      <li><strong>Eastern Caribbean — ~3 months</strong><br>
-        Island-to-island sailing, reef systems, and cultural exchange</li>
-
-      <li><strong>Northern South America (Guianas) — ~1 month</strong><br>
-        Rivers, coastlines, and cultural immersion</li>
-
-      <li><strong>Northern Brazil — ~6 months</strong><br>
-        A slow-living chapter focused on language, culture, and daily water life</li>
-
-      <li><strong>Brazil to Panama — ~3–4 months</strong><br>
-        Deliberate coastal transit emphasizing patience and human connection</li>
-
-      <li><strong>Panama — open-ended</strong><br>
-        Staging, rest, and fleet assembly before worldwide expansion</li>
-    </ul>
-
-    <p class="mini">
-      Participation is modular. Sailors and vessels may join for specific regions or chapters.
-      Boats come together, separate, and rejoin organically—guided by shared values, not schedules.
-    </p>
-
-    <p class="mini">
-      This overview reflects intent, not obligation. Routes adapt. Timing remains flexible.
-      No leg is hurried.
-    </p>
-  </div>
-</article>
-
-<!-- SHAMROCKET -->
-<article class="row shamrocket-card">
-  <div class="media">
-    <div class="shot">
-      <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway">
-    </div>
-    <div class="shot">
-      <img src="getaway.jpg" alt="Shamrocket — Hobie Getaway">
-    </div>
-  </div>
-
-  <div class="content">
-    <p class="kicker">Primary training & expedition platform</p>
-    <h2 class="title">Shamrocket</h2>
-
-    <p class="desc">
-      Shamrocket is a Hobie Getaway built for real work—not show. This is where skills are earned the hard way:
-      boat handling under pressure, anchoring in changing conditions, beach landings, surf etiquette, weather judgment,
-      and the discipline that comes from doing things right when no one is watching.
-    </p>
-
-    <p class="desc">
-      Trailerable, beachable, and shallow-draft, Shamrocket can slip into places larger boats never will.
-      It lives close to the water, close to the shoreline, and close to consequence—exactly where seamanship is learned,
-      mistakes are visible, and competence becomes instinct.
-    </p>
-
-    <p class="desc">
-      This is the proving ground before longer legs and bigger water. Systems get tested. Routines get refined.
-      Gear earns its place or gets replaced. Shamrocket is where preparation replaces bravado and confidence
-      comes from repetition, not talk.
-    </p>
-
-    <div class="meta">
-      <span class="pill">Trailerable + expedition-ready</span>
-      <span class="pill">Shallow-water access</span>
-      <span class="pill">Beach landings</span>
-      <span class="pill">Systems & logistics training</span>
-    </div>
-
-    <p class="mini">
-      Shamrocket isn’t about comfort. It’s about capability—and carrying those lessons forward into every mile that follows.
-    </p>
-  </div>
-</article>
-
-<!-- RECRUITING FOR FIRST MATE -->
-<article class="row firstmate-card">
-  <div class="media">
-    <!-- HER IMAGE (KEEP FIRST) -->
-    <div class="shot"><img src="firstmate.jpg" alt="First Mate"></div>
-    <!-- YOUR IMAGE (SECOND) -->
-    <div class="shot"><img src="ovecat.jpg" alt="Catamaran Dan — Ove Ironhand"></div>
-  </div>
-
-  <div class="content">
-    <p class="kicker">Partner role • shared command</p>
-    <h2 class="title">Female First Mate Wanted</h2>
-
-    <!-- HER TEXT (KEEP FIRST) -->
-    <p class="desc">
-      This isn’t a casual berth. I’m an experienced sailing adventurer building a long arc—measured in years, not weekends—and I’m
-      looking for one woman made of the right stuff to share the next chapter: real sailing, real weather, real decisions, and real joy.
-    </p>
-
-    <p class="desc">
-      The first mate I’m seeking is an equal partner in leadership, seamanship, and expedition life—calm under pressure, curious by nature,
-      grounded, capable, and comfortable living close to the elements. Someone who can stand watch at sunrise, laugh when plans change,
-      and help turn long days and longer passages into stories worth keeping.
-    </p>
-
-    <p class="desc">
-      The image shown was generated by <strong>QN</strong> after <em>it</em> asked me <strong>150+ questions</strong> about the kind of first mate who truly fits this life.
-      I didn’t specify hair color. I did specify <strong>character, resilience, humor, intelligence, and heart</strong>.
-    </p>
-
-    <p class="desc">
-      So here’s the real question: when you look at that image, <strong>how close do <em>you</em> compare</strong>—and what is it about <em>you</em> that would make you an exceptional first mate?
-    </p>
-
-    <div class="meta">
-      <span class="pill">Shared leadership</span>
-      <span class="pill">Seamanship &amp; judgment</span>
-      <span class="pill">Calm under pressure</span>
-      <span class="pill">Logistics + monetization savvy</span>
-    </div>
-
-    <p class="mini">
-      This is about partnership, not passengers. We plan together, decide together, and take care of each other and the boat.
-      The goal isn’t escape—it’s a meaningful life afloat, built deliberately, with room for ambition, laughter,
-      cultural exchange, and a little mischief when the anchor’s down.
-    </p>
-
-    <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-    <!-- YOUR SECTION (SECOND) -->
-    <p class="kicker">About Catamaran Dan • Ove Ironhand</p>
-
-    <p class="desc">
-      Tall, fair-haired, blue-eyed — built by water and miles, not mirrors. Rugby legs, swimmer’s chest, sailor’s hands.
-      Quietly confident. Unendingly curious. A man of integrity who keeps his word and stays calm when the horizon gets complicated.
-    </p>
-
-    <p class="desc">
-      I’ve built a life that works — on land and at sea — and I’m looking to share the next chapter with an exceptional woman who
-      values competence, humor, curiosity, and real partnership.
-    </p>
-
-    <p class="desc">
-      I’m not interested in passengers. I’m interested in a true First Mate — someone who can stand watch at sunrise,
-      think clearly when plans change, and help turn long passages and unfamiliar coastlines into something meaningful.
-    </p>
-
-    <p class="cta">
-      If this speaks to you and you recognize yourself here, reach out:
-      <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
-    </p>
-  </div>
-</article>
-
-<!-- VIKING SPIRIT -->
-<article class="row">
-  <div class="media">
-    <div class="shot"><img src="vikingchariot.jpg" alt="The Viking Way"></div>
-    <div class="shot"><img src="ove.jpg" alt="The Viking Way"></div>
-  </div>
-  <div class="content">
-    <p class="kicker">The Viking Way — old values, modern raids</p>
-    <h2 class="title">Viking Spirit</h2>
-
-    <p class="desc">
-      The Vikings weren’t just raiders. They were farmers, traders, artisans, and families who lived boldly—crossing cold seas in shallow-draft boats,
-      navigating without charts, and building community wherever their keels touched shore.
-      <strong>In Norse times, “Viking” was used as a verb—not a noun.</strong> To go viking meant to set out—explore, trade, test skill, take risk, and return changed.
-      Nevado Raiders™ carries that same spirit forward: each raid is about the crews, the skills we test together, and the stories we bring home.
-    </p>
-
-    <div class="meta">
-      <span class="pill">Exploration</span>
-      <span class="pill">Self-reliance</span>
-      <span class="pill">Celebration</span>
-      <span class="pill">Camaraderie</span>
-      <span class="pill">Adaptability</span>
-    </div>
-
-    <p class="mini">
-      <strong>Ove Ironhand</strong>: Modern Y-DNA work traces Catamaran Dan’s paternal line through Norse seafarers of the 10th century—through Thorvald Asvaldsson,
-      Erik the Red, and Leif Erikson—into the I1 haplogroup common among Scandinavia’s working seafarers. Signing as Ove Ironhand honors that legacy.
-      Our “sagas” will be logbooks, film, and the wakes we leave behind.
-    </p>
-
-    <div class="meta">
-      <span class="pill">Natural-sign navigation</span>
-      <span class="pill">Trim like a longship</span>
-      <span class="pill">Lee-shore drills</span>
-      <span class="pill">Read gusts & shifts</span>
-      <span class="pill">Rig-ready discipline</span>
-    </div>
-
-    <p class="cta">Apply to join the Raiders: <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a></p>
-  </div>
-</article>
-
-<!-- CULTURAL EXCHANGE -->
-<article class="row">
-  <div class="media">
-    <div class="shot"><img src="cultural_exchange.jpg" alt="Cultural Exchange"></div>
-  </div>
-  <div class="content">
-    <p class="kicker">Core mission</p>
-    <h2 class="title">Cultural Exchange</h2>
-
-    <p class="desc">
-      Every coastline belongs first to the people who live there. We arrive as guests—not as conquerors, consumers, or spectators.
-      Nevado Raiders™ move slowly enough to listen, learn, and earn trust. We respect local rules, local waters, and local knowledge
-      that has kept families alive on these shores for generations.
-    </p>
-
-    <p class="desc">
-      When it makes sense, we spend money locally, hire local guides, and support the people who call these places home.
-      Cultural exchange isn’t a slogan—it’s behavior: humility, curiosity, and respect in the real world.
-    </p>
-
-    <p class="desc">
-      We sit at real tables. We share meals. We learn names and stories. And when there’s music, we don’t just record it—we join it.
-      We trade songs, jam with local musicians, and record sessions together when invited. Those moments—shared rhythms and shared laughter—
-      carry the truth of a place in a way no postcard ever can.
-    </p>
-
-    <div class="meta">
-      <span class="pill">Respect coastlines</span>
-      <span class="pill">Respect communities</span>
-      <span class="pill">Share music</span>
-      <span class="pill">Earn trust</span>
-    </div>
-
-    <p class="mini">
-      Peace, human connection, and shared responsibility aren’t side benefits of the expedition—they’re the point.
-      If we can’t move through a place with respect, we don’t belong there.
-    </p>
-  </div>
-</article>
-
-<!-- RIM RUNNER -->
-<article class="row rimrunner-card">
-  <div class="media">
-    <div class="shot">
-      <img src="rimrunner.jpg" alt="Rim Runner™ ritual cocktail">
-    </div>
-  </div>
-
-  <div class="content">
-    <p class="kicker">Signature ritual • storm-born cocktail</p>
-    <h2 class="title">Rim Runner™ &amp; Bourbon Storm™</h2>
-
-    <p class="desc">
-      What the Mint Julep is to horse racing, <strong>Bourbon Storm™</strong> is to the yachting community.
-      Rim Runner™ and Bourbon Storm™ are not just drinks—they are storm-glass rituals born from real ocean weather.
-      Created by Catamaran Dan, a former U.S. Navy submariner, Blue Nose, and Shellback who crossed the equator under sail in 1984,
-      the recipe remained private for forty-one years. In 2025, it’s finally being shared.
-    </p>
-
-    <p class="desc">
-      Rim Runner™ was born on a blue-sky equatorial Pacific day that turned dark, wet, and alive—then cleared just as fast.
-      Blue ocean below. Dark storm clouds above. Salt and sky at the rim.
-      In the calm that followed, one question landed: <em>could that exact moment be put in a glass?</em>
-    </p>
-
-    <div class="meta">
-      <span class="pill">Rum • Bourbon • Zero-proof</span>
-      <span class="pill">Storm-layered ritual</span>
-      <span class="pill">Born 1984 • Released 2025</span>
-    </div>
-
-    <p class="kicker">The Rim Runner™ Code</p>
-    <p class="mini">
-      <strong>First drink:</strong> Face the horizon (or nearest water) and say clearly:<br>
-      “<strong>Better Beachy than Bitchy™</strong>”<br><br>
-      <strong>Second drink:</strong> “Better beachy than busted.”<br><br>
-      <strong>Built-in sobriety test:</strong> If you can’t say “Better Beachy than Bitchy™” three times clearly and fast, you’re done.<br><br>
-      <strong>Empty glass:</strong> One tap on the table. “<strong>Anchor down.</strong>”
-    </p>
-
-    <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-    <p class="kicker">Rim Runner™ — Classic Rum Version</p>
-    <p class="desc"><strong>Glass & Rim</strong><br>
-      Heavy straight-sided rocks glass with a blue rim band.<br>
-      Rim mix: 2 parts coarse sea salt, 1 part sugar.<br>
-      Lightly wet the outside rim with lime and dip into mix. Fill with fresh ice.
-    </p>
-
-    <p class="desc"><strong>Equatorial Blue Base</strong></p>
-    <ul class="mini">
-      <li>1½ oz white rum</li>
-      <li>¾ oz blue curaçao</li>
-      <li>1 oz pineapple juice</li>
-      <li>½ oz fresh lime juice</li>
-      <li>1 oz coconut water</li>
-      <li>1–2 dashes ginger or aromatic bitters</li>
-    </ul>
-
-    <p class="desc"><strong>Method</strong><br>
-      Shake with ice ~10 seconds. Strain over fresh ice into prepared glass.
-    </p>
-
-    <p class="desc"><strong>Dark Storm Cloud (Float)</strong><br>
-      ½–¾ oz dark rum, gently floated over the back of a bar spoon to form a dark band on top.
-    </p>
-
-    <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-    <p class="kicker">Bourbon Storm™ — The Yachting Expression</p>
-    <p class="desc">
-      What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting world.
-      The ritual is identical—the storm layer changes.
-    </p>
-
-    <p class="desc"><strong>Glass & Rim</strong><br>
-      Same blue-rim rocks glass and 2:1 salt-sugar rim.
-    </p>
-
-    <p class="desc"><strong>Blue Base</strong><br>
-      Same equatorial blue base as Rim Runner™ (rum remains in the base).
-    </p>
-
-    <p class="desc"><strong>Bourbon Storm Cloud</strong><br>
-      ½–¾ oz bourbon, floated gently over a bar spoon as the dark storm band.<br>
-      The bourbon is the star—the first nose, first sip, and finish live in that layer.
-    </p>
-
-    <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-    <p class="kicker">Rim Runner™ Zero</p>
-    <p class="desc"><strong>Glass & Rim</strong><br>
-      Same blue-rim glass. Same salt-sugar rim. Fresh ice.
-    </p>
-
-    <ul class="mini">
-      <li>2 oz pineapple juice</li>
-      <li>1 oz coconut water</li>
-      <li>1 oz orange or white grape juice</li>
-      <li>½ oz fresh lime juice</li>
-      <li>½–¾ oz blue curaçao syrup (non-alcoholic)</li>
-    </ul>
-
-    <p class="desc"><strong>Dark Storm (NA Float)</strong><br>
-      ½–¾ oz iced tea or cola, floated gently to form the storm band.
-    </p>
-
-    <p class="mini">
-      Not since the Shirley Temple has a non-alcoholic drink carried this much story and ritual.
-    </p>
-  </div>
-</article>
-
-<!-- RIM LIGHTNING -->
-<article class="row">
-  <div class="media">
-    <div class="shot"><img src="rim_lightning.jpg" alt="Rim Lightning (1984)"></div>
-  </div>
-  <div class="content">
-    <p class="kicker">Origin story</p>
-    <h2 class="title">Rim Lightning (1984)</h2>
-
-    <p class="desc">
-      This photograph was taken while crossing the equator in 1984. Mid-ocean, the line itself barely announces its presence—but the weather often does.
-      That day, conditions shifted fast: blue sky giving way to stacked clouds, pressure building, wind sharpening, lightning striking the water ahead.
-      For a time, the sea demanded full attention—trim right, stay disciplined, let preparation do the work.
-    </p>
-
-    <p class="desc">
-      Then it passed. What remained was a moment every sailor remembers: storm energy still in the water, air clearing, light returning around the edges.
-      Blue below. Dark above. Salt, sky, and motion layered together.
-      That exact moment became the inspiration for <strong>Rim Runner™</strong>.
-    </p>
-
-    <div class="meta">
-      <span class="pill">Equator crossing</span>
-      <span class="pill">Origin</span>
-      <span class="pill">Standards</span>
-      <span class="pill">Rim Runner™ inspiration</span>
-    </div>
-
-    <p class="mini">
-      Rim Lightning set the standard that followed: <strong>preparation over bravado</strong>, <strong>competence over comfort</strong>,
-      and <strong>calm execution when conditions change</strong>. Not to celebrate danger—only to honor readiness and respect for the sea.
-      The storm passed. The lesson stayed.
-    </p>
-  </div>
-</article>
-
-</section>
 </main>
 
 <footer class="footer">
-  <img src="bitchy.jpg" alt="Better Beachy than Bitchy™">
-  <p>“Better Beachy than Bitchy™” — Anchor down.</p>
-  <p>Cell: (928)-250-9763 &nbsp;&nbsp; Email: NevadoRaiders@gmail.com &nbsp;&nbsp; Base Camp: White Mountains, AZ</p>
+<img src="bitchy.jpg" alt="Better Beachy than Bitchy™">
+<p>“Better Beachy than Bitchy™” — Anchor down.</p>
+<p>Cell: (928)-250-9763 &nbsp;&nbsp; Email: NevadoRaiders@gmail.com &nbsp;&nbsp; Base Camp: White Mountains, AZ</p>
 </footer>
 
 </body>
 </html>
+
