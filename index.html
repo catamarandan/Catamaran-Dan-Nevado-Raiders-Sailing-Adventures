@@ -6,93 +6,8 @@
   <title>Catamaran Dan | Nevado Raiders™ | Blue Rim 5™</title>
   <meta name="description" content="Catamaran Dan's Nevado Raiders™ and the Blue Rim 5™ Global Sailing Expedition." />
 
-<style>
-
-:root{
-  --bg:#0b1220;
-  --card:#101f3a;
-  --card2:#0f1b33;
-  --text:#eaf0ff;
-  --muted:#b8c6ef;
-  --line:rgba(255,255,255,.12);
-  --accent:#4da3ff;
-  --shadow:0 14px 34px rgba(0,0,0,.40);
-  --radius:18px;
-  --max:1200px;
-}
-
-/* 🔧 INSERT STARTS HERE */
-body{
-  color: var(--text);
-}
-
-.content,
-.content p,
-.content li,
-.content span{
-  color: var(--text);
-}
-
-.kicker,
-.mini{
-  color: var(--muted);
-}
-
-.desc,
-.mini{
-  text-shadow: 0 1px 2px rgba(0,0,0,.35);
-}
-
-  
-.kicker,
-.mini{
-  color: var(--muted);
-}
-
-.desc,
-.mini{
-  text-shadow: 0 1px 2px rgba(0,0,0,.35);
-}
-/* 🔧 INSERT ENDS HERE */
-
-*{box-sizing:border-box}
-html,body{height:100%}
-
-/* Media image handling (multi-image cards) */
-.media{
-  display:grid;
-  gap:16px;
-}
-  
-  *{box-sizing:border-box}
-  html,body{height:100%}
-
-/* Media image handling (multi-image cards) */
-  .media{
-    isplay: grid;
-    gap: 16px;
-}
-
-    .shot{
-    border-radius: 18px;
-    overflow: hidden;
-}
-
-  .shot img{
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 18px;
-  object-fit: contain;
-}
-
-  body{
-    margin:0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: var(--bg);
-}
-       
-        :root{
+  <style>
+    :root{
       --bg:#0b1220;
       --card:#101f3a;
       --card2:#0f1b33;
@@ -100,22 +15,14 @@ html,body{height:100%}
       --muted:#b8c6ef;
       --line:rgba(255,255,255,.12);
       --accent:#4da3ff;
-      --shadow: 0 14px 34px rgba(0,0,0,.40);
+      --shadow:0 14px 34px rgba(0,0,0,.40);
       --radius:18px;
       --max:1200px;
     }
-.card,
-.card p,
-.card li,
-.card span {
-  color: var(--text);
-  text-shadow: 0 1px 2px rgba(0,0,0,.35);
-}</style>
 
-  
-  
-  *{box-sizing:border-box}
+    *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -125,6 +32,7 @@ html,body{height:100%}
         var(--bg);
       color:var(--text);
     }
+
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
 
@@ -161,6 +69,7 @@ html,body{height:100%}
       color: var(--muted);
       font-size: 17px;
       line-height:1.6;
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
     }
 
     .stack{margin-top:18px; display:flex; flex-direction:column; gap:14px}
@@ -176,41 +85,51 @@ html,body{height:100%}
       box-shadow: var(--shadow);
     }
 
+    /* LEFT MEDIA COLUMN */
     .media{
       padding:14px;
       display:flex;
       flex-direction:column;
-      gap:10px;
+      gap:16px;
       background: rgba(11,18,32,.35);
       border-right:1px solid var(--line);
     }
 
     .shot{
       width:100%;
-      aspect-ratio:16/10;
       border-radius:16px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.25);
     }
 
+    /* Default: preserve full image (no cropping) + rounded corners */
     .shot img{
       width:100%;
-      height:100%;
-      object-fit:cover;
+      height:auto;
       display:block;
+      object-fit:contain;
     }
 
-    /* SPECIAL CARD FIXES */
-    .raiders-card .shot{aspect-ratio:auto}
-    .raiders-card .shot img{object-fit:contain}
-    .firstmate-card .shot img{object-position:top center}
-
+    /* Right content */
     .content{
       padding:16px 18px 18px;
       display:flex;
       flex-direction:column;
       gap:8px;
+      color: var(--text);
+    }
+
+    /* Force readable text everywhere inside cards */
+    .content,
+    .content p,
+    .content li,
+    .content span,
+    .title,
+    .desc,
+    .mini{
+      color: var(--text);
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
     }
 
     .kicker{
@@ -219,6 +138,7 @@ html,body{height:100%}
       font-size:13px;
       text-transform:uppercase;
       letter-spacing:.08em;
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
     }
     .title{margin:0; font-size:26px}
     .desc{margin:0; font-size:16px; line-height:1.65}
@@ -238,6 +158,7 @@ html,body{height:100%}
       color: var(--muted);
       font-size:13px;
       font-weight:650;
+      text-shadow:none;
     }
     .mini{
       margin:8px 0 0;
@@ -256,6 +177,15 @@ html,body{height:100%}
       text-decoration: underline;
       text-underline-offset: 3px;
     }
+
+    /* SPECIAL CARD FIXES */
+    .firstmate-card .shot img{object-position:top center}
+
+    /* Optional: Raiders logos often look better contained */
+    .raiders-card .shot img{object-fit:contain}
+
+    /* Shamrocket: keep both images fully visible (no crop) */
+    .shamrocket-card .shot img{object-fit:contain}
 
     @media(max-width:900px){
       .row{grid-template-columns:1fr}
@@ -308,6 +238,7 @@ html,body{height:100%}
       color:var(--muted);
       font-size:15px;
       line-height:1.55;
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
     ">
       Led by <strong>Catamaran Dan</strong> — U.S. Coast Guard–licensed captain, sailing instructor,
       former U.S. Navy submariner, and expedition leader.
@@ -326,7 +257,7 @@ html,body{height:100%}
 <article class="row raiders-card">
   <div class="media">
     <div class="shot"><img src="nevadoraiders.jpg" alt="Nevado Raiders™"></div>
-    <div class="shot"><img src="nevadoranch.jpg" alt="Nevado Raiders™"></div>
+    <div class="shot"><img src="nevadoranch.jpg" alt="Nevado Ranch Camp"></div>
   </div>
   <div class="content">
     <p class="kicker">A modern Viking expedition movement</p>
@@ -437,42 +368,40 @@ html,body{height:100%}
       allowing weather, safety, and opportunity to guide progress.
     </p>
 
-<!-- INSERT STARTS HERE -->
+    <p class="kicker">Blue Rim 5™ — Life Ashore &amp; Passage Philosophy</p>
 
-<p class="kicker">Blue Rim 5™ — Life Ashore &amp; Passage Philosophy</p>
+    <p class="desc">
+      When the <strong>Blue Rim 5™ fleet</strong> makes landfall, we don’t rush and we don’t consume.
+      We slow down. We swim, snorkel, and spend time in the water that brought us there—learning
+      reefs, currents, and shorelines the way sailors always have.
+    </p>
 
-<p class="desc">
-  When the <strong>Blue Rim 5™ fleet</strong> makes landfall, we don’t rush and we don’t consume.
-  We slow down. We swim, snorkel, and spend time in the water that brought us there—learning
-  reefs, currents, and shorelines the way sailors always have.
-</p>
+    <p class="desc">
+      We go ashore deliberately, meeting the people who live along these coasts not as spectators,
+      but as guests. We share meals when invited, trade stories, and—when the moment is right—music.
+      We hike inland, visit local “must-see” places that carry real meaning, and take the time to
+      understand how a place works beyond its anchorages.
+    </p>
 
-<p class="desc">
-  We go ashore deliberately, meeting the people who live along these coasts not as spectators,
-  but as guests. We share meals when invited, trade stories, and—when the moment is right—music.
-  We hike inland, visit local “must-see” places that carry real meaning, and take the time to
-  understand how a place works beyond its anchorages.
-</p>
+    <p class="desc">
+      One crew member always remains with the vessels, maintaining watch and respect for both boat
+      and community.
+    </p>
 
-  <p class="desc">
-  One crew member always remains with the vessels, maintaining watch and respect for both boat
-  and community.
-</p>
+    <p class="desc">
+      The <strong>Blue Rim 5™ fleet</strong> favors daylight navigation and conservative passage
+      planning. We do not sail at night unless conditions, safety, or geography require it to reach
+      the next destination. Clear landfalls, rested crews, and good judgment matter more than speed
+      or schedules.
+    </p>
 
-  <p class="desc">
-    The <strong>Blue Rim 5™ fleet</strong> favors daylight navigation and conservative passage
-    planning. We do not sail at night unless conditions, safety, or geography require it to reach
-    the next destination. Clear landfalls, rested crews, and good judgment matter more than speed
-    or schedules.
-</p>
+    <p class="desc"><em>Daylight. Deliberation. Discipline.</em></p>
 
-  <p class="desc"><em>Daylight. Deliberation. Discipline.</em></p>
-
-  <p class="desc">
-    These stops—and the way we move between them—aren’t boxes to check. They’re how the expedition
-    stays human. Every coast has its own rhythm, and the <strong>Blue Rim 5™ fleet</strong> listens
-    long enough to hear it before moving on.
-</p>
+    <p class="desc">
+      These stops—and the way we move between them—aren’t boxes to check. They’re how the expedition
+      stays human. Every coast has its own rhythm, and the <strong>Blue Rim 5™ fleet</strong> listens
+      long enough to hear it before moving on.
+    </p>
 
     <p class="kicker">Early expedition timeframe (approximate)</p>
 
@@ -511,17 +440,15 @@ html,body{height:100%}
   </div>
 </article>
 
-  
-  <!-- SHAMROCKET -->
-<article class="row">
+<!-- SHAMROCKET -->
+<article class="row shamrocket-card">
   <div class="media">
     <div class="shot">
-    <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway">
+      <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway">
     </div>
     <div class="shot">
-    <img src="getaway.jpg" alt="Shamrocket — Hobie Getaway">
+      <img src="getaway.jpg" alt="Shamrocket — Hobie Getaway">
     </div>
-
   </div>
 
   <div class="content">
@@ -560,12 +487,10 @@ html,body{height:100%}
 </article>
 
 <!-- RECRUITING FOR FIRST MATE -->
-<!-- RECRUITING FOR FIRST MATE -->
 <article class="row firstmate-card">
   <div class="media">
     <!-- HER IMAGE (KEEP FIRST) -->
     <div class="shot"><img src="firstmate.jpg" alt="First Mate"></div>
-
     <!-- YOUR IMAGE (SECOND) -->
     <div class="shot"><img src="ovecat.jpg" alt="Catamaran Dan — Ove Ironhand"></div>
   </div>
@@ -608,7 +533,6 @@ html,body{height:100%}
       cultural exchange, and a little mischief when the anchor’s down.
     </p>
 
-    <!-- DIVIDER -->
     <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
 
     <!-- YOUR SECTION (SECOND) -->
@@ -635,7 +559,6 @@ html,body{height:100%}
     </p>
   </div>
 </article>
-
 
 <!-- VIKING SPIRIT -->
 <article class="row">
@@ -720,7 +643,7 @@ html,body{height:100%}
   </div>
 </article>
 
-<!-- RIM RUNNER (RESTORED STABLE VERSION) -->
+<!-- RIM RUNNER -->
 <article class="row rimrunner-card">
   <div class="media">
     <div class="shot">
@@ -875,12 +798,8 @@ html,body{height:100%}
 <footer class="footer">
   <img src="bitchy.jpg" alt="Better Beachy than Bitchy™">
   <p>“Better Beachy than Bitchy™” — Anchor down.</p>
-  <p> Cell: (928)-250-9763   Email: nevadoraiders@gmail.com   Base Camp: White Mountains, AZ</p>
+  <p>Cell: (928)-250-9763 &nbsp;&nbsp; Email: NevadoRaiders@gmail.com &nbsp;&nbsp; Base Camp: White Mountains, AZ</p>
 </footer>
-
-</body>
-</html>
-
 
 </body>
 </html>
