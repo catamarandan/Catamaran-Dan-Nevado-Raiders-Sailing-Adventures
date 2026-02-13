@@ -36,22 +36,20 @@
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
 
-    /* TOP BANNER (NO CROP) */
-
-    /* TOP BANNER — centered, large, NO CROP */
-.top-banner{
-  text-align: center;
-  margin: 0 0 24px;
-}
-
-.top-banner img{
-  display: inline-block;
-  width: min(1100px, 92%);  /* centered, big, but not full-width */
-  height: auto;             /* keep natural proportions */
-  border-radius: 28px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-}
+    /* TOP BANNER — centered, NOT full-width, NO CROP */
+    .top-banner{
+      display:flex;
+      justify-content:center;
+      margin: 0 0 24px;
+    }
+    .top-banner img{
+      display:block;
+      width: min(980px, 96%);     /* narrower than the 1200px content */
+      height: auto;               /* no crop, no forced height */
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
 
     /* HERO */
     .hero{
@@ -203,7 +201,7 @@
     @media(max-width:900px){
       .row{grid-template-columns:1fr}
       .media{border-right:none;border-bottom:1px solid var(--line)}
-      .top-banner{height: 180px;} /* tighter on mobile */
+      .top-banner{margin: 0 0 18px;} /* (no fixed height; prevents cropping) */
     }
 
     /* FOOTER */
@@ -844,5 +842,6 @@
 
 </body>
 </html>
+
 
 
