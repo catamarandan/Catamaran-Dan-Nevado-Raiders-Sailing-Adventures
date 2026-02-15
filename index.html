@@ -200,13 +200,13 @@
 
     /* BURGEE: one image, sky background behind it */
     .burgee-card .shot{
-  background:
-    radial-gradient(1200px 500px at 20% 25%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
-    radial-gradient(1000px 420px at 75% 35%, rgba(255,255,255,.65), rgba(255,255,255,0) 65%),
-    radial-gradient(800px 300px at 50% 10%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
-    linear-gradient(180deg, #9ed6ff 0%, #5cb5ff 45%, #1e4f9b 100%);
-  border:1px solid rgba(255,255,255,.16);
-}
+      background:
+        radial-gradient(1200px 500px at 20% 25%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
+        radial-gradient(1000px 420px at 75% 35%, rgba(255,255,255,.65), rgba(255,255,255,0) 65%),
+        radial-gradient(800px 300px at 50% 10%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
+        linear-gradient(180deg, #9ed6ff 0%, #5cb5ff 45%, #1e4f9b 100%);
+      border:1px solid rgba(255,255,255,.16);
+    }
     .burgee-card .shot img{
       width:100%;
       height:auto;
@@ -214,6 +214,16 @@
       object-fit:contain;
       padding:14px;                 /* gives the burgee breathing room on the sky */
       filter: drop-shadow(0 10px 20px rgba(0,0,0,.45));
+    }
+
+    /* DRAGR: secondary image (sledge with cover) */
+    .dragr-secondary{
+      width:100%;
+      height:auto;
+      display:block;
+      object-fit:contain;
+      /* keep it visually consistent with the rest of the site */
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
     }
 
     @media(max-width:900px){
@@ -640,28 +650,15 @@
   <!-- DRAGR -->
   <article class="row dragr-card">
     <div class="media">
+      <div class="shot"><img src="dragr.jpg" alt="Dragr — Raven emblem"></div>
+
+      <!-- DRAGR: second image goes in its own shot (clean + consistent) -->
       <div class="shot">
-        <img src="dragr.jpg" alt="Dragr — Raven emblem">
-       <!-- DRAGR: add SECOND image under the first DRAGR image -->
-     <img
-  src="dragr_sled_with_cover.jpg"
-  alt="Jet Sled Magnum with DRAGR logo and dark gray canvas cover"
-  class="dragr-secondary"
-/>
-
-
-<!-- DRAGR: add text under the new image -->
-<p style="margin:12px 0 0; color:var(--muted); line-height:1.55;">
-  <strong style="color:var(--text);">Magnum Jet Sled dimensions:</strong>
-  71&quot; L x 42&quot; W x 16&quot; H.
-  Built like a tank, this rugged HDPE sled (with a fitted dark-gray canvas cover) is going to serve as
-  <strong style="color:var(--text);">almost watertight gear storage</strong>—protecting expedition equipment from spray,
-  rain, mud, and road grit while keeping the load organized, stable, and ready to deploy.
-</p>
-
-      
-      
-      
+        <img
+          src="dragr_sled_with_cover.jpg"
+          alt="Jet Sled Magnum with DRAGR logo and dark gray canvas cover"
+          class="dragr-secondary"
+        >
       </div>
     </div>
 
@@ -673,6 +670,13 @@
         A Viking-inspired symbol of strength, watchfulness, and expedition discipline —
         the raven standing guard over the Nevado Raiders™ journey. DRAGR is the supply
         sled that carries the majority of the gear. A trunk of sorts.
+      </p>
+
+      <!-- MOVED TEXT: now in the right content column -->
+      <p class="mini">
+        <strong>Magnum Jet Sled dimensions:</strong> 71&quot; L x 42&quot; W x 16&quot; H. Built like a tank, this rugged HDPE sled (with a fitted dark-gray canvas cover) is going to serve as
+        <strong>almost watertight gear storage</strong>—protecting expedition equipment from spray, rain, mud, and road grit while keeping the load organized, stable, and ready to deploy.
+        <strong>On-water, DRAGR will be towed behind the catamaran on a towing bridle</strong>, keeping critical gear secured, accessible, and off the tramp when conditions demand it.
       </p>
 
       <div class="meta">
@@ -760,7 +764,7 @@
     </div>
   </article>
 
-    <!-- VIKING SPIRIT -->
+  <!-- VIKING SPIRIT -->
   <article class="row">
     <div class="media">
       <div class="shot"><img src="vikingchariot.jpg" alt="The Viking Way"></div>
@@ -1003,6 +1007,7 @@
 
 </body>
 </html>
+
 
 
 
