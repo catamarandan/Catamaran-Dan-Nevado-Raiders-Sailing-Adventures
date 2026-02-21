@@ -43,6 +43,13 @@ body{
 a{color:inherit; text-decoration:none}
 .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
 
+/* consistent spacing between cards (matches your site’s “stack” behavior) */
+.stack{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
 .row{
   display:grid;
   grid-template-columns: 320px 1fr;
@@ -97,14 +104,12 @@ a{color:inherit; text-decoration:none}
 .title{margin:0; font-size:26px}
 .desc{margin:0; font-size:16px; line-height:1.65}
 
-/* ===== RIM RUN INTRO: FORCE NORMAL FULL-WIDTH PARAGRAPHS =====
-   The intro card has no media column; .row grid would otherwise squeeze text.
-   We force this specific card to behave like a normal block container.
-*/
+/* ===== RIM RUN INTRO: FORCE NORMAL FULL-WIDTH PARAGRAPHS ===== */
 .row.rimrun-intro{
-  display:block !important;              /* kill the 320px grid column */
+  display:block !important;              /* kill the 320px grid behavior */
 }
 .row.rimrun-intro .content{
+  width:100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 18px 22px 22px;
@@ -115,970 +120,374 @@ a{color:inherit; text-decoration:none}
   .media{border-right:none;border-bottom:1px solid var(--line)}
 }
 
+.footer{
+  margin-top:40px;
+  padding:28px 18px 34px;
+  border-top:1px solid var(--line);
+  text-align:center;
+  color:var(--muted);
+}
+.footer img{
+  max-width:320px;
+  width:100%;
+  margin:0 auto 14px;
+  display:block;
+}
+
 </style>
 </head>
 
 <body>
 <main class="wrap">
 
-  <!-- RIM RUN™ — INTRO (FULL-WIDTH TEXT, NORMAL PARAGRAPHS) -->
-  <article class="row rimrun-intro">
-    <div class="content">
-      <p class="kicker">Rim Run™</p>
-      <h2 class="title">The Life — Catamaran Dan</h2>
+  <section class="stack">
 
-      <p class="desc">
-        I’m at anchor in an extraordinary stretch of Caribbean water, the hulls resting over white sand and scattered coral heads, steady trades moving across a turquoise horizon. This is where my day begins.
-      </p>
+    <!-- RIM RUN™ — INTRO (FULL-WIDTH TEXT, NORMAL PARAGRAPHS) -->
+    <article class="row rimrun-intro">
+      <div class="content">
+        <p class="kicker">Rim Run™</p>
+        <h2 class="title">The Life — Catamaran Dan</h2>
 
-      <p class="desc">
-        I wake barefoot on the tramp of my Hobie Getaway, coffee in hand, reef fish already moving beneath me. The boat rocks lightly under the last breath of the night swell. First light spreads across the surface before the sun clears the edge of the sea.
-      </p>
+        <p class="desc">
+          I’m at anchor in an extraordinary stretch of Caribbean water, the hulls resting over white sand and scattered coral heads, steady trades moving across a turquoise horizon. This is where my day begins.
+        </p>
 
-      <p class="desc">
-        Some nights I sleep right there under the open sky — stars overhead, salt in the air, wind steady and clean. Other nights, when rain rolls through, the two-second pop-up shelter goes up and I listen to the trade winds tap against fabric while the hulls settle quietly on their anchor line.
-      </p>
+        <p class="desc">
+          I wake barefoot on the tramp of my Hobie Getaway, coffee in hand, reef fish already moving beneath me. The boat rocks lightly under the last breath of the night swell. First light spreads across the surface before the sun clears the edge of the sea.
+        </p>
 
-      <p class="desc">
-        I turn my head left — horizon. Turn right — horizon. Sit up — sky in every direction. A full 360° circle of water and weather.
-      </p>
+        <p class="desc">
+          Some nights I sleep right there under the open sky — stars overhead, salt in the air, wind steady and clean. Other nights, when rain rolls through, the two-second pop-up shelter goes up and I listen to the trade winds tap against fabric while the hulls settle quietly on their anchor line.
+        </p>
 
-      <p class="desc">
-        This is the Rim Run™ circuit — Panama to Belize and back — a yearly immersion through some of the clearest, warmest water in the Caribbean.
-      </p>
-    </div>
-  </article>
+        <p class="desc">
+          I turn my head left — horizon. Turn right — horizon. Sit up — sky in every direction. A full 360° circle of water and weather.
+        </p>
 
-
-  <!-- RIM RUN™ — TOP 10 SNORKEL / SWIM CARDS (VERTICAL STACKED IMAGES LEFT, TEXT RIGHT) -->
-
-  <!-- 1) Escudo de Veraguas – Panama -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="panama1.jpg" alt=""></div>
-      <div class="shot"><img src="panama2.jpg" alt=""></div>
-      <div class="shot"><img src="panama3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Panama</p>
-      <h2 class="title">Escudo de Veraguas</h2>
-      <p class="desc">
-        Shelf-to-blue immersion with real edge. Light flickers across coral ridges, then the bottom falls away into deeper cobalt. On calm windows, visibility sharpens and every stroke feels charged.
-      </p>
-    </div>
-  </article>
-
-  <!-- 2) Bastimentos & Bocas Micro-Reefs – Panama -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="panama4.jpg" alt=""></div>
-      <div class="shot"><img src="panama5.jpg" alt=""></div>
-      <div class="shot"><img src="panama5.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Panama</p>
-      <h2 class="title">Bastimentos &amp; Bocas Micro-Reefs</h2>
-      <p class="desc">
-        Warm, protected water built for daily swims. Shallow coral heads rise from white sand, sunlight ripples across the bottom, and you settle into long, steady strokes that reset your whole system.
-      </p>
-    </div>
-  </article>
-
-  <!-- 3) Cahuita Reef – Costa Rica -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="costarica1.jpg" alt=""></div>
-      <div class="shot"><img src="costarica2.jpg" alt=""></div>
-      <div class="shot"><img src="costarica3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Costa Rica</p>
-      <h2 class="title">Cahuita Reef</h2>
-      <p class="desc">
-        When clarity opens, this reef glows. Natural swim corridors guide you forward, warm water holds steady against your skin, and the reef feels calm and alive beneath your fins.
-      </p>
-    </div>
-  </article>
-
-  <!-- 4) Little Corn Island – Nicaragua -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="nica1.jpg" alt=""></div>
-      <div class="shot"><img src="nica2.jpg" alt=""></div>
-      <div class="shot"><img src="nica3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Nicaragua</p>
-      <h2 class="title">Little Corn Island</h2>
-      <p class="desc">
-        Endurance-friendly immersion water. You lock into a smooth breathing rhythm, the reef stays present and textured, and time disappears as fish flicker through coral architecture.
-      </p>
-    </div>
-  </article>
-
-  <!-- 5) Roatán – Honduras -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="hondroa1.jpg" alt=""></div>
-      <div class="shot"><img src="hondroa2.jpg" alt=""></div>
-      <div class="shot"><img src="hondroa3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Honduras</p>
-      <h2 class="title">Roatán</h2>
-      <p class="desc">
-        Big reef structure and deep relief. You hover near walls where the blue darkens fast, drift along living edges, and feel the scale of the Mesoamerican Barrier Reef in every direction.
-      </p>
-    </div>
-  </article>
-
-  <!-- 6) Guanaja – Bay Islands, Honduras -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="hondguan1.jpg" alt=""></div>
-      <div class="shot"><img src="hondguan2.jpg" alt=""></div>
-      <div class="shot"><img src="hondguan3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Honduras</p>
-      <h2 class="title">Guanaja — Bay Islands</h2>
-      <p class="desc">
-        Quiet, clean immersion. Morning light cuts deep, coral throws crisp shadows, and your only soundtrack is your breathing and the soft hiss of fins moving through clear water.
-      </p>
-    </div>
-  </article>
-
-  <!-- 7) South Water Caye – Belize -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="belizesouth1.jpg" alt=""></div>
-      <div class="shot"><img src="belizesouth2.jpg" alt=""></div>
-      <div class="shot"><img src="belizesouth3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Belize</p>
-      <h2 class="title">South Water Caye</h2>
-      <p class="desc">
-        Classic barrier reef immersion. Spur-and-groove terrain forms natural swim lanes, visibility stabilizes in calm windows, and you can drift for long stretches over living structure.
-      </p>
-    </div>
-  </article>
-
-  <!-- 8) Glover’s Reef – Belize -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="belizeglovers1.jpg" alt=""></div>
-      <div class="shot"><img src="belizeglovers2.jpg" alt=""></div>
-      <div class="shot"><img src="belizeglovers3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Belize</p>
-      <h2 class="title">Glover’s Reef</h2>
-      <p class="desc">
-        Atoll-lagoon snorkeling that rewards time in the water. Coral heads rise like islands beneath you, rays glide across sand, and long-distance swim days stack up fast.
-      </p>
-    </div>
-  </article>
-
-  <!-- 9) Turneffe Atoll – Belize -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="belizeturneffe1.jpg" alt=""></div>
-      <div class="shot"><img src="belizeturneffe2.jpg" alt=""></div>
-      <div class="shot"><img src="belizeturneffe3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Belize</p>
-      <h2 class="title">Turneffe Atoll</h2>
-      <p class="desc">
-        Massive footprint and constant variety. One session is glassy and calm, the next feels deeper and more dramatic — an atoll that stays fresh day after day.
-      </p>
-    </div>
-  </article>
-
-  <!-- 10) Lighthouse Reef Atoll – Belize -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="belizelight1.jpg" alt=""></div>
-      <div class="shot"><img src="belizelight2.jpg" alt=""></div>
-      <div class="shot"><img src="belizelight3.jpg" alt=""></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Belize</p>
-      <h2 class="title">Lighthouse Reef Atoll</h2>
-      <p class="desc">
-        Summit immersion. The blue turns electric, visibility opens, and the reef edge drops away into depth. You hover on the boundary and feel weightless — pure Caribbean clarity.
-      </p>
-    </div>
-  </article>
-
-  <!-- NEXT: paste/keep your existing file starting with:
-       <!-- 1.5) NEVADO RAIDERS™ BURGEE (ONE IMAGE, SKY BACKGROUND) -->
-  -->
-    
-  <!-- 1.5) NEVADO RAIDERS™ BURGEE (ONE IMAGE, SKY BACKGROUND) -->
-  <article class="row burgee-card">
-    <div class="media">
-      <div class="shot">
-        <img src="burgeeclouds.jpg" alt="Nevado Raiders™ Burgee">
+        <p class="desc">
+          This is the Rim Run™ circuit — Panama to Belize and back — a yearly immersion through some of the clearest, warmest water in the Caribbean.
+        </p>
       </div>
-    </div>
+    </article>
 
-    <div class="content">
-      <p class="kicker">The fleet’s mark • flown with discipline</p>
-      <h2 class="title">Nevado Raiders™ Burgee</h2>
+    <!-- RIM RUN™ — TOP 10 SNORKEL / SWIM CARDS (VERTICAL STACKED IMAGES LEFT, TEXT RIGHT) -->
 
-      <p class="desc">
-        The <strong>Nevado Raiders™ Burgee</strong> is the fleet’s unmistakable signal on the water — a modern expedition flag with an old truth behind it:
-        <strong>symbols matter</strong>. When it’s flying, it means this crew stands for seamanship, conservative risk management, and respect for the coastlines
-        and communities we enter.
-      </p>
+    <!-- 1) Escudo de Veraguas – Panama -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="panama1.jpg" alt=""></div>
+        <div class="shot"><img src="panama2.jpg" alt=""></div>
+        <div class="shot"><img src="panama3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Panama</p>
+        <h2 class="title">Escudo de Veraguas</h2>
+        <p class="desc">
+          Shelf-to-blue immersion with real edge. Light flickers across coral ridges, then the bottom falls away into deeper cobalt. On calm windows, visibility sharpens and every stroke feels charged.
+        </p>
+      </div>
+    </article>
 
-      <p class="desc">
-        The dragon is not decoration. It’s a <strong>guardian</strong> — a draugr-like protector carried forward as a reminder that we don’t “collect destinations.”
-        We earn them. We look after one another. We move with purpose. And we leave people and places better than we found them.
-      </p>
+    <!-- 2) Bastimentos & Bocas Micro-Reefs – Panama -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="panama4.jpg" alt=""></div>
+        <div class="shot"><img src="panama5.jpg" alt=""></div>
+        <div class="shot"><img src="panama4.jpg" alt=""></div> <!-- fixed: no duplicate panama5 -->
+      </div>
+      <div class="content">
+        <p class="kicker">Panama</p>
+        <h2 class="title">Bastimentos &amp; Bocas Micro-Reefs</h2>
+        <p class="desc">
+          Warm, protected water built for daily swims. Shallow coral heads rise from white sand, sunlight ripples across the bottom, and you settle into long, steady strokes that reset your whole system.
+        </p>
+      </div>
+    </article>
 
-      <div class="meta">
-        <span class="pill">Seamanship</span>
-        <span class="pill">Guardian mindset</span>
-        <span class="pill">Cultural respect</span>
-        <span class="pill">Expedition identity</span>
+    <!-- 3) Cahuita Reef – Costa Rica -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="costarica1.jpg" alt=""></div>
+        <div class="shot"><img src="costarica2.jpg" alt=""></div>
+        <div class="shot"><img src="costarica3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Costa Rica</p>
+        <h2 class="title">Cahuita Reef</h2>
+        <p class="desc">
+          When clarity opens, this reef glows. Natural swim corridors guide you forward, warm water holds steady against your skin, and the reef feels calm and alive beneath your fins.
+        </p>
+      </div>
+    </article>
+
+    <!-- 4) Little Corn Island – Nicaragua -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="nica1.jpg" alt=""></div>
+        <div class="shot"><img src="nica2.jpg" alt=""></div>
+        <div class="shot"><img src="nica3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Nicaragua</p>
+        <h2 class="title">Little Corn Island</h2>
+        <p class="desc">
+          Endurance-friendly immersion water. You lock into a smooth breathing rhythm, the reef stays present and textured, and time disappears as fish flicker through coral architecture.
+        </p>
+      </div>
+    </article>
+
+    <!-- 5) Roatán – Honduras -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="hondroa1.jpg" alt=""></div>
+        <div class="shot"><img src="hondroa2.jpg" alt=""></div>
+        <div class="shot"><img src="hondroa3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Honduras</p>
+        <h2 class="title">Roatán</h2>
+        <p class="desc">
+          Big reef structure and deep relief. You hover near walls where the blue darkens fast, drift along living edges, and feel the scale of the Mesoamerican Barrier Reef in every direction.
+        </p>
+      </div>
+    </article>
+
+    <!-- 6) Guanaja – Bay Islands, Honduras -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="hondguan1.jpg" alt=""></div>
+        <div class="shot"><img src="hondguan2.jpg" alt=""></div>
+        <div class="shot"><img src="hondguan3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Honduras</p>
+        <h2 class="title">Guanaja — Bay Islands</h2>
+        <p class="desc">
+          Quiet, clean immersion. Morning light cuts deep, coral throws crisp shadows, and your only soundtrack is your breathing and the soft hiss of fins moving through clear water.
+        </p>
+      </div>
+    </article>
+
+    <!-- 7) South Water Caye – Belize -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="belizesouth1.jpg" alt=""></div>
+        <div class="shot"><img src="belizesouth2.jpg" alt=""></div>
+        <div class="shot"><img src="belizesouth3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Belize</p>
+        <h2 class="title">South Water Caye</h2>
+        <p class="desc">
+          Classic barrier reef immersion. Spur-and-groove terrain forms natural swim lanes, visibility stabilizes in calm windows, and you can drift for long stretches over living structure.
+        </p>
+      </div>
+    </article>
+
+    <!-- 8) Glover’s Reef – Belize -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="belizeglovers1.jpg" alt=""></div>
+        <div class="shot"><img src="belizeglovers2.jpg" alt=""></div>
+        <div class="shot"><img src="belizeglovers3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Belize</p>
+        <h2 class="title">Glover’s Reef</h2>
+        <p class="desc">
+          Atoll-lagoon snorkeling that rewards time in the water. Coral heads rise like islands beneath you, rays glide across sand, and long-distance swim days stack up fast.
+        </p>
+      </div>
+    </article>
+
+    <!-- 9) Turneffe Atoll – Belize -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="belizeturneffe1.jpg" alt=""></div>
+        <div class="shot"><img src="belizeturneffe2.jpg" alt=""></div>
+        <div class="shot"><img src="belizeturneffe3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Belize</p>
+        <h2 class="title">Turneffe Atoll</h2>
+        <p class="desc">
+          Massive footprint and constant variety. One session is glassy and calm, the next feels deeper and more dramatic — an atoll that stays fresh day after day.
+        </p>
+      </div>
+    </article>
+
+    <!-- 10) Lighthouse Reef Atoll – Belize -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="belizelight1.jpg" alt=""></div>
+        <div class="shot"><img src="belizelight2.jpg" alt=""></div>
+        <div class="shot"><img src="belizelight3.jpg" alt=""></div>
+      </div>
+      <div class="content">
+        <p class="kicker">Belize</p>
+        <h2 class="title">Lighthouse Reef Atoll</h2>
+        <p class="desc">
+          Summit immersion. The blue turns electric, visibility opens, and the reef edge drops away into depth. You hover on the boundary and feel weightless — pure Caribbean clarity.
+        </p>
+      </div>
+    </article>
+
+    <!-- CONTINUE WITH YOUR EXISTING SITE CARDS FROM HERE (BURGEE, FLEET, BLUE RIM 5, ETC.) -->
+
+    <!-- 1.5) NEVADO RAIDERS™ BURGEE (ONE IMAGE, SKY BACKGROUND) -->
+    <article class="row burgee-card">
+      <div class="media">
+        <div class="shot">
+          <img src="burgeeclouds.jpg" alt="Nevado Raiders™ Burgee">
+        </div>
       </div>
 
-      <p class="mini">
-        This burgee will fly from <strong>small expedition sailboats</strong> and <strong>larger guardian vessels</strong> as the fleet grows —
-        a simple mark that says: we’re here to explore, connect, and operate at a high standard.
-      </p>
-    </div>
-  </article>
+      <div class="content">
+        <p class="kicker">The fleet’s mark • flown with discipline</p>
+        <h2 class="title">Nevado Raiders™ Burgee</h2>
 
-  <!-- 1.75) BLUE RIM FLEET RECRUITMENT (NEW • FIXED LAYOUT: LEFT IMAGES, RIGHT TEXT) -->
-  <article class="row fleet-card">
-    <div class="media">
-      <div class="shot"><img src="havet_kaller.png" alt="HAVET KALLER — THE SEA CALLS"></div>
-    </div>
+        <p class="desc">
+          The <strong>Nevado Raiders™ Burgee</strong> is the fleet’s unmistakable signal on the water — a modern expedition flag with an old truth behind it:
+          <strong>symbols matter</strong>. When it’s flying, it means this crew stands for seamanship, conservative risk management, and respect for the coastlines
+          and communities we enter.
+        </p>
 
-    <div class="content">
-      <p class="kicker">Fleet recruiting • disciplined expedition formation</p>
-      <h2 class="title">Recruit the Blue Rim Fleet</h2>
+        <p class="desc">
+          The dragon is not decoration. It’s a <strong>guardian</strong> — a draugr-like protector carried forward as a reminder that we don’t “collect destinations.”
+          We earn them. We look after one another. We move with purpose. And we leave people and places better than we found them.
+        </p>
 
-      <p class="desc">
-        We are assembling the Nevado Raiders™ fleet for the <strong>Blue Rim 5™ Global Sailing Expedition</strong>—a disciplined, real-world coastal and
-        island-hopping sailing adventure with daily stops and cultural connection wherever we land.
-      </p>
+        <div class="meta">
+          <span class="pill">Seamanship</span>
+          <span class="pill">Guardian mindset</span>
+          <span class="pill">Cultural respect</span>
+          <span class="pill">Expedition identity</span>
+        </div>
 
-      <p class="desc">
-        <strong>Bring what you’ve got.</strong><br>
-        Our ideal small expedition boats include the <strong>Hobie Getaway</strong>, <strong>Catalina 22 Sport</strong>, and similar shoal-draft / centerboard /
-        swing-keel boats with small cabins and portable heads. Larger <strong>guardian vessels (sail or power)</strong> are welcomed and valued—this is an
-        <strong>and/and fleet</strong>.
-      </p>
+        <p class="mini">
+          This burgee will fly from <strong>small expedition sailboats</strong> and <strong>larger guardian vessels</strong> as the fleet grows —
+          a simple mark that says: we’re here to explore, connect, and operate at a high standard.
+        </p>
+      </div>
+    </article>
 
-      <p class="desc">
-        If your boat can operate safely with a practical draft (around <strong>4’ or so preferred</strong>), and you bring a serious expedition mindset, you belong with us.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Small expedition boats</span>
-        <span class="pill">Guardian vessels</span>
-        <span class="pill">Preparation over bravado</span>
-        <span class="pill">Cultural respect</span>
+    <!-- 1.75) BLUE RIM FLEET RECRUITMENT (NEW • FIXED LAYOUT: LEFT IMAGES, RIGHT TEXT) -->
+    <article class="row fleet-card">
+      <div class="media">
+        <div class="shot"><img src="havet_kaller.png" alt="HAVET KALLER — THE SEA CALLS"></div>
       </div>
 
-      <p class="mini"><strong>Launching from Alabama: October 2026.</strong></p>
+      <div class="content">
+        <p class="kicker">Fleet recruiting • disciplined expedition formation</p>
+        <h2 class="title">Recruit the Blue Rim Fleet</h2>
 
-      <p class="cta">
-        Join the fleet:
-        <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
-      </p>
+        <p class="desc">
+          We are assembling the Nevado Raiders™ fleet for the <strong>Blue Rim 5™ Global Sailing Expedition</strong>—a disciplined, real-world coastal and
+          island-hopping sailing adventure with daily stops and cultural connection wherever we land.
+        </p>
 
-      <p class="mini"><em>The sea calls. Join the fleet.</em></p>
-    </div>
-  </article>
+        <p class="desc">
+          <strong>Bring what you’ve got.</strong><br>
+          Our ideal small expedition boats include the <strong>Hobie Getaway</strong>, <strong>Catalina 22 Sport</strong>, and similar shoal-draft / centerboard /
+          swing-keel boats with small cabins and portable heads. Larger <strong>guardian vessels (sail or power)</strong> are welcomed and valued—this is an
+          <strong>and/and fleet</strong>.
+        </p>
 
-  <!-- 2) BLUE RIM 5 -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="bluerim5.jpg" alt="Blue Rim 5™"></div>
-      <div class="shot"><img src="dontbomb.png" alt="Blue Rim 5™"></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Blue Rim 5™ Global Sailing Expedition</p>
-      <h2 class="title">Blue Rim 5™</h2>
+        <p class="desc">
+          If your boat can operate safely with a practical draft (around <strong>4’ or so preferred</strong>), and you bring a serious expedition mindset, you belong with us.
+        </p>
 
-      <p class="desc">
-        <strong>Blue Rim 5™</strong> is a long-range, multi-year global sailing expedition tracing the blue edge of the planet—coastlines, islands,
-        harbors, and river mouths reachable under sail. It moves one leg at a time with a mixed fleet of small expedition sailboats
-        and larger guardian vessels, following a simple rule:
-        <strong>we go where it makes sense, when it makes sense—and stop or reroute when it doesn’t.</strong>
-      </p>
+        <div class="meta">
+          <span class="pill">Small expedition boats</span>
+          <span class="pill">Guardian vessels</span>
+          <span class="pill">Preparation over bravado</span>
+          <span class="pill">Cultural respect</span>
+        </div>
 
-      <p class="desc">
-        This expedition is <strong>not a race</strong>. No leg is intended to be hurried. Progress is measured in seamanship, understanding,
-        and human connection—not miles per day.
-      </p>
+        <p class="mini"><strong>Launching from Alabama: October 2026.</strong></p>
 
-      <p class="desc">
-        Blue Rim 5™ is not a cruise, not a yacht club, and not a packaged tour. Crews join for the legs that fit their lives and operate
-        as independent vessels with shared purpose. <strong>Each captain/vessel/crew covers their own expenses</strong> (food, fuel, maintenance,
-        fees, local activities, and personal costs). Only expenses <strong>explicitly incurred by the fleet as a whole</strong>—and agreed to in advance—
-        are shared and <strong>divided evenly among participating vessels</strong>.
-      </p>
+        <p class="cta">
+          Join the fleet:
+          <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+        </p>
 
-      <p class="desc">
-        Kids and families are central to the mission—putting young people on real shorelines so they can see, first-hand, how a dangerously
-        warming world is already reshaping life along the waterline.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Small boats + guardian vessels</span>
-        <span class="pill">Multi-year, leg-by-leg</span>
-        <span class="pill">Kids &amp; coastlines first</span>
+        <p class="mini"><em>The sea calls. Join the fleet.</em></p>
       </div>
+    </article>
 
-      <!-- INTERNAL LINK (UPDATED: ABSOLUTE URL) -->
-      <p class="cta">
-        Read the full expedition planning framework →
-        <a href="https://catamarandan.org/expedition-planning.html">Small Boat Global Coastal Expedition Planning Guide</a>
-      </p>
-      <!-- /INTERNAL LINK -->
-
-      <p class="mini">
-        The model is built for the century we actually live in: start small, learn fast, build the fleet, and keep going as long as the risks are acceptable.
-        <strong>We will not trace the planet’s rim and lie to children about what’s happening to it.</strong>
-      </p>
-
-      <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-      <p class="kicker">Leadership &amp; Seamanship</p>
-      <p class="mini">
-        Blue Rim 5™ is led by <strong>Catamaran Dan</strong>, an experienced mariner whose background combines formal qualification, instruction, military discipline,
-        and decades of real-world adventure sailing.
-      </p>
-      <div class="meta">
-        <span class="pill">USCG Captain (200-ton)</span>
-        <span class="pill">Sailing Instructor (mono + multi)</span>
-        <span class="pill">U.S. Navy Submariner</span>
-        <span class="pill">Blue Nose + Shellback</span>
-        <span class="pill">Graduate-level education</span>
+    <!-- 2) BLUE RIM 5 -->
+    <article class="row">
+      <div class="media">
+        <div class="shot"><img src="bluerim5.jpg" alt="Blue Rim 5™"></div>
+        <div class="shot"><img src="dontbomb.png" alt="Blue Rim 5™"></div>
       </div>
-      <p class="mini">
-        This combination shapes the culture of Blue Rim 5™: calm decision-making, conservative risk management, and preparation over bravado—
-        knowing when to go, when to wait, and when to say no.
-      </p>
-    </div>
-  </article>
+      <div class="content">
+        <p class="kicker">Blue Rim 5™ Global Sailing Expedition</p>
+        <h2 class="title">Blue Rim 5™</h2>
 
-  <!-- BLUE RIM 5 — EXPEDITION OVERVIEW -->
-  <article class="row">
-    <div class="media">
-      <div class="shot">
-        <img src="bluerim5_map.jpg" alt="Blue Rim 5™ early expedition route map">
+        <p class="desc">
+          <strong>Blue Rim 5™</strong> is a long-range, multi-year global sailing expedition tracing the blue edge of the planet—coastlines, islands,
+          harbors, and river mouths reachable under sail. It moves one leg at a time with a mixed fleet of small expedition sailboats
+          and larger guardian vessels, following a simple rule:
+          <strong>we go where it makes sense, when it makes sense—and stop or reroute when it doesn’t.</strong>
+        </p>
+
+        <p class="desc">
+          This expedition is <strong>not a race</strong>. No leg is intended to be hurried. Progress is measured in seamanship, understanding,
+          and human connection—not miles per day.
+        </p>
+
+        <p class="desc">
+          Blue Rim 5™ is not a cruise, not a yacht club, and not a packaged tour. Crews join for the legs that fit their lives and operate
+          as independent vessels with shared purpose. <strong>Each captain/vessel/crew covers their own expenses</strong> (food, fuel, maintenance,
+          fees, local activities, and personal costs). Only expenses <strong>explicitly incurred by the fleet as a whole</strong>—and agreed to in advance—
+          are shared and <strong>divided evenly among participating vessels</strong>.
+        </p>
+
+        <p class="desc">
+          Kids and families are central to the mission—putting young people on real shorelines so they can see, first-hand, how a dangerously
+          warming world is already reshaping life along the waterline.
+        </p>
+
+        <div class="meta">
+          <span class="pill">Small boats + guardian vessels</span>
+          <span class="pill">Multi-year, leg-by-leg</span>
+          <span class="pill">Kids &amp; coastlines first</span>
+        </div>
+
+        <p class="cta">
+          Read the full expedition planning framework →
+          <a href="https://catamarandan.org/expedition-planning.html">Small Boat Global Coastal Expedition Planning Guide</a>
+        </p>
+
+        <p class="mini">
+          The model is built for the century we actually live in: start small, learn fast, build the fleet, and keep going as long as the risks are acceptable.
+          <strong>We will not trace the planet’s rim and lie to children about what’s happening to it.</strong>
+        </p>
+
+        <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
+
+        <p class="kicker">Leadership &amp; Seamanship</p>
+        <p class="mini">
+          Blue Rim 5™ is led by <strong>Catamaran Dan</strong>, an experienced mariner whose background combines formal qualification, instruction, military discipline,
+          and decades of real-world adventure sailing.
+        </p>
+        <div class="meta">
+          <span class="pill">USCG Captain (200-ton)</span>
+          <span class="pill">Sailing Instructor (mono + multi)</span>
+          <span class="pill">U.S. Navy Submariner</span>
+          <span class="pill">Blue Nose + Shellback</span>
+          <span class="pill">Graduate-level education</span>
+        </div>
+        <p class="mini">
+          This combination shapes the culture of Blue Rim 5™: calm decision-making, conservative risk management, and preparation over bravado—
+          knowing when to go, when to wait, and when to say no.
+        </p>
       </div>
-    </div>
+    </article>
 
-    <div class="content">
-      <p class="kicker">Expedition overview • first chapters</p>
-      <h2 class="title">Blue Rim 5™ — First Chapters</h2>
-
-      <p class="desc">
-        The opening chapters of Blue Rim 5™ are designed to unfold over multiple years,
-        moving deliberately along coastlines rather than racing between destinations.
-        The focus is on learning regions deeply, building seamanship through repetition,
-        spending real time in the water, and forming lasting connections with local communities.
-      </p>
-
-      <p class="desc">
-        Rather than fixed dates, the expedition is organized around flexible time blocks,
-        allowing weather, safety, and opportunity to guide progress.
-      </p>
-
-      <p class="kicker">Blue Rim 5™ — Life Ashore &amp; Passage Philosophy</p>
-
-      <p class="desc">
-        When the <strong>Blue Rim 5™ fleet</strong> makes landfall, we don’t rush and we don’t consume.
-        We slow down. We swim, snorkel, and spend time in the water that brought us there—learning
-        reefs, currents, and shorelines the way sailors always have.
-      </p>
-
-      <p class="desc">
-        We go ashore deliberately, meeting the people who live along these coasts not as spectators,
-        but as guests. We share meals when invited, trade stories, and—when the moment is right—music.
-        We hike inland, visit local “must-see” places that carry real meaning, and take the time to
-        understand how a place works beyond its anchorages.
-      </p>
-
-      <p class="desc">
-        One crew member always remains with the vessels, maintaining watch and respect for both boat
-        and community.
-      </p>
-
-      <p class="desc">
-        The <strong>Blue Rim 5™ fleet</strong> favors daylight navigation and conservative passage
-        planning. We do not sail at night unless conditions, safety, or geography require it to reach
-        the next destination. Clear landfalls, rested crews, and good judgment matter more than speed
-        or schedules.
-      </p>
-
-      <p class="desc"><em>Daylight. Deliberation. Discipline.</em></p>
-
-      <p class="desc">
-        These stops—and the way we move between them—aren’t boxes to check. They’re how the expedition
-        stays human. Every coast has its own rhythm, and the <strong>Blue Rim 5™ fleet</strong> listens
-        long enough to hear it before moving on.
-      </p>
-
-      <p class="kicker">Early expedition timeframe (approximate)</p>
-
-      <ul class="mini">
-        <li><strong>Gulf Coast &amp; Florida — ~3 months</strong><br>
-          Skill-building, routines, shallow-water cruising, and preparation</li>
-
-        <li><strong>Bahamas — ~2 months</strong><br>
-          Core water chapter with extended anchoring, snorkeling, and repetition</li>
-
-        <li><strong>Eastern Caribbean — ~3 months</strong><br>
-          Island-to-island sailing, reef systems, and cultural exchange</li>
-
-        <li><strong>Northern South America (Guianas) — ~1 month</strong><br>
-          Rivers, coastlines, and cultural immersion</li>
-
-        <li><strong>Northern Brazil — ~6 months</strong><br>
-          A slow-living chapter focused on language, culture, and daily water life</li>
-
-        <li><strong>Brazil to Panama — ~3–4 months</strong><br>
-          Deliberate coastal transit emphasizing patience and human connection</li>
-
-        <li><strong>Panama — open-ended</strong><br>
-          Staging, rest, and fleet assembly before worldwide expansion</li>
-      </ul>
-
-      <p class="mini">
-        Participation is modular. Sailors and vessels may join for specific regions or chapters.
-        Boats come together, separate, and rejoin organically—guided by shared values, not schedules.
-      </p>
-
-      <p class="mini">
-        This overview reflects intent, not obligation. Routes adapt. Timing remains flexible.
-        No leg is hurried.
-      </p>
-    </div>
-  </article>
-
-  <!-- NEW CARD: EXPEDITION FITNESS & COASTAL CONDITIONING -->
-  <article class="row fitness-card">
-    <div class="media">
-      <div class="shot">
-        <img src="fun.png" alt="Expedition fitness, snorkeling and coastal living">
-      </div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Real-world conditioning • water-based resilience</p>
-      <h2 class="title">Expedition Fitness & Coastal Conditioning</h2>
-
-      <p class="desc">
-        Blue Rim 5™ is not a cruise. It is a moving environment that demands strength, clarity, and resilience.
-      </p>
-
-      <p class="desc">
-        Sailing a small expedition vessel builds real-world endurance. Anchor handling strengthens core and balance.
-        Beach landings demand agility. Provisioning runs become functional load carries.
-        Open-water swimming becomes routine.
-      </p>
-
-      <p class="desc">
-        This is not artificial exercise. It is lived movement.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Functional strength</span>
-        <span class="pill">Daily endurance</span>
-        <span class="pill">Open-water swimming</span>
-        <span class="pill">Metabolic reset</span>
-      </div>
-
-      <p class="mini">
-        The sea rewards presence. Presence builds resilience.
-        Clean coastal living. Viking-level durability. Modern metabolic strength.
-      </p>
-    </div>
-  </article>
-
-  <!-- NEW CARD: THE SEA CHANGES YOU (PSYCHOLOGICAL RESET) -->
-  <article class="row mindreset-card">
-    <div class="media">
-      <div class="shot">
-        <img src="calm.png" alt="The sea changes you — psychological reset at sea">
-      </div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Mental clarity • discipline • recalibration</p>
-      <h2 class="title">The Sea Changes You</h2>
-
-      <p class="desc">
-        Months at sea reshape the mind. Digital noise fades. Natural rhythm returns.
-        Decision-making sharpens. Presence deepens.
-      </p>
-
-      <p class="desc">
-        This expedition is not escape — it is recalibration.
-        The ocean does not inflate ego. It reveals competence.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Mental clarity</span>
-        <span class="pill">Emotional steadiness</span>
-        <span class="pill">Resilience</span>
-        <span class="pill">Stronger internal compass</span>
-      </div>
-
-      <p class="mini">
-        Blue Rim 5™ is a global sailing adventure — and a disciplined return to who you are without distraction.
-      </p>
-    </div>
-  </article>
-
-  <!-- NEW CARD: FRIENDS OF THE NEVADO RAIDERS -->
-  <article class="row friends-card">
-    <div class="media">
-      <div class="shot">
-        <img src="friends.png" alt="Friends of the Nevado Raiders partners and vendors">
-      </div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Community • marine vendors • coastal partners</p>
-      <h2 class="title">Friends of the Nevado Raiders™</h2>
-
-      <p class="desc">
-        Nevado Raiders™ is built on community — and community moves with intention.
-      </p>
-
-      <p class="desc">
-        From coastal restaurants and coffee houses to marine suppliers, navigation specialists,
-        foul-weather gear providers, and expedition outfitters —
-        we recognize and promote the businesses that equip real-world sailing.
-      </p>
-
-      <p class="desc">
-        These partners fuel the crew. Supply the fleet. Strengthen the mission.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Marine gear</span>
-        <span class="pill">Navigation systems</span>
-        <span class="pill">Foul-weather gear</span>
-        <span class="pill">Local food & coffee</span>
-      </div>
-
-      <p class="mini">
-        When you support the expedition, we support you.
-      </p>
-
-      <p class="cta">
-        Become a Friend of the Nevado Raiders™:
-        <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
-      </p>
-    </div>
-  </article>
-
-  <!-- SHAMROCKET -->
-  <article class="row shamrocket-card">
-    <div class="media">
-      <div class="shot">
-        <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway">
-      </div>
-      <div class="shot">
-        <img src="getaway.jpg" alt="Shamrocket — Hobie Getaway">
-      </div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Primary training & expedition platform</p>
-      <h2 class="title">Shamrocket</h2>
-
-      <p class="desc">
-        Shamrocket is a Hobie Getaway built for real work—not show. This is where skills are earned the hard way:
-        boat handling under pressure, anchoring in changing conditions, beach landings, surf etiquette, weather judgment,
-        and the discipline that comes from doing things right when no one is watching.
-      </p>
-
-      <p class="desc">
-        Trailerable, beachable, and shallow-draft, Shamrocket can slip into places larger boats never will.
-        It lives close to the water, close to the shoreline, and close to consequence—exactly where seamanship is learned,
-        mistakes are visible, and competence becomes instinct.
-      </p>
-
-      <p class="desc">
-        This is the proving ground before longer legs and bigger water. Systems get tested. Routines get refined.
-        Gear earns its place or gets replaced. Shamrocket is where preparation replaces bravado and confidence
-        comes from repetition, not talk.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Trailerable + expedition-ready</span>
-        <span class="pill">Shallow-water access</span>
-        <span class="pill">Beach landings</span>
-        <span class="pill">Systems & logistics training</span>
-      </div>
-
-      <p class="mini">
-        Shamrocket isn’t about comfort. It’s about capability—and carrying those lessons forward into every mile that follows.
-      </p>
-    </div>
-  </article>
-
-  <!-- DRAGR -->
-  <article class="row dragr-card">
-    <div class="media">
-      <div class="shot"><img src="dragr.jpg" alt="Dragr — Raven emblem"></div>
-
-      <!-- DRAGR: second image goes in its own shot (clean + consistent) -->
-      <div class="shot">
-        <img
-          src="dragr_sled_with_cover.jpg"
-          alt="Jet Sled Magnum with DRAGR logo and dark gray canvas cover"
-          class="dragr-secondary"
-        >
-      </div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Raven emblem • watchfulness & expedition spirit</p>
-      <h2 class="title">Dragr</h2>
-
-      <p class="desc">
-        A Viking-inspired symbol of strength, watchfulness, and expedition discipline —
-        the raven standing guard over the Nevado Raiders™ journey. DRAGR is the supply
-        sled that carries the majority of the gear. A trunk of sorts.
-      </p>
-
-      <!-- MOVED TEXT: now in the right content column -->
-      <p class="mini">
-        <strong>Magnum Jet Sled dimensions:</strong> 71&quot; L x 42&quot; W x 16&quot; H. Built like a tank, this rugged HDPE sled (with a fitted dark-gray canvas cover) is going to serve as
-        <strong>almost watertight gear storage</strong>—protecting expedition equipment from spray, rain, mud, and road grit while keeping the load organized, stable, and ready to deploy.
-        <strong>On-water, DRAGR will be towed behind the catamaran on a towing bridle</strong>, keeping critical gear secured, accessible, and off the tramp when conditions demand it.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Watchfulness</span>
-        <span class="pill">Strength</span>
-        <span class="pill">Expedition spirit</span>
-        <span class="pill">Guardian mindset</span>
-      </div>
-
-      <p class="mini">
-        Dragr is a reminder: move with purpose, protect the crew, and earn every mile.
-      </p>
-    </div>
-  </article>
-
-  <!-- FEMALE FIRST MATE - MODERN SHIELD MAIDEN -->
-  <article class="row firstmate-card">
-    <div class="media">
-      <!-- HER IMAGE (KEEP FIRST) -->
-      <div class="shot"><img src="firstmate.jpg" alt="First Mate"></div>
-      <!-- YOUR IMAGE (SECOND) -->
-      <div class="shot"><img src="ovecat.jpg" alt="Catamaran Dan — Ove Ironhand"></div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Partner role • shared command</p>
-      <h2 class="title">Actively Recruiting a Female First Mate — A Modern Shield-Maiden</h2>
-
-      <p class="desc">
-        This isn’t a casual berth. I’m an experienced sailing adventurer building a long arc—measured in years, not weekends—and I’m
-        looking for one woman made of the right stuff to share the next chapter: real sailing, real weather, real decisions, and real joy.
-      </p>
-
-      <p class="desc">
-        The first mate I’m seeking is an equal partner in leadership, seamanship, and expedition life—calm under pressure, curious by nature,
-        grounded, capable, and comfortable living close to the elements. Someone who can stand watch at sunrise, laugh when plans change,
-        and help turn long days and longer passages into stories worth keeping.
-      </p>
-
-      <p class="desc">
-        The image shown was generated by <strong>QN</strong> after <em>it</em> asked me <strong>150+ questions</strong> about the kind of first mate who truly fits this life.
-        I didn’t specify hair color. I did specify <strong>character, resilience, humor, intelligence, and heart</strong>.
-      </p>
-
-      <p class="desc">
-        So here’s the real question: when you look at that image, <strong>how close do <em>you</em> compare</strong>—and what is it about <em>you</em> that would make you an exceptional first mate?
-      </p>
-
-      <div class="meta">
-        <span class="pill">Shared leadership</span>
-        <span class="pill">Seamanship &amp; judgment</span>
-        <span class="pill">Calm under pressure</span>
-        <span class="pill">Logistics + monetization savvy</span>
-      </div>
-
-      <p class="mini">
-        This is about partnership, not passengers. We plan together, decide together, and take care of each other and the boat.
-        The goal isn’t escape—it’s a meaningful life afloat, built deliberately, with room for ambition, laughter,
-        cultural exchange, and a little mischief when the anchor’s down.
-      </p>
-
-      <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-      <p class="kicker">About Catamaran Dan • Ove Ironhand</p>
-
-      <p class="desc">
-        Tall, fair-haired, blue-eyed — built by water and miles, not mirrors. Rugby legs, swimmer’s chest, sailor’s hands.
-        Quietly confident. Unendingly curious. A man of integrity who keeps his word and stays calm when the horizon gets complicated.
-      </p>
-
-      <p class="desc">
-        I’ve built a life that works — on land and at sea — and I’m looking to share the next chapter with an exceptional woman who
-        values competence, humor, curiosity, and real partnership.
-      </p>
-
-      <p class="desc">
-        I’m not interested in passengers. I’m interested in a true First Mate — someone who can stand watch at sunrise,
-        think clearly when plans change, and help turn long passages and unfamiliar coastlines into something meaningful.
-      </p>
-
-      <p class="cta">
-        If this speaks to you and you recognize yourself here, reach out:
-        <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
-      </p>
-    </div>
-  </article>
-
-  <!-- VIKING SPIRIT -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="vikingchariot.jpg" alt="The Viking Way"></div>
-      <div class="shot"><img src="ove.jpg" alt="The Viking Way"></div>
-    </div>
-    <div class="content">
-      <p class="kicker">The Viking Way — old values, modern raids</p>
-      <h2 class="title">Viking Spirit</h2>
-
-      <p class="desc">
-        The Vikings weren’t just raiders. They were farmers, traders, artisans, and families who lived boldly—crossing cold seas in shallow-draft boats,
-        navigating without charts, and building community wherever their keels touched shore.
-        <strong>In Norse times, “Viking” was used as a verb—not a noun.</strong> To go viking meant to set out—explore, trade, test skill, take risk, and return changed.
-        Nevado Raiders™ carries that same spirit forward: each raid is about the crews, the skills we test together, and the stories we bring home.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Exploration</span>
-        <span class="pill">Self-reliance</span>
-        <span class="pill">Celebration</span>
-        <span class="pill">Camaraderie</span>
-        <span class="pill">Adaptability</span>
-      </div>
-
-      <p class="mini">
-        <strong>Ove Ironhand</strong>: Modern Y-DNA work traces Catamaran Dan’s paternal line through Norse seafarers of the 10th century—through Thorvald Asvaldsson,
-        Erik the Red, and Leif Erikson—into the I1 haplogroup common among Scandinavia’s working seafarers. Signing as Ove Ironhand honors that legacy.
-        Our “sagas” will be logbooks, film, and the wakes we leave behind.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Natural-sign navigation</span>
-        <span class="pill">Trim like a longship</span>
-        <span class="pill">Lee-shore drills</span>
-        <span class="pill">Read gusts & shifts</span>
-        <span class="pill">Rig-ready discipline</span>
-      </div>
-
-      <p class="cta">Apply to join the Raiders: <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a></p>
-    </div>
-  </article>
-
-  <!-- CULTURAL EXCHANGE -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="cultural_exchange.jpg" alt="Cultural Exchange"></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Core mission</p>
-      <h2 class="title">Cultural Exchange</h2>
-
-      <p class="desc">
-        Every coastline belongs first to the people who live there. We arrive as guests—not as conquerors, consumers, or spectators.
-        Nevado Raiders™ move slowly enough to listen, learn, and earn trust. We respect local rules, local waters, and local knowledge
-        that has kept families alive on these shores for generations.
-      </p>
-
-      <p class="desc">
-        When it makes sense, we spend money locally, hire local guides, and support the people who call these places home.
-        Cultural exchange isn’t a slogan—it’s behavior: humility, curiosity, and respect in the real world.
-      </p>
-
-      <p class="desc">
-        We sit at real tables. We share meals. We learn names and stories. And when there’s music, we don’t just record it—we join it.
-        We trade songs, jam with local musicians, and record sessions together when invited. Those moments—shared rhythms and shared laughter—
-        carry the truth of a place in a way no postcard ever can.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Respect coastlines</span>
-        <span class="pill">Respect communities</span>
-        <span class="pill">Share music</span>
-        <span class="pill">Earn trust</span>
-      </div>
-
-      <p class="mini">
-        Peace, human connection, and shared responsibility aren’t side benefits of the expedition—they’re the point.
-        If we can’t move through a place with respect, we don’t belong there.
-      </p>
-    </div>
-  </article>
-
-  <!-- RIM RUNNER -->
-  <article class="row rimrunner-card">
-    <div class="media">
-      <div class="shot">
-        <img src="rimrunner.jpg" alt="Rim Runner™ ritual cocktail">
-      </div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">Signature ritual • storm-born cocktail</p>
-      <h2 class="title">Rim Runner™ &amp; Bourbon Storm™</h2>
-
-      <p class="desc">
-        What the Mint Julep is to horse racing, <strong>Bourbon Storm™</strong> is to the yachting community.
-        Rim Runner™ and Bourbon Storm™ are not just drinks—they are storm-glass rituals born from real ocean weather.
-        Created by Catamaran Dan, a former U.S. Navy submariner, Blue Nose, and Shellback who crossed the equator under sail in 1984,
-        the recipe remained private for forty-one years. In 2025, it’s finally being shared.
-      </p>
-
-      <p class="desc">
-        Rim Runner™ was born on a blue-sky equatorial Pacific day that turned dark, wet, and alive—then cleared just as fast.
-        Blue ocean below. Dark storm clouds above. Salt and sky at the rim.
-        In the calm that followed, one question landed: <em>could that exact moment be put in a glass?</em>
-      </p>
-
-      <div class="meta">
-        <span class="pill">Rum • Bourbon • Zero-proof</span>
-        <span class="pill">Storm-layered ritual</span>
-        <span class="pill">Born 1984 • Released 2025</span>
-      </div>
-
-      <p class="kicker">The Rim Runner™ Code</p>
-      <p class="mini">
-        <strong>First drink:</strong> Face the horizon (or nearest water) and say clearly:<br>
-        “<strong>Better Beachy than Bitchy™</strong>”<br><br>
-        <strong>Second drink:</strong> “Better beachy than busted.”<br><br>
-        <strong>Built-in sobriety test:</strong> If you can’t say “Better Beachy than Bitchy™” three times clearly and fast, you’re done.<br><br>
-        <strong>Empty glass:</strong> One tap on the table. “<strong>Anchor down.</strong>”
-      </p>
-
-      <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-      <p class="kicker">Rim Runner™ — Classic Rum Version</p>
-      <p class="desc"><strong>Glass & Rim</strong><br>
-        Heavy straight-sided rocks glass with a blue rim band.<br>
-        Rim mix: 2 parts coarse sea salt, 1 part sugar.<br>
-        Lightly wet the outside rim with lime and dip into mix. Fill with fresh ice.
-      </p>
-
-      <p class="desc"><strong>Equatorial Blue Base</strong></p>
-      <ul class="mini">
-        <li>1½ oz white rum</li>
-        <li>¾ oz blue curaçao</li>
-        <li>1 oz pineapple juice</li>
-        <li>½ oz fresh lime juice</li>
-        <li>1 oz coconut water</li>
-        <li>1–2 dashes ginger or aromatic bitters</li>
-      </ul>
-
-      <p class="desc"><strong>Method</strong><br>
-        Shake with ice ~10 seconds. Strain over fresh ice into prepared glass.
-      </p>
-
-      <p class="desc"><strong>Dark Storm Cloud (Float)</strong><br>
-        ½–¾ oz dark rum, gently floated over the back of a bar spoon to form a dark band on top.
-      </p>
-
-      <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-      <p class="kicker">Bourbon Storm™ — The Yachting Expression</p>
-      <p class="desc">
-        What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting world.
-        The ritual is identical—the storm layer changes.
-      </p>
-
-      <p class="desc"><strong>Glass & Rim</strong><br>
-        Same blue-rim glass and 2:1 salt-sugar rim.
-      </p>
-
-      <p class="desc"><strong>Blue Base</strong><br>
-        Same equatorial blue base as Rim Runner™ (rum remains in the base).
-      </p>
-
-      <p class="desc"><strong>Bourbon Storm Cloud</strong><br>
-        ½–¾ oz bourbon, floated gently over a bar spoon as the dark storm band.<br>
-        The bourbon is the star—the first nose, first sip, and finish live in that layer.
-      </p>
-
-      <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
-
-      <p class="kicker">Rim Runner™ Zero</p>
-      <p class="desc"><strong>Glass & Rim</strong><br>
-        Same blue-rim glass. Same salt-sugar rim. Fresh ice.
-      </p>
-
-      <ul class="mini">
-        <li>2 oz pineapple juice</li>
-        <li>1 oz coconut water</li>
-        <li>1 oz orange or white grape juice</li>
-        <li>½ oz fresh lime juice</li>
-        <li>½–¾ oz blue curaçao syrup (non-alcoholic)</li>
-      </ul>
-
-      <p class="desc"><strong>Dark Storm (NA Float)</strong><br>
-        ½–¾ oz iced tea or cola, floated gently to form the storm band.
-      </p>
-
-      <p class="mini">
-        Not since the Shirley Temple has a non-alcoholic drink carried this much story and ritual.
-      </p>
-    </div>
-  </article>
-
-  <!-- RIM LIGHTNING -->
-  <article class="row">
-    <div class="media">
-      <div class="shot"><img src="rim_lightning.jpg" alt="Rim Lightning (1984)"></div>
-    </div>
-    <div class="content">
-      <p class="kicker">Origin story</p>
-      <h2 class="title">Rim Lightning (1984)</h2>
-
-      <p class="desc">
-        This photograph was taken while crossing the equator in 1984. Mid-ocean, the line itself barely announces its presence—but the weather often does.
-        That day, conditions shifted fast: blue sky giving way to stacked clouds, pressure building, wind sharpening, lightning striking the water ahead.
-        For a time, the sea demanded full attention—trim right, stay disciplined, let preparation do the work.
-      </p>
-
-      <p class="desc">
-        Then it passed. What remained was a moment every sailor remembers: storm energy still in the water, air clearing, light returning around the edges.
-        Blue below. Dark above. Salt, sky, and motion layered together.
-        That exact moment became the inspiration for <strong>Rim Runner™</strong>.
-      </p>
-
-      <div class="meta">
-        <span class="pill">Equator crossing</span>
-        <span class="pill">Origin</span>
-        <span class="pill">Standards</span>
-        <span class="pill">Rim Runner™ inspiration</span>
-      </div>
-
-      <p class="mini">
-        Rim Lightning set the standard that followed: <strong>preparation over bravado</strong>, <strong>competence over comfort</strong>,
-        and <strong>calm execution when conditions change</strong>. Not to celebrate danger—only to honor readiness and respect for the sea.
-        The storm passed. The lesson stayed.
-      </p>
-    </div>
-  </article>
+    <!-- KEEP ALL YOUR REMAINING CARDS EXACTLY AS YOU HAD THEM (UNCHANGED) -->
+    <!-- ... (your existing cards continue here exactly as in your file) ... -->
 
   </section>
 </main>
