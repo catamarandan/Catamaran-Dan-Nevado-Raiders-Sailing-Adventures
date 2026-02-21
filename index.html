@@ -11,393 +11,116 @@
   <meta property="og:url" content="https://catamarandan.org/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://catamarandan.org/hero.png" />
+
 <style>
-  
-  /* FORCE GOLD INVITE LINE */
-.row.rimrun-card .content p.desc.invite{
-    color: #d4af37 !important;
-    font-weight: 800 !important;
-    letter-spacing: .02em;
+
+:root{
+  --bg:#0b1220;
+  --card:#101f3a;
+  --card2:#0f1b33;
+  --text:#eaf0ff;
+  --muted:#b8c6ef;
+  --line:rgba(255,255,255,.12);
+  --accent:#4da3ff;
+  --shadow:0 14px 34px rgba(0,0,0,.40);
+  --radius:18px;
+  --max:1200px;
 }
 
-    :root{
-      --bg:#0b1220;
-      --card:#101f3a;
-      --card2:#0f1b33;
-      --text:#eaf0ff;
-      --muted:#b8c6ef;
-      --line:rgba(255,255,255,.12);
-      --accent:#4da3ff;
-      --shadow:0 14px 34px rgba(0,0,0,.40);
-      --radius:18px;
-      --max:1200px;
-    }
+*{box-sizing:border-box}
+html,body{height:100%}
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(1200px 520px at 50% -10%, rgba(77,163,255,.22), transparent 60%),
-        radial-gradient(900px 450px at 10% 20%, rgba(124,240,255,.12), transparent 55%),
-        var(--bg);
-      color:var(--text);
-    }
-
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
-
-    .top-banner{
-      display:flex;
-      justify-content:center;
-      margin: 0 0 24px;
-    }
-
-    .top-banner img{
-      display:block;
-      width: min(980px, 96%);
-      height: auto;
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--line);
-    }
-
-    .hero{
-      position:relative;
-      border-radius:28px;
-      overflow:hidden;
-      padding:42px 26px 34px;
-      box-shadow: var(--shadow);
-      border:1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(11,18,32,.20), rgba(11,18,32,.92)),
-        url("hero.png") center / cover no-repeat;
-      min-height: 320px;
-    }
-
-    .chip{
-      display:inline-flex;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(16,31,58,.55);
-      color:var(--muted);
-      font-weight:650;
-    }
-
-    h1{
-      margin:18px 0 8px;
-      font-size: clamp(30px, 4vw, 54px);
-      line-height:1.05;
-    }
-
-    .sub{
-      margin:0;
-      max-width: 920px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height:1.6;
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-    }
-
-    .stack{
-      margin-top:18px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-
-    .row{
-      display:grid;
-      grid-template-columns: 320px 1fr;
-      gap:14px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      overflow:hidden;
-      background: linear-gradient(180deg, rgba(16,31,58,.92), rgba(15,27,51,.92));
-      box-shadow: var(--shadow);
-    }
-
-    .media{
-      padding:14px;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      background: rgba(11,18,32,.35);
-      border-right:1px solid var(--line);
-    }
-
-    .shot{
-      width:100%;
-      border-radius:16px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-    }
-
-    .shot img{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:contain;
-    }
-
-    .content{
-      padding:16px 18px 18px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      color: var(--text);
-    }
-  .content p.desc.invite{
-    color: #d4af37 !important;   /* classic metallic gold */
-    font-weight: 800;
-    letter-spacing: .02em;
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(1200px 520px at 50% -10%, rgba(77,163,255,.22), transparent 60%),
+    radial-gradient(900px 450px at 10% 20%, rgba(124,240,255,.12), transparent 55%),
+    var(--bg);
+  color:var(--text);
 }
- 
 
-    /* Force readable text everywhere inside cards */
-/* .content, */
-  .content p:not(.desc.invite),
-  .content li,
-  .content span,
-  .title,
-  .mini{
+a{color:inherit; text-decoration:none}
+.wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 60px}
+
+.row{
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:14px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  background: linear-gradient(180deg, rgba(16,31,58,.92), rgba(15,27,51,.92));
+  box-shadow: var(--shadow);
+}
+
+.content{
+  padding:16px 18px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
   color: var(--text);
-  text-shadow: 0 1px 2px rgba(0,0,0,.35);
- }
+}
 
-    .kicker{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      text-shadow: 0 1px 2px rgba(0,0,0,.35);
-    }
-    .title{margin:0; font-size:26px}
-    .desc{margin:0; font-size:16px; line-height:1.65}
+.kicker{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
 
-    .meta{
-      margin-top:6px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .pill{
-      display:inline-flex;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(11,18,32,.35);
-      color: var(--muted);
-      font-size:13px;
-      font-weight:650;
-      text-shadow:none;
-    }
-    .mini{
-      margin:8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .cta{
-      margin-top:8px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .cta a{
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+.title{margin:0; font-size:26px}
+.desc{margin:0; font-size:16px; line-height:1.65}
 
-    /* SPECIAL CARD FIXES */
-    .firstmate-card .shot img{object-position:top center}
-    .raiders-card .shot img{object-fit:contain}
-    .shamrocket-card .shot img{object-fit:contain}
+/* ===== RIM RUN INTRO FIX ===== */
+.row.rimrun-intro{
+  grid-template-columns: 1fr !important;
+}
+.row.rimrun-intro .content{
+  grid-column: 1 / -1;
+}
+.row.rimrun-intro .desc{
+  max-width:1100px;
+}
 
-    /* BURGEE: one image, sky background behind it */
-    .burgee-card .shot{
-      background:
-        radial-gradient(1200px 500px at 20% 25%, rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
-        radial-gradient(1000px 420px at 75% 35%, rgba(255,255,255,.65), rgba(255,255,255,0) 65%),
-        radial-gradient(800px 300px at 50% 10%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
-        linear-gradient(180deg, #9ed6ff 0%, #5cb5ff 45%, #1e4f9b 100%);
-      border:1px solid rgba(255,255,255,.16);
-    }
-    .burgee-card .shot img{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:contain;
-      padding:14px;                 /* gives the burgee breathing room on the sky */
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,.45));
-    }
+@media(max-width:900px){
+  .row{grid-template-columns:1fr}
+}
 
-    /* DRAGR: secondary image (sledge with cover) */
-    .dragr-secondary{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:contain;
-      /* keep it visually consistent with the rest of the site */
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
-    }
-
-    @media(max-width:900px){
-      .row{grid-template-columns:1fr}
-      .media{border-right:none;border-bottom:1px solid var(--line)}
-      .top-banner{margin: 0 0 18px;} /* (no fixed height; prevents cropping) */
-    }
- /* FOOTER */
-    .footer{
-      margin-top:40px;
-      padding:28px 18px 34px;
-      border-top:1px solid var(--line);
-      text-align:center;
-      color:var(--muted);
-     .footer img{max-width:320px;width:100%;margin:0 auto 14px;display:block}
-  }
 </style>
 </head>
+
 <body>
 <main class="wrap">
 
-  /* Rim Run intro full-width text */
-.row .content {
-  max-width: 100%;
-}
+<!-- RIM RUN™ — INTRO (FULL WIDTH FIXED) -->
+<article class="row rimrun-intro">
+  <div class="content">
+    <p class="kicker">Rim Run™</p>
+    <h2 class="title">The Life — Catamaran Dan</h2>
 
-.row .desc {
-  max-width: 900px;   /* adjust if you want wider */
-  line-height: 1.7;
-}
-  
-  <!-- TOP BANNER -->
-  <section class="top-banner">
-    <img src="anchor2.jpg" alt="Blue Rim 5™ banner">
-  </section>
-
-  <section class="hero">
-    <div class="chip">Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable</div>
-
-    <h1>Catamaran Dan's Nevado Raiders™ &amp; Blue Rim 5™</h1>
-
-    <!-- CATAMARAN DAN VISUAL ANCHOR (FIXED) -->
-    <div style="
-      display:flex;
-      align-items:center;
-      gap:20px;
-      margin:16px 0 8px;
-      max-width:980px;
-    ">
-
-      <img
-        src="dan.png"
-        alt="Catamaran Dan"
-        style="
-          width:150px;
-          height:150px;
-          border-radius:50%;
-          object-fit:cover;
-          border:1px solid rgba(255,255,255,.25);
-          box-shadow:0 8px 20px rgba(0,0,0,.35);
-          flex-shrink:0;
-        "
-      >
-
-      <div style="
-        width:240px;
-        height:150px;
-        border-radius:18px;
-        overflow:hidden;
-        border:1px solid rgba(255,255,255,.18);
-        background: rgba(0,0,0,.18);
-        box-shadow:0 12px 28px rgba(0,0,0,.35);
-        flex-shrink:0;
-      ">
-        <img
-          src="truck.JPG"
-          alt=""
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-      </div>
-
-      <p style="
-        margin:0;
-        color:var(--muted);
-        font-size:15px;
-        line-height:1.55;
-        text-shadow: 0 1px 2px rgba(0,0,0,.35);
-      ">
-        Led by <strong>Catamaran Dan</strong> — U.S. Coast Guard–licensed captain, sailing instructor,
-        former U.S. Navy submariner, adventure sailor and expedition leader.
-      </p>
-    </div>
-
-    <p class="sub">
-      Small boats. Guardian vessels. Real seamanship. Cultural respect.
-      A rapidly warming world demands real leadership on the water.
-    </p>
-    <p class="sub">
-      Blue Rim 5™ is a multi-phase, multi-year global sailing expedition operating with small expedition sailboats and larger guardian vessels, conducting disciplined coastal and island-hopping exploration along international coastlines and river mouths worldwide.
+    <p class="desc">
+      I’m at anchor in an extraordinary stretch of Caribbean water, the hulls resting over white sand and scattered coral heads, steady trades moving across a turquoise horizon. This is where my day begins.
     </p>
 
-  </section>
+    <p class="desc">
+      I wake barefoot on the tramp of my Hobie Getaway, coffee in hand, reef fish already moving beneath me. The boat rocks lightly under the last breath of the night swell. First light spreads across the surface before the sun clears the edge of the sea.
+    </p>
 
-  <section class="stack">
+    <p class="desc">
+      Some nights I sleep right there under the open sky — stars overhead, salt in the air, wind steady and clean. Other nights, when rain rolls through, the two-second pop-up shelter goes up and I listen to the trade winds tap against fabric while the hulls settle quietly on their anchor line.
+    </p>
 
-  <!-- 1) NEVADO RAIDERS -->
-  <article class="row raiders-card">
-    <div class="media">
-      <div class="shot"><img src="nevadoraiders.jpg" alt="Nevado Raiders™"></div>
-      <div class="shot"><img src="nevadoranch.jpg" alt="Nevado Ranch Camp"></div>
-    </div>
-    <div class="content">
-      <p class="kicker">A modern Viking expedition movement</p>
-      <h2 class="title">Nevado Raiders™</h2>
+    <p class="desc">
+      I turn my head left — horizon. Turn right — horizon. Sit up — sky in every direction. A full 360° circle of water and weather.
+    </p>
 
-      <!-- START CARD: NEVADO RAIDERS TEXT (LOCKED) -->
-      <p class="desc"><strong>Catamaran Dan is actively recruiting sailors, small expedition boats, <em>and</em> guardian vessels</strong> to join him on the Nevado Raiders™ series of planned <strong>coastal expeditions</strong>—traveling virtually anywhere on Earth, <strong>as long as it makes sense and the risks are acceptable</strong>.</p>
-
-      <p class="desc"><strong>Nevado Raiders™</strong> is a <strong>Viking-influenced</strong>, modern expedition movement for people who still feel the pull of the horizon—and who are ready to <strong>sail it together</strong>. Inspired by the exploration mindset of the Norse seafarers, these are not armchair adventures. They are real miles, real weather, real decisions, and real responsibility on the water. This is a call to capable sailors and crews who want to be part of a coordinated expedition fleet—not followers and not passengers.</p>
-
-      <p class="desc">The Viking influence behind Nevado Raiders™ is not symbolic—it is practical. <strong>Viking longboats were shallow-draft vessels capable of both close-shore travel and open-ocean crossings.</strong> They worked tight to coastlines, crossed bars, entered rivers and estuaries, and landed directly on beaches—yet they also crossed open water between distant lands when preparation, conditions, and fleet strength allowed. The Nevado Ranch Camp in the White Mountains of Eastern Arizona is our private, and very kush retreat where we plan, party, and then raid.</p>
-      <!-- END CARD: NEVADO RAIDERS TEXT (LOCKED) -->
-
-      <div class="meta">
-        <span class="pill">Small boats, real skill</span>
-        <span class="pill">Guardian vessels</span>
-        <span class="pill">Training + real miles</span>
-      </div>
-    </div>
-  </article>
-
-  <!-- NEW CARD: RIM RUN™ (INSERTED RIGHT AFTER NEVADO RAIDERS) -->
-  <article class="row rimrun-card">
-    <div class="media">
-      <div class="shot"><img src="nice.jpg" alt="Rim Run™ — A Year Measured in Reefs"></div>
-      <div class="shot"><img src="blonde.png" alt="Rim Run™ — A Year Measured in Reefs"></div>
-    </div>
-
-    <div class="content">
-      <p class="kicker">RIM RUN™ • Reef immersion • Coastal life</p>
-      <h2 class="title">RIM RUN™ — A Year Measured in Reefs</h2>
-
- <p class="desc invite">
-  For the woman who knows the difference between escape and immersion — join me in the Caribbean.
-</p>
-
-<p class="desc">
+    <p class="desc">
+      This is the Rim Run™ circuit — Panama to Belize and back — a yearly immersion through some of the clearest, warmest water in the Caribbean.
+    </p>
+  </div>
+</article>
   Step onto a sailing platform with a full 360° horizon, where the water is clear, the wind is honest, and every anchorage opens into something unforgettable.
 </p>
 
