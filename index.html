@@ -54,6 +54,30 @@ a{color:inherit; text-decoration:none}
   box-shadow: var(--shadow);
 }
 
+.media{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  background: rgba(11,18,32,.35);
+  border-right:1px solid var(--line);
+}
+
+.shot{
+  width:100%;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.25);
+}
+
+.shot img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
+
 .content{
   padding:16px 18px 18px;
   display:flex;
@@ -73,19 +97,22 @@ a{color:inherit; text-decoration:none}
 .title{margin:0; font-size:26px}
 .desc{margin:0; font-size:16px; line-height:1.65}
 
-/* ===== RIM RUN INTRO FIX ===== */
+/* ===== RIM RUN INTRO: FORCE NORMAL FULL-WIDTH PARAGRAPHS =====
+   The intro card has no media column; .row grid would otherwise squeeze text.
+   We force this specific card to behave like a normal block container.
+*/
 .row.rimrun-intro{
-  grid-template-columns: 1fr !important;
+  display:block !important;              /* kill the 320px grid column */
 }
 .row.rimrun-intro .content{
-  grid-column: 1 / -1;
-}
-.row.rimrun-intro .desc{
-  max-width:1100px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 22px 22px;
 }
 
 @media(max-width:900px){
   .row{grid-template-columns:1fr}
+  .media{border-right:none;border-bottom:1px solid var(--line)}
 }
 
 </style>
@@ -94,259 +121,200 @@ a{color:inherit; text-decoration:none}
 <body>
 <main class="wrap">
 
-<!-- RIM RUN™ — INTRO (FULL WIDTH FIXED) -->
-<article class="row rimrun-intro">
-  <div class="content">
-    <p class="kicker">Rim Run™</p>
-    <h2 class="title">The Life — Catamaran Dan</h2>
+  <!-- RIM RUN™ — INTRO (FULL-WIDTH TEXT, NORMAL PARAGRAPHS) -->
+  <article class="row rimrun-intro">
+    <div class="content">
+      <p class="kicker">Rim Run™</p>
+      <h2 class="title">The Life — Catamaran Dan</h2>
 
-    <p class="desc">
-      I’m at anchor in an extraordinary stretch of Caribbean water, the hulls resting over white sand and scattered coral heads, steady trades moving across a turquoise horizon. This is where my day begins.
-    </p>
+      <p class="desc">
+        I’m at anchor in an extraordinary stretch of Caribbean water, the hulls resting over white sand and scattered coral heads, steady trades moving across a turquoise horizon. This is where my day begins.
+      </p>
 
-    <p class="desc">
-      I wake barefoot on the tramp of my Hobie Getaway, coffee in hand, reef fish already moving beneath me. The boat rocks lightly under the last breath of the night swell. First light spreads across the surface before the sun clears the edge of the sea.
-    </p>
+      <p class="desc">
+        I wake barefoot on the tramp of my Hobie Getaway, coffee in hand, reef fish already moving beneath me. The boat rocks lightly under the last breath of the night swell. First light spreads across the surface before the sun clears the edge of the sea.
+      </p>
 
-    <p class="desc">
-      Some nights I sleep right there under the open sky — stars overhead, salt in the air, wind steady and clean. Other nights, when rain rolls through, the two-second pop-up shelter goes up and I listen to the trade winds tap against fabric while the hulls settle quietly on their anchor line.
-    </p>
+      <p class="desc">
+        Some nights I sleep right there under the open sky — stars overhead, salt in the air, wind steady and clean. Other nights, when rain rolls through, the two-second pop-up shelter goes up and I listen to the trade winds tap against fabric while the hulls settle quietly on their anchor line.
+      </p>
 
-    <p class="desc">
-      I turn my head left — horizon. Turn right — horizon. Sit up — sky in every direction. A full 360° circle of water and weather.
-    </p>
+      <p class="desc">
+        I turn my head left — horizon. Turn right — horizon. Sit up — sky in every direction. A full 360° circle of water and weather.
+      </p>
 
-    <p class="desc">
-      This is the Rim Run™ circuit — Panama to Belize and back — a yearly immersion through some of the clearest, warmest water in the Caribbean.
-    </p>
-  </div>
-</article>
-  Step onto a sailing platform with a full 360° horizon, where the water is clear, the wind is honest, and every anchorage opens into something unforgettable.
-</p>
-
-<p class="desc">
-  From the moment you step aboard, I am your marine escort — managing the weather, the movement, and the risk — so you can experience the reefs, the islands, and the rhythm of the sea with confidence and freedom.
-</p>
-
-<p class="desc">
-  Across the full Rim Run™, well over 150 days are dedicated to snorkeling, reef exploration, swimming, and extended island stays.
-</p>
-
-<p class="desc">
-  This is not a trip measured in miles.
-</p>
-
-<p class="desc">
-  It is measured in immersion.
-</p>
-
-<p class="desc">
-  Measured in warm turquoise shallows.<br>
-  Measured in coral heads at sunrise.<br>
-  Measured in evenings at anchor with a Rim Runner™ in hand and nothing but wind and water around us.
-</p>
-
-<p class="desc">
-  When we’re underway, we sail with purpose.
-</p>
-
-<p class="desc">
-  When we’re at anchor — that’s where life opens up.
-  This isn’t a cruise. It isn’t a charter. It isn’t a floating condo.
-  It’s a <strong>sailing platform with a full 360° horizon</strong>.
-</p>
+      <p class="desc">
+        This is the Rim Run™ circuit — Panama to Belize and back — a yearly immersion through some of the clearest, warmest water in the Caribbean.
+      </p>
     </div>
   </article>
 
-<!-- RIM RUN™ — TOP 10 SNORKEL / SWIM CARDS (3 IMAGES TOP, TEXT BELOW) -->
-<!-- RIM RUN™ — INTRO -->
-<article class="row">
-  <div class="content">
-    <p class="kicker">Rim Run™</p>
-    <h2 class="title">The Life — Catamaran Dan</h2>
 
-    <p class="desc">
-      I’m at anchor in an extraordinary stretch of Caribbean water, the hulls resting over white sand and scattered coral heads, steady trades moving across a turquoise horizon. This is where my day begins.
-    </p>
+  <!-- RIM RUN™ — TOP 10 SNORKEL / SWIM CARDS (VERTICAL STACKED IMAGES LEFT, TEXT RIGHT) -->
 
-    <p class="desc">
-      I wake barefoot on the tramp of my Hobie Getaway, coffee in hand, reef fish already moving beneath me. The boat rocks lightly under the last breath of the night swell. First light spreads across the surface before the sun clears the edge of the sea.
-    </p>
+  <!-- 1) Escudo de Veraguas – Panama -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="panama1.jpg" alt=""></div>
+      <div class="shot"><img src="panama2.jpg" alt=""></div>
+      <div class="shot"><img src="panama3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Panama</p>
+      <h2 class="title">Escudo de Veraguas</h2>
+      <p class="desc">
+        Shelf-to-blue immersion with real edge. Light flickers across coral ridges, then the bottom falls away into deeper cobalt. On calm windows, visibility sharpens and every stroke feels charged.
+      </p>
+    </div>
+  </article>
 
-    <p class="desc">
-      Some nights I sleep right there under the open sky — stars overhead, salt in the air, wind steady and clean. Other nights, when rain rolls through, the two-second pop-up shelter goes up and I listen to the trade winds tap against fabric while the hulls settle quietly on their anchor line.
-    </p>
+  <!-- 2) Bastimentos & Bocas Micro-Reefs – Panama -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="panama4.jpg" alt=""></div>
+      <div class="shot"><img src="panama5.jpg" alt=""></div>
+      <div class="shot"><img src="panama5.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Panama</p>
+      <h2 class="title">Bastimentos &amp; Bocas Micro-Reefs</h2>
+      <p class="desc">
+        Warm, protected water built for daily swims. Shallow coral heads rise from white sand, sunlight ripples across the bottom, and you settle into long, steady strokes that reset your whole system.
+      </p>
+    </div>
+  </article>
 
-    <p class="desc">
-      I turn my head left — horizon. Turn right — horizon. Sit up — sky in every direction. A full 360° circle of water and weather.
-    </p>
+  <!-- 3) Cahuita Reef – Costa Rica -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="costarica1.jpg" alt=""></div>
+      <div class="shot"><img src="costarica2.jpg" alt=""></div>
+      <div class="shot"><img src="costarica3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Costa Rica</p>
+      <h2 class="title">Cahuita Reef</h2>
+      <p class="desc">
+        When clarity opens, this reef glows. Natural swim corridors guide you forward, warm water holds steady against your skin, and the reef feels calm and alive beneath your fins.
+      </p>
+    </div>
+  </article>
 
-    <p class="desc">
-      This is the Rim Run™ circuit — Panama to Belize and back — a yearly immersion through some of the clearest, warmest water in the Caribbean.
-    </p>
-  </div>
-</article>
+  <!-- 4) Little Corn Island – Nicaragua -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="nica1.jpg" alt=""></div>
+      <div class="shot"><img src="nica2.jpg" alt=""></div>
+      <div class="shot"><img src="nica3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Nicaragua</p>
+      <h2 class="title">Little Corn Island</h2>
+      <p class="desc">
+        Endurance-friendly immersion water. You lock into a smooth breathing rhythm, the reef stays present and textured, and time disappears as fish flicker through coral architecture.
+      </p>
+    </div>
+  </article>
 
-    
-<!-- 1) Escudo de Veraguas – Panama -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="panama1.jpg" alt=""></div>
-    <div class="shot"><img src="panama2.jpg" alt=""></div>
-    <div class="shot"><img src="panama3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Panama</p>
-    <h2 class="title">Escudo de Veraguas</h2>
-    <p class="desc">
-      Shelf-to-blue immersion with real edge. Light flickers across coral ridges, then the bottom falls away into deeper cobalt. On calm windows, visibility sharpens and every stroke feels charged.
-    </p>
-  </div>
-</article>
+  <!-- 5) Roatán – Honduras -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="hondroa1.jpg" alt=""></div>
+      <div class="shot"><img src="hondroa2.jpg" alt=""></div>
+      <div class="shot"><img src="hondroa3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Honduras</p>
+      <h2 class="title">Roatán</h2>
+      <p class="desc">
+        Big reef structure and deep relief. You hover near walls where the blue darkens fast, drift along living edges, and feel the scale of the Mesoamerican Barrier Reef in every direction.
+      </p>
+    </div>
+  </article>
 
-<!-- 2) Bastimentos & Bocas Micro-Reefs – Panama -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="panama4.jpg" alt=""></div>
-    <div class="shot"><img src="panama5.jpg" alt=""></div>
-    <div class="shot"><img src="panama5.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Panama</p>
-    <h2 class="title">Bastimentos & Bocas Micro-Reefs</h2>
-    <p class="desc">
-      Warm, protected water built for daily swims. Shallow coral heads rise from white sand, sunlight ripples across the bottom, and you settle into long, steady strokes that reset your whole system.
-    </p>
-  </div>
-</article>
+  <!-- 6) Guanaja – Bay Islands, Honduras -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="hondguan1.jpg" alt=""></div>
+      <div class="shot"><img src="hondguan2.jpg" alt=""></div>
+      <div class="shot"><img src="hondguan3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Honduras</p>
+      <h2 class="title">Guanaja — Bay Islands</h2>
+      <p class="desc">
+        Quiet, clean immersion. Morning light cuts deep, coral throws crisp shadows, and your only soundtrack is your breathing and the soft hiss of fins moving through clear water.
+      </p>
+    </div>
+  </article>
 
-<!-- 3) Cahuita Reef – Costa Rica -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="costarica1.jpg" alt=""></div>
-    <div class="shot"><img src="costarica2.jpg" alt=""></div>
-    <div class="shot"><img src="costarica3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Costa Rica</p>
-    <h2 class="title">Cahuita Reef</h2>
-    <p class="desc">
-      When clarity opens, this reef glows. Natural swim corridors guide you forward, warm water holds steady against your skin, and the reef feels calm and alive beneath your fins.
-    </p>
-  </div>
-</article>
+  <!-- 7) South Water Caye – Belize -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="belizesouth1.jpg" alt=""></div>
+      <div class="shot"><img src="belizesouth2.jpg" alt=""></div>
+      <div class="shot"><img src="belizesouth3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Belize</p>
+      <h2 class="title">South Water Caye</h2>
+      <p class="desc">
+        Classic barrier reef immersion. Spur-and-groove terrain forms natural swim lanes, visibility stabilizes in calm windows, and you can drift for long stretches over living structure.
+      </p>
+    </div>
+  </article>
 
-<!-- 4) Little Corn Island – Nicaragua -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="nica1.jpg" alt=""></div>
-    <div class="shot"><img src="nica2.jpg" alt=""></div>
-    <div class="shot"><img src="nica3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Nicaragua</p>
-    <h2 class="title">Little Corn Island</h2>
-    <p class="desc">
-      Endurance-friendly immersion water. You lock into a smooth breathing rhythm, the reef stays present and textured, and time disappears as fish flicker through coral architecture.
-    </p>
-  </div>
-</article>
+  <!-- 8) Glover’s Reef – Belize -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="belizeglovers1.jpg" alt=""></div>
+      <div class="shot"><img src="belizeglovers2.jpg" alt=""></div>
+      <div class="shot"><img src="belizeglovers3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Belize</p>
+      <h2 class="title">Glover’s Reef</h2>
+      <p class="desc">
+        Atoll-lagoon snorkeling that rewards time in the water. Coral heads rise like islands beneath you, rays glide across sand, and long-distance swim days stack up fast.
+      </p>
+    </div>
+  </article>
 
-<!-- 5) Roatán – Honduras -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="hondroa1.jpg" alt=""></div>
-    <div class="shot"><img src="hondroa2.jpg" alt=""></div>
-    <div class="shot"><img src="hondroa3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Honduras</p>
-    <h2 class="title">Roatán</h2>
-    <p class="desc">
-      Big reef structure and deep relief. You hover near walls where the blue darkens fast, drift along living edges, and feel the scale of the Mesoamerican Barrier Reef in every direction.
-    </p>
-  </div>
-</article>
+  <!-- 9) Turneffe Atoll – Belize -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="belizeturneffe1.jpg" alt=""></div>
+      <div class="shot"><img src="belizeturneffe2.jpg" alt=""></div>
+      <div class="shot"><img src="belizeturneffe3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Belize</p>
+      <h2 class="title">Turneffe Atoll</h2>
+      <p class="desc">
+        Massive footprint and constant variety. One session is glassy and calm, the next feels deeper and more dramatic — an atoll that stays fresh day after day.
+      </p>
+    </div>
+  </article>
 
-<!-- 6) Guanaja – Bay Islands, Honduras -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="hondguan1.jpg" alt=""></div>
-    <div class="shot"><img src="hondguan2.jpg" alt=""></div>
-    <div class="shot"><img src="hondguan3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Honduras</p>
-    <h2 class="title">Guanaja — Bay Islands</h2>
-    <p class="desc">
-      Quiet, clean immersion. Morning light cuts deep, coral throws crisp shadows, and your only soundtrack is your breathing and the soft hiss of fins moving through clear water.
-    </p>
-  </div>
-</article>
+  <!-- 10) Lighthouse Reef Atoll – Belize -->
+  <article class="row">
+    <div class="media">
+      <div class="shot"><img src="belizelight1.jpg" alt=""></div>
+      <div class="shot"><img src="belizelight2.jpg" alt=""></div>
+      <div class="shot"><img src="belizelight3.jpg" alt=""></div>
+    </div>
+    <div class="content">
+      <p class="kicker">Belize</p>
+      <h2 class="title">Lighthouse Reef Atoll</h2>
+      <p class="desc">
+        Summit immersion. The blue turns electric, visibility opens, and the reef edge drops away into depth. You hover on the boundary and feel weightless — pure Caribbean clarity.
+      </p>
+    </div>
+  </article>
 
-<!-- 7) South Water Caye – Belize -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="belizesouth1.jpg" alt=""></div>
-    <div class="shot"><img src="belizesouth2.jpg" alt=""></div>
-    <div class="shot"><img src="belizesouth3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Belize</p>
-    <h2 class="title">South Water Caye</h2>
-    <p class="desc">
-      Classic barrier reef immersion. Spur-and-groove terrain forms natural swim lanes, visibility stabilizes in calm windows, and you can drift for long stretches over living structure.
-    </p>
-  </div>
-</article>
-
-<!-- 8) Glover’s Reef – Belize -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="belizeglovers1.jpg" alt=""></div>
-    <div class="shot"><img src="belizeglovers2.jpg" alt=""></div>
-    <div class="shot"><img src="belizeglovers3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Belize</p>
-    <h2 class="title">Glover’s Reef</h2>
-    <p class="desc">
-      Atoll-lagoon snorkeling that rewards time in the water. Coral heads rise like islands beneath you, rays glide across sand, and long-distance swim days stack up fast.
-    </p>
-  </div>
-</article>
-
-<!-- 9) Turneffe Atoll – Belize -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="belizeturneffe1.jpg" alt=""></div>
-    <div class="shot"><img src="belizeturneffe2.jpg" alt=""></div>
-    <div class="shot"><img src="belizeturneffe3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Belize</p>
-    <h2 class="title">Turneffe Atoll</h2>
-    <p class="desc">
-      Massive footprint and constant variety. One session is glassy and calm, the next feels deeper and more dramatic — an atoll that stays fresh day after day.
-    </p>
-  </div>
-</article>
-
-<!-- 10) Lighthouse Reef Atoll – Belize -->
-<article class="row rimrun-immersion">
-  <div class="media three-up">
-    <div class="shot"><img src="belizelight1.jpg" alt=""></div>
-    <div class="shot"><img src="belizelight2.jpg" alt=""></div>
-    <div class="shot"><img src="belizelight3.jpg" alt=""></div>
-  </div>
-  <div class="content below">
-    <p class="kicker">Belize</p>
-    <h2 class="title">Lighthouse Reef Atoll</h2>
-    <p class="desc">
-      Summit immersion. The blue turns electric, visibility opens, and the reef edge drops away into depth. You hover on the boundary and feel weightless — pure Caribbean clarity.
-    </p>
-  </div>
-</article>
+  <!-- NEXT: paste/keep your existing file starting with:
+       <!-- 1.5) NEVADO RAIDERS™ BURGEE (ONE IMAGE, SKY BACKGROUND) -->
+  -->
     
   <!-- 1.5) NEVADO RAIDERS™ BURGEE (ONE IMAGE, SKY BACKGROUND) -->
   <article class="row burgee-card">
