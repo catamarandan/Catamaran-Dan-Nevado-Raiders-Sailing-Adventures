@@ -270,6 +270,32 @@
 <body>
 <main class="wrap">
 
+<nav style="
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  padding:14px 0 22px;
+  font-weight:600;
+  border-bottom:1px solid rgba(255,255,255,.12);
+">
+  <a href="index.html">Home</a>
+  <a href="expedition.html">Expedition</a>
+  <a href="rimrun.html">Rim Run</a>
+  <a href="systems.html">Systems</a>
+  <a href="about.html">About</a>
+</nav>
+
+
+
+  <!-- SITE NAV -->
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-home" href="index.html">Home</a>
+    <a href="expedition-planning.html">Expedition Planning</a>
+    <a href="rimrun.html">Rim Run™</a>
+    <a href="firstmate.html">First Mate</a>
+    <a href="friends.html">Friends</a>
+  </nav>
+
   <!-- TOP BANNER (RESTORED) -->
   <section class="top-banner">
     <img src="anchor2.jpg" alt="Blue Rim 5™ banner">
@@ -393,7 +419,7 @@
       </div>
     </article>
 
-<article class="row">
+<article class="row" data-href="expedition-planning.html" tabindex="0" role="link">
       <div class="media">
         <div class="shot"><img src="bluerim5.jpg" alt="Blue Rim 5™"></div>
         <div class="shot"><img src="dontbomb.png" alt="Blue Rim 5™"></div>
@@ -821,7 +847,7 @@
     </p>
   </div>
 
-<article class="row rimrun-intro">
+<article class="row rimrun-intro" data-href="rimrun.html" tabindex="0" role="link">
   <div class="media">
     <div class="shot rimrun-hero"><img src="rim_run.jpg" alt="Rim Run – Hobie Getaway at anchor"></div>
     <div class="shot"><img src="pic1.jpg" alt="Rim Run snorkeling scene 1"></div>
@@ -1204,7 +1230,7 @@ South Water Caye delivers scale without chaos. Anchor close. Fins on. Slide in. 
     </p>
   </div>
 
-<article class="row rimrun-invite">
+<article class="row rimrun-invite" data-href="rimrun.html" tabindex="0" role="link">
   <div class="media">
     <div class="shot"><img src="nice.jpg" alt="Rim Run coastal sailing"></div>
     <div class="shot"><img src="blonde.png" alt="Rim Run guest aboard Shamrocket"></div>
@@ -1252,7 +1278,7 @@ South Water Caye delivers scale without chaos. Anchor close. Fins on. Slide in. 
   </div>
 </article>
 
-<article class="row firstmate-card">
+<article class="row firstmate-card" data-href="firstmate.html" tabindex="0" role="link">
       <div class="media">
         <div class="shot"><img src="firstmate.jpg" alt="First Mate"></div>
         <div class="shot"><img src="ovecat.jpg" alt="Catamaran Dan — Ove Ironhand"></div>
@@ -1321,7 +1347,7 @@ South Water Caye delivers scale without chaos. Anchor close. Fins on. Slide in. 
       </div>
     </article>
 
-<article class="row friends-card">
+<article class="row friends-card" data-href="friends.html" tabindex="0" role="link">
       <div class="media">
         <div class="shot">
           <img src="friends.png" alt="Friends of the Nevado Raiders partners and vendors">
@@ -1528,7 +1554,29 @@ South Water Caye delivers scale without chaos. Anchor close. Fins on. Slide in. 
   <p>Cell: (928)-250-9763 &nbsp;&nbsp; Email: NevadoRaiders@gmail.com &nbsp;&nbsp; Base Camp: White Mountains, AZ</p>
 </footer>
 
+
+<script>
+  // Make entire cards clickable (without breaking normal <a> links inside)
+  document.querySelectorAll('.row[data-href]').forEach((row) => {
+    const go = () => { window.location.href = row.dataset.href; };
+
+    row.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      go();
+    });
+
+    row.addEventListener('keydown', (e) => {
+      if (e.target.closest('a')) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        go();
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
+
 
 
