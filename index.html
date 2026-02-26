@@ -3,40 +3,50 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blue Rim 5™ Global Sailing Expedition | Catamaran Dan</title>
 
-  <meta name="description" content="Blue Rim 5™ is a disciplined, sail-only global sailing expedition built on coastal segmentation, precise LAT/LON routing, and an inclusive fleet model: small expedition boats supported by larger guardian vessels." />
- <meta property="og:title" ...
+  <title>Expedition | Blue Rim 5™ Global Sailing Expedition | Catamaran Dan</title>
+  <meta name="description" content="Blue Rim 5™ Expedition overview: disciplined, sail-first coastal segmentation with an inclusive fleet model supported by guardian vessels." />
+  <link rel="canonical" href="https://catamarandan.org/expedition.html" />
 
-  <meta property="og:title" content="Blue Rim 5™ Global Sailing Expedition" />
-  <meta property="og:description" content="Disciplined, sail-only expedition sailing with guardian-vessel support for safety, resilience, and real-world capability." />
+  <meta property="og:title" content="Expedition | Blue Rim 5™ Global Sailing Expedition | Catamaran Dan" />
+  <meta property="og:description" content="Blue Rim 5™ Expedition overview: coastal segmentation, precise LAT/LON routing, and an inclusive fleet model." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://catamarandan.org/expedition.html" />
+  <meta property="og:image" content="https://catamarandan.org/expedition_hero.jpg" />
+
+  <meta name="theme-color" content="#07121e" />
 
   <style>
     :root{
-      --bg:#0b1220;
-      --card:#0f1a30;
+      --bg:#07121e;
+      --card:#0c1a2b;
+      --card2:#0f2034;
       --text:#e7eefc;
-      --muted:#b7c5e6;
+      --muted:#b7c6e6;
       --line:rgba(231,238,252,.12);
       --accent:#4da3ff;
       --accent2:#38d4c7;
-      --max:1100px;
+      --danger:#ff5a7a;
+      --max:1180px;
       --radius:18px;
+      --shadow:0 18px 55px rgba(0,0,0,.35);
     }
 
-    *{box-sizing:border-box}
-
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(77,163,255,.20), transparent 60%),
+        radial-gradient(900px 600px at 85% 10%, rgba(56,212,199,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35)),
+        var(--bg);
       color:var(--text);
-      background:linear-gradient(180deg,#070c16 0%,var(--bg) 50%,#070c16 100%);
-      line-height:1.55;
     }
 
-    a{color:inherit;text-decoration:none}
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
 
     .wrap{
       max-width:var(--max);
@@ -47,16 +57,17 @@
     header{
       position:sticky;
       top:0;
-      backdrop-filter:blur(10px);
-      background:rgba(7,12,22,.85);
-      border-bottom:1px solid var(--line);
       z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(7,18,30,.86);
+      border-bottom:1px solid var(--line);
     }
 
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:16px;
       padding:14px 0;
     }
 
@@ -65,217 +76,1824 @@
       align-items:center;
       gap:10px;
       font-weight:800;
+      letter-spacing:.2px;
     }
-
     .dot{
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      width:8px;
+      height:8px;
+      border-radius:99px;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(77,163,255,.10);
     }
 
-    .menu{
+    nav.menu{
       display:flex;
-      gap:14px;
-      font-weight:600;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
-
-    .menu a{
-      padding:8px 12px;
+    nav.menu a{
+      padding:9px 12px;
       border-radius:999px;
+      border:1px solid transparent;
       color:var(--muted);
+      font-weight:650;
+      font-size:14px;
+      transition:all .18s ease;
     }
-
-    .menu a:hover{
+    nav.menu a:hover{
       color:var(--text);
-      border:1px solid var(--line);
+      border-color:rgba(77,163,255,.35);
+      background:rgba(77,163,255,.10);
     }
-
-    .menu a.active{
+    nav.menu a.active{
       color:var(--text);
-      border:1px solid rgba(77,163,255,.4);
-      background:rgba(77,163,255,.1);
+      border-color:rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
     }
 
     .hero{
-      min-height:420px;
+      position:relative;
+      min-height:72vh;
       display:flex;
       align-items:flex-end;
-      padding:60px 0 40px;
+      padding:46px 0 40px;
+      background: url("/hero.png") center / cover no-repeat;
       border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
       background:
-        linear-gradient(180deg,rgba(7,12,22,.3),rgba(7,12,22,.9)),
-        url("expedition_hero.jpg") center/cover no-repeat;
+        radial-gradient(900px 500px at 25% 10%, rgba(77,163,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 85% 20%, rgba(56,212,199,.18), transparent 55%),
+        linear-gradient(180deg, rgba(7,18,30,.20), rgba(7,18,30,.72));
     }
+    .hero .wrap{ position:relative; }
 
-    .hero-card{
-      background:rgba(15,26,48,.8);
-      padding:24px;
-      border-radius:var(--radius);
-      border:1px solid rgba(231,238,252,.15);
-      max-width:850px;
+    .heroCard{
+      max-width:860px;
+      padding:22px 22px 20px;
+      border-radius:20px;
+      border:1px solid rgba(231,238,252,.16);
+      background:rgba(12,26,43,.58);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
     }
-
-    .kicker{
+    .eyebrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:rgba(231,238,252,.78);
       font-size:12px;
-      letter-spacing:.12em;
+      letter-spacing:.18em;
       text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:10px;
+      margin:0 0 10px;
     }
-
-    h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
+    .title{
+      margin:0 0 8px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.02em;
     }
-
-    .lead{
-      margin:0;
-      color:var(--muted);
+    .subtitle{
+      margin:0 0 14px;
+      color:rgba(231,238,252,.86);
       font-size:16px;
+      line-height:1.55;
+      max-width:72ch;
+    }
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background:rgba(77,163,255,.18); }
+    .btn.secondary{
+      border-color:rgba(56,212,199,.45);
+      background:rgba(56,212,199,.10);
     }
 
-    main{
-      padding:40px 0 60px;
+    .section{
+      padding:34px 0;
+    }
+    .sectionHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:14px;
+    }
+    .sectionHeader h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .sectionHeader p{
+      margin:0;
+      color:rgba(231,238,252,.72);
+      max-width:62ch;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
     }
 
     .card{
-      background:rgba(15,26,48,.6);
-      border:1px solid var(--line);
+      position:relative;
       border-radius:var(--radius);
-      padding:24px;
-      margin-bottom:24px;
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.92), rgba(12,26,43,.68));
+      overflow:hidden;
+      box-shadow: 0 14px 45px rgba(0,0,0,.28);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      min-height: 280px;
+      display:flex;
+      flex-direction:column;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(77,163,255,.32);
+      background:linear-gradient(180deg, rgba(15,32,52,.92), rgba(12,26,43,.70));
     }
 
-    h2{
-      margin-top:0;
-      font-size:20px;
+    .thumb{
+      height:142px;
+      width:100%;
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.02);
     }
 
-    ul{
-      margin:12px 0 0;
-      padding-left:20px;
-      color:var(--muted);
+    .cardBody{
+      padding:14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(231,238,252,.72);
+    }
+    .cardTitle{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+      line-height:1.2;
+    }
+    .cardText{
+      margin:0;
+      color:rgba(231,238,252,.76);
+      line-height:1.48;
+      font-size:13.5px;
+    }
+
+    .kickerRow{
+      margin-top:auto;
+      padding-top:8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:rgba(231,238,252,.62);
+      font-size:12.5px;
+    }
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,252,.14);
+      background:rgba(231,238,252,.06);
+      color:rgba(231,238,252,.78);
+      font-weight:650;
+      white-space:nowrap;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .panel{
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.84), rgba(12,26,43,.60));
+      box-shadow: 0 14px 45px rgba(0,0,0,.24);
+      overflow:hidden;
+    }
+    .panelPad{ padding:16px; }
+    .panel h3{ margin:0 0 8px; font-size:18px; letter-spacing:-.01em; }
+    .panel p{ margin:0; color:rgba(231,238,252,.78); line-height:1.55; font-size:14px; }
+
+    .callouts{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .call{
+      border:1px solid rgba(231,238,252,.12);
+      border-radius:16px;
+      background:rgba(231,238,252,.05);
+      padding:12px;
+    }
+    .call strong{ display:block; margin-bottom:6px; font-size:13px; letter-spacing:.02em; }
+    .call span{ color:rgba(231,238,252,.74); font-size:13px; line-height:1.45; display:block; }
+
+    .contact{
+      border-top:1px solid var(--line);
+      padding:26px 0 40px;
+    }
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:start;
     }
 
     footer{
       border-top:1px solid var(--line);
-      padding:20px 0;
-      text-align:center;
-      font-size:13px;
-      color:var(--muted);
+      padding:18px 0 24px;
+      color:rgba(231,238,252,.60);
+      font-size:12.5px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .split{ grid-template-columns: 1fr; }
+      .contactGrid{ grid-template-columns:1fr; }
+      .title{ font-size:38px; }
+      .hero{ min-height:64vh; }
+      nav.menu{ justify-content:flex-start; }
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns:1fr; }
+      .title{ font-size:34px; }
+      .heroCard{ padding:18px; }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="nav">
-      <a class="brand" href="index.html">
-        <span class="dot"></span>
-        Catamaran Dan
-      </a>
-      <nav class="menu">
-        <a class="active" href="expedition.html">Expedition</a>
-        <a href="rimrun.html">Rim Run™</a>
-        <a href="systems.html">Systems</a>
-        <a href="about.html">About</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/index.html" aria-label="Home">
+          <span class="dot"></span>
+          Catamaran Dan
+        </a>
+
+        <nav class="menu" aria-label="Primary">
+          <a href="/index.html">Home</a>
+          <a class="active" href="/expedition.html">Expedition</a>
+          <a href="/rimrun.html">Rim Run™</a>
+          <a href="/systems.html">Systems</a>
+          <a href="/about.html">About</a>
+          <a href="/index.html#contact">Contact</a>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-card">
-      <div class="kicker">Blue Rim 5™ Global Sailing Expedition</div>
-      <h1>Disciplined. Sail-Only. Coastal. Engineered.</h1>
-      <p class="lead">
-        Blue Rim 5™ is a global sailing expedition built around operational precision,
-        short coastal legs, and human connection — using small expedition sailboats
-        supported by larger guardian vessels for safety, logistics depth, and resilience.
-      </p>
+  <section class="hero" role="banner" style="background: url('/expedition_hero.jpg') center / cover no-repeat;">
+    <div class="wrap">
+      <div class="heroCard">
+        <p class="eyebrow">MISSION • FLEET • EXECUTION • REAL-WORLD CAPABILITY</p>
+        <h1 class="title">The Expedition</h1>
+        <p class="subtitle">
+          Coastal segmentation. Precise LAT/LON routing. Sail-first discipline. Small expedition boats supported by larger guardian vessels — built for safety, redundancy, and execution.
+        </p>
+        <div class="ctaRow">
+          <a class="btn" href="/index.html">Home</a>
+          <a class="btn secondary" href="/systems.html">Systems</a>
+          <a class="btn" href="/index.html#contact">Contact</a>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<main>
-  <div class="wrap">
 
-    <div class="card">
-      <h2>Mission</h2>
-      <p>
-        Blue Rim 5™ is not a cruise. It is not a charter. It is not content tourism.
-        It is a disciplined, sail-only global sailing expedition built on real seamanship,
-        measured risk, and coastal segmentation.
-      </p>
-      <p>
-        A Nevado Raiders™ Sea of Cortez shakedown season is planned for fall/early winter 2026,
-        followed by the primary Blue Rim 5™ Global Sailing Expedition departure in May 2027.
-      </p>
+  <section class="section">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Mission + Fleet Model</h2>
+          <p>Authority and competency first — executed as a real expedition, not a fantasy brochure.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <img src="/expedition_hero.jpg" alt="Expedition hero" />
+          <div class="panelPad">
+            <h3>How the Fleet Works</h3>
+            <p>
+              Blue Rim 5™ is built around an inclusive “and/and” fleet: small expedition boats (Hobie Getaway, small monohulls, and similar vessels)
+              supported by larger guardian vessels (sailing and power). The goal is resilience, safety, and operational realism.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panelPad">
+            <h3>Planning Standard</h3>
+            <p>
+              Sail-first. Coastal segmentation. Short legs whenever possible. Precise LAT/LON routing for waypoint creation.
+              When entering a new country, customs/immigration check-in details are documented as part of the operating plan.
+            </p>
+
+            <div class="callouts">
+              <div class="call"><strong>Discipline</strong><span>Short segments, conservative routing, real decision-making.</span></div>
+              <div class="call"><strong>Capability</strong><span>Systems, redundancy, and readiness over hype.</span></div>
+              <div class="call"><strong>Culture</strong><span>Peace, human connection, and shared responsibility.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </section>
 
-    <div class="card">
-      <h2>Operational Framework</h2>
-      <ul>
-        <li>Sail-only primary propulsion (no reliance on engine fuel).</li>
-        <li>Short coastal legs wherever possible.</li>
-        <li>Precise LAT/LON waypoint discipline.</li>
-        <li>Anchoring-first, self-sufficient expedition posture.</li>
-        <li>No propane systems onboard.</li>
-        <li>Country-by-country customs and immigration planning.</li>
-      </ul>
+  <section class="section">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Timeline</h2>
+          <p>Sea of Cortez shakedown in fall/early winter 2026 • Main departure May 2027.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panelPad">
+          <h3>What Happens First</h3>
+          <p>
+            The Sea of Cortez shakedown cruise is planned for fall/early winter 2026 to validate systems, routines, and real-world expedition rhythm.
+            The Blue Rim 5™ Global Sailing Expedition departs in May 2027.
+          </p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h2>Fleet Model — And / And</h2>
-      <ul>
-        <li>
-          <strong>Small expedition sailboats</strong> — Hobie Getaway, Catalina 22 Sport,
-          and similar vessels.
-        </li>
-        <li>
-          <strong>Larger guardian vessels</strong> — sailing and power boats traveling
-          with the expedition to increase safety margin, provide logistics support,
-          medical redundancy, retrieval capability, and real-world operational depth.
-        </li>
-      </ul>
-      <p>
-        Agility and seamanship at the core. Guardian vessels providing resilience,
-        redundancy, and capability when conditions demand it.
-      </p>
+
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> Catamaran Dan • Blue Rim 5™ • Nevado Raiders™ • “Better Beachy than Bitchy™”
     </div>
+  </footer>
 
-    <div class="card">
-      <h2>Climate Reality</h2>
-      <p>
-        The oceans are warming. Reefs are changing. Coastlines are shifting.
-        Blue Rim 5™ moves through the world with respect for ecosystems under measurable stress,
-        documenting what is observed and speaking plainly about what is real.
-      </p>
-      <p>
-        This expedition is built on truth, discipline, and responsibility — not theatrics.
-      </p>
-    </div>
-
-  </div>
-</main>
-
-<footer>
-  Nevado Raiders™ • Blue Rim 5™ • Rim Run™<br>
-  NevadoRaiders@gmail.com
-</footer>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
 
+rimrun.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Rim Run™ | Blue Rim 5™ | Catamaran Dan</title>
+  <meta name="description" content="Rim Run™ (Panama ↔ Belize): a repeating reef-measured year of immersion, seamanship, and disciplined coastal living." />
+  <link rel="canonical" href="https://catamarandan.org/rimrun.html" />
+
+  <meta property="og:title" content="Rim Run™ | Blue Rim 5™ | Catamaran Dan" />
+  <meta property="og:description" content="Rim Run™: Panama ↔ Belize and back — immersion, reefs, and disciplined expedition rhythm." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://catamarandan.org/rimrun.html" />
+  <meta property="og:image" content="https://catamarandan.org/rim_run.jpg" />
+
+  <meta name="theme-color" content="#07121e" />
+
+  <style>
+    :root{
+      --bg:#07121e;
+      --card:#0c1a2b;
+      --card2:#0f2034;
+      --text:#e7eefc;
+      --muted:#b7c6e6;
+      --line:rgba(231,238,252,.12);
+      --accent:#4da3ff;
+      --accent2:#38d4c7;
+      --danger:#ff5a7a;
+      --max:1180px;
+      --radius:18px;
+      --shadow:0 18px 55px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(77,163,255,.20), transparent 60%),
+        radial-gradient(900px 600px at 85% 10%, rgba(56,212,199,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35)),
+        var(--bg);
+      color:var(--text);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(7,18,30,.86);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:99px;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(77,163,255,.10);
+    }
+
+    nav.menu{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav.menu a{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      color:var(--muted);
+      font-weight:650;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    nav.menu a:hover{
+      color:var(--text);
+      border-color:rgba(77,163,255,.35);
+      background:rgba(77,163,255,.10);
+    }
+    nav.menu a.active{
+      color:var(--text);
+      border-color:rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+    }
+
+    .hero{
+      position:relative;
+      min-height:72vh;
+      display:flex;
+      align-items:flex-end;
+      padding:46px 0 40px;
+      background: url("/hero.png") center / cover no-repeat;
+      border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 25% 10%, rgba(77,163,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 85% 20%, rgba(56,212,199,.18), transparent 55%),
+        linear-gradient(180deg, rgba(7,18,30,.20), rgba(7,18,30,.72));
+    }
+    .hero .wrap{ position:relative; }
+
+    .heroCard{
+      max-width:860px;
+      padding:22px 22px 20px;
+      border-radius:20px;
+      border:1px solid rgba(231,238,252,.16);
+      background:rgba(12,26,43,.58);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .eyebrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:rgba(231,238,252,.78);
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin:0 0 10px;
+    }
+    .title{
+      margin:0 0 8px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      margin:0 0 14px;
+      color:rgba(231,238,252,.86);
+      font-size:16px;
+      line-height:1.55;
+      max-width:72ch;
+    }
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background:rgba(77,163,255,.18); }
+    .btn.secondary{
+      border-color:rgba(56,212,199,.45);
+      background:rgba(56,212,199,.10);
+    }
+
+    .section{
+      padding:34px 0;
+    }
+    .sectionHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:14px;
+    }
+    .sectionHeader h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .sectionHeader p{
+      margin:0;
+      color:rgba(231,238,252,.72);
+      max-width:62ch;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.92), rgba(12,26,43,.68));
+      overflow:hidden;
+      box-shadow: 0 14px 45px rgba(0,0,0,.28);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      min-height: 280px;
+      display:flex;
+      flex-direction:column;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(77,163,255,.32);
+      background:linear-gradient(180deg, rgba(15,32,52,.92), rgba(12,26,43,.70));
+    }
+
+    .thumb{
+      height:142px;
+      width:100%;
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.02);
+    }
+
+    .cardBody{
+      padding:14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(231,238,252,.72);
+    }
+    .cardTitle{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+      line-height:1.2;
+    }
+    .cardText{
+      margin:0;
+      color:rgba(231,238,252,.76);
+      line-height:1.48;
+      font-size:13.5px;
+    }
+
+    .kickerRow{
+      margin-top:auto;
+      padding-top:8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:rgba(231,238,252,.62);
+      font-size:12.5px;
+    }
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,252,.14);
+      background:rgba(231,238,252,.06);
+      color:rgba(231,238,252,.78);
+      font-weight:650;
+      white-space:nowrap;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .panel{
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.84), rgba(12,26,43,.60));
+      box-shadow: 0 14px 45px rgba(0,0,0,.24);
+      overflow:hidden;
+    }
+    .panelPad{ padding:16px; }
+    .panel h3{ margin:0 0 8px; font-size:18px; letter-spacing:-.01em; }
+    .panel p{ margin:0; color:rgba(231,238,252,.78); line-height:1.55; font-size:14px; }
+
+    .callouts{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .call{
+      border:1px solid rgba(231,238,252,.12);
+      border-radius:16px;
+      background:rgba(231,238,252,.05);
+      padding:12px;
+    }
+    .call strong{ display:block; margin-bottom:6px; font-size:13px; letter-spacing:.02em; }
+    .call span{ color:rgba(231,238,252,.74); font-size:13px; line-height:1.45; display:block; }
+
+    .contact{
+      border-top:1px solid var(--line);
+      padding:26px 0 40px;
+    }
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 0 24px;
+      color:rgba(231,238,252,.60);
+      font-size:12.5px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .split{ grid-template-columns: 1fr; }
+      .contactGrid{ grid-template-columns:1fr; }
+      .title{ font-size:38px; }
+      .hero{ min-height:64vh; }
+      nav.menu{ justify-content:flex-start; }
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns:1fr; }
+      .title{ font-size:34px; }
+      .heroCard{ padding:18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/index.html" aria-label="Home">
+          <span class="dot"></span>
+          Catamaran Dan
+        </a>
+
+        <nav class="menu" aria-label="Primary">
+          <a href="/index.html">Home</a>
+          <a href="/expedition.html">Expedition</a>
+          <a class="active" href="/rimrun.html">Rim Run™</a>
+          <a href="/systems.html">Systems</a>
+          <a href="/about.html">About</a>
+          <a href="/index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" role="banner" style="background: url('/rim_run.jpg') center / cover no-repeat;">
+    <div class="wrap">
+      <div class="heroCard">
+        <p class="eyebrow">PANAMA ↔ BELIZE • IMMERSION • SEAMANSHIP • RHYTHM</p>
+        <h1 class="title">RIM RUN™</h1>
+        <p class="subtitle">
+          A Year Measured in Reefs — Panama to Belize and back. Immersion, rhythm, seamanship, and human connection — lived from anchorages.
+        </p>
+        <div class="ctaRow">
+          <a class="btn" href="/index.html">Home</a>
+          <a class="btn secondary" href="/systems.html">Systems</a>
+          <a class="btn" href="/index.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
+  <section class="section">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Rim Run™ Concept</h2>
+          <p>Panama ↔ Belize and back — a repeating reef-measured year, lived from anchorages.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <img src="/rim_run.jpg" alt="Rim Run hero" />
+          <div class="panelPad">
+            <h3>What Rim Run™ Is</h3>
+            <p>
+              Rim Run™ isn’t a charter. It isn’t a cruise. It’s expedition living built around immersion:
+              reefs, turquoise water, coastal towns, and the daily rhythm of seamanship.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panelPad">
+            <h3>Daily Reality</h3>
+            <p>
+              Swim before coffee. Reset anchors when weather shifts. Provision like an operator.
+              Live with wind and tide — and earn the sunsets.
+            </p>
+
+            <div class="callouts">
+              <div class="call"><strong>Immersion</strong><span>Reef water, snorkeling days, and real coastal life.</span></div>
+              <div class="call"><strong>Execution</strong><span>Disciplined routing and short legs whenever possible.</span></div>
+              <div class="call"><strong>Human</strong><span>Shared experience, cultural exchange, and connection.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="panel">
+        <div class="panelPad">
+          <h3>The Operating Model</h3>
+          <p>
+            Each participating boat/owner covers their own expenses at this stage (food, local fees, guides, activities, fuel, etc.).
+            This may evolve in the future if sponsorship or additional funding becomes available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> Catamaran Dan • Blue Rim 5™ • Nevado Raiders™ • “Better Beachy than Bitchy™”
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
+
+systems.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Systems | Blue Rim 5™ | Catamaran Dan</title>
+  <meta name="description" content="Operational systems for Blue Rim 5™: comms, tracking, navigation discipline, redundancy, and practical expedition readiness." />
+  <link rel="canonical" href="https://catamarandan.org/systems.html" />
+
+  <meta property="og:title" content="Systems | Blue Rim 5™ | Catamaran Dan" />
+  <meta property="og:description" content="Operational systems: comms, tracking, navigation discipline, redundancy, and expedition readiness." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://catamarandan.org/systems.html" />
+  <meta property="og:image" content="https://catamarandan.org/about_hero.jpg" />
+
+  <meta name="theme-color" content="#07121e" />
+
+  <style>
+    :root{
+      --bg:#07121e;
+      --card:#0c1a2b;
+      --card2:#0f2034;
+      --text:#e7eefc;
+      --muted:#b7c6e6;
+      --line:rgba(231,238,252,.12);
+      --accent:#4da3ff;
+      --accent2:#38d4c7;
+      --danger:#ff5a7a;
+      --max:1180px;
+      --radius:18px;
+      --shadow:0 18px 55px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(77,163,255,.20), transparent 60%),
+        radial-gradient(900px 600px at 85% 10%, rgba(56,212,199,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35)),
+        var(--bg);
+      color:var(--text);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(7,18,30,.86);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:99px;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(77,163,255,.10);
+    }
+
+    nav.menu{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav.menu a{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      color:var(--muted);
+      font-weight:650;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    nav.menu a:hover{
+      color:var(--text);
+      border-color:rgba(77,163,255,.35);
+      background:rgba(77,163,255,.10);
+    }
+    nav.menu a.active{
+      color:var(--text);
+      border-color:rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+    }
+
+    .hero{
+      position:relative;
+      min-height:72vh;
+      display:flex;
+      align-items:flex-end;
+      padding:46px 0 40px;
+      background: url("/hero.png") center / cover no-repeat;
+      border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 25% 10%, rgba(77,163,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 85% 20%, rgba(56,212,199,.18), transparent 55%),
+        linear-gradient(180deg, rgba(7,18,30,.20), rgba(7,18,30,.72));
+    }
+    .hero .wrap{ position:relative; }
+
+    .heroCard{
+      max-width:860px;
+      padding:22px 22px 20px;
+      border-radius:20px;
+      border:1px solid rgba(231,238,252,.16);
+      background:rgba(12,26,43,.58);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .eyebrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:rgba(231,238,252,.78);
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin:0 0 10px;
+    }
+    .title{
+      margin:0 0 8px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      margin:0 0 14px;
+      color:rgba(231,238,252,.86);
+      font-size:16px;
+      line-height:1.55;
+      max-width:72ch;
+    }
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background:rgba(77,163,255,.18); }
+    .btn.secondary{
+      border-color:rgba(56,212,199,.45);
+      background:rgba(56,212,199,.10);
+    }
+
+    .section{
+      padding:34px 0;
+    }
+    .sectionHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:14px;
+    }
+    .sectionHeader h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .sectionHeader p{
+      margin:0;
+      color:rgba(231,238,252,.72);
+      max-width:62ch;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.92), rgba(12,26,43,.68));
+      overflow:hidden;
+      box-shadow: 0 14px 45px rgba(0,0,0,.28);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      min-height: 280px;
+      display:flex;
+      flex-direction:column;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(77,163,255,.32);
+      background:linear-gradient(180deg, rgba(15,32,52,.92), rgba(12,26,43,.70));
+    }
+
+    .thumb{
+      height:142px;
+      width:100%;
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.02);
+    }
+
+    .cardBody{
+      padding:14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(231,238,252,.72);
+    }
+    .cardTitle{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+      line-height:1.2;
+    }
+    .cardText{
+      margin:0;
+      color:rgba(231,238,252,.76);
+      line-height:1.48;
+      font-size:13.5px;
+    }
+
+    .kickerRow{
+      margin-top:auto;
+      padding-top:8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:rgba(231,238,252,.62);
+      font-size:12.5px;
+    }
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,252,.14);
+      background:rgba(231,238,252,.06);
+      color:rgba(231,238,252,.78);
+      font-weight:650;
+      white-space:nowrap;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .panel{
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.84), rgba(12,26,43,.60));
+      box-shadow: 0 14px 45px rgba(0,0,0,.24);
+      overflow:hidden;
+    }
+    .panelPad{ padding:16px; }
+    .panel h3{ margin:0 0 8px; font-size:18px; letter-spacing:-.01em; }
+    .panel p{ margin:0; color:rgba(231,238,252,.78); line-height:1.55; font-size:14px; }
+
+    .callouts{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .call{
+      border:1px solid rgba(231,238,252,.12);
+      border-radius:16px;
+      background:rgba(231,238,252,.05);
+      padding:12px;
+    }
+    .call strong{ display:block; margin-bottom:6px; font-size:13px; letter-spacing:.02em; }
+    .call span{ color:rgba(231,238,252,.74); font-size:13px; line-height:1.45; display:block; }
+
+    .contact{
+      border-top:1px solid var(--line);
+      padding:26px 0 40px;
+    }
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 0 24px;
+      color:rgba(231,238,252,.60);
+      font-size:12.5px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .split{ grid-template-columns: 1fr; }
+      .contactGrid{ grid-template-columns:1fr; }
+      .title{ font-size:38px; }
+      .hero{ min-height:64vh; }
+      nav.menu{ justify-content:flex-start; }
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns:1fr; }
+      .title{ font-size:34px; }
+      .heroCard{ padding:18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/index.html" aria-label="Home">
+          <span class="dot"></span>
+          Catamaran Dan
+        </a>
+
+        <nav class="menu" aria-label="Primary">
+          <a href="/index.html">Home</a>
+          <a href="/expedition.html">Expedition</a>
+          <a href="/rimrun.html">Rim Run™</a>
+          <a class="active" href="/systems.html">Systems</a>
+          <a href="/about.html">About</a>
+          <a href="/index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" role="banner" style="background: url('/about_hero.jpg') center / cover no-repeat;">
+    <div class="wrap">
+      <div class="heroCard">
+        <p class="eyebrow">SYSTEMS • READINESS • REDUNDANCY • REALITY</p>
+        <h1 class="title">Operational Systems</h1>
+        <p class="subtitle">
+          Communications, navigation discipline, emergency protocols, energy systems, and operational redundancy — built for real execution.
+        </p>
+        <div class="ctaRow">
+          <a class="btn" href="/index.html">Home</a>
+          <a class="btn secondary" href="/systems.html">Systems</a>
+          <a class="btn" href="/index.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Operational Systems</h2>
+          <p>Safety, comms, navigation discipline, energy and water — the practical realities.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <img src="/about_hero.jpg" alt="Systems hero" />
+          <div class="panelPad">
+            <h3>Comms + Tracking</h3>
+            <p>
+              Garmin inReach Explorer is part of the toolset for tracking and SOS. Combined with marine VHF procedures and conservative routing,
+              this adds accountability and safety beyond standard communications.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panelPad">
+            <h3>Planning Rules</h3>
+            <p>
+              Sail-first propulsion and coastal segmentation are core standards. Keep legs short. Avoid long offshore runs unless unavoidable.
+              LAT/LON precision is maintained for waypoint entry in Navionics.
+            </p>
+
+            <div class="callouts">
+              <div class="call"><strong>Redundancy</strong><span>Systems-driven decisions; reduce single points of failure.</span></div>
+              <div class="call"><strong>Readiness</strong><span>Procedures, checklists, and real-world contingencies.</span></div>
+              <div class="call"><strong>Discipline</strong><span>Conservative plans; underpromise, overdeliver.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="panel">
+        <div class="panelPad">
+          <h3>Energy + Daily Life</h3>
+          <p>
+            Operational decisions prioritize practical reliability on a small expedition platform: what works at anchor, what works in squalls,
+            and what stays maintainable over long durations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> Catamaran Dan • Blue Rim 5™ • Nevado Raiders™ • “Better Beachy than Bitchy™”
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
+
+about.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>About | Catamaran Dan | Blue Rim 5™</title>
+  <meta name="description" content="About Catamaran Dan: U.S. Navy submariner (Blue Nose, Shellback), USCG Captain (200-ton), sailing instructor, builder of Blue Rim 5™." />
+  <link rel="canonical" href="https://catamarandan.org/about.html" />
+
+  <meta property="og:title" content="About | Catamaran Dan | Blue Rim 5™" />
+  <meta property="og:description" content="About Catamaran Dan: U.S. Navy submariner, USCG Captain, builder of Blue Rim 5™." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://catamarandan.org/about.html" />
+  <meta property="og:image" content="https://catamarandan.org/dan.jpg" />
+
+  <meta name="theme-color" content="#07121e" />
+
+  <style>
+    :root{
+      --bg:#07121e;
+      --card:#0c1a2b;
+      --card2:#0f2034;
+      --text:#e7eefc;
+      --muted:#b7c6e6;
+      --line:rgba(231,238,252,.12);
+      --accent:#4da3ff;
+      --accent2:#38d4c7;
+      --danger:#ff5a7a;
+      --max:1180px;
+      --radius:18px;
+      --shadow:0 18px 55px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(77,163,255,.20), transparent 60%),
+        radial-gradient(900px 600px at 85% 10%, rgba(56,212,199,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35)),
+        var(--bg);
+      color:var(--text);
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(7,18,30,.86);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:99px;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(77,163,255,.10);
+    }
+
+    nav.menu{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav.menu a{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      color:var(--muted);
+      font-weight:650;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    nav.menu a:hover{
+      color:var(--text);
+      border-color:rgba(77,163,255,.35);
+      background:rgba(77,163,255,.10);
+    }
+    nav.menu a.active{
+      color:var(--text);
+      border-color:rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+    }
+
+    .hero{
+      position:relative;
+      min-height:72vh;
+      display:flex;
+      align-items:flex-end;
+      padding:46px 0 40px;
+      background: url("/hero.png") center / cover no-repeat;
+      border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 25% 10%, rgba(77,163,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 85% 20%, rgba(56,212,199,.18), transparent 55%),
+        linear-gradient(180deg, rgba(7,18,30,.20), rgba(7,18,30,.72));
+    }
+    .hero .wrap{ position:relative; }
+
+    .heroCard{
+      max-width:860px;
+      padding:22px 22px 20px;
+      border-radius:20px;
+      border:1px solid rgba(231,238,252,.16);
+      background:rgba(12,26,43,.58);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .eyebrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:rgba(231,238,252,.78);
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin:0 0 10px;
+    }
+    .title{
+      margin:0 0 8px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      margin:0 0 14px;
+      color:rgba(231,238,252,.86);
+      font-size:16px;
+      line-height:1.55;
+      max-width:72ch;
+    }
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(77,163,255,.45);
+      background:rgba(77,163,255,.12);
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition:all .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background:rgba(77,163,255,.18); }
+    .btn.secondary{
+      border-color:rgba(56,212,199,.45);
+      background:rgba(56,212,199,.10);
+    }
+
+    .section{
+      padding:34px 0;
+    }
+    .sectionHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:14px;
+    }
+    .sectionHeader h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .sectionHeader p{
+      margin:0;
+      color:rgba(231,238,252,.72);
+      max-width:62ch;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.92), rgba(12,26,43,.68));
+      overflow:hidden;
+      box-shadow: 0 14px 45px rgba(0,0,0,.28);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+      min-height: 280px;
+      display:flex;
+      flex-direction:column;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(77,163,255,.32);
+      background:linear-gradient(180deg, rgba(15,32,52,.92), rgba(12,26,43,.70));
+    }
+
+    .thumb{
+      height:142px;
+      width:100%;
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.02);
+    }
+
+    .cardBody{
+      padding:14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(231,238,252,.72);
+    }
+    .cardTitle{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+      line-height:1.2;
+    }
+    .cardText{
+      margin:0;
+      color:rgba(231,238,252,.76);
+      line-height:1.48;
+      font-size:13.5px;
+    }
+
+    .kickerRow{
+      margin-top:auto;
+      padding-top:8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:rgba(231,238,252,.62);
+      font-size:12.5px;
+    }
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,252,.14);
+      background:rgba(231,238,252,.06);
+      color:rgba(231,238,252,.78);
+      font-weight:650;
+      white-space:nowrap;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .panel{
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.14);
+      background:linear-gradient(180deg, rgba(12,26,43,.84), rgba(12,26,43,.60));
+      box-shadow: 0 14px 45px rgba(0,0,0,.24);
+      overflow:hidden;
+    }
+    .panelPad{ padding:16px; }
+    .panel h3{ margin:0 0 8px; font-size:18px; letter-spacing:-.01em; }
+    .panel p{ margin:0; color:rgba(231,238,252,.78); line-height:1.55; font-size:14px; }
+
+    .callouts{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .call{
+      border:1px solid rgba(231,238,252,.12);
+      border-radius:16px;
+      background:rgba(231,238,252,.05);
+      padding:12px;
+    }
+    .call strong{ display:block; margin-bottom:6px; font-size:13px; letter-spacing:.02em; }
+    .call span{ color:rgba(231,238,252,.74); font-size:13px; line-height:1.45; display:block; }
+
+    .contact{
+      border-top:1px solid var(--line);
+      padding:26px 0 40px;
+    }
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 0 24px;
+      color:rgba(231,238,252,.60);
+      font-size:12.5px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .split{ grid-template-columns: 1fr; }
+      .contactGrid{ grid-template-columns:1fr; }
+      .title{ font-size:38px; }
+      .hero{ min-height:64vh; }
+      nav.menu{ justify-content:flex-start; }
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns:1fr; }
+      .title{ font-size:34px; }
+      .heroCard{ padding:18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/index.html" aria-label="Home">
+          <span class="dot"></span>
+          Catamaran Dan
+        </a>
+
+        <nav class="menu" aria-label="Primary">
+          <a href="/index.html">Home</a>
+          <a href="/expedition.html">Expedition</a>
+          <a href="/rimrun.html">Rim Run™</a>
+          <a href="/systems.html">Systems</a>
+          <a class="active" href="/about.html">About</a>
+          <a href="/index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" role="banner" style="background: url('/dan.jpg') center / cover no-repeat;">
+    <div class="wrap">
+      <div class="heroCard">
+        <p class="eyebrow">AUTHORITY • DISCIPLINE • EXPERIENCE</p>
+        <h1 class="title">Catamaran Dan</h1>
+        <p class="subtitle">
+          U.S. Navy submariner (Blue Nose, Shellback). USCG Captain (200-ton). ASA sailing instructor. Builder of Blue Rim 5™ and Nevado Raiders™.
+        </p>
+        <div class="ctaRow">
+          <a class="btn" href="/index.html">Home</a>
+          <a class="btn secondary" href="/systems.html">Systems</a>
+          <a class="btn" href="/index.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sectionHeader">
+        <div>
+          <h2>Background</h2>
+          <p>Authority and calm judgment built on real service, real seamanship, and systems thinking.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <img src="/dan.jpg" alt="Catamaran Dan" />
+          <div class="panelPad">
+            <h3>Experience</h3>
+            <p>
+              U.S. Navy submariner (Blue Nose, Shellback). Electronics technician background.
+              USCG Captain (200-ton). ASA sailing instructor. 20+ years teaching sailing with safety as the non-negotiable priority.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panelPad">
+            <h3>Why This Exists</h3>
+            <p>
+              Blue Rim 5™ is built to demonstrate real-world expedition discipline while emphasizing cultural exchange, peace,
+              and shared responsibility to care for one another — on coasts, lakes, rivers, and oceans worldwide.
+            </p>
+
+            <div class="callouts">
+              <div class="call"><strong>Authority</strong><span>Competency first, then adventure and the human story.</span></div>
+              <div class="call"><strong>Culture</strong><span>Nevado Raiders™ is a “go-anywhere” ethos with risk realism.</span></div>
+              <div class="call"><strong>Responsibility</strong><span>Peace-minded exchange and care for others as core theme.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="panel">
+        <div class="panelPad">
+          <h3>Contact</h3>
+          <p>
+            Email: <a href="mailto:NevadoRaiders@gmail.com" style="color:var(--accent); font-weight:800;">NevadoRaiders@gmail.com</a>
+            • Use the Home page Contact section for quick links.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> Catamaran Dan • Blue Rim 5™ • Nevado Raiders™ • “Better Beachy than Bitchy™”
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
 
 
