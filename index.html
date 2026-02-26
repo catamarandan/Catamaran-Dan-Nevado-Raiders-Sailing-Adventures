@@ -3,50 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blue Rim 5™ Global Sailing Expedition | Catamaran Dan</title>
 
-  <title>Blue Rim 5™ Global Sailing Expedition | Catamaran Dan | Nevado Raiders™</title>
-  <meta name="description" content="Blue Rim 5™ is Catamaran Dan’s disciplined, sail‑first global sailing expedition: coastal segmentation, precise LAT/LON routing, and an inclusive fleet model of small expedition boats supported by larger guardian vessels. Documentation, cultural exchange, and real-world seamanship." />
-  <link rel="canonical" href="https://catamarandan.org/" />
+  <meta name="description" content="Blue Rim 5™ is a disciplined, sail-only global sailing expedition built on coastal segmentation, precise LAT/LON routing, and an inclusive fleet model: small expedition boats supported by larger guardian vessels." />
+ <meta property="og:title" ...
 
   <meta property="og:title" content="Blue Rim 5™ Global Sailing Expedition" />
-  <meta property="og:description" content="Disciplined expedition sailing with an inclusive fleet: small expedition boats supported by larger guardian vessels." />
+  <meta property="og:description" content="Disciplined, sail-only expedition sailing with guardian-vessel support for safety, resilience, and real-world capability." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://catamarandan.org/" />
-  <meta property="og:image" content="https://catamarandan.org/hero.png" />
-
-  <meta name="theme-color" content="#07121e" />
+  <meta property="og:url" content="https://catamarandan.org/expedition.html" />
 
   <style>
     :root{
-      --bg:#07121e;
-      --card:#0c1a2b;
-      --card2:#0f2034;
+      --bg:#0b1220;
+      --card:#0f1a30;
       --text:#e7eefc;
-      --muted:#b7c6e6;
+      --muted:#b7c5e6;
       --line:rgba(231,238,252,.12);
       --accent:#4da3ff;
       --accent2:#38d4c7;
-      --danger:#ff5a7a;
-      --max:1180px;
+      --max:1100px;
       --radius:18px;
-      --shadow:0 18px 55px rgba(0,0,0,.35);
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 700px at 10% -10%, rgba(77,163,255,.20), transparent 60%),
-        radial-gradient(900px 600px at 85% 10%, rgba(56,212,199,.16), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.35)),
-        var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--text);
+      background:linear-gradient(180deg,#070c16 0%,var(--bg) 50%,#070c16 100%);
+      line-height:1.55;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
+    a{color:inherit;text-decoration:none}
 
     .wrap{
       max-width:var(--max);
@@ -57,17 +47,16 @@
     header{
       position:sticky;
       top:0;
-      z-index:50;
-      backdrop-filter: blur(10px);
-      background:rgba(7,18,30,.86);
+      backdrop-filter:blur(10px);
+      background:rgba(7,12,22,.85);
       border-bottom:1px solid var(--line);
+      z-index:50;
     }
 
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
       padding:14px 0;
     }
 
@@ -76,579 +65,210 @@
       align-items:center;
       gap:10px;
       font-weight:800;
-      letter-spacing:.2px;
-    }
-    .dot{
-      width:8px;
-      height:8px;
-      border-radius:99px;
-      background:linear-gradient(90deg, var(--accent), var(--accent2));
-      box-shadow:0 0 0 6px rgba(77,163,255,.10);
     }
 
-    nav.menu{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    nav.menu a{
-      padding:9px 12px;
+    .dot{
+      width:10px;
+      height:10px;
       border-radius:999px;
-      border:1px solid transparent;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+    }
+
+    .menu{
+      display:flex;
+      gap:14px;
+      font-weight:600;
+    }
+
+    .menu a{
+      padding:8px 12px;
+      border-radius:999px;
       color:var(--muted);
-      font-weight:650;
-      font-size:14px;
-      transition:all .18s ease;
     }
-    nav.menu a:hover{
+
+    .menu a:hover{
       color:var(--text);
-      border-color:rgba(77,163,255,.35);
-      background:rgba(77,163,255,.10);
+      border:1px solid var(--line);
     }
-    nav.menu a.active{
+
+    .menu a.active{
       color:var(--text);
-      border-color:rgba(77,163,255,.45);
-      background:rgba(77,163,255,.12);
+      border:1px solid rgba(77,163,255,.4);
+      background:rgba(77,163,255,.1);
     }
 
     .hero{
-      position:relative;
-      min-height:72vh;
+      min-height:420px;
       display:flex;
       align-items:flex-end;
-      padding:46px 0 40px;
-      background: url("/hero.png") center / cover no-repeat;
+      padding:60px 0 40px;
       border-bottom:1px solid var(--line);
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(900px 500px at 25% 10%, rgba(77,163,255,.22), transparent 55%),
-        radial-gradient(900px 520px at 85% 20%, rgba(56,212,199,.18), transparent 55%),
-        linear-gradient(180deg, rgba(7,18,30,.20), rgba(7,18,30,.72));
+        linear-gradient(180deg,rgba(7,12,22,.3),rgba(7,12,22,.9)),
+        url("expedition_hero.jpg") center/cover no-repeat;
     }
-    .hero .wrap{ position:relative; }
 
-    .heroCard{
-      max-width:860px;
-      padding:22px 22px 20px;
-      border-radius:20px;
-      border:1px solid rgba(231,238,252,.16);
-      background:rgba(12,26,43,.58);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
+    .hero-card{
+      background:rgba(15,26,48,.8);
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(231,238,252,.15);
+      max-width:850px;
     }
-    .eyebrow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      color:rgba(231,238,252,.78);
+
+    .kicker{
       font-size:12px;
-      letter-spacing:.18em;
+      letter-spacing:.12em;
       text-transform:uppercase;
-      margin:0 0 10px;
+      color:var(--muted);
+      margin-bottom:10px;
     }
-    .title{
-      margin:0 0 8px;
-      font-size:44px;
-      line-height:1.05;
-      letter-spacing:-.02em;
+
+    h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
     }
-    .subtitle{
-      margin:0 0 14px;
-      color:rgba(231,238,252,.86);
+
+    .lead{
+      margin:0;
+      color:var(--muted);
       font-size:16px;
-      line-height:1.55;
-      max-width:72ch;
-    }
-    .ctaRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:10px;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(77,163,255,.45);
-      background:rgba(77,163,255,.12);
-      color:var(--text);
-      font-weight:750;
-      font-size:14px;
-      transition:all .18s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); background:rgba(77,163,255,.18); }
-    .btn.secondary{
-      border-color:rgba(56,212,199,.45);
-      background:rgba(56,212,199,.10);
     }
 
-    .section{
-      padding:34px 0;
-    }
-    .sectionHeader{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:18px;
-      margin-bottom:14px;
-    }
-    .sectionHeader h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-.01em;
-    }
-    .sectionHeader p{
-      margin:0;
-      color:rgba(231,238,252,.72);
-      max-width:62ch;
-      line-height:1.5;
-      font-size:14px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:16px;
+    main{
+      padding:40px 0 60px;
     }
 
     .card{
-      position:relative;
+      background:rgba(15,26,48,.6);
+      border:1px solid var(--line);
       border-radius:var(--radius);
-      border:1px solid rgba(231,238,252,.14);
-      background:linear-gradient(180deg, rgba(12,26,43,.92), rgba(12,26,43,.68));
-      overflow:hidden;
-      box-shadow: 0 14px 45px rgba(0,0,0,.28);
-      transition: transform .16s ease, border-color .16s ease, background .16s ease;
-      min-height: 280px;
-      display:flex;
-      flex-direction:column;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(77,163,255,.32);
-      background:linear-gradient(180deg, rgba(15,32,52,.92), rgba(12,26,43,.70));
+      padding:24px;
+      margin-bottom:24px;
     }
 
-    .thumb{
-      height:142px;
-      width:100%;
-      object-fit:cover;
-      filter:saturate(1.05) contrast(1.02);
+    h2{
+      margin-top:0;
+      font-size:20px;
     }
 
-    .cardBody{
-      padding:14px 14px 16px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      flex:1;
-    }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(231,238,252,.72);
-    }
-    .cardTitle{
-      margin:0;
-      font-size:18px;
-      letter-spacing:-.01em;
-      line-height:1.2;
-    }
-    .cardText{
-      margin:0;
-      color:rgba(231,238,252,.76);
-      line-height:1.48;
-      font-size:13.5px;
-    }
-
-    .kickerRow{
-      margin-top:auto;
-      padding-top:8px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      color:rgba(231,238,252,.62);
-      font-size:12.5px;
-    }
-    .pill{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(231,238,252,.14);
-      background:rgba(231,238,252,.06);
-      color:rgba(231,238,252,.78);
-      font-weight:650;
-      white-space:nowrap;
-    }
-
-    .split{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
-      align-items:stretch;
-    }
-    .panel{
-      border-radius:var(--radius);
-      border:1px solid rgba(231,238,252,.14);
-      background:linear-gradient(180deg, rgba(12,26,43,.84), rgba(12,26,43,.60));
-      box-shadow: 0 14px 45px rgba(0,0,0,.24);
-      overflow:hidden;
-    }
-    .panelPad{ padding:16px; }
-    .panel h3{ margin:0 0 8px; font-size:18px; letter-spacing:-.01em; }
-    .panel p{ margin:0; color:rgba(231,238,252,.78); line-height:1.55; font-size:14px; }
-
-    .callouts{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:12px;
-      margin-top:14px;
-    }
-    .call{
-      border:1px solid rgba(231,238,252,.12);
-      border-radius:16px;
-      background:rgba(231,238,252,.05);
-      padding:12px;
-    }
-    .call strong{ display:block; margin-bottom:6px; font-size:13px; letter-spacing:.02em; }
-    .call span{ color:rgba(231,238,252,.74); font-size:13px; line-height:1.45; display:block; }
-
-    .contact{
-      border-top:1px solid var(--line);
-      padding:26px 0 40px;
-    }
-    .contactGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:16px;
-      align-items:start;
+    ul{
+      margin:12px 0 0;
+      padding-left:20px;
+      color:var(--muted);
     }
 
     footer{
       border-top:1px solid var(--line);
-      padding:18px 0 24px;
-      color:rgba(231,238,252,.60);
-      font-size:12.5px;
-    }
-
-    @media (max-width: 980px){
-      .grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-      .split{ grid-template-columns: 1fr; }
-      .contactGrid{ grid-template-columns:1fr; }
-      .title{ font-size:38px; }
-      .hero{ min-height:64vh; }
-      nav.menu{ justify-content:flex-start; }
-    }
-    @media (max-width: 520px){
-      .grid{ grid-template-columns:1fr; }
-      .title{ font-size:34px; }
-      .heroCard{ padding:18px; }
+      padding:20px 0;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="wrap">
-      <div class="nav">
-        <a class="brand" href="/index.html" aria-label="Home">
-          <span class="dot"></span>
-          Catamaran Dan
-        </a>
-
-        <nav class="menu" aria-label="Primary">
-          <a class="active" href="/index.html">Home</a>
-          <a href="/expedition.html">Expedition</a>
-          <a href="/rimrun.html">Rim Run™</a>
-          <a href="/systems.html">Systems</a>
-          <a href="/about.html">About</a>
-          <a href="/index.html#contact">Contact</a>
-        </nav>
-      </div>
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="index.html">
+        <span class="dot"></span>
+        Catamaran Dan
+      </a>
+      <nav class="menu">
+        <a class="active" href="expedition.html">Expedition</a>
+        <a href="rimrun.html">Rim Run™</a>
+        <a href="systems.html">Systems</a>
+        <a href="about.html">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
     </div>
-  </header>
+  </div>
+</header>
 
-  <section class="hero" role="banner">
-    <div class="wrap">
-      <div class="heroCard">
-        <p class="eyebrow">DISCIPLINE • SEAMANSHIP • CULTURAL EXCHANGE • REAL‑WORLD CAPABILITY</p>
-        <h1 class="title">Blue Rim 5™ Global Sailing Expedition</h1>
-        <p class="subtitle">
-          A sail‑first, coastal‑segmented expedition built for real oceans and real logistics.
-          Small expedition boats (Hobie Getaway, small monohulls, and similar vessels) supported by larger guardian vessels for safety and resilience —
-          documented openly, with cultural exchange and human connection at the center.
-        </p>
-        <div class="ctaRow">
-          <a class="btn" href="/expedition.html">Explore the Expedition</a>
-          <a class="btn secondary" href="/rimrun.html">Rim Run™ — Panama ↔ Belize</a>
-          <a class="btn" href="/systems.html">Operational Systems</a>
-        </div>
-      </div>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-card">
+      <div class="kicker">Blue Rim 5™ Global Sailing Expedition</div>
+      <h1>Disciplined. Sail-Only. Coastal. Engineered.</h1>
+      <p class="lead">
+        Blue Rim 5™ is a global sailing expedition built around operational precision,
+        short coastal legs, and human connection — using small expedition sailboats
+        supported by larger guardian vessels for safety, logistics depth, and resilience.
+      </p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section" id="top">
-    <div class="wrap">
-      <div class="sectionHeader">
-        <div>
-          <h2>Start Here</h2>
-          <p>
-            Authority and competency first — then adventure, the human experience, and the culture that carries us.
-          </p>
-        </div>
-      </div>
+<main>
+  <div class="wrap">
 
-      <div class="grid">
-        <!-- 1 -->
-        <a class="card" href="/expedition.html">
-          <img class="thumb" src="/expedition_hero.jpg" alt="Blue Rim 5 Global Sailing Expedition hero image" />
-          <div class="cardBody">
-            <span class="tag">Blue Rim 5™ • Expedition</span>
-            <h3 class="cardTitle">The Mission + Fleet Model</h3>
-            <p class="cardText">
-              Coastal segmentation. Precise LAT/LON routing. Sail‑first discipline.
-              Small expedition boats supported by larger guardian vessels — built for safety, redundancy, and execution.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">Read the overview</span>
-              <span>expedition.html</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 2 -->
-        <a class="card" href="/systems.html">
-          <img class="thumb" src="/about_hero.jpg" alt="Systems and readiness hero image" />
-          <div class="cardBody">
-            <span class="tag">Systems • Readiness</span>
-            <h3 class="cardTitle">How We Operate</h3>
-            <p class="cardText">
-              Communications, safety, navigation discipline, power, water, and daily operational realities.
-              Garmin inReach Explorer tracking and SOS capability included.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">See the systems</span>
-              <span>systems.html</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 3 -->
-        <a class="card" href="/the-route/">
-          <img class="thumb" src="/bluerim5_map.jpg" alt="Map overview image" />
-          <div class="cardBody">
-            <span class="tag">Route • Coastal Legs</span>
-            <h3 class="cardTitle">The Route</h3>
-            <p class="cardText">
-              A year measured in reefs — plus the long arc of the global expedition.
-              Coastal legs whenever possible, short segments by design.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">Open route page</span>
-              <span>/the-route/</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 4 -->
-        <a class="card" href="/rimrun.html">
-          <img class="thumb" src="/rim_run.jpg" alt="Rim Run hero image" />
-          <div class="cardBody">
-            <span class="tag">Rim Run™ • Panama ↔ Belize</span>
-            <h3 class="cardTitle">RIM RUN™ — A Year Measured in Reefs</h3>
-            <p class="cardText">
-              The rotating invitation into warm turquoise water, reefs, and coastal living —
-              where real seamanship meets the human experience.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">Go to Rim Run™</span>
-              <span>rimrun.html</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 5 -->
-        <a class="card" href="/about.html">
-          <img class="thumb" src="/dan.jpg" alt="Catamaran Dan portrait" />
-          <div class="cardBody">
-            <span class="tag">About • Authority</span>
-            <h3 class="cardTitle">Catamaran Dan</h3>
-            <p class="cardText">
-              U.S. Navy submariner. Blue Nose. Shellback.
-              USCG Captain (200‑ton) and sailing instructor — built on discipline, calm judgment, and systems thinking.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">Read the bio</span>
-              <span>about.html</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 6 -->
-        <a class="card" href="/nevadoraiders/">
-          <img class="thumb" src="/nevadoraiders.jpg" alt="Nevado Raiders imagery" />
-          <div class="cardBody">
-            <span class="tag">Nevado Raiders™ • Culture</span>
-            <h3 class="cardTitle">Nevado Raiders™</h3>
-            <p class="cardText">
-              A global sailing adventure culture of explorers: skills, self‑reliance, and shared responsibility —
-              virtually anywhere on Earth, as long as it makes sense and the risks are acceptable.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">Enter the Raiders</span>
-              <span>/nevadoraiders/</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 7 -->
-        <a class="card" href="/our-sponsors/">
-          <img class="thumb" src="/sponsors.jpg" alt="Sponsors and partners image" />
-          <div class="cardBody">
-            <span class="tag">Partners • Sponsors</span>
-            <h3 class="cardTitle">Our Sponsors</h3>
-            <p class="cardText">
-              Early partners who believe in disciplined expedition sailing, cultural exchange, and peace‑minded human connection.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">View sponsors</span>
-              <span>/our-sponsors/</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- 8 -->
-        <a class="card" href="/video-gallery/">
-          <img class="thumb" src="/storytime-videos/" alt="Video gallery" />
-          <div class="cardBody">
-            <span class="tag">Media • Storytime</span>
-            <h3 class="cardTitle">Videos + Storytime</h3>
-            <p class="cardText">
-              Training, reef days, the build, the planning — and the moments that make this a human expedition, not a fantasy brochure.
-            </p>
-            <div class="kickerRow">
-              <span class="pill">Watch</span>
-              <span>/video-gallery/</span>
-            </div>
-          </div>
-        </a>
-      </div>
+    <div class="card">
+      <h2>Mission</h2>
+      <p>
+        Blue Rim 5™ is not a cruise. It is not a charter. It is not content tourism.
+        It is a disciplined, sail-only global sailing expedition built on real seamanship,
+        measured risk, and coastal segmentation.
+      </p>
+      <p>
+        A Nevado Raiders™ Sea of Cortez shakedown season is planned for fall/early winter 2026,
+        followed by the primary Blue Rim 5™ Global Sailing Expedition departure in May 2027.
+      </p>
     </div>
-  </section>
 
-  <section class="section" id="first-chapters">
-    <div class="wrap">
-      <div class="sectionHeader">
-        <div>
-          <h2>Blue Rim 5™ — First Chapters</h2>
-          <p>
-            This project is just getting started. The build is underway, the plan is disciplined, and the story is being written one real day at a time.
-          </p>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="panel">
-          <img src="/bluerim5_map.jpg" alt="Blue Rim 5 map overview" />
-          <div class="panelPad">
-            <h3>Route Discipline</h3>
-            <p>
-              The planning standard is simple: keep legs short whenever possible, favor coasts and islands, and plan for real‑world execution.
-              Each major schedule build is approached as daily, operational entries — with precise coordinates where required.
-            </p>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panelPad">
-            <h3>Tracking + Emergency</h3>
-            <p>
-              Garmin inReach Explorer is part of the expedition toolset for tracking and SOS — an additional layer of accountability and safety
-              beyond standard marine communications.
-            </p>
-
-            <div class="callouts" aria-label="Key pillars">
-              <div class="call">
-                <strong>Fleet Model</strong>
-                <span>Small expedition boats + larger guardian vessels (and/and).</span>
-              </div>
-              <div class="call">
-                <strong>Culture</strong>
-                <span>Peace, human connection, and shared responsibility to care for one another.</span>
-              </div>
-              <div class="call">
-                <strong>Reality</strong>
-                <span>Systems, redundancy, and discipline over hype.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="card">
+      <h2>Operational Framework</h2>
+      <ul>
+        <li>Sail-only primary propulsion (no reliance on engine fuel).</li>
+        <li>Short coastal legs wherever possible.</li>
+        <li>Precise LAT/LON waypoint discipline.</li>
+        <li>Anchoring-first, self-sufficient expedition posture.</li>
+        <li>No propane systems onboard.</li>
+        <li>Country-by-country customs and immigration planning.</li>
+      </ul>
     </div>
-  </section>
 
-  <section class="contact" id="contact">
-    <div class="wrap">
-      <div class="sectionHeader">
-        <div>
-          <h2>Contact</h2>
-          <p>For partners, sponsors, and aligned collaborations.</p>
-        </div>
-      </div>
-
-      <div class="contactGrid">
-        <div class="panel">
-          <div class="panelPad">
-            <h3>Primary</h3>
-            <p>
-              Email: <a href="mailto:NevadoRaiders@gmail.com" style="color:var(--accent); font-weight:800;">NevadoRaiders@gmail.com</a>
-            </p>
-            <p style="margin-top:10px; color:rgba(231,238,252,.72); font-size:13px;">
-              Note: The expedition is being built conservatively — underpromise, overdeliver.
-            </p>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panelPad">
-            <h3>Quick Links</h3>
-            <p style="margin-bottom:10px; color:rgba(231,238,252,.78);">Use these pages to understand the mission fast:</p>
-            <div class="ctaRow">
-              <a class="btn" href="/expedition.html">Expedition</a>
-              <a class="btn secondary" href="/systems.html">Systems</a>
-              <a class="btn" href="/about.html">About</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="card">
+      <h2>Fleet Model — And / And</h2>
+      <ul>
+        <li>
+          <strong>Small expedition sailboats</strong> — Hobie Getaway, Catalina 22 Sport,
+          and similar vessels.
+        </li>
+        <li>
+          <strong>Larger guardian vessels</strong> — sailing and power boats traveling
+          with the expedition to increase safety margin, provide logistics support,
+          medical redundancy, retrieval capability, and real-world operational depth.
+        </li>
+      </ul>
+      <p>
+        Agility and seamanship at the core. Guardian vessels providing resilience,
+        redundancy, and capability when conditions demand it.
+      </p>
     </div>
-  </section>
 
-  <footer>
-    <div class="wrap">
-      © <span id="y"></span> Catamaran Dan • Blue Rim 5™ • Nevado Raiders™ • “Better Beachy than Bitchy™”
+    <div class="card">
+      <h2>Climate Reality</h2>
+      <p>
+        The oceans are warming. Reefs are changing. Coastlines are shifting.
+        Blue Rim 5™ moves through the world with respect for ecosystems under measurable stress,
+        documenting what is observed and speaking plainly about what is real.
+      </p>
+      <p>
+        This expedition is built on truth, discipline, and responsibility — not theatrics.
+      </p>
     </div>
-  </footer>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  </div>
+</main>
+
+<footer>
+  Nevado Raiders™ • Blue Rim 5™ • Rim Run™<br>
+  NevadoRaiders@gmail.com
+</footer>
 
 </body>
 </html>
