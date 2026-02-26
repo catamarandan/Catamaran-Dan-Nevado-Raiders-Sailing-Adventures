@@ -14,6 +14,10 @@
 
 <style>
   :root {
+    --hero-image: url(\"hero.png\");
+    --hero-pos: center top;
+    --hero-size: contain;
+    --hero-minh: 680px;
     --bg:#0b1220;
     --card:#101f3a;
     --card2:#0f1b33;
@@ -77,30 +81,54 @@
     display:flex;
     justify-content:center;
     margin: 0 0 24px;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
   }
   .top-banner img{
     display:block;
-    width: min(980px, 96%);
-    height: auto;
-    border-radius: 28px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--line);
+    width:100%;
+    max-width:none;
+    height:auto;
+    border-radius:0;
+    box-shadow: none;
+    border: none;
   }
 
-  /* HERO */
-.hero{
-  position:relative;
-  width:100%;
-  min-height:680px;  /* adjust height here */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:80px 20px;
-  overflow:hidden;
-  background:
-    linear-gradient(180deg, rgba(11,18,32,.35), rgba(11,18,32,.85)),
-    url("nice2.jpg") center 20% / cover no-repeat;
-}
+  
+  /* PAGE HERO (Reusable for expedition.html / rimrun.html / systems.html / about.html)
+     Usage example:
+     <section class="page-hero" style="--hero-image:url('nice2.jpg'); --hero-pos:center 20%; --hero-size:cover;"></section>
+  */
+  .page-hero{
+    position:relative;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    overflow:hidden;
+    padding:84px 26px 74px;
+    background:
+      linear-gradient(180deg, rgba(11,18,32,.25), rgba(11,18,32,.92)),
+      var(--hero-image) var(--hero-pos) / var(--hero-size) no-repeat;
+    background-color: var(--bg);
+    min-height: var(--hero-minh);
+  }
+
+/* HERO */
+  .hero{
+    position:relative;
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    border-radius:0;
+    overflow:hidden;
+    padding:84px 26px 74px;
+    box-shadow:none;
+    border:none;
+
+    background:
+      linear-gradient(180deg, rgba(11,18,32,.25), rgba(11,18,32,.92)),
+      var(--hero-image) var(--hero-pos) / var(--hero-size) no-repeat;
+    background-color: var(--bg);
+    min-height: var(--hero-minh);
+  }
   .chip{
     display:inline-flex;
     padding:10px 14px;
@@ -137,10 +165,11 @@
     display:grid;
     grid-template-columns: 320px 1fr;
     gap:14px;
-     border-radius:22px;
+    border:1px solid var(--line);
+    border-radius:22px;
     overflow:hidden;
     background: linear-gradient(180deg, rgba(16,31,58,.92), rgba(15,27,51,.92));
-   
+    box-shadow: var(--shadow);
   }
 
   .media{
@@ -154,6 +183,8 @@
 
   .shot{
     width:100%;
+    border-radius:16px;
+    overflow:hidden;
     border:1px solid rgba(255,255,255,.10);
     background: rgba(0,0,0,.25);
   }
@@ -248,6 +279,7 @@
   }
 
   @media(max-width:900px){
+    .hero,.page-hero{padding:70px 18px 58px;}
     .row{grid-template-columns:1fr}
     .media{border-right:none;border-bottom:1px solid var(--line)}
     .top-banner{margin: 0 0 18px;}
@@ -1575,6 +1607,7 @@ South Water Caye delivers scale without chaos. Anchor close. Fins on. Slide in. 
 
 </body>
 </html>
+
 
 
 
