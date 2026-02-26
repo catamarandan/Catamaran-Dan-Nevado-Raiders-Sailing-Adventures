@@ -8,6 +8,7 @@
 <style>
 :root{
   --bg:#0b1220;
+  --card:#101f3a;
   --text:#eaf0ff;
   --muted:#b8c6ef;
   --line:rgba(255,255,255,.12);
@@ -49,10 +50,10 @@ a{color:inherit;text-decoration:none}
 
 .hero{
   margin-top:60px;
-  height:520px;
+  height:420px;
   background:
     linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.75)),
-   url("hero.png") center center / cover no-repeat;
+    url("dragr.jpg") center center / cover no-repeat;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -68,6 +69,43 @@ a{color:inherit;text-decoration:none}
   max-width:var(--max);
   margin:auto;
   padding:60px 20px;
+}
+
+.matrix{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin:40px 0 60px 0;
+}
+
+.matrix img{
+  width:100%;
+  border-radius:18px;
+  display:block;
+}
+
+.panel{
+  background:var(--card);
+  padding:30px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:260px;
+}
+
+.panel h3{
+  margin:0;
+  font-size:22px;
+}
+
+.panel p{
+  margin:12px 0 0 0;
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.6;
 }
 
 footer{
@@ -94,42 +132,62 @@ footer{
   </div>
 </nav>
 
-<!-- FULL BACKGROUND IMAGE HERO -->
 <section class="hero">
   <h1>Systems & Platforms</h1>
 </section>
 
-<!-- TEXT BELOW IMAGE -->
 <section class="wrap">
 
-  <p style="font-size:20px;line-height:1.7;margin:0 0 20px;">
+  <p style="font-size:20px;line-height:1.7;margin:0 0 30px;">
     Blue Rim 5™ operates on a sail-first philosophy supported by disciplined systems design.
     Every platform, component, and configuration choice reflects durability, redundancy,
     and simplicity over complexity.
   </p>
 
-  <p style="font-size:18px;line-height:1.7;margin:0 0 20px;">
-    Solar architecture is built around lightweight, modular power systems —
-    prioritizing silent energy generation, removable panel flexibility,
-    and efficient onboard storage without reliance on fuel propulsion.
-  </p>
+  <div class="matrix">
 
-  <p style="font-size:18px;line-height:1.7;margin:0 0 20px;">
-    The DRAGR sled configuration and tow bridle geometry are engineered for
-    load distribution, shock absorption, and long-term structural integrity —
-    allowing expedition gear to travel safely while preserving vessel balance.
-  </p>
+    <!-- DRAGR -->
+    <img src="dragr.jpg" alt="DRAGR sled configuration">
 
-  <p style="font-size:18px;line-height:1.7;margin:0 0 20px;">
-    Small expedition sailboats operate as the primary exploration platforms,
-    supported by guardian vessels when appropriate. The model favors
-    short coastal segments, daylight navigation, and repeatable procedures.
-  </p>
+    <!-- ECOFLOW -->
+    <img src="ecoflow.jpg" alt="EcoFlow portable solar power system">
 
-  <p style="font-size:18px;line-height:1.7;">
+    <!-- TORQEEDO -->
+    <img src="torqeedo.jpg" alt="Torqeedo electric propulsion system">
+
+    <!-- TENT -->
+    <img src="tent.jpg" alt="Quechua 2-second windproof waterproof tent">
+
+    <!-- SOLAR RECHARGED PROPULSION PANEL -->
+    <div class="panel">
+      <div>
+        <h3>Solar-Recharged Propulsion</h3>
+        <p>
+          Sail-first primary movement. Electric auxiliary propulsion recharged by
+          portable solar architecture. No fuel dependency. Silent operation.
+          Lightweight, modular energy storage designed for expedition durability.
+        </p>
+      </div>
+    </div>
+
+    <!-- SYSTEM DISCIPLINE PANEL -->
+    <div class="panel">
+      <div>
+        <h3>Expedition Discipline</h3>
+        <p>
+          Daylight coastal segmentation. Conservative routing. Redundant hardware.
+          Equipment selected for reliability, durability, and repeatable deployment
+          in wind and weather.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="font-size:18px;line-height:1.7;margin:0;">
     Systems are not an accessory to the expedition — they are the foundation.
-    Reliability, preparation, and discipline are the platform on which Blue Rim 5™
-    moves forward.
+    Reliability, preparation, and disciplined execution are the platform on which
+    Blue Rim 5™ moves forward.
   </p>
 
 </section>
