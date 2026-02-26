@@ -1,77 +1,205 @@
-<section style="padding:80px 20px;">
-  <div style="max-width:1100px;margin:0 auto;">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Systems | Blue Rim 5™</title>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+<style>
+:root{
+  --bg:#0b1220;
+  --text:#eaf0ff;
+  --muted:#b8c6ef;
+  --line:rgba(255,255,255,.12);
+  --max:1100px;
+}
 
-      <!-- 1 DRAGR -->
-      <div>
-        <img src="dragr.jpg" style="width:100%;border-radius:16px;margin-bottom:20px;">
-        <h3>DRAGR Expedition Sled</h3>
-        <p style="line-height:1.7;">
-          The DRAGR sled serves as the dedicated expedition cargo platform.
-          It carries modular gear, provisions, recovery equipment, and cold-weather
-          systems while preserving balance on the primary sailing platform.
-        </p>
-        <p style="line-height:1.7;">
-          Engineered with reinforced tow geometry and shock-absorbing bridle
-          configuration, the sled distributes load safely while under sail.
-          During overland transport it rides secured on the trailer,
-          maintaining expedition readiness between launches.
-        </p>
-      </div>
+body{
+  margin:0;
+  font-family:system-ui;
+  background:var(--bg);
+  color:var(--text);
+}
 
-      <!-- 2 ECOFLOW -->
-      <div>
-        <img src="ecoflow.jpg" style="width:100%;border-radius:16px;margin-bottom:20px;">
-        <h3>EcoFlow Delta 3 Solar Power System</h3>
-        <p style="line-height:1.7;">
-          Portable, modular lithium power architecture providing silent,
-          fuel-free onboard energy storage.
-        </p>
-        <p style="line-height:1.7;">
-          Recharged via flexible solar panels or standard AC when available,
-          the system supports navigation electronics, communications,
-          lighting, refrigeration, and auxiliary systems without dependence
-          on combustion propulsion.
-        </p>
-      </div>
+a{color:inherit;text-decoration:none}
 
-      <!-- 3 TORQEEDO -->
-      <div>
-        <img src="torqeedo.jpg" style="width:100%;border-radius:16px;margin-bottom:20px;">
-        <h3>Torqeedo Electric Propulsion</h3>
-        <p style="line-height:1.7;">
-          High-efficiency 2.5 HP equivalent outboard with integrated 915 Wh
-          high-performance lithium battery. Silent direct-drive system producing
-          just 33 dB with instantaneous throttle response.
-        </p>
-        <p style="line-height:1.7;">
-          Solar-rechargeable via flexible panels or standard AC charging.
-          Integrated onboard computer with GPS-based range calculation.
-          Completely waterproof (IP67) with high-efficiency propeller.
-        </p>
-      </div>
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#0b1220;
+  border-bottom:1px solid var(--line);
+  z-index:1000;
+}
 
-      <!-- 4 TENT -->
-      <div>
-        <img src="tent.jpg" style="width:100%;border-radius:16px;margin-bottom:20px;">
-        <h3>Quechua 2-Second Expedition Tent</h3>
-        <p style="line-height:1.7;">
-          Rapid-deployment windproof and waterproof shelter used at anchor
-          or ashore when conditions demand protection from rain, wind,
-          cold, or heavy mosquito presence.
-        </p>
-        <p style="line-height:1.7;">
-          Provides fast environmental control during reef overnights,
-          storm periods, or extended shore operations while maintaining
-          expedition mobility.
-        </p>
-      </div>
+.nav-inner{
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  padding:14px 18px;
+}
 
+.nav-links{
+  display:flex;
+  gap:24px;
+}
+
+.nav-links a{
+  color:var(--muted);
+}
+
+.hero{
+  height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:
+    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
+    url("hero.png") center center / cover no-repeat;
+}
+
+.hero h1{
+  font-size:48px;
+  margin:0;
+}
+
+.wrap{
+  max-width:var(--max);
+  margin:auto;
+  padding:80px 20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(450px,1fr));
+  gap:40px;
+}
+
+.card img{
+  width:100%;
+  border-radius:16px;
+}
+
+.card h3{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.card p{
+  line-height:1.7;
+  color:var(--muted);
+}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:40px;
+  text-align:center;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <strong>Blue Rim 5™</strong>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="expedition.html">Expedition</a>
+      <a href="rimrun.html">Rim Run™</a>
+      <a href="systems.html">Systems</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Systems & Platforms</h1>
+</section>
+
+<section class="wrap">
+
+  <p style="margin-bottom:60px; font-size:18px; line-height:1.7;">
+    Blue Rim 5™ operates on a sail-first philosophy supported by disciplined systems design.
+    Every platform, component, and configuration choice reflects durability, redundancy,
+    and simplicity over complexity.
+  </p>
+
+  <div class="grid">
+
+    <!-- 1 DRAGR -->
+    <div class="card">
+      <img src="dragr.jpg" alt="DRAGR Sled">
+      <h3>DRAGR Expedition Sled</h3>
+      <p>
+        The DRAGR sled is a reinforced expedition cargo platform designed to carry
+        provisions, camping gear, water containers, and modular systems without
+        compromising vessel trim.
+      </p>
+      <p>
+        Engineered for load distribution and structural integrity, it is transported
+        via a balanced tow bridle system and deployed at anchor for organized gear access.
+      </p>
+    </div>
+
+    <!-- 2 EcoFlow -->
+    <div class="card">
+      <img src="ecoflow.jpg" alt="EcoFlow Delta 3">
+      <h3>EcoFlow Delta 3 Solar Power</h3>
+      <p>
+        Lightweight modular lithium power architecture providing silent onboard
+        energy storage. Rechargeable via portable bifacial solar panels or AC
+        when available.
+      </p>
+      <p>
+        Supports navigation electronics, communication systems, lighting,
+        and expedition devices without reliance on fuel propulsion.
+      </p>
+    </div>
+
+    <!-- 3 Torqeedo -->
+    <div class="card">
+      <img src="torqeedo.jpg" alt="Torqeedo Electric Propulsion">
+      <h3>Torqeedo Electric Propulsion</h3>
+      <p>
+        High-efficiency 2.5 HP equivalent outboard with integrated 915 Wh
+        lithium battery. Silent direct-drive system producing just 33 dB
+        with instantaneous throttle response.
+      </p>
+      <p>
+        Solar-rechargeable via flexible panels or standard AC charging.
+        Integrated onboard computer with GPS-based range calculation.
+        Completely waterproof (IP67) with high-efficiency propeller.
+      </p>
+    </div>
+
+    <!-- 4 Tent -->
+    <div class="card">
+      <img src="tent.jpg" alt="Quencha 2 Second Tent">
+      <h3>Quencha 2-Second Expedition Tent</h3>
+      <p>
+        Rapid-deploy shelter system used at anchor when conditions demand
+        wind protection, rain cover, or mosquito defense.
+      </p>
+      <p>
+        Windproof and waterproof construction allows cold-weather or wet
+        anchorage comfort while maintaining expedition mobility.
+      </p>
     </div>
 
   </div>
+
 </section>
+
+<footer>
+  Better Beachy than Bitchy™ — Anchor down.
+</footer>
+
+</body>
+</html>
 
 
 
