@@ -1,1 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery – Blue Rim 5™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --navy: #0d1b2a;
+      --navy-light: #12263a;
+      --gold: #c9a84c;
+      --gold-light: #e2c47a;
+      --text: #d4c9b0;
+      --text-muted: #8a7f6e;
+    }
+
+    body {
+      background-color: var(--navy);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(201,168,76,0.12);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    /* ── HERO ── */
+    .gallery-hero {
+      text-align: center;
+      padding: 70px 20px 50px;
+      position: relative;
+    }
+
+    .gallery-hero::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 28px auto 0;
+      opacity: 0.6;
+    }
+
+    .gallery-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+    }
+
+    .gallery-hero p {
+      margin-top: 16px;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 0 20px 50px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--text-muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(201,168,76,0.12);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    /* ── MASONRY GRID ── */
+    .gallery-grid {
+      columns: 4 260px;
+      column-gap: 12px;
+      padding: 0 30px 80px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+      filter: brightness(0.88) saturate(0.9);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1.05);
+    }
+
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,27,42,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+
+    .gallery-item:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(201,168,76,0.7);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+    }
+
+    .overlay-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--gold-light);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 12, 20, 0.96);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .lightbox.open { display: flex; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .lightbox-inner img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    }
+
+    .lb-close {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold-light);
+      font-size: 1.4rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .lb-close:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); }
+
+    .lb-prev, .lb-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-light);
+      font-size: 1.2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .lb-prev:hover, .lb-next:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    footer span {
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 18px; }
+      .nav-links { gap: 6px; }
+      .nav-links a { font-size: 0.65rem; padding: 5px 10px; }
+      .gallery-grid { padding: 0 12px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="#">Blue Rim 5™</a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Expedition</a></li>
+      <li><a href="#">Rim Run™</a></li>
+      <li><a href="#">Systems</a></li>
+      <li><a href="#" class="active">Gallery</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="gallery-hero">
+    <h1>Life on the Water</h1>
+    <p>Anchorages, adventures &amp; moments worth living again</p>
+  </section>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="sea">Sea &amp; Wildlife</button>
+    <button class="filter-btn" data-filter="people">People</button>
+    <button class="filter-btn" data-filter="boat">Boat &amp; Gear</button>
+    <button class="filter-btn" data-filter="places">Places</button>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose">✕</button>
+    <button class="lb-prev" id="lbPrev">&#8592;</button>
+    <div class="lightbox-inner">
+      <img id="lbImg" src="" alt=""/>
+    </div>
+    <button class="lb-next" id="lbNext">&#8594;</button>
+  </div>
+
+  <footer>
+    <span>Blue Rim 5™</span> &nbsp;·&nbsp; Nevado Raiders &nbsp;·&nbsp; Better Beachy than Bitchy™
+  </footer>
+
+  <script>
+    const BASE = "https://raw.githubusercontent.com/catamarandan/Catamaran-Dan-Nevado-Raiders-Sailing-Adventures/main/Gallery/";
+
+    const images = [
+      { file: "mangrove.jpg",       tags: ["sea", "places"] },
+      { file: "sergeantmajors.jpg", tags: ["sea"] },
+      { file: "snorkel.jpg",        tags: ["sea", "people"] },
+      { file: "family.jpg",         tags: ["people"] },
+      { file: "caves.jpg",          tags: ["places"] },
+      { file: "sunset.jpg",         tags: ["places", "sea"] },
+      { file: "fish.jpg",           tags: ["sea"] },
+      { file: "boat.jpg",           tags: ["boat"] },
+      { file: "dolphin.jpg",        tags: ["sea"] },
+      { file: "snorkeler2.jpg",     tags: ["sea", "people"] },
+      { file: "boy.jpg",            tags: ["people"] },
+      { file: "play.jpg",           tags: ["people"] },
+      { file: "rock.jpg",           tags: ["places"] },
+      { file: "class.png",          tags: ["people"] },
+      { file: "world.png",          tags: ["places"] },
+      { file: "rim_runner.png",     tags: ["boat"] },
+      { file: "4.png",              tags: ["places"] },
+      { file: "4a.png",             tags: ["places"] },
+      { file: "beach.png",          tags: ["places"] },
+      { file: "camp.png",           tags: ["places", "people"] },
+      { file: "raiders.png",        tags: ["people", "boat"] },
+      { file: "5.png",              tags: ["boat"] },
+      { file: "raiders2.png",       tags: ["people"] },
+      { file: "sails.png",          tags: ["boat"] },
+      { file: "camp(2).png",        tags: ["places", "people"] },
+      { file: "3.png",              tags: ["boat"] },
+      { file: "storm.png",          tags: ["sea", "places"] },
+      { file: "time.png",           tags: ["people", "boat"] },
+      { file: "nice.png",           tags: ["places", "sea"] },
+      { file: "deck.jpg",           tags: ["boat"] },
+      { file: "eat.jpg",            tags: ["people", "boat"] },
+      { file: "dan.jpg",            tags: ["people"] },
+      { file: "dan.png",            tags: ["people"] },
+      { file: "stingray.jpg",       tags: ["sea"] },
+      { file: "mexico.jpg",         tags: ["places"] },
+      { file: "dan2.jpg",           tags: ["people"] },
+    ];
+
+    const grid = document.getElementById('galleryGrid');
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    let currentIndex = 0;
+    let filteredImages = [...images];
+
+    function buildGrid(filter) {
+      filteredImages = filter === 'all' ? [...images] : images.filter(i => i.tags.includes(filter));
+      grid.innerHTML = '';
+      filteredImages.forEach((img, idx) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.innerHTML = `
+          <img src="${BASE}${img.file}" alt="${img.file.replace(/\.\w+$/, '')}" loading="lazy"/>
+          <div class="overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+              </svg>
+            </div>
+          </div>`;
+        item.addEventListener('click', () => openLightbox(idx));
+        grid.appendChild(item);
+      });
+    }
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      lbImg.src = BASE + filteredImages[idx].file;
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() { lightbox.classList.remove('open'); }
+
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+      lbImg.src = BASE + filteredImages[currentIndex].file;
+    });
+    document.getElementById('lbNext').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % filteredImages.length;
+      lbImg.src = BASE + filteredImages[currentIndex].file;
+    });
+
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+      if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        buildGrid(btn.dataset.filter);
+      });
+    });
+
+    buildGrid('all');
+  </script>
+</body>
+</html>
