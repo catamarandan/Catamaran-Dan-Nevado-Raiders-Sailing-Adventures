@@ -1,179 +1,266 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About | Blue Rim 5™</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Catamaran Dan | Blue Rim 5™</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin: 3rem 0;
+      align-items: start;
+    }
+    @media(max-width:700px){ .bio-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
-<style>
-:root{
-  --bg:#0b1220;
-  --text:#eaf0ff;
-  --muted:#b8c6ef;
-  --line:rgba(255,255,255,.12);
-  --max:1100px;
-}
+    .bio-photo img {
+      width: 100%;
+      filter: brightness(0.9) saturate(0.85);
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .bio-photo figcaption {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+      text-align: center;
+    }
 
-body{
-  margin:0;
-  font-family:system-ui;
-  background:var(--bg);
-  color:var(--text);
-}
+    .cred-block {
+      margin: 2rem 0;
+    }
+    .cred-block h4 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--aqua);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .cred-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      font-size: 0.95rem;
+      color: var(--fog);
+    }
+    .cred-item::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      font-family: 'Cinzel', serif;
+    }
 
-a{color:inherit;text-decoration:none}
-
-/* NAV */
-.nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:#0b1220;
-  border-bottom:1px solid var(--line);
-  z-index:1000;
-}
-
-.nav-inner{
-  max-width:var(--max);
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  padding:14px 18px;
-}
-
-.nav-links{
-  display:flex;
-  gap:24px;
-}
-
-.nav-links a{
-  color:var(--muted);
-}
-
-/* HERO */
-.hero{
-  height:65vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:
-    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
-    url("about_hero.png") center 5% / cover no-repeat;
-  margin-top:60px;
-}
-
-.hero h1{
-  font-size:52px;
-  margin:0;
-}
-
-/* CONTENT */
-.wrap{
-  max-width:var(--max);
-  margin:auto;
-  padding:80px 20px;
-}
-
-.wrap h2{
-  margin-top:60px;
-}
-
-.wrap p{
-  line-height:1.8;
-  color:var(--muted);
-  margin-bottom:24px;
-}
-
-ul{
-  color:var(--muted);
-  line-height:1.8;
-  padding-left:20px;
-}
-
-footer{
-  border-top:1px solid var(--line);
-  padding:40px;
-  text-align:center;
-  color:var(--muted);
-}
-</style>
+    .partner-note {
+      background: linear-gradient(135deg, rgba(41,176,212,0.06), rgba(10,15,26,0.5));
+      border: 1px solid rgba(41,176,212,0.2);
+      padding: 2.5rem 3rem;
+      margin: 3rem 0;
+      position: relative;
+    }
+    .partner-note::before {
+      content: 'FIRST MATE — OPEN POSITION';
+      position: absolute;
+      top: -0.65rem; left: 2rem;
+      background: var(--deep-ocean);
+      padding: 0 0.8rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--aqua);
+    }
+  </style>
 </head>
-
 <body>
-<nav class="site-nav">
-  <div class="nav-inner">
-    <div class="brand">Blue Rim 5™</div>
 
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="expedition.html">Expedition</a>
-      <a href="rimrun.html">Rim Run™</a>
-      <a href="systems.html">Systems</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="https://catamarandan.org/thelivingsaga.html">The Living Saga™</a>
-    </div>
-
-  </div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="expedition.html">Expedition</a>
+  <a href="rimrun.html">Rim Run™</a>
+  <a href="thelivingsaga.html">The Living Saga™</a>
+  <a href="systems.html">Systems</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html" class="active">About</a>
 </nav>
 
-<section class="hero">
- <h1 style="color:#00BFFF;">Catamaran Dan</h1>
+<section class="hero" style="min-height:60vh;">
+  <div class="rune-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Catamaran Dan &bull; Ove Ironhand</div>
+    <h1>About <em>the Captain</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      U.S. Navy submariner. USCG-licensed captain. ASA sailing instructor.
+      Expedition leader. Norse bloodline. Forty years on the water.
+    </p>
+  </div>
 </section>
 
-<section class="wrap">
-
-  <p>
-    Catamaran Dan is a U.S. Navy submariner, licensed U.S. Coast Guard 200-Ton Master Captain,
-    ASA sailing instructor (monohull and multihull), and expedition sailor committed to disciplined,
-    sail-first global exploration.
-  </p>
-
-  <p>
-    With decades of maritime experience across naval operations, offshore navigation,
-    coastal passage-making, and charter command, Dan blends professional seamanship
-    with structured expedition systems design.
-  </p>
-
-  <h2>Professional Maritime Background</h2>
-
-  <ul>
-    <li>U.S. Navy Submarine Service — Qualified in submarines</li>
-    <li>Ship’s Control (SC) At-Sea Watchstander</li>
-    <li>Extensive at-sea time aboard nuclear submarines</li>
-    <li>USCG Merchant Mariner Credential — 200 Ton Master Captain</li>
-    <li>ASA Certified Sailing Instructor (Monohull & Multihull)</li>
-    <li>20+ Years Teaching Sailing</li>
-    <li>Charter Captain — Safety-first operational leadership</li>
-  </ul>
-
-  <h2>Expedition Philosophy</h2>
-
-  <p>
-    Blue Rim 5™ is not a casual cruise. It is a structured global sailing expedition
-    built on repetition, systems discipline, daylight navigation, and conservative risk management.
-  </p>
-
-  <p>
-    Small expedition sailboats operate alongside guardian vessels when appropriate.
-    Every coastal segment builds seamanship, cohesion, and operational maturity.
-  </p>
-
-  <p>
-    The mission is long-term: build a disciplined fleet capable of circumnavigation,
-    while demonstrating that serious global sailing can be executed with lightweight,
-    modular, solar-supported systems.
-  </p>
-
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="bio-grid reveal">
+      <div class="bio-text">
+        <div class="section-label">The Man</div>
+        <h2 class="serif" style="margin-bottom:1rem;">Catamaran Dan — <em>Ove Ironhand</em></h2>
+        <div class="gold-rule"></div>
+        <p>
+          Catamaran Dan is a U.S. Navy submariner, licensed U.S. Coast Guard 200-Ton Master
+          Captain, ASA sailing instructor — monohull and multihull — and expedition sailor
+          committed to disciplined, sail-first global exploration.
+        </p>
+        <p>
+          With decades of maritime experience across naval operations, offshore navigation,
+          coastal passage-making, and charter command, Dan blends professional seamanship
+          with structured expedition systems design.
+        </p>
+        <p>
+          Tall, fair-haired, blue-eyed — built by water and miles, not mirrors. Rugby legs,
+          swimmer's chest, sailor's hands. Quietly confident. Unendingly curious. A man of
+          integrity who keeps his word and stays calm when the horizon gets complicated.
+        </p>
+      </div>
+      <figure class="bio-photo">
+        <img src="dan.jpg" alt="Catamaran Dan — expedition leader"/>
+        <figcaption>Catamaran Dan &bull; Expedition Leader</figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
 
-<footer class="footer">
-  <img src="better.png" alt="Better Beachy than Bitchy™">
-  <p>“Better Beachy than Bitchy™” — Anchor down.</p>
-  <p>Cell: (928)-250-9763 &nbsp;&nbsp; Email: NevadoRaiders@gmail.com &nbsp;&nbsp; Base Camp: White Mountains, AZ</p>
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Credentials</div>
+    <h2 class="serif reveal">Professional Maritime <em>Background</em></h2>
+    <div class="gold-rule reveal"></div>
+
+    <div class="bio-grid reveal">
+      <div class="cred-block">
+        <h4>Naval &amp; Command</h4>
+        <div class="cred-item">U.S. Navy Submarine Service — Qualified in Submarines</div>
+        <div class="cred-item">Ship's Control (SC) At-Sea Watchstander</div>
+        <div class="cred-item">Extensive at-sea time aboard nuclear submarines</div>
+        <div class="cred-item">Blue Nose — Arctic Circle crossing under sail, 1984</div>
+        <div class="cred-item">Shellback — Equator crossing under sail, 1984</div>
+      </div>
+      <div class="cred-block">
+        <h4>Licensing &amp; Instruction</h4>
+        <div class="cred-item">USCG Merchant Mariner Credential — 200 Ton Master Captain</div>
+        <div class="cred-item">ASA Certified Sailing Instructor — Monohull &amp; Multihull</div>
+        <div class="cred-item">20+ Years Teaching Sailing</div>
+        <div class="cred-item">Charter Captain — Safety-first operational leadership</div>
+        <div class="cred-item">Graduate-Level Education</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Norse Thread</div>
+    <h2 class="serif reveal">Ove Ironhand — <em>The Bloodline</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">
+      Modern Y-DNA work traces Catamaran Dan's paternal line through the I1 haplogroup —
+      common among Scandinavia's working seafarers — back through Thorvald Asvaldsson,
+      Erik the Red, and Leif Erikson. The same bloodline that crossed the North Atlantic
+      in open boats a thousand years ago. The same curiosity. The same shallow-draft
+      approach to an unknown coastline.
+    </p>
+    <p class="reveal">
+      Signing as Ove Ironhand honors that legacy. Not as costume or affectation — as
+      philosophical inheritance. The Norse went viking as a verb, not a noun. To set out.
+      To encounter the unknown. To return changed. The Rim Run™ does this every November.
+    </p>
+    <a href="thelivingsaga.html" class="btn-gold reveal">Read The Living Saga™ →</a>
+  </div>
+</section>
+
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Expedition Philosophy</div>
+    <h2 class="serif reveal">What Blue Rim 5™ <em>Actually Is</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">
+      Blue Rim 5™ is not a casual cruise. It is a structured global sailing expedition built
+      on repetition, systems discipline, daylight navigation, and conservative risk management.
+      Small expedition sailboats operate alongside guardian vessels when appropriate. Every
+      coastal segment builds seamanship, cohesion, and operational maturity.
+    </p>
+    <p class="reveal">
+      The mission is long-term: build a disciplined fleet capable of circumnavigation,
+      while demonstrating that serious global sailing can be executed with lightweight,
+      modular, solar-supported systems — and while documenting the living oral traditions
+      of every coastal community the circuit moves through.
+    </p>
+    <div class="infobox reveal">
+      <span class="infobox-label">Core Standard</span>
+      <p>
+        Competence first. Conservative risk management. Respect for every coastline and
+        community we enter. The adventure is real because the standards are real.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Partnership</div>
+    <h2 class="serif reveal">Actively Recruiting <em>A Shield-Maiden</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">
+      This isn't a casual berth. I'm an experienced sailing adventurer building a long
+      arc — measured in years, not weekends — and I'm looking for one woman made of the
+      right stuff to share the next chapter: real sailing, real weather, real decisions,
+      and real joy.
+    </p>
+    <div class="partner-note reveal">
+      <p>
+        The first mate I'm seeking is an equal partner in leadership, seamanship, and
+        expedition life — calm under pressure, curious by nature, grounded, capable,
+        and comfortable living close to the elements. Someone who can stand watch at
+        sunrise, laugh when plans change, and help turn long days and longer passages
+        into stories worth keeping.
+      </p>
+      <p style="margin-top:1rem; font-size:0.95rem; color:var(--fog);">
+        This is about partnership, not passengers. We plan together, decide together,
+        and take care of each other and the boat. The goal isn't escape — it's a meaningful
+        life afloat, built deliberately, with room for ambition, laughter, cultural exchange,
+        and a little mischief when the anchor's down.
+      </p>
+    </div>
+    <div class="cred-list reveal">
+      <span class="cred-tag">Shared Leadership</span>
+      <span class="cred-tag">Seamanship &amp; Judgment</span>
+      <span class="cred-tag">Calm Under Pressure</span>
+      <span class="cred-tag">Logistics Savvy</span>
+    </div>
+    <p class="reveal" style="margin-top:2rem;">
+      If this speaks to you: <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Blue Rim 5™ &bull; Catamaran Dan &bull; Nevado Raiders™</div>
+  <div class="footer-tagline">"Better Beachy than Bitchy™" — Anchor down.</div>
+  <div class="footer-contact">
+    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
+    <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
+  </div>
 </footer>
 
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
