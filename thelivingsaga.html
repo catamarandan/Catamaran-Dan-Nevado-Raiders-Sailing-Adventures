@@ -1425,6 +1425,10 @@
 
 
 <!-- FOOTER -->
+
+<div style="text-align:center; padding:3rem 2rem; background:var(--deep-ocean);">
+  <img src="better.png" alt="Better Beachy than Bitchy™" style="max-width:380px; width:90%; display:inline-block;"/>
+</div>
 <footer>
   <p>Blue Rim 5™ Global Sailing Expedition &bull; Catamaran Dan / Ove Ironhand</p>
   <p style="margin-top:0.5rem;">
@@ -1432,6 +1436,21 @@
     &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ
   </p>
 </footer>
+<script>
+function toggleCountry(header) {
+  var body = header.nextElementSibling;
+  var toggle = header.querySelector('.country-toggle');
+  var isOpen = body.classList.contains('open');
+  // close all
+  document.querySelectorAll('.country-body').forEach(function(b){ b.classList.remove('open'); });
+  document.querySelectorAll('.country-toggle').forEach(function(t){ t.textContent = 'Read the Saga ↓'; });
+  // open this one if it was closed
+  if (!isOpen) {
+    body.classList.add('open');
+    if (toggle) toggle.textContent = 'Close ↑';
+  }
+}
+</script>
 <script>
 (function(){
   var els = document.querySelectorAll('.reveal');
