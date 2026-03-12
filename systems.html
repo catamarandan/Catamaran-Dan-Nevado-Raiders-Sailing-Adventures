@@ -748,16 +748,24 @@ footer {
   <div class="footer-tagline">"Better Beachy than Bitchy™" — Anchor down.</div>
   <div class="footer-contact">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#cc82a9baada8a39eada5a8a9bebf8caba1ada5a0e2afa3a1"><span class="__cf_email__" data-cfemail="87c9e2f1e6e3e8d5e6eee3e2f5f4c7e0eae6eeeba9e4e8ea">[email&#160;protected]</span></a>
     &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
   </div>
 </footer>
-
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }});
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.12});
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('visible'); });
+  }
+})();
 </script>
 </body>
 </html>
