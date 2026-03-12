@@ -1428,41 +1428,24 @@
 <footer>
   <p>Blue Rim 5™ Global Sailing Expedition &bull; Catamaran Dan / Ove Ironhand</p>
   <p style="margin-top:0.5rem;">
-    <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#511f342730353e0330383534232211363c30383d7f323e3c"><span class="__cf_email__" data-cfemail="eda3889b8c8982bf8c8489889f9ead8a808c8481c38e8280">[email&#160;protected]</span></a>
     &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ
   </p>
 </footer>
-
-
 <script>
-  // Accordion toggle
-  function toggleCountry(header) {
-    const body = header.nextElementSibling;
-    const toggle = header.querySelector('.country-toggle');
-    const isOpen = body.classList.contains('open');
-
-    // Close all
-    document.querySelectorAll('.country-body').forEach(b => b.classList.remove('open'));
-    document.querySelectorAll('.country-toggle').forEach(t => t.textContent = 'Read the Saga ↓');
-
-    if (!isOpen) {
-      body.classList.add('open');
-      if (toggle) toggle.textContent = 'Close ↑';
-    }
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.12});
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('visible'); });
   }
-
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
 </script>
-
 </body>
 </html>
