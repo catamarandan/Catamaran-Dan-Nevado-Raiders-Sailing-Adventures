@@ -730,59 +730,24 @@ footer {
   <div class="footer-tagline">"Better Beachy than Bitchy™" — Anchor down.</div>
   <div class="footer-contact">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#a4eac1d2c5c0cbf6c5cdc0c1d6d7e4c3c9c5cdc88ac7cbc9"><span class="__cf_email__" data-cfemail="6a240f1c0b0e05380b030e0f18192a0d070b030644090507">[email&#160;protected]</span></a>
     &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
   </div>
 </footer>
-
 <script>
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }});
-}, { threshold: 0.05 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Filter
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      item.style.display = (f === 'all' || item.dataset.cat === f) ? 'block' : 'none';
-    });
-  });
-});
-
-// Lightbox
-const items = Array.from(document.querySelectorAll('.gallery-item img'));
-let current = 0;
-function openLightbox(i) {
-  current = i;
-  document.getElementById('lbImg').src = items[i].src;
-  document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function shiftLightbox(dir) {
-  // only visible items
-  const visible = items.filter((_, i) => document.querySelectorAll('.gallery-item')[i].style.display !== 'none');
-  const vIdx = visible.findIndex(img => img.src === document.getElementById('lbImg').src);
-  const next = (vIdx + dir + visible.length) % visible.length;
-  document.getElementById('lbImg').src = visible[next].src;
-  current = items.indexOf(visible[next]);
-}
-document.getElementById('lightbox').addEventListener('click', e => {
-  if(e.target === e.currentTarget) closeLightbox();
-});
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeLightbox();
-  if(e.key === 'ArrowRight') shiftLightbox(1);
-  if(e.key === 'ArrowLeft') shiftLightbox(-1);
-});
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.12});
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('visible'); });
+  }
+})();
 </script>
 </body>
 </html>
