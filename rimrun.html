@@ -1,131 +1,312 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rim Run™ | Blue Rim 5™</title>
-  <link rel="stylesheet" href="styles.css">
-
-<style>
-:root{
-  --bg:#0b1220;
-  --text:#eaf0ff;
-  --muted:#b8c6ef;
-  --line:rgba(255,255,255,.12);
-  --max:1100px;
-}
-
-body{
-  margin:0;
-  font-family:system-ui;
-  background:var(--bg);
-  color:var(--text);
-}
-
-a{color:inherit;text-decoration:none}
-
-.nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:#0b1220;
-  border-bottom:1px solid var(--line);
-  z-index:50;
-}
-
-.nav-inner{
-  max-width:var(--max);
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  padding:14px 18px;
-}
-
-.nav-links{
-  display:flex;
-  gap:24px;
-}
-
-.nav-links a{color:var(--muted)}
-
-.wrap{
-  max-width:var(--max);
-  margin:auto;
-  padding:120px 20px 60px; /* clears fixed nav */
-}
-
-.hero-img{
-  width:100%;
-  max-width:900px;
-  display:block;
-  margin:0 auto 40px auto;
-  border-radius:18px;
-}
-
-footer{
-  border-top:1px solid var(--line);
-  padding:40px;
-  text-align:center;
-  color:var(--muted);
-}
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rim Run™ | Blue Rim 5™ | Catamaran Dan</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .snorkel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      margin: 3rem 0;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+    .snorkel-card {
+      background: var(--deep-ocean);
+      padding: 2.2rem 2rem;
+      transition: background 0.3s;
+    }
+    .snorkel-card:hover { background: rgba(14,77,110,0.2); }
+    .snorkel-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--aqua);
+      margin-bottom: 0.5rem;
+    }
+    .snorkel-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .snorkel-country {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .snorkel-card p { font-size: 0.93rem; color: var(--fog); line-height: 1.7; }
+    .rimrunner-ritual {
+      background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(10,15,26,0.6));
+      border: 1px solid rgba(212,98,42,0.25);
+      padding: 2.5rem 3rem;
+      margin: 3rem 0;
+      position: relative;
+    }
+    .rimrunner-ritual::before {
+      content: 'RIM RUNNER™ SUNSET PROTOCOL';
+      position: absolute;
+      top: -0.65rem; left: 2rem;
+      background: var(--deep-ocean);
+      padding: 0 0.8rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--fire);
+    }
+    .recipe-step {
+      border-left: 2px solid rgba(212,98,42,0.4);
+      padding-left: 1.5rem;
+      margin: 1.2rem 0;
+    }
+    .recipe-step h5 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--fire);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .recipe-step p { font-size: 0.95rem; color: var(--parchment); }
+    .toast-code {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-top: 1.5rem;
+      font-style: italic;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
 
-<nav class="site-nav">
-  <div class="nav-inner">
-    <div class="brand">Blue Rim 5™</div>
-
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="expedition.html">Expedition</a>
-      <a href="rimrun.html">Rim Run™</a>
-      <a href="systems.html">Systems</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="https://catamarandan.org/thelivingsaga.html">The Living Saga™</a>
-    </div>
-
-  </div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="expedition.html">Expedition</a>
+  <a href="rimrun.html" class="active">Rim Run™</a>
+  <a href="thelivingsaga.html">The Living Saga™</a>
+  <a href="systems.html">Systems</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
 </nav>
 
-<section class="wrap">
-
-  <!-- SAME HERO IMAGE, NOW CENTERED ABOVE TEXT -->
-  <img src="rim_run.png" alt="Rim Run" class="hero-img">
-
- <h1 style="font-size:48px;margin:0 0 24px;color:#00BFFF;">
-    Rim Run™
-  </h1>
-
-  <p style="font-size:20px;line-height:1.7;margin:0 0 20px;">
-    Rim Run™ is the seasonal Panama → Belize → Panama coastal circuit that follows the living edge of the Mesoamerican Barrier Reef system.
-  </p>
-
-  <p style="font-size:18px;line-height:1.7;margin:0 0 20px;">
-    Beginning each January, Catamaran Dan departs Panama and sails north along the Caribbean coast — anchoring over reef water, snorkeling daily, fishing responsibly, provisioning locally, and operating entirely within disciplined daylight segments.
-  </p>
-
-  <p style="font-size:18px;line-height:1.7;margin:0 0 20px;">
-    This is not a charter. It is not a cruise. Rim Run™ is structured immersion — reef exploration, anchor life, seamanship repetition, weather awareness, and cultural respect at each landfall.
-  </p>
-
-  <p style="font-size:18px;line-height:1.7;margin:0 0 20px;">
-    The route extends through Panama’s Caribbean islands and into Belize’s cayes before turning south again to repeat the cycle.
-  </p>
-
-  <p style="font-size:18px;line-height:1.7;">
-    Rim Run™ builds discipline, rhythm, and fleet cohesion year after year — forming the operational core of the Blue Rim 5™ Global Sailing Expedition until the fleet is ready for broader global expansion.
-  </p>
-
+<section class="hero">
+  <div class="rune-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Blue Rim 5™ &bull; Phase 1 &bull; Annual Circuit</div>
+    <h1>Rim Run™ <em>A Year Measured in Reefs</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      Placencia, Belize to Panama and back. Six countries. 1,850 nautical miles.
+      One small boat. One continuous year of living exactly this close to the water.
+    </p>
+    <div class="hero-tagline">November through November &bull; Anchor down &bull; Fins on &bull; Cast net out</div>
+  </div>
 </section>
 
-<footer class="footer">
-  <img src="better.png" alt="Better Beachy than Bitchy™">
-  <p>“Better Beachy than Bitchy™” — Anchor down.</p>
-  <p>Cell: (928)-250-9763 &nbsp;&nbsp; Email: NevadoRaiders@gmail.com &nbsp;&nbsp; Base Camp: White Mountains, AZ</p>
+<!-- WHAT IT LOOKS LIKE -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Reality</div>
+    <h2 class="serif reveal">Some Mornings the Anchor Goes Down <em>in Water This Clear.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">
+      Some mornings the anchor goes down in water so clear you can read the sand 12 feet
+      below like a page. The chain just hangs there, motionless, casting a shadow on the
+      bottom. Nothing moves. The only sound is whatever the reef is doing 40 yards off the bow.
+    </p>
+    <p class="reveal">That's when the coffee goes on.</p>
+    <div class="pull-quote reveal">
+      This is what the Rim Run™ actually looks like. Shamrocket anchored in places that
+      don't appear on tourist maps. Sleeping bag on the trampoline, hammock strung between
+      mast and bow when the breeze is right, first light of the Caribbean sun doing the waking up.
+      No cabin. No marina slip. No schedule that can't be overruled by a reef worth staying on.
+    </div>
+    <p class="reveal">
+      Early light, coffee, check the anchor, check the sky. If the water looks right —
+      fins on, mask on, over the side before breakfast. The reefs along this circuit are not
+      crowded. At Glover's Atoll in Belize, at Cayos Cochinos in Honduras, at San Blas in
+      Panama — you drop in and you may not see another person for hours. Just coral
+      architecture, fish moving in organized chaos, the occasional turtle surfacing 10 feet
+      away, the deep blue beyond the reef edge falling away into nothing.
+    </p>
+    <p class="reveal">
+      Lunch is whatever the cast net had to say about it. Afternoons belong to the water.
+      Snorkeling runs along reef walls that cruising boats can only admire from the outside.
+      Shamrocket's 24-inch draft gets her inside the reef, up against the caye, into the
+      mangrove channel where the big boats can't follow. That shallow draft isn't a limitation.
+      It's the whole point. The Caribbean rewards the boat that can get closest to it.
+    </p>
+  </div>
+</section>
+
+<!-- TOP 10 SNORKEL STOPS -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container-wide">
+    <div class="container">
+      <div class="section-label reveal">Top 10</div>
+      <h2 class="serif reveal">Reef Immersion Stops — <em>The Circuit</em></h2>
+      <div class="gold-rule reveal"></div>
+      <p class="reveal">
+        These ten stops represent the most immersive, vibrant, and unforgettable underwater
+        environments along the Panama–Belize loop — nine reef systems and one extraordinary
+        upriver canyon that earns its place on any short list.
+      </p>
+    </div>
+    <div class="snorkel-grid reveal">
+      <div class="snorkel-card">
+        <div class="snorkel-num">01</div>
+        <h4>Lighthouse Reef Atoll</h4>
+        <div class="snorkel-country">Belize</div>
+        <p>Summit immersion. The blue turns electric, visibility stretches wide, and the reef edge drops away into depth just beyond your fins. You hover on that boundary and feel weightless — pure Caribbean clarity meeting open ocean.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">02</div>
+        <h4>Turneffe Atoll</h4>
+        <div class="snorkel-country">Belize</div>
+        <p>Massive footprint and constant variety. One session glassy inside the lagoon, the next deeper and more dramatic along the outer edge — an atoll that stays fresh day after day because the terrain keeps changing.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">03</div>
+        <h4>Glover's Reef</h4>
+        <div class="snorkel-country">Belize</div>
+        <p>Atoll-lagoon snorkeling that rewards time in the water. Coral heads rising like scattered islands, pale sand flats glowing in turquoise light, visibility that makes every movement feel suspended in open air.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">04</div>
+        <h4>South Water Caye</h4>
+        <div class="snorkel-country">Belize</div>
+        <p>Classic barrier reef immersion. Spur-and-groove formations carve the seafloor into natural swim lanes. When the water settles into its calm windows, visibility stretches wide and the reef unfolds in organized, living architecture.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">05</div>
+        <h4>Río Dulce Canyon</h4>
+        <div class="snorkel-country">Guatemala</div>
+        <p>Not reef snorkeling — something stranger. Three-hundred-foot limestone walls, howler monkeys in the canopy, thermal springs seeping through cliff faces, West Indian manatees in El Golfete. Immersion of a different kind entirely.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">06</div>
+        <h4>Roatán</h4>
+        <div class="snorkel-country">Honduras</div>
+        <p>Big reef structure and deep relief. Massive coral formations rise like underwater cliffs. Light fades gradually as you peer over the edge. The contrast between reef face and open cobalt creates a constant sense of movement and scale.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">07</div>
+        <h4>Guanaja — Bay Islands</h4>
+        <div class="snorkel-country">Honduras</div>
+        <p>Quiet, clean immersion. Morning light cuts deep into impossibly clear water. Coral throws crisp shadows across pale sand. Your only soundtrack is your breathing and the soft hiss of fins through glassy blue.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">08</div>
+        <h4>Little Corn Island</h4>
+        <div class="snorkel-country">Nicaragua</div>
+        <p>Endurance-friendly immersion. The reef stays present and textured beneath you, and time dissolves. No roads, no vehicles, one reef — fishing families who have worked it for generations without anyone documenting what they know.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">09</div>
+        <h4>Cahuita Reef</h4>
+        <div class="snorkel-country">Costa Rica</div>
+        <p>Steady, balanced, rhythmic. A reef that lets you settle into your breathing and stay there — where time softens, distance disappears, and snorkeling becomes something closer to meditation than recreation.</p>
+      </div>
+      <div class="snorkel-card">
+        <div class="snorkel-num">10</div>
+        <h4>Escudo de Veraguas</h4>
+        <div class="snorkel-country">Panama</div>
+        <p>Feels like snorkeling inside a living aquarium the world forgot. Impossibly clear. No crowded mooring fields. No parade of tour boats. Anchor down, fins on, and long unhurried passes across reef systems that reward patience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIM RUNNER RITUAL -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Sunset Protocol</div>
+    <h2 class="serif reveal">The Rim Runner™ — <em>Storm-Born Ritual</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">
+      What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting community.
+      Born on a blue-sky equatorial Pacific day in 1984 that turned dark, wet, and alive —
+      then cleared just as fast. The recipe remained private for forty-one years. In 2025, it's finally being shared.
+    </p>
+    <div class="rimrunner-ritual reveal">
+      <div class="recipe-step">
+        <h5>Glass &amp; Rim</h5>
+        <p>Heavy straight-sided rocks glass with a blue rim band. Rim mix: 2 parts coarse sea salt, 1 part sugar. Lightly wet the outside rim with lime and dip. Fill with fresh ice.</p>
+      </div>
+      <div class="recipe-step">
+        <h5>Equatorial Blue Base</h5>
+        <p>1½ oz white rum &bull; ¾ oz blue curaçao &bull; 1 oz pineapple juice &bull; ½ oz fresh lime juice &bull; 1 oz coconut water &bull; 1–2 dashes ginger or aromatic bitters. Shake with ice ~10 seconds. Strain over fresh ice.</p>
+      </div>
+      <div class="recipe-step">
+        <h5>Dark Storm Cloud — The Float</h5>
+        <p>½–¾ oz dark rum, gently floated over the back of a bar spoon to form a dark band on top. Blue below. Dark above. Salt and sky at the rim.</p>
+      </div>
+      <div class="recipe-step">
+        <h5>Bourbon Storm™ Variation</h5>
+        <p>Same blue base. Float ½–¾ oz bourbon instead of dark rum. The bourbon is the star — the first nose, first sip, and finish live in that layer.</p>
+      </div>
+      <div class="recipe-step">
+        <h5>Rim Runner™ Zero</h5>
+        <p>Pineapple juice, coconut water, orange juice, lime, blue curaçao syrup (NA). Float iced tea or cola as the storm band. Not since the Shirley Temple has a non-alcoholic drink carried this much story.</p>
+      </div>
+      <div class="toast-code">
+        First drink: Face the horizon — "Better Beachy than Bitchy™"<br/>
+        <span style="font-size:0.85rem; color:var(--fog);">Second: "Better beachy than busted." &nbsp;|&nbsp; Empty glass: one tap. "Anchor down."</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COME JOIN -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Open Invitation</div>
+    <h2 class="serif reveal">Come Join <em>The Rim Run™</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">
+      The Rim Run™ is a seasonal chapter of Blue Rim 5™ — a real sailing rhythm between
+      Panama and Belize where days are built around competence, immersion, and shared effort.
+      This is not a packaged tour. It's a moving life: sail, anchor, swim, explore, repeat.
+    </p>
+    <p class="reveal">
+      Come for a week. Come for a month. If the rhythm fits and the standards feel right,
+      it can evolve. The best matches out here are built on trust, earned confidence, and
+      the quiet electricity of doing hard things well — together.
+    </p>
+    <div class="cred-list reveal">
+      <span class="cred-tag">Real Sailing</span>
+      <span class="cred-tag">Daily Water Time</span>
+      <span class="cred-tag">Seasonal Participation</span>
+      <span class="cred-tag">Standards Matter</span>
+    </div>
+    <p class="reveal" style="margin-top:2rem;">
+      Reach out: <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Blue Rim 5™ &bull; Catamaran Dan &bull; Nevado Raiders™</div>
+  <div class="footer-tagline">"Better Beachy than Bitchy™" — Anchor down.</div>
+  <div class="footer-contact">
+    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
+    <a href="mailto:NevadoRaiders@gmail.com">NevadoRaiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
+  </div>
 </footer>
 
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
