@@ -846,10 +846,10 @@
 </div>
 <footer>
   <p>Blue Rim 5™ Global Sailing Expedition &bull; Catamaran Dan / Ove Ironhand</p>
-  <p style="margin-top:0.5rem;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97f9f2e1f6f3f8e5f6fef3f2e5e4d7f0faf6fefbb9f4f8fa">[email&#160;protected]</a> &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ</p>
+  <p style="margin-top:0.5rem;">nevadoraiders@gmail.com &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 function toggleCountry(header) {
   var body = header.nextElementSibling;
   var toggle = header.querySelector('.country-toggle');
@@ -866,4 +866,14 @@ function toggleCountry(header) {
   if('IntersectionObserver' in window){
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.12});
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('visible'); });
+  }
+})();
+</script>
+</body>
+</html>
