@@ -28,26 +28,13 @@
       font-size: 1.1rem;
       line-height: 1.8;
       overflow-x: hidden;
+      padding-top: 60px;
     }
-    nav {
-      background: #080c14;
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-      padding: 1rem 2rem;
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    nav a {
-      color: var(--fog);
-      text-decoration: none;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    nav a:hover, nav a.active { color: var(--gold); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,15,26,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.18); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-brand { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; white-space: nowrap; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links a { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
     .hero {
       position: relative;
       min-height: 100vh;
@@ -527,12 +514,16 @@
 
 <!-- NAV — CHANGE 1: removed Expedition and Gallery links -->
 <nav>
-  <a href="index.html">Home</a>
-  <a href="rimrun.html">Rim Run™</a>
-  <a href="thelivingsaga.html" class="active">The Living Saga™</a>
-  <a href="systems.html">Systems</a>
-  <a href="bluerim5.html">Blue Rim 5™</a>
-  <a href="about.html">About</a>
+  <a href="index.html" class="nav-brand">Blue Rim 5™</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rimrun.html">Rim Run™</a></li>
+    <li><a href="science.html">The Science</a></li>
+    <li><a href="thelivingsaga.html" class="active">The Living Saga™</a></li>
+    <li><a href="systems.html">Systems</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -855,10 +846,10 @@
 </div>
 <footer>
   <p>Blue Rim 5™ Global Sailing Expedition &bull; Catamaran Dan / Ove Ironhand</p>
-  <p style="margin-top:0.5rem;">nevadoraiders@gmail.com &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ</p>
+  <p style="margin-top:0.5rem;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97f9f2e1f6f3f8e5f6fef3f2e5e4d7f0faf6fefbb9f4f8fa">[email&#160;protected]</a> &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function toggleCountry(header) {
   var body = header.nextElementSibling;
   var toggle = header.querySelector('.country-toggle');
@@ -875,14 +866,4 @@ function toggleCountry(header) {
   if('IntersectionObserver' in window){
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    },{threshold:0.12});
-    els.forEach(function(el){ obs.observe(el); });
-  } else {
-    els.forEach(function(el){ el.classList.add('visible'); });
-  }
-})();
-</script>
-</body>
-</html>
+        if(e.isIntersecting){ e.target.classList.add('
