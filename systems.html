@@ -7,21 +7,22 @@
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 :root {
-  --deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;
-  --caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;
-  --parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;
-  --text-light:#e8e4da;--text-dim:#9aa0b0;
+  --deep-ocean:#0a0f1a; --midnight:#0d1520; --reef-blue:#0e4d6e;
+  --caribbean:#1a7fa8; --aqua:#29b0d4; --gold:#c9a84c; --old-gold:#a8833a;
+  --parchment:#f0e8d0; --fog:#c8cdd8; --fire:#d4622a;
+  --text-light:#e8e4da; --text-dim:#9aa0b0;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;padding-top:60px;}
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
-nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
-nav a:hover{color:var(--gold);}
-nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,15,26,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;}
+.nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:1rem;letter-spacing:0.12em;color:var(--gold);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:1.6rem;list-style:none;flex-wrap:wrap;justify-content:flex-end;}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fog);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -69,19 +70,21 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 .bg-deep{background:var(--deep-ocean);}
 .border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
 @media(max-width:768px){section{padding:4rem 1.5rem;}}
-@media(max-width:480px){nav{gap:1rem;}nav a{font-size:0.72rem;}}
+@media(max-width:480px){nav{padding:0 1rem;}.nav-links{gap:0.8rem;}.nav-links a{font-size:0.62rem;}}
   </style>
 </head>
 <body>
 
-<!-- NAV — Expedition and Gallery removed -->
 <nav>
-  <a href="index.html">Home</a>
-  <a href="rimrun.html">Rim Run™</a>
-  <a href="thelivingsaga.html">The Living Saga™</a>
-  <a href="systems.html" class="active">Systems</a>
-  <a href="bluerim5.html">Blue Rim 5™</a>
-  <a href="about.html">About</a>
+  <a href="index.html" class="nav-brand">Blue Rim 5™</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rimrun.html">Rim Run™</a></li>
+    <li><a href="thelivingsaga.html">The Living Saga™</a></li>
+    <li><a href="systems.html" class="active">Systems</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
 </nav>
 
 <section class="hero">
@@ -195,26 +198,16 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 <footer>
   <div class="footer-logo">Blue Rim 5™ &bull; Catamaran Dan &bull; Nevado Raiders™</div>
   <div class="footer-tagline">"Better Beachy than Bitchy™" — Anchor down.</div>
-  <div class="footer-contact">
-    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
-    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
-  </div>
+  <div class="footer-contact">Cell: (928) 250-9763 &nbsp;&bull;&nbsp;<a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>&nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ</div>
 </footer>
 
 <script>
 (function(){
-  var els = document.querySelectorAll('.reveal');
+  var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    },{threshold:0.12});
-    els.forEach(function(el){ obs.observe(el); });
-  } else {
-    els.forEach(function(el){ el.classList.add('visible'); });
-  }
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+    els.forEach(function(el){obs.observe(el);});
+  } else { els.forEach(function(el){el.classList.add('visible');}); }
 })();
 </script>
 </body>
