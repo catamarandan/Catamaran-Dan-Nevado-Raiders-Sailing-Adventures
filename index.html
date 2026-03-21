@@ -5,7 +5,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Catamaran Dan — The Rim Run Expedition</title>
-
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 
@@ -38,7 +37,7 @@ img { max-width:100%; display:block; }
 a { color: var(--aqua); text-decoration: none; transition: color 0.25s; }
 a:hover { color: var(--gold); }
 
-/* NAV */
+/* ── NAV ── */
 nav {
   background: #080c14;
   border-bottom: 1px solid rgba(201,168,76,0.2);
@@ -65,12 +64,12 @@ nav a {
 nav a:hover { color: var(--gold); }
 nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-/* SECTION BASE */
+/* ── SECTION BASE ── */
 section { position: relative; padding: 6rem 2rem; }
 .container      { max-width: 860px;  margin: 0 auto; }
 .container-wide { max-width: 1100px; margin: 0 auto; }
 
-/* TYPOGRAPHY */
+/* ── TYPOGRAPHY ── */
 .section-label {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 0.72rem;
@@ -98,13 +97,6 @@ h2.serif {
   margin-bottom: 1.2rem;
 }
 h2.serif em { color: var(--gold); font-style: normal; }
-h3.serif {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
-  font-weight: 600;
-  color: var(--parchment);
-  margin-bottom: 0.7rem;
-}
 .gold-rule {
   width: 60px; height: 2px;
   background: linear-gradient(90deg, var(--gold), var(--old-gold));
@@ -112,7 +104,7 @@ h3.serif {
 }
 p + p { margin-top: 1.2rem; }
 
-/* HERO */
+/* ── HERO — pure CSS gradient, no bg image ── */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -123,17 +115,10 @@ p + p { margin-top: 1.2rem; }
   text-align: center;
   padding: 6rem 2rem 4rem;
   overflow: hidden;
-}
-.hero-bg {
-  position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(14,77,110,0.35) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(26,127,168,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(14,77,110,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(26,127,168,0.25) 0%, transparent 50%),
     linear-gradient(180deg, #050810 0%, #0a0f1a 50%, #060d18 100%);
-}
-.hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(5,8,16,0.72) 0%, rgba(10,15,26,0.82) 100%);
 }
 .rune-overlay {
   position: absolute; inset: 0;
@@ -141,7 +126,7 @@ p + p { margin-top: 1.2rem; }
     linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
   background-size: 60px 60px;
-  z-index: 1;
+  pointer-events: none;
 }
 .hero-content { position: relative; z-index: 2; max-width: 860px; }
 .hero-eyebrow {
@@ -156,7 +141,7 @@ p + p { margin-top: 1.2rem; }
 }
 .hero h1 {
   font-family: 'Cinzel', serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -175,7 +160,7 @@ p + p { margin-top: 1.2rem; }
   animation: fadeIn 1s ease 1s forwards;
 }
 .hero-sub {
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
   font-style: italic;
   color: var(--parchment);
   opacity: 0;
@@ -193,7 +178,7 @@ p + p { margin-top: 1.2rem; }
   animation: fadeUp 1s ease 1.4s forwards;
 }
 
-/* PULL QUOTE */
+/* ── PULL QUOTE ── */
 .pull-quote {
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-style: italic;
@@ -203,18 +188,8 @@ p + p { margin-top: 1.2rem; }
   margin: 2.5rem 0;
   line-height: 1.55;
 }
-.pull-quote cite {
-  display: block;
-  font-style: normal;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-top: 0.8rem;
-}
 
-/* CRED TAGS */
+/* ── CRED TAGS ── */
 .cred-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0; }
 .cred-tag {
   font-family: 'Josefin Sans', sans-serif;
@@ -227,12 +202,11 @@ p + p { margin-top: 1.2rem; }
   white-space: nowrap;
 }
 
-/* STAT STRIP */
+/* ── STAT STRIP ── */
 .stat-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   border: 1px solid rgba(201,168,76,0.15);
-  margin: 3rem 0;
 }
 .stat {
   padding: 2rem 1.5rem;
@@ -258,7 +232,7 @@ p + p { margin-top: 1.2rem; }
   display: block;
 }
 
-/* ROUTE TABLE */
+/* ── ROUTE TABLE ── */
 .route-table {
   width: 100%;
   border-collapse: collapse;
@@ -285,33 +259,7 @@ p + p { margin-top: 1.2rem; }
 .route-table tr:hover td { background: rgba(41,176,212,0.04); color: var(--parchment); }
 .route-table td:first-child { color: var(--aqua); font-weight: 600; }
 
-/* CARD GRID */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  margin: 3rem 0;
-  background: rgba(201,168,76,0.1);
-  border: 1px solid rgba(201,168,76,0.1);
-}
-.card {
-  background: var(--deep-ocean);
-  padding: 2.2rem 2rem;
-  transition: background 0.3s;
-}
-.card:hover { background: rgba(14,77,110,0.18); }
-.card-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-.card h4 {
-  font-family: 'Cinzel', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: 0.06em;
-  margin-bottom: 0.7rem;
-}
-.card p { font-size: 0.96rem; color: var(--fog); line-height: 1.75; }
-
-/* INFOBOX */
+/* ── INFOBOX ── */
 .infobox {
   background: linear-gradient(135deg, rgba(14,77,110,0.2), rgba(10,15,26,0.6));
   border: 1px solid rgba(201,168,76,0.2);
@@ -331,7 +279,7 @@ p + p { margin-top: 1.2rem; }
   text-transform: uppercase;
 }
 
-/* TWO-COL LAYOUT */
+/* ── TWO COL ── */
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -341,21 +289,20 @@ p + p { margin-top: 1.2rem; }
 .two-col.reverse { direction: rtl; }
 .two-col.reverse > * { direction: ltr; }
 
-/* IMAGES */
-.img-banner { width:100%; max-height:540px; object-fit:cover; display:block; filter:brightness(0.78) saturate(0.88); }
-.img-center { display:block; margin:2.5rem auto; max-width:680px; width:100%; }
+/* ── IMAGES ── */
+.img-banner { width:100%; max-height:520px; object-fit:cover; display:block; filter:brightness(0.8) saturate(0.9); }
 .img-pair { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin:2.5rem 0; }
 .img-pair img { width:100%; object-fit:cover; height:300px; filter:brightness(0.82) saturate(0.87); transition:filter 0.3s; }
 .img-pair img:hover { filter:brightness(0.97) saturate(1.05); }
-.img-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; margin:2rem 0; }
+.img-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; margin:0; }
 .img-trio img { width:100%; object-fit:cover; height:220px; filter:brightness(0.82) saturate(0.87); transition:filter 0.3s; }
 .img-trio img:hover { filter:brightness(0.97) saturate(1.05); }
-.img-solo { width:100%; display:block; filter:brightness(0.84) saturate(0.88); margin:2rem 0; }
+.img-solo { width:100%; display:block; filter:brightness(0.84) saturate(0.88); }
 .img-caption {
   font-family:'Josefin Sans',sans-serif;
   font-size:0.68rem;
   letter-spacing:0.16em;
-  color:#9aa0b0;
+  color:var(--text-dim);
   text-transform:uppercase;
   text-align:center;
   margin-top:0.5rem;
@@ -365,19 +312,18 @@ p + p { margin-top: 1.2rem; }
 .portrait-pair img { width:100%; object-fit:cover; aspect-ratio:3/4; filter:brightness(0.85) saturate(0.88); transition:filter 0.3s; }
 .portrait-pair img:hover { filter:brightness(0.97) saturate(1.05); }
 
-/* COUNTRY GALLERY STRIP */
-.country-strip { background: #06090f; padding: 2rem 1rem; }
+/* ── COUNTRY GALLERY STRIP ── */
+.country-strip { background:#06090f; padding:2rem 1rem; }
 .country-label {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin: 2rem 0 0.5rem 0.5rem;
+  font-family:'Josefin Sans',sans-serif;
+  font-size:0.68rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding:1.8rem 0 0.5rem 0.5rem;
 }
-.country-label:first-child { margin-top: 0; }
 
-/* RECIPE */
+/* ── RECIPE ── */
 .rimrunner-ritual {
   background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(10,15,26,0.6));
   border: 1px solid rgba(212,98,42,0.25);
@@ -415,7 +361,7 @@ p + p { margin-top: 1.2rem; }
   text-align: center;
 }
 
-/* BTN */
+/* ── BTN ── */
 .btn-gold {
   display: inline-block;
   font-family: 'Josefin Sans', sans-serif;
@@ -428,24 +374,23 @@ p + p { margin-top: 1.2rem; }
   margin-top: 2rem;
   transition: all 0.3s;
 }
-.btn-gold:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); color: var(--gold); }
+.btn-gold:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
 
-/* SECTION BG */
+/* ── BG HELPERS ── */
 .bg-midnight { background: var(--midnight); }
 .bg-deep     { background: var(--deep-ocean); }
 .border-top-gold    { border-top: 1px solid rgba(201,168,76,0.12); }
 .border-bottom-gold { border-bottom: 1px solid rgba(201,168,76,0.12); }
-.section-divider { border:none; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent); margin:0; }
 
-/* SCROLL REVEAL */
+/* ── SCROLL REVEAL ── */
 .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease; }
 .reveal.visible { opacity:1; transform:none; }
 
-/* ANIMATIONS */
+/* ── ANIMATIONS ── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
 @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer {
   background: #040710;
   border-top: 1px solid rgba(201,168,76,0.12);
@@ -457,7 +402,7 @@ footer {
 .footer-contact { font-family:'Josefin Sans',sans-serif; font-size:0.78rem; letter-spacing:0.1em; color:var(--text-dim); }
 .footer-contact a { color:var(--aqua); }
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ── */
 @media (max-width:768px) {
   section { padding:4rem 1.5rem; }
   .two-col, .two-col.reverse { grid-template-columns:1fr; direction:ltr; gap:2.5rem; }
@@ -466,7 +411,6 @@ footer {
   .stat:nth-child(odd) { border-right:1px solid rgba(201,168,76,0.15); }
   .img-trio { grid-template-columns:1fr 1fr; }
   .img-pair img, .img-trio img { height:160px; }
-  .portrait-pair img { height:220px; }
 }
 @media (max-width:480px) {
   nav { gap:1rem; }
@@ -489,17 +433,15 @@ footer {
 </nav>
 
 <!-- ══════════════════════════════════════════
-     HERO — anchor2.jpg + rim_run.png
+     HERO — CSS gradient, rim_run.png badge
 ══════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
   <div class="rune-overlay"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">The Rim Run Expedition &bull; Western Caribbean &bull; Launching October 2026</div>
     <h1>As go the seas… <em>So goes humanity.</em></h1>
     <div class="hero-rule"></div>
-    <img src="https://catamarandan.org/rim_run.png" alt="The Rim Run™ — Annual Circuit" style="width:380px; max-width:85%; margin:1.5rem auto; display:block; opacity:0; animation:fadeIn 1.2s ease 0.9s forwards;"/>
+    <img src="https://catamarandan.org/rim_run.png" alt="The Rim Run™ — Belize to Panama then Return" style="width:420px; max-width:88%; margin:1.5rem auto; display:block; opacity:0; animation:fadeIn 1.2s ease 0.9s forwards;"/>
     <p class="hero-sub">
       An annual sailing and reef monitoring circuit of the western Caribbean —
       100+ reef sites across seven countries, documented every year, for as many years as possible.
@@ -511,7 +453,7 @@ footer {
 
 <!-- OPENING IMAGE TRIO -->
 <div style="background:#06090f; padding:1rem 1rem 0;">
-  <div class="img-trio reveal" style="margin:0;">
+  <div class="img-trio reveal">
     <img src="https://catamarandan.org/belizelight2.jpg" alt="Caribbean reef — Lighthouse Reef, Belize"/>
     <img src="https://catamarandan.org/nice.jpg" alt="Rim Run — coastal sailing"/>
     <img src="https://catamarandan.org/belizeglovers2.jpg" alt="Glover's Reef, Belize"/>
@@ -521,7 +463,7 @@ footer {
 <!-- STAT STRIP -->
 <div style="background:var(--midnight); padding:0 2rem;">
   <div class="container-wide">
-    <div class="stat-strip" style="margin:0; border-left:none; border-right:none;">
+    <div class="stat-strip" style="border-left:none; border-right:none;">
       <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Reef Sites — Annually</span></div>
       <div class="stat"><span class="stat-num">7</span><span class="stat-label">Countries — Mexico to Panama</span></div>
       <div class="stat"><span class="stat-num">150+</span><span class="stat-label">Days at Anchor per Circuit</span></div>
@@ -541,18 +483,8 @@ footer {
         <div class="section-label reveal">Command</div>
         <h2 class="serif reveal">Catamaran Dan — <em>Ove Ironhand</em></h2>
         <div class="gold-rule reveal"></div>
-        <p class="reveal">
-          Led by Daniel Roe — U.S. Coast Guard–licensed 200-Ton Master Captain, ASA sailing
-          instructor, former U.S. Navy submariner, FAA-licensed drone pilot, Lean Six Sigma
-          Black Belt, and expedition sailor who has been doing hard things on the water since
-          before most sailing influencers were born.
-        </p>
-        <p class="reveal">
-          Modern Y-DNA work traces his paternal line through the I1 haplogroup to
-          Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand.
-          This combination shapes everything: calm decision-making, conservative risk management,
-          and preparation over bravado. The life is genuinely extraordinary because the standards are real.
-        </p>
+        <p class="reveal">Led by Daniel Roe — U.S. Coast Guard–licensed 200-Ton Master Captain, ASA sailing instructor, former U.S. Navy submariner, FAA-licensed drone pilot, Lean Six Sigma Black Belt, and expedition sailor who has been doing hard things on the water since before most sailing influencers were born.</p>
+        <p class="reveal">Modern Y-DNA work traces his paternal line through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand. This combination shapes everything: calm decision-making, conservative risk management, and preparation over bravado. The life is genuinely extraordinary because the standards are real.</p>
         <div class="cred-list reveal">
           <span class="cred-tag">USCG 200-Ton Master</span>
           <span class="cred-tag">USN Submariner</span>
@@ -575,7 +507,7 @@ footer {
           </div>
           <div>
             <img src="https://catamarandan.org/ove.jpg" alt="Ove Ironhand — Norse sailing identity"/>
-            <p class="img-caption">Ove Ironhand — Norse identity</p>
+            <p class="img-caption">Ove Ironhand</p>
           </div>
         </div>
       </div>
@@ -584,40 +516,30 @@ footer {
 </section>
 
 <!-- ══════════════════════════════════════════
-     EXPEDITION — nice.jpg + cultural_exchange.jpg
+     EXPEDITION — anchor2.jpg standalone banner,
+     then nice.jpg + cultural_exchange.jpg pair
 ══════════════════════════════════════════ -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Expedition</div>
     <h2 class="serif reveal">One Loop. <em>Every Year.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">
-      The Rim Run is an annual sailing circuit of the western Caribbean coast — departing
-      Mexico, sailing south through Belize, Guatemala, Honduras, Nicaragua, Costa Rica,
-      and Panama, then returning northbound. First circuit launches October 2026.
-    </p>
-    <p class="reveal">
-      The commitment is to repeat this annual circuit for as many years as possible —
-      building a longitudinal record of reef health that grows more scientifically valuable
-      with every passing year. Twenty years of standardized observations along this arc would
-      constitute one of the most significant reef monitoring records ever assembled by a single operator.
-    </p>
-    <div class="pull-quote reveal">
-      No funded research program has been willing to make the same physical commitment to
-      the same small boats in the same shallow water for the same number of decades.
-      The reefs don't need more one-time visitors. They need someone who keeps coming back.
-    </div>
+    <p class="reveal">The Rim Run is an annual sailing circuit of the western Caribbean coast — departing Mexico, sailing south through Belize, Guatemala, Honduras, Nicaragua, Costa Rica, and Panama, then returning northbound. First circuit launches October 2026.</p>
+    <p class="reveal">The commitment is to repeat this annual circuit for as many years as possible — building a longitudinal record of reef health that grows more scientifically valuable with every passing year. Twenty years of standardized observations along this arc would constitute one of the most significant reef monitoring records ever assembled by a single operator.</p>
+    <div class="pull-quote reveal">No funded research program has been willing to make the same physical commitment to the same small boats in the same shallow water for the same number of decades. The reefs don't need more one-time visitors. They need someone who keeps coming back.</div>
   </div>
-  <div class="container-wide reveal">
-    <img src="https://catamarandan.org/anchor2.jpg" alt="Anchor down — the Rim Run way" class="img-banner" style="margin-bottom:4px;"/>
-    <p class="img-caption">Anchor down — the Rim Run way</p>
-    <div class="img-pair" style="margin-top:1rem;">
+  <div class="container-wide">
+    <div class="reveal" style="margin:2rem 0 4px;">
+      <img src="https://catamarandan.org/anchor2.jpg" alt="Anchor down — the Rim Run way" class="img-banner"/>
+      <p class="img-caption">Anchor down — the Rim Run way</p>
+    </div>
+    <div class="img-pair reveal">
       <div>
-        <img src="https://catamarandan.org/nice.jpg" alt="Rim Run — coastal sailing" style="height:340px;"/>
+        <img src="https://catamarandan.org/nice.jpg" alt="Rim Run — coastal sailing" style="height:320px;"/>
         <p class="img-caption">The Circuit — Caribbean Coastline</p>
       </div>
       <div>
-        <img src="https://catamarandan.org/cultural_exchange.jpg" alt="Cultural exchange ashore" style="height:340px;"/>
+        <img src="https://catamarandan.org/cultural_exchange.jpg" alt="Cultural exchange ashore" style="height:320px;"/>
         <p class="img-caption">Life Ashore — Cultural Exchange</p>
       </div>
     </div>
@@ -633,14 +555,10 @@ footer {
       <div class="section-label reveal">The Circuit</div>
       <h2 class="serif reveal">Seven Countries. <em>One Unbroken Loop.</em></h2>
       <div class="gold-rule reveal"></div>
-      <p class="reveal">
-        From Mexico's Yucatán to Panama's San Blas and back — 1,500+ nautical miles, two
-        ecosystem zones, two operational hubs. The same loop every year, refined each season.
-        No leg is hurried.
-      </p>
+      <p class="reveal">From Mexico's Yucatán to Panama's San Blas and back — 1,500+ nautical miles, two ecosystem zones, two operational hubs. The same loop every year, refined each season. No leg is hurried.</p>
     </div>
-    <div class="reveal" style="margin:2.5rem 0;">
-      <img src="https://catamarandan.org/bluerim5.png" alt="Blue Rim 5™ — Rim Run circuit map" style="width:100%; max-width:900px; margin:0 auto; display:block; opacity:0.88;"/>
+    <div class="reveal" style="margin:2.5rem 0 1rem;">
+      <img src="https://catamarandan.org/bluerim5.png" alt="Blue Rim 5™ — Rim Run circuit map" style="width:100%; max-width:920px; margin:0 auto; display:block; opacity:0.9;"/>
       <p class="img-caption">Rim Run™ Annual Circuit — Mexico to Panama and back</p>
     </div>
     <div class="container">
@@ -736,7 +654,7 @@ footer {
     <div class="img-trio reveal">
       <img src="https://catamarandan.org/panama4.jpg" alt="Guna Yala, Panama"/>
       <img src="https://catamarandan.org/panama5.jpg" alt="Guna Yala, Panama"/>
-      <img src="https://catamarandan.org/rimrunner.jpg" alt="Sunset protocol — Rim Runner™"/>
+      <img src="https://catamarandan.org/rimrunner.jpg" alt="Sunset — Rim Runner™ protocol"/>
     </div>
 
   </div>
@@ -752,21 +670,9 @@ footer {
         <div class="section-label reveal">The Norse Thread</div>
         <h2 class="serif reveal">Viking Was a Verb. <em>Not a Noun.</em></h2>
         <div class="gold-rule reveal"></div>
-        <p class="reveal">
-          The actual Norse were farmers, fishermen, and navigators who crossed cold seas in
-          shallow-draft boats without charts. To go <em>viking</em> meant to set out — to explore,
-          trade, test skill, and return changed. Their ships drew so little water they could sail
-          directly onto a beach and walk into a village. Not to attack. To listen. To trade.
-          To find out what those people knew that the Norse did not.
-        </p>
-        <div class="pull-quote reveal">
-          The same logic lives in Shamrocket. Twenty-four inches of draft. Caribbean reef
-          inside the barrier. The same question: what do the people closest to this water know?
-        </div>
-        <p class="reveal">
-          Modern Y-DNA traces Catamaran Dan's paternal line through the I1 haplogroup to
-          Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand.
-        </p>
+        <p class="reveal">The actual Norse were farmers, fishermen, and navigators who crossed cold seas in shallow-draft boats without charts. To go <em>viking</em> meant to set out — to explore, trade, test skill, and return changed. Their ships drew so little water they could sail directly onto a beach and walk into a village. Not to attack. To listen. To find out what those people knew that the Norse did not.</p>
+        <div class="pull-quote reveal">The same logic lives in Shamrocket. Twenty-four inches of draft. Caribbean reef inside the barrier. The same question: what do the people closest to this water know?</div>
+        <p class="reveal">Modern Y-DNA traces Catamaran Dan's paternal line through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand.</p>
         <a href="thelivingsaga.html" class="btn-gold reveal">Read The Living Saga™ →</a>
       </div>
       <div class="reveal">
@@ -788,29 +694,17 @@ footer {
         <div class="section-label reveal">Join the Fleet</div>
         <h2 class="serif reveal">Recruit the <em>Nevado Raiders™</em></h2>
         <div class="gold-rule reveal"></div>
-        <p class="reveal">
-          Not a flotilla of matching boats and matching egos. A disciplined collection of
-          real sailors on real boats with a shared operating standard and a genuine appetite
-          for what lies beyond the marina breakwater.
-        </p>
+        <p class="reveal">Not a flotilla of matching boats and matching egos. A disciplined collection of real sailors on real boats with a shared operating standard and a genuine appetite for what lies beyond the marina breakwater.</p>
         <div class="infobox reveal">
           <div class="infobox-label">Operating Standard</div>
-          <p style="font-style:italic; color:var(--parchment);">
-            "Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable.
-            Small boats. Real seamanship. Cultural respect. No passengers."
-          </p>
+          <p style="font-style:italic; color:var(--parchment);">"Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable. Small boats. Real seamanship. Cultural respect. No passengers."</p>
         </div>
-        <p class="reveal">
-          Ideal vessels: shoal-draft or centerboard sailboats under 26 feet — Hobie Getaway,
-          Catalina 22 Sport, and similar. Guardian vessels (30–50 ft sail or power) welcomed
-          and valued. If your boat operates safely around 24-inch draft and you bring a serious
-          expedition mindset, you belong with us.
-        </p>
+        <p class="reveal">Ideal vessels: shoal-draft or centerboard sailboats under 26 feet — Hobie Getaway, Catalina 22 Sport, and similar. Guardian vessels (30–50 ft sail or power) welcomed and valued. If your boat operates safely around 24-inch draft and you bring a serious expedition mindset, you belong with us.</p>
         <a href="fleet.html" class="btn-gold reveal">Join the Fleet →</a>
       </div>
       <div class="reveal">
-        <img src="https://catamarandan.org/havet_kaller.png" alt="HAVET KALLER — THE SEA CALLS" style="width:100%; display:block; background:var(--midnight); padding:2rem; margin-bottom:4px;"/>
-        <img src="https://catamarandan.org/burgeeclouds.jpg" alt="Nevado Raiders™ Burgee" class="img-solo" style="margin:0;"/>
+        <img src="https://catamarandan.org/havet_kaller.png" alt="HAVET KALLER — THE SEA CALLS" class="img-solo" style="background:var(--midnight); padding:2rem; margin-bottom:4px;"/>
+        <img src="https://catamarandan.org/burgeeclouds.jpg" alt="Nevado Raiders™ Burgee" class="img-solo"/>
         <p class="img-caption">Nevado Raiders™ — Fly it when you've earned it</p>
       </div>
     </div>
@@ -825,11 +719,7 @@ footer {
     <div class="section-label reveal">Sunset Protocol</div>
     <h2 class="serif reveal">The Rim Runner™ — <em>Storm-Born Ritual</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">
-      What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting community.
-      Born on a blue-sky equatorial Pacific day in 1984 that turned dark, wet, and alive —
-      then cleared just as fast. The recipe remained private for forty-one years.
-    </p>
+    <p class="reveal">What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting community. Born on a blue-sky equatorial Pacific day in 1984 that turned dark, wet, and alive — then cleared just as fast. The recipe remained private for forty-one years.</p>
     <div class="rimrunner-ritual reveal">
       <div class="recipe-step">
         <h5>Glass &amp; Rim</h5>
@@ -885,11 +775,8 @@ footer {
     <div class="section-label reveal" style="justify-content:center;">Get In Touch</div>
     <h2 class="serif reveal" style="text-align:center;">The Reefs Are Changing. <em>The Data Matters.</em></h2>
     <div class="gold-rule reveal" style="margin:1.2rem auto 2rem;"></div>
-    <p class="reveal" style="max-width:560px; margin:0 auto;">
-      Whether you are a scientist, a sailor, a filmmaker, a sponsor, or simply someone who
-      understands what is at stake — the Rim Run Expedition wants to hear from you.
-    </p>
-    <a href="/cdn-cgi/l/email-protection#a2ccc7d4c3c6cdd0c3cbc6c7d0d1e2c5cfc3cbce8cc1cdcf" class="btn-gold reveal"><span class="__cf_email__" data-cfemail="a9c7ccdfc8cdc6dbc8c0cdccdbdae9cec4c8c0c587cac6c4">[email&#160;protected]</span></a>
+    <p class="reveal" style="max-width:560px; margin:0 auto;">Whether you are a scientist, a sailor, a filmmaker, a sponsor, or simply someone who understands what is at stake — the Rim Run Expedition wants to hear from you.</p>
+    <a href="mailto:nevadoraiders@gmail.com" class="btn-gold reveal">nevadoraiders@gmail.com</a>
   </div>
 </section>
 
@@ -898,12 +785,25 @@ footer {
   <div class="footer-tagline">"As go the seas… so goes humanity."</div>
   <div class="footer-contact">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="/cdn-cgi/l/email-protection#eb858e9d8a8f84998a828f8e9998ab8c868a8287c5888486"><span class="__cf_email__" data-cfemail="442a213225202b36252d20213637042329252d286a272b29">[email&#160;protected]</span></a>
+    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
     &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
   var els = document.querySelectorAll('.reveal');
-  if('IntersectionObserver
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.1});
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('visible'); });
+  }
+})();
+</script>
+</body>
+</html>
