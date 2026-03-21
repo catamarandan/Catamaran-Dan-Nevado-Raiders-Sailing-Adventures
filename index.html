@@ -3,364 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>As go the seas… So goes humanity. | Blue Rim 5™</title>
+<title>Rim Run™ | Blue Rim 5™</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --deep-ocean:  #0a0f1a;
-    --midnight:    #0d1520;
-    --reef-blue:   #0e4d6e;
-    --caribbean:   #1a7fa8;
-    --aqua:        #29b0d4;
-    --gold:        #c9a84c;
-    --old-gold:    #a8833a;
-    --parchment:   #f0e8d0;
-    --fog:         #c8cdd8;
-    --fire:        #d4622a;
-    --text-light:  #e8e4da;
-    --text-dim:    #9aa0b0;
+    --deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;
+    --caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;
+    --parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;
+    --text-light:#e8e4da;--text-dim:#9aa0b0;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--deep-ocean);
-    color: var(--text-light);
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,15,26,0.94);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.18);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
-  }
-  .nav-brand {
-    font-family: 'Cinzel', serif;
-    font-weight: 700; font-size: 1rem;
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    text-decoration: none; white-space: nowrap;
-  }
-  .nav-links { display: flex; gap: 1.6rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
-  .nav-links a {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.72rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--fog); text-decoration: none; transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 120px 2rem 100px;
-    position: relative;
-    background:
-      radial-gradient(ellipse 130% 90% at 50% 25%, rgba(14,77,110,0.6) 0%, transparent 65%),
-      radial-gradient(ellipse 70% 50% at 15% 85%, rgba(26,127,168,0.22) 0%, transparent 55%),
-      radial-gradient(ellipse 55% 35% at 85% 65%, rgba(41,176,212,0.10) 0%, transparent 50%),
-      linear-gradient(175deg, #050a11 0%, #0a0f1a 35%, #0d1825 65%, #080d16 100%);
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(14,77,110,0.03) 100px, rgba(14,77,110,0.03) 101px),
-      repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(14,77,110,0.025) 100px, rgba(14,77,110,0.025) 101px);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--aqua); margin-bottom: 1.6rem;
-    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero-badge {
-    width: min(360px, 72vw); margin-bottom: 2.8rem;
-    filter: drop-shadow(0 0 50px rgba(41,176,212,0.3));
-    opacity: 0; animation: fadeDown 1s 0.4s forwards;
-  }
-  .hero h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.6rem, 6.5vw, 5.2rem);
-    font-weight: 700; line-height: 1.05;
-    letter-spacing: 0.02em; color: var(--parchment);
-    margin-bottom: 0.5rem;
-    opacity: 0; animation: fadeUp 0.9s 0.55s forwards;
-  }
-  .hero h1 em { font-style: italic; color: var(--gold); }
-  .hero-tagline {
-    font-family: 'EB Garamond', serif;
-    font-size: clamp(1.2rem, 2.8vw, 1.65rem);
-    font-style: italic; color: var(--fog);
-    max-width: 700px; margin: 0 auto 1.8rem;
-    opacity: 0; animation: fadeUp 0.9s 0.75s forwards;
-  }
-  .hero-desc {
-    font-family: 'EB Garamond', serif;
-    font-size: clamp(1rem, 2vw, 1.15rem);
-    color: var(--text-dim); max-width: 580px;
-    margin: 0 auto 3rem; line-height: 1.75;
-    opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
-  }
-  .hero-ctas {
-    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-    opacity: 0; animation: fadeUp 0.9s 1.05s forwards;
-  }
-
-  /* ── STRUCTURE ── */
-  section { padding: 90px 0; }
-  section.bg-mid { background: var(--midnight); }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-  .container-wide { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
-
-  /* ── TYPE ── */
-  .section-label {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--aqua);
-    display: flex; align-items: center; gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .section-label::before {
-    content: ''; display: block;
-    width: 40px; height: 1px;
-    background: var(--aqua); opacity: 0.6;
-  }
-  h2 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 600; line-height: 1.2;
-    color: var(--parchment); margin-bottom: 1.5rem;
-  }
-  h2 em { font-style: italic; color: var(--gold); }
-  h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.15rem; font-weight: 600;
-    color: var(--parchment); margin-bottom: 0.7rem;
-    letter-spacing: 0.04em;
-  }
-  p { margin-bottom: 1.2rem; color: var(--text-light); }
-  .gold-rule { width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 2rem 0; }
-
-  /* ── PULL QUOTE ── */
-  .pull-quote {
-    border-left: 3px solid var(--gold);
-    padding: 1.2rem 2rem; margin: 2.5rem 0;
-    background: rgba(201,168,76,0.06);
-    border-radius: 0 4px 4px 0;
-  }
-  .pull-quote p { font-size: 1.3rem; font-style: italic; color: var(--parchment); line-height: 1.55; margin: 0; }
-
-  /* ── STAT STRIP ── */
-  .stat-strip {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1px; background: rgba(201,168,76,0.15);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 4px; overflow: hidden; margin: 2.5rem 0;
-  }
-  .stat-item { background: rgba(10,15,26,0.8); padding: 1.8rem 1rem; text-align: center; }
-  .stat-number {
-    font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 700;
-    color: var(--gold); line-height: 1; display: block; margin-bottom: 0.4rem;
-  }
-  .stat-label {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.62rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-dim);
-  }
-
-  /* ── INFOBOX ── */
-  .infobox {
-    background: rgba(14,77,110,0.18);
-    border: 1px solid rgba(41,176,212,0.2);
-    border-radius: 4px; padding: 2rem; margin: 2.5rem 0;
-  }
-  .infobox-label {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.65rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--aqua);
-    margin-bottom: 0.8rem; display: block;
-  }
-
-  /* ── BUTTONS ── */
-  .btn-gold {
-    display: inline-block;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.72rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--deep-ocean); background: var(--gold);
-    padding: 0.9rem 2.2rem; text-decoration: none;
-    border-radius: 2px; transition: background 0.2s, transform 0.2s;
-  }
-  .btn-gold:hover { background: var(--parchment); transform: translateY(-2px); }
-  .btn-outline {
-    display: inline-block;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.72rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--gold); border: 1px solid var(--gold);
-    padding: 0.9rem 2.2rem; text-decoration: none;
-    border-radius: 2px; transition: all 0.2s;
-  }
-  .btn-outline:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
-
-  /* ── LAYOUT ── */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .two-col-img { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
-  .two-col-img-r { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
-  @media (max-width: 768px) {
-    .two-col, .two-col-img, .two-col-img-r { grid-template-columns: 1fr; gap: 2.5rem; }
-  }
-
-  /* ── IMAGES ── */
-  img { display: block; max-width: 100%; height: auto; }
-  .img-banner { width: 100%; aspect-ratio: 21/7; object-fit: cover; border-radius: 3px; }
-  .img-trio { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin: 2.5rem 0; }
-  .img-trio img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 3px; }
-  .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 2rem 0; }
-  .img-pair img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 3px; }
-  .img-solo img { width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: 3px; }
-  .img-caption {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.64rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--text-dim);
-    margin-top: 0.5rem; text-align: center;
-  }
-  .portrait-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .portrait-pair img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 3px; }
-
-  /* ── CRED TAGS ── */
-  .cred-tag {
-    display: inline-block;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.62rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-dim);
-    border: 1px solid rgba(200,205,216,0.2);
-    padding: 0.3rem 0.7rem; border-radius: 2px; margin: 0.25rem;
-  }
-
-  /* ── PAGE CARDS (section previews that link to other pages) ── */
-  .page-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem; margin: 2.5rem 0;
-  }
-  .page-card {
-    background: var(--midnight);
-    border: 1px solid rgba(41,176,212,0.12);
-    border-radius: 4px; padding: 2rem;
-    text-decoration: none; display: block;
-    transition: border-color 0.2s, transform 0.2s;
-    position: relative; overflow: hidden;
-  }
-  .page-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent); opacity: 0.4;
-    transition: opacity 0.2s;
-  }
-  .page-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-3px); }
-  .page-card:hover::before { opacity: 0.8; }
-  .page-card-label {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.62rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--aqua);
-    margin-bottom: 0.7rem; display: block;
-  }
-  .page-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--parchment); }
-  .page-card p { font-size: 0.9rem; color: var(--text-dim); margin: 0; line-height: 1.6; }
-  .page-card-arrow {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.65rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gold);
-    margin-top: 1.2rem; display: block;
-  }
-
-  /* ── BOURBON STORM ── */
-  .ritual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .ritual-step {
-    padding: 2rem 2.5rem;
-    border-bottom: 1px solid rgba(201,168,76,0.1);
-  }
-  .ritual-step:nth-child(odd) { border-right: 1px solid rgba(201,168,76,0.1); }
-  .ritual-step-label {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.62rem; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--old-gold);
-    margin-bottom: 0.6rem; display: block;
-  }
-  .ritual-step h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
-  .ritual-step p { font-size: 0.9rem; color: var(--text-dim); margin: 0; line-height: 1.6; }
-  .ritual-protocol {
-    background: rgba(201,168,76,0.04);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 4px; padding: 1.8rem 2rem;
-    margin: 2rem 0;
-    font-family: 'EB Garamond', serif;
-    font-style: italic; font-size: 1rem;
-    color: var(--text-dim); line-height: 1.8;
-  }
-  @media (max-width: 600px) {
-    .ritual-grid { grid-template-columns: 1fr; }
-    .ritual-step:nth-child(odd) { border-right: none; }
-    .img-trio { grid-template-columns: 1fr; }
-    .img-pair { grid-template-columns: 1fr; }
-    nav { padding: 0 1rem; }
-    .nav-links { gap: 0.8rem; }
-    .nav-links a { font-size: 0.62rem; }
-  }
-
-  /* ── CLOSER ── */
-  .closer {
-    text-align: center; padding: 80px 2rem;
-    background: linear-gradient(180deg, var(--midnight) 0%, #060b13 100%);
-  }
-  .closer img { max-width: 320px; margin: 0 auto 2rem; filter: drop-shadow(0 4px 24px rgba(201,168,76,0.2)); }
-  .closer-tagline { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--text-dim); margin-bottom: 0.5rem; }
-  .closer-sub { font-family: 'Josefin Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-dim); opacity: 0.7; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: #060b12;
-    border-top: 1px solid rgba(201,168,76,0.12);
-    padding: 2.5rem 2rem; text-align: center;
-  }
-  footer p { font-family: 'Josefin Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.16em; color: var(--text-dim); margin: 0; }
-  footer a { color: var(--aqua); text-decoration: none; }
-  footer a:hover { color: var(--gold); }
-
-  /* ── REVEAL ── */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes fadeDown { from { opacity:0; transform:translateY(-15px); } to { opacity:1; transform:translateY(0); } }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.7;overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,15,26,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .nav-brand{font-family:'Cinzel',serif;font-weight:700;font-size:1rem;letter-spacing:0.12em;color:var(--gold);text-decoration:none;white-space:nowrap;}
+  .nav-links{display:flex;gap:1.6rem;list-style:none;flex-wrap:wrap;justify-content:flex-end;}
+  .nav-links a{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--fog);text-decoration:none;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 100px;position:relative;background:radial-gradient(ellipse 120% 80% at 50% 30%,rgba(14,77,110,0.55) 0%,transparent 65%),radial-gradient(ellipse 80% 60% at 20% 80%,rgba(26,127,168,0.25) 0%,transparent 55%),linear-gradient(180deg,#060b13 0%,#0a0f1a 40%,#0d1825 70%,#0a1218 100%);overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(14,77,110,0.04) 80px,rgba(14,77,110,0.04) 81px),repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(14,77,110,0.03) 80px,rgba(14,77,110,0.03) 81px);pointer-events:none;}
+  .hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1.6rem;opacity:0;animation:fadeUp 0.8s 0.2s forwards;}
+  .hero-badge{width:min(360px,72vw);margin-bottom:2.8rem;filter:drop-shadow(0 0 50px rgba(41,176,212,0.3));opacity:0;animation:fadeDown 1s 0.4s forwards;}
+  .hero h1{font-family:'Cinzel',serif;font-size:clamp(2.6rem,6.5vw,5.2rem);font-weight:700;line-height:1.05;letter-spacing:0.02em;color:var(--parchment);margin-bottom:0.5rem;opacity:0;animation:fadeUp 0.9s 0.55s forwards;}
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  .hero-sub{font-family:'EB Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--fog);max-width:640px;margin:0 auto 2rem;opacity:0;animation:fadeUp 0.9s 0.75s forwards;}
+  .hero-meta{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;opacity:0;animation:fadeUp 0.9s 0.9s forwards;}
+  .hero-meta span{color:var(--aqua);margin:0 0.5rem;}
+  section{padding:90px 0;}
+  section.bg-mid{background:var(--midnight);}
+  .container{max-width:1100px;margin:0 auto;padding:0 2rem;}
+  .container-wide{max-width:1300px;margin:0 auto;padding:0 2rem;}
+  .section-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+  .section-label::before{content:'';display:block;width:40px;height:1px;background:var(--aqua);opacity:0.6;}
+  h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:600;line-height:1.2;color:var(--parchment);margin-bottom:1.5rem;}
+  h2 em{font-style:italic;color:var(--gold);}
+  h3{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:600;color:var(--parchment);margin-bottom:0.7rem;letter-spacing:0.04em;}
+  p{margin-bottom:1.2rem;color:var(--text-light);}
+  .gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:2rem 0;}
+  .pull-quote{border-left:3px solid var(--gold);padding:1.2rem 2rem;margin:2.5rem 0;background:rgba(201,168,76,0.06);border-radius:0 4px 4px 0;}
+  .pull-quote p{font-size:1.3rem;font-style:italic;color:var(--parchment);line-height:1.55;margin:0;}
+  .stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.15);border-radius:4px;overflow:hidden;margin:2.5rem 0;}
+  .stat-item{background:rgba(10,15,26,0.8);padding:1.8rem 1rem;text-align:center;}
+  .stat-number{font-family:'Cinzel',serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;display:block;margin-bottom:0.4rem;}
+  .stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);}
+  .infobox{background:rgba(14,77,110,0.18);border:1px solid rgba(41,176,212,0.2);border-radius:4px;padding:2rem;margin:2.5rem 0;}
+  .infobox-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.8rem;display:block;}
+  .btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--deep-ocean);background:var(--gold);padding:0.9rem 2.2rem;text-decoration:none;border-radius:2px;transition:background 0.2s,transform 0.2s;}
+  .btn-gold:hover{background:var(--parchment);transform:translateY(-2px);}
+  .btn-outline{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:0.9rem 2.2rem;text-decoration:none;border-radius:2px;transition:all 0.2s;}
+  .btn-outline:hover{background:rgba(201,168,76,0.1);transform:translateY(-2px);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .two-col-img{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center;}
+  img{display:block;max-width:100%;height:auto;}
+  .img-banner{width:100%;aspect-ratio:21/7;object-fit:cover;border-radius:3px;}
+  .img-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:1.5rem 0;}
+  .img-trio img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;}
+  .img-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2rem 0;}
+  .img-pair img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;}
+  .img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.64rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-top:0.5rem;text-align:center;}
+  .cred-tag{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);border:1px solid rgba(200,205,216,0.2);padding:0.3rem 0.7rem;border-radius:2px;margin:0.25rem;}
+  .route-table{width:100%;border-collapse:collapse;margin:2.5rem 0;font-size:0.92rem;}
+  .route-table th{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);padding:0.8rem 1rem;text-align:left;border-bottom:1px solid rgba(201,168,76,0.25);white-space:nowrap;}
+  .route-table td{padding:1rem;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top;color:var(--text-light);font-family:'EB Garamond',serif;font-size:0.95rem;}
+  .route-table tr:hover td{background:rgba(41,176,212,0.05);}
+  .route-table td:first-child{font-family:'Cinzel',serif;font-size:0.85rem;font-weight:600;white-space:nowrap;}
+  .route-table td.days{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--gold);white-space:nowrap;text-align:center;}
+  .route-flag{font-size:1.4rem;margin-right:0.4rem;}
+  .protocol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:2.5rem 0;}
+  .protocol-card{background:rgba(13,21,32,0.8);border:1px solid rgba(41,176,212,0.15);border-radius:4px;padding:1.8rem;position:relative;overflow:hidden;}
+  .protocol-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--aqua),transparent);opacity:0.5;}
+  .protocol-number{font-family:'Cinzel',serif;font-size:2.5rem;font-weight:900;color:rgba(41,176,212,0.12);line-height:1;margin-bottom:0.5rem;}
+  .protocol-card h3{font-size:1rem;color:var(--aqua);margin-bottom:0.6rem;}
+  .protocol-card p{font-size:0.9rem;color:var(--text-dim);margin:0;line-height:1.6;}
+  .gallery-country{margin-bottom:4rem;}
+  .country-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(201,168,76,0.15);}
+  .country-flag{font-size:2rem;}
+  .country-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.06em;}
+  .country-region{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--aqua);margin-left:auto;}
+  .closer{text-align:center;padding:80px 2rem;background:linear-gradient(180deg,var(--midnight) 0%,#060b13 100%);}
+  .closer img{max-width:320px;margin:0 auto 2rem;filter:drop-shadow(0 4px 24px rgba(201,168,76,0.2));}
+  .closer-tagline{font-family:'EB Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--text-dim);margin-bottom:0.5rem;}
+  .closer-sub{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);opacity:0.7;}
+  footer{background:#060b12;border-top:1px solid rgba(201,168,76,0.12);padding:2.5rem 2rem;text-align:center;}
+  footer p{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);margin:0;}
+  footer a{color:var(--aqua);text-decoration:none;}
+  footer a:hover{color:var(--gold);}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s ease,transform 0.75s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-15px);}to{opacity:1;transform:translateY(0);}}
+  @media(max-width:768px){.two-col,.two-col-img{grid-template-columns:1fr;gap:2.5rem;}}
+  @media(max-width:600px){.img-trio{grid-template-columns:1fr;}.img-pair{grid-template-columns:1fr;}.route-table{font-size:0.78rem;}.route-table td,.route-table th{padding:0.6rem 0.5rem;}nav{padding:0 1rem;}.nav-links{gap:0.8rem;}.nav-links a{font-size:0.62rem;}.country-region{display:none;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-brand">Blue Rim 5™</a>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="rimrun.html">Rim Run™</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rimrun.html" class="active">Rim Run™</a></li>
     <li><a href="science.html">The Science</a></li>
     <li><a href="thelivingsaga.html">The Living Saga™</a></li>
     <li><a href="fleet.html">Join the Fleet</a></li>
@@ -370,303 +114,231 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">Blue Rim 5™ Global Sailing Expedition · Launching October 2026</div>
+  <div class="hero-eyebrow">Annual Reef Circuit · Western Caribbean · Launching October 2026</div>
   <img src="rim_run.png" alt="The Rim Run™" class="hero-badge">
-  <h1>As go the seas…<br><em>So goes humanity.</em></h1>
-  <p class="hero-tagline">A global sailing expedition built on small boats, disciplined seamanship, reef science, and the belief that the ocean is still trying to tell us something.</p>
-  <p class="hero-desc">Wind and solar only. Zero carbon. Zero compromise. Seven countries in Year One. The world after that.</p>
-  <div class="hero-ctas">
-    <a href="rimrun.html" class="btn-gold">The Rim Run™ →</a>
-    <a href="science.html" class="btn-outline">The Science →</a>
-  </div>
+  <h1>The <em>Rim Run™</em></h1>
+  <p class="hero-sub">An annual coastal circuit of the living reef edge — Mexico to Panama and back. 100+ sites. Every year. As long as the seas permit.</p>
+  <div class="hero-meta">Mexico<span>·</span>Belize<span>·</span>Guatemala<span>·</span>Honduras<span>·</span>Nicaragua<span>·</span>Costa Rica<span>·</span>Panama</div>
 </section>
 
-<!-- WHAT IS BLUE RIM 5 -->
+<!-- WHAT IS RIM RUN -->
 <section>
   <div class="container">
     <div class="two-col">
       <div class="reveal">
-        <div class="section-label">The Vision</div>
-        <h2>One Expedition. <em>One Planet.</em></h2>
-        <p>Blue Rim 5™ is a long-term global sailing expedition committed to reef science, oral history collection, and disciplined seamanship across the world's tropical coastal systems.</p>
-        <p>The name refers to the five major reef systems the expedition is designed to document — starting with the Western Caribbean, then circling outward as the fleet and the record grow. This is not a gap year. It is a career.</p>
+        <div class="section-label">What It Is</div>
+        <h2>Structured Immersion. <em>Not a Cruise.</em></h2>
+        <p>Rim Run™ is the seasonal Mexico → Panama → Mexico coastal circuit that follows the living edge of the Mesoamerican Barrier Reef System and the extended Caribbean coastal ecosystem south to Panama.</p>
+        <p>Beginning each October, Catamaran Dan departs Mexico and sails south — anchoring over reef water, snorkeling daily, fishing responsibly, provisioning locally, and operating entirely within disciplined daylight sailing segments.</p>
+        <p>This is not a charter. It is not a cruise. Rim Run™ is structured immersion: reef exploration, anchor life, seamanship repetition, weather awareness, and cultural respect at each landfall.</p>
         <div class="pull-quote">
-          <p>"The scientific gap and the expedition route are the same map."</p>
+          <p>"The reefs don't need more one-time visitors. They need someone who keeps coming back."</p>
         </div>
-        <p>Phase One is the <strong>Rim Run™</strong> — an annual circuit of Mexico, Belize, Guatemala, Honduras, Nicaragua, Costa Rica, and Panama. First circuit launches October 2026. The commitment is to repeat the loop every year, for as many years as the seas allow.</p>
-        <div style="margin-top:2rem;">
-          <a href="rimrun.html" class="btn-gold">Rim Run™ Details →</a>
-        </div>
+        <p>Rim Run™ forms the operational core of the Blue Rim 5™ Global Sailing Expedition — building discipline, rhythm, and fleet cohesion year after year until the fleet is ready for broader global expansion.</p>
       </div>
       <div class="reveal">
         <div class="stat-strip" style="grid-template-columns:1fr 1fr;">
-          <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Global Reef Systems</span></div>
-          <div class="stat-item"><span class="stat-number">20+</span><span class="stat-label">Year Commitment</span></div>
-          <div class="stat-item"><span class="stat-number">100+</span><span class="stat-label">Reef Sites Year One</span></div>
-          <div class="stat-item"><span class="stat-number">7</span><span class="stat-label">Countries — Circuit One</span></div>
+          <div class="stat-item"><span class="stat-number">100+</span><span class="stat-label">Reef Sites Annually</span></div>
+          <div class="stat-item"><span class="stat-number">7</span><span class="stat-label">Countries</span></div>
+          <div class="stat-item"><span class="stat-number">370</span><span class="stat-label">Days per Circuit</span></div>
+          <div class="stat-item"><span class="stat-number">150+</span><span class="stat-label">Days at Anchor</span></div>
+          <div class="stat-item"><span class="stat-number">1,500+</span><span class="stat-label">Nautical Miles</span></div>
           <div class="stat-item"><span class="stat-number">0</span><span class="stat-label">Carbon Emissions</span></div>
-          <div class="stat-item"><span class="stat-number">Oct<br><span style="font-size:1rem;">2026</span></span><span class="stat-label">First Departure</span></div>
         </div>
         <div class="infobox">
-          <span class="infobox-label">Project Hierarchy</span>
-          <p style="font-size:0.9rem; color:var(--text-dim); margin:0; line-height:1.7;"><strong style="color:var(--parchment);">Blue Rim 5™</strong> — parent project · global circumnavigation vision<br>
-          <strong style="color:var(--gold);">Rim Run™</strong> — active child project · annual Western Caribbean circuit<br>
-          <strong style="color:var(--fog);">Nevado Raiders™</strong> — the fleet · the people doing the work</p>
+          <span class="infobox-label">Launch</span>
+          <h3 style="font-size:1rem;margin-bottom:0.5rem;">October 2026 — First Circuit</h3>
+          <p style="font-size:0.9rem;margin:0;color:var(--text-dim);">Departing Mexico's Yucatán. Circuit One is the operational proof of concept for the full Blue Rim 5™ expedition model.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CIRCUIT PREVIEW IMAGE BANNER -->
-<section style="padding:0;">
+<!-- OPENING TRIO -->
+<section style="padding:0;background:var(--deep-ocean);">
+  <div class="container-wide">
+    <div class="img-trio reveal">
+      <div><img src="belizelight2.jpg" alt="Lighthouse Reef, Belize"><p class="img-caption">Belize — Lighthouse Reef</p></div>
+      <div><img src="nice.jpg" alt="Reef water — the circuit"><p class="img-caption">Reef Water — The Circuit</p></div>
+      <div><img src="belizeglovers2.jpg" alt="Glover's Reef, Belize"><p class="img-caption">Belize — Glover's Reef</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANCHOR BANNER -->
+<section style="padding:0;background:var(--midnight);">
+  <div class="container-wide">
+    <div class="reveal" style="padding:2rem 0;">
+      <img src="anchor2.jpg" alt="Anchor down — the Rim Run way" class="img-banner">
+      <p class="img-caption" style="margin-bottom:0;">Anchor Down — The Rim Run Way</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE TABLE -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">The Circuit</div>
+      <h2>Seven Countries. <em>One Unbroken Loop.</em></h2>
+      <p>From Mexico's Yucatán to Panama's Guna Yala and back — 1,500+ nautical miles, two ecosystem zones, two operational hubs. The same loop every year, refined each season. No leg is hurried.</p>
+    </div>
+    <div class="reveal">
+      <table class="route-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Key Stops</th>
+            <th style="text-align:center;">Days</th>
+            <th>Why It Matters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="route-flag">🇲🇽</span>Mexico</td><td>Puerto Aventuras · Cozumel · Xcalak · Banco Chinchorro</td><td class="days">~30</td><td>Northern hub — REEF coordination &amp; staging</td></tr>
+          <tr><td><span class="route-flag">🇧🇿</span>Belize</td><td>Ambergris · Turneffe · Lighthouse Reef · Blue Hole · Glover's · South Water · Placencia</td><td class="days">~117</td><td>World's 2nd largest barrier reef — home waters</td></tr>
+          <tr><td><span class="route-flag">🇬🇹</span>Guatemala</td><td>Livingston · Río Dulce · Lake Izabal</td><td class="days">~35</td><td>Most stunning inland waterway in the Americas</td></tr>
+          <tr><td><span class="route-flag">🇭🇳</span>Honduras</td><td>Cayos Cochinos · Utila · Roatán · Guanaja</td><td class="days">~80</td><td>Bay Islands — whale sharks &amp; 100+ ft visibility</td></tr>
+          <tr><td><span class="route-flag">🇳🇮</span>Nicaragua</td><td>Big Corn Island · Little Corn Island · Pearl Cays</td><td class="days">~29</td><td>Priority Year 1 — essentially unsurveyed</td></tr>
+          <tr><td><span class="route-flag">🇨🇷</span>Costa Rica</td><td>Tortuguero · Cahuita NP · Puerto Viejo · Manzanillo</td><td class="days">~35</td><td>Jungle meets reef — Reef Check programs dormant for years</td></tr>
+          <tr><td><span class="route-flag">🇵🇦</span>Panama</td><td>Bocas del Toro · Portobelo · San Blas / Guna Yala</td><td class="days">~44</td><td>Southern hub — REEF training facility &amp; finest snorkeling on circuit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATING PROTOCOL -->
+<section class="bg-mid">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Operating Standard</div>
+      <h2>How the Circuit <em>Actually Works</em></h2>
+      <p>Rim Run™ is not improvised sailing. It operates on a framework of disciplines built and refined before the first circuit ever launches.</p>
+    </div>
+    <div class="protocol-grid reveal">
+      <div class="protocol-card"><div class="protocol-number">01</div><h3>Daylight Segments Only</h3><p>All coastal passages occur in daylight hours. Anchor before dark, every day. Non-negotiable — applies to every vessel on the circuit.</p></div>
+      <div class="protocol-card"><div class="protocol-number">02</div><h3>Anchor Over Reef Water</h3><p>Every stop is selected for reef access. Snorkeling is not a recreational add-on — it is the primary activity. Daily water time is the mission.</p></div>
+      <div class="protocol-card"><div class="protocol-number">03</div><h3>Local Provisioning</h3><p>Food, water, and supplies are sourced locally at each landfall when possible. This is how respect and economic participation work on the water.</p></div>
+      <div class="protocol-card"><div class="protocol-number">04</div><h3>Zero Carbon Operations</h3><p>Wind and solar only. No diesel propulsion. Shamrocket and the full fleet operate on the same energy the reef does — zero combustion.</p></div>
+      <div class="protocol-card"><div class="protocol-number">05</div><h3>Responsible Fishing</h3><p>Catch-and-release default. Harvest only when local context supports it. No spearfishing on protected reef. The fish are not trophies.</p></div>
+      <div class="protocol-card"><div class="protocol-number">06</div><h3>Cultural Respect at Every Landfall</h3><p>Learn names. Speak Spanish. Buy local. Ask questions. Listen more than you talk. This is what distinguishes the Nevado Raiders from every flotilla that came before.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL GALLERY -->
+<section>
   <div class="container-wide">
     <div class="reveal">
-      <div class="img-solo">
-        <img src="anchor2.jpg" alt="Anchor down — Rim Run way" class="img-banner">
-      </div>
-      <p class="img-caption" style="padding-bottom:1.5rem;">Anchor Down — The Rim Run Way · Mexico to Panama and Back</p>
+      <div class="section-label">The Circuit — In Images</div>
+      <h2>Seven Countries. <em>One Reef Edge.</em></h2>
+      <p style="max-width:660px;margin-bottom:3rem;">Every country on the Rim Run circuit is a distinct world. The same ocean. Radically different people, food, politics, and reef health. These are the waters Rim Run™ will return to every year.</p>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇧🇿</span><span class="country-name">Belize — Lighthouse Reef</span><span class="country-region">Northern Belize · Great Blue Hole</span></div>
+      <div class="img-trio"><img src="belizelight1.jpg" alt="Lighthouse Reef, Belize"><img src="belizelight2.jpg" alt="Lighthouse Reef, Belize"><img src="belizelight3.jpg" alt="Lighthouse Reef, Belize"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇧🇿</span><span class="country-name">Belize — Turneffe Atoll</span><span class="country-region">Central Belize · Caribbean's Largest Atoll</span></div>
+      <div class="img-trio"><img src="belizeturneffe1.jpg" alt="Turneffe Atoll, Belize"><img src="belizeturneffe2.jpg" alt="Turneffe Atoll, Belize"><img src="belizeturneffe3.jpg" alt="Turneffe Atoll, Belize"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇧🇿</span><span class="country-name">Belize — Glover's Reef</span><span class="country-region">Southern Belize · UNESCO World Heritage</span></div>
+      <div class="img-trio"><img src="belizeglovers1.jpg" alt="Glover's Reef, Belize"><img src="belizeglovers2.jpg" alt="Glover's Reef, Belize"><img src="belizeglovers3.jpg" alt="Glover's Reef, Belize"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇧🇿</span><span class="country-name">Belize — South Water Caye</span><span class="country-region">Southern Belize · Marine Reserve</span></div>
+      <div class="img-trio"><img src="belizesouth1.jpg" alt="South Water Caye, Belize"><img src="belizesouth2.jpg" alt="South Water Caye, Belize"><img src="belizesouth3.jpg" alt="South Water Caye, Belize"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇬🇹</span><span class="country-name">Guatemala — Río Dulce</span><span class="country-region">Caribbean Inlet · Lake Izabal</span></div>
+      <div class="img-trio"><img src="guatemala1.jpg" alt="Río Dulce, Guatemala"><img src="guatemala2.jpg" alt="Río Dulce, Guatemala"><img src="guatemala3.jpg" alt="Río Dulce, Guatemala"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇭🇳</span><span class="country-name">Honduras — Roatán</span><span class="country-region">Bay Islands · Whale Shark Territory</span></div>
+      <div class="img-trio"><img src="hondroa1.jpg" alt="Roatán, Honduras"><img src="hondroa2.jpg" alt="Roatán, Honduras"><img src="hondroa3.jpg" alt="Roatán, Honduras"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇭🇳</span><span class="country-name">Honduras — Guanaja</span><span class="country-region">Bay Islands · 100+ ft Visibility</span></div>
+      <div class="img-trio"><img src="hondguan1.jpg" alt="Guanaja, Honduras"><img src="hondguan2.jpg" alt="Guanaja, Honduras"><img src="hondguan3.jpg" alt="Guanaja, Honduras"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇳🇮</span><span class="country-name">Nicaragua — Corn Islands</span><span class="country-region">Big &amp; Little Corn · Pearl Cays · Essentially Unsurveyed</span></div>
+      <div class="img-trio"><img src="nica1.jpg" alt="Little Corn Island, Nicaragua"><img src="nica2.jpg" alt="Nicaragua Caribbean coast"><img src="nica3.jpg" alt="Nicaragua Caribbean coast"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇵🇦</span><span class="country-name">Panama — Bocas del Toro</span><span class="country-region">Southern Hub · REEF Training Facility · 50% Coral Loss in 2020 Bleaching</span></div>
+      <div class="img-trio"><img src="panama1.jpg" alt="Bocas del Toro, Panama"><img src="panama2.jpg" alt="Bocas del Toro, Panama"><img src="panama3.jpg" alt="Bocas del Toro, Panama"></div>
+    </div>
+
+    <div class="gallery-country reveal">
+      <div class="country-header"><span class="country-flag">🇵🇦</span><span class="country-name">Panama — Guna Yala / San Blas</span><span class="country-region">350+ Islands · Finest Snorkeling on the Circuit</span></div>
+      <div class="img-trio"><img src="panama4.jpg" alt="Guna Yala, Panama"><img src="panama5.jpg" alt="Guna Yala, Panama"><img src="rimrunner.jpg" alt="Rim Runner™ at anchor — Guna Yala"></div>
     </div>
   </div>
 </section>
 
-<!-- COMMAND -->
+<!-- VESSEL -->
 <section class="bg-mid">
   <div class="container">
-    <div class="two-col-img">
-      <div class="reveal">
-        <div class="section-label">Command</div>
-        <h2>Catamaran Dan — <em>Ove Ironhand</em></h2>
-        <p>Led by Daniel Roe — U.S. Coast Guard–licensed 200-Ton Master Captain, ASA sailing instructor, former U.S. Navy submariner, FAA-licensed drone pilot, Lean Six Sigma Black Belt, and expedition sailor who has been doing hard things on the water since before most sailing influencers were born.</p>
-        <p>Modern Y-DNA work traces his paternal line through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand. Calm decision-making. Conservative risk management. Preparation over bravado.</p>
-        <div class="gold-rule"></div>
-        <div>
-          <span class="cred-tag">USCG 200-Ton Master</span>
-          <span class="cred-tag">USN Submariner</span>
-          <span class="cred-tag">ASA Instructor</span>
-          <span class="cred-tag">FAA Drone Pilot</span>
-          <span class="cred-tag">LSS Black Belt</span>
-          <span class="cred-tag">PADI Adv. OW</span>
-          <span class="cred-tag">Blue Nose</span>
-          <span class="cred-tag">Shellback</span>
-          <span class="cred-tag">MBA · GWU</span>
-          <span class="cred-tag">MS Health Informatics</span>
-        </div>
-        <div style="margin-top:2rem;">
-          <a href="about.html" class="btn-outline">Full Background →</a>
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="portrait-pair">
-          <div>
-            <img src="dan.jpg" alt="Daniel Roe — Catamaran Dan">
-            <p class="img-caption">Daniel Roe — Catamaran Dan</p>
-          </div>
-          <div>
-            <img src="ove.jpg" alt="Ove Ironhand — Norse sailing identity">
-            <p class="img-caption">Ove Ironhand — Norse identity</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CIRCUIT OVERVIEW PREVIEW -->
-<section>
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">The Circuit — Year One</div>
-      <h2>Seven Countries. <em>One Unbroken Loop.</em></h2>
-      <p style="max-width:680px;">The Rim Run™ is the active operating phase of Blue Rim 5™ — an annual Mexico-to-Panama coastal circuit following the edge of the Mesoamerican Barrier Reef System and the extended Caribbean coastal ecosystem south to Panama.</p>
-    </div>
-    <div class="two-col-img reveal">
-      <div>
-        <img src="bluerim5.png" alt="Blue Rim 5™ — Rim Run circuit map" style="width:100%; border-radius:4px;">
-        <p class="img-caption">Rim Run™ Annual Circuit — Mexico to Panama and back</p>
-      </div>
-      <div>
-        <p>100+ reef sites. Seven countries. 370 days per circuit. 1,500+ nautical miles. The same loop, every year, refined each season. No leg is hurried. Every stop is anchored over reef water.</p>
-        <p>The commitment is twenty years minimum. A longitudinal reef health record of this scope, assembled by a single operator on the same route, year after year — has never been done.</p>
-        <div style="margin-top:1.5rem;">
-          <img src="cultural_exchange.jpg" alt="Cultural exchange ashore" style="width:100%; border-radius:4px;">
-          <p class="img-caption">Life Ashore — Cultural Exchange</p>
-        </div>
-        <div style="margin-top:2rem;">
-          <a href="rimrun.html" class="btn-gold">Full Route &amp; Gallery →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT ELSE IS HERE — PAGE CARDS -->
-<section class="bg-mid">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">The Full Expedition</div>
-      <h2>Five Dimensions. <em>One Mission.</em></h2>
-      <p style="max-width:640px;">Blue Rim 5™ is not one idea — it is a layered system. The reef science, the oral tradition work, the fleet, the vessel systems, the personal story behind it all.</p>
-    </div>
-    <div class="page-card-grid reveal">
-      <a href="science.html" class="page-card">
-        <span class="page-card-label">The Science</span>
-        <h3>Two Ecosystems. Two Hubs.</h3>
-        <p>MBRS to Panama — 700 miles of the most monitored and most threatened reef system on earth. Reef Check, HRI, MAR Fund, GCRA. The data framework behind the circuit.</p>
-        <span class="page-card-arrow">The Science →</span>
-      </a>
-      <a href="thelivingsaga.html" class="page-card">
-        <span class="page-card-label">The Living Saga™</span>
-        <h3>Norse Lens. Caribbean Memory.</h3>
-        <p>Six countries. Thousands of years of coastal oral tradition. Garífuna, Guna, Miskito, Q'eqchi' Maya — communities that have been reading these reefs for generations.</p>
-        <span class="page-card-arrow">The Living Saga™ →</span>
-      </a>
-      <a href="fleet.html" class="page-card">
-        <span class="page-card-label">Join the Fleet</span>
-        <h3>The Nevado Raiders™</h3>
-        <p>Not a flotilla of matching boats and matching egos. Small boats. Real seamanship. A shared operating standard and a genuine appetite for what lies beyond the marina breakwater.</p>
-        <span class="page-card-arrow">Join the Fleet →</span>
-      </a>
-      <a href="systems.html" class="page-card">
-        <span class="page-card-label">Systems</span>
-        <h3>Vessel &amp; Gear Platform</h3>
-        <p>Shamrocket. 24 inches of draft. Wind and solar only. DRAGR sled. EcoFlow power. Torqeedo propulsion. The full systems architecture of a zero-carbon reef expedition.</p>
-        <span class="page-card-arrow">Systems →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- NORSE THREAD — BRIEF PREVIEW -->
-<section>
-  <div class="container">
-    <div class="two-col-img-r reveal">
-      <div>
-        <div class="section-label">The Norse Thread</div>
-        <h2>Viking Was a Verb. <em>Not a Noun.</em></h2>
-        <p>The actual Norse were farmers, fishermen, and navigators who crossed cold seas in shallow-draft boats without charts. Their ships drew so little water they could sail directly onto a beach and walk into a village. Not to attack. To listen. To trade. To find out what those people knew.</p>
-        <p>Modern Y-DNA traces Catamaran Dan's paternal line through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand. The same logic. The same draft. The same question: <em>what do the people closest to this water know?</em></p>
-        <div style="margin-top:2rem;">
-          <a href="thelivingsaga.html" class="btn-outline">Read The Living Saga™ →</a>
-        </div>
-      </div>
-      <div>
-        <img src="vikingchariot.jpg" alt="The Viking Way — Nevado Raiders™" style="width:100%; border-radius:4px;">
-        <p class="img-caption">The Viking Way — Nevado Raiders™</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FLEET PREVIEW -->
-<section class="bg-mid">
-  <div class="container">
-    <div class="two-col-img reveal">
-      <div>
-        <img src="havet_kaller.png" alt="HAVET KALLER — The Sea Calls" style="width:100%; border-radius:4px; margin-bottom:1rem;">
-        <img src="burgeeclouds.jpg" alt="Nevado Raiders™ Burgee" style="width:100%; border-radius:4px;">
-        <p class="img-caption">Nevado Raiders™ — Fly it when you've earned it</p>
-      </div>
-      <div>
-        <div class="section-label">Join the Fleet</div>
-        <h2>Recruit the <em>Nevado Raiders™</em></h2>
-        <p>Not a flotilla of matching boats and matching egos. A disciplined collection of real sailors on real boats with a shared operating standard and a genuine appetite for what lies beyond the marina breakwater.</p>
-        <div class="infobox">
-          <span class="infobox-label">Operating Standard</span>
-          <p style="font-size:0.9rem; font-style:italic; color:var(--fog); margin:0; line-height:1.7;">"Sailing to virtually anywhere on Earth — as long as it makes sense and the risks are acceptable. Small boats. Real seamanship. Cultural respect. No passengers."</p>
-        </div>
-        <p>Ideal vessels: shoal-draft or centerboard sailboats under 26 feet — Hobie Getaway, Catalina 22 Sport, and similar. Guardian vessels (30–50 ft sail or power) welcomed and valued.</p>
-        <div style="margin-top:2rem;">
-          <a href="fleet.html" class="btn-gold">Join the Fleet →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BOURBON STORM RITUAL -->
-<section>
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">Sunset Protocol</div>
-      <h2>The Rim Runner™ — <em>Storm-Born Ritual</em></h2>
-      <p style="max-width:680px;">What the Mint Julep is to horse racing, Bourbon Storm™ is to the yachting community. Born on a blue-sky equatorial Pacific day in 1984 that turned dark, wet, and alive — then cleared just as fast. The recipe remained private for forty-one years.</p>
-    </div>
     <div class="two-col reveal">
       <div>
-        <div class="ritual-grid">
-          <div class="ritual-step">
-            <span class="ritual-step-label">Glass &amp; Rim</span>
-            <h3>Heavy rocks glass. Blue rim band.</h3>
-            <p>Rim mix: 2 parts coarse sea salt, 1 part sugar. Wet the outside rim with fresh lime and dip. Fill with fresh ice.</p>
-          </div>
-          <div class="ritual-step">
-            <span class="ritual-step-label">Equatorial Blue Base</span>
-            <h3>The ocean in a glass.</h3>
-            <p>1½ oz white rum · ¾ oz blue curaçao · 1 oz pineapple juice · ½ oz fresh lime · 1 oz coconut water · 1–2 dashes aromatic bitters. Shake hard. Strain over ice.</p>
-          </div>
-          <div class="ritual-step">
-            <span class="ritual-step-label">The Dark Storm Cloud</span>
-            <h3>Float the dark rum.</h3>
-            <p>½–¾ oz dark rum over the back of a bar spoon. Blue below. Dark above. Salt and sky at the rim. Do not stir.</p>
-          </div>
-          <div class="ritual-step">
-            <span class="ritual-step-label">Bourbon Storm™ Variation</span>
-            <h3>Same blue base. Float bourbon.</h3>
-            <p>½–¾ oz bourbon instead of dark rum. The bourbon is the star — the first nose, first sip, and finish live in that top layer.</p>
-          </div>
+        <div class="section-label">The Vessel</div>
+        <h2><em>Shamrocket</em></h2>
+        <p>A Hobie Getaway catamaran — 17 feet of shoal-draft, wind-powered reef machine. Two-foot draft means Shamrocket goes places no keelboat can follow: inside the barrier, onto the sand, into the mangroves.</p>
+        <p>Wind and solar only. Zero diesel. The vessel is not a compromise — the vessel <em>is</em> the point. Small boats. Real seamanship. No passengers.</p>
+        <div class="gold-rule"></div>
+        <div>
+          <span class="cred-tag">Hobie Getaway</span>
+          <span class="cred-tag">2 ft Draft</span>
+          <span class="cred-tag">Wind &amp; Solar Only</span>
+          <span class="cred-tag">0 Carbon</span>
+          <span class="cred-tag">Reef-Inside Capable</span>
         </div>
-        <div class="ritual-protocol">
-          First drink: Face the horizon — <strong>"Better Beachy than Bitchy™"</strong><br>
-          Second: <em>"Better beachy than busted."</em> &nbsp;|&nbsp; Empty glass: one tap. <em>"Anchor down."</em>
-        </div>
+        <div style="margin-top:2rem;"><a href="systems.html" class="btn-gold">Systems &amp; Gear →</a></div>
       </div>
       <div>
-        <img src="rimrunner.jpg" alt="Rim Runner™ — ritual cocktail" style="width:100%; border-radius:4px; margin-bottom:1rem;">
-        <p class="img-caption">The Rim Runner™</p>
-        <img src="rim_lightning.jpg" alt="Rim Lightning 1984 — the storm that started it all" style="width:100%; border-radius:4px; margin-top:1rem;">
-        <p class="img-caption">Rim Lightning — 1984 · The origin</p>
+        <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran" style="width:100%;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+        <p class="img-caption">Shamrocket — Hobie Getaway · 24" draft</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="bg-mid" style="text-align:center;">
+<!-- CTA -->
+<section style="text-align:center;">
   <div class="container">
     <div class="reveal">
-      <div class="section-label" style="justify-content:center;">Get In Touch</div>
-      <h2>The Reefs Are Changing. <em>The Data Matters.</em></h2>
-      <p style="max-width:560px; margin:0 auto 2rem; font-size:1.05rem;">Whether you are a scientist, a sailor, a filmmaker, a sponsor, or simply someone who understands what is at stake — the Rim Run Expedition wants to hear from you.</p>
-      <a href="mailto:nevadoraiders@gmail.com" class="btn-gold">nevadoraiders@gmail.com</a>
+      <div class="section-label" style="justify-content:center;">Join the Mission</div>
+      <h2>The <em>Nevado Raiders™</em></h2>
+      <p style="max-width:580px;margin:0 auto 2.5rem;font-size:1.05rem;">Small boats. Real seamanship. Cultural respect. Not a flotilla of matching boats and matching egos — a disciplined collection of real sailors with a genuine appetite for what lies beyond the marina breakwater.</p>
+      <a href="fleet.html" class="btn-gold">Join the Fleet →</a>
+      <a href="science.html" class="btn-outline" style="margin-left:1rem;">The Science →</a>
     </div>
   </div>
 </section>
 
-<!-- CLOSER -->
 <div class="closer">
   <img src="better.png" alt="Better Beachy than Bitchy™">
   <p class="closer-tagline">"Better Beachy than Bitchy™" — Anchor down.</p>
-  <p class="closer-sub">Blue Rim 5™ · Catamaran Dan · Nevado Raiders™</p>
-  <p class="closer-sub" style="margin-top:0.5rem;">Cell: (928) 250-9763 &nbsp;·&nbsp; nevadoraiders@gmail.com &nbsp;·&nbsp; White Mountains, AZ</p>
+  <p class="closer-sub">nevadoraiders@gmail.com &nbsp;·&nbsp; (928) 250-9763 &nbsp;·&nbsp; White Mountains, AZ</p>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <p>
-    <a href="index.html">Home</a> &nbsp;·&nbsp;
-    <a href="rimrun.html">Rim Run™</a> &nbsp;·&nbsp;
-    <a href="science.html">The Science</a> &nbsp;·&nbsp;
-    <a href="thelivingsaga.html">The Living Saga™</a> &nbsp;·&nbsp;
-    <a href="fleet.html">Join the Fleet</a> &nbsp;·&nbsp;
-    <a href="systems.html">Systems</a> &nbsp;·&nbsp;
-    <a href="bluerim5.html">Blue Rim 5™</a> &nbsp;·&nbsp;
-    <a href="about.html">About</a>
-    <br><br>
-    © Blue Rim 5™ · Rim Run™ · Nevado Raiders™ · Catamaran Dan · Ove Ironhand — All rights reserved.
-    <br>"As go the seas… so goes humanity."
+    <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="rimrun.html">Rim Run™</a> &nbsp;·&nbsp; <a href="science.html">The Science</a> &nbsp;·&nbsp; <a href="thelivingsaga.html">The Living Saga™</a> &nbsp;·&nbsp; <a href="fleet.html">Join the Fleet</a> &nbsp;·&nbsp; <a href="systems.html">Systems</a> &nbsp;·&nbsp; <a href="bluerim5.html">Blue Rim 5™</a> &nbsp;·&nbsp; <a href="about.html">About</a>
+    <br><br>© Blue Rim 5™ · Rim Run™ · Nevado Raiders™ · Catamaran Dan · Ove Ironhand — All rights reserved.<br>"As go the seas… so goes humanity."
   </p>
 </footer>
 
