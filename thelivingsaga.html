@@ -1,879 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Living Saga™ | Blue Rim 5™ | Catamaran Dan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <title>The Living Saga&#8482; | Catamaran Dan</title>
   <style>
-    :root {
-      --deep-ocean: #0a0f1a;
-      --midnight: #0d1520;
-      --reef-blue: #0e4d6e;
-      --caribbean: #1a7fa8;
-      --aqua: #29b0d4;
-      --gold: #c9a84c;
-      --old-gold: #a8833a;
-      --parchment: #f0e8d0;
-      --fog: #c8cdd8;
-      --fire: #d4622a;
-      --text-light: #e8e4da;
-      --text-dim: #9aa0b0;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: var(--deep-ocean);
-      color: var(--text-light);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      overflow-x: hidden;
-      padding-top: 60px;
-    }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,15,26,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.18); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .nav-brand { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; white-space: nowrap; }
-    .nav-links { display: flex; gap: 1.6rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
-    .nav-links a { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 2rem;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(14,77,110,0.35) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(26,127,168,0.2) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(10,15,26,0.9) 0%, transparent 70%),
-        linear-gradient(180deg, #050810 0%, #0a0f1a 40%, #060d18 100%);
-      z-index: 0;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 200px;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 28px,
-        rgba(41,176,212,0.04) 28px,
-        rgba(41,176,212,0.04) 30px
-      );
-      z-index: 0;
-    }
-    .rune-overlay {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      z-index: 0;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 860px;
-    }
-    .hero-eyebrow {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      color: var(--aqua);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 1s ease 0.3s forwards;
-    }
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: 0.02em;
-      color: var(--parchment);
-      text-shadow: 0 0 80px rgba(201,168,76,0.3), 0 2px 4px rgba(0,0,0,0.8);
-      margin-bottom: 0.3em;
-      opacity: 0;
-      animation: fadeUp 1s ease 0.6s forwards;
-    }
-    .hero h1 em {
-      color: var(--gold);
-      font-style: normal;
-      display: block;
-    }
-    .hero-rule {
-      width: 80px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.8rem auto;
-      opacity: 0;
-      animation: fadeIn 1s ease 1s forwards;
-    }
-    .hero-sub {
-      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-      font-style: italic;
-      color: var(--parchment);
-      max-width: 620px;
-      margin: 0 auto 2.5rem;
-      opacity: 0;
-      animation: fadeUp 1s ease 1.1s forwards;
-    }
-    .hero-tagline {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.25em;
-      color: var(--gold);
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeUp 1s ease 1.4s forwards;
-    }
-    section {
-      position: relative;
-      padding: 6rem 2rem;
-    }
-    .container { max-width: 860px; margin: 0 auto; }
-    .container-wide { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--aqua);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .section-label::before {
-      content: '';
-      display: inline-block;
-      width: 30px;
-      height: 1px;
-      background: var(--aqua);
-    }
-    h2.serif {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 600;
-      color: var(--parchment);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-    h2.serif em { color: var(--gold); font-style: normal; }
-    .gold-rule {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, var(--gold), var(--old-gold));
-      margin: 1.5rem 0 2rem;
-    }
-    p + p { margin-top: 1.2rem; }
-    .premise {
-      background: linear-gradient(180deg, #050810 0%, var(--midnight) 100%);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-    }
-    .premise-pull {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-style: italic;
-      color: var(--parchment);
-      border-left: 3px solid var(--gold);
-      padding-left: 1.8rem;
-      margin: 2.5rem 0;
-      line-height: 1.5;
-    }
-    .norse-lens { background: var(--deep-ocean); position: relative; }
-    .norse-lens::before {
-      content: 'ᚢᛏᚨᚾᚠᛖᚱᛞ';
-      position: absolute;
-      top: 3rem; right: 2rem;
-      font-size: 4rem;
-      color: rgba(201,168,76,0.06);
-      letter-spacing: 0.3em;
-      pointer-events: none;
-    }
-    .ironhand-block {
-      background: linear-gradient(135deg, rgba(14,77,110,0.2), rgba(10,15,26,0.6));
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 2px;
-      padding: 2.5rem 3rem;
-      margin: 3rem 0;
-      position: relative;
-    }
-    .ironhand-block::before {
-      content: 'OVE IRONHAND';
-      position: absolute;
-      top: -0.65rem; left: 2rem;
-      background: var(--deep-ocean);
-      padding: 0 0.8rem;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      color: var(--gold);
-    }
-    .peoples { background: linear-gradient(180deg, var(--midnight) 0%, #080d18 100%); }
-    .country-grid {
-      display: grid;
-      gap: 0;
-      margin-top: 3rem;
-      border: 1px solid rgba(201,168,76,0.15);
-    }
-    .country-card {
-      border-bottom: 1px solid rgba(201,168,76,0.12);
-      overflow: hidden;
-    }
-    .country-card:last-child { border-bottom: none; }
-    .country-header {
-      display: grid;
-      grid-template-columns: 60px 1fr auto;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 1.8rem 2rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .country-header:hover { background: rgba(41,176,212,0.06); }
-    .country-num {
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: rgba(201,168,76,0.25);
-      line-height: 1;
-    }
-    .country-title h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--parchment);
-      letter-spacing: 0.05em;
-    }
-    .country-title .people-name {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      color: var(--aqua);
-      text-transform: uppercase;
-      margin-top: 0.2rem;
-    }
-    .country-toggle {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: var(--gold);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .country-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease, padding 0.3s;
-      padding: 0 2rem 0 calc(60px + 3.5rem);
-    }
-    .country-body.open {
-      max-height: 1000px;
-      padding: 0 2rem 2.5rem calc(60px + 3.5rem);
-    }
-    .legend-block {
-      background: rgba(201,168,76,0.04);
-      border-left: 2px solid var(--gold);
-      padding: 1.2rem 1.5rem;
-      margin: 1.5rem 0;
-      font-style: italic;
-      color: var(--parchment);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-    .legend-label {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      font-style: normal;
-    }
-    .norse-parallel {
-      background: rgba(14,77,110,0.15);
-      border: 1px solid rgba(41,176,212,0.2);
-      border-radius: 2px;
-      padding: 1rem 1.4rem;
-      margin-top: 1.2rem;
-      font-size: 0.92rem;
-      color: var(--fog);
-    }
-    .norse-parallel strong {
-      color: var(--aqua);
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-    .mission { background: var(--deep-ocean); position: relative; overflow: hidden; }
-    .mission::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(26,127,168,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .mission-pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .pillar { border-top: 2px solid var(--gold); padding-top: 1.5rem; }
-    .pillar-num {
-      font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: rgba(201,168,76,0.2);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    .pillar h4 {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--aqua);
-      margin-bottom: 0.8rem;
-    }
-    .pillar p { font-size: 0.95rem; color: var(--fog); line-height: 1.7; }
-    .anchor-down {
-      background: linear-gradient(180deg, #080d18 0%, #0a0f1a 60%, #060d18 100%);
-      position: relative; overflow: hidden;
-      border-top: 1px solid rgba(201,168,76,0.1);
-    }
-    .anchor-down::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 60%, rgba(26,127,168,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse at 75% 25%, rgba(201,168,76,0.05) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .feast-intro {
-      font-size: clamp(1.25rem, 2.5vw, 1.7rem);
-      font-style: italic;
-      color: var(--parchment);
-      border-left: 3px solid var(--aqua);
-      padding-left: 1.8rem;
-      margin: 2.5rem 0;
-      line-height: 1.55;
-    }
-    .moment-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      margin: 3.5rem 0;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.1);
-    }
-    .moment-card {
-      background: var(--deep-ocean);
-      padding: 2.2rem 2rem;
-      transition: background 0.35s;
-    }
-    .moment-card:hover { background: rgba(14,77,110,0.18); }
-    .moment-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-    .moment-card h4 {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--gold);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.8rem;
-    }
-    .moment-card p { font-size: 0.97rem; color: var(--fog); line-height: 1.75; }
-    .moment-card p em { color: var(--parchment); font-style: italic; }
-    .rimrunner-block {
-      background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(10,15,26,0.5));
-      border: 1px solid rgba(212,98,42,0.25);
-      border-radius: 2px;
-      padding: 2.5rem 3rem;
-      margin: 3rem 0;
-      position: relative;
-    }
-    .rimrunner-block::before {
-      content: 'RIM RUNNER™ PROTOCOL';
-      position: absolute;
-      top: -0.65rem; left: 2rem;
-      background: #080d18;
-      padding: 0 0.8rem;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      color: var(--fire);
-    }
-    .rimrunner-block p { color: var(--parchment); }
-    .toast-line {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: var(--gold);
-      margin-top: 1.2rem;
-      font-style: italic;
-    }
-    .music-pull {
-      background: rgba(201,168,76,0.04);
-      border-left: 3px solid rgba(201,168,76,0.4);
-      padding: 1.5rem 2rem;
-      margin: 2.5rem 0;
-      font-style: italic;
-      color: var(--parchment);
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-    .music-pull .attrib {
-      font-style: normal;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      text-transform: uppercase;
-      display: block;
-      margin-top: 0.8rem;
-    }
-    .the-call {
-      background: linear-gradient(180deg, #080d18 0%, #050810 100%);
-      text-align: center;
-      padding: 8rem 2rem;
-      border-top: 1px solid rgba(201,168,76,0.1);
-    }
-    .the-call blockquote {
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      font-style: italic;
-      color: var(--parchment);
-      max-width: 700px;
-      margin: 2rem auto;
-      line-height: 1.5;
-    }
-    .the-call cite {
-      display: block;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 1.5rem;
-      font-style: normal;
-    }
-    .anchor-line {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-top: 4rem;
-    }
-    footer {
-      background: #040710;
-      border-top: 1px solid rgba(201,168,76,0.1);
-      padding: 2rem;
-      text-align: center;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-    }
-    footer a { color: var(--aqua); text-decoration: none; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
-    @media (max-width: 640px) {
-      .country-header { grid-template-columns: 40px 1fr; }
-      .country-toggle { display: none; }
-      .country-body.open { padding-left: 1.5rem; }
-      .ironhand-block { padding: 2rem 1.5rem; }
-    }
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;color:var(--parchment);margin-bottom:0.8rem;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.5rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
+.cred-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.5rem 0;}
+.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aqua);border:1px solid rgba(41,176,212,0.3);padding:0.3rem 0.9rem;white-space:nowrap;}
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border:1px solid rgba(201,168,76,0.15);}
+.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
+.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
+.route-table{width:100%;border-collapse:collapse;margin:2.5rem 0;font-family:'Josefin Sans',sans-serif;font-size:0.85rem;}
+.route-table th{background:rgba(201,168,76,0.08);color:var(--gold);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 1.2rem;text-align:left;border-bottom:1px solid rgba(201,168,76,0.2);}
+.route-table td{padding:0.85rem 1.2rem;border-bottom:1px solid rgba(201,168,76,0.08);color:var(--fog);vertical-align:top;}
+.route-table tr:hover td{background:rgba(41,176,212,0.04);color:var(--parchment);}
+.route-table td:first-child{color:var(--aqua);font-weight:600;}
+.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.two-col.center{align-items:center;}
+.two-col.reverse{direction:rtl;}
+.two-col.reverse>*{direction:ltr;}
+.img-banner{width:100%;max-height:520px;object-fit:cover;display:block;filter:brightness(0.8) saturate(0.9);}
+.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:2.5rem 0;}
+.img-pair img{width:100%;object-fit:cover;height:300px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
+.img-pair img:hover{filter:brightness(0.97) saturate(1.05);}
+.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin:0;}
+.img-trio img{width:100%;object-fit:cover;height:220px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
+.img-trio img:hover{filter:brightness(0.97) saturate(1.05);}
+.img-solo{width:100%;display:block;filter:brightness(0.84) saturate(0.88);}
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;margin-bottom:1.5rem;}
+.portrait-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.portrait-pair img{width:100%;object-fit:cover;aspect-ratio:3/4;filter:brightness(0.85) saturate(0.88);transition:filter 0.3s;}
+.portrait-pair img:hover{filter:brightness(0.97) saturate(1.05);}
+.country-strip{background:#06090f;padding:2rem 1rem;}
+.country-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);padding:1.8rem 0 0.5rem 0.5rem;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:3rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
+.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
+.card:hover{background:rgba(14,77,110,0.18);}
+.card-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
+.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
+.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
+.systems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;margin:3rem 0;background:rgba(201,168,76,0.08);}
+.system-card{background:var(--midnight);overflow:hidden;transition:background 0.3s;}
+.system-card:hover{background:rgba(14,77,110,0.25);}
+.system-img{width:100%;height:220px;object-fit:cover;filter:brightness(0.8) saturate(0.9);transition:filter 0.4s;}
+.system-card:hover .system-img{filter:brightness(0.95) saturate(1.1);}
+.system-body{padding:1.8rem 2rem;}
+.system-body h3{font-family:'Cinzel',serif;font-size:1.05rem;color:var(--gold);margin-bottom:0.7rem;letter-spacing:0.05em;}
+.system-body p{font-size:0.93rem;color:var(--fog);line-height:1.7;}
+.rimrunner-ritual{background:linear-gradient(135deg,rgba(212,98,42,0.08),rgba(10,15,26,0.6));border:1px solid rgba(212,98,42,0.25);padding:2.5rem 3rem;margin:3rem 0;position:relative;}
+.rimrunner-ritual::before{content:'RIM RUNNER™ SUNSET PROTOCOL';position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--fire);}
+.recipe-step{border-left:2px solid rgba(212,98,42,0.4);padding-left:1.5rem;margin:1.2rem 0;}
+.recipe-step h5{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.18em;color:var(--fire);text-transform:uppercase;margin-bottom:0.4rem;}
+.recipe-step p{font-size:0.95rem;color:var(--parchment);}
+.toast-code{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);margin-top:1.5rem;font-style:italic;text-align:center;}
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-top-gold{border-top:1px solid rgba(201,168,76,0.12);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+.page-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
+.page-hero-content{position:relative;z-index:2;max-width:860px;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:none;}
+footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
+.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
+.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
+.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
+.footer-contact a{color:var(--aqua);}
+@media(max-width:768px){
+  section{padding:4rem 1.5rem;}
+  nav{position:sticky;top:0;flex-direction:column;align-items:flex-start;padding:0.8rem 1.5rem;gap:0;overflow:hidden;max-height:52px;transition:max-height 0.35s ease;}
+  nav.open{max-height:600px;}
+  .nav-brand-mobile{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--parchment);letter-spacing:0.08em;width:100%;display:block;padding:0.3rem 0;}
+  .nav-toggle{display:flex;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
+  nav a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  nav a:last-child{border-bottom:none;}
+  .two-col,.two-col.reverse{grid-template-columns:1fr;direction:ltr;gap:2.5rem;}
+  .stat-strip{grid-template-columns:repeat(2,1fr);}
+  .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
+  .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
+  .img-trio{grid-template-columns:1fr 1fr;}
+  .img-pair img,.img-trio img{height:160px;}
+  .portrait-pair img{height:220px;}
+  .rimrunner-ritual{padding:2rem 1.5rem;}
+}
+@media(max-width:480px){.img-trio{grid-template-columns:1fr;}}
   </style>
+
 </head>
 <body>
-
-<!-- NAV — CHANGE 1: removed Expedition and Gallery links -->
-<nav>
-  <a href="index.html" class="nav-brand">Blue Rim 5™</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="rimrun.html">Rim Run™</a></li>
-    <li><a href="science.html">The Science</a></li>
-    <li><a href="thelivingsaga.html" class="active">The Living Saga™</a></li>
-    <li><a href="systems.html">Systems</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
+<nav id="main-nav">
+  <span class="nav-brand-mobile">Catamaran Dan</span>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <a href="index.html">Home</a>
+  <a href="rimrun.html">Rim Run&#8482;</a>
+  <a href="science.html">The Science</a>
+  <a href="thelivingsaga.html"  class="active">The Living Saga&#8482;</a>
+  <a href="fleet.html">Join the Fleet</a>
+  <a href="systems.html">Systems</a>
+  <a href="bluerim5.html">Blue Rim 5&#8482;</a>
+  <a href="about.html">About</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="rune-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Blue Rim 5™ &bull; Rim Run™ &bull; Ove Ironhand</div>
-    <h1>
-      The Living
-      <em>Saga™</em>
-    </h1>
-    <div class="hero-rule"></div>
-    <p class="hero-sub">
-      A Norse navigator. A shallow-draft boat. Six thousand years of voices
-      still speaking from the coastline — if someone will sit still long enough to hear them.
-    </p>
-    <!-- CHANGE 2: Added Mexico → at the start -->
-    <div class="hero-tagline">Mexico &rarr; Belize &rarr; Guatemala &rarr; Honduras &rarr; Nicaragua &rarr; Costa Rica &rarr; Panama</div>
+<div class="page-hero">
+  <div class="page-hero-content">
+    <span class="hero-eyebrow">Blue Rim 5&#8482; &bull; Rim Run&#8482; &bull; Ove Ironhand</span>
+    <h1 class="hero-h1">The Living <em>Saga&#8482;</em></h1>
+    <p class="hero-sub">A Norse navigator. A shallow-draft boat. Six thousand years of voices still speaking from the coastline &mdash; if someone will sit still long enough to hear them.</p>
   </div>
-</section>
+</div>
 
-<!-- THE PREMISE -->
-<section class="premise">
+<section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Premise</div>
     <h2 class="serif reveal">Two Worlds. <em>One Ocean Intelligence.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">A thousand years ago, Norse navigators set out from Scandinavia in shallow-draft wooden boats with no charts, no compass, and no certainty about what lay over the horizon. They read the water. They watched the birds. They arrived at coastlines no European had ever seen — and when they got there, they sat with the people. They traded. They listened. They carried stories home.</p>
-    <div class="premise-pull reveal">
-      "He has truly wandered who has traveled widely — a man who has been nowhere knows nothing."
-      <span style="display:block; font-size:0.85rem; margin-top:0.8rem; color: var(--gold); font-style:normal; font-family:'Josefin Sans',sans-serif; letter-spacing:0.15em; text-transform:uppercase;">— Hávamál, verse 18 &bull; The Sayings of Odin</span>
-    </div>
-    <p class="reveal">Catamaran Dan — sailing as Ove Ironhand, whose Y-DNA bloodline traces through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson — moves the same way. Shallow draft. Patient landfall. Deep listening. Shamrocket draws twenty-four inches of water and goes where no keeled vessel follows — up inside the reef, into the mangrove channels, onto the beach itself. Right up to where the people are.</p>
-    <p class="reveal">What the Rim Run™ is building is not a travel record. It is a <em>saga</em> — the living, accumulating account of what the Caribbean coastline of Central America remembers, told by the people who have been keeping the memory for thousands of years, finally heard by someone who understands why memory matters.</p>
+    <p class="reveal">A thousand years ago, Norse navigators set out from Scandinavia in shallow-draft wooden boats with no charts, no compass, and no certainty about what lay over the horizon. They read the water. They watched the birds. They arrived at coastlines no European had ever seen &mdash; and when they got there, they sat with the people. They traded. They listened. They carried stories home.</p>
+    <div class="pull-quote reveal">"He has truly wandered who has traveled widely &mdash; a man who has been nowhere knows nothing."<br/><span style="font-size:0.75em;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;">&mdash; H&aacute;vam&aacute;l, verse 18 &bull; The Sayings of Odin</span></div>
+    <p class="reveal">Catamaran Dan &mdash; sailing as Ove Ironhand, whose Y-DNA bloodline traces through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson &mdash; moves the same way. Shallow draft. Patient landfall. Deep listening. Shamrocket draws twenty-four inches of water and goes where no keeled vessel follows &mdash; up inside the reef, into the mangrove channels, onto the beach itself. Right up to where the people are.</p>
+    <p class="reveal">What the Rim Run&#8482; is building is not a travel record. It is a saga &mdash; the living, accumulating account of what the Caribbean coastline of Central America remembers, told by the people who have been keeping the memory for thousands of years, finally heard by someone who understands why memory matters.</p>
   </div>
 </section>
 
-<!-- THE NORSE LENS -->
-<section class="norse-lens">
+<section class="bg-deep border-bottom-gold">
   <div class="container">
-    <div class="section-label reveal">The Norse Lens</div>
-    <h2 class="serif reveal">To Go Viking Was a Verb. <em>Not a Noun.</em></h2>
+    <div class="section-label reveal">The Circuit</div>
+    <h2 class="serif reveal">Six Countries. <em>Thousands of Years of Memory.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">The television version of the Viking is pure spectacle — face paint, axes, relentless violence, dramatic weather. It makes for compelling viewing and disastrously bad history.</p>
-    <p class="reveal">The actual Norse were farmers, fishermen, craftsmen, merchants, and navigators. Most of them never raided anything. What they did — all of them, farmer and jarl alike — was go to sea. The sea was not a barrier in Norse culture. It was a road. The finest road available, faster and safer than anything on land, connecting you to the world beyond your valley.</p>
-    <div class="ironhand-block reveal">
-      <p>The Old Norse word <em>víking</em> was a verb. To go viking meant to set out — to explore, to trade, to encounter the unknown, to return changed. A man could go viking in summer and tend his fields in autumn. The expedition did not define him. What he brought back did.</p>
-      <p style="margin-top:1.2rem;">Their ships were the engineering marvel of the age. Clinker-built hulls that flexed with the sea rather than fighting it. Masts that could be stepped and unstepped in minutes. And a draft so shallow — in some vessels barely a meter — that they could sail directly onto a beach, step out, and walk into a village before the inhabitants had time to organize a response. Not to attack. To trade. To talk. To find out what those people knew that the Norse did not.</p>
-      <p style="margin-top:1.2rem;">That is the direct ancestor of Shamrocket. Four inches of draft. Caribbean reef inside the barrier. The same logic. The same question: <em>what do the people closest to this water know, and what will they share if someone shows up with genuine respect?</em></p>
-    </div>
-    <p class="reveal">The Norse lawspeaker stood on the Law Rock every year and recited the entire legal code from memory — because that was the archive. The living human voice, properly trained, was the most durable medium available. The Norse understood this. The coastal peoples of Central America understood it long before the Norse did.</p>
-    <p class="reveal">The Rim Run™ understands it now.</p>
-  </div>
-</section>
 
-<!-- THE SIX PEOPLES -->
-<section class="peoples">
-  <div class="container-wide">
-    <div class="container">
-      <div class="section-label reveal">The Circuit</div>
-      <h2 class="serif reveal">Seven Countries. <em>Thousands of Years of Memory.</em></h2>
-      <div class="gold-rule reveal"></div>
-      <p class="reveal">Every reef stop on the Rim Run™ is also a threshold into a living oral tradition. These coastlines have been occupied, fished, named, and interpreted for longer than recorded history can measure. What follows is not a tour guide. It is an introduction to what is waiting on the water — the stories no documentary crew has ever been patient enough to earn.</p>
+    <div class="infobox reveal">
+      <div class="infobox-label">&#127463;&#127487; Belize &mdash; Garifuna &bull; Maya &bull; Creole</div>
+      <p>Belize is where the Rim Run&#8482; is born and where it returns. The Gar&iacute;funa arrived on this coast in 1797 &mdash; not as settlers, but as survivors. Exiled from St. Vincent by the British, 5,000 were loaded onto ships. 2,500 reached Roat&aacute;n alive. Everything they carried was inside them: their language, their music, their spiritual practices, their knowledge of the sea. The <em>d&uuml;g&uuml;</em> ceremony calls the ancestors back to counsel the living. UNESCO recognized this as a Masterpiece of Intangible Heritage.</p>
     </div>
 
-    <div class="country-grid reveal" style="margin-top:3rem;">
+    <div class="infobox reveal">
+      <div class="infobox-label">&#127468;&#127481; Guatemala &mdash; Q'eqchi' Maya &bull; Garifuna</div>
+      <p>Guatemala's Caribbean stop is unlike any other on the circuit. Three-hundred-foot limestone walls draped in jungle, howler monkeys announcing passage from somewhere above the canopy, thermal springs bleeding warm mineral water through the cliff faces. To the Q'eqchi' Maya, the R&iacute;o Dulce canyon is sacred geography &mdash; a living spiritual corridor that connects the human world to the world below and above. Much of this knowledge is one elder away from disappearing.</p>
+    </div>
 
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">01</div>
-          <div class="country-title">
-            <h3>Mexico — Yucatán &amp; Quintana Roo</h3>
-            <div class="people-name">Maya &bull; Mestizo &bull; Yucatec &bull; Lacandón</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>Mexico is where the Rim Run™ begins and where it ends. The northern staging hub is Puerto Aventuras on the Riviera Maya — a practical base for provisioning, maintenance, and REEF coordination before the southbound circuit departs each October. But the waters around it are anything but ordinary. Cozumel sits offshore: one of the most biodiverse reef systems in the Western Hemisphere, swept by the Cozumel Current and dived by scientists and visitors for decades. South of Cozumel, the coast thins out. Xcalak is a fishing village that time has largely left alone. Banco Chinchorro, a remote atoll two hours offshore, holds one of the last truly pristine coral systems in the Caribbean — and the largest shipwreck graveyard in the Americas.</p>
-          <div class="legend-block">
-            <div class="legend-label">The Maya — Three Thousand Years of Reef Intelligence</div>
-            The Maya of the Yucatán Peninsula have been reading this coastline for three thousand years. Their settlements were not inland fortresses — they were coastal trading cities. Tulum sat on a cliff above the reef, its temples facing the sea. Xcaret was a port, a waystation, a sacred site. The Maya understood reef navigation, tidal cycles, hurricane patterns, and the seasonal behavior of the marine life they depended on — all encoded in calendar systems, oral tradition, and ceremony that the Conquest suppressed but did not destroy. The contemporary Maya communities of Quintana Roo carry fragments of that knowledge. Fishermen who know which moon brings the grouper. Divers who read the current by the color of the water. Elders who remember what the reef looked like before the tourist infrastructure arrived. That knowledge is one generation from disappearing — and no institution is collecting it.
-          </div>
-          <p>The Lacandón Maya of the interior — the last group to resist Spanish contact, maintaining their traditional life deep in the Chiapas jungle well into the 20th century — carry cosmological narratives about the sea that no coastal people preserved. Their oral tradition describes the Caribbean as a living intelligence: a system that responds to human behavior, remembers violations, and rewards respect. This is not metaphor. It is ecological observation encoded in sacred story — the same mechanism the Rim Run™ is designed to document.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>The Maya Long Count calendar is the most sophisticated timekeeping system any pre-industrial civilization produced. The Norse had the runic calendar — a memory technology that encoded seasonal and astronomical knowledge in a form that could be carried and transmitted without writing. Both cultures understood that time is not linear but cyclical, and that the sea operates on cycles that reward the people who learn to read them.</div>
-        </div>
-      </div>
+    <div class="infobox reveal">
+      <div class="infobox-label">&#127469;&#127475; Honduras &mdash; Garifuna &bull; Bay Islanders &bull; Miskito</div>
+      <p>The Bay Islands hold one of the densest concentrations of oral maritime tradition in the Caribbean. The Gar&iacute;funa navigational tradition &mdash; called <em>&uacute;raga</em> &mdash; describes a system of reef reading that has no written form. Current behavior at specific locations. Bird species as depth indicators. Fish behavior before weather changes. This knowledge was developed over 200 years of Caribbean coastal survival after the exile from St. Vincent &mdash; and it works.</p>
+    </div>
 
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">02</div>
-          <div class="country-title">
-            <h3>Belize</h3>
-            <div class="people-name">Garífuna &bull; Maya &bull; Creole &bull; Mestizo</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>Belize is where the Rim Run™ is born and where it returns. Home base is Placencia, on the southern coast — a narrow finger of land between the Caribbean and a lagoon, with the second-largest barrier reef on earth running parallel offshore. Inside that reef: Lighthouse Reef, Turneffe Atoll, Glover's, South Water Caye. Outside it: the deep blue of the open Caribbean and the Great Blue Hole — a 300-meter-wide, 125-meter-deep underwater sinkhole that the ocean created and the reef now guards.</p>
-          <div class="legend-block">
-            <div class="legend-label">The Garífuna Oral Tradition — UNESCO Masterpiece of Intangible Heritage</div>
-            The Garífuna arrived on this coast in 1797 — not as settlers, but as survivors. Exiled from St. Vincent by the British after an armed resistance that held for decades, 5,000 were loaded onto ships. 2,500 reached Roatán alive. From there, they moved north and south along the coast — to Honduras, to Belize, to Nicaragua — rebuilding a civilization from memory. Everything they carried was inside them: their language, their music, their spiritual practices, their knowledge of the sea. The <em>dügü</em> ceremony calls the ancestors back to counsel the living. The <em>paranda</em> songs carry history in their chord progressions. The <em>buyei</em> — the spiritual healer — reads the present by listening to the past. This is not folklore. This is a living archive.
-          </div>
-          <p>The Maya have occupied this territory for three thousand years. Their astronomical knowledge, their agricultural systems, their reading of seasonal reef behavior — all of it encoded in oral tradition and ceremony long before European contact. The spirits of the Belizean interior — <em>Tata Duende</em>, the forest guardian; <em>Xtabai</em>, the seductress of the ceiba tree; the howling <em>El Cadejo</em> at crossroads — are not superstition. They are ecological knowledge wrapped in story, passed down because story is how knowledge survives.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>The Garífuna dügü ceremony and the Norse Thing share the same architecture: the community gathers, the ancestors are invoked, decisions are made collectively, and the knowledge of the dead informs the choices of the living. Neither culture considered this mystical. Both considered it practical governance.</div>
-        </div>
-      </div>
+    <div class="infobox reveal">
+      <div class="infobox-label">&#127475;&#127470; Nicaragua &mdash; Miskito &bull; Creole &bull; Rama</div>
+      <p>The Corn Islands sit 70 kilometers offshore &mdash; the most exposed, least-sailed stretch of the entire circuit. Little Corn has no vehicles, no paved roads, and one reef that fishing families have worked for generations without any agency ever recording how they do it. The Miskito Kingdom maintained sovereignty from the 1630s through the late 1800s &mdash; entirely dependent on coastal intelligence that only a people who live on the water can develop.</p>
+    </div>
 
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">03</div>
-          <div class="country-title">
-            <h3>Guatemala — Río Dulce</h3>
-            <div class="people-name">Q'eqchi' Maya &bull; Garífuna &bull; Livingston Creole</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>Guatemala's Caribbean stop is unlike any other on the circuit. There is no reef here. What there is instead is a river canyon that stops the breath: 300-foot limestone walls draped in jungle, howler monkeys announcing passage from somewhere above the canopy, thermal springs bleeding warm mineral water through the cliff faces, and silence of a kind the open ocean never delivers. You enter the Río Dulce through Livingston — a Garífuna town accessible only by boat, reggae on the air, wooden buildings spilling to the water's edge — and the Caribbean ends. Something older begins.</p>
-          <div class="legend-block">
-            <div class="legend-label">Q'eqchi' Maya — Canyon Cosmology</div>
-            To the Q'eqchi' Maya, the Río Dulce canyon is not scenery. It is sacred geography — a living spiritual corridor that connects the human world to the world below and the world above. The canyon walls hold presence. The thermal springs are breathing points of the earth. The river does not simply flow — it remembers. Q'eqchi' oral tradition carries pre-colonial accounts of the canyon's spiritual significance, of the beings that inhabit specific rock formations, of the protocols for travel and offering that kept the passage safe for generations. Much of this knowledge is one elder away from disappearing.
-          </div>
-          <p>Upriver, at Finca El Paraíso, a hot thermal waterfall drops from a cliff directly into a cold jungle pool. Local guides call one formation the Shaman Tower — a rock column with no geological explanation that appears in no official survey. It has a name because someone, at some point, saw something there that required naming. That story has not yet been collected.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>The Norse held specific landscapes as sacred — not churches, but places where the veil between worlds was understood to be thin. Waterfalls, cliff faces, unusual rock formations. They made offerings at these locations. The Q'eqchi' relationship with the canyon operates on the same principle: geography as spiritual address.</div>
-        </div>
-      </div>
+    <div class="infobox reveal">
+      <div class="infobox-label">&#127464;&#127479; Costa Rica &mdash; Afro-Caribbean &bull; Bribri &bull; Cab&eacute;car</div>
+      <p>On April 22, 1991, a 7.6 earthquake lifted the Caribbean coast of Costa Rica by 1.5 meters in ninety seconds. The ecological record of those reef sections was held entirely in the memory of the fishing families who had worked those waters. No scientific record existed of what the reef had been before it surfaced. The elders of Cahuita knew. Some of them are still alive.</p>
+    </div>
 
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">04</div>
-          <div class="country-title">
-            <h3>Honduras — Bay Islands</h3>
-            <div class="people-name">Garífuna &bull; Bay Islanders &bull; Pech &bull; Miskito</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>The Bay Islands — Roatán, Utila, Guanaja — sit on the Mesoamerican Barrier Reef and hold one of the densest concentrations of oral maritime tradition in the Caribbean. The reef wall off Roatán drops to depths that make the water turn from turquoise to cobalt blue in the space of a fin stroke. Cayos Cochinos, a short run southeast, holds the small Garífuna community of Chachahuate — one of the least-visited reef communities on the circuit, on an island with no vehicles and no grid power — where fishing families have worked the same reef their grandparents worked, by the same ecological signs.</p>
-          <div class="legend-block">
-            <div class="legend-label">The Garífuna Maritime Code — Úraga Navigation</div>
-            The Garífuna navigational tradition — called <em>úraga</em> in the oral literature — describes a system of reef reading that has no written form. Current behavior at specific locations. Bird species as depth indicators. The particular color of water over specific bottom types. The behavior of certain fish schools before a weather change. This knowledge was developed over 200 years of Caribbean coastal survival after the exile from St. Vincent — and it works. Garífuna fishermen who have never left the Bay Islands can describe reef conditions at locations they have never visited, because the knowledge was transmitted with enough precision that it travels intact.
-          </div>
-          <p>The <em>dügü</em> ceremony in Honduras calls specifically on the spirits of those who drowned in the crossing from St. Vincent — 2,500 people who did not survive the British exile. Their presence is not considered tragic. It is considered active. They are consulted. Their crossing knowledge — what the open Caribbean felt like from a boat with no equipment and everything to lose — is part of what the ceremony accesses.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>The Garífuna exile from St. Vincent was an open-ocean crossing with no instruments, forced on people who were not by tradition open-ocean sailors. They learned as they went, or they died. Exactly 800 years earlier, Norse settlers crossed the North Atlantic to Iceland under similar conditions of compulsive necessity. Both peoples built navigational civilizations from the crossing itself.</div>
-        </div>
-      </div>
-
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">05</div>
-          <div class="country-title">
-            <h3>Nicaragua — Corn Islands</h3>
-            <div class="people-name">Miskito &bull; Creole &bull; Rama &bull; Garífuna</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>The Corn Islands sit 70 kilometers offshore — the most exposed, least-sailed stretch of the entire circuit. Little Corn has no vehicles, no paved roads, and one reef that fishing families have worked for generations without any agency ever recording how they do it or what they know about it. Getting here in Shamrocket is a commitment. The open-water passage is real. The reward is a community whose isolation has preserved something that the more accessible stops on the circuit have lost.</p>
-          <div class="legend-block">
-            <div class="legend-label">The Miskito Kingdom — Maritime Intelligence as Sovereignty</div>
-            From the 1630s through the late 1800s, the Miskito people of the Nicaraguan coast maintained a kingdom — aligned with the British, resistant to the Spanish, and entirely dependent on the kind of coastal intelligence that only a people who live on the water can develop. They knew every river mouth, every shoal, every weather pattern along 300 miles of coastline. That knowledge was their strategic asset. It kept them sovereign for 200 years when much larger and better-armed peoples were being absorbed. The Miskito oral tradition of that period — accounts of specific battles, specific negotiations, specific moments when coastal knowledge saved the kingdom — is one generation from disappearing.
-          </div>
-          <p>The Bryan-Chamorro Treaty of 1914 leased the Corn Islands to the United States for 99 years — a fact almost no one outside Nicaragua knows and almost no one inside Nicaragua talks about anymore. The Creole fishing families of Little Corn lived through that period. Their grandparents remember it. The stories of what American occupation looked like from a Caribbean island too small to appear on most maps have never been collected.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>The Miskito Kingdom used coastal intelligence exactly as the Norse Varangians used it in Eastern Europe — as a form of political power. The Norse who served as bodyguards to the Byzantine emperor weren't warriors first. They were navigators who understood river systems the Byzantines didn't. Knowledge of the water was the currency of sovereignty.</div>
-        </div>
-      </div>
-
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">06</div>
-          <div class="country-title">
-            <h3>Costa Rica — Cahuita</h3>
-            <div class="people-name">Afro-Caribbean &bull; Bribri &bull; Cabécar</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>The Caribbean coast of Costa Rica is the country's other face — the one the tourism industry barely shows. Cahuita and Puerto Limón sit in a region that was, for much of the 20th century, legally restricted. The Afro-Caribbean community that built the Atlantic railroad in the 1870s — brought by the United Fruit Company to do work that killed thousands — was legally barred from moving to other parts of the country until 1949. They built a civilization in enforced isolation, and what they built is extraordinary.</p>
-          <div class="legend-block">
-            <div class="legend-label">The 1991 Earthquake — When the Reef Surfaced and the Elders Remembered</div>
-            On April 22, 1991, a 7.6 earthquake lifted the Caribbean coast of Costa Rica by 1.5 meters in ninety seconds. Sections of reef that had been underwater for centuries were suddenly in the air. Tide pools appeared where there had been open water. The ecological record of those reef sections — what had grown there, how it had changed, what it had looked like — was held entirely in the memory of the fishing families who had worked those waters. No scientific record existed of what the reef had been before it surfaced. The elders of Cahuita knew. Some of them are still alive.
-          </div>
-          <p>The Afro-Caribbean oral tradition of the Limón province carries Anansi stories — the spider trickster of West African origin who survived the Middle Passage and arrived in the Caribbean as a form of encoded resistance. Anansi is not a children's story. Anansi is the cultural memory of a people for whom direct communication was dangerous, so the truth traveled in metaphor. Those metaphors are still being told. The Bribri and Cabécar peoples of the nearby mountains carry creation narratives and ecological knowledge of the coastal zone that the academic world has barely touched.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>Anansi's strategy — encoding dangerous truth in story so it survives transmission — is exactly what the Norse skalds did. The skald's elaborate poetic meter was not decoration. It was encryption. A poem that didn't scan correctly had been changed, and the change was detectable. Truth traveled protected inside the form.</div>
-        </div>
-      </div>
-
-      <div class="country-card">
-        <div class="country-header" onclick="toggleCountry(this)">
-          <div class="country-num">07</div>
-          <div class="country-title">
-            <h3>Panama — Bocas &amp; San Blas</h3>
-            <div class="people-name">Guna &bull; Ngäbe-Buglé &bull; Afro-Colonial</div>
-          </div>
-          <div class="country-toggle">Read the Saga ↓</div>
-        </div>
-        <div class="country-body">
-          <p>Panama is the southern terminus of the Rim Run™ — and the deepest well of oral tradition on the entire circuit. Bocas del Toro, with its Ngäbe-Buglé communities and largely undocumented reef knowledge, is remarkable. But Guna Yala — the autonomous indigenous territory known to outsiders as San Blas — is something else entirely. Three hundred and sixty-five islands. Forty-nine inhabited. Fully self-governing under a system that has operated continuously since before European contact. No other indigenous territory in the Western Hemisphere has maintained autonomy of this completeness for this long.</p>
-          <div class="legend-block">
-            <div class="legend-label">The Saila — Living Law, Sung from Memory</div>
-            The Guna Saila is the political and spiritual leader of a Guna community. His primary function is memory. Every evening in the Congress House — a large communal structure where the whole community gathers — the Saila sings. He sings the laws. He sings the history. He sings the decisions of previous Sailas and the outcomes of previous choices. The community listens, responds, asks questions, debates. The entire legal and historical record of the community lives in this ceremony, renewed every night. No document holds what the Saila holds. No archive exists outside this man.
-          </div>
-          <p>Guna mythology describes the sea serpent <em>Olokkupile</em> — the deity that governs the relationship between the Guna and the ocean. To navigate Guna waters without understanding Olokkupile is to move through a landscape without reading its signs. The Guna know which currents are reliable and which are traps. They know which channels between islands shift with the seasons. They know the behavior of the reef at night — something most reef science has never adequately studied — because they have been fishing it at night for centuries. And they know what the islands looked like before the sea level started rising. The first Guna community to be evacuated due to inundation — Gardi Sugdub — was relocated in 2025. The elders who remember the old shoreline are alive. Their memory of it will not be alive for long.</p>
-          <div class="norse-parallel"><strong>Norse Parallel</strong>The Guna Saila singing law from memory in the Congress House is the most direct parallel to the Norse lawspeaker standing on the Law Rock. Both roles exist for exactly the same reason: when no document can be trusted, the trained human voice becomes the constitution. Both cultures understood that memory, properly maintained, is more durable than any material archive.</div>
-        </div>
-      </div>
-
+    <div class="infobox reveal">
+      <div class="infobox-label">&#127477;&#127462; Panama &mdash; Guna &bull; Ng&auml;be-Bugl&eacute; &bull; Afro-Colonial</div>
+      <p>Guna Yala &mdash; the autonomous indigenous territory known to outsiders as San Blas &mdash; is something extraordinary. Three hundred and sixty-five islands. Forty-nine inhabited. The Guna Saila sings every evening in the Congress House &mdash; the laws, the history, the decisions of previous Sailas. No document holds what the Saila holds. The first Guna community to be evacuated due to inundation &mdash; Gardi Sugdub &mdash; was relocated in 2025. The elders who remember the old shoreline are alive. Their memory will not be alive for long.</p>
     </div>
   </div>
 </section>
 
-<!-- THE MISSION -->
-<section class="mission">
+<section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Mission</div>
-    <h2 class="serif reveal">What the Rim Run™ <em>Is Actually Doing</em></h2>
+    <h2 class="serif reveal">What the Rim Run&#8482; <em>Is Actually Doing</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">There are expedition sailors all along this coast. Charter boats. Dive operations. Eco-tours. Researchers. Most of them move through these communities without stopping long enough to hear what the community actually knows.</p>
-    <p class="reveal">The Rim Run™ is something different. It is a moving oral history project disguised as a sailing expedition — or, more accurately, a sailing expedition that takes its philosophical mandate from the Norse tradition of the skald: go out, sit with people, listen to what they know, and carry it home accurately.</p>
-    <p class="reveal">What gets collected belongs first to the people who gave it. What gets shared with the world gets shared on their terms, with their consent, with their names attached and their community's context intact. The Rim Run™ is not an extraction operation. It is an amplification operation. The stories already exist. They have existed for centuries. What they have lacked is a platform, and a listener patient enough to earn the telling.</p>
-    <div class="mission-pillars reveal">
-      <div class="pillar">
-        <div class="pillar-num">I</div>
-        <h4>Go There</h4>
-        <p>Shamrocket's 24-inch draft gets inside the reef, into the mangrove channels, onto the beach. Where the stories live.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">II</div>
-        <h4>Sit Still</h4>
-        <p>The Norse waited out weather. The Rim Run™ waits for trust. Neither is rushed. Both are earned.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">III</div>
-        <h4>Listen Correctly</h4>
-        <p>What sounds like legend is often ecological data. What sounds like myth is often history. The skald knew the difference. The Rim Run™ is learning it.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">IV</div>
-        <h4>Carry It True</h4>
-        <p>The skald's job was accuracy, not entertainment. The story travels as it was given, or it doesn't travel at all.</p>
-      </div>
+    <p class="reveal">The Rim Run&#8482; is a moving oral history project disguised as a sailing expedition &mdash; or, more accurately, a sailing expedition that takes its philosophical mandate from the Norse tradition of the skald: go out, sit with people, listen to what they know, and carry it home accurately.</p>
+    <p class="reveal">What gets collected belongs first to the people who gave it. What gets shared with the world gets shared on their terms, with their consent, with their names attached and their community's context intact. The Rim Run&#8482; is not an extraction operation. It is an amplification operation.</p>
+    <div class="card-grid reveal">
+      <div class="card"><h4>I &mdash; Go There</h4><p>Shamrocket's 24-inch draft gets inside the reef, into the mangrove channels, onto the beach. Where the stories live.</p></div>
+      <div class="card"><h4>II &mdash; Sit Still</h4><p>The Norse waited out weather. The Rim Run&#8482; waits for trust. Neither is rushed. Both are earned.</p></div>
+      <div class="card"><h4>III &mdash; Listen Correctly</h4><p>What sounds like legend is often ecological data. What sounds like myth is often history. The skald knew the difference.</p></div>
+      <div class="card"><h4>IV &mdash; Carry It True</h4><p>The skald's job was accuracy, not entertainment. The story travels as it was given, or it doesn't travel at all.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ANCHOR DOWN -->
-<section class="anchor-down">
-  <div class="container">
-    <div class="section-label reveal">The Other Half of the Saga</div>
-    <h2 class="serif reveal">And Then <em>The Anchor Goes Down.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">The Norse understood something that the television version always forgets: the voyage was only half of it. What came after the hard passage — the feast, the music, the fire, the telling of what had been seen and done — that was the other half. Not the reward for the saga. The completion of it.</p>
-    <div class="feast-intro reveal">The mead hall was not an afterthought. It was the entire architecture of Norse social life. You gathered, you ate, you drank, the skald performed, people laughed, arguments broke out, songs were sung badly and then sung again correctly, and somewhere in the middle of all of it the real knowledge got transferred — not in the serious telling, but in the human one.</div>
-    <p class="reveal">The Rim Run™ operates on the same principle. Every serious reef system, every oral tradition session, every dawn navigation passage — it all ends the same way. Anchor down. Cast net out. Whatever the Caribbean decides to give up for dinner. And then the evening begins.</p>
-
-    <div class="moment-grid reveal">
-      <div class="moment-card">
-        <span class="moment-icon">🌊</span>
-        <h4>First Light — Fins On</h4>
-        <p>Before the coffee is even finished, the mask goes on and Shamrocket's trampoline is empty. The reef at first light is a different animal than the reef at noon. <em>Quieter. The big things are still moving.</em> The coral casts long shadows east. Parrotfish are already working. A turtle surfaces ten feet away, looks at you without alarm, and goes back down. Nobody else is here. This moment belongs entirely to whoever got up early enough to earn it.</p>
-      </div>
-      <div class="moment-card">
-        <span class="moment-icon">🎣</span>
-        <h4>The Cast Net</h4>
-        <p>The Norse provisioned from local waters everywhere they sailed. So does the Rim Run™. <em>The cast net is the oldest technology on this coast</em> — Garífuna fishermen use it, Guna fishermen use it, Miskito fishermen on the Corn Islands use it. When you throw one alongside someone who has been throwing one since age seven, you learn something about the water you cannot learn any other way. Fresh fish on the solar stove. That is not a hardship. That is the point.</p>
-      </div>
-      <div class="moment-card">
-        <span class="moment-icon">🤿</span>
-        <h4>Inside the Reef</h4>
-        <p>Shamrocket's 24-inch draft puts her inside the barrier reef where no keeled boat follows. <em>Long, unhurried snorkel passes</em> over coral architecture that cruising boats can only see from the outside. Glover's Atoll lagoon on a flat-calm morning. The spur-and-groove corridors at South Water Caye. The wall at Roatán where the blue falls away to nothing and you hang at the edge of it and feel the scale of what you're floating over. No tour boat schedule. No group. Just water and what lives in it.</p>
-      </div>
-      <div class="moment-card">
-        <span class="moment-icon">🏝️</span>
-        <h4>The Beach That Isn't On the Map</h4>
-        <p>They exist on every leg of the circuit — <em>cayes and sandbars and mangrove edges that appear on no tourist document</em>, accessible only to something that draws 24 inches of water and can land on a beach. You anchor in eight inches of water and step off the bow into warm sand. Frigatebirds overhead. The reef breaking white a quarter mile out. No one else has been here today. Possibly no one else has been here this week. You eat lunch in the shade of a sea grape tree and the afternoon opens up without asking anything of you.</p>
-      </div>
-      <div class="moment-card">
-        <span class="moment-icon">🥁</span>
-        <h4>When the Music Starts</h4>
-        <p>It happens on its own schedule, in its own time. A Garífuna community evening on the beach at Dangriga or Hopkins or Cayos Cochinos. The <em>punta</em> drums are not background music — they are the event. The paranda guitar carries harmonics that have been moving up this coast since 1797. When someone who lives here decides to share it with someone who showed up with genuine respect, you do not record it immediately. You sit in it first. You let it land. Then, if invited, you join it — and whatever instrument you brought, you play it badly at first and then you play it together, and that is the moment the evening becomes something neither side will forget.</p>
-      </div>
-      <div class="moment-card">
-        <span class="moment-icon">🏊</span>
-        <h4>The Long Swim</h4>
-        <p>Some afternoons the boat just stays put and the water is the entire agenda. <em>An hour in the water. Then another.</em> The Caribbean holds you differently than any other ocean — warmer, more buoyant, the color of it unlike anything on land. You stop counting time. You stop thinking about the next leg, the next landfall, the next anything. The reef does what it has always done, which is exist completely and without apology, and you float over it and remember why you left the dock in the first place.</p>
-      </div>
-    </div>
-
-    <div class="rimrunner-block reveal">
-      <p>When the sun starts its drop, the production begins. Heavy rocks glass, blue-rimmed. The salt-and-sugar rim. Ice. The equatorial blue base — white rum, blue curaçao, pineapple, lime, coconut water, a dash of something aromatic. Then the dark rum floated over the back of the spoon, slow, forming the storm cloud on top. Blue below. Dark above. Salt and sky at the rim. The ocean that made the drink is right there, doing exactly what it was doing when this recipe was invented in 1984 crossing the equator in the Pacific: being enormous and indifferent and beautiful and the only thing worth paying attention to.</p>
-      <div class="toast-line">"Better Beachy than Bitchy™" — face the horizon and mean it.</div>
-      <p style="margin-top:1.2rem; font-size:0.95rem; color:var(--fog);">Second drink: <em>"Better beachy than busted."</em> &nbsp;|&nbsp; Empty glass: one tap on the table. <em>Anchor down.</em></p>
-    </div>
-
-    <div class="music-pull reveal">
-      The Norse skald performed in the mead hall not because the feast demanded entertainment — but because the story only becomes the saga when someone tells it out loud, in a room full of people who were there, while the fire is still going and the mead is still moving and everyone is still alive enough to feel what it meant. The Rim Run™ version of this is a Caribbean evening with the anchor down, a glass with a storm cloud in it, and a Garífuna drummer three fires over who has been watching you all week and has decided tonight that you've earned a song.
-      <span class="attrib">— The Living Saga™ &bull; Rim Run™ Field Philosophy</span>
-    </div>
-
-    <p class="reveal">This is not a footnote to the expedition. It is the expedition — the human layer that makes the history livable and the stories worth carrying home. You cannot collect the oral tradition of a community you have not shared a meal with. You cannot earn the trust of a reef fisherman who has watched you rush through his anchorage. The celebration is not separate from the work. In every culture the Rim Run™ moves through — Norse, Garífuna, Guna, Miskito, Q'eqchi', Creole — the feast and the saga are the same thing told in two different registers. Both are required. Neither is optional.</p>
-    <p class="reveal" style="margin-top:1.5rem;">The Rim Run™ shows up. Sits down. Does the work. Earns the evening. And then the anchor goes down, and what follows is as old as the water that made it possible.</p>
-  </div>
-</section>
-
-<!-- THE CALL -->
-<section class="the-call">
-  <div class="section-label reveal" style="justify-content:center;">The Living Saga™</div>
-  <h2 class="serif reveal" style="font-size: clamp(1.6rem,4vw,2.5rem);">This is Not a Record of What Happened.<br><em>It Is Happening Now.</em></h2>
-  <blockquote class="reveal">
-    "Every coast has its own rhythm, and the Blue Rim 5™ fleet listens long enough to hear it before moving on."
-    <cite>— Catamaran Dan, catamarandan.org</cite>
-  </blockquote>
-  <p class="reveal" style="max-width:600px; margin:0 auto; color:var(--fog); font-size:1rem;">The Rim Run™ departs Puerto Aventuras, Mexico each October. It returns each September. Every year, the circuit adds another layer to the archive. Every season, another elder whose story has never been recorded agrees to tell it. Every reef system reveals something that the science hasn't measured and the community has known for generations.</p>
-  <p class="reveal" style="max-width:600px; margin:1.2rem auto 0; color:var(--fog); font-size:1rem;">The saga is being written now. In the water. On the beach. In the evening, when the anchor is down and the cast net has done its work and someone who has lived on this reef their entire life decides that tonight is the night they tell you what they know.</p>
-  <div class="anchor-line reveal" style="margin-top:4rem;">Anchor Down &bull; Ove Ironhand &bull; Better Beachy Than Bitchy™</div>
-</section>
-
-<div style="text-align:center; padding:3rem 2rem; background:var(--deep-ocean);">
-  <img src="better.png" alt="Better Beachy than Bitchy™" style="max-width:380px; width:90%; display:inline-block;"/>
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy™" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
 </div>
 <footer>
-  <p>Blue Rim 5™ Global Sailing Expedition &bull; Catamaran Dan / Ove Ironhand</p>
-  <p style="margin-top:0.5rem;">nevadoraiders@gmail.com &bull; Cell: (928) 250-9763 &bull; Base Camp: White Mountains, AZ</p>
+  <div class="footer-logo">Blue Rim 5™ &bull; Catamaran Dan &bull; Nevado Raiders™</div>
+  <div class="footer-tagline">"As go the seas… so goes humanity."</div>
+  <div class="footer-contact">Cell: (928) 250-9763 &nbsp;&bull;&nbsp; <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a> &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
 </footer>
-
 <script>
-function toggleCountry(header) {
-  var body = header.nextElementSibling;
-  var toggle = header.querySelector('.country-toggle');
-  var isOpen = body.classList.contains('open');
-  document.querySelectorAll('.country-body').forEach(function(b){ b.classList.remove('open'); });
-  document.querySelectorAll('.country-toggle').forEach(function(t){ t.textContent = 'Read the Saga ↓'; });
-  if (!isOpen) {
-    body.classList.add('open');
-    if (toggle) toggle.textContent = 'Close ↑';
-  }
-}
 (function(){
-  var els = document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    },{threshold:0.12});
-    els.forEach(function(el){ obs.observe(el); });
-  } else {
-    els.forEach(function(el){ el.classList.add('visible'); });
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  if(toggle&&nav){
+    toggle.addEventListener('click',function(){nav.classList.toggle('open');toggle.classList.toggle('open');});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');toggle.classList.remove('open');});});
   }
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+    els.forEach(function(el){obs.observe(el);});
+  } else {els.forEach(function(el){el.classList.add('visible');});}
 })();
 </script>
 </body>
 </html>
+
