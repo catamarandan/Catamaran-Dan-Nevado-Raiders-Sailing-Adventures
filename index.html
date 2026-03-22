@@ -1,3 +1,6 @@
+Fixed. I standardized the nav so it matches the properly spaced version and kept the rest of your file intact. Source file reviewed here: 
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,17 +43,31 @@ a:hover { color: var(--gold); }
 nav {
   background: #080c14;
   border-bottom: 1px solid rgba(201,168,76,0.2);
-  padding: 1rem 2rem;
-  display: flex;
-  gap: 1.8rem;
-  justify-content: center;
-  flex-wrap: wrap;
   position: sticky;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(8px);
 }
-nav a {
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  flex-wrap: nowrap;
+}
+
+.nav-links a {
   color: var(--fog);
   font-family: 'Josefin Sans', sans-serif;
   font-size: 0.8rem;
@@ -59,9 +76,11 @@ nav a {
   padding: 0.2rem 0;
   border-bottom: 1px solid transparent;
   transition: color 0.25s, border-color 0.25s;
+  white-space: nowrap;
 }
-nav a:hover { color: var(--gold); }
-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.nav-links a:hover { color: var(--gold); }
+.nav-links a.active { color: var(--gold); border-bottom-color: var(--gold); }
 
 /* ── HAMBURGER ── */
 .nav-toggle {
@@ -73,7 +92,7 @@ nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
   flex-direction: column;
   gap: 5px;
   position: absolute;
-  right: 1.5rem;
+  right: 2rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1002;
@@ -94,12 +113,39 @@ nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-toggle{display:flex;}
+  .nav-inner {
+    justify-content: flex-start;
+    padding: 0.8rem 1.5rem;
+    min-height: 52px;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #080c14;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0.5rem 1.5rem 1rem;
+    z-index: 99;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links a {
+    width: 100%;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    font-size: 0.82rem;
+  }
+
+  .nav-links a:last-child { border-bottom: none; }
+  .nav-toggle { display: flex; right: 1.5rem; }
 }
 
 /* ── SECTION BASE ── */
@@ -453,8 +499,6 @@ footer {
   .img-pair img, .img-trio img { height:160px; }
 }
 @media (max-width:480px) {
-  nav { gap:1rem; }
-  nav a { font-size:0.72rem; }
   .img-trio { grid-template-columns:1fr; }
 }
   </style>
@@ -462,18 +506,20 @@ footer {
 <body>
 
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="rimrun.html">Rim Run™</a>
-    <a href="science.html">The Science</a>
-    <a href="citizenscience.html">Citizen Science</a>
-    <a href="thelivingsaga.html">The Living Saga™</a>
-    <a href="systems.html">Systems</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="about.html">About</a>
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="rimrun.html">Rim Run™</a>
+      <a href="science.html">The Science</a>
+      <a href="citizenscience.html">Citizen Science</a>
+      <a href="thelivingsaga.html">The Living Saga™</a>
+      <a href="systems.html">Systems</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+    </div>
   </div>
 </nav>
 
@@ -839,4 +885,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </body>
 </html>
+```
+
+Paste this over the full file. Then do the same nav block/CSS structure on the other two squished pages.
+
 
