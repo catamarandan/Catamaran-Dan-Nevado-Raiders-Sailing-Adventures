@@ -1,3 +1,6 @@
+Here is the full corrected file with the navigation standardized to match the same system as the first page. 
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,15 +16,55 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
+
+/* STANDARDIZED NAV */
+nav{
+  background:#080c14;
+  border-bottom:1px solid rgba(201,168,76,0.2);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  backdrop-filter:blur(8px);
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1.8rem;
+  flex-wrap:wrap;
+  width:100%;
+}
 nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
 nav a:hover{color:var(--gold);}
 nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;pointer-events:auto;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
+.nav-toggle{
+  display:none;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:0.4rem;
+  flex-direction:column;
+  gap:5px;
+  position:absolute;
+  right:1.5rem;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1002;
+  pointer-events:auto;
+  touch-action:manipulation;
+  -webkit-appearance:none;
+  appearance:none;
+  -webkit-tap-highlight-color:transparent;
+}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -83,19 +126,41 @@ p+p{margin-top:1.2rem;}
 .hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
 .hero-h1 em{color:var(--gold);font-style:normal;display:block;}
 .hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
+
 /* ── SCROLL REVEAL — FIXED ── */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
+
 footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
 .footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
 .footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
 .footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
 .footer-contact a{color:var(--aqua);}
+
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:1001;}
+  nav{
+    position:sticky;
+    top:0;
+    padding:0.8rem 1.5rem;
+    justify-content:flex-end;
+  }
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:#080c14;
+    border-bottom:1px solid rgba(201,168,76,0.2);
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:0;
+    padding:0.5rem 1.5rem 1rem;
+    z-index:1001;
+  }
   .nav-links.open{display:flex;}
   .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
   .nav-links a:last-child{border-bottom:none;}
@@ -113,7 +178,9 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 </head>
 <body>
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="rimrun.html">Rim Run&#8482;</a>
@@ -291,3 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </body>
 </html>
+```
+
+Paste the next full file.
+
