@@ -70,25 +70,28 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 .footer-contact a{color:var(--aqua);}
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;flex-direction:column;align-items:flex-start;padding:0.8rem 1.5rem;gap:0;overflow:hidden;max-height:52px;transition:max-height 0.35s ease;}
-  nav.open{max-height:600px;}
-  .nav-toggle{display:flex;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
-  nav a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  nav a:last-child{border-bottom:none;}
+  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}
 }
   </style>
 </head>
 <body>
 <nav id="main-nav">
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
-  <a href="index.html">Home</a>
-  <a href="rimrun.html">Rim Run&#8482;</a>
-  <a href="science.html">The Science</a>
-  <a href="citizenscience.html">Citizen Science</a>
-  <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-  <a href="systems.html" class="active">Systems</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="science.html">The Science</a>
+    <a href="citizenscience.html">Citizen Science</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="systems.html" class="active">Systems</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </div>
 </nav>
 
 <div class="page-hero">
@@ -195,8 +198,8 @@ document.body.classList.add('js-ready');
   var toggle=document.getElementById('nav-toggle');
   var nav=document.getElementById('main-nav');
   if(toggle&&nav){
-    toggle.addEventListener('click',function(){nav.classList.toggle('open');toggle.classList.toggle('open');});
-    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');toggle.classList.remove('open');});});
+    toggle.addEventListener('click',function(){var nl=document.getElementById('nav-links');if(nl){nl.classList.toggle('open');}toggle.classList.toggle('open');});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){var nl2=document.getElementById('nav-links');if(nl2){nl2.classList.remove('open');}toggle.classList.remove('open');});});
   }
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
