@@ -80,6 +80,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <a href="thelivingsaga.html" class="active">The Living Saga&#8482;</a>
   <a href="systems.html">Systems</a>
   <a href="gallery.html">Gallery</a>
+  <a href="citizenscience.html">Citizen Science</a>
   <a href="about.html">About</a>
 </nav>
 
@@ -181,4 +182,12 @@ document.body.classList.add('js-ready');
   }
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){i
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+    els.forEach(function(el){obs.observe(el);});
+  } else {
+    els.forEach(function(el){el.classList.add('visible');});
+  }
+})();
+</script>
+</body>
+</html>
