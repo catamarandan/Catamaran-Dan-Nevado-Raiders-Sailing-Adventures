@@ -13,11 +13,11 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
 nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
 nav a:hover{color:var(--gold);}
 nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;pointer-events:auto;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
@@ -83,7 +83,6 @@ p+p{margin-top:1.2rem;}
 .hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
 .hero-h1 em{color:var(--gold);font-style:normal;display:block;}
 .hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
-/* ── SCROLL REVEAL — FIXED ── */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
@@ -95,7 +94,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
   nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:1001;}
   .nav-links.open{display:flex;}
   .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
   .nav-links a:last-child{border-bottom:none;}
@@ -108,11 +107,12 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   .img-pair img,.img-trio img{height:160px;}
 }
 @media(max-width:480px){.img-trio{grid-template-columns:1fr;}}
+.page-hero::before,.page-hero::after{pointer-events:none;}
   </style>
 </head>
 <body>
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="rimrun.html">Rim Run&#8482;</a>
@@ -208,20 +208,88 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 <div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
   <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy™" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
 </div>
+
 <footer>
   <div class="footer-logo">Blue Rim 5™ &bull; Catamaran Dan &bull; Nevado Raiders™</div>
   <div class="footer-tagline">"As go the seas… so goes humanity."</div>
   <div class="footer-contact">Cell: (928) 250-9763 &nbsp;&bull;&nbsp; <a href="/cdn-cgi/l/email-protection#4a242f3c2b2e25382b232e2f38390a2d272b232664292527"><span class="__cf_email__" data-cfemail="107e756671747f6271797475626350777d71797c3e737f7d">[email&#160;protected]</span></a> &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-document.body.classList.add('js-ready');
-(function(){
-  var toggle=document.getElementById('nav-toggle');
-  var nav=document.getElementById('main-nav');
-  if(toggle&&nav){
-    toggle.addEventListener('click',function(){var nl=document.getElementById('nav-links');if(nl){nl.classList.toggle('open');}toggle.classList.toggle('open');});
-    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){var nl2=document.getElementById('nav-links');if(nl2){nl2.classList.remove('open');}toggle.classList.remove('open');});});
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.body.classList.add('js-ready');
+
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  var navLinks = document.getElementById('nav-links');
+
+  function closeMenu() {
+    if (navLinks) navLinks.classList.remove('open');
+    if (toggle) {
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
   }
-  var els=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isInt
+
+  function openMenu() {
+    if (navLinks) navLinks.classList.add('open');
+    if (toggle) {
+      toggle.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  function toggleMenu(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (!navLinks || !toggle) return;
+    if (navLinks.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  if (toggle && navLinks && nav) {
+    toggle.addEventListener('click', toggleMenu, false);
+
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!nav.contains(e.target)) {
+        closeMenu();
+      }
+    });
+  }
+
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    els.forEach(function(el){
+      obs.observe(el);
+    });
+  } else {
+    els.forEach(function(el){
+      el.classList.add('visible');
+    });
+  }
+});
+</script>
+
+</body>
+</html>
