@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -13,15 +14,21 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
+
+/* NAV */
 nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
+.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
 nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
 nav a:hover{color:var(--gold);}
 nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;}
+
+/* HAMBURGER */
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -54,7 +61,6 @@ p+p{margin-top:1.2rem;}
 .hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1s forwards;}
 .hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);opacity:0;max-width:640px;margin:0 auto 2rem;animation:fadeUp 1s ease 1.1s forwards;}
 .hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.4s forwards;}
-/* ── SCROLL REVEAL — FIXED ── */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
@@ -68,20 +74,24 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 .footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
 .footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
 .footer-contact a{color:var(--aqua);}
+
 @media(max-width:768px){
-  section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-toggle{display:flex;}
-}
-  </style>
+section{padding:4rem 1.5rem;}
+nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+.nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+.nav-links.open{display:flex;}
+.nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+.nav-links a:last-child{border-bottom:none;}
+.nav-toggle{display:flex;}
+} </style>
+
 </head>
 <body>
+
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="rimrun.html">Rim Run&#8482;</a>
@@ -123,47 +133,50 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     </div>
     <div class="systems-grid reveal">
 
-      <div class="system-card">
-        <img src="https://catamarandan.org/shamrocket.jpg" alt="Shamrocket — Hobie Getaway" class="system-img"/>
-        <div class="system-body">
-          <h3>Shamrocket — Hobie Getaway</h3>
-          <p>The primary expedition platform. Trailerable, beachable, 24-inch draft — Shamrocket slips into places larger boats anchor and stare at. Inside the reef. Up against the caye. Into the mangrove channel. Built for real work, not show. This is where skills are earned the hard way: boat handling under pressure, beach landings, surf etiquette, weather judgment, and the discipline that comes from doing things right when no one is watching.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/dragr_sled_with_cover.jpg" alt="DRAGR Expedition Sled" class="system-img"/>
-        <div class="system-body">
-          <h3>DRAGR — Expedition Sled</h3>
-          <p>Magnum Jet Sled: 71" L &times; 42" W &times; 16" H. HDPE construction with fitted dark-gray canvas cover. Nearly watertight gear storage protecting expedition equipment from spray, rain, mud, and road grit while keeping the load organized, stable, and ready to deploy. On-water, DRAGR tows behind Shamrocket on a bridle — keeping critical gear secured and off the tramp when conditions demand it. The raven that guards the gear.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/ecoflow.jpg" alt="EcoFlow Delta 3 Solar System" class="system-img"/>
-        <div class="system-body">
-          <h3>EcoFlow Delta 3 — Solar Power</h3>
-          <p>Portable, modular lithium power architecture providing silent, fuel-free onboard energy storage. Recharged via flexible solar panels or standard AC when available. Supports navigation electronics, communications, lighting, refrigeration, and auxiliary systems without dependence on combustion propulsion. The expedition runs on sun and wind, not diesel.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/torqeedo.jpg" alt="Torqeedo Electric Propulsion" class="system-img"/>
-        <div class="system-body">
-          <h3>Torqeedo — Electric Propulsion</h3>
-          <p>2.5 HP equivalent outboard. Integrated 915 Wh high-performance lithium battery. Silent direct-drive at 33 dB with instantaneous throttle response. Solar-rechargeable. Integrated GPS-based range calculation. Completely waterproof IP67. When the reef needs to be approached quietly, or when the mangrove channel calls for stealth — this is the system that gets you there without announcing it.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/tent.jpg" alt="Quencha 2-Second Expedition Tent" class="system-img"/>
-        <div class="system-body">
-          <h3>Quencha 2-Second Tent</h3>
-          <p>Rapid-deploy windproof and waterproof shelter used at anchor when conditions turn cold, rainy, or mosquito-heavy. Provides protected sleeping or gear staging space while maintaining expedition mobility and quick breakdown capability. The trampoline is the preferred sleeping platform when conditions allow — but when they don't, this deploys in two seconds flat.</p>
-        </div>
-      </div>
-
+```
+  <div class="system-card">
+    <img src="https://catamarandan.org/shamrocket.jpg" alt="Shamrocket — Hobie Getaway" class="system-img"/>
+    <div class="system-body">
+      <h3>Shamrocket — Hobie Getaway</h3>
+      <p>The primary expedition platform. Trailerable, beachable, 24-inch draft — Shamrocket slips into places larger boats anchor and stare at. Inside the reef. Up against the caye. Into the mangrove channel. Built for real work, not show. This is where skills are earned the hard way: boat handling under pressure, beach landings, surf etiquette, weather judgment, and the discipline that comes from doing things right when no one is watching.</p>
     </div>
+  </div>
+
+  <div class="system-card">
+    <img src="https://catamarandan.org/dragr_sled_with_cover.jpg" alt="DRAGR Expedition Sled" class="system-img"/>
+    <div class="system-body">
+      <h3>DRAGR — Expedition Sled</h3>
+      <p>Magnum Jet Sled: 71" L &times; 42" W &times; 16" H. HDPE construction with fitted dark-gray canvas cover. Nearly watertight gear storage protecting expedition equipment from spray, rain, mud, and road grit while keeping the load organized, stable, and ready to deploy. On-water, DRAGR tows behind Shamrocket on a bridle — keeping critical gear secured and off the tramp when conditions demand it. The raven that guards the gear.</p>
+    </div>
+  </div>
+
+  <div class="system-card">
+    <img src="https://catamarandan.org/ecoflow.jpg" alt="EcoFlow Delta 3 Solar System" class="system-img"/>
+    <div class="system-body">
+      <h3>EcoFlow Delta 3 — Solar Power</h3>
+      <p>Portable, modular lithium power architecture providing silent, fuel-free onboard energy storage. Recharged via flexible solar panels or standard AC when available. Supports navigation electronics, communications, lighting, refrigeration, and auxiliary systems without dependence on combustion propulsion. The expedition runs on sun and wind, not diesel.</p>
+    </div>
+  </div>
+
+  <div class="system-card">
+    <img src="https://catamarandan.org/torqeedo.jpg" alt="Torqeedo Electric Propulsion" class="system-img"/>
+    <div class="system-body">
+      <h3>Torqeedo — Electric Propulsion</h3>
+      <p>2.5 HP equivalent outboard. Integrated 915 Wh high-performance lithium battery. Silent direct-drive at 33 dB with instantaneous throttle response. Solar-rechargeable. Integrated GPS-based range calculation. Completely waterproof IP67. When the reef needs to be approached quietly, or when the mangrove channel calls for stealth — this is the system that gets you there without announcing it.</p>
+    </div>
+  </div>
+
+  <div class="system-card">
+    <img src="https://catamarandan.org/tent.jpg" alt="Quencha 2-Second Expedition Tent" class="system-img"/>
+    <div class="system-body">
+      <h3>Quencha 2-Second Tent</h3>
+      <p>Rapid-deploy windproof and waterproof shelter used at anchor when conditions turn cold, rainy, or mosquito-heavy. Provides protected sleeping or gear staging space while maintaining expedition mobility and quick breakdown capability. The trampoline is the preferred sleeping platform when conditions allow — but when they don't, this deploys in two seconds flat.</p>
+    </div>
+  </div>
+
+</div>
+```
+
   </div>
 </section>
 
@@ -192,15 +205,75 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <div class="footer-contact">Cell: (928) 250-9763 &nbsp;&bull;&nbsp; <a href="/cdn-cgi/l/email-protection#a4cac1d2c5c0cbd6c5cdc0c1d6d7e4c3c9c5cdc88ac7cbc9"><span class="__cf_email__" data-cfemail="4e202b382f2a213c2f272a2b3c3d0e29232f2722602d2123">[email&#160;protected]</span></a> &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<script>
 document.body.classList.add('js-ready');
-(function(){
-  var toggle=document.getElementById('nav-toggle');
-  var nav=document.getElementById('main-nav');
-  if(toggle&&nav){
-    toggle.addEventListener('click',function(){var nl=document.getElementById('nav-links');if(nl){nl.classList.toggle('open');}toggle.classList.toggle('open');});
-    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){var nl2=document.getElementById('nav-links');if(nl2){nl2.classList.remove('open');}toggle.classList.remove('open');});});
+
+(function () {
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  var navLinks = document.getElementById('nav-links');
+
+  function closeMenu() {
+    if (navLinks) navLinks.classList.remove('open');
+    if (toggle) {
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
   }
-  var els=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if
+
+  function openMenu() {
+    if (navLinks) navLinks.classList.add('open');
+    if (toggle) {
+      toggle.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  if (toggle && nav && navLinks) {
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (navLinks.classList.contains('open')) closeMenu();
+      else openMenu();
+    });
+
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!nav.contains(e.target)) closeMenu();
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) closeMenu();
+    });
+  }
+
+  var els = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    els.forEach(function (el) {
+      observer.observe(el);
+    });
+  } else {
+    els.forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
+
