@@ -89,34 +89,12 @@ nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  nav {
-    position: sticky;
-    top: 0;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.8rem 1.5rem;
-    gap: 0;
-    overflow: hidden;
-    max-height: 52px;
-    min-height: 52px;
-    transition: max-height 0.35s ease;
-  }
-  nav.open { max-height: 500px; }
-  .nav-toggle {
-    display: flex;
-    position: absolute;
-    right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  nav a {
-    width: 100%;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid rgba(201,168,76,0.08);
-    font-size: 0.82rem;
-  }
-  nav a.active { border-bottom-color: rgba(201,168,76,0.08); color: var(--gold); }
-  nav a:last-child { border-bottom: none; }
+  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}
 }
 
 /* ── SECTION BASE ── */
@@ -462,14 +440,16 @@ footer {
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
     <span></span><span></span><span></span>
   </button>
-  <a href="index.html">Home</a>
-  <a href="rimrun.html">Rim Run™</a>
-  <a href="science.html">The Science</a>
-  <a href="citizenscience.html">Citizen Science</a>
-  <a href="thelivingsaga.html">The Living Saga™</a>
-  <a href="systems.html">Systems</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run™</a>
+    <a href="science.html">The Science</a>
+    <a href="citizenscience.html">Citizen Science</a>
+    <a href="thelivingsaga.html">The Living Saga™</a>
+    <a href="systems.html">Systems</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </div>
 </nav>
 
 <section class="hero">
@@ -653,7 +633,7 @@ footer {
     <h2 class="serif reveal" style="text-align:center;">The Reefs Are Changing. <em>The Data Matters.</em></h2>
     <div class="gold-rule reveal" style="margin:1.2rem auto 2rem;"></div>
     <p class="reveal" style="max-width:560px; margin:0 auto;">Whether you are a scientist, a government agency, a coastal community, or a diver who wants to do more than look — the Rim Run™ Citizen Science Network wants to hear from you.</p>
-    <a href="mailto:nevadoraiders@gmail.com" class="btn-gold reveal">nevadoraiders@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#a9c7ccdfc8cdc6dbc8c0cdccdbdae9cec4c8c0c587cac6c4" class="btn-gold reveal"><span class="__cf_email__" data-cfemail="5a343f2c3b3e35283b333e3f28291a3d373b333674393537">[email&#160;protected]</span></a>
   </div>
 </section>
 
@@ -662,26 +642,18 @@ footer {
   <div class="footer-tagline">"As go the seas… so goes humanity."</div>
   <div class="footer-contact">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#f29c978493969d80939b96978081b2959f939b9edc919d9f"><span class="__cf_email__" data-cfemail="cba5aebdaaafa4b9aaa2afaeb9b88baca6aaa2a7e5a8a4a6">[email&#160;protected]</span></a>
     &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 document.body.classList.add('js-ready');
 (function(){
   var toggle=document.getElementById('nav-toggle');
   var nav=document.getElementById('main-nav');
   if(toggle&&nav){
-    toggle.addEventListener('click',function(){nav.classList.toggle('open');toggle.classList.toggle('open');});
-    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');toggle.classList.remove('open');});});
+    toggle.addEventListener('click',function(){var nl=document.getElementById('nav-links');if(nl){nl.classList.toggle('open');}toggle.classList.toggle('open');});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){var nl2=document.getElementById('nav-links');if(nl2){nl2.classList.remove('open');}toggle.classList.remove('open');});});
   }
-  var els=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
-    els.forEach(function(el){obs.observe(el);});
-  } else {els.forEach(function(el){el.classList.add('visible');});}
-})();
-</script>
-</body>
-</html>
+  var els=document.querySelec
