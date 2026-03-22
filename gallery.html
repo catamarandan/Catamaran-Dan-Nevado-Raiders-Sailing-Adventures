@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -14,10 +15,11 @@ img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
 nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
+.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
 nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
 nav a:hover{color:var(--gold);}
 nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
@@ -50,7 +52,6 @@ section{position:relative;padding:6rem 2rem;}
 .lb-arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem;color:var(--gold);cursor:pointer;padding:1rem;opacity:0.7;transition:opacity 0.2s;}
 .lb-arrow:hover{opacity:1;}
 .lb-prev{left:1rem;}.lb-next{right:1rem;}
-/* ── SCROLL REVEAL — FIXED ── */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
@@ -77,7 +78,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 </head>
 <body>
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="rimrun.html">Rim Run&#8482;</a>
@@ -148,38 +149,128 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <div class="footer-contact">Cell: (928) 250-9763 &nbsp;&bull;&nbsp;<a href="/cdn-cgi/l/email-protection#1678736077727964777f7273646556717b777f7a3875797b"><span class="__cf_email__" data-cfemail="650b001304010a17040c01001716250208040c094b060a08">[email&#160;protected]</span></a>&nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<script>
 document.body.classList.add('js-ready');
+
 (function(){
   var toggle=document.getElementById('nav-toggle');
   var nav=document.getElementById('main-nav');
-  if(toggle&&nav){
-    toggle.addEventListener('click',function(){var nl=document.getElementById('nav-links');if(nl){nl.classList.toggle('open');}toggle.classList.toggle('open');});
-    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){var nl2=document.getElementById('nav-links');if(nl2){nl2.classList.remove('open');}toggle.classList.remove('open');});});
+  var navLinks=document.getElementById('nav-links');
+
+  function closeMenu(){
+    if(navLinks){navLinks.classList.remove('open');}
+    if(toggle){
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    }
   }
+
+  function openMenu(){
+    if(navLinks){navLinks.classList.add('open');}
+    if(toggle){
+      toggle.classList.add('open');
+      toggle.setAttribute('aria-expanded','true');
+    }
+  }
+
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(navLinks.classList.contains('open')){closeMenu();}else{openMenu();}
+    });
+
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('click',function(e){
+      if(!nav.contains(e.target)){closeMenu();}
+    });
+
+    window.addEventListener('resize',function(){
+      if(window.innerWidth>768){closeMenu();}
+    });
+  }
+
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:0.12});
     els.forEach(function(el){obs.observe(el);});
-  } else {els.forEach(function(el){el.classList.add('visible');});}
+  } else {
+    els.forEach(function(el){el.classList.add('visible');});
+  }
 })();
+
 var allItems=Array.from(document.querySelectorAll('.gallery-item'));
 var filterBtns=document.querySelectorAll('.filter-btn');
+
 filterBtns.forEach(function(btn){
   btn.addEventListener('click',function(){
     var filter=this.getAttribute('data-filter');
     filterBtns.forEach(function(b){b.classList.remove('active');});
     this.classList.add('active');
     allItems.forEach(function(item){
-      if(filter==='all'||item.getAttribute('data-cat')===filter){item.classList.remove('hidden');}
-      else{item.classList.add('hidden');}
+      if(filter==='all'||item.getAttribute('data-cat')===filter){
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
     });
   });
 });
+
 var visibleImages=[],currentLbIndex=0;
-function getVisibleImages(){return allItems.filter(function(i){return!i.classList.contains('hidden');}).map(function(i){return i.querySelector('img').src;});}
-function openLightbox(idx){visibleImages=getVisibleImages();var src=allItems[idx].querySelector('img').src;currentLbIndex=visibleImages.indexOf(src);if(currentLbIndex===-1)currentLbIndex=0;document.getElementById('lbImg').src=visibleImages[currentLbIndex];document.getElementById('lightbox').classList.add('open');}
-function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
-function shiftLightbox(dir){visibleImages=getVisibleImages();currentLbIndex=(currentLbIndex+dir+visibleImages.length)%visibleImages.length;document.getElementById('lbImg').src=visibleImages[currentLbIndex];}
-document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
-document.addEventListener('ke
+
+function getVisibleImages(){
+  return allItems
+    .filter(function(i){return !i.classList.contains('hidden');})
+    .map(function(i){return i.querySelector('img').src;});
+}
+
+function openLightbox(idx){
+  visibleImages=getVisibleImages();
+  var src=allItems[idx].querySelector('img').src;
+  currentLbIndex=visibleImages.indexOf(src);
+  if(currentLbIndex===-1){currentLbIndex=0;}
+  document.getElementById('lbImg').src=visibleImages[currentLbIndex];
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function shiftLightbox(dir){
+  visibleImages=getVisibleImages();
+  if(!visibleImages.length){return;}
+  currentLbIndex=(currentLbIndex+dir+visibleImages.length)%visibleImages.length;
+  document.getElementById('lbImg').src=visibleImages[currentLbIndex];
+}
+
+document.getElementById('lightbox').addEventListener('click',function(e){
+  if(e.target===this){closeLightbox();}
+});
+
+document.addEventListener('keydown',function(e){
+  var lightbox=document.getElementById('lightbox');
+  if(!lightbox.classList.contains('open')){return;}
+  if(e.key==='Escape'){closeLightbox();}
+  if(e.key==='ArrowLeft'){shiftLightbox(-1);}
+  if(e.key==='ArrowRight'){shiftLightbox(1);}
+});
+</script>
+
+</body>
+</html>
+
