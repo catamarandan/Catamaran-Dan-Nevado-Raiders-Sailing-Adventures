@@ -833,7 +833,7 @@ footer {
     <h2 class="serif reveal" style="text-align:center;">The Reefs Are Changing. <em>The Data Matters.</em></h2>
     <div class="gold-rule reveal" style="margin:1.2rem auto 2rem;"></div>
     <p class="reveal" style="max-width:560px; margin:0 auto;">Whether you are a scientist, a sailor, a filmmaker, a sponsor, or simply someone who understands what is at stake — the Rim Run Expedition wants to hear from you.</p>
-    <a href="/cdn-cgi/l/email-protection#2d43485b4c49425f4c4449485f5e6d4a404c4441034e4240" class="btn-gold reveal"><span class="__cf_email__" data-cfemail="39575c4f585d564b58505d5c4b4a795e54585055175a5654">[email&#160;protected]</span></a>
+    <a href="mailto:nevadoraiders@gmail.com" class="btn-gold reveal">nevadoraiders@gmail.com</a>
   </div>
 </section>
 
@@ -842,7 +842,7 @@ footer {
   <div class="footer-tagline">"As go the seas… so goes humanity."</div>
   <div class="footer-contact">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="/cdn-cgi/l/email-protection#711f140710151e0310181514030231161c10181d5f121e1c"><span class="__cf_email__" data-cfemail="d2bcb7a4b3b6bda0b3bbb6b7a0a192b5bfb3bbbefcb1bdbf">[email&#160;protected]</span></a>
+    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
     &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
   </div>
 </footer>
@@ -851,6 +851,21 @@ footer {
 document.body.classList.add('js-ready');
 (function(){
   var toggle = document.getElementById('nav-toggle');
-  var nav = document.getElementById('main-nav');
-  if(toggle && nav){
-    toggle.addEventListener('cl
+<script>
+document.body.classList.add('js-ready');
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  if(toggle&&nav){
+    toggle.addEventListener('click',function(){nav.classList.toggle('open');toggle.classList.toggle('open');});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');toggle.classList.remove('open');});});
+  }
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+    els.forEach(function(el){obs.observe(el);});
+  } else {els.forEach(function(el){el.classList.add('visible');});}
+})();
+</script>
+</body>
+</html>
