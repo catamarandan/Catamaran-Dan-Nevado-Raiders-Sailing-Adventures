@@ -202,61 +202,58 @@ var nav=document.getElementById('main-nav');
 var navLinks=document.getElementById('nav-links');
 
 function closeMenu(){
-if(navLinks){navLinks.classList.remove('open');}
-if(toggle){
-toggle.classList.remove('open');
-toggle.setAttribute('aria-expanded','false');
-}
+  if(navLinks){navLinks.classList.remove('open');}
+  if(toggle){
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+  }
 }
 
 function openMenu(){
-if(navLinks){navLinks.classList.add('open');}
-if(toggle){
-toggle.classList.add('open');
-toggle.setAttribute('aria-expanded','true');
-}
+  if(navLinks){navLinks.classList.add('open');}
+  if(toggle){
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded','true');
+  }
 }
 
 if(toggle&&nav&&navLinks){
-toggle.addEventListener('click',function(e){
-e.stopPropagation();
-if(navLinks.classList.contains('open')){closeMenu();}else{openMenu();}
-});
-
-```
-nav.querySelectorAll('a').forEach(function(a){
-  a.addEventListener('click',function(){
-    closeMenu();
+  toggle.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(navLinks.classList.contains('open')){closeMenu();}else{openMenu();}
   });
-});
 
-document.addEventListener('click',function(e){
-  if(!nav.contains(e.target)){closeMenu();}
-});
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      closeMenu();
+    });
+  });
 
-window.addEventListener('resize',function(){
-  if(window.innerWidth>768){closeMenu();}
-});
-```
+  document.addEventListener('click',function(e){
+    if(!nav.contains(e.target)){closeMenu();}
+  });
 
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>768){closeMenu();}
+  });
 }
 
 var els=document.querySelectorAll('.reveal');
 if('IntersectionObserver' in window){
-var obs=new IntersectionObserver(function(entries){
-entries.forEach(function(e){
-if(e.isIntersecting){
-e.target.classList.add('visible');
-obs.unobserve(e.target);
-}
-});
-},{threshold:0.12});
-els.forEach(function(el){obs.observe(el);});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  els.forEach(function(el){obs.observe(el);});
 } else {
-els.forEach(function(el){el.classList.add('visible');});
+  els.forEach(function(el){el.classList.add('visible');});
 }
-})(); </script>
-
+})();
+</script>
 </body>
 </html>
 
