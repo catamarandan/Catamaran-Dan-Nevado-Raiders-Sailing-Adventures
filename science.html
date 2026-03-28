@@ -13,55 +13,16 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-
-/* STANDARDIZED NAV */
-nav{
-  background:#080c14;
-  border-bottom:1px solid rgba(201,168,76,0.2);
-  padding:1rem 2rem;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  backdrop-filter:blur(8px);
-}
-.nav-links{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:1.8rem;
-  flex-wrap:wrap;
-  width:100%;
-}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;width:100%;}
 nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
 nav a:hover{color:var(--gold);}
 nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{
-  display:none;
-  background:none;
-  border:none;
-  cursor:pointer;
-  padding:0.4rem;
-  flex-direction:column;
-  gap:5px;
-  position:absolute;
-  right:1.5rem;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:1002;
-  pointer-events:auto;
-  touch-action:manipulation;
-  -webkit-appearance:none;
-  appearance:none;
-  -webkit-tap-highlight-color:transparent;
-}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;pointer-events:auto;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -123,41 +84,18 @@ p+p{margin-top:1.2rem;}
 .hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
 .hero-h1 em{color:var(--gold);font-style:normal;display:block;}
 .hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
-
-/* ── SCROLL REVEAL — FIXED ── */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
-
 footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
 .footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
 .footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
 .footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
 .footer-contact a{color:var(--aqua);}
-
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
-  nav{
-    position:sticky;
-    top:0;
-    padding:0.8rem 1.5rem;
-    justify-content:flex-end;
-  }
-  .nav-links{
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    right:0;
-    background:#080c14;
-    border-bottom:1px solid rgba(201,168,76,0.2);
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:flex-start;
-    gap:0;
-    padding:0.5rem 1.5rem 1rem;
-    z-index:1001;
-  }
+  nav{position:sticky;top:0;padding:0.8rem 1.5rem;justify-content:flex-end;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:1001;}
   .nav-links.open{display:flex;}
   .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
   .nav-links a:last-child{border-bottom:none;}
@@ -268,7 +206,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <div class="card">
         <span class="card-icon">🌡</span>
         <h4>Water Conditions</h4>
-        <p>Surface air temperature, subsurface temperature, visibility (Secchi depth), salinity, and pH — measured at every site using standardized instruments and methods.</p>
+        <p>Surface air temperature, subsurface temperature, visibility (Secchi depth), salinity, pH, and ORP (oxidation-reduction potential) — measured at every site using standardized instruments and methods.</p>
       </div>
       <div class="card">
         <span class="card-icon">🪸</span>
@@ -333,8 +271,8 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
         </tr>
         <tr>
           <td>4</td>
-          <td>Record surface air temperature, subsurface temperature, pH, salinity, and Secchi visibility</td>
-          <td>Capture full baseline environmental context — all five measurements taken at every site</td>
+          <td>Record surface air temperature, subsurface temperature, pH, salinity, ORP, and Secchi visibility</td>
+          <td>Capture full baseline environmental context — all six measurements taken at every site</td>
         </tr>
         <tr>
           <td>5</td>
@@ -354,6 +292,30 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       </tbody>
     </table>
 
+    <h3 class="serif reveal">SCUBA &amp; Dive-Based Observation</h3>
+
+    <p class="reveal">
+      Snorkel-based observation is the operational baseline — it is repeatable, low-friction, and deployable at every site regardless of conditions. But the program's observational reach extends below the surface wherever dive conditions allow. SCUBA capability adds a fundamentally different dimension to the data record: reef walls, deeper coral structure, fish communities at depth, and benthic composition that is simply not accessible from the surface.
+    </p>
+
+    <p class="reveal">
+      Reef Check EcoDiver certification is scheduled for late August 2026 in Bocas del Toro, Panama — directly before the October 1 expedition launch. EcoDiver training establishes structured, scientifically recognized SCUBA survey methods specifically designed for reef condition assessment. Upon certification, SCUBA-based observations at selected sites throughout the circuit will follow Reef Check EcoDiver protocols, making the data directly compatible with Reef Check's global monitoring database.
+    </p>
+
+    <div class="infobox reveal">
+      <div class="infobox-label">What SCUBA Adds to the Record</div>
+      <p style="color:var(--fog);">
+        <strong style="color:var(--parchment);">Reef wall documentation</strong> &mdash; vertical reef structure, deep coral colonies, and sponge communities that define the biological character of a site but are invisible from the surface.<br><br>
+        <strong style="color:var(--parchment);">Deeper fish community surveys</strong> &mdash; species and abundance at depth, including commercially important and ecologically significant species that use the water column rather than the reef flat.<br><br>
+        <strong style="color:var(--parchment);">Benthic composition at depth</strong> &mdash; substrate type, live coral cover, and structural condition at 10–20 meters where conditions can differ significantly from what is observed at snorkel depth.<br><br>
+        <strong style="color:var(--parchment);">Bleaching and damage assessment</strong> &mdash; direct observation of thermal stress, physical damage, and disease at depths where bleaching events often progress differently than at the surface.
+      </p>
+    </div>
+
+    <p class="reveal">
+      The catamaran platform is particularly well-suited to dive operations in this region. A 24-inch draft hull can anchor directly over shallow reef structures that dive boats cannot safely approach — placing the dive platform on top of sites that rarely see in-water observation. Every dive conducted is logged against the same site record as the snorkel survey, building a layered, multi-depth observation record at each location over time.
+    </p>
+
     <h3 class="serif reveal">Equipment</h3>
 
     <p class="reveal">
@@ -363,11 +325,15 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <div class="card-grid reveal">
       <div class="card">
         <h4>Baseline Field Tools</h4>
-        <p>Apera PC60-Z multiparameter meter (surface air temp, subsurface temp, pH, salinity), DIY Secchi disk (visibility), underwater camera, GPS-enabled device, mask, snorkel, fins, and standardized logging format.</p>
+        <p>Apera PCO60-Z multiparameter meter (surface air temp, subsurface temp, pH, salinity, ORP), DIY Secchi disk (visibility), underwater camera, GPS-enabled device, mask, snorkel, fins, SCUBA equipment, and standardized logging format.</p>
       </div>
       <div class="card">
-        <h4>Optional Expansion Tools</h4>
-        <p>Depth profiler (thermocline detection), dissolved oxygen sensor, PAR light meter, water sampling kit, and supplemental instrumentation added when partner or sponsor support is available.</p>
+        <h4>Priority Expansion — Dissolved Oxygen</h4>
+        <p>Dissolved oxygen (DO) is the highest-priority expansion measurement for this program. Hypoxic events in the enclosed bay and lagoon systems of the Western Caribbean — documented in Bocas del Toro, the Belizean coast, and Honduras — have caused mass coral mortality that is frequently misattributed to temperature stress alone because DO goes unmeasured. A longitudinal DO record across 100+ sites would fill a data gap that no existing monitoring program currently addresses. Optical DO sensor added when instrument support is secured.</p>
+      </div>
+      <div class="card">
+        <h4>Further Expansion Tools</h4>
+        <p>PAR light meter (underwater photosynthetically active radiation), depth profiler (thermocline detection), water sampling kit, and additional instrumentation added as partner or sponsor support allows.</p>
       </div>
       <div class="card">
         <h4>Operational Principle</h4>
@@ -386,7 +352,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
         <thead>
           <tr>
             <th colspan="4" style="background:rgba(41,176,212,0.08);color:var(--aqua);text-align:center;border-bottom:1px solid rgba(41,176,212,0.2);">Site Reference</th>
-            <th colspan="5" style="background:rgba(201,168,76,0.08);color:var(--gold);text-align:center;border-bottom:1px solid rgba(201,168,76,0.2);">Water Conditions</th>
+            <th colspan="6" style="background:rgba(201,168,76,0.08);color:var(--gold);text-align:center;border-bottom:1px solid rgba(201,168,76,0.2);">Water Conditions</th>
             <th colspan="3" style="background:rgba(41,176,212,0.08);color:var(--aqua);text-align:center;border-bottom:1px solid rgba(41,176,212,0.2);">Reef Structure</th>
             <th colspan="4" style="background:rgba(201,168,76,0.08);color:var(--gold);text-align:center;border-bottom:1px solid rgba(201,168,76,0.2);">Coral Health</th>
             <th colspan="3" style="background:rgba(41,176,212,0.08);color:var(--aqua);text-align:center;border-bottom:1px solid rgba(41,176,212,0.2);">Biological</th>
@@ -403,6 +369,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
             <th>Visibility</th>
             <th>Salinity</th>
             <th>pH</th>
+            <th>ORP (mV)</th>
             <th>Reef Type</th>
             <th>Substrate</th>
             <th>Complexity</th>
@@ -422,12 +389,13 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
             <td>Sample</td>
             <td>Bocas del Toro</td>
             <td>Shallow Patch Reef</td>
-            <td>9.3412°N 82.2341°W</td>
-            <td>31°C</td>
-            <td>29°C</td>
+            <td>9.3412&deg;N 82.2341&deg;W</td>
+            <td>31&deg;C</td>
+            <td>29&deg;C</td>
             <td>15m</td>
             <td>35 ppt</td>
             <td>8.1</td>
+            <td>320 mV</td>
             <td>Patch reef</td>
             <td>Mixed coral / rubble</td>
             <td>Moderate</td>
@@ -492,13 +460,13 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       </div>
       <div class="card">
         <h4>Supported Expansion</h4>
-        <p>More sites, more frequent observations, stronger documentation, and improved consistency through additional time, tools, and operational support.</p>
+        <p>More sites, more frequent observations, stronger documentation, dissolved oxygen monitoring, and improved consistency through additional time, tools, and operational support.</p>
       </div>
       <div class="card">
         <h4>Advanced Testing</h4>
-        <p>When funding allows: water sampling, additional environmental measurements, expanded instrumentation, and partner-supported science initiatives.</p>
+        <p>When funding allows: water sampling, PAR measurement, additional environmental instrumentation, and partner-supported science initiatives.</p>
       </div>
-     </div>
+    </div>
 
     <p class="reveal">
       This mission is designed to operate continuously. Support does not determine whether it exists &mdash; only how far it can go.
@@ -549,7 +517,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <div class="card-grid reveal">
       <div class="card"><div class="card-icon">&#128747;</div><h4>Aerial Observation &mdash; FAA Drone</h4><p>FAA-licensed UAV operations support repeat photogrammetry, bleaching documentation, seagrass mapping, mangrove edge assessment, and annual visual comparison of shallow coastal habitats.</p></div>
       <div class="card"><div class="card-icon">&#129367;</div><h4>Surface Surveys &mdash; Reef Monitoring Protocols</h4><p>Standardized shallow-water observation and transect-based survey work targeting fish communities, key invertebrates, and reef condition using established RLS, REEF, and Reef Check process frameworks.</p></div>
-      <div class="card"><div class="card-icon">&#128032;</div><h4>Subsurface Observation &mdash; Diver-Based Assessment</h4><p>SCUBA-supported reef wall documentation, deeper fish community observations, and direct underwater assessment of coral structure and benthic composition at selected locations throughout the circuit.</p></div>
+      <div class="card"><div class="card-icon">&#128032;</div><h4>Subsurface Observation &mdash; EcoDiver SCUBA Assessment</h4><p>Reef Check EcoDiver-certified SCUBA surveys at selected sites throughout the circuit. Reef wall documentation, deeper fish community observations, and direct underwater assessment of coral structure and benthic composition at depth — data logged against the same site records as surface surveys to build a layered, multi-depth observation record over time.</p></div>
       <div class="card"><div class="card-icon">&#128202;</div><h4>Data Architecture &mdash; Quality Control</h4><p>Longitudinal data design, repeat-site consistency, structured logging, and internal quality control procedures built to support defensible, multi-year reef condition records across the seven-country monitoring arc.</p></div>
     </div>
     <div class="pull-quote reveal">"The scientific gap and the expedition route are the same map."</div>
@@ -615,74 +583,37 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   document.body.classList.add('js-ready');
-
   var toggle = document.getElementById('nav-toggle');
   var nav = document.getElementById('main-nav');
   var navLinks = document.getElementById('nav-links');
-
   function closeMenu() {
     if (navLinks) navLinks.classList.remove('open');
-    if (toggle) {
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
+    if (toggle) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
   }
-
   function openMenu() {
     if (navLinks) navLinks.classList.add('open');
-    if (toggle) {
-      toggle.classList.add('open');
-      toggle.setAttribute('aria-expanded', 'true');
-    }
+    if (toggle) { toggle.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); }
   }
-
   function toggleMenu(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    if (e) { e.preventDefault(); e.stopPropagation(); }
     if (!navLinks || !toggle) return;
-    if (navLinks.classList.contains('open')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    if (navLinks.classList.contains('open')) { closeMenu(); } else { openMenu(); }
   }
-
   if (toggle && navLinks && nav) {
     toggle.addEventListener('click', toggleMenu, false);
-
-    navLinks.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        closeMenu();
-      });
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!nav.contains(e.target)) {
-        closeMenu();
-      }
-    });
+    navLinks.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { closeMenu(); }); });
+    document.addEventListener('click', function (e) { if (!nav.contains(e.target)) { closeMenu(); } });
   }
-
   var els = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
       });
     }, { threshold: 0.12 });
-
-    els.forEach(function(el){
-      obs.observe(el);
-    });
+    els.forEach(function(el){ obs.observe(el); });
   } else {
-    els.forEach(function(el){
-      el.classList.add('visible');
-    });
+    els.forEach(function(el){ el.classList.add('visible'); });
   }
 });
 </script>
