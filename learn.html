@@ -1,1 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn Along With Me — Rim Run™</title>
+  <meta
+    name="description"
+    content="Bilingual English-Spanish learning page for Rim Run™. A public-facing learning series about ocean and reef concepts tied to the expedition."
+  />
+  <meta name="theme-color" content="#0c2238" />
+  <style>
+    :root{
+      --bg:#08131f;
+      --bg2:#0c2238;
+      --panel:#112c45;
+      --panel2:#163a59;
+      --text:#eef6fb;
+      --muted:#bdd2e3;
+      --accent:#4fc3f7;
+      --accent2:#22d3ee;
+      --gold:#f5c86b;
+      --line:rgba(255,255,255,.12);
+      --shadow:0 14px 40px rgba(0,0,0,.28);
+      --radius:20px;
+      --max:1120px;
+    }
 
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(79,195,247,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(34,211,238,.10), transparent 22%),
+        linear-gradient(180deg, #07111c 0%, #0a1c2f 38%, #0b1f33 100%);
+      line-height:1.6;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{width:min(var(--max), calc(100% - 32px));margin:0 auto}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(10px);
+      background:rgba(7,17,28,.82);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:.4px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, #0e4f7d, #1aa8d8);
+      box-shadow:0 8px 24px rgba(34,211,238,.22);
+      flex:0 0 auto;
+    }
+
+    .brand-mark svg{width:24px;height:24px}
+    .brand-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      align-items:center;
+      justify-content:flex-end;
+      font-size:.96rem;
+      color:var(--muted);
+    }
+
+    .nav a{
+      padding:6px 0;
+      transition:.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active{
+      color:#fff;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(4,10,17,.12), rgba(4,10,17,.58)),
+        linear-gradient(135deg, #0a2035 0%, #103252 52%, #0c2238 100%);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\
+<defs>\
+<linearGradient id='g1' x1='0' x2='0' y1='0' y2='1'>\
+<stop offset='0%' stop-color='%231b5f8a' stop-opacity='.55'/>\
+<stop offset='100%' stop-color='%23081420' stop-opacity='.1'/>\
+</linearGradient>\
+<linearGradient id='sun' x1='0' x2='0' y1='0' y2='1'>\
+<stop offset='0%' stop-color='%23ffd67a' stop-opacity='.95'/>\
+<stop offset='100%' stop-color='%23f7a546' stop-opacity='.65'/>\
+</linearGradient>\
+</defs>\
+<rect width='1600' height='900' fill='url(%23g1)'/>\
+<circle cx='1225' cy='215' r='88' fill='url(%23sun)'/>\
+<path d='M0 540 C180 500 300 505 460 545 C620 585 770 584 930 546 C1090 508 1235 512 1388 548 C1490 570 1560 575 1600 569 L1600 900 L0 900 Z' fill='%23113e63' opacity='.78'/>\
+<path d='M0 610 C180 590 330 592 460 620 C610 652 745 654 925 622 C1075 596 1245 596 1390 622 C1495 640 1560 646 1600 641 L1600 900 L0 900 Z' fill='%230e3452' opacity='.88'/>\
+<path d='M0 695 C110 676 254 681 360 703 C490 730 625 730 760 703 C930 669 1054 671 1180 699 C1340 735 1508 736 1600 720 L1600 900 L0 900 Z' fill='%23092133' opacity='.98'/>\
+<path d='M890 605 L1015 605 L1035 628 L1110 628 L1133 647 L1120 656 L885 656 L871 645 Z' fill='%2319191a' opacity='.9'/>\
+<path d='M968 478 L975 605 L985 605 L995 480 Z' fill='%2319191a' opacity='.92'/>\
+<path d='M975 490 L1015 605 L1001 605 L968 520 L934 605 L921 605 Z' fill='%2319191a' opacity='.92'/>\
+<path d='M970 504 L1030 560 L977 560 Z' fill='%2319191a' opacity='.9'/>\
+</svg>");
+      background-size:cover;
+      background-position:center;
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      padding:82px 0 72px;
+      display:grid;
+      grid-template-columns:1.18fr .82fr;
+      gap:32px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      color:#d9edf8;
+      font-size:.88rem;
+      letter-spacing:.4px;
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+      font-size:clamp(2.2rem, 5vw, 4rem);
+      line-height:1.03;
+      margin:0 0 18px;
+      max-width:12ch;
+    }
+
+    .lead{
+      font-size:1.05rem;
+      color:#dbeaf5;
+      max-width:720px;
+      margin:0;
+    }
+
+    .lead p{margin:0 0 14px}
+
+    .hero-card,
+    .intro-box,
+    .placeholder-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card{
+      overflow:hidden;
+    }
+
+    .hero-card .art{
+      aspect-ratio:4/3;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.08)),
+        url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'>\
+<defs>\
+<linearGradient id='sky' x1='0' x2='0' y1='0' y2='1'>\
+<stop offset='0%' stop-color='%236ec5e9'/>\
+<stop offset='55%' stop-color='%233785b7'/>\
+<stop offset='100%' stop-color='%231b4464'/>\
+</linearGradient>\
+<linearGradient id='sea' x1='0' x2='0' y1='0' y2='1'>\
+<stop offset='0%' stop-color='%232a86b5'/>\
+<stop offset='100%' stop-color='%230e3150'/>\
+</linearGradient>\
+</defs>\
+<rect width='800' height='600' fill='url(%23sky)'/>\
+<circle cx='620' cy='120' r='68' fill='%23ffd26c' opacity='.95'/>\
+<rect y='282' width='800' height='318' fill='url(%23sea)'/>\
+<path d='M0 332 C100 322 172 316 255 330 C350 347 440 347 530 331 C620 314 712 316 800 332 L800 600 L0 600 Z' fill='%23216a95' opacity='.66'/>\
+<path d='M0 390 C106 378 177 379 260 392 C342 406 460 408 566 391 C656 376 729 380 800 389 L800 600 L0 600 Z' fill='%23124f73' opacity='.74'/>\
+<path d='M130 356 L300 356 L322 382 L420 382 L446 405 L429 417 L126 417 L109 403 Z' fill='%23141414' opacity='.9'/>\
+<path d='M252 188 L263 356 L277 356 L289 190 Z' fill='%23141414' opacity='.92'/>\
+<path d='M263 206 L336 356 L318 356 L252 246 L184 356 L168 356 Z' fill='%23141414' opacity='.92'/>\
+<path d='M258 226 L355 299 L268 299 Z' fill='%23141414' opacity='.92'/>\
+</svg>") center/cover no-repeat;
+    }
+
+    .hero-card .copy{
+      padding:22px;
+    }
+
+    .hero-card h3{
+      margin:0 0 8px;
+      font-size:1.1rem;
+    }
+
+    .hero-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.98rem;
+    }
+
+    main{padding:34px 0 72px}
+
+    .intro-band{
+      margin-top:-20px;
+      margin-bottom:28px;
+    }
+
+    .intro-box{
+      padding:22px;
+    }
+
+    .intro-box p{
+      margin:0;
+      color:#d8e8f3;
+    }
+
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:22px;
+    }
+
+    .toolbar-left .section-kicker{margin-bottom:6px}
+
+    .section-kicker{
+      color:var(--accent2);
+      font-weight:700;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      font-size:.8rem;
+    }
+
+    .section-title{
+      margin:0;
+      font-size:1.75rem;
+      line-height:1.1;
+    }
+
+    .lang-toggle{
+      display:inline-flex;
+      gap:6px;
+      padding:6px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+    }
+
+    .lang-toggle button{
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:.92rem;
+    }
+
+    .lang-toggle button.active{
+      background:linear-gradient(135deg, #0e4f7d, #1aa8d8);
+      color:white;
+    }
+
+    .lang-content .lang{display:none}
+    body[data-lang="en"] .lang.en{display:block}
+    body[data-lang="es"] .lang.es{display:block}
+    body[data-lang="both"] .lang{display:block}
+
+    .lang-divider{
+      display:none;
+      height:1px;
+      background:rgba(255,255,255,.10);
+      margin:20px 0;
+    }
+
+    body[data-lang="both"] .lang-divider{display:block}
+
+    .lang-label{
+      display:inline-block;
+      margin:0 0 10px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.82rem;
+      font-weight:700;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      color:#e8f5fb;
+    }
+
+    .placeholder-card{
+      padding:28px;
+    }
+
+    .placeholder-card h2{
+      margin:0 0 12px;
+      font-size:1.5rem;
+    }
+
+    .placeholder-card p{
+      margin:0 0 14px;
+      color:#dcebf5;
+    }
+
+    .placeholder-card p:last-child{margin-bottom:0}
+
+    .footer-line{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-top:20px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .brand-line{color:#ffffff;font-weight:700}
+    .motto{color:var(--gold);font-weight:700}
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:28px 0 44px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .footer-row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr}
+      .hero h1{max-width:none}
+    }
+
+    @media (max-width: 720px){
+      .nav-wrap{flex-direction:column;align-items:flex-start}
+      .nav{justify-content:flex-start;gap:14px}
+      .hero-inner{padding:64px 0 58px}
+      .hero-card .art{aspect-ratio:16/10}
+      .hero-card .copy,
+      .intro-box,
+      .placeholder-card{padding:20px}
+      .container{width:min(var(--max), calc(100% - 20px))}
+      .toolbar{align-items:flex-start}
+    }
+  </style>
+</head>
+<body data-lang="both">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 42c8-7 18-10 27-9 7 1 12 4 17 9" stroke="white" stroke-width="4" stroke-linecap="round"/>
+            <path d="M14 48h36" stroke="white" stroke-width="4" stroke-linecap="round"/>
+            <path d="M32 12l6 12h-12l6-12Z" fill="white"/>
+          </svg>
+        </span>
+        <span class="brand-text">Rim Run™</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="rimrun.html">Rim Run™</a>
+        <a href="science.html">The Science</a>
+        <a href="citizen-science.html">Citizen Science</a>
+        <a href="systems.html">Systems</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="learn.html" class="active">Learn Along With Me</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="eyebrow">Learn Along With Me — Rim Run™ / Aprende Conmigo — Rim Run™</div>
+        <h1>Real-world ocean learning, one concept at a time.</h1>
+
+        <div class="lead lang-content">
+          <div class="lang en">
+            <span class="lang-label">English</span>
+            <p>I’m not a marine biologist. I’m not an academic researcher.</p>
+            <p>I’m someone who loves the ocean, respects it, and is curious enough to take the time to understand it—properly.</p>
+            <p>The Rim Run™ is a coastal sailing and reef exploration and monitoring expedition from Mexico to Panama and back, moving slowly along the reef systems of the Western Caribbean. Along the way, I’ll be learning, observing, and documenting what’s happening in the real world—not in a classroom, but out on the water.</p>
+            <p>This page is where I break that down.</p>
+            <p>One concept at a time. One observation at a time. Simple, clear, and real.</p>
+            <p>If you’ve ever looked at the ocean and wondered what’s actually going on beneath the surface—you’re in the right place.</p>
+            <p>And over time, this won’t just be me. The goal is to train and support local Reef Keepers in each country along the route—people who can continue observing and protecting their own reef systems long after I move on.</p>
+          </div>
+
+          <div class="lang-divider"></div>
+
+          <div class="lang es">
+            <span class="lang-label">Español</span>
+            <p>No soy biólogo marino. No soy investigador académico.</p>
+            <p>Soy alguien que ama el océano, lo respeta y tiene la curiosidad suficiente para tomarse el tiempo de entenderlo correctamente.</p>
+            <p>El Rim Run™ es una expedición de navegación costera y de exploración y monitoreo de arrecifes desde México hasta Panamá y de regreso, avanzando lentamente a lo largo de los sistemas arrecifales del Caribe occidental. Durante el recorrido, estaré aprendiendo, observando y documentando lo que ocurre en el mundo real, no en un aula, sino en el agua.</p>
+            <p>Aquí es donde desgloso todo eso.</p>
+            <p>Un concepto a la vez. Una observación a la vez. Simple, claro y real.</p>
+            <p>Si alguna vez has mirado el océano y te has preguntado qué está pasando bajo la superficie, estás en el lugar correcto.</p>
+            <p>Y con el tiempo, esto no será solo mío. El objetivo es capacitar y apoyar a Reef Keepers locales en cada país a lo largo de la ruta—personas que puedan seguir observando y protegiendo sus propios arrecifes mucho después de que yo me haya ido.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="art" aria-hidden="true"></div>
+        <div class="copy lang-content">
+          <div class="lang en">
+            <span class="lang-label">English</span>
+            <h3>Let’s learn this together.</h3>
+            <p>Each future entry will take one ocean or reef concept, explain it in plain language, connect it directly to the Rim Run™, and then ask a few questions to get people thinking and talking.</p>
+          </div>
+
+          <div class="lang-divider"></div>
+
+          <div class="lang es">
+            <span class="lang-label">Español</span>
+            <h3>Aprendamos esto juntos.</h3>
+            <p>Cada entrada futura tomará un concepto del océano o del arrecife, lo explicará en lenguaje claro, lo conectará directamente con el Rim Run™ y luego planteará algunas preguntas para hacer pensar y conversar a la gente.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      <div class="intro-band">
+        <div class="intro-box lang-content">
+          <div class="lang en">
+            <span class="lang-label">English</span>
+            <p>This page is designed to support Facebook, LinkedIn, and website publishing at the same time. Each lesson will be structured to be clear, useful, repeatable, and tied directly to what the expedition will be observing in the Western Caribbean.</p>
+          </div>
+
+          <div class="lang-divider"></div>
+
+          <div class="lang es">
+            <span class="lang-label">Español</span>
+            <p>Esta página está diseñada para apoyar al mismo tiempo la publicación en Facebook, LinkedIn y el sitio web. Cada lección estará estructurada para ser clara, útil, repetible y vinculada directamente con lo que la expedición observará en el Caribe occidental.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="section-kicker">Lesson Archive / Archivo de Lecciones</div>
+          <h2 class="section-title">Learning Series</h2>
+        </div>
+
+        <div class="lang-toggle" aria-label="Language toggle">
+          <button class="active" data-set-lang="both" type="button">English + Español</button>
+          <button data-set-lang="en" type="button">English</button>
+          <button data-set-lang="es" type="button">Español</button>
+        </div>
+      </div>
+
+      <section class="placeholder-card lang-content">
+        <div class="lang en">
+          <span class="lang-label">English</span>
+          <h2>Lessons Coming Soon</h2>
+          <p>This page is ready for the bilingual lesson series.</p>
+          <p>Future lessons can be added below this section as individual cards or archived posts, using the same English-Spanish structure throughout.</p>
+        </div>
+
+        <div class="lang-divider"></div>
+
+        <div class="lang es">
+          <span class="lang-label">Español</span>
+          <h2>Lecciones Próximamente</h2>
+          <p>Esta página ya está lista para la serie bilingüe de lecciones.</p>
+          <p>Las futuras lecciones pueden agregarse debajo de esta sección como tarjetas individuales o publicaciones archivadas, usando la misma estructura en inglés y español en todo momento.</p>
+        </div>
+
+        <div class="footer-line">
+          <div class="brand-line">Rim Run™ — A Year Measured in Reefs</div>
+          <div class="motto">“Better Beachy than Bitchy™”</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© Rim Run™</div>
+      <div class="lang-content">
+        <div class="lang en">Coastal sailing and reef exploration and monitoring across the Western Caribbean.</div>
+        <div class="lang es">Navegación costera y exploración y monitoreo de arrecifes a través del Caribe occidental.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('[data-set-lang]');
+    const body = document.body;
+
+    function setLang(lang) {
+      body.setAttribute('data-lang', lang);
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setLang === lang));
+      try { localStorage.setItem('rimrunLearnLang', lang); } catch (e) {}
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.setLang));
+    });
+
+    try {
+      const saved = localStorage.getItem('rimrunLearnLang');
+      if (saved === 'en' || saved === 'es' || saved === 'both') {
+        setLang(saved);
+      }
+    } catch (e) {}
+  </script>
+</body>
+</html>
