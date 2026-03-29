@@ -1,582 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Learn Along With Me — Rim Run™</title>
-  <meta
-    name="description"
-    content="Bilingual English-Spanish learning page for Rim Run™. A public-facing learning series about ocean and reef concepts tied to the expedition."
-  />
-  <meta name="theme-color" content="#0c2238" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn Along With Me — Rim Run™ Ocean Science</title>
+  <meta name="description" content="A university-equivalent bilingual ocean science curriculum tied to the Rim Run™ expedition. 22 sections covering oceanography, marine sciences, marine biology, and reef monitoring."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=JetBrains+Mono:wght@400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root{
-      --bg:#08131f;
-      --bg2:#0c2238;
-      --panel:#112c45;
-      --panel2:#163a59;
-      --text:#eef6fb;
-      --muted:#bdd2e3;
-      --accent:#4fc3f7;
-      --accent2:#22d3ee;
-      --gold:#f5c86b;
-      --line:rgba(255,255,255,.12);
-      --shadow:0 14px 40px rgba(0,0,0,.28);
-      --radius:20px;
-      --max:1120px;
-    }
+:root {
+  --ink:#0e1f2e; --deep:#0a1825; --panel:#112333; --panel2:#162d3f;
+  --teal:#1a6b7a; --teal-light:#2a9aad; --aqua:#4dc4d4;
+  --amber:#d4933a; --amber-lt:#e8b96a; --gold:#c9a84c;
+  --parchment:#f0e8d0; --fog:#c8d8e0; --mist:#8aaabb; --text:#ddeef5;
+  --correct:#2ecc71; --incorrect:#e74c3c;
+  --grid:rgba(42,154,173,0.06);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Source Serif 4',Georgia,serif;font-size:1.05rem;line-height:1.78;
+  color:var(--text);background-color:var(--deep);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:40px 40px;overflow-x:hidden;min-height:100vh;
+}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color .2s;}
+a:hover{color:var(--amber-lt);}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--deep);}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px;}
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(79,195,247,.10), transparent 28%),
-        radial-gradient(circle at top right, rgba(34,211,238,.10), transparent 22%),
-        linear-gradient(180deg, #07111c 0%, #0a1c2f 38%, #0b1f33 100%);
-      line-height:1.6;
-    }
+/* NAV */
+nav{background:rgba(10,24,37,.95);border-bottom:1px solid rgba(201,168,76,.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:nowrap;}
+.nav-links a{color:var(--fog);font-family:'Barlow',sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s;white-space:nowrap;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:.4rem;flex-direction:column;gap:5px;position:absolute;right:2rem;top:50%;transform:translateY(-50%);z-index:1002;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-    a{color:inherit;text-decoration:none}
-    .container{width:min(var(--max), calc(100% - 32px));margin:0 auto}
+/* LOGIN OVERLAY */
+#login-overlay{position:fixed;inset:0;z-index:2000;background:rgba(6,16,24,.96);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:2rem;}
+.login-box{background:var(--panel);border:1px solid rgba(77,196,212,.25);max-width:520px;width:100%;padding:3rem;position:relative;}
+.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--amber),var(--teal));}
+.login-logo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.4em;color:var(--amber);text-transform:uppercase;margin-bottom:1.5rem;opacity:.8;}
+.login-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--parchment);margin-bottom:.5rem;}
+.login-subtitle{font-family:'Source Serif 4',serif;font-size:.95rem;font-style:italic;color:var(--mist);margin-bottom:2rem;line-height:1.55;}
+.login-subtitle-es{font-size:.85rem;color:rgba(138,170,187,.7);margin-top:.4rem;display:block;}
+.form-group{margin-bottom:1.2rem;}
+.form-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--aqua);text-transform:uppercase;display:block;margin-bottom:.5rem;}
+.form-input{width:100%;background:rgba(0,0,0,.3);border:1px solid rgba(77,196,212,.3);color:var(--text);font-family:'Source Serif 4',serif;font-size:1rem;padding:.85rem 1.1rem;outline:none;transition:border-color .2s;}
+.form-input:focus{border-color:var(--aqua);}
+.form-input::placeholder{color:rgba(138,170,187,.4);}
+.optin-group{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1.8rem;background:rgba(212,147,58,.06);border:1px solid rgba(212,147,58,.15);padding:1rem 1.2rem;}
+.optin-checkbox{width:18px;height:18px;flex-shrink:0;margin-top:3px;accent-color:var(--amber);cursor:pointer;}
+.optin-label{font-family:'Source Serif 4',serif;font-size:.88rem;color:var(--fog);line-height:1.5;cursor:pointer;}
+.optin-label-es{font-size:.8rem;color:var(--mist);display:block;margin-top:.3rem;font-style:italic;}
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--teal),var(--teal-light));border:none;color:#fff;font-family:'Barlow',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:1rem 2rem;cursor:pointer;transition:all .3s;}
+.btn-primary:hover{background:linear-gradient(135deg,var(--teal-light),var(--aqua));}
+.login-note{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--mist);text-align:center;margin-top:1.2rem;opacity:.65;line-height:1.6;}
 
-    .site-header{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      backdrop-filter:blur(10px);
-      background:rgba(7,17,28,.82);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
+/* PAGE HERO */
+.page-hero{position:relative;padding:5rem 2rem 4rem;text-align:center;overflow:hidden;border-bottom:2px solid var(--teal);}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(26,107,122,.25) 0%,transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(212,147,58,.12) 0%,transparent 45%),linear-gradient(180deg,#061018 0%,#0a1825 100%);z-index:0;}
+.hero-content{position:relative;z-index:1;max-width:860px;margin:0 auto;}
+.hero-institution{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.4em;color:var(--amber);text-transform:uppercase;margin-bottom:1.2rem;opacity:.85;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:var(--parchment);line-height:1.1;margin-bottom:.5rem;}
+.hero-title em{color:var(--aqua);font-style:italic;}
+.hero-subtitle{font-family:'Barlow',sans-serif;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mist);margin-bottom:2rem;}
+.hero-tagline{font-family:'Source Serif 4',serif;font-size:1.1rem;font-style:italic;color:var(--fog);max-width:640px;margin:0 auto 2.5rem;opacity:.85;}
+.curriculum-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;}
+.c-stat{text-align:center;}
+.c-stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--amber);display:block;line-height:1;}
+.c-stat-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.25em;color:var(--mist);text-transform:uppercase;margin-top:.3rem;display:block;}
 
-    .nav-wrap{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      padding:14px 0;
-      flex-wrap:nowrap;
-    }
+/* MAIN */
+.main-wrap{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem;}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      letter-spacing:.4px;
-      min-width:0;
-    }
+/* PROGRESS */
+.progress-panel{background:var(--panel);border:1px solid rgba(77,196,212,.15);padding:1.5rem 2rem;margin-bottom:3rem;display:none;}
+.progress-panel.visible{display:block;}
+.progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
+.progress-greeting{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--parchment);}
+.progress-pct{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--amber);letter-spacing:.1em;}
+.progress-track{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:.8rem;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--aqua));border-radius:3px;transition:width .6s ease;width:0%;}
+.progress-dots{display:flex;gap:6px;flex-wrap:wrap;}
+.p-dot{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(77,196,212,.2);cursor:pointer;transition:all .2s;}
+.p-dot.complete{background:var(--teal);border-color:var(--teal);}
+.p-dot.current{background:var(--amber);border-color:var(--amber);}
 
-    .brand-mark{
-      width:42px;
-      height:42px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, #0e4f7d, #1aa8d8);
-      box-shadow:0 8px 24px rgba(34,211,238,.22);
-      flex:0 0 auto;
-    }
+/* DISCLAIMER */
+.disclaimer{background:rgba(212,147,58,.08);border:1px solid rgba(212,147,58,.25);border-left:4px solid var(--amber);padding:1.2rem 1.8rem;margin-bottom:3rem;}
+.disclaimer-icon{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.25em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;display:block;}
+.disclaimer p{font-family:'Source Serif 4',serif;font-size:.88rem;color:var(--fog);line-height:1.6;margin-bottom:.4rem;}
+.disclaimer p:last-child{margin-bottom:0;}
+.disclaimer .es-text{font-style:italic;color:var(--mist);font-size:.82rem;border-top:1px solid rgba(212,147,58,.15);padding-top:.6rem;margin-top:.6rem;}
 
-    .brand-mark svg{width:24px;height:24px}
-    .brand-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* SECTION LABELS */
+.section-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--aqua);margin-bottom:.8rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:24px;height:1px;background:var(--aqua);flex-shrink:0;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;color:var(--parchment);line-height:1.15;margin-bottom:1rem;}
+.section-title em{color:var(--amber);font-style:italic;}
+.gold-rule{width:50px;height:2px;background:linear-gradient(90deg,var(--amber),var(--gold));margin:1rem 0 2rem;}
 
-    .nav{
-      display:flex;
-      flex-wrap:nowrap;
-      gap:18px;
-      align-items:center;
-      justify-content:flex-end;
-      font-size:.96rem;
-      color:var(--muted);
-      min-width:0;
-      flex:0 1 auto;
-    }
+/* LESSON CARD */
+.current-lesson-wrap{margin-bottom:4rem;}
+.lesson-badge{display:inline-flex;align-items:center;gap:.6rem;background:var(--amber);color:var(--ink);font-family:'Barlow',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.4rem 1rem;margin-bottom:1.2rem;}
+.lesson-badge::before{content:'●';animation:pulse 1.5s infinite;font-size:.6rem;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.lesson-card{background:var(--panel);border:1px solid rgba(77,196,212,.2);position:relative;overflow:hidden;}
+.lesson-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--aqua),var(--amber));}
+.lesson-header{padding:2.5rem 3rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.lesson-number{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;}
+.lesson-title-main{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:var(--parchment);margin-bottom:.4rem;line-height:1.15;}
+.lesson-category{font-family:'Barlow',sans-serif;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal-light);}
+.lesson-body{padding:2.5rem 3rem;}
+.lesson-tabs{display:flex;gap:0;margin-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08);}
+.lesson-tab{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);padding:.8rem 1.5rem;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;}
+.lesson-tab.active{color:var(--aqua);border-bottom-color:var(--aqua);}
+.lesson-tab:hover:not(.active){color:var(--fog);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
 
-    .nav a{
-      display:inline-flex;
-      align-items:center;
-      white-space:nowrap;
-      padding:6px 0;
-      transition:.2s ease;
-      flex:0 0 auto;
-    }
+/* CONTENT */
+.content-block h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--amber-lt);margin:2rem 0 .8rem;font-weight:600;}
+.content-block h3:first-child{margin-top:0;}
+.content-block p{font-family:'Source Serif 4',serif;font-size:1rem;color:var(--fog);line-height:1.8;margin-bottom:1.2rem;}
+.content-block strong{color:var(--parchment);font-weight:600;}
 
-    .nav a:hover,
-    .nav a.active{
-      color:#fff;
-    }
+/* REGIONAL BLOCK */
+.regional-block{background:rgba(26,107,122,.1);border:1px solid rgba(77,196,212,.2);border-left:4px solid var(--teal);padding:1.8rem 2rem;margin:2rem 0;}
+.regional-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.8rem;}
+.regional-label::before{content:'⚓';font-size:.8rem;}
+.regional-block h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--aqua);margin-bottom:.8rem;}
+.regional-block p{font-family:'Source Serif 4',serif;font-size:.98rem;color:var(--fog);line-height:1.78;margin-bottom:1rem;}
+.regional-block p:last-child{margin-bottom:0;}
 
-    .hero{
-      position:relative;
-      overflow:hidden;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      background:
-        linear-gradient(180deg, rgba(4,10,17,.12), rgba(4,10,17,.58)),
-        linear-gradient(135deg, #0a2035 0%, #103252 52%, #0c2238 100%);
-    }
+/* IMAGE */
+.lesson-image-wrap{margin:2rem 0;border:1px solid rgba(77,196,212,.15);overflow:hidden;}
+.image-caption{background:rgba(0,0,0,.3);padding:.6rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--mist);text-transform:uppercase;}
 
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\
-<defs>\
-<linearGradient id='g1' x1='0' x2='0' y1='0' y2='1'>\
-<stop offset='0%' stop-color='%231b5f8a' stop-opacity='.55'/>\
-<stop offset='100%' stop-color='%23081420' stop-opacity='.1'/>\
-</linearGradient>\
-<linearGradient id='sun' x1='0' x2='0' y1='0' y2='1'>\
-<stop offset='0%' stop-color='%23ffd67a' stop-opacity='.95'/>\
-<stop offset='100%' stop-color='%23f7a546' stop-opacity='.65'/>\
-</linearGradient>\
-</defs>\
-<rect width='1600' height='900' fill='url(%23g1)'/>\
-<circle cx='1225' cy='215' r='88' fill='url(%23sun)'/>\
-<path d='M0 540 C180 500 300 505 460 545 C620 585 770 584 930 546 C1090 508 1235 512 1388 548 C1490 570 1560 575 1600 569 L1600 900 L0 900 Z' fill='%23113e63' opacity='.78'/>\
-<path d='M0 610 C180 590 330 592 460 620 C610 652 745 654 925 622 C1075 596 1245 596 1390 622 C1495 640 1560 646 1600 641 L1600 900 L0 900 Z' fill='%230e3452' opacity='.88'/>\
-<path d='M0 695 C110 676 254 681 360 703 C490 730 625 730 760 703 C930 669 1054 671 1180 699 C1340 735 1508 736 1600 720 L1600 900 L0 900 Z' fill='%23092133' opacity='.98'/>\
-<path d='M890 605 L1015 605 L1035 628 L1110 628 L1133 647 L1120 656 L885 656 L871 645 Z' fill='%2319191a' opacity='.9'/>\
-<path d='M968 478 L975 605 L985 605 L995 480 Z' fill='%2319191a' opacity='.92'/>\
-<path d='M975 490 L1015 605 L1001 605 L968 520 L934 605 L921 605 Z' fill='%2319191a' opacity='.92'/>\
-<path d='M970 504 L1030 560 L977 560 Z' fill='%2319191a' opacity='.9'/>\
-</svg>");
-      background-size:cover;
-      background-position:center;
-      opacity:.9;
-      pointer-events:none;
-    }
+/* MCQ */
+.mcq-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.mcq-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--parchment);}
+.mcq-score-display{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.15em;color:var(--amber);background:rgba(212,147,58,.1);border:1px solid rgba(212,147,58,.25);padding:.4rem 1rem;}
+.question-card{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.07);padding:2rem 2.5rem;margin-bottom:1.5rem;}
+.question-number{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--mist);text-transform:uppercase;margin-bottom:.8rem;}
+.question-text{font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--parchment);line-height:1.65;margin-bottom:1.5rem;}
+.answers-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;}
+.answer-btn{width:100%;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(77,196,212,.2);color:var(--fog);font-family:'Source Serif 4',serif;font-size:.97rem;padding:.9rem 1.2rem;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:1rem;line-height:1.5;}
+.answer-btn:hover:not(:disabled){background:rgba(77,196,212,.08);border-color:rgba(77,196,212,.5);color:var(--parchment);}
+.answer-btn.correct{background:rgba(46,204,113,.12);border-color:var(--correct);color:var(--correct);}
+.answer-btn.incorrect{background:rgba(231,76,60,.12);border-color:var(--incorrect);color:var(--incorrect);}
+.answer-btn:disabled{cursor:default;}
+.answer-letter{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;color:var(--teal-light);flex-shrink:0;margin-top:2px;}
+.answer-btn.correct .answer-letter{color:var(--correct);}
+.answer-btn.incorrect .answer-letter{color:var(--incorrect);}
+.question-feedback{margin-top:1rem;padding:.9rem 1.2rem;font-family:'Source Serif 4',serif;font-size:.9rem;line-height:1.6;display:none;border-left:3px solid;}
+.question-feedback.show{display:block;}
+.question-feedback.correct-fb{background:rgba(46,204,113,.08);border-color:var(--correct);color:#a8f0c6;}
+.question-feedback.incorrect-fb{background:rgba(231,76,60,.08);border-color:var(--incorrect);color:#f5a8a0;}
+.feedback-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.4rem;}
+.mcq-complete{background:rgba(26,107,122,.15);border:1px solid rgba(77,196,212,.3);padding:2.5rem;text-align:center;display:none;}
+.mcq-complete.show{display:block;}
+.mcq-complete-score{font-family:'Playfair Display',serif;font-size:3rem;color:var(--amber);display:block;margin-bottom:.5rem;}
+.mcq-complete-msg{font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--fog);margin-bottom:1.5rem;}
+.mcq-complete-msg-es{font-size:.9rem;color:var(--mist);font-style:italic;}
+.btn-retake{background:none;border:1px solid rgba(77,196,212,.4);color:var(--aqua);font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.75rem 2rem;cursor:pointer;transition:all .25s;margin:.5rem;}
+.btn-retake:hover{background:rgba(77,196,212,.1);border-color:var(--aqua);}
 
-    .hero-inner{
-      position:relative;
-      z-index:1;
-      padding:82px 0 72px;
-      display:grid;
-      grid-template-columns:1.18fr .82fr;
-      gap:32px;
-      align-items:center;
-    }
+/* CERT */
+.cert-banner{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(26,107,122,.15));border:2px solid var(--gold);padding:3rem;text-align:center;margin:3rem 0;display:none;}
+.cert-banner.show{display:block;}
+.cert-icon{font-size:3rem;margin-bottom:1rem;}
+.cert-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-bottom:.5rem;}
+.cert-sub{font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--fog);margin-bottom:1.5rem;}
+.cert-sub-es{font-style:italic;color:var(--mist);font-size:.92rem;}
 
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      color:#d9edf8;
-      font-size:.88rem;
-      letter-spacing:.4px;
-      margin-bottom:18px;
-    }
+/* ARCHIVE */
+.archive-wrap{margin-top:4rem;}
+.archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:2rem;}
+.archive-card{background:var(--panel);border:1px solid rgba(255,255,255,.07);padding:1.5rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.archive-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal);transform:scaleY(0);transition:transform .25s;transform-origin:bottom;}
+.archive-card:hover::before{transform:scaleY(1);}
+.archive-card:hover{border-color:rgba(77,196,212,.3);background:var(--panel2);}
+.archive-card.complete::before{transform:scaleY(1);background:var(--correct);}
+.archive-card.locked{opacity:.4;cursor:not-allowed;}
+.archive-num{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;}
+.archive-title-en{font-family:'Playfair Display',serif;font-size:1rem;color:var(--parchment);margin-bottom:.2rem;line-height:1.3;}
+.archive-title-es{font-family:'Source Serif 4',serif;font-size:.82rem;color:var(--mist);font-style:italic;margin-bottom:.4rem;}
+.archive-cat{font-family:'Barlow',sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);}
+.archive-status{position:absolute;top:1rem;right:1rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;padding:.25rem .6rem;border:1px solid;}
+.archive-status.complete{color:var(--correct);border-color:var(--correct);background:rgba(46,204,113,.08);}
+.archive-status.current{color:var(--amber);border-color:var(--amber);background:rgba(212,147,58,.08);}
+.archive-status.locked{color:var(--mist);border-color:var(--mist);}
 
-    .hero h1{
-      font-size:clamp(2.2rem, 5vw, 4rem);
-      line-height:1.03;
-      margin:0 0 18px;
-      max-width:12ch;
-    }
+/* COMING SOON */
+.coming-soon{background:rgba(0,0,0,.2);border:1px dashed rgba(77,196,212,.2);padding:3rem;text-align:center;margin:2rem 0;}
+.coming-soon-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--mist);margin-bottom:.5rem;}
+.coming-soon-sub{font-family:'Source Serif 4',serif;font-size:.95rem;font-style:italic;color:rgba(138,170,187,.6);}
 
-    .lead{
-      font-size:1.05rem;
-      color:#dbeaf5;
-      max-width:720px;
-      margin:0;
-    }
+/* FOOTER */
+footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem 2rem;text-align:center;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--parchment);margin-bottom:.5rem;}
+.footer-tagline{font-style:italic;color:var(--gold);font-size:.95rem;margin-bottom:1.2rem;}
+.footer-contact{font-family:'Barlow',sans-serif;font-size:.75rem;letter-spacing:.1em;color:var(--mist);}
+.footer-contact a{color:var(--aqua);}
 
-    .lead p{margin:0 0 14px}
-
-    .hero-card,
-    .intro-box,
-    .placeholder-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:22px;
-      box-shadow:var(--shadow);
-    }
-
-    .hero-card{
-      overflow:hidden;
-    }
-
-    .hero-card .art{
-      aspect-ratio:4/3;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.08)),
-        url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'>\
-<defs>\
-<linearGradient id='sky' x1='0' x2='0' y1='0' y2='1'>\
-<stop offset='0%' stop-color='%236ec5e9'/>\
-<stop offset='55%' stop-color='%233785b7'/>\
-<stop offset='100%' stop-color='%231b4464'/>\
-</linearGradient>\
-<linearGradient id='sea' x1='0' x2='0' y1='0' y2='1'>\
-<stop offset='0%' stop-color='%232a86b5'/>\
-<stop offset='100%' stop-color='%230e3150'/>\
-</linearGradient>\
-</defs>\
-<rect width='800' height='600' fill='url(%23sky)'/>\
-<circle cx='620' cy='120' r='68' fill='%23ffd26c' opacity='.95'/>\
-<rect y='282' width='800' height='318' fill='url(%23sea)'/>\
-<path d='M0 332 C100 322 172 316 255 330 C350 347 440 347 530 331 C620 314 712 316 800 332 L800 600 L0 600 Z' fill='%23216a95' opacity='.66'/>\
-<path d='M0 390 C106 378 177 379 260 392 C342 406 460 408 566 391 C656 376 729 380 800 389 L800 600 L0 600 Z' fill='%23124f73' opacity='.74'/>\
-<path d='M130 356 L300 356 L322 382 L420 382 L446 405 L429 417 L126 417 L109 403 Z' fill='%23141414' opacity='.9'/>\
-<path d='M252 188 L263 356 L277 356 L289 190 Z' fill='%23141414' opacity='.92'/>\
-<path d='M263 206 L336 356 L318 356 L252 246 L184 356 L168 356 Z' fill='%23141414' opacity='.92'/>\
-<path d='M258 226 L355 299 L268 299 Z' fill='%23141414' opacity='.92'/>\
-</svg>") center/cover no-repeat;
-    }
-
-    .hero-card .copy{
-      padding:22px;
-    }
-
-    .hero-card h3{
-      margin:0 0 8px;
-      font-size:1.1rem;
-    }
-
-    .hero-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:.98rem;
-    }
-
-    main{padding:34px 0 72px}
-
-    .intro-band{
-      margin-top:-20px;
-      margin-bottom:28px;
-    }
-
-    .intro-box{
-      padding:22px;
-    }
-
-    .intro-box p{
-      margin:0;
-      color:#d8e8f3;
-    }
-
-    .toolbar{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:22px;
-    }
-
-    .toolbar-left .section-kicker{margin-bottom:6px}
-
-    .section-kicker{
-      color:var(--accent2);
-      font-weight:700;
-      letter-spacing:.4px;
-      text-transform:uppercase;
-      font-size:.8rem;
-    }
-
-    .section-title{
-      margin:0;
-      font-size:1.75rem;
-      line-height:1.1;
-    }
-
-    .lang-toggle{
-      display:inline-flex;
-      gap:6px;
-      padding:6px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:999px;
-    }
-
-    .lang-toggle button{
-      border:0;
-      background:transparent;
-      color:var(--muted);
-      padding:10px 14px;
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:700;
-      font-size:.92rem;
-    }
-
-    .lang-toggle button.active{
-      background:linear-gradient(135deg, #0e4f7d, #1aa8d8);
-      color:white;
-    }
-
-    .lang-content .lang{display:none}
-    body[data-lang="en"] .lang.en{display:block}
-    body[data-lang="es"] .lang.es{display:block}
-    body[data-lang="both"] .lang{display:block}
-
-    .lang-divider{
-      display:none;
-      height:1px;
-      background:rgba(255,255,255,.10);
-      margin:20px 0;
-    }
-
-    body[data-lang="both"] .lang-divider{display:block}
-
-    .lang-label{
-      display:inline-block;
-      margin:0 0 10px;
-      padding:7px 11px;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      font-size:.82rem;
-      font-weight:700;
-      letter-spacing:.6px;
-      text-transform:uppercase;
-      color:#e8f5fb;
-    }
-
-    .placeholder-card{
-      padding:28px;
-    }
-
-    .placeholder-card h2{
-      margin:0 0 12px;
-      font-size:1.5rem;
-    }
-
-    .placeholder-card p{
-      margin:0 0 14px;
-      color:#dcebf5;
-    }
-
-    .placeholder-card p:last-child{margin-bottom:0}
-
-    .footer-line{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      margin-top:20px;
-      padding-top:18px;
-      border-top:1px solid rgba(255,255,255,.08);
-      color:var(--muted);
-      font-size:.95rem;
-    }
-
-    .brand-line{color:#ffffff;font-weight:700}
-    .motto{color:var(--gold);font-weight:700}
-
-    footer{
-      border-top:1px solid rgba(255,255,255,.08);
-      padding:28px 0 44px;
-      color:var(--muted);
-      font-size:.95rem;
-    }
-
-    .footer-row{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      gap:16px;
-    }
-
-    @media (max-width: 980px){
-      .hero-inner{grid-template-columns:1fr}
-      .hero h1{max-width:none}
-    }
-
-    @media (max-width: 720px){
-      .nav-wrap{flex-direction:column;align-items:flex-start}
-      .nav{
-        justify-content:flex-start;
-        gap:14px;
-        flex-wrap:wrap;
-      }
-      .hero-inner{padding:64px 0 58px}
-      .hero-card .art{aspect-ratio:16/10}
-      .hero-card .copy,
-      .intro-box,
-      .placeholder-card{padding:20px}
-      .container{width:min(var(--max), calc(100% - 20px))}
-      .toolbar{align-items:flex-start}
-    }
+@media(max-width:768px){
+  .nav-inner{justify-content:flex-start;padding:.8rem 1.5rem;min-height:52px;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,.2);flex-direction:column;align-items:flex-start;gap:0;padding:.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:.65rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-size:.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;right:1.5rem;}
+  .lesson-header,.lesson-body{padding:1.8rem;}
+  .question-card{padding:1.5rem;}
+  .login-box{padding:2rem;}
+  .curriculum-stats{gap:2rem;}
+  .lesson-tab{padding:.8rem 1rem;font-size:.72rem;white-space:nowrap;}
+  .lesson-tabs{overflow-x:auto;}
+}
   </style>
 </head>
-<body data-lang="both">
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 42c8-7 18-10 27-9 7 1 12 4 17 9" stroke="white" stroke-width="4" stroke-linecap="round"/>
-            <path d="M14 48h36" stroke="white" stroke-width="4" stroke-linecap="round"/>
-            <path d="M32 12l6 12h-12l6-12Z" fill="white"/>
-          </svg>
-        </span>
-        <span class="brand-text">Rim Run™</span>
-      </a>
+<body>
 
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="rimrun.html">Rim Run™</a>
-        <a href="science.html">The Science</a>
-        <a href="citizen-science.html">Citizen Science</a>
-        <a href="systems.html">Systems</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="about.html">About</a>
-        <a href="learn.html" class="active">Learn Along With Me</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container hero-inner">
-      <div>
-        <div class="eyebrow">Learn Along With Me — Rim Run™ / Aprende Conmigo — Rim Run™</div>
-        <h1>Real-world ocean learning, one concept at a time.</h1>
-
-        <div class="lead lang-content">
-          <div class="lang en">
-            <span class="lang-label">English</span>
-            <p>I’m not a marine biologist. I’m not an academic researcher.</p>
-            <p>I’m someone who loves the ocean, respects it, and is curious enough to take the time to understand it—properly.</p>
-            <p>The Rim Run™ is a coastal sailing and reef exploration and monitoring expedition from Mexico to Panama and back, moving slowly along the reef systems of the Western Caribbean. Along the way, I’ll be learning, observing, and documenting what’s happening in the real world—not in a classroom, but out on the water.</p>
-            <p>This page is where I break that down.</p>
-            <p>One concept at a time. One observation at a time. Simple, clear, and real.</p>
-            <p>If you’ve ever looked at the ocean and wondered what’s actually going on beneath the surface—you’re in the right place.</p>
-            <p>And over time, this won’t just be me. The goal is to train and support local Reef Keepers in each country along the route—people who can continue observing and protecting their own reef systems long after I move on.</p>
-          </div>
-
-          <div class="lang-divider"></div>
-
-          <div class="lang es">
-            <span class="lang-label">Español</span>
-            <p>No soy biólogo marino. No soy investigador académico.</p>
-            <p>Soy alguien que ama el océano, lo respeta y tiene la curiosidad suficiente para tomarse el tiempo de entenderlo correctamente.</p>
-            <p>El Rim Run™ es una expedición de navegación costera y de exploración y monitoreo de arrecifes desde México hasta Panamá y de regreso, avanzando lentamente a lo largo de los sistemas arrecifales del Caribe occidental. Durante el recorrido, estaré aprendiendo, observando y documentando lo que ocurre en el mundo real, no en un aula, sino en el agua.</p>
-            <p>Aquí es donde desgloso todo eso.</p>
-            <p>Un concepto a la vez. Una observación a la vez. Simple, claro y real.</p>
-            <p>Si alguna vez has mirado el océano y te has preguntado qué está pasando bajo la superficie, estás en el lugar correcto.</p>
-            <p>Y con el tiempo, esto no será solo mío. El objetivo es capacitar y apoyar a Reef Keepers locales en cada país a lo largo de la ruta—personas que puedan seguir observando y protegiendo sus propios arrecifes mucho después de que yo me haya ido.</p>
-          </div>
-        </div>
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">Rim Run&#8482; Ocean Science &mdash; Reef Keepers Program</div>
+    <h2 class="login-title">Welcome to the Curriculum</h2>
+    <p class="login-subtitle">
+      Enter your email to begin &mdash; or to pick up where you left off. No password required.
+      <span class="login-subtitle-es">Ingresa tu correo electr&oacute;nico para comenzar, o para continuar donde lo dejaste. No se requiere contrase&ntilde;a.</span>
+    </p>
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label" for="email-input">Email Address / Correo Electr&oacute;nico</label>
+        <input class="form-input" id="email-input" type="email" placeholder="your@email.com" required autocomplete="email"/>
       </div>
-
-      <aside class="hero-card">
-        <div class="art" aria-hidden="true"></div>
-        <div class="copy lang-content">
-          <div class="lang en">
-            <span class="lang-label">English</span>
-            <h3>Let’s learn this together.</h3>
-            <p>Each future entry will take one ocean or reef concept, explain it in plain language, connect it directly to the Rim Run™, and then ask a few questions to get people thinking and talking.</p>
-          </div>
-
-          <div class="lang-divider"></div>
-
-          <div class="lang es">
-            <span class="lang-label">Español</span>
-            <h3>Aprendamos esto juntos.</h3>
-            <p>Cada entrada futura tomará un concepto del océano o del arrecife, lo explicará en lenguaje claro, lo conectará directamente con el Rim Run™ y luego planteará algunas preguntas para hacer pensar y conversar a la gente.</p>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <main>
-    <div class="container">
-      <div class="intro-band">
-        <div class="intro-box lang-content">
-          <div class="lang en">
-            <span class="lang-label">English</span>
-            <p>This page is designed to support Facebook, LinkedIn, and website publishing at the same time. Each lesson will be structured to be clear, useful, repeatable, and tied directly to what the expedition will be observing in the Western Caribbean.</p>
-          </div>
-
-          <div class="lang-divider"></div>
-
-          <div class="lang es">
-            <span class="lang-label">Español</span>
-            <p>Esta página está diseñada para apoyar al mismo tiempo la publicación en Facebook, LinkedIn y el sitio web. Cada lección estará estructurada para ser clara, útil, repetible y vinculada directamente con lo que la expedición observará en el Caribe occidental.</p>
-          </div>
-        </div>
+      <div class="optin-group">
+        <input class="optin-checkbox" type="checkbox" id="optin-check"/>
+        <label class="optin-label" for="optin-check">
+          Yes &mdash; keep me updated on the Rim Run&#8482; expedition, including the countdown to our October 2026 launch and dispatches from the field.
+          <span class="optin-label-es">S&iacute; &mdash; man&eacute;nme informado/a sobre la expedici&oacute;n Rim Run&#8482;, incluyendo la cuenta regresiva hasta nuestro lanzamiento en octubre de 2026 y despachos desde el campo.</span>
+        </label>
       </div>
+      <button class="btn-primary" type="submit">Enter the Curriculum / Ingresar al Curr&iacute;culo</button>
+    </form>
+    <p class="login-note">
+      Your email saves your progress and, if you opt in, delivers expedition updates. We never share your information.<br/>
+      Tu correo guarda tu progreso y, si lo autorizas, recibir&aacute;s actualizaciones de la expedici&oacute;n. Nunca compartimos tu informaci&oacute;n.
+    </p>
+  </div>
+</div>
 
-      <div class="toolbar">
-        <div class="toolbar-left">
-          <div class="section-kicker">Lesson Archive / Archivo de Lecciones</div>
-          <h2 class="section-title">Learning Series</h2>
-        </div>
-
-        <div class="lang-toggle" aria-label="Language toggle">
-          <button class="active" data-set-lang="both" type="button">English + Español</button>
-          <button data-set-lang="en" type="button">English</button>
-          <button data-set-lang="es" type="button">Español</button>
-        </div>
-      </div>
-
-      <section class="placeholder-card lang-content">
-        <div class="lang en">
-          <span class="lang-label">English</span>
-          <h2>Lessons Coming Soon</h2>
-          <p>This page is ready for the bilingual lesson series.</p>
-          <p>Future lessons can be added below this section as individual cards or archived posts, using the same English-Spanish structure throughout.</p>
-        </div>
-
-        <div class="lang-divider"></div>
-
-        <div class="lang es">
-          <span class="lang-label">Español</span>
-          <h2>Lecciones Próximamente</h2>
-          <p>Esta página ya está lista para la serie bilingüe de lecciones.</p>
-          <p>Las futuras lecciones pueden agregarse debajo de esta sección como tarjetas individuales o publicaciones archivadas, usando la misma estructura en inglés y español en todo momento.</p>
-        </div>
-
-        <div class="footer-line">
-          <div class="brand-line">Rim Run™ — A Year Measured in Reefs</div>
-          <div class="motto">“Better Beachy than Bitchy™”</div>
-        </div>
-      </section>
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="rimrun.html">Rim Run&#8482;</a>
+      <a href="science.html">The Science</a>
+      <a href="learn.html" class="active">Learn Along With Me</a>
+      <a href="citizenscience.html">Citizen Science</a>
+      <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+      <a href="systems.html">Systems</a>
+      <a href="support.html">Support</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
     </div>
-  </main>
+  </div>
+</nav>
 
-  <footer>
-    <div class="container footer-row">
-      <div>© Rim Run™</div>
-      <div class="lang-content">
-        <div class="lang en">Coastal sailing and reef exploration and monitoring across the Western Caribbean.</div>
-        <div class="lang es">Navegación costera y exploración y monitoreo de arrecifes a través del Caribe occidental.</div>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-content">
+    <div class="hero-institution">Rim Run&#8482; Expedition &bull; Reef Keepers Educational Series</div>
+    <h1 class="hero-title">Learn Along <em>With Me</em></h1>
+    <div class="hero-subtitle">Aprende Conmigo &mdash; Serie Educativa del Arrecife</div>
+    <p class="hero-tagline">A university-equivalent ocean science curriculum &mdash; bilingual, free, and tied to a real expedition monitoring the reefs of the Western Caribbean.</p>
+    <div class="curriculum-stats">
+      <div class="c-stat"><span class="c-stat-num">22</span><span class="c-stat-label">Sections</span></div>
+      <div class="c-stat"><span class="c-stat-num">1,100</span><span class="c-stat-label">Exam Questions</span></div>
+      <div class="c-stat"><span class="c-stat-num">2</span><span class="c-stat-label">Languages</span></div>
+      <div class="c-stat"><span class="c-stat-num">7</span><span class="c-stat-label">Countries</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap" id="main-content">
+
+  <!-- PROGRESS -->
+  <div class="progress-panel" id="progress-panel">
+    <div class="progress-header">
+      <span class="progress-greeting" id="progress-greeting">Welcome back.</span>
+      <span class="progress-pct" id="progress-pct">0 / 22 SECTIONS COMPLETE</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-dots" id="progress-dots"></div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <span class="disclaimer-icon">&#9888; Notice / Aviso</span>
+    <p>The educational content in this curriculum was developed with the assistance of artificial intelligence. Every effort has been made to ensure scientific accuracy and integrity across all 22 sections. If you identify an error or wish to suggest an improvement, please contact us at <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>.</p>
+    <p class="es-text">El contenido educativo de este curr&iacute;culo fue desarrollado con la asistencia de inteligencia artificial. Se ha hecho todo lo posible para garantizar la precisi&oacute;n e integridad cient&iacute;fica en las 22 secciones. Si identifica un error o desea sugerir una mejora, cont&aacute;ctenos en <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>.</p>
+  </div>
+
+  <!-- CERTIFICATION BANNER -->
+  <div class="cert-banner" id="cert-banner">
+    <div class="cert-icon">&#127826;</div>
+    <div class="cert-title">Reef Keepers Certified</div>
+    <div class="cert-sub">
+      You have completed all 22 sections of the Rim Run&#8482; Ocean Science Curriculum. You are now a certified Reef Keeper &mdash; <em>Los Guardianes del Arrecife.</em>
+      <span class="cert-sub-es">Has completado las 22 secciones del Curr&iacute;culo de Ciencias del Oc&eacute;ano Rim Run&#8482;. Ahora eres un Guardi&aacute;n del Arrecife certificado.</span>
+    </div>
+    <button class="btn-retake" onclick="requestCertificate()">Request Your Certificate / Solicitar tu Certificado</button>
+  </div>
+
+  <!-- CURRENT LESSON -->
+  <div class="current-lesson-wrap" id="current-lesson-wrap">
+    <div class="section-label">Current Lesson / Lecci&oacute;n Actual</div>
+    <h2 class="section-title">The Active <em>Section</em></h2>
+    <div class="gold-rule"></div>
+    <div class="lesson-badge">Now Active / Ahora Activo</div>
+    <div class="lesson-card" id="active-lesson-card">
+      <div class="coming-soon" id="lesson-coming-soon">
+        <div class="coming-soon-title">Lessons Publishing Soon</div>
+        <p class="coming-soon-sub">Section 01 &mdash; Physical Oceanography &mdash; will appear here when published.<br/><em>La Secci&oacute;n 01 &mdash; Oceanograf&iacute;a F&iacute;sica &mdash; aparecer&aacute; aqu&iacute; cuando se publique.</em></p>
       </div>
     </div>
-  </footer>
+  </div>
 
-  <script>
-    const buttons = document.querySelectorAll('[data-set-lang]');
-    const body = document.body;
+  <!-- ARCHIVE -->
+  <div class="archive-wrap" id="archive-wrap">
+    <div class="section-label">All Sections / Todas las Secciones</div>
+    <h2 class="section-title">The Full <em>Curriculum</em></h2>
+    <div class="gold-rule"></div>
+    <p style="font-family:'Source Serif 4',serif;color:var(--mist);font-style:italic;margin-bottom:.4rem;">Complete sections unlock as you progress. Click any available section to open it.</p>
+    <p style="font-family:'Source Serif 4',serif;color:rgba(138,170,187,.6);font-size:.88rem;font-style:italic;margin-bottom:2rem;">Las secciones se desbloquean a medida que avanzas. Haz clic en cualquier secci&oacute;n disponible para abrirla.</p>
+    <div class="archive-grid" id="archive-grid"></div>
+  </div>
 
-    function setLang(lang) {
-      body.setAttribute('data-lang', lang);
-      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setLang === lang));
-      try { localStorage.setItem('rimrunLearnLang', lang); } catch (e) {}
-    }
+</div>
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => setLang(btn.dataset.setLang));
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+  <div class="footer-tagline">&ldquo;As go the seas&hellip; so goes humanity.&rdquo;</div>
+  <div class="footer-contact">
+    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
+    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; www.catamarandan.org
+  </div>
+</footer>
+
+<script>
+/* ── GOOGLE APPS SCRIPT URL ──
+   Replace with your deployed Web App URL */
+const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+/* ── CURRICULUM MANIFEST ── */
+const CURRICULUM = [
+  {id:1, num:'01', title:'Physical Oceanography', title_es:'Oceanograf\u00eda F\u00edsica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
+  {id:2, num:'02', title:'Chemical Oceanography', title_es:'Oceanograf\u00eda Qu\u00edmica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
+  {id:3, num:'03', title:'Biological Oceanography', title_es:'Oceanograf\u00eda Biol\u00f3gica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
+  {id:4, num:'04', title:'Geological Oceanography', title_es:'Oceanograf\u00eda Geol\u00f3gica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
+  {id:5, num:'05', title:'Marine Ecology', title_es:'Ecolog\u00eda Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
+  {id:6, num:'06', title:'Marine Climatology', title_es:'Climatolog\u00eda Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
+  {id:7, num:'07', title:'Marine Acoustics', title_es:'Ac\u00fastica Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
+  {id:8, num:'08', title:'Marine Geology & Geophysics', title_es:'Geolog\u00eda y Geof\u00edsica Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
+  {id:9, num:'09', title:'Coastal & Estuarine Science', title_es:'Ciencia Costera y Estuarina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
+  {id:10, num:'10', title:'Ocean Engineering & Technology', title_es:'Ingenier\u00eda y Tecnolog\u00eda Oce\u00e1nica', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
+  {id:11, num:'11', title:'Marine Vertebrates', title_es:'Vertebrados Marinos', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
+  {id:12, num:'12', title:'Marine Invertebrates', title_es:'Invertebrados Marinos', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
+  {id:13, num:'13', title:'Marine Microbiology', title_es:'Microbiolog\u00eda Marina', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
+  {id:14, num:'14', title:'Marine Botany & Phycology', title_es:'Bot\u00e1nica Marina y Ficolog\u00eda', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
+  {id:15, num:'15', title:'Marine Ethology', title_es:'Etolog\u00eda Marina', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
+  {id:16, num:'16', title:'Marine Taxonomy & Systematics', title_es:'Taxonom\u00eda y Sistem\u00e1tica Marina', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
+  {id:17, num:'17', title:'Coral Health Assessment', title_es:'Evaluaci\u00f3n de Salud del Coral', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
+  {id:18, num:'18', title:'Benthic Surveys', title_es:'Levantamientos Bent\u00f3nicos', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
+  {id:19, num:'19', title:'Fish Population Surveys', title_es:'Censos de Poblaciones de Peces', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
+  {id:20, num:'20', title:'Water Quality Monitoring', title_es:'Monitoreo de Calidad del Agua', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
+  {id:21, num:'21', title:'Invasive Species Tracking', title_es:'Seguimiento de Especies Invasoras', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
+  {id:22, num:'22', title:'Long-Term Change Detection', title_es:'Detecci\u00f3n de Cambios a Largo Plazo', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false}
+];
+
+/* ── LESSONS ARRAY ──
+   Each published lesson added here as object:
+   { id, content_en, content_es, regional_en, regional_es,
+     image_svg, image_caption_en, image_caption_es, questions:[] }
+   Each question:
+   { q_en, q_es, answers_en:[], answers_es:[], correct:0-3,
+     explanation_en, explanation_es } */
+const LESSONS = [];
+
+/* ── USER STATE ── */
+let userEmail='', userProgress={}, currentLessonId=1;
+
+/* ── LOGIN ── */
+function handleLogin(e){
+  e.preventDefault();
+  const email=document.getElementById('email-input').value.trim().toLowerCase();
+  const optIn=document.getElementById('optin-check').checked;
+  if(!email)return;
+  userEmail=email;
+  sendToSheet({action:'login',email,optIn,timestamp:new Date().toISOString()});
+  try{const s=localStorage.getItem('rr_p_'+email);if(s)userProgress=JSON.parse(s);}catch(er){}
+  try{sessionStorage.setItem('rr_user',JSON.stringify({email,optIn}));}catch(er){}
+  document.getElementById('login-overlay').style.display='none';
+  initPage();
+}
+
+/* ── GOOGLE SHEETS ── */
+function sendToSheet(data){
+  if(!APPS_SCRIPT_URL||APPS_SCRIPT_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')return;
+  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
+}
+
+function saveProgress(id,score,total){
+  userProgress[id]={complete:true,score,total,date:new Date().toISOString()};
+  try{localStorage.setItem('rr_p_'+userEmail,JSON.stringify(userProgress));}catch(e){}
+  sendToSheet({action:'progress',email:userEmail,lessonId:id,score,total,timestamp:new Date().toISOString()});
+  updateProgressUI();
+  buildArchiveGrid();
+  checkCert();
+}
+
+/* ── INIT ── */
+function initPage(){
+  updateProgressUI();
+  buildArchiveGrid();
+  loadCurrentLesson();
+}
+
+function updateProgressUI(){
+  document.getElementById('progress-panel').classList.add('visible');
+  const done=Object.keys(userProgress).filter(k=>userProgress[k].complete).length;
+  const pct=Math.round((done/22)*100);
+  document.getElementById('progress-greeting').textContent='Welcome back \u2014 '+userEmail;
+  document.getElementById('progress-pct').textContent=done+' / 22 SECTIONS COMPLETE \u2014 '+pct+'%';
+  document.getElementById('progress-fill').style.width=pct+'%';
+  const wrap=document.getElementById('progress-dots');
+  wrap.innerHTML='';
+  CURRICULUM.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='p-dot'+(userProgress[s.id]&&userProgress[s.id].complete?' complete':s.id===currentLessonId?' current':'');
+    d.title=s.num+' '+s.title;
+    d.onclick=()=>{if(userProgress[s.id]||s.id===currentLessonId)openLesson(s.id);};
+    wrap.appendChild(d);
+  });
+}
+
+function buildArchiveGrid(){
+  const grid=document.getElementById('archive-grid');
+  grid.innerHTML='';
+  CURRICULUM.forEach(s=>{
+    const done=userProgress[s.id]&&userProgress[s.id].complete;
+    const isCur=s.id===currentLessonId&&s.published;
+    const locked=!s.published&&!done;
+    const card=document.createElement('div');
+    card.className='archive-card'+(done?' complete':locked?' locked':'');
+    const st=done?'COMPLETE':isCur?'CURRENT':'COMING SOON';
+    const sc=done?'complete':isCur?'current':'locked';
+    card.innerHTML='<div class="archive-num">Section '+s.num+'</div>'+
+      '<div class="archive-title-en">'+s.title+'</div>'+
+      '<div class="archive-title-es">'+s.title_es+'</div>'+
+      '<div class="archive-cat">'+s.category+' &bull; '+s.category_es+'</div>'+
+      '<div class="archive-status '+sc+'">'+st+'</div>';
+    if(!locked)card.onclick=()=>openLesson(s.id);
+    grid.appendChild(card);
+  });
+}
+
+function loadCurrentLesson(){
+  const pub=LESSONS.filter(l=>{const m=CURRICULUM.find(c=>c.id===l.id);return m&&m.published;});
+  if(!pub.length){document.getElementById('lesson-coming-soon').style.display='block';return;}
+  const inc=pub.find(l=>!userProgress[l.id]||!userProgress[l.id].complete);
+  const ld=inc||pub[pub.length-1];
+  currentLessonId=ld.id;
+  renderLesson(ld);
+}
+
+function openLesson(id){
+  const l=LESSONS.find(x=>x.id===id);if(!l)return;
+  currentLessonId=id;renderLesson(l);
+  document.getElementById('active-lesson-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── RENDER LESSON ── */
+function renderLesson(l){
+  const m=CURRICULUM.find(c=>c.id===l.id);
+  const card=document.getElementById('active-lesson-card');
+  document.getElementById('lesson-coming-soon').style.display='none';
+  card.innerHTML=
+    '<div class="lesson-header">'+
+      '<div class="lesson-number">Section '+m.num+' of 22</div>'+
+      '<div class="lesson-title-main">'+m.title+'</div>'+
+      '<div style="font-family:\'Source Serif 4\',serif;font-size:1rem;color:var(--mist);font-style:italic;margin-top:.3rem;">'+m.title_es+'</div>'+
+      '<div class="lesson-category" style="margin-top:.5rem;">'+m.category+' &bull; '+m.category_es+'</div>'+
+    '</div>'+
+    '<div class="lesson-body">'+
+      '<div class="lesson-tabs">'+
+        '<button class="lesson-tab active" onclick="switchTab(this,\'tab-en-'+l.id+'\')">English</button>'+
+        '<button class="lesson-tab" onclick="switchTab(this,\'tab-es-'+l.id+'\')">Espa&ntilde;ol</button>'+
+        '<button class="lesson-tab" onclick="switchTab(this,\'tab-ex-'+l.id+'\')">Exam / Examen (50 Qs)</button>'+
+      '</div>'+
+      '<div class="tab-panel active" id="tab-en-'+l.id+'">'+
+        '<div class="content-block">'+(l.content_en||'')+'</div>'+
+        (l.image_svg?'<div class="lesson-image-wrap">'+l.image_svg+'<div class="image-caption">'+(l.image_caption_en||'')+'</div></div>':'')+
+        '<div class="regional-block"><div class="regional-label">Rim Run&#8482; Regional Application &mdash; Western Caribbean</div><div class="content-block">'+(l.regional_en||'')+'</div></div>'+
+      '</div>'+
+      '<div class="tab-panel" id="tab-es-'+l.id+'">'+
+        '<div class="content-block">'+(l.content_es||'')+'</div>'+
+        (l.image_svg?'<div class="lesson-image-wrap">'+l.image_svg+'<div class="image-caption">'+(l.image_caption_es||'')+'</div></div>':'')+
+        '<div class="regional-block"><div class="regional-label">Aplicaci&oacute;n Regional Rim Run&#8482; &mdash; Caribe Occidental</div><div class="content-block">'+(l.regional_es||'')+'</div></div>'+
+      '</div>'+
+      '<div class="tab-panel" id="tab-ex-'+l.id+'">'+renderMCQ(l)+'</div>'+
+    '</div>';
+}
+
+function switchTab(btn,tid){
+  btn.closest('.lesson-body').querySelectorAll('.lesson-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  btn.closest('.lesson-body').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(tid).classList.add('active');
+}
+
+/* ── MCQ ENGINE ── */
+function renderMCQ(l){
+  if(!l.questions||!l.questions.length){
+    return '<div class="coming-soon"><div class="coming-soon-title">50 Exam Questions Coming Soon</div><p class="coming-soon-sub">The finals-level examination for this section will appear here.<br/><em>El examen final de esta secci&oacute;n aparecer&aacute; aqu&iacute;.</em></p></div>';
+  }
+  window['mcqState_'+l.id]={answered:new Array(l.questions.length).fill(false),correct:0,total:l.questions.length};
+  const prev=userProgress[l.id];
+  let html='<div class="mcq-header"><div class="mcq-title">Final Examination &mdash; Examen Final</div>'+
+    '<div class="mcq-score-display" id="sd-'+l.id+'">'+(prev?prev.score+' / '+prev.total+' PREV SCORE':'0 / '+l.questions.length+' QUESTIONS')+'</div></div>';
+  const ltrs=['A','B','C','D'];
+  l.questions.forEach((q,i)=>{
+    const qid='q_'+l.id+'_'+i;
+    html+='<div class="question-card" id="'+qid+'_c">'+
+      '<div class="question-number">Question '+(i+1)+' of '+l.questions.length+' &bull; Pregunta '+(i+1)+' de '+l.questions.length+'</div>'+
+      '<div class="question-text">'+q.q_en+'<br/><em style="font-size:.88em;color:var(--mist);">'+q.q_es+'</em></div>'+
+      '<ul class="answers-list">';
+    q.answers_en.forEach((a,ai)=>{
+      html+='<li><button class="answer-btn" id="'+qid+'_'+ai+'" onclick="selectAnswer('+l.id+','+i+','+ai+','+q.correct+')">'+
+        '<span class="answer-letter">'+ltrs[ai]+'</span>'+
+        '<span>'+a+'<br/><em style="font-size:.85em;opacity:.7;">'+(q.answers_es[ai]||'')+'</em></span>'+
+        '</button></li>';
     });
+    html+='</ul><div class="question-feedback" id="'+qid+'_fb"></div></div>';
+  });
+  html+='<div class="mcq-complete" id="mc-'+l.id+'">'+
+    '<span class="mcq-complete-score" id="fs-'+l.id+'">0 / '+l.questions.length+'</span>'+
+    '<div class="mcq-complete-msg">Section complete! Your score has been saved.<br/><span class="mcq-complete-msg-es">&iexcl;Secci&oacute;n completa! Tu puntaje ha sido guardado.</span></div>'+
+    '<button class="btn-retake" onclick="retakeExam('+l.id+')">Retake / Repetir</button>'+
+    '</div>';
+  return html;
+}
 
-    try {
-      const saved = localStorage.getItem('rimrunLearnLang');
-      if (saved === 'en' || saved === 'es' || saved === 'both') {
-        setLang(saved);
-      }
-    } catch (e) {}
-  </script>
+function selectAnswer(lid,qi,ci,correct){
+  const st=window['mcqState_'+lid];if(st.answered[qi])return;
+  st.answered[qi]=true;
+  const l=LESSONS.find(x=>x.id===lid);const q=l.questions[qi];
+  const ok=ci===correct;if(ok)st.correct++;
+  const ltrs=['A','B','C','D'];
+  [0,1,2,3].forEach(ai=>{
+    const b=document.getElementById('q_'+lid+'_'+qi+'_'+ai);if(!b)return;
+    b.disabled=true;
+    if(ai===correct)b.classList.add('correct');
+    else if(ai===ci)b.classList.add('incorrect');
+  });
+  const fb=document.getElementById('q_'+lid+'_'+qi+'_fb');
+  fb.className='question-feedback show '+(ok?'correct-fb':'incorrect-fb');
+  fb.innerHTML='<span class="feedback-label">'+(ok?'\u2713 Correct / Correcto':'\u2717 Incorrect / Incorrecto')+'</span>'+
+    (ok?'':'<strong>Correct: '+ltrs[correct]+'</strong> &mdash; ')+
+    q.explanation_en+'<br/><em style="font-size:.88em;">'+q.explanation_es+'</em>';
+  document.getElementById('sd-'+lid).textContent=st.correct+' / '+st.total+' SCORE';
+  if(st.answered.every(Boolean))setTimeout(()=>finishExam(lid,st.correct,st.total),700);
+}
+
+function finishExam(lid,score,total){
+  const el=document.getElementById('mc-'+lid);
+  if(el){el.classList.add('show');document.getElementById('fs-'+lid).textContent=score+' / '+total;el.scrollIntoView({behavior:'smooth',block:'center'});}
+  saveProgress(lid,score,total);
+}
+
+function retakeExam(lid){
+  const l=LESSONS.find(x=>x.id===lid);if(!l)return;
+  window['mcqState_'+lid]={answered:new Array(l.questions.length).fill(false),correct:0,total:l.questions.length};
+  document.getElementById('tab-ex-'+lid).innerHTML=renderMCQ(l);
+}
+
+function checkCert(){
+  if(Object.keys(userProgress).filter(k=>userProgress[k].complete).length>=22){
+    document.getElementById('cert-banner').classList.add('show');
+    sendToSheet({action:'certification',email:userEmail,timestamp:new Date().toISOString()});
+  }
+}
+
+function requestCertificate(){
+  sendToSheet({action:'cert_request',email:userEmail,timestamp:new Date().toISOString()});
+  alert('Your certificate request has been submitted! We will be in touch.\n\n\u00a1Tu solicitud de certificado ha sido enviada! Estaremos en contacto.');
+}
+
+/* ── NAV ── */
+document.addEventListener('DOMContentLoaded',function(){
+  const tg=document.getElementById('nav-toggle');
+  const nav=document.getElementById('main-nav');
+  const nl=document.getElementById('nav-links');
+  if(tg&&nl){
+    tg.addEventListener('click',function(e){e.stopPropagation();nl.classList.toggle('open');tg.classList.toggle('open');});
+    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',function(){nl.classList.remove('open');tg.classList.remove('open');}));
+    document.addEventListener('click',function(e){if(!nav.contains(e.target)){nl.classList.remove('open');tg.classList.remove('open');}});
+  }
+  try{const s=sessionStorage.getItem('rr_user');if(s){const u=JSON.parse(s);userEmail=u.email;try{const p=localStorage.getItem('rr_p_'+userEmail);if(p)userProgress=JSON.parse(p);}catch(e){}document.getElementById('login-overlay').style.display='none';initPage();}}catch(e){}
+});
+</script>
 </body>
 </html>
