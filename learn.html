@@ -84,7 +84,7 @@
 
     .nav{
       display:flex;
-      flex-wrap:wrap;
+      flex-wrap:nowrap;
       gap:18px;
       align-items:center;
       justify-content:flex-end;
@@ -93,6 +93,9 @@
     }
 
     .nav a{
+      display:inline-flex;
+      align-items:center;
+      white-space:nowrap;
       padding:6px 0;
       transition:.2s ease;
     }
@@ -388,7 +391,11 @@
 
     @media (max-width: 720px){
       .nav-wrap{flex-direction:column;align-items:flex-start}
-      .nav{justify-content:flex-start;gap:14px}
+      .nav{
+        justify-content:flex-start;
+        gap:14px;
+        flex-wrap:wrap;
+      }
       .hero-inner{padding:64px 0 58px}
       .hero-card .art{aspect-ratio:16/10}
       .hero-card .copy,
