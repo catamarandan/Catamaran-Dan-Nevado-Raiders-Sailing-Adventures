@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S01·L11 — Data Collection | Rim Run™ Marine Science</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ocean-deep:    #0a1628;
+      --ocean-mid:     #0d2244;
+      --ocean-surface: #0f3460;
+      --teal-bright:   #00b4d8;
+      --teal-pale:     #90e0ef;
+      --teal-glow:     #48cae4;
+      --gold:          #e9c46a;
+      --coral:         #f4a261;
+      --white:         #f0f4f8;
+      --white-dim:     #b8c8d8;
+      --card-bg:       #0b1e38;
+      --panel-bg:      #0e2a4a;
+      --border:        rgba(0,180,216,0.18);
+      --radius:        12px;
+      --shadow:        0 8px 40px rgba(0,0,0,0.55);
+    }
+
+    body {
+      background: var(--ocean-deep);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+
+    /* ── Card ── */
+    .card {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════
+       HEADER
+    ════════════════════════════════ */
+    .card-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-surface) 100%);
+      padding: 36px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-text .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .header-text h1 em {
+      font-style: italic;
+      color: var(--teal-pale);
+    }
+
+    .header-text .subtitle {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      color: var(--white-dim);
+      font-weight: 400;
+    }
+
+    /* ── SVG Illustration ── */
+    .header-svg {
+      width: 230px;
+      height: 160px;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════
+       SECTION WRAPPER
+    ════════════════════════════════ */
+    .section {
+      padding: 38px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    /* ── Language Blocks ── */
+    .lang-block { margin-bottom: 28px; }
+    .lang-block:last-child { margin-bottom: 0; }
+
+    .flag-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--teal-pale);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .flag-label .flag { font-size: 1rem; }
+
+    .lang-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .lang-block p { font-size: 0.93rem; color: var(--white-dim); margin-bottom: 10px; }
+    .lang-block p:last-child { margin-bottom: 0; }
+
+    .lang-divider {
+      border: none;
+      border-top: 1px dashed var(--border);
+      margin: 26px 0;
+    }
+
+    /* ── Key Terms ── */
+    .key-term { color: var(--teal-pale); font-weight: 500; }
+
+    /* ── Data Table ── */
+    .data-table-wrap {
+      margin-top: 28px;
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    thead tr {
+      background: var(--ocean-surface);
+    }
+
+    thead th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-pale);
+      padding: 12px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr { border-top: 1px solid var(--border); }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+
+    tbody td {
+      padding: 11px 16px;
+      color: var(--white-dim);
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--teal-glow);
+      white-space: nowrap;
+    }
+
+    /* ── Application Panel ── */
+    .app-panel {
+      background: var(--panel-bg);
+    }
+
+    .app-panel .panel-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--coral);
+      margin-bottom: 10px;
+    }
+
+    /* ════════════════════════════════
+       MCQ SECTION
+    ════════════════════════════════ */
+    .mcq-section {
+      background: linear-gradient(180deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+      padding: 38px 44px;
+    }
+
+    .mcq-header {
+      margin-bottom: 28px;
+    }
+
+    .mcq-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+
+    .mcq-header p {
+      font-size: 0.82rem;
+      color: var(--white-dim);
+      margin-top: 4px;
+    }
+
+    .mcq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-grid { grid-template-columns: 1fr; }
+      .card-header { grid-template-columns: 1fr; }
+      .header-svg { display: none; }
+      .section, .mcq-section { padding: 28px 22px; }
+    }
+
+    .mcq-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .mcq-q {
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .mcq-q .q-num {
+      font-family: 'DM Mono', monospace;
+      color: var(--teal-glow);
+      font-size: 0.72rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .mcq-q .q-es {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .mcq-options { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+    .mcq-options li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.81rem;
+      line-height: 1.4;
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      color: var(--white-dim);
+      cursor: default;
+    }
+
+    .mcq-options li .opt-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal-glow);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mcq-options li.correct {
+      background: rgba(0,180,216,0.1);
+      border-color: var(--teal-bright);
+      color: var(--teal-pale);
+    }
+
+    .mcq-options li.correct .opt-key { color: var(--teal-bright); }
+
+    .mcq-answer {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--teal-glow);
+      font-family: 'DM Mono', monospace;
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+    }
+
+    /* ════════════════════════════════
+       FOOTER / PROGRESS BAR
+    ════════════════════════════════ */
+    .card-footer {
+      padding: 26px 44px 32px;
+      background: var(--ocean-mid);
+      border-top: 1px solid var(--border);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .progress-meta .lesson-id {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal-glow);
+      letter-spacing: 0.12em;
+    }
+
+    .progress-meta .progress-pct {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--white-dim);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--teal-bright), var(--teal-pale));
+      width: 1.56%; /* 11/704 */
+      transition: width 0.6s ease;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 0.8rem;
+    }
+
+    .footer-nav a {
+      color: var(--teal-glow);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-nav a:hover { color: var(--teal-pale); }
+
+    .footer-credit {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.72rem;
+      color: rgba(176,200,216,0.4);
+      font-family: 'DM Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+<article class="card">
+
+  <!-- ══════════════════════════════
+       HEADER
+  ══════════════════════════════ -->
+  <header class="card-header">
+    <div class="header-text">
+      <p class="eyebrow">Section 01 · Lesson 11 &nbsp;|&nbsp; Physical Oceanography</p>
+      <h1>Oceanographic<br><em>Data Collection</em></h1>
+      <p class="subtitle">Instruments, platforms, and methods for measuring the ocean</p>
+    </div>
+
+    <!-- Scientific SVG: CTD Rosette being lowered from a vessel -->
+    <svg class="header-svg" viewBox="0 0 230 160" xmlns="http://www.w3.org/2000/svg" aria-label="CTD rosette instrument being deployed from research vessel">
+      <!-- Ocean surface -->
+      <rect x="0" y="90" width="230" height="70" fill="#0a2240" rx="0"/>
+      <!-- Water shimmer lines -->
+      <line x1="0" y1="90" x2="230" y2="90" stroke="#00b4d8" stroke-width="1.5" opacity="0.5"/>
+      <path d="M0 96 Q30 93 60 96 Q90 99 120 96 Q150 93 180 96 Q210 99 230 96" stroke="#48cae4" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <path d="M0 103 Q40 100 80 103 Q120 106 160 103 Q200 100 230 103" stroke="#48cae4" stroke-width="0.6" fill="none" opacity="0.25"/>
+
+      <!-- Research vessel hull -->
+      <path d="M60 82 L170 82 L178 90 L52 90 Z" fill="#1a3a5c" stroke="#00b4d8" stroke-width="1"/>
+      <!-- Vessel superstructure -->
+      <rect x="90" y="65" width="50" height="17" fill="#0f2e4a" stroke="#00b4d8" stroke-width="0.8" rx="2"/>
+      <rect x="100" y="58" width="30" height="10" fill="#0d2640" stroke="#48cae4" stroke-width="0.7" rx="1"/>
+      <!-- Bridge windows -->
+      <rect x="93" y="68" width="8" height="6" fill="#48cae4" opacity="0.6" rx="1"/>
+      <rect x="105" y="68" width="8" height="6" fill="#48cae4" opacity="0.6" rx="1"/>
+      <rect x="117" y="68" width="8" height="6" fill="#48cae4" opacity="0.6" rx="1"/>
+      <rect x="129" y="68" width="8" height="6" fill="#48cae4" opacity="0.35" rx="1"/>
+      <!-- Crane arm -->
+      <line x1="155" y1="62" x2="155" y2="30" stroke="#e9c46a" stroke-width="2"/>
+      <line x1="155" y1="30" x2="175" y2="35" stroke="#e9c46a" stroke-width="1.5"/>
+      <!-- Winch cable -->
+      <line x1="173" y1="36" x2="173" y2="132" stroke="#90e0ef" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+      <!-- CTD Rosette frame -->
+      <circle cx="173" cy="118" r="13" fill="none" stroke="#00b4d8" stroke-width="1.5"/>
+      <!-- Rosette spokes -->
+      <line x1="173" y1="105" x2="173" y2="131" stroke="#48cae4" stroke-width="1"/>
+      <line x1="160" y1="118" x2="186" y2="118" stroke="#48cae4" stroke-width="1"/>
+      <line x1="163.8" y1="108.8" x2="182.2" y2="127.2" stroke="#48cae4" stroke-width="0.8"/>
+      <line x1="163.8" y1="127.2" x2="182.2" y2="108.8" stroke="#48cae4" stroke-width="0.8"/>
+      <!-- Niskin bottles on rosette -->
+      <rect x="162" y="110" width="4" height="9" fill="#0f3460" stroke="#90e0ef" stroke-width="0.8" rx="1"/>
+      <rect x="170" y="106" width="4" height="9" fill="#0f3460" stroke="#90e0ef" stroke-width="0.8" rx="1"/>
+      <rect x="178" y="110" width="4" height="9" fill="#0f3460" stroke="#90e0ef" stroke-width="0.8" rx="1"/>
+      <rect x="170" y="121" width="4" height="9" fill="#0f3460" stroke="#90e0ef" stroke-width="0.8" rx="1"/>
+      <!-- CTD sensor package center -->
+      <circle cx="173" cy="118" r="4" fill="#00b4d8" opacity="0.8"/>
+      <circle cx="173" cy="118" r="2" fill="#90e0ef"/>
+
+      <!-- Depth markers on left -->
+      <line x1="20" y1="90" x2="20" y2="155" stroke="#48cae4" stroke-width="0.7" opacity="0.5"/>
+      <text x="24" y="95" font-family="monospace" font-size="6" fill="#90e0ef" opacity="0.7">0 m</text>
+      <text x="24" y="112" font-family="monospace" font-size="6" fill="#90e0ef" opacity="0.6">50 m</text>
+      <text x="24" y="130" font-family="monospace" font-size="6" fill="#90e0ef" opacity="0.5">100 m</text>
+      <line x1="18" y1="94" x2="22" y2="94" stroke="#48cae4" stroke-width="0.7"/>
+      <line x1="18" y1="110" x2="22" y2="110" stroke="#48cae4" stroke-width="0.7"/>
+      <line x1="18" y1="128" x2="22" y2="128" stroke="#48cae4" stroke-width="0.7"/>
+
+      <!-- Data signal wave from CTD -->
+      <path d="M185 118 Q192 113 196 118 Q200 123 204 118 Q208 113 212 118" stroke="#e9c46a" stroke-width="1" fill="none" opacity="0.7"/>
+
+      <!-- Label -->
+      <text x="115" y="152" font-family="monospace" font-size="6.5" fill="#48cae4" text-anchor="middle" opacity="0.85">CTD Rosette · Niskin Bottles</text>
+    </svg>
+  </header>
+
+  <!-- ══════════════════════════════
+       LECTURE PANEL
+  ══════════════════════════════ -->
+  <section class="section" aria-label="Lecture content">
+    <p class="section-label">📖 Lecture</p>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
+      <h2>Measuring the Invisible: Tools for Ocean Science</h2>
+
+      <p>Because the ocean is <span class="key-term">vast, opaque, and largely inaccessible</span>, oceanographers depend on specialized instruments to observe it. Data collection methods fall into three broad categories: <span class="key-term">in situ</span> (sensors placed directly in the water), <span class="key-term">remote sensing</span> (satellites and aircraft measuring from above), and <span class="key-term">autonomous platforms</span> (robotic systems that operate without a crew).</p>
+
+      <p>The workhorse of ship-based sampling is the <span class="key-term">CTD rosette</span> — a circular metal frame holding up to 36 <span class="key-term">Niskin bottles</span> and a central sensor package that continuously records <strong>C</strong>onductivity, <strong>T</strong>emperature, and <strong>D</strong>epth as it descends. When a target depth is reached, bottles are "fired" electronically to trap seawater samples for later chemical analysis. A single cast from a deep-water research vessel can profile the entire water column from surface to the seafloor — sometimes over 6,000 m.</p>
+
+      <p><span class="key-term">Argo floats</span> have revolutionized ocean monitoring since their global rollout in the early 2000s. Each float is a 1.5-meter torpedo-shaped device that drifts freely at a <span class="key-term">parking depth</span> of ~1,000 m, sinks to ~2,000 m, then rises — profiling temperature and salinity — before surfacing to transmit data via satellite. The global array of ~4,000 active Argo floats provides a near-real-time picture of the upper 2,000 m of every ocean basin.</p>
+
+      <p><span class="key-term">Acoustic Doppler Current Profilers (ADCPs)</span> use sound pulses to measure current speed and direction throughout the water column — mounted on ship hulls, moored buoys, or seafloor landers. Meanwhile, <span class="key-term">satellite altimeters</span> (such as those on the Jason series and Sentinel-6) track sea-surface height to within a few centimeters, revealing geostrophic currents and mesoscale eddies invisible from the deck of a ship.</p>
+
+      <p>Sustained ocean <span class="key-term">time-series stations</span> — like Station ALOHA (Hawaii) and the Bermuda Atlantic Time-series Study (BATS) — have collected monthly data for decades, enabling scientists to detect slow trends in temperature, carbon, and biology that no single cruise could capture.</p>
+    </div>
+
+    <hr class="lang-divider"/>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
+      <h2>Midiendo lo Invisible: Herramientas para la Ciencia Oceánica</h2>
+
+      <p>Debido a que el océano es <span class="key-term">vasto, opaco y en gran parte inaccesible</span>, los oceanógrafos dependen de instrumentos especializados para observarlo. Los métodos de recopilación de datos se dividen en tres categorías principales: <span class="key-term">in situ</span> (sensores colocados directamente en el agua), <span class="key-term">teledetección</span> (satélites y aeronaves que miden desde arriba) y <span class="key-term">plataformas autónomas</span> (sistemas robóticos sin tripulación).</p>
+
+      <p>El instrumento central del muestreo desde barcos es la <span class="key-term">roseta CTD</span> — un armazón circular metálico que sostiene hasta 36 <span class="key-term">botellas Niskin</span> y un paquete de sensores que registra continuamente <strong>C</strong>onductividad, <strong>T</strong>emperatura y <strong>P</strong>rofundidad (Depth) durante el descenso. Al llegar a la profundidad deseada, las botellas se "disparan" electrónicamente para atrapar muestras de agua. Un solo lanzamiento desde un buque de investigación de aguas profundas puede perfilar toda la columna de agua, a veces más de 6,000 m.</p>
+
+      <p>Los <span class="key-term">flotadores Argo</span> han revolucionado el monitoreo oceánico desde su despliegue global a comienzos de los años 2000. Cada flotador mide 1.5 m, deriva a una <span class="key-term">profundidad de estacionamiento</span> de ~1,000 m, desciende a ~2,000 m y luego asciende perfilando temperatura y salinidad antes de emerger y transmitir datos por satélite. La red global de ~4,000 flotadores Argo activos proporciona una imagen casi en tiempo real de los primeros 2,000 m de todas las cuencas oceánicas.</p>
+
+      <p>Los <span class="key-term">perfiladores de corriente por efecto Doppler acústico (ADCP)</span> utilizan pulsos de sonido para medir velocidad y dirección de corrientes en toda la columna de agua. Los <span class="key-term">altímetros satelitales</span> (como los de la serie Jason y Sentinel-6) registran la altura de la superficie marina con precisión de pocos centímetros, revelando corrientes geostróficas y remolinos de mesoescala imposibles de detectar desde cubierta.</p>
+
+      <p>Las <span class="key-term">estaciones de series de tiempo</span> — como la Estación ALOHA (Hawái) y el estudio BATS (Bermudas) — han recopilado datos mensuales durante décadas, permitiendo detectar tendencias lentas en temperatura, carbono y biología que ningún crucero aislado podría capturar.</p>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Instrument / Instrumento</th>
+            <th>Measures / Mide</th>
+            <th>Depth Range / Rango</th>
+            <th>Platform / Plataforma</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CTD Rosette</td>
+            <td>Conductivity, Temperature, Depth; water samples</td>
+            <td>0 – 6,000+ m</td>
+            <td>Research vessel</td>
+          </tr>
+          <tr>
+            <td>Niskin Bottle</td>
+            <td>Chemical composition, nutrients, O₂, CO₂</td>
+            <td>Any target depth</td>
+            <td>CTD rosette frame</td>
+          </tr>
+          <tr>
+            <td>Argo Float</td>
+            <td>Temperature, salinity (T–S profiles)</td>
+            <td>0 – 2,000 m</td>
+            <td>Autonomous drift</td>
+          </tr>
+          <tr>
+            <td>ADCP</td>
+            <td>Current speed &amp; direction (full column)</td>
+            <td>0 – 1,000 m</td>
+            <td>Ship hull / mooring / lander</td>
+          </tr>
+          <tr>
+            <td>XBT (Expendable Bathythermograph)</td>
+            <td>Temperature vs. depth</td>
+            <td>0 – 760 m</td>
+            <td>Ship or aircraft</td>
+          </tr>
+          <tr>
+            <td>Satellite Altimeter</td>
+            <td>Sea-surface height (±2–3 cm precision)</td>
+            <td>Surface only</td>
+            <td>Polar-orbiting satellite</td>
+          </tr>
+          <tr>
+            <td>Moored Buoy / NDBC</td>
+            <td>Wind, wave height, SST, air pressure</td>
+            <td>Surface &amp; near-surface</td>
+            <td>Fixed anchor, telemetry</td>
+          </tr>
+          <tr>
+            <td>Glider (AUV)</td>
+            <td>T, S, O₂, chlorophyll, turbidity</td>
+            <td>0 – 1,000 m</td>
+            <td>Autonomous underwater vehicle</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       WESTERN CARIBBEAN APPLICATION
+  ══════════════════════════════ -->
+  <section class="section app-panel" aria-label="Western Caribbean application">
+    <p class="section-label">🌊 Western Caribbean Application</p>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
+      <p class="panel-heading">Data Collection in the Western Caribbean &amp; Gulf of Mexico</p>
+
+      <p>The Western Caribbean Sea and Gulf of Mexico present unique monitoring challenges: a semi-enclosed basin with complex circulation, frequent hurricane passages, and limited deep-water research infrastructure compared to open-ocean regions. Nevertheless, several coordinated observing programs operate here.</p>
+
+      <p>The <span class="key-term">NOAA National Data Buoy Center (NDBC)</span> maintains a network of moored buoys across the Gulf of Mexico, transmitting real-time wave heights, sea-surface temperature (SST), wind, and barometric pressure — data critical to hurricane forecasting. Buoys such as Station 42001 (central Gulf) and 42056 (Yucatán Channel) help track the Loop Current's influence on surface temperatures.</p>
+
+      <p>The <span class="key-term">Loop Current</span> is regularly profiled by Argo floats and has been instrumented with deep-sea moorings by NOAA and university research groups (particularly from Texas A&amp;M and the University of Miami) to understand warm-core eddies that detach and drift westward, fueling hurricane intensification over the Gulf's deep waters.</p>
+
+      <p>Catamaran Dan's Rim Run™ route through the Western Caribbean crosses three distinct water masses — Yucatán Channel inflow, Caribbean Surface Water, and Gulf of Honduras shelf water — each of which would register differently on a CTD cast. Students aboard, in principle, could deploy an expendable bathythermograph (XBT) to profile temperature with depth and compare to Argo float climatology for the same time of year.</p>
+
+      <p>The <span class="key-term">Mesoamerican Reef System</span> (the world's second-largest barrier reef, running from Mexico's Yucatán to Honduras) is monitored in part by continuous temperature loggers and periodic CTD surveys to detect bleaching-risk thermal anomalies — linking physical data collection directly to coral ecosystem health.</p>
+    </div>
+
+    <hr class="lang-divider"/>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
+      <p class="panel-heading">Recopilación de Datos en el Caribe Occidental y el Golfo de México</p>
+
+      <p>El Mar Caribe Occidental y el Golfo de México presentan desafíos únicos de monitoreo: una cuenca semicerrada con circulación compleja, frecuentes huracanes y escasa infraestructura de investigación en aguas profundas en comparación con regiones oceánicas abiertas.</p>
+
+      <p>El <span class="key-term">Centro Nacional de Boyas de Datos de la NOAA (NDBC)</span> mantiene una red de boyas ancladas en el Golfo de México que transmiten en tiempo real alturas de olas, temperatura superficial del mar (TSM), viento y presión barométrica — datos críticos para el pronóstico de huracanes. Boyas como la Estación 42001 (Golfo central) y 42056 (Canal de Yucatán) ayudan a rastrear la influencia de la Corriente del Lazo sobre las temperaturas superficiales.</p>
+
+      <p>La <span class="key-term">Corriente del Lazo</span> es perfilada regularmente por flotadores Argo y ha sido instrumentada con fondeos en aguas profundas por la NOAA y grupos universitarios para comprender los remolinos de núcleo cálido que se desprenden y derivan hacia el oeste, alimentando la intensificación de huracanes sobre las aguas profundas del Golfo.</p>
+
+      <p>La ruta Rim Run™ de Catamaran Dan a través del Caribe Occidental atraviesa tres masas de agua distintas — flujo de entrada del Canal de Yucatán, Agua Superficial del Caribe y agua de la plataforma del Golfo de Honduras — cada una con una firma diferente en un lanzamiento de CTD. Los estudiantes a bordo podrían, en principio, desplegar un batitermógrafo desechable (XBT) para perfilar temperatura con profundidad.</p>
+
+      <p>El <span class="key-term">Sistema de Arrecifes Mesoamericano</span> — el segundo arrecife de barrera más grande del mundo, desde el Yucatán hasta Honduras — es monitoreado parcialmente con registradores de temperatura continuos y perfiles CTD periódicos para detectar anomalías térmicas de riesgo de blanqueamiento, vinculando directamente la recopilación de datos físicos con la salud del ecosistema coralino.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       MCQ — 3-COLUMN BILINGUAL
+  ══════════════════════════════ -->
+  <section class="mcq-section" aria-label="Multiple choice questions">
+    <div class="mcq-header">
+      <h3>Knowledge Check · Verificación de Conocimiento</h3>
+      <p>Static bilingual quiz — correct answers highlighted &nbsp;/&nbsp; Cuestionario bilingüe estático — respuestas correctas marcadas</p>
+    </div>
+
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q1</span>
+          What does the "C" in CTD stand for?
+          <span class="q-es">¿Qué significa la "C" en CTD?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Carbon / Carbono</li>
+          <li class="correct"><span class="opt-key">B</span> Conductivity / Conductividad</li>
+          <li><span class="opt-key">C</span> Current / Corriente</li>
+          <li><span class="opt-key">D</span> Chlorophyll / Clorofila</li>
+        </ul>
+        <p class="mcq-answer">✓ B — Conductivity is used to calculate salinity.</p>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q2</span>
+          At what "parking depth" do most Argo floats drift between profiles?
+          <span class="q-es">¿A qué "profundidad de estacionamiento" derivan la mayoría de los flotadores Argo?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> 200 m</li>
+          <li><span class="opt-key">B</span> 500 m</li>
+          <li class="correct"><span class="opt-key">C</span> ~1,000 m</li>
+          <li><span class="opt-key">D</span> 4,000 m</li>
+        </ul>
+        <p class="mcq-answer">✓ C — They park at ~1,000 m, then dive to 2,000 m before surfacing.</p>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q3</span>
+          Niskin bottles on a CTD rosette are used to collect…
+          <span class="q-es">Las botellas Niskin en una roseta CTD se usan para recolectar…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Seafloor sediment cores</li>
+          <li class="correct"><span class="opt-key">B</span> Discrete water samples at target depths</li>
+          <li><span class="opt-key">C</span> Acoustic velocity profiles</li>
+          <li><span class="opt-key">D</span> Satellite altimetry data</li>
+        </ul>
+        <p class="mcq-answer">✓ B — Bottles are triggered ("fired") at specific depths.</p>
+      </div>
+
+      <!-- Q4 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q4</span>
+          Which instrument uses sound pulses to measure ocean current velocity?
+          <span class="q-es">¿Qué instrumento usa pulsos de sonido para medir la velocidad de las corrientes?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> XBT (Expendable Bathythermograph)</li>
+          <li><span class="opt-key">B</span> Argo Float</li>
+          <li class="correct"><span class="opt-key">C</span> ADCP (Acoustic Doppler Current Profiler)</li>
+          <li><span class="opt-key">D</span> Satellite altimeter</li>
+        </ul>
+        <p class="mcq-answer">✓ C — ADCP exploits the Doppler shift of reflected sound.</p>
+      </div>
+
+      <!-- Q5 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q5</span>
+          Satellite altimeters can reveal ocean features by measuring…
+          <span class="q-es">Los altímetros satelitales revelan características oceánicas midiendo…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Seafloor bathymetry</li>
+          <li class="correct"><span class="opt-key">B</span> Sea-surface height with centimeter precision</li>
+          <li><span class="opt-key">C</span> Sub-thermocline temperature</li>
+          <li><span class="opt-key">D</span> Dissolved oxygen concentration</li>
+        </ul>
+        <p class="mcq-answer">✓ B — Height anomalies map geostrophic currents and eddies.</p>
+      </div>
+
+      <!-- Q6 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q6</span>
+          Why are long-running ocean time-series stations (like ALOHA &amp; BATS) scientifically valuable?
+          <span class="q-es">¿Por qué son valiosas las estaciones oceánicas de series de tiempo (como ALOHA y BATS)?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> They can deploy CTD casts deeper than any ship</li>
+          <li><span class="opt-key">B</span> They measure the seafloor in real time</li>
+          <li class="correct"><span class="opt-key">C</span> They detect slow multi-decadal trends invisible to single cruises</li>
+          <li><span class="opt-key">D</span> They replace the need for satellite data</li>
+        </ul>
+        <p class="mcq-answer">✓ C — Decades of consistent monthly sampling reveal long-term change.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       FOOTER & PROGRESS BAR
+  ══════════════════════════════ -->
+  <footer class="card-footer">
+    <div class="progress-meta">
+      <span class="lesson-id">S01·L11 / 704 &nbsp;—&nbsp; Physical Oceanography: Data Collection</span>
+      <span class="progress-pct">1.56 % complete</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <nav class="footer-nav" aria-label="Lesson navigation">
+      <a href="s01-l10.html">← S01·L10</a>
+      <a href="../learn.html">⊞ Curriculum Grid</a>
+      <a href="s01-l12.html">S01·L12 →</a>
+    </nav>
+    <p class="footer-credit">Rim Run™ Marine Science Curriculum &nbsp;·&nbsp; Catamaran Dan / Nevado Raiders Sailing Adventures</p>
+  </footer>
+
+</article>
+</body>
+</html>
