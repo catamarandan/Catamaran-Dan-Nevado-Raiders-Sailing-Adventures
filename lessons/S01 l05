@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L05 Physical Oceanography — Dynamics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px; height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px; overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 0.71%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 05 · Physical Oceanography</div>
+        <h1 class="lesson-title">Dynamics</h1>
+        <div class="lesson-subtitle">Dinámica Oceanográfica Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG ILLUSTRATION — Geostrophic Flow, Vorticity & Gyre Dynamics -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="gyreG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#0a6e8a" stop-opacity="0.05"/>
+          </linearGradient>
+          <radialGradient id="centerG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Subtle grid -->
+        <g stroke="rgba(26,200,200,0.06)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ── GYRE CIRCULATION (main visual, center-left) ── -->
+        <!-- Gyre fill -->
+        <ellipse cx="152" cy="145" rx="108" ry="88" fill="url(#gyreG)"/>
+        <ellipse cx="152" cy="145" rx="108" ry="88"
+                 fill="none" stroke="rgba(26,200,200,0.12)" stroke-width="1"/>
+
+        <!-- Gyre center glow -->
+        <ellipse cx="152" cy="145" rx="40" ry="32" fill="url(#centerG)"/>
+
+        <!-- Anticyclonic flow arrows (clockwise in NH subtropical gyre) -->
+        <!-- Top arc: left to right -->
+        <path d="M60,80 C90,58 130,52 175,60 C205,65 228,75 242,92"
+              fill="none" stroke="rgba(26,200,200,0.65)" stroke-width="1.5"/>
+        <polygon points="242,92 234,85 238,96" fill="rgba(26,200,200,0.65)"/>
+
+        <!-- Right arc: top to bottom -->
+        <path d="M242,92 C252,110 255,130 248,155 C242,172 232,188 215,200"
+              fill="none" stroke="rgba(26,200,200,0.55)" stroke-width="1.5"/>
+        <polygon points="215,200 222,192 210,192" fill="rgba(26,200,200,0.55)"/>
+
+        <!-- Bottom arc: right to left -->
+        <path d="M215,200 C190,215 158,218 125,210 C100,204 78,192 64,175"
+              fill="none" stroke="rgba(26,200,200,0.45)" stroke-width="1.5"/>
+        <polygon points="64,175 70,184 60,182" fill="rgba(26,200,200,0.45)"/>
+
+        <!-- Left arc: bottom to top -->
+        <path d="M64,175 C52,158 48,138 52,115 C55,98 60,85 68,76"
+              fill="none" stroke="rgba(26,200,200,0.55)" stroke-width="1.5"/>
+        <polygon points="68,76 60,82 70,86" fill="rgba(26,200,200,0.55)"/>
+
+        <!-- Gyre label -->
+        <text x="152" y="138" font-family="monospace" font-size="8"
+              fill="rgba(26,200,200,0.7)" text-anchor="middle" letter-spacing="0.1em">SUBTROPICAL</text>
+        <text x="152" y="150" font-family="monospace" font-size="8"
+              fill="rgba(26,200,200,0.7)" text-anchor="middle" letter-spacing="0.1em">GYRE</text>
+        <text x="152" y="162" font-family="monospace" font-size="6.5"
+              fill="rgba(138,184,204,0.45)" text-anchor="middle">anticyclonic · NH</text>
+
+        <!-- ── GEOSTROPHIC BALANCE (right panel) ── -->
+        <!-- Pressure gradient arrow (inward) -->
+        <line x1="310" y1="80" x2="310" y2="115"
+              stroke="rgba(240,180,41,0.6)" stroke-width="1.4"/>
+        <polygon points="310,115 305,106 315,106" fill="rgba(240,180,41,0.6)"/>
+        <text x="328" y="100" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.6)" text-anchor="middle">∇P</text>
+        <text x="328" y="110" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.45)" text-anchor="middle">pressure</text>
+        <text x="328" y="120" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.45)" text-anchor="middle">gradient</text>
+
+        <!-- Coriolis arrow (outward, perpendicular) -->
+        <line x1="288" y1="140" x2="332" y2="140"
+              stroke="rgba(232,96,64,0.6)" stroke-width="1.4"/>
+        <polygon points="288,140 297,135 297,145" fill="rgba(232,96,64,0.6)"/>
+        <text x="310" y="158" font-family="monospace" font-size="7"
+              fill="rgba(232,96,64,0.55)" text-anchor="middle">Coriolis</text>
+
+        <!-- Geostrophic flow arrow (along isobars) -->
+        <line x1="310" y1="175" x2="354" y2="175"
+              stroke="rgba(184,240,236,0.7)" stroke-width="1.6"/>
+        <polygon points="354,175 344,170 344,180" fill="rgba(184,240,236,0.7)"/>
+        <text x="332" y="190" font-family="monospace" font-size="7"
+              fill="rgba(184,240,236,0.6)" text-anchor="middle">geostrophic</text>
+        <text x="332" y="200" font-family="monospace" font-size="7"
+              fill="rgba(184,240,236,0.6)" text-anchor="middle">current</text>
+
+        <!-- Balance label -->
+        <text x="310" y="68" font-family="monospace" font-size="7.5"
+              fill="rgba(138,184,204,0.55)" text-anchor="middle" letter-spacing="0.08em">GEOSTROPHIC</text>
+        <text x="310" y="78" font-family="monospace" font-size="7.5"
+              fill="rgba(138,184,204,0.55)" text-anchor="middle" letter-spacing="0.08em">BALANCE</text>
+
+        <!-- Divider -->
+        <line x1="272" y1="50" x2="272" y2="230"
+              stroke="rgba(26,200,200,0.12)" stroke-width="0.8" stroke-dasharray="3,4"/>
+
+        <!-- ── VORTICITY INDICATOR (top right) ── -->
+        <!-- Cyclonic (CCW) mini-circle -->
+        <circle cx="310" cy="32" r="14" fill="rgba(26,200,200,0.06)"
+                stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+        <path d="M300,26 A14,14 0 0,0 320,38"
+              fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <polygon points="320,38 313,35 318,44" fill="rgba(26,200,200,0.5)"/>
+        <text x="310" y="31" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.6)" text-anchor="middle">+ζ</text>
+        <text x="310" y="52" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.4)" text-anchor="middle">cyclonic</text>
+
+        <!-- Anticyclonic (CW) mini-circle -->
+        <circle cx="355" cy="32" r="14" fill="rgba(240,180,41,0.05)"
+                stroke="rgba(240,180,41,0.25)" stroke-width="0.8"/>
+        <path d="M345,26 A14,14 0 0,1 365,38"
+              fill="none" stroke="rgba(240,180,41,0.45)" stroke-width="1.2"/>
+        <polygon points="365,38 358,44 363,35" fill="rgba(240,180,41,0.45)"/>
+        <text x="355" y="31" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.55)" text-anchor="middle">−ζ</text>
+        <text x="355" y="52" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.35)" text-anchor="middle">anticyclonic</text>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="220" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.13em">OCEAN DYNAMICS  ·  GYRE &amp; BALANCE</text>
+
+        <!-- Depth/scale note -->
+        <text x="44" y="250" font-family="monospace" font-size="6.5"
+              fill="rgba(138,184,204,0.3)" letter-spacing="0.06em">
+          Rossby number Ro = U/fL · geostrophic balance when Ro ≪ 1
+        </text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Ocean dynamics describes the forces that govern fluid motion at the scales of currents, gyres, and mesoscale eddies. The dominant balance in the large-scale ocean is <strong>geostrophic balance</strong>: the pressure gradient force (water flowing from high to low pressure) is exactly opposed by the <strong>Coriolis force</strong> (Earth's rotation deflecting moving water), producing steady currents that flow <em>along</em> rather than across pressure contours. When geostrophic balance holds, the <strong>Rossby number</strong> (Ro = U/fL) is much less than 1, meaning rotation dominates over inertia. Departures from geostrophic balance drive <strong>ageostrophic flows</strong> — the meanders, instabilities, and eddies that transfer energy across scales. Ocean gyres are large, persistent, wind-driven circulation systems bounded by continental margins; subtropical gyres rotate <strong>clockwise</strong> in the Northern Hemisphere (anticyclonic) due to the combined action of trade winds, westerlies, and Coriolis. <strong>Vorticity</strong> — the tendency for fluid to rotate — is a conserved quantity in the ocean; stretching a water column increases its spin, while compression slows it, producing the <strong>beta effect</strong> that drives westward intensification of boundary currents like the Gulf Stream and the Yucatán Current.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Force / Concept</th><th>Symbol</th><th>Effect on Ocean Flow</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pressure Gradient</td><td>∇P</td><td>Drives flow from high to low pressure</td></tr>
+          <tr><td>Coriolis</td><td>f = 2Ω sinφ</td><td>Deflects flow right (NH), left (SH)</td></tr>
+          <tr><td>Geostrophic Balance</td><td>Ro ≪ 1</td><td>Steady along-isobar currents</td></tr>
+          <tr><td>Vorticity / β-effect</td><td>ζ, β</td><td>Westward gyre intensification</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La dinámica oceánica describe las fuerzas que gobiernan el movimiento del fluido a escalas de corrientes, giros y remolinos de mesoescala. El balance dominante en el océano a gran escala es el <strong>balance geostrófico</strong>: la fuerza del gradiente de presión (agua fluyendo de alta a baja presión) es exactamente opuesta por la <strong>fuerza de Coriolis</strong> (la rotación de la Tierra deflectando el agua en movimiento), produciendo corrientes estables que fluyen <em>a lo largo</em> de los contornos de presión. Cuando el balance geostrófico prevalece, el <strong>número de Rossby</strong> (Ro = U/fL) es mucho menor que 1, lo que significa que la rotación domina sobre la inercia. Las desviaciones del balance geostrófico impulsan <strong>flujos ageostrófico</strong> — los meandros, inestabilidades y remolinos que transfieren energía entre escalas. Los giros oceánicos son grandes sistemas de circulación persistentes impulsados por el viento; los giros subtropicales rotan en sentido <strong>horario</strong> en el hemisferio norte (anticiclónico) por la acción combinada de vientos alisios, vientos del oeste y Coriolis. La <strong>vorticidad</strong> — la tendencia del fluido a rotar — es una cantidad conservada; la elongación de una columna de agua aumenta su rotación, mientras que la compresión la frena, produciendo el <strong>efecto beta</strong> que impulsa la intensificación hacia el oeste de las corrientes de frontera como la Corriente del Golfo y la Corriente de Yucatán.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Fuerza / Concepto</th><th>Símbolo</th><th>Efecto en el Flujo Oceánico</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Gradiente de Presión</td><td>∇P</td><td>Impulsa el flujo de alta a baja presión</td></tr>
+          <tr><td>Coriolis</td><td>f = 2Ω sinφ</td><td>Deflecta el flujo a la derecha (HN), izquierda (HS)</td></tr>
+          <tr><td>Balance Geostrófico</td><td>Ro ≪ 1</td><td>Corrientes estables a lo largo de isobaras</td></tr>
+          <tr><td>Vorticidad / efecto-β</td><td>ζ, β</td><td>Intensificación del giro hacia el oeste</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /lecture-panel -->
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean is a textbook setting for observing ocean dynamics at multiple scales simultaneously — from the basin-scale anticyclonic gyre of the Caribbean Sea, to the intense western boundary current threading the Yucatán Channel, to the mesoscale eddies that spin off and dominate the Gulf of Mexico.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>The Caribbean anticyclone:</strong> The Caribbean Sea operates as a semi-enclosed sub-basin of the North Atlantic subtropical gyre. Surface flow is predominantly westward along the southern and central Caribbean, turning northward as it approaches the Yucatán Channel — a textbook demonstration of anticyclonic gyre circulation constrained by continental boundaries.</li>
+        <li><strong>Yucatán Current — western boundary intensification:</strong> The Yucatán Current is the western boundary current of the Caribbean gyre. The beta effect concentrates kinetic energy on the western margin, producing a swift, narrow, northward-flowing jet through the Yucatán Channel reaching speeds of <strong>1.5–2.5 knots</strong> — significantly faster than the broad interior flow. This current directly feeds the Loop Current and ultimately the Gulf Stream.</li>
+        <li><strong>Loop Current eddies:</strong> After entering the Gulf of Mexico, the Loop Current periodically pinches off large anticyclonic warm-core eddies (<strong>200–300 km diameter</strong>) that drift westward across the Gulf. These mesoscale eddies carry warm, high-salinity Caribbean water into the Gulf, influencing hurricane intensification and deepwater circulation throughout the basin.</li>
+        <li><strong>Caribbean eddies and reef connectivity:</strong> Mesoscale cyclonic and anticyclonic eddies within the Caribbean itself modulate larval transport pathways along the Mesoamerican Barrier Reef. Cyclonic eddies (low-pressure, CCW) can upwell nutrients and concentrate larvae near the reef corridor; anticyclonic eddies (high-pressure, CW) tend to suppress upwelling and spread larvae offshore, directly affecting reef connectivity and replenishment rates.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Caribe occidental es un escenario de libro de texto para observar la dinámica oceánica a múltiples escalas simultáneamente — desde el giro anticiclónico a escala de cuenca del Mar Caribe, hasta la intensa corriente de frontera occidental que atraviesa el Canal de Yucatán, pasando por los remolinos de mesoescala que se desprenden y dominan el Golfo de México.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>El anticiclón caribeño:</strong> El Mar Caribe funciona como una subcuenca semicerrada del giro subtropical del Atlántico Norte. El flujo superficial es predominantemente hacia el oeste a lo largo del Caribe sur y central, girando hacia el norte al acercarse al Canal de Yucatán — una demostración de libro de texto de la circulación anticiclónica de giro limitada por bordes continentales.</li>
+        <li><strong>Corriente de Yucatán — intensificación en el borde occidental:</strong> La Corriente de Yucatán es la corriente de frontera occidental del giro caribeño. El efecto beta concentra energía cinética en el margen occidental, produciendo un chorro estrecho y veloz hacia el norte a través del Canal de Yucatán con velocidades de <strong>1.5–2.5 nudos</strong> — significativamente más rápido que el flujo interior amplio. Esta corriente alimenta directamente la Corriente del Lazo y, en última instancia, la Corriente del Golfo.</li>
+        <li><strong>Remolinos de la Corriente del Lazo:</strong> Tras entrar al Golfo de México, la Corriente del Lazo periódicamente desprende grandes remolinos anticiclónicos de núcleo cálido (<strong>200–300 km de diámetro</strong>) que derivan hacia el oeste por el Golfo. Estos remolinos de mesoescala transportan agua cálida y salada del Caribe al Golfo, influyendo en la intensificación de huracanes y la circulación de aguas profundas.</li>
+        <li><strong>Remolinos caribeños y conectividad arrecifal:</strong> Los remolinos ciclónicos y anticiclónicos de mesoescala dentro del propio Caribe modulan las rutas de transporte larvario a lo largo del Arrecife Mesoamericano. Los remolinos ciclónicos pueden aflorar nutrientes y concentrar larvas cerca del corredor arrecifal; los anticiclónicos tienden a suprimir el afloramiento y dispersar larvas mar adentro, afectando directamente la conectividad y las tasas de reabastecimiento del arrecife.</li>
+      </ul>
+    </div><!-- /caribbean-panel -->
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 In geostrophic balance, what two forces are in equilibrium to produce steady ocean currents?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Wind stress and bottom friction</li>
+            <li><span class="opt-letter">B.</span> Pressure gradient force and Coriolis force</li>
+            <li><span class="opt-letter">C.</span> Buoyancy and thermohaline density differences</li>
+            <li><span class="opt-letter">D.</span> Tidal forcing and gravitational pull</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Geostrophic balance: pressure gradient force = Coriolis force, producing along-isobar flow.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En el balance geostrófico, ¿qué dos fuerzas están en equilibrio para producir corrientes oceánicas estables?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Estrés del viento y fricción del fondo</li>
+            <li><span class="opt-letter">B.</span> Fuerza del gradiente de presión y fuerza de Coriolis</li>
+            <li><span class="opt-letter">C.</span> Flotabilidad y diferencias de densidad termohalina</li>
+            <li><span class="opt-letter">D.</span> Forzamiento mareal y atracción gravitacional</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Balance geostrófico: fuerza del gradiente de presión = fuerza de Coriolis, produciendo flujo a lo largo de isobaras.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 The Yucatán Current flows faster and is narrower than the broad interior Caribbean flow. Which dynamical principle best explains this?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The Ekman spiral concentrates wind energy at the western boundary</li>
+            <li><span class="opt-letter">B.</span> Tidal forcing amplifies near continental margins</li>
+            <li><span class="opt-letter">C.</span> The beta effect causes westward intensification of boundary currents</li>
+            <li><span class="opt-letter">D.</span> Thermohaline circulation sinks cold water along the Yucatán shelf</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The beta (β) effect and vorticity conservation cause western boundary current intensification.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 La Corriente de Yucatán fluye más rápido y es más estrecha que el flujo interior amplio del Caribe. ¿Qué principio dinámico explica mejor esto?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La espiral de Ekman concentra energía del viento en el borde occidental</li>
+            <li><span class="opt-letter">B.</span> El forzamiento mareal se amplifica cerca de los márgenes continentales</li>
+            <li><span class="opt-letter">C.</span> El efecto beta causa la intensificación hacia el oeste de las corrientes de frontera</li>
+            <li><span class="opt-letter">D.</span> La circulación termohalina hunde agua fría a lo largo de la plataforma de Yucatán</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El efecto beta (β) y la conservación de vorticidad causan la intensificación de la corriente de frontera occidental.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A cyclonic eddy forms over the Mesoamerican Barrier Reef corridor. What is the most likely ecological consequence?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Suppressed upwelling reduces nutrients; larvae are pushed offshore away from the reef</li>
+            <li><span class="opt-letter">B.</span> Upwelled nutrients and concentrated larvae enhance reef connectivity and productivity</li>
+            <li><span class="opt-letter">C.</span> Increased salinity from downwelling stresses coral polyps and reduces calcification</li>
+            <li><span class="opt-letter">D.</span> Clockwise rotation drives sediment deposition that smothers benthic communities</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Cyclonic eddies upwell nutrients and concentrate larvae, enhancing reef productivity and connectivity.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un remolino ciclónico se forma sobre el corredor del Arrecife Mesoamericano. ¿Cuál es la consecuencia ecológica más probable?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El afloramiento suprimido reduce nutrientes; las larvas son empujadas mar adentro lejos del arrecife</li>
+            <li><span class="opt-letter">B.</span> Los nutrientes aflorados y las larvas concentradas mejoran la conectividad y productividad del arrecife</li>
+            <li><span class="opt-letter">C.</span> El aumento de salinidad por hundimiento estresa los pólipos de coral y reduce la calcificación</li>
+            <li><span class="opt-letter">D.</span> La rotación horaria impulsa la deposición de sedimentos que asfixia las comunidades bentónicas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los remolinos ciclónicos afloram nutrientes y concentran larvas, mejorando la productividad y conectividad del arrecife.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 05 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L05 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
