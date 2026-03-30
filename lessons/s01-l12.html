@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S01·L12 — Ocean Waves | Rim Run™ Marine Science</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ocean-deep:    #0a1628;
+      --ocean-mid:     #0d2244;
+      --ocean-surface: #0f3460;
+      --teal-bright:   #00b4d8;
+      --teal-pale:     #90e0ef;
+      --teal-glow:     #48cae4;
+      --gold:          #e9c46a;
+      --coral:         #f4a261;
+      --white:         #f0f4f8;
+      --white-dim:     #b8c8d8;
+      --card-bg:       #0b1e38;
+      --panel-bg:      #0e2a4a;
+      --border:        rgba(0,180,216,0.18);
+      --radius:        12px;
+      --shadow:        0 8px 40px rgba(0,0,0,0.55);
+    }
+
+    body {
+      background: var(--ocean-deep);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .card-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-surface) 100%);
+      padding: 36px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-text .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .header-text h1 em {
+      font-style: italic;
+      color: var(--teal-pale);
+    }
+
+    .header-text .subtitle {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      color: var(--white-dim);
+      font-weight: 400;
+    }
+
+    .header-svg { width: 230px; height: 160px; flex-shrink: 0; }
+
+    /* SECTIONS */
+    .section {
+      padding: 38px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .lang-block { margin-bottom: 28px; }
+    .lang-block:last-child { margin-bottom: 0; }
+
+    .flag-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--teal-pale);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .flag-label .flag { font-size: 1rem; }
+
+    .lang-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .lang-block p { font-size: 0.93rem; color: var(--white-dim); margin-bottom: 10px; }
+    .lang-block p:last-child { margin-bottom: 0; }
+
+    .lang-divider {
+      border: none;
+      border-top: 1px dashed var(--border);
+      margin: 26px 0;
+    }
+
+    .key-term { color: var(--teal-pale); font-weight: 500; }
+
+    /* DATA TABLE */
+    .data-table-wrap {
+      margin-top: 28px;
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+
+    thead tr { background: var(--ocean-surface); }
+
+    thead th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-pale);
+      padding: 12px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr { border-top: 1px solid var(--border); }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+
+    tbody td { padding: 11px 16px; color: var(--white-dim); vertical-align: top; }
+
+    tbody td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--teal-glow);
+      white-space: nowrap;
+    }
+
+    /* APP PANEL */
+    .app-panel { background: var(--panel-bg); }
+
+    .app-panel .panel-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--coral);
+      margin-bottom: 10px;
+    }
+
+    /* MCQ */
+    .mcq-section {
+      background: linear-gradient(180deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+      padding: 38px 44px;
+    }
+
+    .mcq-header { margin-bottom: 28px; }
+
+    .mcq-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+
+    .mcq-header p { font-size: 0.82rem; color: var(--white-dim); margin-top: 4px; }
+
+    .mcq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-grid { grid-template-columns: 1fr; }
+      .card-header { grid-template-columns: 1fr; }
+      .header-svg { display: none; }
+      .section, .mcq-section { padding: 28px 22px; }
+    }
+
+    .mcq-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .mcq-q {
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .mcq-q .q-num {
+      font-family: 'DM Mono', monospace;
+      color: var(--teal-glow);
+      font-size: 0.72rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .mcq-q .q-es {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .mcq-options { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+    .mcq-options li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.81rem;
+      line-height: 1.4;
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      color: var(--white-dim);
+      cursor: default;
+    }
+
+    .mcq-options li .opt-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal-glow);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mcq-options li.correct {
+      background: rgba(0,180,216,0.1);
+      border-color: var(--teal-bright);
+      color: var(--teal-pale);
+    }
+
+    .mcq-options li.correct .opt-key { color: var(--teal-bright); }
+
+    .mcq-answer {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--teal-glow);
+      font-family: 'DM Mono', monospace;
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+    }
+
+    /* FOOTER */
+    .card-footer {
+      padding: 26px 44px 32px;
+      background: var(--ocean-mid);
+      border-top: 1px solid var(--border);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .progress-meta .lesson-id {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal-glow);
+      letter-spacing: 0.12em;
+    }
+
+    .progress-meta .progress-pct {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--white-dim);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--teal-bright), var(--teal-pale));
+      width: 1.70%; /* 12/704 */
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 0.8rem;
+    }
+
+    .footer-nav a {
+      color: var(--teal-glow);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-nav a:hover { color: var(--teal-pale); }
+
+    .footer-credit {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.72rem;
+      color: rgba(176,200,216,0.4);
+      font-family: 'DM Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+<article class="card">
+
+  <!-- HEADER -->
+  <header class="card-header">
+    <div class="header-text">
+      <p class="eyebrow">Section 01 · Lesson 12 &nbsp;|&nbsp; Physical Oceanography</p>
+      <h1>Ocean<br><em>Waves</em></h1>
+      <p class="subtitle">Generation, anatomy, propagation, and energy of surface &amp; internal waves</p>
+    </div>
+
+    <!-- SVG: Wave anatomy cross-section diagram -->
+    <svg class="header-svg" viewBox="0 0 230 160" xmlns="http://www.w3.org/2000/svg" aria-label="Scientific diagram of ocean wave anatomy showing wavelength, amplitude, crest, and trough">
+
+      <!-- Sky background -->
+      <rect x="0" y="0" width="230" height="80" fill="#0a1e3c"/>
+      <!-- Ocean background -->
+      <rect x="0" y="80" width="230" height="80" fill="#0a2240"/>
+
+      <!-- Wave profile — two full waves -->
+      <path d="M0 80 Q28 48 57 80 Q85 112 114 80 Q142 48 171 80 Q199 112 230 80 L230 160 L0 160 Z"
+            fill="#0d3060" stroke="none"/>
+      <!-- Wave surface line -->
+      <path d="M0 80 Q28 48 57 80 Q85 112 114 80 Q142 48 171 80 Q199 112 230 80"
+            stroke="#00b4d8" stroke-width="2" fill="none"/>
+
+      <!-- Wavelength arrow (crest to crest: 57→171) -->
+      <line x1="57" y1="38" x2="171" y2="38" stroke="#e9c46a" stroke-width="1" marker-end="url(#arr)" marker-start="url(#arr2)"/>
+      <text x="114" y="34" font-family="monospace" font-size="7.5" fill="#e9c46a" text-anchor="middle" font-weight="bold">λ  Wavelength</text>
+
+      <!-- Amplitude arrow (crest to still water line) -->
+      <line x1="57" y1="64" x2="57" y2="80" stroke="#f4a261" stroke-width="1.2" stroke-dasharray="2,1.5"/>
+      <line x1="53" y1="64" x2="61" y2="64" stroke="#f4a261" stroke-width="1"/>
+      <line x1="53" y1="80" x2="61" y2="80" stroke="#f4a261" stroke-width="1"/>
+      <text x="44" y="73" font-family="monospace" font-size="6.5" fill="#f4a261" text-anchor="end">A</text>
+
+      <!-- Still water line -->
+      <line x1="0" y1="80" x2="230" y2="80" stroke="#48cae4" stroke-width="0.7" stroke-dasharray="5,3" opacity="0.5"/>
+      <text x="4" y="78" font-family="monospace" font-size="5.5" fill="#48cae4" opacity="0.7">SWL</text>
+
+      <!-- Crest label -->
+      <line x1="57" y1="52" x2="57" y2="44" stroke="#90e0ef" stroke-width="0.8"/>
+      <text x="57" y="43" font-family="monospace" font-size="6" fill="#90e0ef" text-anchor="middle">Crest</text>
+
+      <!-- Trough label -->
+      <line x1="114" y1="96" x2="114" y2="104" stroke="#90e0ef" stroke-width="0.8"/>
+      <text x="114" y="112" font-family="monospace" font-size="6" fill="#90e0ef" text-anchor="middle">Trough</text>
+
+      <!-- Wave height bracket -->
+      <line x1="172" y1="48" x2="172" y2="112" stroke="#48cae4" stroke-width="0.9"/>
+      <line x1="168" y1="48" x2="176" y2="48" stroke="#48cae4" stroke-width="0.9"/>
+      <line x1="168" y1="112" x2="176" y2="112" stroke="#48cae4" stroke-width="0.9"/>
+      <text x="184" y="84" font-family="monospace" font-size="6" fill="#48cae4" text-anchor="start">H</text>
+      <text x="184" y="93" font-family="monospace" font-size="5.5" fill="#48cae4" opacity="0.75" text-anchor="start">Height</text>
+
+      <!-- Orbital motion circles -->
+      <circle cx="57" cy="80" r="9" fill="none" stroke="#48cae4" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.6"/>
+      <circle cx="57" cy="98" r="6" fill="none" stroke="#48cae4" stroke-width="0.6" stroke-dasharray="2,2" opacity="0.45"/>
+      <circle cx="57" cy="113" r="3.5" fill="none" stroke="#48cae4" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.3"/>
+
+      <!-- Direction arrow -->
+      <defs>
+        <marker id="arrowR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#e9c46a"/>
+        </marker>
+      </defs>
+      <line x1="10" y1="20" x2="55" y2="20" stroke="#e9c46a" stroke-width="1.2" marker-end="url(#arrowR)"/>
+      <text x="30" y="16" font-family="monospace" font-size="6" fill="#e9c46a" text-anchor="middle">Propagation →</text>
+
+      <!-- Period label -->
+      <text x="114" y="153" font-family="monospace" font-size="6" fill="#48cae4" text-anchor="middle" opacity="0.8">T = period (s) · c = λ/T</text>
+    </svg>
+  </header>
+
+  <!-- LECTURE -->
+  <section class="section" aria-label="Lecture content">
+    <p class="section-label">📖 Lecture</p>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
+      <h2>The Restless Surface: Understanding Ocean Waves</h2>
+
+      <p>An ocean wave is a disturbance that transfers <span class="key-term">energy</span> — not water — across the sea surface. Water molecules in a wave do not travel with the wave; instead they trace nearly circular <span class="key-term">orbital paths</span>, returning close to their original positions after each wave passes. This distinction is fundamental: a wave moves energy forward while the medium (water) oscillates in place.</p>
+
+      <p>Every wave is defined by four measurable parameters. <span class="key-term">Wavelength (λ)</span> is the horizontal distance between successive crests. <span class="key-term">Wave height (H)</span> is the vertical distance from trough to crest. <span class="key-term">Amplitude (A)</span> is half the wave height — the displacement from the still-water line to crest or trough. <span class="key-term">Period (T)</span> is the time in seconds for two successive crests to pass a fixed point. Wave speed, or <span class="key-term">celerity (c)</span>, follows directly: c = λ / T.</p>
+
+      <p>Most surface waves are generated by wind. The <span class="key-term">wave generation zone</span> — the area of open water over which wind blows — is called the <span class="key-term">fetch</span>. Longer fetch, stronger wind, and longer duration all produce larger waves. In the generation zone, chaotic short-crested waves of many wavelengths are called <span class="key-term">sea</span>. Once waves leave the generation zone they sort themselves by wavelength into organized, long-crested <span class="key-term">swell</span>, which can travel thousands of kilometers with minimal energy loss.</p>
+
+      <p>When waves enter shallow water (depth &lt; λ/2, called <span class="key-term">wave base</span>), orbital motion is disrupted by the seafloor. Waves slow down, steepen, and eventually <span class="key-term">break</span> when wave height exceeds about 1/7 of wavelength — the <span class="key-term">breaker index</span>. <span class="key-term">Refraction</span> bends wave crests to align with depth contours; <span class="key-term">diffraction</span> allows energy to spread around headlands; and <span class="key-term">reflection</span> bounces energy off steep cliffs or seawalls.</p>
+
+      <p>Below the surface, <span class="key-term">internal waves</span> propagate along density interfaces (pycnoclines) with amplitudes of tens to hundreds of meters — invisible at the surface but critically important for mixing nutrients into the sunlit zone and for submarine navigation.</p>
+    </div>
+
+    <hr class="lang-divider"/>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
+      <h2>La Superficie Inquieta: Comprendiendo las Olas del Océano</h2>
+
+      <p>Una ola oceánica es una perturbación que transfiere <span class="key-term">energía</span> — no agua — a través de la superficie del mar. Las moléculas de agua no viajan con la ola; en cambio, trazan trayectorias <span class="key-term">orbitales</span> casi circulares, regresando cerca de su posición original después de que pasa cada ola. La distinción es fundamental: la ola mueve energía hacia adelante mientras el medio (el agua) oscila en su lugar.</p>
+
+      <p>Cada ola se define por cuatro parámetros medibles. La <span class="key-term">longitud de onda (λ)</span> es la distancia horizontal entre crestas sucesivas. La <span class="key-term">altura de ola (H)</span> es la distancia vertical del valle a la cresta. La <span class="key-term">amplitud (A)</span> es la mitad de la altura. El <span class="key-term">período (T)</span> es el tiempo en segundos para que dos crestas sucesivas pasen un punto fijo. La velocidad de ola o <span class="key-term">celeridad (c)</span> es: c = λ / T.</p>
+
+      <p>La mayoría de las olas superficiales son generadas por el viento. La zona de agua abierta sobre la que sopla el viento se llama <span class="key-term">fetch</span>. Mayor fetch, viento más fuerte y mayor duración producen olas más grandes. En la zona de generación, las olas caóticas de muchas longitudes de onda se llaman <span class="key-term">oleaje local (sea)</span>. Al alejarse, se organizan en <span class="key-term">oleaje de fondo (swell)</span>, con crestas largas que pueden viajar miles de kilómetros con mínima pérdida de energía.</p>
+
+      <p>Cuando las olas entran en aguas poco profundas (profundidad &lt; λ/2, llamada <span class="key-term">base de ola</span>), el movimiento orbital es interrumpido por el fondo marino. Las olas se frenan, se empinanan y finalmente <span class="key-term">rompen</span> cuando la altura supera aproximadamente 1/7 de la longitud de onda — el <span class="key-term">índice de rompiente</span>. La <span class="key-term">refracción</span> dobla las crestas para alinearse con las curvas de profundidad; la <span class="key-term">difracción</span> dispersa la energía alrededor de promontorios; y la <span class="key-term">reflexión</span> rebota la energía en acantilados verticales.</p>
+
+      <p>Bajo la superficie, las <span class="key-term">ondas internas</span> se propagan a lo largo de interfaces de densidad (picnoclinas) con amplitudes de decenas a cientos de metros — invisibles en la superficie pero críticas para mezclar nutrientes hacia la zona iluminada y para la navegación submarina.</p>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Wave Type / Tipo de Ola</th>
+            <th>Generating Force / Fuerza Generadora</th>
+            <th>Typical Period / Período Típico</th>
+            <th>Notes / Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Capillary waves</td>
+            <td>Surface tension; light wind</td>
+            <td>&lt; 0.1 s</td>
+            <td>Ripples; restoring force is surface tension, not gravity</td>
+          </tr>
+          <tr>
+            <td>Wind waves (sea)</td>
+            <td>Local wind over fetch</td>
+            <td>1 – 10 s</td>
+            <td>Irregular, short-crested; multiple directions</td>
+          </tr>
+          <tr>
+            <td>Swell</td>
+            <td>Distant storm systems</td>
+            <td>10 – 30 s</td>
+            <td>Long-crested, sorted by λ; can travel ocean-basin distances</td>
+          </tr>
+          <tr>
+            <td>Infragravity waves</td>
+            <td>Wave groups, surf zone</td>
+            <td>25 s – 5 min</td>
+            <td>Drive beach oscillations and rip currents</td>
+          </tr>
+          <tr>
+            <td>Seiche</td>
+            <td>Wind, atmospheric pressure</td>
+            <td>Minutes – hours</td>
+            <td>Standing wave resonance in enclosed basins, bays</td>
+          </tr>
+          <tr>
+            <td>Tsunami</td>
+            <td>Earthquake, landslide, eruption</td>
+            <td>10 min – 2 h</td>
+            <td>Shallow-water wave across entire ocean; speed ~800 km/h</td>
+          </tr>
+          <tr>
+            <td>Tide (tidal wave)</td>
+            <td>Gravitational forcing (Moon, Sun)</td>
+            <td>12.4 h / 24.8 h</td>
+            <td>Longest-period forced wave; behaves as shallow-water wave globally</td>
+          </tr>
+          <tr>
+            <td>Internal wave</td>
+            <td>Tidal flow over topography; wind</td>
+            <td>Minutes – days</td>
+            <td>Propagates along pycnocline; amplitude up to 100 m+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- WESTERN CARIBBEAN APPLICATION -->
+  <section class="section app-panel" aria-label="Western Caribbean application">
+    <p class="section-label">🌊 Western Caribbean Application</p>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
+      <p class="panel-heading">Wave Dynamics Along the Rim Run™ Route</p>
+
+      <p>The Western Caribbean is largely a <span class="key-term">fetch-limited</span> sea. Surrounded by Central America to the west, the Greater Antilles to the north, and South America to the south, wind waves rarely achieve the long wavelengths of open North Atlantic swell. Typical trade-wind seas in the Caribbean run 1–2 m in height with periods of 6–10 seconds — manageable for a well-found catamaran but still demanding in a beam sea.</p>
+
+      <p>However, the Caribbean is not immune to swell. North Atlantic winter storms can generate long-period groundswell (14–22 s) that refracts around Cuba and Hispaniola and propagates southward into the Western Caribbean. This swell arrives from a direction often 90° different from the local trade-wind sea, creating a confused <span class="key-term">cross-sea</span> state — one of the most uncomfortable and potentially dangerous wave conditions for small vessels.</p>
+
+      <p>The <span class="key-term">Gulf of Honduras</span> and the shallow shelf off Belize present classic examples of wave transformation. Swell generated in the open Caribbean refracts around the Yucatán Peninsula and shoals dramatically over the Mesoamerican Reef platform. Breaking waves on the outer reef crest dissipate most incoming energy, creating the calm, protected lagoon waters where coral thrives — a direct connection between physical wave dynamics and reef ecosystem structure.</p>
+
+      <p><span class="key-term">Internal waves</span> are particularly energetic in the Caribbean owing to strong tidal forcing over the sills of passages like the Windward Passage and Yucatán Channel. They have been measured with amplitudes exceeding 100 m — strong enough to create dangerous down-current forces on submarines and to pump cold, nutrient-rich water upward into the sunlit photic zone, driving localized biological productivity.</p>
+
+      <p>For Catamaran Dan's crew, practical wave awareness includes reading the <span class="key-term">significant wave height (H₁/₃)</span> — the average of the highest one-third of waves — reported in NOAA marine forecasts, and understanding that individual waves can be up to twice the significant wave height in certain sea states.</p>
+    </div>
+
+    <hr class="lang-divider"/>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
+      <p class="panel-heading">Dinámica de Olas en la Ruta Rim Run™</p>
+
+      <p>El Caribe Occidental es en gran medida un mar con <span class="key-term">fetch limitado</span>. Rodeado por América Central al oeste, las Antillas Mayores al norte y América del Sur al sur, las olas de viento rara vez alcanzan las longitudes de onda largas del oleaje del Atlántico Norte. Las olas típicas de los vientos alisios en el Caribe oscilan entre 1 y 2 m de altura con períodos de 6–10 segundos.</p>
+
+      <p>Sin embargo, el Caribe no es inmune al oleaje de fondo. Las tormentas invernales del Atlántico Norte pueden generar swell de largo período (14–22 s) que refracta alrededor de Cuba e Hispaniola y se propaga hacia el sur. Este oleaje llega desde una dirección a menudo 90° diferente al oleaje local, creando un estado de <span class="key-term">mar cruzada</span> — una de las condiciones más incómodas y potencialmente peligrosas para embarcaciones pequeñas.</p>
+
+      <p>El <span class="key-term">Golfo de Honduras</span> y la plataforma poco profunda frente a Belice son ejemplos clásicos de transformación de olas. El oleaje generado en el Caribe abierto refracta alrededor de la Península de Yucatán y pierde profundidad sobre la plataforma del Arrecife Mesoamericano. Las olas que rompen en la cresta exterior del arrecife disipan la mayor parte de la energía entrante, creando las aguas tranquilas de la laguna interior donde prosperan los corales.</p>
+
+      <p>Las <span class="key-term">ondas internas</span> son particularmente energéticas en el Caribe por el intenso forzamiento de las mareas sobre los umbrales de pasos como el Canal de los Vientos y el Canal de Yucatán. Se han medido con amplitudes superiores a 100 m — suficientemente fuertes para crear peligrosas corrientes descendentes sobre submarinos y para bombear agua fría y rica en nutrientes hacia la zona fótica.</p>
+
+      <p>Para la tripulación de Catamaran Dan, la conciencia práctica de las olas incluye leer la <span class="key-term">altura significativa (H₁/₃)</span> — el promedio del tercio más alto de las olas — en los pronósticos marinos de la NOAA, y comprender que las olas individuales pueden duplicar la altura significativa en ciertos estados de mar.</p>
+    </div>
+  </section>
+
+  <!-- MCQ -->
+  <section class="mcq-section" aria-label="Multiple choice questions">
+    <div class="mcq-header">
+      <h3>Knowledge Check · Verificación de Conocimiento</h3>
+      <p>Static bilingual quiz — correct answers highlighted &nbsp;/&nbsp; Cuestionario bilingüe estático — respuestas correctas marcadas</p>
+    </div>
+
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q1</span>
+          In an ocean wave, what actually travels forward with the wave?
+          <span class="q-es">En una ola oceánica, ¿qué viaja realmente hacia adelante con la ola?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Water molecules / Moléculas de agua</li>
+          <li><span class="opt-key">B</span> Salt particles / Partículas de sal</li>
+          <li class="correct"><span class="opt-key">C</span> Energy / Energía</li>
+          <li><span class="opt-key">D</span> Seafloor sediment / Sedimento del fondo</li>
+        </ul>
+        <p class="mcq-answer">✓ C — Water orbits in place; only the energy disturbance propagates.</p>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q2</span>
+          The formula for wave celerity (speed) is…
+          <span class="q-es">La fórmula de la celeridad (velocidad) de ola es…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> c = H × T</li>
+          <li class="correct"><span class="opt-key">B</span> c = λ / T</li>
+          <li><span class="opt-key">C</span> c = A / λ</li>
+          <li><span class="opt-key">D</span> c = T² / λ</li>
+        </ul>
+        <p class="mcq-answer">✓ B — Celerity = wavelength ÷ period.</p>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q3</span>
+          "Fetch" refers to…
+          <span class="q-es">"Fetch" se refiere a…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> The depth at which wave motion ceases</li>
+          <li><span class="opt-key">B</span> The vertical rise from trough to crest</li>
+          <li class="correct"><span class="opt-key">C</span> The open-water distance over which wind acts to generate waves</li>
+          <li><span class="opt-key">D</span> The time between successive crests</li>
+        </ul>
+        <p class="mcq-answer">✓ C — Greater fetch → larger, longer-period waves.</p>
+      </div>
+
+      <!-- Q4 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q4</span>
+          A wave breaks when its height exceeds approximately what fraction of its wavelength?
+          <span class="q-es">Una ola rompe cuando su altura supera aproximadamente qué fracción de su longitud de onda?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> 1/2</li>
+          <li><span class="opt-key">B</span> 1/4</li>
+          <li class="correct"><span class="opt-key">C</span> 1/7</li>
+          <li><span class="opt-key">D</span> 1/20</li>
+        </ul>
+        <p class="mcq-answer">✓ C — The breaker index H/λ ≈ 1/7 (steepness limit).</p>
+      </div>
+
+      <!-- Q5 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q5</span>
+          Which wave type propagates along a pycnocline deep below the surface?
+          <span class="q-es">¿Qué tipo de ola se propaga a lo largo de una picnoclina profunda bajo la superficie?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Swell / Oleaje de fondo</li>
+          <li><span class="opt-key">B</span> Seiche</li>
+          <li><span class="opt-key">C</span> Capillary wave / Ola capilar</li>
+          <li class="correct"><span class="opt-key">D</span> Internal wave / Onda interna</li>
+        </ul>
+        <p class="mcq-answer">✓ D — Internal waves follow density interfaces, not the sea surface.</p>
+      </div>
+
+      <!-- Q6 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q6</span>
+          Significant wave height (H₁/₃) is defined as the average of…
+          <span class="q-es">La altura significativa (H₁/₃) se define como el promedio de…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> All waves recorded in 30 minutes</li>
+          <li><span class="opt-key">B</span> The lowest one-third of waves</li>
+          <li class="correct"><span class="opt-key">C</span> The highest one-third of waves</li>
+          <li><span class="opt-key">D</span> The tallest single wave observed</li>
+        </ul>
+        <p class="mcq-answer">✓ C — H₁/₃ is the standard marine forecast statistic.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="card-footer">
+    <div class="progress-meta">
+      <span class="lesson-id">S01·L12 / 704 &nbsp;—&nbsp; Physical Oceanography: Ocean Waves</span>
+      <span class="progress-pct">1.70 % complete</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <nav class="footer-nav" aria-label="Lesson navigation">
+      <a href="s01-l11.html">← S01·L11</a>
+      <a href="../learn.html">⊞ Curriculum Grid</a>
+      <a href="s01-l13.html">S01·L13 →</a>
+    </nav>
+    <p class="footer-credit">Rim Run™ Marine Science Curriculum &nbsp;·&nbsp; Catamaran Dan / Nevado Raiders Sailing Adventures</p>
+  </footer>
+
+</article>
+</body>
+</html>
