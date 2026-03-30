@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S01·L17 — Ocean Optics &amp; Light | Rim Run™ Marine Science</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ocean-deep:    #0a1628;
+      --ocean-mid:     #0d2244;
+      --ocean-surface: #0f3460;
+      --teal-bright:   #00b4d8;
+      --teal-pale:     #90e0ef;
+      --teal-glow:     #48cae4;
+      --gold:          #e9c46a;
+      --coral:         #f4a261;
+      --white:         #f0f4f8;
+      --white-dim:     #b8c8d8;
+      --card-bg:       #0b1e38;
+      --panel-bg:      #0e2a4a;
+      --border:        rgba(0,180,216,0.18);
+      --radius:        12px;
+      --shadow:        0 8px 40px rgba(0,0,0,0.55);
+    }
+
+    body {
+      background: var(--ocean-deep);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-surface) 100%);
+      padding: 36px 44px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-text .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .header-text h1 em { font-style: italic; color: var(--teal-pale); }
+
+    .header-text .subtitle {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      color: var(--white-dim);
+      font-weight: 400;
+    }
+
+    .header-svg { width: 230px; height: 160px; flex-shrink: 0; }
+
+    .section { padding: 38px 44px; border-bottom: 1px solid var(--border); }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .lang-block { margin-bottom: 28px; }
+    .lang-block:last-child { margin-bottom: 0; }
+
+    .flag-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--teal-pale);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .flag-label .flag { font-size: 1rem; }
+
+    .lang-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .lang-block p { font-size: 0.93rem; color: var(--white-dim); margin-bottom: 10px; }
+    .lang-block p:last-child { margin-bottom: 0; }
+
+    .lang-divider { border: none; border-top: 1px dashed var(--border); margin: 26px 0; }
+    .key-term { color: var(--teal-pale); font-weight: 500; }
+
+    .data-table-wrap {
+      margin-top: 28px;
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    thead tr { background: var(--ocean-surface); }
+
+    thead th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-pale);
+      padding: 12px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr { border-top: 1px solid var(--border); }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+    tbody td { padding: 11px 16px; color: var(--white-dim); vertical-align: top; }
+
+    tbody td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--teal-glow);
+      white-space: nowrap;
+    }
+
+    .app-panel { background: var(--panel-bg); }
+    .app-panel .panel-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--coral);
+      margin-bottom: 10px;
+    }
+
+    .mcq-section {
+      background: linear-gradient(180deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+      padding: 38px 44px;
+    }
+
+    .mcq-header { margin-bottom: 28px; }
+
+    .mcq-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+
+    .mcq-header p { font-size: 0.82rem; color: var(--white-dim); margin-top: 4px; }
+
+    .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+    @media (max-width: 700px) {
+      .mcq-grid { grid-template-columns: 1fr; }
+      .card-header { grid-template-columns: 1fr; }
+      .header-svg { display: none; }
+      .section, .mcq-section { padding: 28px 22px; }
+    }
+
+    .mcq-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .mcq-q { font-size: 0.85rem; color: var(--white); margin-bottom: 12px; line-height: 1.5; }
+    .mcq-q .q-num {
+      font-family: 'DM Mono', monospace;
+      color: var(--teal-glow);
+      font-size: 0.72rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .mcq-q .q-es {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .mcq-options { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+    .mcq-options li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.81rem;
+      line-height: 1.4;
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      color: var(--white-dim);
+      cursor: default;
+    }
+
+    .mcq-options li .opt-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal-glow);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mcq-options li.correct {
+      background: rgba(0,180,216,0.1);
+      border-color: var(--teal-bright);
+      color: var(--teal-pale);
+    }
+
+    .mcq-options li.correct .opt-key { color: var(--teal-bright); }
+
+    .mcq-answer {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--teal-glow);
+      font-family: 'DM Mono', monospace;
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+    }
+
+    .card-footer {
+      padding: 26px 44px 32px;
+      background: var(--ocean-mid);
+      border-top: 1px solid var(--border);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .progress-meta .lesson-id {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal-glow);
+      letter-spacing: 0.12em;
+    }
+
+    .progress-meta .progress-pct {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--white-dim);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--teal-bright), var(--teal-pale));
+      width: 2.41%; /* 17/704 */
+    }
+
+    .footer-nav { display: flex; justify-content: space-between; margin-top: 20px; }
+
+    .footer-nav a {
+      color: var(--teal-glow);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-nav a:hover { color: var(--teal-pale); }
+
+    .footer-credit {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.72rem;
+      color: rgba(176,200,216,0.4);
+      font-family: 'DM Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+<article class="card">
+
+  <!-- HEADER -->
+  <header class="card-header">
+    <div class="header-text">
+      <p class="eyebrow">Section 01 · Lesson 17 &nbsp;|&nbsp; Physical Oceanography</p>
+      <h1>Into the Blue:<br><em>Ocean Optics &amp; Light</em></h1>
+      <p class="subtitle">Absorption, scattering, the photic zone, Secchi depth &amp; remote sensing color</p>
+    </div>
+
+    <!-- SVG: Spectral attenuation depth profile — visible light wavelengths fading with depth -->
+    <svg class="header-svg" viewBox="0 0 230 160" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram showing how different wavelengths of visible light penetrate to different depths in the ocean, with red absorbed shallowest and blue penetrating deepest">
+
+      <rect width="230" height="160" fill="#071220"/>
+
+      <!-- Ocean column background — darkening with depth -->
+      <defs>
+        <linearGradient id="oceanCol" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#0d3060" stop-opacity="1"/>
+          <stop offset="40%"  stop-color="#071e40" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="18" width="155" height="140" fill="url(#oceanCol)"/>
+
+      <!-- Surface line -->
+      <line x1="0" y1="18" x2="155" y2="18" stroke="#48cae4" stroke-width="1.2" opacity="0.7"/>
+      <text x="78" y="14" font-family="monospace" font-size="6" fill="#48cae4" text-anchor="middle" opacity="0.85">SURFACE</text>
+
+      <!-- Depth axis (right of column) -->
+      <line x1="155" y1="18" x2="155" y2="158" stroke="#48cae4" stroke-width="0.7" opacity="0.5"/>
+      <text x="158" y="22" font-family="monospace" font-size="5.5" fill="#90e0ef" opacity="0.8">0 m</text>
+      <line x1="153" y1="36" x2="157" y2="36" stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
+      <text x="158" y="39" font-family="monospace" font-size="5.5" fill="#90e0ef" opacity="0.7">20 m</text>
+      <line x1="153" y1="55" x2="157" y2="55" stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
+      <text x="158" y="58" font-family="monospace" font-size="5.5" fill="#90e0ef" opacity="0.65">50 m</text>
+      <line x1="153" y1="80" x2="157" y2="80" stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
+      <text x="158" y="83" font-family="monospace" font-size="5.5" fill="#90e0ef" opacity="0.55">100 m</text>
+      <line x1="153" y1="118" x2="157" y2="118" stroke="#48cae4" stroke-width="0.6" opacity="0.4"/>
+      <text x="158" y="121" font-family="monospace" font-size="5.5" fill="#90e0ef" opacity="0.4">200 m</text>
+
+      <!-- Photic / euphotic zone bracket -->
+      <line x1="2" y1="18" x2="2" y2="80" stroke="#e9c46a" stroke-width="1" opacity="0.7"/>
+      <line x1="0" y1="18" x2="4" y2="18" stroke="#e9c46a" stroke-width="1" opacity="0.7"/>
+      <line x1="0" y1="80" x2="4" y2="80" stroke="#e9c46a" stroke-width="1" opacity="0.7"/>
+      <text x="5" y="52" font-family="monospace" font-size="5.5" fill="#e9c46a" opacity="0.85">Photic</text>
+      <text x="5" y="60" font-family="monospace" font-size="5.5" fill="#e9c46a" opacity="0.85">zone</text>
+
+      <!-- Light beams for each wavelength, fading at different depths -->
+      <!-- Red 700 nm — absorbed by ~5 m -->
+      <line x1="25" y1="18" x2="25" y2="30" stroke="#e63946" stroke-width="3.5" opacity="0.9"/>
+      <line x1="25" y1="30" x2="25" y2="36" stroke="#e63946" stroke-width="3.5" opacity="0.3"/>
+      <text x="25" y="16" font-family="monospace" font-size="5" fill="#e63946" text-anchor="middle">700</text>
+
+      <!-- Orange 620 nm — absorbed by ~10 m -->
+      <line x1="45" y1="18" x2="45" y2="36" stroke="#f4a261" stroke-width="3" opacity="0.9"/>
+      <line x1="45" y1="36" x2="45" y2="44" stroke="#f4a261" stroke-width="3" opacity="0.25"/>
+      <text x="45" y="16" font-family="monospace" font-size="5" fill="#f4a261" text-anchor="middle">620</text>
+
+      <!-- Yellow 580 nm — absorbed by ~20 m -->
+      <line x1="63" y1="18" x2="63" y2="44" stroke="#e9c46a" stroke-width="2.5" opacity="0.9"/>
+      <line x1="63" y1="44" x2="63" y2="55" stroke="#e9c46a" stroke-width="2.5" opacity="0.2"/>
+      <text x="63" y="16" font-family="monospace" font-size="5" fill="#e9c46a" text-anchor="middle">580</text>
+
+      <!-- Green 530 nm — absorbed by ~60 m -->
+      <line x1="80" y1="18" x2="80" y2="68" stroke="#52b788" stroke-width="2.2" opacity="0.9"/>
+      <line x1="80" y1="68" x2="80" y2="80" stroke="#52b788" stroke-width="2.2" opacity="0.2"/>
+      <text x="80" y="16" font-family="monospace" font-size="5" fill="#52b788" text-anchor="middle">530</text>
+
+      <!-- Blue-green 490 nm — absorbed by ~100 m -->
+      <line x1="97" y1="18" x2="97" y2="88" stroke="#48cae4" stroke-width="2" opacity="0.9"/>
+      <line x1="97" y1="88" x2="97" y2="100" stroke="#48cae4" stroke-width="2" opacity="0.15"/>
+      <text x="97" y="16" font-family="monospace" font-size="5" fill="#48cae4" text-anchor="middle">490</text>
+
+      <!-- Blue 450 nm — penetrates deepest ~200 m -->
+      <line x1="114" y1="18" x2="114" y2="118" stroke="#4361ee" stroke-width="1.8" opacity="0.9"/>
+      <line x1="114" y1="118" x2="114" y2="132" stroke="#4361ee" stroke-width="1.8" opacity="0.12"/>
+      <text x="114" y="16" font-family="monospace" font-size="5" fill="#90c0ff" text-anchor="middle">450</text>
+
+      <!-- UV label (barely enters) -->
+      <line x1="130" y1="18" x2="130" y2="24" stroke="#9d4edd" stroke-width="1.5" opacity="0.6"/>
+      <text x="130" y="16" font-family="monospace" font-size="5" fill="#9d4edd" text-anchor="middle">UV</text>
+
+      <!-- Secchi disk marker -->
+      <circle cx="80" cy="55" r="4" fill="white" stroke="#e9c46a" stroke-width="0.8" opacity="0.85"/>
+      <line x1="80" y1="18" x2="80" y2="55" stroke="#e9c46a" stroke-width="0.6" stroke-dasharray="2,2" opacity="0.5"/>
+      <text x="88" y="56" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.85">Secchi</text>
+      <text x="88" y="63" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.85">disk</text>
+
+      <!-- nm label -->
+      <text x="78" y="156" font-family="monospace" font-size="5.5" fill="#48cae4" text-anchor="middle" opacity="0.7">wavelength (nm) → penetration depth</text>
+
+      <!-- Right panel: ocean color spectrum swatch -->
+      <text x="185" y="12" font-family="monospace" font-size="6" fill="#90e0ef" text-anchor="middle">Ocean Color</text>
+      <rect x="163" y="18" width="44" height="10" rx="2" fill="#0077b6"/>
+      <text x="185" y="26" font-family="monospace" font-size="5" fill="white" text-anchor="middle">Oligotrophic</text>
+      <rect x="163" y="32" width="44" height="10" rx="2" fill="#00b4d8"/>
+      <text x="185" y="40" font-family="monospace" font-size="5" fill="white" text-anchor="middle">Clear tropical</text>
+      <rect x="163" y="46" width="44" height="10" rx="2" fill="#48cae4"/>
+      <text x="185" y="54" font-family="monospace" font-size="5" fill="#0a1628" text-anchor="middle">Moderate chl-a</text>
+      <rect x="163" y="60" width="44" height="10" rx="2" fill="#52b788"/>
+      <text x="185" y="68" font-family="monospace" font-size="5" fill="white" text-anchor="middle">Coastal / upwelling</text>
+      <rect x="163" y="74" width="44" height="10" rx="2" fill="#2d6a4f"/>
+      <text x="185" y="82" font-family="monospace" font-size="5" fill="white" text-anchor="middle">High chl-a bloom</text>
+      <rect x="163" y="88" width="44" height="10" rx="2" fill="#774936"/>
+      <text x="185" y="96" font-family="monospace" font-size="5" fill="white" text-anchor="middle">Turbid / sediment</text>
+      <text x="185" y="110" font-family="monospace" font-size="5" fill="#90e0ef" text-anchor="middle">← bluer = clearer</text>
+      <text x="185" y="118" font-family="monospace" font-size="5" fill="#90e0ef" text-anchor="middle">greener = productive</text>
+    </svg>
+  </header>
+
+  <!-- LECTURE -->
+  <section class="section" aria-label="Lecture content">
+    <p class="section-label">📖 Lecture</p>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
+      <h2>Why the Ocean is Blue — and What Color Tells Us</h2>
+
+      <p>Light is the engine of the ocean's biological productivity, yet seawater is simultaneously a powerful filter that absorbs and scatters electromagnetic radiation in highly wavelength-dependent ways. Understanding how light behaves in the sea — the field of <span class="key-term">ocean optics</span> or <span class="key-term">hydrologic optics</span> — is essential for interpreting satellite imagery, predicting coral reef health, and understanding where photosynthesis can and cannot occur.</p>
+
+      <p>When sunlight enters the ocean it is subject to two competing processes: <span class="key-term">absorption</span> (photons are converted to heat or drive photochemistry) and <span class="key-term">scattering</span> (photons are redirected by water molecules and particles). Together these produce <span class="key-term">attenuation</span> — the exponential loss of light with depth. The rate of attenuation varies dramatically with wavelength. <span class="key-term">Red light</span> (~700 nm) is absorbed within the top 5–10 m; <span class="key-term">orange and yellow</span> disappear by 20–30 m; <span class="key-term">green</span> by 50–80 m; and <span class="key-term">blue light</span> (~450 nm) penetrates deepest, reaching 200 m or more in the clearest ocean water. This is why the deep ocean — and clear tropical seas — appear intensely blue: only blue wavelengths survive to be scattered back toward an observer.</p>
+
+      <p>The depth to which sufficient light penetrates for net photosynthesis to occur is called the <span class="key-term">photic zone</span> (or euphotic zone), defined as the layer from the surface down to the depth where light intensity falls to <span class="key-term">1% of surface irradiance</span>. In the crystal-clear oligotrophic waters of the open Caribbean, the photic zone extends to 100–150 m. In turbid coastal or upwelling waters rich with phytoplankton and sediment, it may shoal to just 10–20 m. Below the photic zone lies the <span class="key-term">disphotic zone</span> (twilight, 1–0.001% irradiance) and ultimately the <span class="key-term">aphotic zone</span> (no biologically usable light), where organisms depend entirely on sinking organic matter or chemosynthesis.</p>
+
+      <p>The <span class="key-term">Secchi disk</span> — a 30 cm white (or black-and-white quadrant) disk lowered on a line — provides one of the oldest and simplest measures of water transparency. The depth at which it disappears from view is the <span class="key-term">Secchi depth (Z_SD)</span>. Empirically, Z_SD ≈ photic zone depth / 2.5 in most ocean waters. Modern instruments including <span class="key-term">photosynthetically available radiation (PAR) sensors</span> and <span class="key-term">optical backscatter sensors</span> provide continuous profiles of light and particle concentration.</p>
+
+      <p>Ocean color is the basis of a powerful remote sensing technique. Because phytoplankton contain <span class="key-term">chlorophyll-a</span>, which absorbs red and blue light for photosynthesis but reflects green, satellite ocean color sensors (MODIS, VIIRS, Sentinel-3 OLCI) can map global phytoplankton biomass from space. Oligotrophic ocean gyres appear deep blue (very low chlorophyll), while productive coastal upwelling zones and river plumes appear green to yellow-green (high chlorophyll). <span class="key-term">Inherent optical properties (IOPs)</span> — absorption and scattering coefficients of water, phytoplankton, colored dissolved organic matter (CDOM), and mineral particles — govern the color signal measured by satellites.</p>
+    </div>
+
+    <hr class="lang-divider"/>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
+      <h2>Por Qué el Océano es Azul — y Qué Nos Dice el Color</h2>
+
+      <p>La luz es el motor de la productividad biológica del océano, pero el agua de mar es simultáneamente un potente filtro que absorbe y dispersa la radiación electromagnética de maneras altamente dependientes de la longitud de onda. Cuando la luz solar entra al océano, está sujeta a dos procesos: <span class="key-term">absorción</span> (los fotones se convierten en calor o impulsan fotoquímica) y <span class="key-term">dispersión</span> (los fotones son redirigidos por moléculas de agua y partículas). Juntos producen la <span class="key-term">atenuación</span> — la pérdida exponencial de luz con la profundidad.</p>
+
+      <p>La tasa de atenuación varía dramáticamente con la longitud de onda. La <span class="key-term">luz roja</span> (~700 nm) se absorbe en los primeros 5–10 m; el naranja y amarillo desaparecen a 20–30 m; el verde a 50–80 m; y la <span class="key-term">luz azul</span> (~450 nm) penetra más profundo, llegando a 200 m o más en las aguas oceánicas más claras. Por eso el océano profundo — y los mares tropicales claros — parecen intensamente azules: solo las longitudes de onda azules sobreviven para ser dispersadas de regreso hacia el observador.</p>
+
+      <p>La profundidad hasta la cual penetra suficiente luz para que ocurra fotosíntesis neta se llama <span class="key-term">zona fótica</span> (o eufótica), definida como la capa desde la superficie hasta la profundidad donde la intensidad de la luz cae al <span class="key-term">1% de la irradiancia superficial</span>. En las aguas oligotróficas cristalinas del Caribe abierto, la zona fótica se extiende hasta 100–150 m. En aguas costeras turbias o de surgencia ricas en fitoplancton y sedimentos, puede reducirse a solo 10–20 m. Debajo de la zona fótica está la <span class="key-term">zona disfótica</span> (crepúsculo) y finalmente la <span class="key-term">zona afótica</span> (sin luz biológicamente utilizable).</p>
+
+      <p>El <span class="key-term">disco de Secchi</span> — un disco blanco de 30 cm bajado en una línea — proporciona una de las medidas más antiguas y simples de la transparencia del agua. La profundidad a la que desaparece de la vista es la <span class="key-term">profundidad de Secchi (Z_SD)</span>. Empíricamente, Z_SD ≈ profundidad de zona fótica / 2.5. Los sensores modernos de <span class="key-term">radiación fotosintéticamente activa (PAR)</span> proporcionan perfiles continuos de luz.</p>
+
+      <p>El color del océano es la base de una poderosa técnica de teledetección. Debido a que el fitoplancton contiene <span class="key-term">clorofila-a</span>, que absorbe luz roja y azul para la fotosíntesis pero refleja verde, los satélites de color oceánico (MODIS, VIIRS, Sentinel-3 OLCI) pueden cartografiar la biomasa global de fitoplancton desde el espacio. Los giros oceánicos oligotróficos aparecen azul profundo (clorofila muy baja), mientras que las zonas costeras productivas de surgencia aparecen verdes a verde-amarillento (clorofila alta).</p>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Wavelength / Longitud de onda</th>
+            <th>Color</th>
+            <th>Approx. Penetration Depth</th>
+            <th>Notes / Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>~700 nm</td>
+            <td>Red / Rojo</td>
+            <td>3–10 m</td>
+            <td>Strongly absorbed by water molecules; absorbed first</td>
+          </tr>
+          <tr>
+            <td>~620 nm</td>
+            <td>Orange / Naranja</td>
+            <td>10–20 m</td>
+            <td>Rapid loss; corals appear gray-brown below ~15 m without red</td>
+          </tr>
+          <tr>
+            <td>~580 nm</td>
+            <td>Yellow / Amarillo</td>
+            <td>20–30 m</td>
+            <td>Also absorbed by CDOM (yellow substances) in coastal water</td>
+          </tr>
+          <tr>
+            <td>~530 nm</td>
+            <td>Green / Verde</td>
+            <td>50–80 m</td>
+            <td>Reflected by chlorophyll; turbid waters appear green due to phytoplankton</td>
+          </tr>
+          <tr>
+            <td>~490 nm</td>
+            <td>Blue-green / Azul-verde</td>
+            <td>80–120 m</td>
+            <td>Peak sensitivity of many deep-sea visual pigments</td>
+          </tr>
+          <tr>
+            <td>~450 nm</td>
+            <td>Blue / Azul</td>
+            <td>150–200 m</td>
+            <td>Deepest-penetrating; reason open ocean appears blue from space</td>
+          </tr>
+          <tr>
+            <td>Photic zone</td>
+            <td>—</td>
+            <td>10–200 m (varies)</td>
+            <td>Clear oceanic: ~150 m; turbid coastal: 10–20 m; defined at 1% surface irradiance</td>
+          </tr>
+          <tr>
+            <td>Secchi depth</td>
+            <td>—</td>
+            <td>≈ Z_photic / 2.5</td>
+            <td>Oldest water transparency metric; still used on research cruises and citizen-science surveys</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- WESTERN CARIBBEAN APPLICATION -->
+  <section class="section app-panel" aria-label="Western Caribbean application">
+    <p class="section-label">🌊 Western Caribbean Application</p>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
+      <p class="panel-heading">The Clearest Water in the Americas — and Why It Matters</p>
+
+      <p>The Western Caribbean and Belize-to-Honduras offshore zone includes some of the <span class="key-term">most optically clear water in the Western Hemisphere</span>. The offshore Caribbean gyre waters — away from river plumes and coastal turbidity — routinely achieve Secchi depths of 30–50 m and photic zones extending to 120–150 m. This extreme clarity has profound biological consequences: it means sunlight penetrates deep enough to support symbiotic zooxanthellae (the photosynthetic algae living in coral tissue) on reefs down to 40–50 m, enabling the deep-reef communities Catamaran Dan's crew can observe while diving at sites like Turneffe Atoll and the Blue Hole.</p>
+
+      <p>The iconic blue color of the Caribbean's offshore waters is a direct signature of <span class="key-term">oligotrophy</span> — very low concentrations of nutrients and phytoplankton. While stunning aesthetically, this blue "ocean desert" supports relatively low biological productivity compared to the green, turbid waters of productive upwelling zones. The paradox of coral reefs: they are extraordinarily biodiverse oases within a nutrient-poor optical environment, sustained by tight internal nutrient cycling rather than external productivity.</p>
+
+      <p>Closer to shore, optical conditions shift dramatically. The <span class="key-term">Rio Dulce</span> (Guatemala), the <span class="key-term">Belize River</span>, and the rivers draining Honduras's north coast inject large pulses of <span class="key-term">terrigenous sediment</span> and <span class="key-term">colored dissolved organic matter (CDOM)</span> — humic and fulvic acids from terrestrial vegetation — into nearshore waters. These materials strongly absorb blue light and increase backscattering, shifting water color from blue to green-brown and dramatically shoaling the photic zone. After heavy rain events, Secchi depths near river mouths may fall to just 1–3 m, temporarily cutting off photosynthesis on inshore reefs and seagrass beds.</p>
+
+      <p><span class="key-term">Ocean color satellite data</span> (particularly from NASA's MODIS-Aqua and the European Sentinel-3 platforms) provides continuous monitoring of chlorophyll-a concentrations and CDOM across the Western Caribbean. Researchers use these data to track river plume dynamics after tropical storms, detect harmful algal bloom precursors, and monitor long-term trends in reef-water clarity linked to deforestation and agricultural runoff in the watersheds of Central America. For the Rim Run™ crew, a practical application is checking satellite-derived chlorophyll-a maps before approaching a dive site: green patches over normally blue offshore reef areas signal elevated turbidity or phytoplankton, potentially reducing underwater visibility and indicating nutrient stress on the reef below.</p>
+    </div>
+
+    <hr class="lang-divider"/>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
+      <p class="panel-heading">El Agua Más Clara de las Américas — y Por Qué Importa</p>
+
+      <p>El Caribe Occidental y la zona offshore de Belice a Honduras incluyen algunas de las <span class="key-term">aguas más claras ópticamente del Hemisferio Occidental</span>. Las aguas del giro caribeño offshore — alejadas de los penachos de ríos y la turbidez costera — alcanzan rutinariamente profundidades de Secchi de 30–50 m y zonas fóticas que se extienden a 120–150 m. Esta extrema claridad permite que la luz solar penetre lo suficientemente profundo como para soportar zooxantelas simbióticas (las algas fotosintéticas que viven en el tejido de los corales) en arrecifes hasta 40–50 m de profundidad.</p>
+
+      <p>El icónico color azul de las aguas offshore del Caribe es una firma directa de la <span class="key-term">oligotrofia</span> — concentraciones muy bajas de nutrientes y fitoplancton. Aunque estéticamente impresionante, este "desierto oceánico" azul soporta una productividad biológica relativamente baja. La paradoja de los arrecifes de coral: son oasis extraordinariamente biodiversos dentro de un entorno óptico pobre en nutrientes, sostenidos por un reciclaje interno estricto de nutrientes.</p>
+
+      <p>Más cerca de la costa, las condiciones ópticas cambian dramáticamente. El <span class="key-term">Río Dulce</span> (Guatemala), el <span class="key-term">Río Belice</span> y los ríos que drenan la costa norte de Honduras inyectan grandes pulsos de <span class="key-term">sedimento terrígeno</span> y <span class="key-term">materia orgánica disuelta coloreada (CDOM)</span> — ácidos húmicos y fúlvicos de la vegetación terrestre — en las aguas costeras. Estos materiales absorben fuertemente la luz azul y cambian el color del agua de azul a verde-marrón, reduciendo drásticamente la zona fótica. Después de eventos de lluvia intensa, las profundidades de Secchi cerca de las bocas de los ríos pueden caer a solo 1–3 m.</p>
+
+      <p>Los <span class="key-term">datos satelitales de color oceánico</span> (en particular de MODIS-Aqua de la NASA y las plataformas europeas Sentinel-3) proporcionan monitoreo continuo de las concentraciones de clorofila-a y CDOM en el Caribe Occidental. Para la tripulación del Rim Run™, una aplicación práctica es verificar los mapas de clorofila-a derivados de satélites antes de acercarse a un sitio de buceo: las manchas verdes sobre áreas de arrecife offshore normalmente azules señalan turbidez elevada o fitoplancton, lo que potencialmente reduce la visibilidad submarina.</p>
+    </div>
+  </section>
+
+  <!-- MCQ -->
+  <section class="mcq-section" aria-label="Multiple choice questions">
+    <div class="mcq-header">
+      <h3>Knowledge Check · Verificación de Conocimiento</h3>
+      <p>Static bilingual quiz — correct answers highlighted &nbsp;/&nbsp; Cuestionario bilingüe estático — respuestas correctas marcadas</p>
+    </div>
+
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q1</span>
+          Which color of visible light penetrates deepest in clear ocean water?
+          <span class="q-es">¿Qué color de luz visible penetra más profundo en agua oceánica clara?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Red / Rojo</li>
+          <li><span class="opt-key">B</span> Green / Verde</li>
+          <li><span class="opt-key">C</span> Yellow / Amarillo</li>
+          <li class="correct"><span class="opt-key">D</span> Blue (~450 nm) / Azul (~450 nm)</li>
+        </ul>
+        <p class="mcq-answer">✓ D — Blue light reaches 150–200 m in the clearest ocean waters.</p>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q2</span>
+          The photic (euphotic) zone is defined as the depth range where irradiance exceeds…
+          <span class="q-es">La zona fótica (eufótica) se define como el rango de profundidad donde la irradiancia supera…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> 50% of surface irradiance</li>
+          <li><span class="opt-key">B</span> 10% of surface irradiance</li>
+          <li class="correct"><span class="opt-key">C</span> 1% of surface irradiance</li>
+          <li><span class="opt-key">D</span> 0.001% of surface irradiance</li>
+        </ul>
+        <p class="mcq-answer">✓ C — The 1% light level marks the base of the photic zone globally.</p>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q3</span>
+          Why do satellite ocean color sensors detect productive coastal waters as green rather than blue?
+          <span class="q-es">¿Por qué los satélites de color oceánico detectan aguas costeras productivas como verdes en lugar de azules?</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Sediment reflects only green wavelengths</li>
+          <li><span class="opt-key">B</span> Coastal water is shallower and the seafloor reflects green light</li>
+          <li class="correct"><span class="opt-key">C</span> Chlorophyll-a in phytoplankton absorbs red and blue but reflects green light</li>
+          <li><span class="opt-key">D</span> Green light scatters less than blue in salty water</li>
+        </ul>
+        <p class="mcq-answer">✓ C — Chlorophyll's absorption spectrum creates the green reflectance signature.</p>
+      </div>
+
+      <!-- Q4 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q4</span>
+          The Secchi disk is used to measure…
+          <span class="q-es">El disco de Secchi se usa para medir…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Sea surface temperature</li>
+          <li><span class="opt-key">B</span> Tidal current velocity</li>
+          <li class="correct"><span class="opt-key">C</span> Water transparency / optical clarity</li>
+          <li><span class="opt-key">D</span> Salinity at depth</li>
+        </ul>
+        <p class="mcq-answer">✓ C — The depth at which the disk disappears gives Secchi depth Z_SD.</p>
+      </div>
+
+      <!-- Q5 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q5</span>
+          River plumes reduce coral reef photosynthesis primarily by…
+          <span class="q-es">Los penachos de ríos reducen la fotosíntesis de los arrecifes de coral principalmente al…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> Increasing salinity sharply / Aumentando la salinidad bruscamente</li>
+          <li><span class="opt-key">B</span> Raising water temperature above coral tolerance</li>
+          <li class="correct"><span class="opt-key">C</span> Introducing sediment and CDOM that absorb and scatter light, shoaling the photic zone</li>
+          <li><span class="opt-key">D</span> Bringing cold, dense water that sinks below reefs</li>
+        </ul>
+        <p class="mcq-answer">✓ C — Turbidity from terrigenous inputs cuts light reaching reef organisms.</p>
+      </div>
+
+      <!-- Q6 -->
+      <div class="mcq-card">
+        <div class="mcq-q">
+          <span class="q-num">Q6</span>
+          The intensely blue color of open Caribbean water indicates…
+          <span class="q-es">El intenso color azul del Caribe abierto indica…</span>
+        </div>
+        <ul class="mcq-options">
+          <li><span class="opt-key">A</span> High phytoplankton and nutrient concentrations</li>
+          <li><span class="opt-key">B</span> Shallow seafloor reflecting blue sky</li>
+          <li class="correct"><span class="opt-key">C</span> Oligotrophic conditions — very low chlorophyll, high clarity, blue light dominating scattering</li>
+          <li><span class="opt-key">D</span> Presence of blue-pigmented cyanobacteria blooms</li>
+        </ul>
+        <p class="mcq-answer">✓ C — Blue = optically clear, nutrient-poor, low biological production.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="card-footer">
+    <div class="progress-meta">
+      <span class="lesson-id">S01·L17 / 704 &nbsp;—&nbsp; Physical Oceanography: Ocean Optics &amp; Light</span>
+      <span class="progress-pct">2.41 % complete</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <nav class="footer-nav" aria-label="Lesson navigation">
+      <a href="s01-l16.html">← S01·L16</a>
+      <a href="../learn.html">⊞ Curriculum Grid</a>
+      <a href="s01-l18.html">S01·L18 →</a>
+    </nav>
+    <p class="footer-credit">Rim Run™ Marine Science Curriculum &nbsp;·&nbsp; Catamaran Dan / Nevado Raiders Sailing Adventures</p>
+  </footer>
+
+</article>
+</body>
+</html>
