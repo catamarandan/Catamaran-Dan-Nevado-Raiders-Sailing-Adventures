@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L09 Physical Oceanography — Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px; height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px; overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 1.28%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 09 · Physical Oceanography</div>
+        <h1 class="lesson-title">Tools</h1>
+        <div class="lesson-subtitle">Herramientas de la Oceanografía Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG ILLUSTRATION — Remote Sensing, Mooring, Drifter, Glider -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#0a6e8a" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#020f1e" stop-opacity="0.55"/>
+          </linearGradient>
+          <linearGradient id="gliderG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#0a6e8a" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+        <!-- Water -->
+        <rect x="0" y="72" width="380" height="188" fill="url(#waterG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.055)" stroke-width="0.5">
+          <line x1="0"   y1="120" x2="380" y2="120"/>
+          <line x1="0"   y1="175" x2="380" y2="175"/>
+          <line x1="0"   y1="230" x2="380" y2="230"/>
+          <line x1="95"  y1="0"   x2="95"  y2="260"/>
+          <line x1="190" y1="0"   x2="190" y2="260"/>
+          <line x1="285" y1="0"   x2="285" y2="260"/>
+        </g>
+
+        <!-- Surface line -->
+        <path d="M0,72 C25,67 50,77 80,72 C110,67 140,77 170,72
+                 C200,67 230,77 260,72 C290,67 320,77 350,72 L380,72"
+              fill="none" stroke="rgba(26,200,200,0.55)" stroke-width="1.2"/>
+
+        <!-- ── SATELLITE (top center) ── -->
+        <rect x="168" y="6" width="22" height="12" rx="2"
+              fill="rgba(240,180,41,0.18)" stroke="rgba(240,180,41,0.55)" stroke-width="1"/>
+        <rect x="150" y="9"  width="16" height="5" rx="1"
+              fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.35)" stroke-width="0.7"/>
+        <rect x="192" y="9"  width="16" height="5" rx="1"
+              fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.35)" stroke-width="0.7"/>
+        <!-- Sat → buoy signal -->
+        <line x1="179" y1="18" x2="108" y2="68"
+              stroke="rgba(240,180,41,0.4)" stroke-width="0.9" stroke-dasharray="3,3"/>
+        <!-- Sat → glider signal -->
+        <line x1="181" y1="18" x2="260" y2="68"
+              stroke="rgba(26,200,200,0.35)" stroke-width="0.9" stroke-dasharray="3,3"/>
+        <text x="179" y="4" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.65)" text-anchor="middle">SATELLITE</text>
+
+        <!-- ── SURFACE DRIFTER (left) ── -->
+        <circle cx="62" cy="70" r="7"
+                fill="rgba(184,240,236,0.2)" stroke="rgba(184,240,236,0.55)" stroke-width="1.1"/>
+        <line x1="62" y1="77" x2="62" y2="115"
+              stroke="rgba(184,240,236,0.3)" stroke-width="0.8" stroke-dasharray="2,3"/>
+        <!-- Drogue at depth -->
+        <rect x="56" y="115" width="12" height="18" rx="2"
+              fill="rgba(184,240,236,0.1)" stroke="rgba(184,240,236,0.35)" stroke-width="0.8"/>
+        <!-- Drifter path -->
+        <path d="M18,68 C30,65 45,72 62,70 C78,68 92,65 105,68"
+              fill="none" stroke="rgba(184,240,236,0.4)" stroke-width="1" stroke-dasharray="4,3"/>
+        <polygon points="105,68 97,64 97,72" fill="rgba(184,240,236,0.4)"/>
+        <text x="62" y="145" font-family="monospace" font-size="7"
+              fill="rgba(184,240,236,0.55)" text-anchor="middle">SURFACE</text>
+        <text x="62" y="155" font-family="monospace" font-size="7"
+              fill="rgba(184,240,236,0.55)" text-anchor="middle">DRIFTER</text>
+        <text x="62" y="165" font-family="monospace" font-size="6"
+              fill="rgba(184,240,236,0.35)" text-anchor="middle">SST · currents</text>
+
+        <!-- ── MOORING (center-left) ── -->
+        <!-- Surface buoy -->
+        <ellipse cx="148" cy="69" rx="10" ry="6"
+                 fill="rgba(240,180,41,0.18)" stroke="rgba(240,180,41,0.5)" stroke-width="1.1"/>
+        <text x="148" y="68" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.7)" text-anchor="middle">BUOY</text>
+        <!-- Mooring wire -->
+        <line x1="148" y1="75" x2="148" y2="248"
+              stroke="rgba(138,184,204,0.35)" stroke-width="1"/>
+        <!-- Instruments on mooring -->
+        <rect x="142" y="102" width="12" height="8" rx="1"
+              fill="rgba(26,200,200,0.2)" stroke="rgba(26,200,200,0.45)" stroke-width="0.8"/>
+        <rect x="142" y="135" width="12" height="8" rx="1"
+              fill="rgba(26,200,200,0.18)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+        <rect x="142" y="170" width="12" height="8" rx="1"
+              fill="rgba(26,200,200,0.15)" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+        <rect x="142" y="210" width="12" height="8" rx="1"
+              fill="rgba(26,200,200,0.12)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+        <!-- Instrument labels -->
+        <g font-family="monospace" font-size="6" fill="rgba(26,200,200,0.45)">
+          <text x="158" y="109">T/S sensor</text>
+          <text x="158" y="142">ADCP</text>
+          <text x="158" y="177">T/S sensor</text>
+          <text x="158" y="217">T/S sensor</text>
+        </g>
+        <!-- Anchor -->
+        <rect x="143" y="248" width="10" height="6" rx="1"
+              fill="rgba(138,184,204,0.2)" stroke="rgba(138,184,204,0.35)" stroke-width="0.8"/>
+        <text x="148" y="260" font-family="monospace" font-size="6.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">anchor</text>
+
+        <text x="120" y="88" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.55)" text-anchor="middle">MOORING</text>
+        <text x="120" y="97" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.35)" text-anchor="middle">time-series T/S/U</text>
+
+        <!-- ── UNDERWATER GLIDER (right, sawtooth path) ── -->
+        <!-- Glider sawtooth trajectory -->
+        <path d="M240,72 L258,145 L276,72 L294,145 L312,72 L330,145"
+              fill="none" stroke="rgba(26,200,200,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- Glider body at mid-dive -->
+        <!-- Wing shape -->
+        <ellipse cx="276" cy="108" rx="14" ry="5" fill="url(#gliderG)"
+                 transform="rotate(-35 276 108)"/>
+        <!-- Wings -->
+        <line x1="264" y1="104" x2="288" y2="112"
+              stroke="rgba(26,200,200,0.6)" stroke-width="1.5"/>
+        <!-- Antenna -->
+        <line x1="276" y1="96" x2="276" y2="88"
+              stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+        <circle cx="276" cy="87" r="2" fill="rgba(26,200,200,0.4)"/>
+
+        <!-- Data profile lines beside glider path -->
+        <path d="M338,75 C340,82 344,98 345,120 C346,140 343,158 340,175 C338,188 337,200 338,210"
+              fill="none" stroke="rgba(184,240,236,0.4)" stroke-width="1" stroke-dasharray="3,4"/>
+        <text x="355" y="82" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.4)">T/S</text>
+        <text x="355" y="92" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.4)">DO</text>
+        <text x="355" y="102" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.4)">chl-a</text>
+
+        <text x="285" y="175" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.55)" text-anchor="middle">GLIDER</text>
+        <text x="285" y="185" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.35)" text-anchor="middle">autonomous · weeks–months</text>
+
+        <!-- Thermocline dashed line -->
+        <line x1="0" y1="120" x2="380" y2="120"
+              stroke="rgba(240,180,41,0.2)" stroke-width="0.8" stroke-dasharray="5,4"/>
+        <text x="6" y="117" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.38)">thermocline</text>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="190" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.13em">OBSERVING TOOLS  ·  PLATFORMS</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          While Lesson 08 introduced the core <em>measurements</em> of physical oceanography, this lesson examines the <strong>platforms and tools</strong> that collect them — the technological ecosystem that transforms the ocean from an opaque frontier into a quantified, monitored system. <strong>Moorings</strong> are anchored instrument arrays that record time-series data at fixed locations — typically a surface buoy connected by a wire to a seafloor anchor, with T/S sensors and ADCPs clamped at multiple depths. They capture seasonal and interannual variability at high temporal resolution but zero spatial coverage. <strong>Surface drifters</strong> are GPS-tracked buoys with a subsurface drogue (sea anchor) at ~15 m depth that causes them to track near-surface currents; their trajectories map surface circulation globally. <strong>Underwater gliders</strong> are autonomous vehicles that propel themselves by changing buoyancy, flying a sawtooth profile through the water column while measuring T, S, dissolved oxygen, chlorophyll, and optical properties — operating for weeks to months on a single battery charge. <strong>Research vessels</strong> remain indispensable for CTD rosette deployments, sediment coring, net tows, and real-time calibration of autonomous platforms. <strong>Remote sensing</strong> from satellites provides synoptic, basin-scale coverage of SST (MODIS, VIIRS), ocean color (chlorophyll), SSH (altimeters), and surface winds (scatterometers) — the only tools capable of resolving the full spatial context of regional oceanography.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Tool / Platform</th><th>Mobility</th><th>Temporal Coverage</th><th>Key Variables</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mooring</td><td>Fixed</td><td>Months–years</td><td>T, S, U (time series)</td></tr>
+          <tr><td>Surface drifter</td><td>Lagrangian</td><td>Weeks–months</td><td>SST, surface currents</td></tr>
+          <tr><td>Glider</td><td>Autonomous AUV</td><td>Weeks–months</td><td>T, S, DO, chl-a</td></tr>
+          <tr><td>Research vessel</td><td>Directed</td><td>Days–weeks</td><td>All (CTD, nets, cores)</td></tr>
+          <tr><td>Satellite</td><td>Global synoptic</td><td>Daily / repeat</td><td>SST, SSH, color, wind</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Mientras que la Lección 08 introdujo las <em>mediciones</em> fundamentales de la oceanografía física, esta lección examina las <strong>plataformas y herramientas</strong> que las recopilan — el ecosistema tecnológico que transforma el océano de una frontera opaca en un sistema cuantificado y monitoreado. Los <strong>fondeos</strong> son matrices de instrumentos anclados que registran datos de series temporales en ubicaciones fijas — típicamente una boya superficial conectada por un cable a un ancla en el fondo marino, con sensores T/S y ADCPs a múltiples profundidades. Las <strong>boyas de deriva superficiales</strong> son boyas rastreadas por GPS con un ancla de deriva subsuperficial a ~15 m de profundidad que las hace rastrear las corrientes cercanas a la superficie. Los <strong>planeadores submarinos</strong> (gliders) son vehículos autónomos que se propulsan cambiando su flotabilidad, volando un perfil en dientes de sierra por la columna de agua mientras miden T, S, oxígeno disuelto, clorofila y propiedades ópticas — operando durante semanas a meses con una sola carga de batería. Los <strong>buques de investigación</strong> siguen siendo indispensables para despliegues de rosetas CTD, núcleos de sedimentos, arrastres de redes y calibración en tiempo real de plataformas autónomas. La <strong>teledetección</strong> por satélite proporciona cobertura sinóptica a escala de cuenca de TSM, color del océano, SSH y vientos superficiales — las únicas herramientas capaces de resolver el contexto espacial completo de la oceanografía regional.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Herramienta / Plataforma</th><th>Movilidad</th><th>Cobertura Temporal</th><th>Variables Clave</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fondeo</td><td>Fijo</td><td>Meses–años</td><td>T, S, U (series temporales)</td></tr>
+          <tr><td>Boya de deriva</td><td>Lagrangiana</td><td>Semanas–meses</td><td>TSM, corrientes superficiales</td></tr>
+          <tr><td>Planeador (glider)</td><td>VAU autónomo</td><td>Semanas–meses</td><td>T, S, OD, chl-a</td></tr>
+          <tr><td>Buque de investigación</td><td>Dirigido</td><td>Días–semanas</td><td>Todas (CTD, redes, núcleos)</td></tr>
+          <tr><td>Satélite</td><td>Sinóptico global</td><td>Diario / repetido</td><td>TSM, SSH, color, viento</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /lecture-panel -->
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Monitoring the Western Caribbean requires combining tools from every tier of the observing hierarchy — no single platform can capture the full picture. The Rim Run™ expedition itself functions as a mobile observing platform, integrating real-time field observations with the satellite and mooring data streams that define the regional physical context.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>NOAA drifter array and Caribbean currents:</strong> The Global Drifter Program deploys surface drifters throughout the Caribbean that have revealed the complex, eddy-rich nature of near-surface flow. Drifter trajectories show that particles released near the Belize coast can reach the Yucatán Channel within <strong>2–4 weeks</strong> — directly relevant to coral larval connectivity and pollutant transport along the MAR.</li>
+        <li><strong>Gliders on the reef slope:</strong> Autonomous underwater gliders have been deployed along the outer MAR slope by MBARI, CICESE, and regional institutions to profile the thermocline, oxygen minimum zones, and chlorophyll maxima that characterize the reef's offshore physical environment. These missions have revealed sharp sub-thermocline oxygen depletion layers that episodically shoal onto the reef slope — a hypoxia risk factor for benthic communities.</li>
+        <li><strong>MODIS/VIIRS SST for bleaching monitoring:</strong> NOAA's Coral Reef Watch program uses daily MODIS and VIIRS SST composites to compute Degree Heating Weeks (DHW) — the accumulated thermal anomaly above the bleaching threshold. DHW maps for the MAR are updated weekly and are the primary operational tool for anticipating and responding to mass bleaching events across the seven-country corridor.</li>
+        <li><strong>Research vessels in the corridor:</strong> Periodic research cruises by institutions including UNAM, ECOSUR, WCS, and the Smithsonian provide CTD section data, water samples, and current measurements along the MAR. However, the mean recurrence interval between full-corridor surveys is measured in <strong>years</strong> — a critical data gap that autonomous platforms and expedition-based science like Rim Run™ are helping to fill.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El monitoreo del Caribe occidental requiere combinar herramientas de cada nivel de la jerarquía de observación — ninguna plataforma única puede capturar el panorama completo. La expedición Rim Run™ en sí misma funciona como una plataforma de observación móvil, integrando observaciones de campo en tiempo real con los flujos de datos satelitales y de fondeo que definen el contexto físico regional.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Red de boyas de deriva de NOAA y corrientes caribeñas:</strong> El Programa Global de Boyas de Deriva despliega boyas en todo el Caribe que han revelado la naturaleza compleja y rica en remolinos del flujo cercano a la superficie. Las trayectorias muestran que partículas liberadas cerca de la costa beliceña pueden llegar al Canal de Yucatán en <strong>2–4 semanas</strong> — directamente relevante para la conectividad larvaria de corales y el transporte de contaminantes a lo largo del SAM.</li>
+        <li><strong>Planeadores en el talud arrecifal:</strong> Planeadores submarinos autónomos han sido desplegados a lo largo del talud externo del SAM por MBARI, CICESE e instituciones regionales para perfilar la termoclina, las zonas mínimas de oxígeno y los máximos de clorofila. Estas misiones han revelado capas agudas de depleción de oxígeno sub-termoclina que episódicamente ascienden sobre el talud arrecifal — un factor de riesgo de hipoxia para las comunidades bentónicas.</li>
+        <li><strong>TSM de MODIS/VIIRS para monitoreo de blanqueamiento:</strong> El programa Coral Reef Watch de NOAA usa compuestos diarios de TSM de MODIS y VIIRS para calcular las Semanas de Calentamiento de Grado (DHW) — la anomalía térmica acumulada por encima del umbral de blanqueamiento. Los mapas de DHW para el SAM se actualizan semanalmente y son la principal herramienta operacional para anticipar y responder a eventos masivos de blanqueamiento.</li>
+        <li><strong>Buques de investigación en el corredor:</strong> Las campañas periódicas de instituciones como UNAM, ECOSUR, WCS y el Smithsonian proporcionan datos de secciones CTD, muestras de agua y mediciones de corrientes a lo largo del SAM. Sin embargo, el intervalo medio de recurrencia entre levantamientos completos del corredor se mide en <strong>años</strong> — una brecha de datos crítica que las plataformas autónomas y la ciencia basada en expediciones como Rim Run™ están ayudando a llenar.</li>
+      </ul>
+    </div><!-- /caribbean-panel -->
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A surface drifter is equipped with a drogue (sea anchor) at 15 m depth. What is the primary purpose of this drogue?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> To prevent the drifter from sinking below the mixed layer and losing GPS contact</li>
+            <li><span class="opt-letter">B.</span> To anchor the drifter to the seafloor so it records time-series data at a fixed location</li>
+            <li><span class="opt-letter">C.</span> To cause the drifter to track the near-surface current rather than being pushed by surface wind</li>
+            <li><span class="opt-letter">D.</span> To stabilize the drifter against wave motion so the SST sensor reads accurately</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The drogue keeps the drifter tracking the 15 m current, minimizing direct wind-driven (Stokes drift) contamination.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Una boya de deriva tiene un ancla de deriva (drogue) a 15 m de profundidad. ¿Cuál es el propósito principal de este ancla?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Evitar que la boya se hunda por debajo de la capa de mezcla y pierda contacto GPS</li>
+            <li><span class="opt-letter">B.</span> Anclar la boya al fondo marino para que registre series temporales en una ubicación fija</li>
+            <li><span class="opt-letter">C.</span> Hacer que la boya rastree la corriente cercana a la superficie en lugar de ser empujada por el viento superficial</li>
+            <li><span class="opt-letter">D.</span> Estabilizar la boya contra el movimiento de las olas para que el sensor de TSM lea con precisión</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El ancla mantiene a la boya rastreando la corriente a 15 m, minimizando la contaminación por deriva inducida por el viento.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 NOAA's Coral Reef Watch uses MODIS/VIIRS SST data to compute "Degree Heating Weeks" (DHW). What does a DHW value of 8 °C-weeks indicate?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The ocean has cooled by 8°C below the annual mean over the past week — a cold-stress event</li>
+            <li><span class="opt-letter">B.</span> The accumulated thermal anomaly above the bleaching threshold over 12 weeks equals 8°C-weeks — significant bleaching likely</li>
+            <li><span class="opt-letter">C.</span> Water temperature has exceeded 8°C above normal for exactly one week — minor bleaching possible</li>
+            <li><span class="opt-letter">D.</span> The thermocline has shoaled 8 meters closer to the surface over the past week due to warm water intrusion</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — DHW = accumulated °C anomaly above bleaching threshold over 12 weeks; ≥8 °C-weeks typically causes severe bleaching and mortality.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El Coral Reef Watch de NOAA usa datos de TSM de MODIS/VIIRS para calcular las "Semanas de Calentamiento de Grado" (DHW). ¿Qué indica un valor de DHW de 8 °C-semanas?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El océano se ha enfriado 8°C por debajo de la media anual en la última semana — un evento de estrés por frío</li>
+            <li><span class="opt-letter">B.</span> La anomalía térmica acumulada por encima del umbral de blanqueamiento durante 12 semanas es igual a 8°C-semanas — blanqueamiento significativo probable</li>
+            <li><span class="opt-letter">C.</span> La temperatura del agua ha superado 8°C por encima de lo normal durante exactamente una semana — posible blanqueamiento menor</li>
+            <li><span class="opt-letter">D.</span> La termoclina ha ascendido 8 metros más cerca de la superficie en la última semana debido a una intrusión de agua cálida</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — DHW = anomalía °C acumulada sobre el umbral de blanqueamiento en 12 semanas; ≥8 °C-semanas típicamente causa blanqueamiento severo y mortalidad.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 An underwater glider propels itself without a traditional motor. What physical principle allows it to move through the water column?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It uses a propeller driven by tidal energy harvested from pressure differences at depth</li>
+            <li><span class="opt-letter">B.</span> It changes its buoyancy by pumping oil between internal and external bladders, converting vertical motion into forward glide via wings</li>
+            <li><span class="opt-letter">C.</span> It uses electromagnetic propulsion by generating a current through seawater using onboard magnets</li>
+            <li><span class="opt-letter">D.</span> It rides internal wave fronts passively, surfing along thermocline oscillations without any active propulsion</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Gliders pump oil to change buoyancy; wings convert the resulting vertical motion into efficient horizontal gliding.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un planeador submarino se propulsa sin un motor tradicional. ¿Qué principio físico le permite moverse por la columna de agua?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Usa una hélice impulsada por energía mareal cosechada de diferencias de presión en profundidad</li>
+            <li><span class="opt-letter">B.</span> Cambia su flotabilidad bombeando aceite entre vejigas internas y externas, convirtiendo el movimiento vertical en planeo horizontal mediante alas</li>
+            <li><span class="opt-letter">C.</span> Usa propulsión electromagnética generando una corriente a través del agua de mar con imanes a bordo</li>
+            <li><span class="opt-letter">D.</span> Monta pasivamente frentes de ondas internas, surfeando las oscilaciones de la termoclina sin propulsión activa</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los planeadores bombean aceite para cambiar la flotabilidad; las alas convierten el movimiento vertical resultante en un planeo horizontal eficiente.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 09 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L09 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
