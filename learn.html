@@ -135,16 +135,12 @@ nav{background:rgba(10,24,37,.95);border-bottom:1px solid rgba(201,168,76,.2);po
 .content-block p{font-family:'Source Serif 4',serif;font-size:1rem;color:var(--fog);line-height:1.8;margin-bottom:1.2rem;}
 .content-block strong{color:var(--parchment);font-weight:600;}
 
-/* REGIONAL BLOCK */
-.regional-block{background:rgba(26,107,122,.1);border:1px solid rgba(77,196,212,.2);border-left:4px solid var(--teal);padding:1.8rem 2rem;margin:2rem 0;}
-.regional-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.8rem;}
-.regional-label::before{content:'⚓';font-size:.8rem;}
-.regional-block h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--aqua);margin-bottom:.8rem;}
-.regional-block p{font-family:'Source Serif 4',serif;font-size:.98rem;color:var(--fog);line-height:1.78;margin-bottom:1rem;}
-.regional-block p:last-child{margin-bottom:0;}
+.lesson-columns{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.lesson-columns .content-block{min-width:0;}
 
 /* IMAGE */
-.lesson-image-wrap{margin:2rem 0;border:1px solid rgba(77,196,212,.15);overflow:hidden;}
+.lesson-image-wrap{margin:1.25rem 0;border:1px solid rgba(77,196,212,.15);overflow:hidden;background:rgba(0,0,0,.15);}
+.lesson-image-wrap img{width:100%;height:auto;display:block;}
 .image-caption{background:rgba(0,0,0,.3);padding:.6rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--mist);text-transform:uppercase;}
 
 /* MCQ */
@@ -176,14 +172,6 @@ nav{background:rgba(10,24,37,.95);border-bottom:1px solid rgba(201,168,76,.2);po
 .btn-retake{background:none;border:1px solid rgba(77,196,212,.4);color:var(--aqua);font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.75rem 2rem;cursor:pointer;transition:all .25s;margin:.5rem;}
 .btn-retake:hover{background:rgba(77,196,212,.1);border-color:var(--aqua);}
 
-/* CERT */
-.cert-banner{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(26,107,122,.15));border:2px solid var(--gold);padding:3rem;text-align:center;margin:3rem 0;display:none;}
-.cert-banner.show{display:block;}
-.cert-icon{font-size:3rem;margin-bottom:1rem;}
-.cert-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-bottom:.5rem;}
-.cert-sub{font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--fog);margin-bottom:1.5rem;}
-.cert-sub-es{font-style:italic;color:var(--mist);font-size:.92rem;}
-
 /* ARCHIVE */
 .archive-wrap{margin-top:4rem;}
 .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:2rem;}
@@ -192,7 +180,7 @@ nav{background:rgba(10,24,37,.95);border-bottom:1px solid rgba(201,168,76,.2);po
 .archive-card:hover::before{transform:scaleY(1);}
 .archive-card:hover{border-color:rgba(77,196,212,.3);background:var(--panel2);}
 .archive-card.complete::before{transform:scaleY(1);background:var(--correct);}
-.archive-card.locked{opacity:.4;cursor:not-allowed;}
+.archive-card.locked{opacity:.45;cursor:not-allowed;}
 .archive-num{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;}
 .archive-title-en{font-family:'Playfair Display',serif;font-size:1rem;color:var(--parchment);margin-bottom:.2rem;line-height:1.3;}
 .archive-title-es{font-family:'Source Serif 4',serif;font-size:.82rem;color:var(--mist);font-style:italic;margin-bottom:.4rem;}
@@ -227,12 +215,12 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
   .curriculum-stats{gap:2rem;}
   .lesson-tab{padding:.8rem 1rem;font-size:.72rem;white-space:nowrap;}
   .lesson-tabs{overflow-x:auto;}
+  .lesson-columns{grid-template-columns:1fr;}
 }
   </style>
 </head>
 <body>
 
-<!-- LOGIN OVERLAY -->
 <div id="login-overlay">
   <div class="login-box">
     <div class="login-logo">Rim Run&#8482; Ocean Science &mdash; Reef Keepers Program</div>
@@ -241,7 +229,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
       Enter your email to begin &mdash; or to pick up where you left off. No password required.
       <span class="login-subtitle-es">Ingresa tu correo electr&oacute;nico para comenzar, o para continuar donde lo dejaste. No se requiere contrase&ntilde;a.</span>
     </p>
-    <form id="login-form" onsubmit="handleLogin(event)">
+    <form id="login-form">
       <div class="form-group">
         <label class="form-label" for="email-input">Email Address / Correo Electr&oacute;nico</label>
         <input class="form-input" id="email-input" type="email" placeholder="your@email.com" required autocomplete="email"/>
@@ -250,7 +238,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
         <input class="optin-checkbox" type="checkbox" id="optin-check"/>
         <label class="optin-label" for="optin-check">
           Yes &mdash; keep me updated on the Rim Run&#8482; expedition, including the countdown to our October 2026 launch and dispatches from the field.
-          <span class="optin-label-es">S&iacute; &mdash; man&eacute;nme informado/a sobre la expedici&oacute;n Rim Run&#8482;, incluyendo la cuenta regresiva hasta nuestro lanzamiento en octubre de 2026 y despachos desde el campo.</span>
+          <span class="optin-label-es">S&iacute; &mdash; mant&eacute;nme informado/a sobre la expedici&oacute;n Rim Run&#8482;, incluyendo la cuenta regresiva hasta nuestro lanzamiento en octubre de 2026 y despachos desde el campo.</span>
         </label>
       </div>
       <button class="btn-primary" type="submit">Enter the Curriculum / Ingresar al Curr&iacute;culo</button>
@@ -262,7 +250,6 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
   </div>
 </div>
 
-<!-- NAV -->
 <nav id="main-nav">
   <div class="nav-inner">
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
@@ -284,7 +271,6 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
   </div>
 </nav>
 
-<!-- PAGE HERO -->
 <div class="page-hero">
   <div class="hero-content">
     <div class="hero-institution">Rim Run&#8482; Expedition &bull; Reef Keepers Educational Series</div>
@@ -300,38 +286,23 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main-wrap" id="main-content">
 
-  <!-- PROGRESS -->
   <div class="progress-panel" id="progress-panel">
     <div class="progress-header">
       <span class="progress-greeting" id="progress-greeting">Welcome back.</span>
-      <span class="progress-pct" id="progress-pct">0 / 22 SECTIONS COMPLETE</span>
+      <span class="progress-pct" id="progress-pct">0 / 22 SECTIONS COMPLETE — 0%</span>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     <div class="progress-dots" id="progress-dots"></div>
   </div>
 
-  <!-- DISCLAIMER -->
   <div class="disclaimer">
     <span class="disclaimer-icon">&#9888; Notice / Aviso</span>
     <p>The educational content in this curriculum was developed with the assistance of artificial intelligence. Every effort has been made to ensure scientific accuracy and integrity across all 22 sections. If you identify an error or wish to suggest an improvement, please contact us at <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>.</p>
     <p class="es-text">El contenido educativo de este curr&iacute;culo fue desarrollado con la asistencia de inteligencia artificial. Se ha hecho todo lo posible para garantizar la precisi&oacute;n e integridad cient&iacute;fica en las 22 secciones. Si identifica un error o desea sugerir una mejora, cont&aacute;ctenos en <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>.</p>
   </div>
 
-  <!-- CERTIFICATION BANNER -->
-  <div class="cert-banner" id="cert-banner">
-    <div class="cert-icon">&#127826;</div>
-    <div class="cert-title">Reef Keepers Certified</div>
-    <div class="cert-sub">
-      You have completed all 22 sections of the Rim Run&#8482; Ocean Science Curriculum. You are now a certified Reef Keeper &mdash; <em>Los Guardianes del Arrecife.</em>
-      <span class="cert-sub-es">Has completado las 22 secciones del Curr&iacute;culo de Ciencias del Oc&eacute;ano Rim Run&#8482;. Ahora eres un Guardi&aacute;n del Arrecife certificado.</span>
-    </div>
-    <button class="btn-retake" onclick="requestCertificate()">Request Your Certificate / Solicitar tu Certificado</button>
-  </div>
-
-  <!-- CURRENT LESSON -->
   <div class="current-lesson-wrap" id="current-lesson-wrap">
     <div class="section-label">Current Lesson / Lecci&oacute;n Actual</div>
     <h2 class="section-title">The Active <em>Section</em></h2>
@@ -345,7 +316,6 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
     </div>
   </div>
 
-  <!-- ARCHIVE -->
   <div class="archive-wrap" id="archive-wrap">
     <div class="section-label">All Sections / Todas las Secciones</div>
     <h2 class="section-title">The Full <em>Curriculum</em></h2>
@@ -357,7 +327,6 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
 
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
   <div class="footer-tagline">&ldquo;As go the seas&hellip; so goes humanity.&rdquo;</div>
@@ -369,13 +338,10 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem
 </footer>
 
 <script>
-/* ── GOOGLE APPS SCRIPT URL ──
-   Replace with your deployed Web App URL */
 const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
-/* ── CURRICULUM MANIFEST ── */
 const CURRICULUM = [
-  {id:1, num:'01', title:'Physical Oceanography', title_es:'Oceanograf\u00eda F\u00edsica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
+  {id:1, num:'01', title:'Physical Oceanography', title_es:'Oceanograf\u00eda F\u00edsica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:true},
   {id:2, num:'02', title:'Chemical Oceanography', title_es:'Oceanograf\u00eda Qu\u00edmica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
   {id:3, num:'03', title:'Biological Oceanography', title_es:'Oceanograf\u00eda Biol\u00f3gica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
   {id:4, num:'04', title:'Geological Oceanography', title_es:'Oceanograf\u00eda Geol\u00f3gica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
@@ -399,14 +365,6 @@ const CURRICULUM = [
   {id:22, num:'22', title:'Long-Term Change Detection', title_es:'Detecci\u00f3n de Cambios a Largo Plazo', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false}
 ];
 
-/* ── LESSONS ARRAY ──
-   Each published lesson added here as object:
-   { id, content_en, content_es, regional_en, regional_es,
-     image_svg, image_caption_en, image_caption_es, questions:[] }
-   Each question:
-   { q_en, q_es, answers_en:[], answers_es:[], correct:0-3,
-     explanation_en, explanation_es } */
-
 const LESSONS = {
   1: {
     lessons: [
@@ -414,86 +372,82 @@ const LESSONS = {
         lesson: 1,
         title_en: "Ocean Structure & Layers",
         title_es: "Estructura y Capas del Océano",
-
         images: [
           "images/s01_l01_1.jpg",
           "images/s01_l01_2.jpg",
           "images/s01_l01_3.jpg"
         ],
-
         lecture_en: `
           <h3>Ocean Layers Defined</h3>
-          <p>The ocean is vertically structured into layers based on light, temperature, and pressure. The epipelagic zone (0–200m) supports life through sunlight-driven photosynthesis.</p>
+          <p>The ocean is vertically structured into layers based on light penetration, temperature, and pressure. The epipelagic zone, from the surface to roughly 200 meters, is the sunlit layer where photosynthesis occurs and where reef ecosystems can survive.</p>
 
-          <h3>Reef Relevance</h3>
-          <p>Coral reefs exist almost entirely in this sunlit zone. Without light, coral ecosystems collapse.</p>
+          <h3>Why It Matters to Reefs</h3>
+          <p>Coral reefs exist almost entirely in the epipelagic zone because corals rely on light-dependent symbiotic algae. When light drops, reef-building coral growth declines sharply.</p>
 
-          <h3>Mesoamerican Reef (MAR)</h3>
-          <p>Across Mexico, Belize, Guatemala, and Honduras, reefs are found in shallow waters between 1–30m, where sunlight is optimal.</p>
+          <h3>MAR Application</h3>
+          <p>Across the Mesoamerican Reef in Mexico, Belize, Guatemala, and Honduras, most reef structure lies in shallow water, commonly between 1 and 30 meters. That puts these reefs squarely in the sunlit layer where light drives the entire system.</p>
 
-          <h3>Marine Systems Corridor</h3>
-          <p>In Nicaragua, Costa Rica, and Panama, turbidity reduces light penetration, impacting reef growth—especially in Bocas del Toro.</p>
+          <h3>Marine Systems Corridor Extension</h3>
+          <p>Farther south in Nicaragua, Costa Rica, and Panama, the same shallow-water light requirement applies, but sediment and turbidity often reduce how deeply light penetrates. That makes local water clarity especially important for reef condition and coral growth.</p>
         `,
-
         lecture_es: `
           <h3>Capas del Océano</h3>
-          <p>El océano se divide en capas según la luz, temperatura y presión. La zona epipelágica (0–200m) permite la fotosíntesis.</p>
+          <p>El océano está estructurado verticalmente en capas según la penetración de la luz, la temperatura y la presión. La zona epipelágica, desde la superficie hasta aproximadamente 200 metros, es la capa iluminada donde ocurre la fotosíntesis y donde pueden sobrevivir los ecosistemas arrecifales.</p>
 
-          <h3>Importancia para Arrecifes</h3>
-          <p>Los arrecifes existen en esta zona iluminada. Sin luz, colapsan.</p>
+          <h3>Por Qué Importa para los Arrecifes</h3>
+          <p>Los arrecifes de coral existen casi por completo en la zona epipelágica porque los corales dependen de algas simbióticas que necesitan luz. Cuando la luz disminuye, el crecimiento del coral constructor de arrecife cae de forma marcada.</p>
 
-          <h3>Arrecife Mesoamericano</h3>
-          <p>En México, Belice, Guatemala y Honduras, los arrecifes están entre 1–30m de profundidad.</p>
+          <h3>Aplicación al MAR</h3>
+          <p>A lo largo del Arrecife Mesoamericano en México, Belice, Guatemala y Honduras, la mayor parte de la estructura arrecifal se encuentra en aguas poco profundas, comúnmente entre 1 y 30 metros. Eso sitúa a estos arrecifes firmemente en la capa iluminada donde la luz impulsa todo el sistema.</p>
 
-          <h3>Corredor Marino</h3>
-          <p>En Nicaragua, Costa Rica y Panamá, la turbidez reduce la luz y afecta el crecimiento coralino.</p>
+          <h3>Extensión del Corredor Marino</h3>
+          <p>M&aacute;s al sur, en Nicaragua, Costa Rica y Panam&aacute;, sigue existiendo la misma necesidad de luz en aguas someras, pero los sedimentos y la turbidez suelen reducir la profundidad efectiva de penetraci&oacute;n de la luz. Eso vuelve especialmente importante la claridad del agua para la condici&oacute;n del arrecife y el crecimiento coralino.</p>
         `,
-
         questions: [
           {
-            q_en: "Which ocean layer supports coral reef growth?",
-            q_es: "¿Qué capa oceánica permite el crecimiento de arrecifes?",
-            answers_en: ["Mesopelagic","Bathypelagic","Epipelagic","Abyssal"],
-            answers_es: ["Mesopelágica","Batipelágica","Epipelágica","Abisal"],
-            correct: 2,
-            explanation_en: "Coral reefs require sunlight, found only in the epipelagic zone.",
-            explanation_es: "Los arrecifes requieren luz solar, presente en la zona epipelágica."
+            q_en: "Which ocean layer supports most coral reef growth?",
+            q_es: "¿Qué capa del océano sostiene la mayor parte del crecimiento arrecifal?",
+            answers_en: ["Epipelagic", "Bathypelagic", "Abyssal", "Hadal"],
+            answers_es: ["Epipelágica", "Batipelágica", "Abisal", "Hadal"],
+            correct: 0,
+            explanation_en: "Coral reefs require sunlight, which is available in the epipelagic zone.",
+            explanation_es: "Los arrecifes requieren luz solar, la cual está disponible en la zona epipelágica."
           },
           {
-            q_en: "What limits reef depth?",
-            q_es: "¿Qué limita la profundidad del arrecife?",
-            answers_en: ["Pressure","Temperature","Light","Salinity"],
-            answers_es: ["Presión","Temperatura","Luz","Salinidad"],
-            correct: 2,
-            explanation_en: "Light availability controls coral survival.",
-            explanation_es: "La luz controla la supervivencia del coral."
-          },
-          {
-            q_en: "Typical MAR reef depth?",
-            q_es: "Profundidad típica del MAR?",
-            answers_en: ["200–500m","1–30m","500–1000m","1000m+"],
-            answers_es: ["200–500m","1–30m","500–1000m","1000m+"],
+            q_en: "What is the main reason reefs remain in shallow water?",
+            q_es: "¿Cuál es la razón principal por la que los arrecifes permanecen en aguas someras?",
+            answers_en: ["High pressure", "Light availability", "Deep currents", "Low salinity"],
+            answers_es: ["Alta presión", "Disponibilidad de luz", "Corrientes profundas", "Baja salinidad"],
             correct: 1,
-            explanation_en: "MAR reefs exist in shallow sunlit water.",
-            explanation_es: "Los arrecifes del MAR son poco profundos."
+            explanation_en: "Reef-building corals depend on light for their symbiotic algae.",
+            explanation_es: "Los corales constructores de arrecife dependen de la luz para sus algas simbióticas."
           },
           {
-            q_en: "What does turbidity reduce?",
-            q_es: "¿Qué reduce la turbidez?",
-            answers_en: ["Oxygen","Light","Salinity","Pressure"],
-            answers_es: ["Oxígeno","Luz","Salinidad","Presión"],
-            correct: 1,
-            explanation_en: "Turbidity blocks sunlight.",
-            explanation_es: "La turbidez bloquea la luz."
+            q_en: "Most MAR reef structure commonly lies within what depth range?",
+            q_es: "¿En qué rango de profundidad se encuentra comúnmente la mayor parte del arrecife del MAR?",
+            answers_en: ["1–30 meters", "200–500 meters", "500–1000 meters", "More than 1000 meters"],
+            answers_es: ["1–30 metros", "200–500 metros", "500–1000 metros", "Más de 1000 metros"],
+            correct: 0,
+            explanation_en: "Most MAR reef environments are shallow and light-rich.",
+            explanation_es: "La mayor parte de los ambientes arrecifales del MAR son someros y ricos en luz."
           },
           {
-            q_en: "Drop-offs indicate what?",
-            q_es: "¿Qué indican las caídas?",
-            answers_en: ["More light","Warmer water","Zone change","More coral"],
-            answers_es: ["Más luz","Agua más caliente","Cambio de zona","Más coral"],
+            q_en: "In the southern corridor, turbidity mainly affects reefs by reducing what?",
+            q_es: "En el corredor sur, la turbidez afecta principalmente a los arrecifes al reducir qué?",
+            answers_en: ["Salinity", "Oxygen", "Light penetration", "Wave height"],
+            answers_es: ["Salinidad", "Oxígeno", "Penetración de luz", "Altura de ola"],
             correct: 2,
-            explanation_en: "They mark transition to deeper ecosystems.",
-            explanation_es: "Marcan transición a zonas profundas."
+            explanation_en: "Turbidity reduces the depth that usable light can reach.",
+            explanation_es: "La turbidez reduce la profundidad a la que puede llegar la luz utilizable."
+          },
+          {
+            q_en: "Why is understanding ocean layers useful during the Rim Run™?",
+            q_es: "¿Por qué es útil comprender las capas oceánicas durante el Rim Run™?",
+            answers_en: ["It helps explain reef depth, light, and habitat shifts", "It changes national borders", "It eliminates turbidity", "It replaces water testing"],
+            answers_es: ["Ayuda a explicar profundidad, luz y cambios de hábitat", "Cambia fronteras nacionales", "Elimina la turbidez", "Reemplaza las pruebas de agua"],
+            correct: 0,
+            explanation_en: "Ocean layers explain why reef communities change with depth and water clarity.",
+            explanation_es: "Las capas oceánicas explican por qué las comunidades arrecifales cambian con la profundidad y la claridad del agua."
           }
         ]
       }
@@ -502,227 +456,337 @@ const LESSONS = {
   }
 };
 
-  
-/* ── USER STATE ── */
-let userEmail='', userProgress={}, currentLessonId=1;
+let userEmail = '';
+let userProgress = {};
+let currentSectionId = 1;
+let currentLessonNumber = 1;
 
-/* ── LOGIN ── */
-function handleLogin(e){
-  e.preventDefault();
-  const email=document.getElementById('email-input').value.trim().toLowerCase();
-  const optIn=document.getElementById('optin-check').checked;
-  if(!email)return;
-  userEmail=email;
-  sendToSheet({action:'login',email,optIn,timestamp:new Date().toISOString()});
-  try{const s=localStorage.getItem('rr_p_'+email);if(s)userProgress=JSON.parse(s);}catch(er){}
-  try{sessionStorage.setItem('rr_user',JSON.stringify({email,optIn}));}catch(er){}
-  document.getElementById('login-overlay').style.display='none';
+function sendToSheet(data){
+  if(!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  }).catch(()=>{});
+}
+
+function getLessonKey(sectionId, lessonNumber){
+  return `S${sectionId}L${lessonNumber}`;
+}
+
+function saveLocalProgress(){
+  try{
+    localStorage.setItem('rr_p_' + userEmail, JSON.stringify(userProgress));
+  }catch(e){}
+}
+
+function handleLogin(event){
+  event.preventDefault();
+  const email = document.getElementById('email-input').value.trim().toLowerCase();
+  const optIn = document.getElementById('optin-check').checked;
+  if(!email) return;
+
+  userEmail = email;
+
+  try{
+    const existing = localStorage.getItem('rr_p_' + email);
+    if(existing) userProgress = JSON.parse(existing);
+  }catch(e){
+    userProgress = {};
+  }
+
+  try{
+    sessionStorage.setItem('rr_user', JSON.stringify({email,optIn}));
+  }catch(e){}
+
+  sendToSheet({action:'login', email, optIn, timestamp:new Date().toISOString()});
+  document.getElementById('login-overlay').style.display = 'none';
   initPage();
 }
 
-/* ── GOOGLE SHEETS ── */
-function sendToSheet(data){
-  if(!APPS_SCRIPT_URL||APPS_SCRIPT_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')return;
-  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
-}
-
-function saveProgress(id,score,total){
-  userProgress[id]={complete:true,score,total,date:new Date().toISOString()};
-  try{localStorage.setItem('rr_p_'+userEmail,JSON.stringify(userProgress));}catch(e){}
-  sendToSheet({action:'progress',email:userEmail,lessonId:id,score,total,timestamp:new Date().toISOString()});
-  updateProgressUI();
-  buildArchiveGrid();
-  checkCert();
-}
-
-/* ── INIT ── */
-function initPage(){
-  updateProgressUI();
-  buildArchiveGrid();
-  loadCurrentLesson();
-}
-
 function updateProgressUI(){
+  const totalSections = 22;
+  const completedSections = 0;
+  const percent = Math.round((completedSections / totalSections) * 100);
+
   document.getElementById('progress-panel').classList.add('visible');
-  const done=Object.keys(userProgress).filter(k=>userProgress[k].complete).length;
-  const pct=Math.round((done/22)*100);
-  document.getElementById('progress-greeting').textContent='Welcome back \u2014 '+userEmail;
-  document.getElementById('progress-pct').textContent=done+' / 22 SECTIONS COMPLETE \u2014 '+pct+'%';
-  document.getElementById('progress-fill').style.width=pct+'%';
-  const wrap=document.getElementById('progress-dots');
-  wrap.innerHTML='';
-  CURRICULUM.forEach(s=>{
-    const d=document.createElement('div');
-    d.className='p-dot'+(userProgress[s.id]&&userProgress[s.id].complete?' complete':s.id===currentLessonId?' current':'');
-    d.title=s.num+' '+s.title;
-    d.onclick=()=>{if(userProgress[s.id]||s.id===currentLessonId)openLesson(s.id);};
-    wrap.appendChild(d);
+  document.getElementById('progress-greeting').textContent = 'Welcome back — ' + userEmail;
+  document.getElementById('progress-pct').textContent = `${completedSections} / 22 SECTIONS COMPLETE — ${percent}%`;
+  document.getElementById('progress-fill').style.width = percent + '%';
+
+  const dots = document.getElementById('progress-dots');
+  dots.innerHTML = '';
+  CURRICULUM.forEach(section => {
+    const dot = document.createElement('div');
+    dot.className = 'p-dot' + (section.id === currentSectionId ? ' current' : '');
+    dot.title = `Section ${section.num} ${section.title}`;
+    dots.appendChild(dot);
   });
 }
 
 function buildArchiveGrid(){
-  const grid=document.getElementById('archive-grid');
-  grid.innerHTML='';
-  CURRICULUM.forEach(s=>{
-    const done=userProgress[s.id]&&userProgress[s.id].complete;
-    const isCur=s.id===currentLessonId&&s.published;
-    const locked=!s.published&&!done;
-    const card=document.createElement('div');
-    card.className='archive-card'+(done?' complete':locked?' locked':'');
-    const st=done?'COMPLETE':isCur?'CURRENT':'COMING SOON';
-    const sc=done?'complete':isCur?'current':'locked';
-    card.innerHTML='<div class="archive-num">Section '+s.num+'</div>'+
-      '<div class="archive-title-en">'+s.title+'</div>'+
-      '<div class="archive-title-es">'+s.title_es+'</div>'+
-      '<div class="archive-cat">'+s.category+' &bull; '+s.category_es+'</div>'+
-      '<div class="archive-status '+sc+'">'+st+'</div>';
-    if(!locked)card.onclick=()=>openLesson(s.id);
+  const grid = document.getElementById('archive-grid');
+  grid.innerHTML = '';
+
+  CURRICULUM.forEach(section => {
+    const locked = !section.published;
+    const card = document.createElement('div');
+    card.className = 'archive-card' + (locked ? ' locked' : '');
+    const statusClass = section.id === 1 ? 'current' : 'locked';
+    const statusText = section.id === 1 ? 'ACTIVE' : 'COMING SOON';
+
+    card.innerHTML =
+      '<div class="archive-num">Section ' + section.num + '</div>' +
+      '<div class="archive-title-en">' + section.title + '</div>' +
+      '<div class="archive-title-es">' + section.title_es + '</div>' +
+      '<div class="archive-cat">' + section.category + ' &bull; ' + section.category_es + '</div>' +
+      '<div class="archive-status ' + statusClass + '">' + statusText + '</div>';
+
+    if(!locked){
+      card.addEventListener('click', () => openSection(section.id));
+    }
+
     grid.appendChild(card);
   });
 }
 
-function loadCurrentLesson(){
-  const pub=LESSONS.filter(l=>{const m=CURRICULUM.find(c=>c.id===l.id);return m&&m.published;});
-  if(!pub.length){document.getElementById('lesson-coming-soon').style.display='block';return;}
-  const inc=pub.find(l=>!userProgress[l.id]||!userProgress[l.id].complete);
-  const ld=inc||pub[pub.length-1];
-  currentLessonId=ld.id;
-  renderLesson(ld);
+function openSection(sectionId){
+  currentSectionId = sectionId;
+  currentLessonNumber = 1;
+  updateProgressUI();
+  renderCurrentLesson();
+  document.getElementById('active-lesson-card').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-function openLesson(id){
-  const l=LESSONS.find(x=>x.id===id);if(!l)return;
-  currentLessonId=id;renderLesson(l);
-  document.getElementById('active-lesson-card').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-/* ── RENDER LESSON ── */
-function renderLesson(l){
-  const m=CURRICULUM.find(c=>c.id===l.id);
-  const card=document.getElementById('active-lesson-card');
-  document.getElementById('lesson-coming-soon').style.display='none';
-  card.innerHTML=
-    '<div class="lesson-header">'+
-      '<div class="lesson-number">Section '+m.num+' of 22</div>'+
-      '<div class="lesson-title-main">'+m.title+'</div>'+
-      '<div style="font-family:\'Source Serif 4\',serif;font-size:1rem;color:var(--mist);font-style:italic;margin-top:.3rem;">'+m.title_es+'</div>'+
-      '<div class="lesson-category" style="margin-top:.5rem;">'+m.category+' &bull; '+m.category_es+'</div>'+
-    '</div>'+
-    '<div class="lesson-body">'+
-      '<div class="lesson-tabs">'+
-        '<button class="lesson-tab active" onclick="switchTab(this,\'tab-en-'+l.id+'\')">English</button>'+
-        '<button class="lesson-tab" onclick="switchTab(this,\'tab-es-'+l.id+'\')">Espa&ntilde;ol</button>'+
-        '<button class="lesson-tab" onclick="switchTab(this,\'tab-ex-'+l.id+'\')">Exam / Examen (50 Qs)</button>'+
-      '</div>'+
-      '<div class="tab-panel active" id="tab-en-'+l.id+'">'+
-        '<div class="content-block">'+(l.content_en||'')+'</div>'+
-        (l.image_svg?'<div class="lesson-image-wrap">'+l.image_svg+'<div class="image-caption">'+(l.image_caption_en||'')+'</div></div>':'')+
-        '<div class="regional-block"><div class="regional-label">Rim Run&#8482; Regional Application &mdash; Western Caribbean</div><div class="content-block">'+(l.regional_en||'')+'</div></div>'+
-      '</div>'+
-      '<div class="tab-panel" id="tab-es-'+l.id+'">'+
-        '<div class="content-block">'+(l.content_es||'')+'</div>'+
-        (l.image_svg?'<div class="lesson-image-wrap">'+l.image_svg+'<div class="image-caption">'+(l.image_caption_es||'')+'</div></div>':'')+
-        '<div class="regional-block"><div class="regional-label">Aplicaci&oacute;n Regional Rim Run&#8482; &mdash; Caribe Occidental</div><div class="content-block">'+(l.regional_es||'')+'</div></div>'+
-      '</div>'+
-      '<div class="tab-panel" id="tab-ex-'+l.id+'">'+renderMCQ(l)+'</div>'+
-    '</div>';
-}
-
-function switchTab(btn,tid){
-  btn.closest('.lesson-body').querySelectorAll('.lesson-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  btn.closest('.lesson-body').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(tid).classList.add('active');
-}
-
-/* ── MCQ ENGINE ── */
-function renderMCQ(l){
-  if(!l.questions||!l.questions.length){
-    return '<div class="coming-soon"><div class="coming-soon-title">50 Exam Questions Coming Soon</div><p class="coming-soon-sub">The finals-level examination for this section will appear here.<br/><em>El examen final de esta secci&oacute;n aparecer&aacute; aqu&iacute;.</em></p></div>';
+function renderCurrentLesson(){
+  const section = CURRICULUM.find(s => s.id === currentSectionId);
+  const lessonBundle = LESSONS[currentSectionId];
+  if(!section || !lessonBundle || !lessonBundle.lessons || !lessonBundle.lessons.length){
+    document.getElementById('active-lesson-card').innerHTML =
+      '<div class="coming-soon"><div class="coming-soon-title">Lessons Publishing Soon</div><p class="coming-soon-sub">This section will appear here when published.</p></div>';
+    return;
   }
-  window['mcqState_'+l.id]={answered:new Array(l.questions.length).fill(false),correct:0,total:l.questions.length};
-  const prev=userProgress[l.id];
-  let html='<div class="mcq-header"><div class="mcq-title">Final Examination &mdash; Examen Final</div>'+
-    '<div class="mcq-score-display" id="sd-'+l.id+'">'+(prev?prev.score+' / '+prev.total+' PREV SCORE':'0 / '+l.questions.length+' QUESTIONS')+'</div></div>';
-  const ltrs=['A','B','C','D'];
-  l.questions.forEach((q,i)=>{
-    const qid='q_'+l.id+'_'+i;
-    html+='<div class="question-card" id="'+qid+'_c">'+
-      '<div class="question-number">Question '+(i+1)+' of '+l.questions.length+' &bull; Pregunta '+(i+1)+' de '+l.questions.length+'</div>'+
-      '<div class="question-text">'+q.q_en+'<br/><em style="font-size:.88em;color:var(--mist);">'+q.q_es+'</em></div>'+
-      '<ul class="answers-list">';
-    q.answers_en.forEach((a,ai)=>{
-      html+='<li><button class="answer-btn" id="'+qid+'_'+ai+'" onclick="selectAnswer('+l.id+','+i+','+ai+','+q.correct+')">'+
-        '<span class="answer-letter">'+ltrs[ai]+'</span>'+
-        '<span>'+a+'<br/><em style="font-size:.85em;opacity:.7;">'+(q.answers_es[ai]||'')+'</em></span>'+
-        '</button></li>';
-    });
-    html+='</ul><div class="question-feedback" id="'+qid+'_fb"></div></div>';
+
+  const lesson = lessonBundle.lessons.find(l => l.lesson === currentLessonNumber) || lessonBundle.lessons[0];
+  renderLesson(section, lesson);
+}
+
+function renderLesson(section, lesson){
+  const card = document.getElementById('active-lesson-card');
+  const lessonKey = getLessonKey(section.id, lesson.lesson);
+  const prev = userProgress[lessonKey];
+
+  let englishImages = '';
+  lesson.images.forEach((src, idx) => {
+    englishImages += '<div class="lesson-image-wrap"><img src="' + src + '" alt="Lesson image ' + (idx + 1) + '"></div>';
   });
-  html+='<div class="mcq-complete" id="mc-'+l.id+'">'+
-    '<span class="mcq-complete-score" id="fs-'+l.id+'">0 / '+l.questions.length+'</span>'+
-    '<div class="mcq-complete-msg">Section complete! Your score has been saved.<br/><span class="mcq-complete-msg-es">&iexcl;Secci&oacute;n completa! Tu puntaje ha sido guardado.</span></div>'+
-    '<button class="btn-retake" onclick="retakeExam('+l.id+')">Retake / Repetir</button>'+
+
+  let spanishImages = '';
+  lesson.images.forEach((src, idx) => {
+    spanishImages += '<div class="lesson-image-wrap"><img src="' + src + '" alt="Imagen de la lección ' + (idx + 1) + '"></div>';
+  });
+
+  card.innerHTML =
+    '<div class="lesson-header">' +
+      '<div class="lesson-number">Section ' + section.num + ' • Lesson ' + lesson.lesson + '</div>' +
+      '<div class="lesson-title-main">' + lesson.title_en + '</div>' +
+      '<div style="font-family:\'Source Serif 4\',serif;font-size:1rem;color:var(--mist);font-style:italic;margin-top:.3rem;">' + lesson.title_es + '</div>' +
+      '<div class="lesson-category" style="margin-top:.5rem;">' + section.category + ' &bull; ' + section.category_es + '</div>' +
+    '</div>' +
+    '<div class="lesson-body">' +
+      '<div class="lesson-tabs">' +
+        '<button class="lesson-tab active" onclick="switchTab(this, \'tab-en\')">English</button>' +
+        '<button class="lesson-tab" onclick="switchTab(this, \'tab-es\')">Espa&ntilde;ol</button>' +
+        '<button class="lesson-tab" onclick="switchTab(this, \'tab-quiz\')">Quiz / Cuestionario</button>' +
+      '</div>' +
+
+      '<div class="tab-panel active" id="tab-en">' +
+        englishImages +
+        '<div class="lesson-columns">' +
+          '<div class="content-block">' + lesson.lecture_en + '</div>' +
+          '<div class="content-block">' + lesson.lecture_es + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="tab-panel" id="tab-es">' +
+        spanishImages +
+        '<div class="lesson-columns">' +
+          '<div class="content-block">' + lesson.lecture_en + '</div>' +
+          '<div class="content-block">' + lesson.lecture_es + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="tab-panel" id="tab-quiz">' + renderMCQ(section.id, lesson.lesson, lesson.questions, prev) + '</div>' +
     '</div>';
+}
+
+function switchTab(btn, panelId){
+  const body = btn.closest('.lesson-body');
+  body.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+  btn.classList.add('active');
+  body.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+}
+
+function renderMCQ(sectionId, lessonNumber, questions, prev){
+  if(!questions || !questions.length){
+    return '<div class="coming-soon"><div class="coming-soon-title">Quiz Coming Soon</div><p class="coming-soon-sub">This lesson quiz will appear here when published.</p></div>';
+  }
+
+  const stateKey = `mcq_S${sectionId}L${lessonNumber}`;
+  window[stateKey] = {answered:new Array(questions.length).fill(false), correct:0, total:questions.length};
+
+  let html =
+    '<div class="mcq-header">' +
+      '<div class="mcq-title">Lesson Quiz — 5 MCQs</div>' +
+      '<div class="mcq-score-display" id="score-display">' + (prev ? (prev.score + ' / ' + prev.total + ' PREV SCORE') : ('0 / ' + questions.length + ' QUESTIONS')) + '</div>' +
+    '</div>';
+
+  const letters = ['A','B','C','D'];
+
+  questions.forEach((q, i) => {
+    html +=
+      '<div class="question-card" id="question-card-' + i + '">' +
+        '<div class="question-number">Question ' + (i + 1) + ' of ' + questions.length + '</div>' +
+        '<div class="question-text">' + q.q_en + '<br><em style="font-size:.88em;color:var(--mist);">' + q.q_es + '</em></div>' +
+        '<ul class="answers-list">';
+
+    q.answers_en.forEach((answer, ai) => {
+      html +=
+        '<li>' +
+          '<button class="answer-btn" id="answer-' + i + '-' + ai + '" onclick="selectAnswer(' + sectionId + ',' + lessonNumber + ',' + i + ',' + ai + ',' + q.correct + ')">' +
+            '<span class="answer-letter">' + letters[ai] + '</span>' +
+            '<span>' + answer + '<br><em style="font-size:.85em;opacity:.7;">' + (q.answers_es[ai] || '') + '</em></span>' +
+          '</button>' +
+        '</li>';
+    });
+
+    html +=
+        '</ul>' +
+        '<div class="question-feedback" id="feedback-' + i + '"></div>' +
+      '</div>';
+  });
+
+  html +=
+    '<div class="mcq-complete" id="mcq-complete">' +
+      '<span class="mcq-complete-score" id="final-score">0 / ' + questions.length + '</span>' +
+      '<div class="mcq-complete-msg">Lesson complete! Your score has been saved.<br><span class="mcq-complete-msg-es">&iexcl;Lecci&oacute;n completada! Tu puntaje ha sido guardado.</span></div>' +
+      '<button class="btn-retake" onclick="retakeQuiz(' + sectionId + ',' + lessonNumber + ')">Retake / Repetir</button>' +
+    '</div>';
+
   return html;
 }
 
-function selectAnswer(lid,qi,ci,correct){
-  const st=window['mcqState_'+lid];if(st.answered[qi])return;
-  st.answered[qi]=true;
-  const l=LESSONS.find(x=>x.id===lid);const q=l.questions[qi];
-  const ok=ci===correct;if(ok)st.correct++;
-  const ltrs=['A','B','C','D'];
-  [0,1,2,3].forEach(ai=>{
-    const b=document.getElementById('q_'+lid+'_'+qi+'_'+ai);if(!b)return;
-    b.disabled=true;
-    if(ai===correct)b.classList.add('correct');
-    else if(ai===ci)b.classList.add('incorrect');
+function selectAnswer(sectionId, lessonNumber, questionIndex, chosenIndex, correctIndex){
+  const stateKey = `mcq_S${sectionId}L${lessonNumber}`;
+  const state = window[stateKey];
+  if(!state || state.answered[questionIndex]) return;
+
+  const lesson = LESSONS[sectionId].lessons.find(l => l.lesson === lessonNumber);
+  const question = lesson.questions[questionIndex];
+
+  state.answered[questionIndex] = true;
+  const correct = chosenIndex === correctIndex;
+  if(correct) state.correct++;
+
+  [0,1,2,3].forEach(ai => {
+    const btn = document.getElementById(`answer-${questionIndex}-${ai}`);
+    if(!btn) return;
+    btn.disabled = true;
+    if(ai === correctIndex) btn.classList.add('correct');
+    else if(ai === chosenIndex) btn.classList.add('incorrect');
   });
-  const fb=document.getElementById('q_'+lid+'_'+qi+'_fb');
-  fb.className='question-feedback show '+(ok?'correct-fb':'incorrect-fb');
-  fb.innerHTML='<span class="feedback-label">'+(ok?'\u2713 Correct / Correcto':'\u2717 Incorrect / Incorrecto')+'</span>'+
-    (ok?'':'<strong>Correct: '+ltrs[correct]+'</strong> &mdash; ')+
-    q.explanation_en+'<br/><em style="font-size:.88em;">'+q.explanation_es+'</em>';
-  document.getElementById('sd-'+lid).textContent=st.correct+' / '+st.total+' SCORE';
-  if(st.answered.every(Boolean))setTimeout(()=>finishExam(lid,st.correct,st.total),700);
-}
 
-function finishExam(lid,score,total){
-  const el=document.getElementById('mc-'+lid);
-  if(el){el.classList.add('show');document.getElementById('fs-'+lid).textContent=score+' / '+total;el.scrollIntoView({behavior:'smooth',block:'center'});}
-  saveProgress(lid,score,total);
-}
+  const feedback = document.getElementById(`feedback-${questionIndex}`);
+  feedback.className = 'question-feedback show ' + (correct ? 'correct-fb' : 'incorrect-fb');
+  feedback.innerHTML =
+    '<span class="feedback-label">' + (correct ? '✓ Correct / Correcto' : '✗ Incorrect / Incorrecto') + '</span>' +
+    (correct ? '' : '<strong>Correct: ' + ['A','B','C','D'][correctIndex] + '</strong> &mdash; ') +
+    question.explanation_en + '<br><em style="font-size:.88em;">' + question.explanation_es + '</em>';
 
-function retakeExam(lid){
-  const l=LESSONS.find(x=>x.id===lid);if(!l)return;
-  window['mcqState_'+lid]={answered:new Array(l.questions.length).fill(false),correct:0,total:l.questions.length};
-  document.getElementById('tab-ex-'+lid).innerHTML=renderMCQ(l);
-}
+  document.getElementById('score-display').textContent = state.correct + ' / ' + state.total + ' SCORE';
 
-function checkCert(){
-  if(Object.keys(userProgress).filter(k=>userProgress[k].complete).length>=22){
-    document.getElementById('cert-banner').classList.add('show');
-    sendToSheet({action:'certification',email:userEmail,timestamp:new Date().toISOString()});
+  if(state.answered.every(Boolean)){
+    finishQuiz(sectionId, lessonNumber, state.correct, state.total);
   }
 }
 
-function requestCertificate(){
-  sendToSheet({action:'cert_request',email:userEmail,timestamp:new Date().toISOString()});
-  alert('Your certificate request has been submitted! We will be in touch.\n\n\u00a1Tu solicitud de certificado ha sido enviada! Estaremos en contacto.');
+function finishQuiz(sectionId, lessonNumber, score, total){
+  const lessonKey = getLessonKey(sectionId, lessonNumber);
+  userProgress[lessonKey] = {complete:true, score, total, date:new Date().toISOString()};
+  saveLocalProgress();
+  sendToSheet({
+    action:'lesson_progress',
+    email:userEmail,
+    sectionId,
+    lessonNumber,
+    score,
+    total,
+    timestamp:new Date().toISOString()
+  });
+
+  const complete = document.getElementById('mcq-complete');
+  if(complete){
+    complete.classList.add('show');
+    document.getElementById('final-score').textContent = score + ' / ' + total;
+    complete.scrollIntoView({behavior:'smooth', block:'center'});
+  }
 }
 
-/* ── NAV ── */
-document.addEventListener('DOMContentLoaded',function(){
-  const tg=document.getElementById('nav-toggle');
-  const nav=document.getElementById('main-nav');
-  const nl=document.getElementById('nav-links');
-  if(tg&&nl){
-    tg.addEventListener('click',function(e){e.stopPropagation();nl.classList.toggle('open');tg.classList.toggle('open');});
-    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',function(){nl.classList.remove('open');tg.classList.remove('open');}));
-    document.addEventListener('click',function(e){if(!nav.contains(e.target)){nl.classList.remove('open');tg.classList.remove('open');}});
+function retakeQuiz(sectionId, lessonNumber){
+  const lesson = LESSONS[sectionId].lessons.find(l => l.lesson === lessonNumber);
+  document.getElementById('tab-quiz').innerHTML = renderMCQ(sectionId, lessonNumber, lesson.questions, null);
+}
+
+function initPage(){
+  updateProgressUI();
+  buildArchiveGrid();
+  renderCurrentLesson();
+}
+
+document.getElementById('login-form').addEventListener('submit', handleLogin);
+
+document.addEventListener('DOMContentLoaded', function(){
+  const tg = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  const nl = document.getElementById('nav-links');
+
+  if(tg && nl){
+    tg.addEventListener('click', function(e){
+      e.stopPropagation();
+      nl.classList.toggle('open');
+      tg.classList.toggle('open');
+    });
+
+    nl.querySelectorAll('a').forEach(a => a.addEventListener('click', function(){
+      nl.classList.remove('open');
+      tg.classList.remove('open');
+    }));
+
+    document.addEventListener('click', function(e){
+      if(!nav.contains(e.target)){
+        nl.classList.remove('open');
+        tg.classList.remove('open');
+      }
+    });
   }
-  try{const s=sessionStorage.getItem('rr_user');if(s){const u=JSON.parse(s);userEmail=u.email;try{const p=localStorage.getItem('rr_p_'+userEmail);if(p)userProgress=JSON.parse(p);}catch(e){}document.getElementById('login-overlay').style.display='none';initPage();}}catch(e){}
+
+  try{
+    const stored = sessionStorage.getItem('rr_user');
+    if(stored){
+      const user = JSON.parse(stored);
+      userEmail = user.email || '';
+      try{
+        const progress = localStorage.getItem('rr_p_' + userEmail);
+        if(progress) userProgress = JSON.parse(progress);
+      }catch(e){}
+      if(userEmail){
+        document.getElementById('login-overlay').style.display = 'none';
+        initPage();
+      }
+    }
+  }catch(e){}
 });
 </script>
 </body>
