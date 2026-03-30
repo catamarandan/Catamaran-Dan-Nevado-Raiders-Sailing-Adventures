@@ -407,7 +407,102 @@ const CURRICULUM = [
    { q_en, q_es, answers_en:[], answers_es:[], correct:0-3,
      explanation_en, explanation_es } */
 const LESSONS = [];
+const LESSONS = {
+  1: {
+    lessons: [
+      {
+        lesson: 1,
+        title_en: "Ocean Structure & Layers",
+        title_es: "Estructura y Capas del Océano",
 
+        images: [
+          "images/s01_l01_1.jpg",
+          "images/s01_l01_2.jpg",
+          "images/s01_l01_3.jpg"
+        ],
+
+        lecture_en: `
+          <h3>Ocean Layers Defined</h3>
+          <p>The ocean is vertically structured into layers based on light, temperature, and pressure. The epipelagic zone (0–200m) supports life through sunlight-driven photosynthesis.</p>
+
+          <h3>Reef Relevance</h3>
+          <p>Coral reefs exist almost entirely in this sunlit zone. Without light, coral ecosystems collapse.</p>
+
+          <h3>Mesoamerican Reef (MAR)</h3>
+          <p>Across Mexico, Belize, Guatemala, and Honduras, reefs are found in shallow waters between 1–30m, where sunlight is optimal.</p>
+
+          <h3>Marine Systems Corridor</h3>
+          <p>In Nicaragua, Costa Rica, and Panama, turbidity reduces light penetration, impacting reef growth—especially in Bocas del Toro.</p>
+        `,
+
+        lecture_es: `
+          <h3>Capas del Océano</h3>
+          <p>El océano se divide en capas según la luz, temperatura y presión. La zona epipelágica (0–200m) permite la fotosíntesis.</p>
+
+          <h3>Importancia para Arrecifes</h3>
+          <p>Los arrecifes existen en esta zona iluminada. Sin luz, colapsan.</p>
+
+          <h3>Arrecife Mesoamericano</h3>
+          <p>En México, Belice, Guatemala y Honduras, los arrecifes están entre 1–30m de profundidad.</p>
+
+          <h3>Corredor Marino</h3>
+          <p>En Nicaragua, Costa Rica y Panamá, la turbidez reduce la luz y afecta el crecimiento coralino.</p>
+        `,
+
+        questions: [
+          {
+            q_en: "Which ocean layer supports coral reef growth?",
+            q_es: "¿Qué capa oceánica permite el crecimiento de arrecifes?",
+            answers_en: ["Mesopelagic","Bathypelagic","Epipelagic","Abyssal"],
+            answers_es: ["Mesopelágica","Batipelágica","Epipelágica","Abisal"],
+            correct: 2,
+            explanation_en: "Coral reefs require sunlight, found only in the epipelagic zone.",
+            explanation_es: "Los arrecifes requieren luz solar, presente en la zona epipelágica."
+          },
+          {
+            q_en: "What limits reef depth?",
+            q_es: "¿Qué limita la profundidad del arrecife?",
+            answers_en: ["Pressure","Temperature","Light","Salinity"],
+            answers_es: ["Presión","Temperatura","Luz","Salinidad"],
+            correct: 2,
+            explanation_en: "Light availability controls coral survival.",
+            explanation_es: "La luz controla la supervivencia del coral."
+          },
+          {
+            q_en: "Typical MAR reef depth?",
+            q_es: "Profundidad típica del MAR?",
+            answers_en: ["200–500m","1–30m","500–1000m","1000m+"],
+            answers_es: ["200–500m","1–30m","500–1000m","1000m+"],
+            correct: 1,
+            explanation_en: "MAR reefs exist in shallow sunlit water.",
+            explanation_es: "Los arrecifes del MAR son poco profundos."
+          },
+          {
+            q_en: "What does turbidity reduce?",
+            q_es: "¿Qué reduce la turbidez?",
+            answers_en: ["Oxygen","Light","Salinity","Pressure"],
+            answers_es: ["Oxígeno","Luz","Salinidad","Presión"],
+            correct: 1,
+            explanation_en: "Turbidity blocks sunlight.",
+            explanation_es: "La turbidez bloquea la luz."
+          },
+          {
+            q_en: "Drop-offs indicate what?",
+            q_es: "¿Qué indican las caídas?",
+            answers_en: ["More light","Warmer water","Zone change","More coral"],
+            answers_es: ["Más luz","Agua más caliente","Cambio de zona","Más coral"],
+            correct: 2,
+            explanation_en: "They mark transition to deeper ecosystems.",
+            explanation_es: "Marcan transición a zonas profundas."
+          }
+        ]
+      }
+    ],
+    final_exam: []
+  }
+};
+
+  
 /* ── USER STATE ── */
 let userEmail='', userProgress={}, currentLessonId=1;
 
