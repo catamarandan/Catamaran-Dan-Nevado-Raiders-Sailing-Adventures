@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L04 Physical Oceanography — Processes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px; height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px; overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 0.57%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 04 · Physical Oceanography</div>
+        <h1 class="lesson-title">Processes</h1>
+        <div class="lesson-subtitle">Procesos de Oceanografía Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG ILLUSTRATION — Wave, Upwelling & Mixing Processes -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="upwellG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.05"/>
+          </linearGradient>
+          <linearGradient id="waveG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.06)" stroke-width="0.5">
+          <line x1="0" y1="70"  x2="380" y2="70"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="190" x2="380" y2="190"/>
+          <line x1="95"  y1="44" x2="95"  y2="248"/>
+          <line x1="190" y1="44" x2="190" y2="248"/>
+          <line x1="285" y1="44" x2="285" y2="248"/>
+        </g>
+
+        <!-- ── SURFACE WAVE TRAIN ── -->
+        <!-- Wave fill -->
+        <path d="M36,70 C55,60 74,80 95,70 C116,60 135,80 158,70
+                 C179,60 200,80 222,70 C243,60 264,80 285,70
+                 C306,60 327,80 350,70 L372,70 L372,44 L36,44 Z"
+              fill="url(#waveG)"/>
+        <!-- Wave crest line -->
+        <path d="M36,70 C55,60 74,80 95,70 C116,60 135,80 158,70
+                 C179,60 200,80 222,70 C243,60 264,80 285,70
+                 C306,60 327,80 350,70"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="1.4"/>
+        <!-- Wave labels -->
+        <text x="44" y="57" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.55)" letter-spacing="0.1em">WIND-DRIVEN SURFACE WAVES</text>
+
+        <!-- Wave height indicator -->
+        <line x1="48" y1="62" x2="48" y2="78" stroke="rgba(240,180,41,0.5)" stroke-width="1"/>
+        <line x1="44" y1="62" x2="52" y2="62" stroke="rgba(240,180,41,0.5)" stroke-width="1"/>
+        <line x1="44" y1="78" x2="52" y2="78" stroke="rgba(240,180,41,0.5)" stroke-width="1"/>
+        <text x="55" y="72" font-family="monospace" font-size="6.5" fill="rgba(240,180,41,0.7)">Hs</text>
+
+        <!-- ── UPWELLING COLUMN (left third) ── -->
+        <!-- Upwelling fill -->
+        <rect x="60" y="130" width="50" height="118" fill="url(#upwellG)" rx="2"/>
+        <!-- Upwelling arrows -->
+        <g fill="rgba(26,200,200,0.55)" stroke="none">
+          <polygon points="85,135 80,148 90,148"/>
+          <polygon points="85,155 80,168 90,168"/>
+          <polygon points="85,175 80,188 90,188"/>
+          <polygon points="85,195 80,208 90,208"/>
+          <polygon points="85,215 80,228 90,228"/>
+        </g>
+        <text x="85" y="252" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.6)" text-anchor="middle" letter-spacing="0.06em">UPWELLING</text>
+        <!-- Nutrient label -->
+        <text x="85" y="124" font-family="monospace" font-size="6.5"
+              fill="rgba(143,227,136,0.6)" text-anchor="middle">↑ nutrients</text>
+
+        <!-- ── EKMAN SPIRAL (center) ── -->
+        <!-- Wind arrow at surface -->
+        <line x1="155" y1="82" x2="230" y2="82"
+              stroke="rgba(240,180,41,0.6)" stroke-width="1.5"/>
+        <polygon points="230,82 220,78 220,86" fill="rgba(240,180,41,0.6)"/>
+        <text x="188" y="78" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.65)" text-anchor="middle">WIND</text>
+
+        <!-- Ekman layer depth lines & rotated arrows -->
+        <!-- Layer 1: surface, 45° right of wind -->
+        <line x1="190" y1="90"  x2="218" y2="108"
+              stroke="rgba(26,200,200,0.7)" stroke-width="1.5"/>
+        <polygon points="218,108 208,105 212,115" fill="rgba(26,200,200,0.7)"/>
+        <text x="224" y="104" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.5)">0 m</text>
+
+        <!-- Layer 2: 20m, more rotated -->
+        <line x1="190" y1="115" x2="210" y2="133"
+              stroke="rgba(26,200,200,0.55)" stroke-width="1.3"/>
+        <polygon points="210,133 201,128 206,138" fill="rgba(26,200,200,0.55)"/>
+        <text x="216" y="129" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.4)">20 m</text>
+
+        <!-- Layer 3: 40m, further rotated -->
+        <line x1="190" y1="140" x2="202" y2="158"
+              stroke="rgba(26,200,200,0.38)" stroke-width="1.1"/>
+        <polygon points="202,158 195,151 200,161" fill="rgba(26,200,200,0.38)"/>
+        <text x="208" y="155" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.3)">40 m</text>
+
+        <!-- Layer 4: 60m, near reversal -->
+        <line x1="190" y1="165" x2="192" y2="183"
+              stroke="rgba(26,200,200,0.22)" stroke-width="1"/>
+        <polygon points="192,183 187,175 197,175" fill="rgba(26,200,200,0.22)"/>
+        <text x="198" y="180" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.22)">60 m</text>
+
+        <text x="190" y="200" font-family="monospace" font-size="7.5"
+              fill="rgba(26,200,200,0.45)" text-anchor="middle" letter-spacing="0.1em">EKMAN SPIRAL</text>
+        <text x="190" y="211" font-family="monospace" font-size="6.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">current rotates &amp; weakens with depth</text>
+
+        <!-- ── TIDAL MIXING (right third) ── -->
+        <!-- Tidal oscillation arrows -->
+        <g stroke="rgba(184,240,236,0.5)" stroke-width="1.2" fill="none">
+          <!-- Flood -->
+          <path d="M295,100 C305,95 315,105 325,100 C335,95 345,105 355,100"/>
+          <polygon points="355,100 348,96 348,104" fill="rgba(184,240,236,0.5)" stroke="none"/>
+          <!-- Ebb -->
+          <path d="M295,120 C305,125 315,115 325,120 C335,125 345,115 355,120"/>
+          <polygon points="295,120 302,116 302,124" fill="rgba(184,240,236,0.5)" stroke="none"/>
+        </g>
+        <text x="325" y="92"  font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.5)" text-anchor="middle">FLOOD</text>
+        <text x="325" y="135" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.5)" text-anchor="middle">EBB</text>
+
+        <!-- Tidal mixing turbulence -->
+        <g stroke="rgba(184,240,236,0.28)" stroke-width="0.8" fill="none">
+          <path d="M300,155 C308,148 316,162 324,155 C332,148 340,162 348,155"/>
+          <path d="M300,170 C308,163 316,177 324,170 C332,163 340,177 348,170"/>
+          <path d="M300,185 C308,178 316,192 324,185 C332,178 340,192 348,185"/>
+          <path d="M300,200 C308,193 316,207 324,200 C332,193 340,207 348,200"/>
+          <path d="M300,215 C308,208 316,222 324,215 C332,208 340,222 348,215"/>
+        </g>
+        <text x="324" y="235" font-family="monospace" font-size="7"
+              fill="rgba(184,240,236,0.4)" text-anchor="middle" letter-spacing="0.08em">TIDAL MIXING</text>
+        <text x="324" y="246" font-family="monospace" font-size="6.5"
+              fill="rgba(138,184,204,0.3)" text-anchor="middle">turbulence &amp; resuspension</text>
+
+        <!-- Vertical dividers between process panels -->
+        <line x1="142" y1="70" x2="142" y2="248"
+              stroke="rgba(26,200,200,0.12)" stroke-width="0.8" stroke-dasharray="3,4"/>
+        <line x1="278" y1="70" x2="278" y2="248"
+              stroke="rgba(26,200,200,0.12)" stroke-width="0.8" stroke-dasharray="3,4"/>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="228" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.13em">OCEAN PROCESSES  ·  OVERVIEW</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Physical oceanography is ultimately the study of <strong>processes</strong> — the mechanisms by which energy and mass are transferred through seawater. Four fundamental processes structure the physical ocean: <strong>wave motion</strong>, <strong>tidal forcing</strong>, <strong>wind-driven circulation</strong> (including the Ekman spiral), and <strong>upwelling/downwelling</strong>. Waves transfer energy across the sea surface without net water movement; their height, period, and direction encode the history of the wind fields that generated them. Tides are the rhythmic rise and fall of sea level driven by gravitational forcing from the moon and sun, with periodicities of ~<em>12.4 hours</em> (semidiurnal) or ~<em>24 hours</em> (diurnal). Wind stress on the ocean surface does not simply push water downwind — the Coriolis effect deflects the surface current <strong>45° to the right</strong> of the wind in the Northern Hemisphere (left in the Southern), and each successive layer deflects further, creating the <strong>Ekman spiral</strong>. The net Ekman transport is <strong>90° to the right</strong> of the wind. Where Ekman transport moves surface water away from a coastline or diverges at the surface, cold nutrient-rich deep water rises in <strong>upwelling</strong> — one of the ocean's most ecologically productive processes.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Process</th><th>Primary Driver</th><th>Ecological Significance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Surface Waves</td><td>Wind stress</td><td>Mixing, aeration, sediment transport</td></tr>
+          <tr><td>Tides</td><td>Lunar/solar gravity</td><td>Intertidal habitat, flushing, larval dispersal</td></tr>
+          <tr><td>Ekman Spiral</td><td>Wind + Coriolis</td><td>Drives upwelling/downwelling</td></tr>
+          <tr><td>Upwelling</td><td>Ekman transport</td><td>Nutrient supply, high productivity</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La oceanografía física es, en esencia, el estudio de los <strong>procesos</strong> — los mecanismos por los cuales la energía y la masa se transfieren a través del agua de mar. Cuatro procesos fundamentales estructuran el océano físico: el <strong>movimiento de olas</strong>, el <strong>forzamiento mareal</strong>, la <strong>circulación impulsada por el viento</strong> (incluida la espiral de Ekman) y el <strong>afloramiento/hundimiento</strong>. Las olas transfieren energía a través de la superficie marina sin movimiento neto de agua. Las mareas son el ascenso y descenso rítmico del nivel del mar impulsado por el forzamiento gravitacional de la luna y el sol, con periodicidades de ~<em>12.4 horas</em> (semidiurno) o ~<em>24 horas</em> (diurno). El estrés del viento no simplemente empuja el agua en la dirección del viento — el efecto de Coriolis desvía la corriente superficial <strong>45° a la derecha</strong> del viento en el hemisferio norte (a la izquierda en el sur), y cada capa sucesiva se desvía más, creando la <strong>espiral de Ekman</strong>. El transporte neto de Ekman es <strong>90° a la derecha</strong> del viento. Donde el transporte de Ekman aleja el agua superficial de la costa, el agua profunda fría y rica en nutrientes asciende en un proceso de <strong>afloramiento</strong> — uno de los procesos oceánicos más productivos ecológicamente.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Proceso</th><th>Motor Principal</th><th>Significado Ecológico</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Olas Superficiales</td><td>Estrés del viento</td><td>Mezcla, aireación, transporte de sedimentos</td></tr>
+          <tr><td>Mareas</td><td>Gravedad lunar/solar</td><td>Hábitat intermareal, renovación, dispersión larvaria</td></tr>
+          <tr><td>Espiral de Ekman</td><td>Viento + Coriolis</td><td>Impulsa afloramiento/hundimiento</td></tr>
+          <tr><td>Afloramiento</td><td>Transporte de Ekman</td><td>Aporte de nutrientes, alta productividad</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /lecture-panel -->
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean's physical processes are shaped by a unique combination of trade wind consistency, shallow shelf geometry, and the absence of strong coastal upwelling — making it ecologically distinct from upwelling-dominated systems like the Pacific coast of Central America.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Wave climate:</strong> Northeast trade winds generate a persistent swell from the north and northeast, with significant wave heights of <strong>0.5–1.5 m</strong> under normal conditions. During Caribbean hurricanes, wave heights can exceed <strong>10–15 m</strong>, reshaping shallow reef structures and transporting large volumes of carbonate sediment.</li>
+        <li><strong>Tidal regime:</strong> The Western Caribbean is <strong>microtidal</strong> — tidal ranges are typically only <strong>15–30 cm</strong>. Despite this, tidal currents through narrow reef channels and lagoon passes can exceed <strong>1 knot</strong>, driving critical flushing of reef lagoons and transporting larvae along the Mesoamerican Barrier Reef corridor.</li>
+        <li><strong>Ekman transport and the absence of upwelling:</strong> In the Western Caribbean, trade winds blow roughly parallel to the Central American coast from the northeast. The resulting Ekman transport moves surface water <em>offshore</em> (westward), but the semi-enclosed basin geometry prevents classic coastal upwelling. Instead, deeper water is occasionally entrained by internal waves along the reef slope — a subtle but ecologically important nutrient injection mechanism.</li>
+        <li><strong>Internal waves:</strong> Along the steep outer slopes of the Mesoamerican Barrier Reef, internal waves — oscillations propagating along the thermocline — periodically push cold, nutrient-rich deep water up the reef wall, creating brief pulses of cooler temperatures that can temporarily relieve thermal stress on corals during warm periods.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los procesos físicos del Caribe occidental están moldeados por una combinación única de consistencia de los vientos alisios, geometría de plataforma somera y ausencia de afloramiento costero intenso, lo que lo hace ecológicamente distinto de los sistemas dominados por afloramiento como la costa pacífica de Centroamérica.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Clima de oleaje:</strong> Los vientos alisios del noreste generan un oleaje persistente del norte y noreste, con alturas significativas de <strong>0.5–1.5 m</strong> en condiciones normales. Durante los huracanes caribeños, las alturas pueden superar <strong>10–15 m</strong>, remodelando estructuras arrecifales someras y transportando grandes volúmenes de sedimento carbonatado.</li>
+        <li><strong>Régimen mareal:</strong> El Caribe occidental es <strong>micromareal</strong> — los rangos de marea son típicamente de solo <strong>15–30 cm</strong>. A pesar de esto, las corrientes de marea en canales arrecifales y pasos de laguna pueden superar <strong>1 nudo</strong>, impulsando la renovación de lagunas arrecifales y transportando larvas a lo largo del corredor del Arrecife Mesoamericano.</li>
+        <li><strong>Transporte de Ekman y ausencia de afloramiento:</strong> En el Caribe occidental, los vientos alisios soplan aproximadamente paralelos a la costa centroamericana desde el noreste. El transporte de Ekman resultante mueve el agua superficial <em>mar adentro</em> (hacia el oeste), pero la geometría de cuenca semicerrada impide el afloramiento costero clásico. En cambio, el agua más profunda es arrastrada ocasionalmente por ondas internas a lo largo del talud arrecifal.</li>
+        <li><strong>Ondas internas:</strong> A lo largo de las empinadas vertientes externas del Arrecife Mesoamericano, las ondas internas — oscilaciones que se propagan a lo largo de la termoclina — empujan periódicamente agua profunda fría y rica en nutrientes hacia arriba por la pared del arrecife, creando pulsos breves de temperaturas más frías que pueden aliviar temporalmente el estrés térmico en los corales durante períodos cálidos.</li>
+      </ul>
+    </div><!-- /caribbean-panel -->
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 In the Northern Hemisphere, the net Ekman transport of surface water is directed at what angle relative to the wind direction?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 45° to the left of the wind</li>
+            <li><span class="opt-letter">B.</span> Directly downwind</li>
+            <li><span class="opt-letter">C.</span> 90° to the right of the wind</li>
+            <li><span class="opt-letter">D.</span> 180° opposite to the wind</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Coriolis deflection causes net Ekman transport 90° to the right of the wind (NH).</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En el hemisferio norte, el transporte neto de Ekman del agua superficial está dirigido a qué ángulo respecto a la dirección del viento?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 45° a la izquierda del viento</li>
+            <li><span class="opt-letter">B.</span> Directamente en la dirección del viento</li>
+            <li><span class="opt-letter">C.</span> 90° a la derecha del viento</li>
+            <li><span class="opt-letter">D.</span> 180° opuesto al viento</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La deflexión de Coriolis causa un transporte neto de Ekman 90° a la derecha del viento (HN).</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 The Western Caribbean is described as "microtidal." What does this mean, and why is it significant for reef ecosystems?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Tidal range &gt;4 m; creates large intertidal zones that stress corals</li>
+            <li><span class="opt-letter">B.</span> Tidal range ~15–30 cm; limits intertidal habitat but tidal currents still flush reef lagoons</li>
+            <li><span class="opt-letter">C.</span> No measurable tides; reef lagoons have no water exchange with the open ocean</li>
+            <li><span class="opt-letter">D.</span> Tidal range 1–2 m; strong enough to drive significant upwelling along the reef slope</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Microtidal means small range (~15–30 cm), but channel currents still flush lagoons and transport larvae.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El Caribe occidental se describe como "micromareal." ¿Qué significa esto y por qué es significativo para los ecosistemas arrecifales?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Rango mareal &gt;4 m; crea grandes zonas intermareales que estresan los corales</li>
+            <li><span class="opt-letter">B.</span> Rango mareal ~15–30 cm; limita el hábitat intermareal pero las corrientes aún renuevan las lagunas</li>
+            <li><span class="opt-letter">C.</span> Sin mareas medibles; las lagunas arrecifales no tienen intercambio con el océano abierto</li>
+            <li><span class="opt-letter">D.</span> Rango mareal 1–2 m; suficiente para impulsar afloramiento significativo a lo largo del talud arrecifal</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Micromareal significa rango pequeño (~15–30 cm), pero las corrientes en canales aún renuevan las lagunas y transportan larvas.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 How do internal waves along the outer Mesoamerican Barrier Reef slope benefit corals during warm periods?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> They increase surface salinity, reducing osmotic stress on coral polyps</li>
+            <li><span class="opt-letter">B.</span> They push cold, nutrient-rich deep water up the reef wall, briefly reducing thermal stress</li>
+            <li><span class="opt-letter">C.</span> They generate strong downwelling that buries sediment threatening coral structures</li>
+            <li><span class="opt-letter">D.</span> They amplify tidal range, increasing lagoon flushing rates during bleaching events</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Internal waves periodically upwell cold deep water along the reef wall, providing thermal relief to corals.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cómo benefician las ondas internas a lo largo del talud externo del Arrecife Mesoamericano a los corales durante períodos cálidos?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Aumentan la salinidad superficial, reduciendo el estrés osmótico en los pólipos de coral</li>
+            <li><span class="opt-letter">B.</span> Empujan agua profunda fría y rica en nutrientes hacia arriba por la pared del arrecife, reduciendo brevemente el estrés térmico</li>
+            <li><span class="opt-letter">C.</span> Generan hundimiento intenso que entierra sedimentos que amenazan las estructuras coralinas</li>
+            <li><span class="opt-letter">D.</span> Amplifican el rango mareal, aumentando las tasas de renovación de la laguna durante eventos de blanqueamiento</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las ondas internas afloram periódicamente agua profunda fría a lo largo de la pared del arrecife, proporcionando alivio térmico a los corales.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 04 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L04 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
