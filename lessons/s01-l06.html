@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L06 Physical Oceanography — Interactions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px; height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px; overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 0.85%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 06 · Physical Oceanography</div>
+        <h1 class="lesson-title">Interactions</h1>
+        <div class="lesson-subtitle">Interacciones Oceanográficas Físicas</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG ILLUSTRATION — Air-Sea Interaction: Heat, Moisture & Momentum Exchange -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#0a6e8a" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#0a6e8a" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#020f1e" stop-opacity="0.6"/>
+          </linearGradient>
+          <linearGradient id="heatG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%"   stop-color="#f0b429" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#f0b429" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Sky zone -->
+        <rect x="0" y="0" width="380" height="118" fill="url(#skyG)"/>
+
+        <!-- Sea zone -->
+        <rect x="0" y="118" width="380" height="142" fill="url(#seaG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+        </g>
+
+        <!-- ── INTERFACE LINE ── -->
+        <path d="M0,118 C30,113 60,123 95,118 C130,113 160,123 190,118
+                 C220,113 250,123 285,118 C320,113 350,123 380,118"
+              fill="none" stroke="rgba(26,200,200,0.6)" stroke-width="1.4"/>
+        <!-- Sea surface fill -->
+        <path d="M0,118 C30,113 60,123 95,118 C130,113 160,123 190,118
+                 C220,113 250,123 285,118 C320,113 350,123 380,118
+                 L380,260 L0,260 Z"
+              fill="rgba(26,200,200,0.04)"/>
+
+        <!-- ATMOSPHERE label -->
+        <text x="190" y="20" font-family="monospace" font-size="8"
+              fill="rgba(10,110,138,0.7)" text-anchor="middle" letter-spacing="0.14em">ATMOSPHERE</text>
+
+        <!-- OCEAN label -->
+        <text x="190" y="240" font-family="monospace" font-size="8"
+              fill="rgba(26,200,200,0.45)" text-anchor="middle" letter-spacing="0.14em">OCEAN</text>
+
+        <!-- ── SOLAR RADIATION (far left, downward) ── -->
+        <line x1="52" y1="18" x2="52" y2="108"
+              stroke="rgba(240,180,41,0.7)" stroke-width="1.6" stroke-dasharray="5,3"/>
+        <polygon points="52,108 47,98 57,98" fill="rgba(240,180,41,0.7)"/>
+        <text x="52" y="13" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.7)" text-anchor="middle">Q_sw</text>
+        <text x="52" y="132" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.5)" text-anchor="middle">shortwave</text>
+        <text x="52" y="142" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.5)" text-anchor="middle">radiation</text>
+
+        <!-- ── LATENT HEAT (center-left, upward) ── -->
+        <!-- Evaporation arrows -->
+        <g stroke="rgba(184,240,236,0.55)" stroke-width="1.2" fill="none">
+          <line x1="128" y1="108" x2="128" y2="28"/>
+          <line x1="140" y1="108" x2="136" y2="28"/>
+          <line x1="152" y1="108" x2="144" y2="28"/>
+        </g>
+        <polygon points="128,28 123,38 133,38" fill="rgba(184,240,236,0.55)"/>
+        <polygon points="136,28 131,38 141,38" fill="rgba(184,240,236,0.45)"/>
+        <polygon points="144,28 139,38 149,38" fill="rgba(184,240,236,0.38)"/>
+        <text x="140" y="13" font-family="monospace" font-size="7"
+              fill="rgba(184,240,236,0.65)" text-anchor="middle">Q_lh</text>
+        <text x="140" y="132" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.45)" text-anchor="middle">latent heat</text>
+        <text x="140" y="142" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.45)" text-anchor="middle">(evaporation)</text>
+
+        <!-- ── SENSIBLE HEAT (center, bidirectional) ── -->
+        <line x1="192" y1="30" x2="192" y2="108"
+              stroke="rgba(232,96,64,0.55)" stroke-width="1.4"/>
+        <polygon points="192,108 187,98 197,98" fill="rgba(232,96,64,0.55)"/>
+        <polygon points="192,30 187,40 197,40" fill="rgba(232,96,64,0.4)"/>
+        <text x="192" y="13" font-family="monospace" font-size="7"
+              fill="rgba(232,96,64,0.65)" text-anchor="middle">Q_sh</text>
+        <text x="192" y="132" font-family="monospace" font-size="6.5"
+              fill="rgba(232,96,64,0.45)" text-anchor="middle">sensible heat</text>
+        <text x="192" y="142" font-family="monospace" font-size="6.5"
+              fill="rgba(232,96,64,0.45)" text-anchor="middle">(conduction)</text>
+
+        <!-- ── LONGWAVE RADIATION (center-right, upward) ── -->
+        <line x1="242" y1="108" x2="242" y2="28"
+              stroke="rgba(240,180,41,0.4)" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <polygon points="242,28 237,38 247,38" fill="rgba(240,180,41,0.4)"/>
+        <text x="242" y="13" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.5)" text-anchor="middle">Q_lw</text>
+        <text x="242" y="132" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.38)" text-anchor="middle">longwave</text>
+        <text x="242" y="142" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.38)" text-anchor="middle">radiation</text>
+
+        <!-- ── WIND STRESS / MOMENTUM (far right, downward) ── -->
+        <!-- Wind arrows in atmosphere -->
+        <g stroke="rgba(26,200,200,0.5)" stroke-width="1.2" fill="none">
+          <line x1="295" y1="40" x2="355" y2="40"/>
+          <line x1="288" y1="60" x2="362" y2="60"/>
+          <line x1="292" y1="80" x2="358" y2="80"/>
+        </g>
+        <polygon points="355,40 346,36 346,44" fill="rgba(26,200,200,0.5)"/>
+        <polygon points="362,60 353,56 353,64" fill="rgba(26,200,200,0.5)"/>
+        <polygon points="358,80 349,76 349,84" fill="rgba(26,200,200,0.5)"/>
+
+        <!-- Momentum transfer arrow downward -->
+        <line x1="325" y1="88" x2="325" y2="108"
+              stroke="rgba(26,200,200,0.6)" stroke-width="1.6"/>
+        <polygon points="325,108 320,98 330,98" fill="rgba(26,200,200,0.6)"/>
+
+        <!-- Resulting ocean current arrow -->
+        <line x1="295" y1="135" x2="355" y2="135"
+              stroke="rgba(26,200,200,0.45)" stroke-width="1.4"/>
+        <polygon points="355,135 346,131 346,139" fill="rgba(26,200,200,0.45)"/>
+
+        <text x="325" y="13" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.6)" text-anchor="middle">τ (wind stress)</text>
+        <text x="325" y="150" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.4)" text-anchor="middle">momentum → current</text>
+
+        <!-- ── NET HEAT FLUX BALANCE equation ── -->
+        <text x="190" y="168" font-family="monospace" font-size="7.5"
+              fill="rgba(138,184,204,0.55)" text-anchor="middle" letter-spacing="0.05em">
+          Q_net = Q_sw − Q_lw − Q_lh − Q_sh
+        </text>
+        <text x="190" y="180" font-family="monospace" font-size="6.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">net ocean heat flux balance</text>
+
+        <!-- SST contours (stylized) -->
+        <path d="M36,210 C80,205 130,215 180,208 C230,201 280,212 344,207"
+              fill="none" stroke="rgba(240,180,41,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+        <path d="M36,225 C80,220 130,230 180,223 C230,216 280,227 344,222"
+              fill="none" stroke="rgba(240,180,41,0.14)" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="350" y="212" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.35)">SST</text>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="214" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.13em">AIR–SEA  ·  HEAT &amp; MOMENTUM FLUX</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          The ocean's physical state is continuously shaped by its interactions with the atmosphere above and the seafloor below. <strong>Air–sea interaction</strong> is the primary mechanism by which solar energy enters the ocean and drives global climate. The net heat flux at the ocean surface is the sum of four components: incoming <strong>shortwave radiation</strong> (Q_sw) from the sun, outgoing <strong>longwave radiation</strong> (Q_lw) emitted by the sea surface, <strong>latent heat flux</strong> (Q_lh) lost through evaporation, and <strong>sensible heat flux</strong> (Q_sh) exchanged by conduction. Where Q_net is positive, the ocean gains heat and sea surface temperatures (SST) rise; where negative, the ocean loses heat. Wind stress (τ) transfers momentum from atmosphere to ocean, generating surface currents and waves. This momentum coupling also drives <strong>Langmuir circulation</strong> — counter-rotating helical vortices aligned with the wind that efficiently mix the upper ocean. The ocean in turn modifies the atmosphere: warm SSTs increase evaporation and atmospheric moisture, fuel tropical cyclones, and drive convective precipitation. This two-way exchange — the <strong>coupled ocean–atmosphere system</strong> — is the engine of weather and climate variability from the tropics to the poles.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Flux Component</th><th>Symbol</th><th>Direction</th><th>Magnitude (W/m²)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shortwave (solar)</td><td>Q_sw</td><td>↓ into ocean</td><td>100–300</td></tr>
+          <tr><td>Longwave (IR)</td><td>Q_lw</td><td>↑ out of ocean</td><td>40–80</td></tr>
+          <tr><td>Latent heat</td><td>Q_lh</td><td>↑ out of ocean</td><td>80–150</td></tr>
+          <tr><td>Sensible heat</td><td>Q_sh</td><td>↑↓ variable</td><td>5–30</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El estado físico del océano está continuamente moldeado por sus interacciones con la atmósfera superior y el fondo marino inferior. La <strong>interacción aire–mar</strong> es el mecanismo primario por el cual la energía solar entra al océano e impulsa el clima global. El flujo neto de calor en la superficie oceánica es la suma de cuatro componentes: la <strong>radiación de onda corta</strong> entrante (Q_sw) del sol, la <strong>radiación de onda larga</strong> saliente (Q_lw) emitida por la superficie marina, el <strong>flujo de calor latente</strong> (Q_lh) perdido por evaporación, y el <strong>flujo de calor sensible</strong> (Q_sh) intercambiado por conducción. Donde Q_net es positivo, el océano gana calor y las temperaturas superficiales del mar (TSM) aumentan; donde es negativo, el océano pierde calor. El estrés del viento (τ) transfiere momento de la atmósfera al océano, generando corrientes superficiales y olas. Este acoplamiento de momento también impulsa la <strong>circulación de Langmuir</strong> — vórtices helicoidales contrarrotantes alineados con el viento que mezclan eficientemente el océano superior. El océano a su vez modifica la atmósfera: las TSM cálidas aumentan la evaporación y la humedad atmosférica, alimentan los ciclones tropicales e impulsan la precipitación convectiva. Este intercambio bidireccional — el <strong>sistema océano–atmósfera acoplado</strong> — es el motor de la variabilidad del tiempo y el clima desde los trópicos hasta los polos.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Componente de Flujo</th><th>Símbolo</th><th>Dirección</th><th>Magnitud (W/m²)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Onda corta (solar)</td><td>Q_sw</td><td>↓ hacia el océano</td><td>100–300</td></tr>
+          <tr><td>Onda larga (IR)</td><td>Q_lw</td><td>↑ fuera del océano</td><td>40–80</td></tr>
+          <tr><td>Calor latente</td><td>Q_lh</td><td>↑ fuera del océano</td><td>80–150</td></tr>
+          <tr><td>Calor sensible</td><td>Q_sh</td><td>↑↓ variable</td><td>5–30</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /lecture-panel -->
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean sits in one of the most energetically active air–sea interaction zones on Earth. High solar insolation, persistent trade winds, warm SSTs, and the annual hurricane season make this region a powerful two-way exchanger of heat, moisture, and momentum between ocean and atmosphere.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Sea surface temperature and heat flux:</strong> Western Caribbean SSTs average <strong>28–30°C</strong> year-round, among the warmest sustained ocean temperatures globally. Net shortwave input exceeds <strong>200 W/m²</strong> in summer. Latent heat loss through evaporation dominates the outgoing flux — the Western Caribbean is a significant source of atmospheric moisture feeding rainfall across Central America and Mexico.</li>
+        <li><strong>Hurricane intensification:</strong> When a tropical storm crosses the Western Caribbean over SSTs above <strong>26°C</strong> with a deep warm layer, latent heat flux from the ocean to the atmosphere can exceed <strong>500 W/m²</strong> — fueling rapid intensification. Hurricanes that pass over Loop Current eddies (warm-core, deep warm water) are especially prone to explosive deepening. Hurricane Wilma (2005) reached Category 5 with a central pressure of 882 mb — the lowest ever recorded in the Atlantic — while traversing the Western Caribbean.</li>
+        <li><strong>Wind stress and the trade wind system:</strong> Northeast trade winds exert a mean wind stress of <strong>0.05–0.15 N/m²</strong> on the Western Caribbean surface, driving westward surface flow and sustaining the Caribbean Current. Seasonal variation in trade wind intensity modulates SST, evaporation rates, and mixed layer depth across the reef ecosystem.</li>
+        <li><strong>Langmuir circulation and reef mixing:</strong> Under sustained trade wind conditions, Langmuir circulation cells develop in the upper <strong>10–30 m</strong> of the water column, creating alternating convergence and divergence streaks visible at the surface as foam lines. These cells efficiently mix heat, gases, and particles through the mixed layer — an important process for distributing coral larvae and resuspending fine sediments over shallow reef platforms.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Caribe occidental se sitúa en una de las zonas de interacción aire–mar más energéticamente activas de la Tierra. La alta insolación solar, los vientos alisios persistentes, las TSM cálidas y la temporada anual de huracanes convierten a esta región en un potente intercambiador bidireccional de calor, humedad y momento entre el océano y la atmósfera.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Temperatura superficial del mar y flujo de calor:</strong> Las TSM del Caribe occidental promedian <strong>28–30°C</strong> durante todo el año, entre las temperaturas oceánicas sostenidas más cálidas del mundo. La entrada neta de onda corta supera los <strong>200 W/m²</strong> en verano. La pérdida de calor latente por evaporación domina el flujo saliente — el Caribe occidental es una fuente significativa de humedad atmosférica que alimenta las precipitaciones en Centroamérica y México.</li>
+        <li><strong>Intensificación de huracanes:</strong> Cuando una tormenta tropical cruza el Caribe occidental sobre TSM superiores a <strong>26°C</strong> con una capa cálida profunda, el flujo de calor latente del océano a la atmósfera puede superar los <strong>500 W/m²</strong>, impulsando una intensificación rápida. El Huracán Wilma (2005) alcanzó la Categoría 5 con una presión central de 882 mb — la más baja jamás registrada en el Atlántico — al atravesar el Caribe occidental.</li>
+        <li><strong>Estrés del viento y el sistema de vientos alisios:</strong> Los vientos alisios del noreste ejercen un estrés medio del viento de <strong>0.05–0.15 N/m²</strong> sobre la superficie del Caribe occidental, impulsando el flujo superficial hacia el oeste y sosteniendo la Corriente del Caribe. La variación estacional en la intensidad de los vientos alisios modula la TSM, las tasas de evaporación y la profundidad de la capa de mezcla en todo el ecosistema arrecifal.</li>
+        <li><strong>Circulación de Langmuir y mezcla en el arrecife:</strong> Bajo condiciones sostenidas de vientos alisios, las células de circulación de Langmuir se desarrollan en los primeros <strong>10–30 m</strong> de la columna de agua, creando líneas alternantes de convergencia y divergencia visibles en la superficie como líneas de espuma. Estas células mezclan eficientemente calor, gases y partículas a través de la capa de mezcla — un proceso importante para distribuir larvas de coral y resuspender sedimentos finos sobre plataformas arrecifales someras.</li>
+      </ul>
+    </div><!-- /caribbean-panel -->
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which component of the ocean surface heat budget is the dominant mechanism of heat loss from the tropical Western Caribbean?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Outgoing longwave (infrared) radiation from the sea surface</li>
+            <li><span class="opt-letter">B.</span> Sensible heat flux conducted directly to the atmosphere</li>
+            <li><span class="opt-letter">C.</span> Latent heat flux lost through evaporation</li>
+            <li><span class="opt-letter">D.</span> Reflected shortwave radiation back to space</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Latent heat flux (evaporation) is the dominant heat loss mechanism in the tropical ocean.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué componente del balance de calor superficial oceánico es el mecanismo dominante de pérdida de calor en el Caribe occidental tropical?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Radiación de onda larga (infrarroja) saliente de la superficie marina</li>
+            <li><span class="opt-letter">B.</span> Flujo de calor sensible conducido directamente a la atmósfera</li>
+            <li><span class="opt-letter">C.</span> Flujo de calor latente perdido por evaporación</li>
+            <li><span class="opt-letter">D.</span> Radiación de onda corta reflejada de vuelta al espacio</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El flujo de calor latente (evaporación) es el mecanismo dominante de pérdida de calor en el océano tropical.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why are Western Caribbean hurricanes that pass over Loop Current warm-core eddies particularly prone to rapid intensification?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Warm eddies reduce wind shear, allowing the storm's eyewall to organize more efficiently</li>
+            <li><span class="opt-letter">B.</span> The deep warm water layer sustains high latent heat flux even as the storm churns up the ocean, maintaining fuel supply</li>
+            <li><span class="opt-letter">C.</span> Eddies increase surface salinity, reducing evaporation and concentrating heat in the storm core</li>
+            <li><span class="opt-letter">D.</span> Warm eddies elevate sea level, reducing surface pressure and deepening the storm's central pressure</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Deep warm water in eddies keeps latent heat flux high even when hurricane mixing would otherwise cool the surface.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué los huracanes del Caribe occidental que pasan sobre remolinos de núcleo cálido de la Corriente del Lazo son especialmente propensos a la intensificación rápida?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los remolinos cálidos reducen la cizalladura del viento, permitiendo que la pared del ojo se organice más eficientemente</li>
+            <li><span class="opt-letter">B.</span> La capa de agua cálida profunda mantiene un alto flujo de calor latente incluso cuando la tormenta agita el océano</li>
+            <li><span class="opt-letter">C.</span> Los remolinos aumentan la salinidad superficial, reduciendo la evaporación y concentrando el calor en el núcleo de la tormenta</li>
+            <li><span class="opt-letter">D.</span> Los remolinos cálidos elevan el nivel del mar, reduciendo la presión superficial y profundizando la presión central de la tormenta</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El agua cálida profunda en los remolinos mantiene alto el flujo de calor latente incluso cuando la mezcla del huracán enfriaría la superficie.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Langmuir circulation cells are visible at the ocean surface as parallel foam lines. What drives their formation and why are they ecologically significant on reef platforms?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Tidal oscillations create convergence lines; they trap fish schools near the reef surface</li>
+            <li><span class="opt-letter">B.</span> Wind stress interacting with surface waves creates helical vortices that mix heat, larvae, and particles through the upper water column</li>
+            <li><span class="opt-letter">C.</span> Density differences between freshwater and saltwater lenses produce surface streaks that concentrate phytoplankton</li>
+            <li><span class="opt-letter">D.</span> Geostrophic currents form convergence zones that concentrate floating debris along isobars</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Wind-wave interaction drives Langmuir cells, mixing larvae and particles through the mixed layer over reef platforms.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Las células de circulación de Langmuir son visibles en la superficie oceánica como líneas de espuma paralelas. ¿Qué impulsa su formación y por qué son ecológicamente significativas en las plataformas arrecifales?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Las oscilaciones mareales crean líneas de convergencia; atrapan cardúmenes de peces cerca de la superficie del arrecife</li>
+            <li><span class="opt-letter">B.</span> El estrés del viento interactuando con las olas superficiales crea vórtices helicoidales que mezclan calor, larvas y partículas en la columna de agua superior</li>
+            <li><span class="opt-letter">C.</span> Las diferencias de densidad entre lentes de agua dulce y salada producen líneas superficiales que concentran fitoplancton</li>
+            <li><span class="opt-letter">D.</span> Las corrientes geostróficas forman zonas de convergencia que concentran residuos flotantes a lo largo de isobaras</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La interacción viento-olas impulsa las células de Langmuir, mezclando larvas y partículas en la capa de mezcla sobre plataformas arrecifales.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 06 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L06 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
