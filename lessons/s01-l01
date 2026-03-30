@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L03 Physical Oceanography — Systems Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── HEADER VISUAL ── */
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  /* ── BODY LAYOUT ── */
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 0.43%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 03 · Physical Oceanography</div>
+        <h1 class="lesson-title">Systems Overview</h1>
+        <div class="lesson-subtitle">Visión General de los Sistemas Oceanográficos</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG ILLUSTRATION — Interconnected Ocean Systems Diagram -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="arrowG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.2"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Subtle grid -->
+        <g stroke="rgba(26,200,200,0.06)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ── CENTRAL NODE: OCEAN SYSTEM ── -->
+        <circle cx="190" cy="130" r="34" fill="rgba(4,41,74,0.7)"
+                stroke="rgba(26,200,200,0.5)" stroke-width="1.2" filter="url(#glow)"/>
+        <text x="190" y="125" font-family="monospace" font-size="8.5" font-weight="bold"
+              fill="rgba(26,200,200,0.9)" text-anchor="middle" letter-spacing="0.08em">OCEAN</text>
+        <text x="190" y="137" font-family="monospace" font-size="8.5" font-weight="bold"
+              fill="rgba(26,200,200,0.9)" text-anchor="middle" letter-spacing="0.08em">SYSTEM</text>
+
+        <!-- ── SATELLITE NODES ── -->
+        <!-- TOP: Atmosphere -->
+        <circle cx="190" cy="38" r="24" fill="rgba(10,110,138,0.35)"
+                stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+        <text x="190" y="34" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">ATMO-</text>
+        <text x="190" y="44" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">SPHERE</text>
+
+        <!-- BOTTOM: Lithosphere -->
+        <circle cx="190" cy="222" r="24" fill="rgba(10,110,138,0.35)"
+                stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+        <text x="190" y="218" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">LITHO-</text>
+        <text x="190" y="228" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">SPHERE</text>
+
+        <!-- LEFT: Biosphere -->
+        <circle cx="58" cy="130" r="24" fill="rgba(10,110,138,0.35)"
+                stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+        <text x="58" y="126" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">BIO-</text>
+        <text x="58" y="136" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">SPHERE</text>
+
+        <!-- RIGHT: Cryosphere -->
+        <circle cx="322" cy="130" r="24" fill="rgba(10,110,138,0.35)"
+                stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+        <text x="322" y="126" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">CRYO-</text>
+        <text x="322" y="136" font-family="monospace" font-size="7.5"
+              fill="rgba(184,240,236,0.8)" text-anchor="middle">SPHERE</text>
+
+        <!-- TOP-LEFT: Solar Energy -->
+        <circle cx="72" cy="48" r="20" fill="rgba(240,180,41,0.1)"
+                stroke="rgba(240,180,41,0.4)" stroke-width="1"/>
+        <text x="72" y="44" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.8)" text-anchor="middle">SOLAR</text>
+        <text x="72" y="54" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.8)" text-anchor="middle">ENERGY</text>
+
+        <!-- TOP-RIGHT: Wind/Weather -->
+        <circle cx="308" cy="48" r="20" fill="rgba(240,180,41,0.08)"
+                stroke="rgba(240,180,41,0.3)" stroke-width="1"/>
+        <text x="308" y="44" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.7)" text-anchor="middle">WIND /</text>
+        <text x="308" y="54" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.7)" text-anchor="middle">WEATHER</text>
+
+        <!-- BOTTOM-LEFT: Hydrology -->
+        <circle cx="72" cy="212" r="20" fill="rgba(10,110,138,0.2)"
+                stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+        <text x="72" y="208" font-family="monospace" font-size="7"
+              fill="rgba(138,184,204,0.7)" text-anchor="middle">HYDRO-</text>
+        <text x="72" y="218" font-family="monospace" font-size="7"
+              fill="rgba(138,184,204,0.7)" text-anchor="middle">LOGY</text>
+
+        <!-- BOTTOM-RIGHT: Human Systems -->
+        <circle cx="308" cy="212" r="20" fill="rgba(232,96,64,0.08)"
+                stroke="rgba(232,96,64,0.3)" stroke-width="1"/>
+        <text x="308" y="208" font-family="monospace" font-size="7"
+              fill="rgba(232,96,64,0.65)" text-anchor="middle">HUMAN</text>
+        <text x="308" y="218" font-family="monospace" font-size="7"
+              fill="rgba(232,96,64,0.65)" text-anchor="middle">SYSTEMS</text>
+
+        <!-- ── CONNECTING ARROWS (bi-directional, main spokes) ── -->
+        <!-- Ocean ↔ Atmosphere (vertical top) -->
+        <line x1="190" y1="96"  x2="190" y2="62"  stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <polygon points="190,62 186,70 194,70" fill="rgba(26,200,200,0.5)"/>
+        <line x1="190" y1="96"  x2="190" y2="62"  stroke="rgba(26,200,200,0.3)" stroke-width="1.2"/>
+        <polygon points="190,96 186,88 194,88" fill="rgba(26,200,200,0.3)"/>
+
+        <!-- Ocean ↔ Lithosphere (vertical bottom) -->
+        <line x1="190" y1="164" x2="190" y2="198" stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <polygon points="190,198 186,190 194,190" fill="rgba(26,200,200,0.5)"/>
+        <polygon points="190,164 186,172 194,172" fill="rgba(26,200,200,0.3)"/>
+
+        <!-- Ocean ↔ Biosphere (horizontal left) -->
+        <line x1="156" y1="130" x2="82"  y2="130" stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <polygon points="82,130 90,126 90,134" fill="rgba(26,200,200,0.5)"/>
+        <polygon points="156,130 148,126 148,134" fill="rgba(26,200,200,0.3)"/>
+
+        <!-- Ocean ↔ Cryosphere (horizontal right) -->
+        <line x1="224" y1="130" x2="298" y2="130" stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <polygon points="298,130 290,126 290,134" fill="rgba(26,200,200,0.5)"/>
+        <polygon points="224,130 232,126 232,134" fill="rgba(26,200,200,0.3)"/>
+
+        <!-- Diagonal: Solar → Ocean -->
+        <line x1="90" y1="62" x2="162" y2="104" stroke="rgba(240,180,41,0.35)" stroke-width="1" stroke-dasharray="4,3"/>
+        <polygon points="162,104 153,100 157,109" fill="rgba(240,180,41,0.35)"/>
+
+        <!-- Diagonal: Wind → Ocean -->
+        <line x1="290" y1="62" x2="218" y2="104" stroke="rgba(240,180,41,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+        <polygon points="218,104 227,100 223,109" fill="rgba(240,180,41,0.3)"/>
+
+        <!-- Diagonal: Hydrology → Ocean -->
+        <line x1="90" y1="198" x2="162" y2="156" stroke="rgba(26,200,200,0.25)" stroke-width="1" stroke-dasharray="3,4"/>
+        <polygon points="162,156 153,156 157,165" fill="rgba(26,200,200,0.25)"/>
+
+        <!-- Diagonal: Human → Ocean -->
+        <line x1="290" y1="198" x2="218" y2="156" stroke="rgba(232,96,64,0.3)" stroke-width="1" stroke-dasharray="3,4"/>
+        <polygon points="218,156 227,156 223,165" fill="rgba(232,96,64,0.3)"/>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="244" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.13em">EARTH SYSTEM  ·  OCEAN LINKAGES</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          The ocean does not operate in isolation. It is one of five tightly coupled Earth systems — alongside the <strong>atmosphere</strong>, <strong>lithosphere</strong>, <strong>biosphere</strong>, and <strong>cryosphere</strong> — continuously exchanging energy, mass, and chemical signals across every boundary. Understanding physical oceanography at the systems level means tracing these exchanges: how solar energy drives surface heating and evaporation; how wind stress transfers momentum from atmosphere to ocean, generating currents and waves; how freshwater from the hydrological cycle dilutes surface salinity; how seafloor geology shapes basin geometry and constrains circulation pathways; and how living organisms alter chemistry, turbidity, and gas concentrations. The ocean integrates all these inputs and returns signals — heat, moisture, CO₂, nutrients — back to the systems that drive it, creating <strong>feedback loops</strong> that regulate Earth's climate on timescales from days to millennia. Human systems now constitute a sixth forcing, altering temperature, chemistry, and circulation in ways the natural system has not experienced in millions of years.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>System</th><th>Primary Exchange</th><th>Ocean Response</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Atmosphere</td><td>Heat, wind stress, precipitation</td><td>Currents, SST, evaporation</td></tr>
+          <tr><td>Biosphere</td><td>O₂/CO₂, nutrients, organic matter</td><td>Productivity, chemistry</td></tr>
+          <tr><td>Cryosphere</td><td>Freshwater, albedo, sea level</td><td>Salinity, density, thermohaline</td></tr>
+          <tr><td>Lithosphere</td><td>Basin shape, sediment, heat flux</td><td>Circulation pathways, chemistry</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El océano no opera de forma aislada. Es uno de los cinco sistemas terrestres estrechamente acoplados — junto con la <strong>atmósfera</strong>, la <strong>litosfera</strong>, la <strong>biosfera</strong> y la <strong>criosfera</strong> — intercambiando continuamente energía, masa y señales químicas a través de cada frontera. Comprender la oceanografía física a nivel de sistemas implica rastrear estos intercambios: cómo la energía solar impulsa el calentamiento superficial y la evaporación; cómo el estrés del viento transfiere momento de la atmósfera al océano generando corrientes y olas; cómo el agua dulce del ciclo hidrológico diluye la salinidad superficial; cómo la geología del fondo marino moldea la geometría de las cuencas y restringe las vías de circulación; y cómo los organismos vivos alteran la química, la turbidez y las concentraciones de gases. El océano integra todos estos aportes y devuelve señales — calor, humedad, CO₂, nutrientes — a los sistemas que lo impulsan, creando <strong>bucles de retroalimentación</strong> que regulan el clima de la Tierra en escalas de tiempo que van de días a milenios. Los sistemas humanos constituyen hoy una sexta fuerza, alterando la temperatura, la química y la circulación de maneras que el sistema natural no ha experimentado en millones de años.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Sistema</th><th>Intercambio Principal</th><th>Respuesta Oceánica</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Atmósfera</td><td>Calor, estrés del viento, precipitación</td><td>Corrientes, TSM, evaporación</td></tr>
+          <tr><td>Biosfera</td><td>O₂/CO₂, nutrientes, materia orgánica</td><td>Productividad, química</td></tr>
+          <tr><td>Criosfera</td><td>Agua dulce, albedo, nivel del mar</td><td>Salinidad, densidad, termohalina</td></tr>
+          <tr><td>Litosfera</td><td>Forma de cuenca, sedimento, flujo de calor</td><td>Vías de circulación, química</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /lecture-panel -->
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean is an exceptional case study in Earth-system coupling. Within a single region, all five natural systems interact visibly and consequentially — making it one of the most physically complex and ecologically sensitive marine environments on the planet.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Atmosphere–Ocean:</strong> The Intertropical Convergence Zone (ITCZ) migrates seasonally across the region, switching the Western Caribbean between a dry-season trade wind regime (Nov–Apr) and a wet-season convective regime (May–Oct). This drives dramatic shifts in wave energy, surface mixing, and evaporation rates.</li>
+        <li><strong>Cryosphere link:</strong> Meltwater from Greenland and Arctic sea-ice decline is measurably freshening the North Atlantic, gradually weakening the Atlantic Meridional Overturning Circulation (AMOC) — the engine that ultimately drives Caribbean surface temperatures and hurricane intensity.</li>
+        <li><strong>Biosphere coupling:</strong> The Mesoamerican Barrier Reef modifies local hydrodynamics — reducing wave energy, trapping sediment, and altering turbidity — creating its own micro-physical environment that feeds back to the organisms sustaining it.</li>
+        <li><strong>Human forcing:</strong> Deforestation and agricultural expansion across the Yucatán, Petén, and Honduran watersheds have increased sediment and nutrient loads entering the Caribbean, directly degrading water clarity and shifting the physical–biological baseline of the reef system.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Caribe occidental es un caso de estudio excepcional de acoplamiento del sistema terrestre. En una sola región, los cinco sistemas naturales interactúan de forma visible y consecuente, convirtiéndolo en uno de los entornos marinos físicamente más complejos y ecológicamente más sensibles del planeta.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Atmósfera–Océano:</strong> La Zona de Convergencia Intertropical (ZCIT) migra estacionalmente por la región, alternando entre un régimen de vientos alisios en época seca (nov–abr) y un régimen convectivo en época húmeda (may–oct), con cambios drásticos en la energía del oleaje, la mezcla superficial y las tasas de evaporación.</li>
+        <li><strong>Vínculo con la criosfera:</strong> El agua de deshielo de Groenlandia y el retroceso del hielo marino ártico están reduciendo measurablemente la salinidad del Atlántico Norte, debilitando gradualmente la Circulación de Retorno del Atlántico (AMOC) — el motor que en última instancia regula las temperaturas superficiales del Caribe y la intensidad de los huracanes.</li>
+        <li><strong>Acoplamiento con la biosfera:</strong> El Arrecife Mesoamericano modifica la hidrodinámica local — reduciendo la energía del oleaje, atrapando sedimentos y alterando la turbidez — creando su propio microentorno físico que retroalimenta a los organismos que lo sostienen.</li>
+        <li><strong>Forzamiento humano:</strong> La deforestación y la expansión agrícola en las cuencas del Yucatán, el Petén y Honduras han aumentado las cargas de sedimentos y nutrientes que ingresan al Caribe, degradando directamente la claridad del agua y alterando la línea base físico-biológica del sistema arrecifal.</li>
+      </ul>
+    </div><!-- /caribbean-panel -->
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which of the following best describes a "feedback loop" in the context of Earth's ocean system?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> A one-way transfer of solar energy into the ocean surface</li>
+            <li><span class="opt-letter">B.</span> A cycle in which the ocean's response to a forcing amplifies or dampens that same forcing</li>
+            <li><span class="opt-letter">C.</span> The return of deep ocean water to the surface via upwelling</li>
+            <li><span class="opt-letter">D.</span> The exchange of CO₂ between seawater and the atmosphere</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Feedback loops occur when the ocean's response modifies the original forcing driving it.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál de las siguientes opciones describe mejor un "bucle de retroalimentación" en el contexto del sistema oceánico de la Tierra?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Una transferencia unidireccional de energía solar hacia la superficie oceánica</li>
+            <li><span class="opt-letter">B.</span> Un ciclo en el que la respuesta del océano a un forzamiento amplifica o amortigua ese mismo forzamiento</li>
+            <li><span class="opt-letter">C.</span> El retorno del agua oceánica profunda a la superficie mediante afloramiento</li>
+            <li><span class="opt-letter">D.</span> El intercambio de CO₂ entre el agua de mar y la atmósfera</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los bucles de retroalimentación ocurren cuando la respuesta del océano modifica el forzamiento original que lo impulsa.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 The weakening of the Atlantic Meridional Overturning Circulation (AMOC) is most directly linked to changes in which Earth system component?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Lithosphere — increased seafloor volcanic activity</li>
+            <li><span class="opt-letter">B.</span> Biosphere — declining phytoplankton populations</li>
+            <li><span class="opt-letter">C.</span> Cryosphere — freshwater input from melting ice sheets</li>
+            <li><span class="opt-letter">D.</span> Atmosphere — reduced trade wind intensity</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Cryosphere meltwater freshens the North Atlantic, reducing density and slowing AMOC.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El debilitamiento de la Circulación de Retorno del Atlántico (AMOC) está más directamente relacionado con cambios en ¿qué componente del sistema terrestre?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Litosfera — aumento de la actividad volcánica submarina</li>
+            <li><span class="opt-letter">B.</span> Biosfera — disminución de las poblaciones de fitoplancton</li>
+            <li><span class="opt-letter">C.</span> Criosfera — aporte de agua dulce por el deshielo de los casquetes polares</li>
+            <li><span class="opt-letter">D.</span> Atmósfera — reducción de la intensidad de los vientos alisios</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El agua de deshielo de la criosfera reduce la salinidad del Atlántico Norte, disminuyendo la densidad y ralentizando la AMOC.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 In the Western Caribbean, increased sediment and nutrient loads from deforestation represent which type of ocean system forcing?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Atmospheric forcing via increased precipitation</li>
+            <li><span class="opt-letter">B.</span> Cryospheric forcing via sea-level rise</li>
+            <li><span class="opt-letter">C.</span> Natural lithospheric forcing from erosion cycles</li>
+            <li><span class="opt-letter">D.</span> Human (anthropogenic) forcing via land-use change</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: D — Deforestation is a human-driven land-use change that alters the physical and chemical inputs to the ocean.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En el Caribe occidental, el aumento de cargas de sedimentos y nutrientes por deforestación representa ¿qué tipo de forzamiento del sistema oceánico?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Forzamiento atmosférico por aumento de precipitaciones</li>
+            <li><span class="opt-letter">B.</span> Forzamiento de la criosfera por aumento del nivel del mar</li>
+            <li><span class="opt-letter">C.</span> Forzamiento litosférico natural por ciclos de erosión</li>
+            <li><span class="opt-letter">D.</span> Forzamiento humano (antrópico) por cambio de uso del suelo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: D — La deforestación es un cambio de uso del suelo de origen humano que altera los aportes físicos y químicos al océano.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 03 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L03 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
