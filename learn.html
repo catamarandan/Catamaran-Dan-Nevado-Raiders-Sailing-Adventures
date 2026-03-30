@@ -1,793 +1,835 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Learn Along With Me — Rim Run™ Ocean Science</title>
-  <meta name="description" content="A university-equivalent bilingual ocean science curriculum tied to the Rim Run™ expedition. 22 sections covering oceanography, marine sciences, marine biology, and reef monitoring."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=JetBrains+Mono:wght@400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn Along With Me | Catamaran Dan</title>
+  <meta name="description" content="Learn Along With Me — bilingual oceanography and reef science lessons for the Rim Run expedition." />
   <style>
-:root {
-  --ink:#0e1f2e; --deep:#0a1825; --panel:#112333; --panel2:#162d3f;
-  --teal:#1a6b7a; --teal-light:#2a9aad; --aqua:#4dc4d4;
-  --amber:#d4933a; --amber-lt:#e8b96a; --gold:#c9a84c;
-  --parchment:#f0e8d0; --fog:#c8d8e0; --mist:#8aaabb; --text:#ddeef5;
-  --correct:#2ecc71; --incorrect:#e74c3c;
-  --grid:rgba(42,154,173,0.06);
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'Source Serif 4',Georgia,serif;font-size:1.05rem;line-height:1.78;
-  color:var(--text);background-color:var(--deep);
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:40px 40px;overflow-x:hidden;min-height:100vh;
-}
-img{max-width:100%;display:block;}
-a{color:var(--aqua);text-decoration:none;transition:color .2s;}
-a:hover{color:var(--amber-lt);}
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--deep);}
-::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px;}
+    :root{
+      --bg:#081722;
+      --bg2:#0d2230;
+      --panel:#102b3d;
+      --panel2:#14384f;
+      --line:#2b6283;
+      --text:#eef7fc;
+      --muted:#b8d7e8;
+      --accent:#4fc3dc;
+      --accent2:#79e3f1;
+      --gold:#ffd166;
+      --ok:#8fe388;
+      --shadow:0 10px 28px rgba(0,0,0,.28);
+      --radius:18px;
+      --max:1200px;
+    }
 
-/* NAV */
-nav{background:rgba(10,24,37,.95);border-bottom:1px solid rgba(201,168,76,.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);}
-.nav-inner{max-width:1200px;margin:0 auto;padding:.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;}
-.nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:nowrap;}
-.nav-links a{color:var(--fog);font-family:'Barlow',sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s;white-space:nowrap;}
-.nav-links a:hover{color:var(--gold);}
-.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:.4rem;flex-direction:column;gap:5px;position:absolute;right:2rem;top:50%;transform:translateY(-50%);z-index:1002;}
-.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s;}
-.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.nav-toggle.open span:nth-child(2){opacity:0;}
-.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    *{box-sizing:border-box}
 
-/* LOGIN OVERLAY */
-#login-overlay{position:fixed;inset:0;z-index:2000;background:rgba(6,16,24,.96);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:2rem;}
-.login-box{background:var(--panel);border:1px solid rgba(77,196,212,.25);max-width:520px;width:100%;padding:3rem;position:relative;}
-.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--amber),var(--teal));}
-.login-logo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.4em;color:var(--amber);text-transform:uppercase;margin-bottom:1.5rem;opacity:.8;}
-.login-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--parchment);margin-bottom:.5rem;}
-.login-subtitle{font-family:'Source Serif 4',serif;font-size:.95rem;font-style:italic;color:var(--mist);margin-bottom:2rem;line-height:1.55;}
-.login-subtitle-es{font-size:.85rem;color:rgba(138,170,187,.7);margin-top:.4rem;display:block;}
-.form-group{margin-bottom:1.2rem;}
-.form-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--aqua);text-transform:uppercase;display:block;margin-bottom:.5rem;}
-.form-input{width:100%;background:rgba(0,0,0,.3);border:1px solid rgba(77,196,212,.3);color:var(--text);font-family:'Source Serif 4',serif;font-size:1rem;padding:.85rem 1.1rem;outline:none;transition:border-color .2s;}
-.form-input:focus{border-color:var(--aqua);}
-.form-input::placeholder{color:rgba(138,170,187,.4);}
-.optin-group{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1.8rem;background:rgba(212,147,58,.06);border:1px solid rgba(212,147,58,.15);padding:1rem 1.2rem;}
-.optin-checkbox{width:18px;height:18px;flex-shrink:0;margin-top:3px;accent-color:var(--amber);cursor:pointer;}
-.optin-label{font-family:'Source Serif 4',serif;font-size:.88rem;color:var(--fog);line-height:1.5;cursor:pointer;}
-.optin-label-es{font-size:.8rem;color:var(--mist);display:block;margin-top:.3rem;font-style:italic;}
-.btn-primary{width:100%;background:linear-gradient(135deg,var(--teal),var(--teal-light));border:none;color:#fff;font-family:'Barlow',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:1rem 2rem;cursor:pointer;transition:all .3s;}
-.btn-primary:hover{background:linear-gradient(135deg,var(--teal-light),var(--aqua));}
-.login-note{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--mist);text-align:center;margin-top:1.2rem;opacity:.65;line-height:1.6;}
+    html{
+      scroll-behavior:smooth;
+    }
 
-/* PAGE HERO */
-.page-hero{position:relative;padding:5rem 2rem 4rem;text-align:center;overflow:hidden;border-bottom:2px solid var(--teal);}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(26,107,122,.25) 0%,transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(212,147,58,.12) 0%,transparent 45%),linear-gradient(180deg,#061018 0%,#0a1825 100%);z-index:0;}
-.hero-content{position:relative;z-index:1;max-width:860px;margin:0 auto;}
-.hero-institution{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.4em;color:var(--amber);text-transform:uppercase;margin-bottom:1.2rem;opacity:.85;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:var(--parchment);line-height:1.1;margin-bottom:.5rem;}
-.hero-title em{color:var(--aqua);font-style:italic;}
-.hero-subtitle{font-family:'Barlow',sans-serif;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mist);margin-bottom:2rem;}
-.hero-tagline{font-family:'Source Serif 4',serif;font-size:1.1rem;font-style:italic;color:var(--fog);max-width:640px;margin:0 auto 2.5rem;opacity:.85;}
-.curriculum-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;}
-.c-stat{text-align:center;}
-.c-stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--amber);display:block;line-height:1;}
-.c-stat-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.25em;color:var(--mist);text-transform:uppercase;margin-top:.3rem;display:block;}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(79,195,220,.12), transparent 30%),
+        linear-gradient(180deg, #07131d 0%, #081722 35%, #0b1e2d 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
 
-/* MAIN */
-.main-wrap{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem;}
+    a{
+      color:var(--text);
+      text-decoration:none;
+    }
 
-/* PROGRESS */
-.progress-panel{background:var(--panel);border:1px solid rgba(77,196,212,.15);padding:1.5rem 2rem;margin-bottom:3rem;display:none;}
-.progress-panel.visible{display:block;}
-.progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
-.progress-greeting{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--parchment);}
-.progress-pct{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--amber);letter-spacing:.1em;}
-.progress-track{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:.8rem;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--aqua));border-radius:3px;transition:width .6s ease;width:0%;}
-.progress-dots{display:flex;gap:6px;flex-wrap:wrap;}
-.p-dot{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(77,196,212,.2);cursor:pointer;transition:all .2s;}
-.p-dot.complete{background:var(--teal);border-color:var(--teal);}
-.p-dot.current{background:var(--amber);border-color:var(--amber);}
+    img{
+      max-width:100%;
+      display:block;
+    }
 
-/* DISCLAIMER */
-.disclaimer{background:rgba(212,147,58,.08);border:1px solid rgba(212,147,58,.25);border-left:4px solid var(--amber);padding:1.2rem 1.8rem;margin-bottom:3rem;}
-.disclaimer-icon{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.25em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;display:block;}
-.disclaimer p{font-family:'Source Serif 4',serif;font-size:.88rem;color:var(--fog);line-height:1.6;margin-bottom:.4rem;}
-.disclaimer p:last-child{margin-bottom:0;}
-.disclaimer .es-text{font-style:italic;color:var(--mist);font-size:.82rem;border-top:1px solid rgba(212,147,58,.15);padding-top:.6rem;margin-top:.6rem;}
+    .site-wrap{
+      min-height:100vh;
+    }
 
-/* SECTION LABELS */
-.section-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--aqua);margin-bottom:.8rem;display:flex;align-items:center;gap:1rem;}
-.section-label::before{content:'';display:inline-block;width:24px;height:1px;background:var(--aqua);flex-shrink:0;}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;color:var(--parchment);line-height:1.15;margin-bottom:1rem;}
-.section-title em{color:var(--amber);font-style:italic;}
-.gold-rule{width:50px;height:2px;background:linear-gradient(90deg,var(--amber),var(--gold));margin:1rem 0 2rem;}
+    /* NAV */
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(10px);
+      background:rgba(7,19,29,.88);
+      border-bottom:1px solid rgba(121,227,241,.16);
+    }
 
-/* LESSON CARD */
-.current-lesson-wrap{margin-bottom:4rem;}
-.lesson-badge{display:inline-flex;align-items:center;gap:.6rem;background:var(--amber);color:var(--ink);font-family:'Barlow',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.4rem 1rem;margin-bottom:1.2rem;}
-.lesson-badge::before{content:'●';animation:pulse 1.5s infinite;font-size:.6rem;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.lesson-card{background:var(--panel);border:1px solid rgba(77,196,212,.2);position:relative;overflow:hidden;}
-.lesson-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--aqua),var(--amber));}
-.lesson-header{padding:2.5rem 3rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);}
-.lesson-number{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;}
-.lesson-title-main{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:var(--parchment);margin-bottom:.4rem;line-height:1.15;}
-.lesson-category{font-family:'Barlow',sans-serif;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal-light);}
-.lesson-body{padding:2.5rem 3rem;}
-.lesson-tabs{display:flex;gap:0;margin-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08);}
-.lesson-tab{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);padding:.8rem 1.5rem;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;}
-.lesson-tab.active{color:var(--aqua);border-bottom-color:var(--aqua);}
-.lesson-tab:hover:not(.active){color:var(--fog);}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
+    .nav{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
 
-/* CONTENT */
-.content-block h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--amber-lt);margin:2rem 0 .8rem;font-weight:600;}
-.content-block h3:first-child{margin-top:0;}
-.content-block p{font-family:'Source Serif 4',serif;font-size:1rem;color:var(--fog);line-height:1.8;margin-bottom:1.2rem;}
-.content-block strong{color:var(--parchment);font-weight:600;}
+    .brand{
+      font-weight:700;
+      letter-spacing:.4px;
+      white-space:nowrap;
+    }
 
-.lesson-columns{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
-.lesson-columns .content-block{min-width:0;}
+    .brand span{
+      color:var(--accent2);
+    }
 
-/* IMAGE */
-.lesson-image-wrap{margin:1.25rem 0;border:1px solid rgba(77,196,212,.15);overflow:hidden;background:rgba(0,0,0,.15);}
-.lesson-image-wrap img{width:100%;height:auto;display:block;}
-.image-caption{background:rgba(0,0,0,.3);padding:.6rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--mist);text-transform:uppercase;}
+    .nav-links{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap:18px;
+    }
 
-/* MCQ */
-.mcq-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
-.mcq-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--parchment);}
-.mcq-score-display{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.15em;color:var(--amber);background:rgba(212,147,58,.1);border:1px solid rgba(212,147,58,.25);padding:.4rem 1rem;}
-.question-card{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.07);padding:2rem 2.5rem;margin-bottom:1.5rem;}
-.question-number{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--mist);text-transform:uppercase;margin-bottom:.8rem;}
-.question-text{font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--parchment);line-height:1.65;margin-bottom:1.5rem;}
-.answers-list{list-style:none;display:flex;flex-direction:column;gap:.7rem;}
-.answer-btn{width:100%;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(77,196,212,.2);color:var(--fog);font-family:'Source Serif 4',serif;font-size:.97rem;padding:.9rem 1.2rem;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:1rem;line-height:1.5;}
-.answer-btn:hover:not(:disabled){background:rgba(77,196,212,.08);border-color:rgba(77,196,212,.5);color:var(--parchment);}
-.answer-btn.correct{background:rgba(46,204,113,.12);border-color:var(--correct);color:var(--correct);}
-.answer-btn.incorrect{background:rgba(231,76,60,.12);border-color:var(--incorrect);color:var(--incorrect);}
-.answer-btn:disabled{cursor:default;}
-.answer-letter{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;color:var(--teal-light);flex-shrink:0;margin-top:2px;}
-.answer-btn.correct .answer-letter{color:var(--correct);}
-.answer-btn.incorrect .answer-letter{color:var(--incorrect);}
-.question-feedback{margin-top:1rem;padding:.9rem 1.2rem;font-family:'Source Serif 4',serif;font-size:.9rem;line-height:1.6;display:none;border-left:3px solid;}
-.question-feedback.show{display:block;}
-.question-feedback.correct-fb{background:rgba(46,204,113,.08);border-color:var(--correct);color:#a8f0c6;}
-.question-feedback.incorrect-fb{background:rgba(231,76,60,.08);border-color:var(--incorrect);color:#f5a8a0;}
-.feedback-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.4rem;}
-.mcq-complete{background:rgba(26,107,122,.15);border:1px solid rgba(77,196,212,.3);padding:2.5rem;text-align:center;display:none;}
-.mcq-complete.show{display:block;}
-.mcq-complete-score{font-family:'Playfair Display',serif;font-size:3rem;color:var(--amber);display:block;margin-bottom:.5rem;}
-.mcq-complete-msg{font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--fog);margin-bottom:1.5rem;}
-.mcq-complete-msg-es{font-size:.9rem;color:var(--mist);font-style:italic;}
-.btn-retake{background:none;border:1px solid rgba(77,196,212,.4);color:var(--aqua);font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.75rem 2rem;cursor:pointer;transition:all .25s;margin:.5rem;}
-.btn-retake:hover{background:rgba(77,196,212,.1);border-color:var(--aqua);}
+    .nav-links a{
+      font-size:.98rem;
+      color:#d9edf7;
+      padding:6px 0;
+      border-bottom:2px solid transparent;
+    }
 
-/* ARCHIVE */
-.archive-wrap{margin-top:4rem;}
-.archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:2rem;}
-.archive-card{background:var(--panel);border:1px solid rgba(255,255,255,.07);padding:1.5rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
-.archive-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal);transform:scaleY(0);transition:transform .25s;transform-origin:bottom;}
-.archive-card:hover::before{transform:scaleY(1);}
-.archive-card:hover{border-color:rgba(77,196,212,.3);background:var(--panel2);}
-.archive-card.complete::before{transform:scaleY(1);background:var(--correct);}
-.archive-card.locked{opacity:.45;cursor:not-allowed;}
-.archive-num{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem;}
-.archive-title-en{font-family:'Playfair Display',serif;font-size:1rem;color:var(--parchment);margin-bottom:.2rem;line-height:1.3;}
-.archive-title-es{font-family:'Source Serif 4',serif;font-size:.82rem;color:var(--mist);font-style:italic;margin-bottom:.4rem;}
-.archive-cat{font-family:'Barlow',sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);}
-.archive-status{position:absolute;top:1rem;right:1rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;padding:.25rem .6rem;border:1px solid;}
-.archive-status.complete{color:var(--correct);border-color:var(--correct);background:rgba(46,204,113,.08);}
-.archive-status.current{color:var(--amber);border-color:var(--amber);background:rgba(212,147,58,.08);}
-.archive-status.locked{color:var(--mist);border-color:var(--mist);}
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:#fff;
+      border-bottom-color:var(--accent);
+    }
 
-/* COMING SOON */
-.coming-soon{background:rgba(0,0,0,.2);border:1px dashed rgba(77,196,212,.2);padding:3rem;text-align:center;margin:2rem 0;}
-.coming-soon-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--mist);margin-bottom:.5rem;}
-.coming-soon-sub{font-family:'Source Serif 4',serif;font-size:.95rem;font-style:italic;color:rgba(138,170,187,.6);}
+    /* HERO */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-bottom:1px solid rgba(121,227,241,.14);
+    }
 
-/* FOOTER */
-footer{background:#040710;border-top:1px solid rgba(201,168,76,.12);padding:3rem 2rem;text-align:center;}
-.footer-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--parchment);margin-bottom:.5rem;}
-.footer-tagline{font-style:italic;color:var(--gold);font-size:.95rem;margin-bottom:1.2rem;}
-.footer-contact{font-family:'Barlow',sans-serif;font-size:.75rem;letter-spacing:.1em;color:var(--mist);}
-.footer-contact a{color:var(--aqua);}
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.5)),
+        radial-gradient(circle at 20% 15%, rgba(79,195,220,.25), transparent 24%),
+        radial-gradient(circle at 80% 10%, rgba(255,209,102,.18), transparent 18%),
+        linear-gradient(180deg, #13364b 0%, #0d2536 42%, #081722 100%);
+    }
 
-@media(max-width:768px){
-  .nav-inner{justify-content:flex-start;padding:.8rem 1.5rem;min-height:52px;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,.2);flex-direction:column;align-items:flex-start;gap:0;padding:.5rem 1.5rem 1rem;z-index:99;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:.65rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-size:.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-toggle{display:flex;right:1.5rem;}
-  .lesson-header,.lesson-body{padding:1.8rem;}
-  .question-card{padding:1.5rem;}
-  .login-box{padding:2rem;}
-  .curriculum-stats{gap:2rem;}
-  .lesson-tab{padding:.8rem 1rem;font-size:.72rem;white-space:nowrap;}
-  .lesson-tabs{overflow-x:auto;}
-  .lesson-columns{grid-template-columns:1fr;}
-}
+    .hero-inner{
+      position:relative;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:72px 20px 68px;
+    }
+
+    .hero-kicker{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:7px 12px;
+      border:1px solid rgba(121,227,241,.28);
+      border-radius:999px;
+      font-size:.84rem;
+      color:var(--accent2);
+      background:rgba(255,255,255,.03);
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:clamp(2rem, 4vw, 3.6rem);
+      line-height:1.1;
+      letter-spacing:.2px;
+    }
+
+    .hero p{
+      max-width:850px;
+      margin:0;
+      color:var(--muted);
+      font-size:1.06rem;
+    }
+
+    /* MAIN */
+    .main{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px 60px;
+    }
+
+    .page-intro{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      margin-bottom:26px;
+    }
+
+    .intro-card,
+    .status-card{
+      background:linear-gradient(180deg, rgba(20,56,79,.88), rgba(11,31,45,.94));
+      border:1px solid rgba(121,227,241,.15);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    .intro-card h2,
+    .status-card h2{
+      margin:0 0 10px;
+      font-size:1.3rem;
+    }
+
+    .intro-card p,
+    .status-card p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .status-list{
+      margin:14px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .status-list li{
+      margin:7px 0;
+    }
+
+    /* LESSON BLOCK */
+    .lesson-block{
+      background:linear-gradient(180deg, rgba(16,43,61,.94), rgba(10,27,38,.96));
+      border:1px solid rgba(121,227,241,.16);
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .lesson-head{
+      padding:26px 26px 18px;
+      border-bottom:1px solid rgba(121,227,241,.14);
+      background:linear-gradient(180deg, rgba(79,195,220,.08), rgba(79,195,220,0));
+    }
+
+    .lesson-tag{
+      display:inline-block;
+      font-size:.82rem;
+      color:var(--accent2);
+      letter-spacing:.2px;
+      border:1px solid rgba(121,227,241,.25);
+      border-radius:999px;
+      padding:6px 11px;
+      margin-bottom:12px;
+      background:rgba(255,255,255,.03);
+    }
+
+    .lesson-head h2{
+      margin:0 0 8px;
+      font-size:clamp(1.5rem, 2.4vw, 2.15rem);
+      line-height:1.18;
+    }
+
+    .lesson-head p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .lesson-section{
+      padding:24px 26px 28px;
+      border-top:1px solid rgba(121,227,241,.08);
+    }
+
+    .lesson-section:first-of-type{
+      border-top:0;
+    }
+
+    .section-title{
+      margin:0 0 16px;
+      font-size:1.18rem;
+      color:#fff;
+    }
+
+    /* IMAGE GRIDS */
+    .image-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+      margin-bottom:10px;
+    }
+
+    .image-card{
+      background:linear-gradient(180deg, rgba(20,56,79,.92), rgba(12,31,44,.98));
+      border:1px solid rgba(121,227,241,.14);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .image-card figcaption{
+      padding:12px 14px 14px;
+      color:var(--muted);
+      font-size:.94rem;
+    }
+
+    .image-card strong{
+      display:block;
+      color:#fff;
+      margin-bottom:4px;
+      font-size:.98rem;
+    }
+
+    .panel-svg{
+      width:100%;
+      height:auto;
+      display:block;
+      background:#0e2c3f;
+    }
+
+    /* LECTURE */
+    .lecture-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .lecture-card{
+      background:linear-gradient(180deg, rgba(20,56,79,.88), rgba(12,31,44,.96));
+      border:1px solid rgba(121,227,241,.14);
+      border-radius:20px;
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow);
+    }
+
+    .lecture-card h4{
+      margin:0 0 10px;
+      font-size:1.05rem;
+      color:#fff;
+      border-bottom:1px solid rgba(121,227,241,.18);
+      padding-bottom:8px;
+    }
+
+    .lecture-card p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .lecture-card p:last-child{
+      margin-bottom:0;
+    }
+
+    /* QUIZ */
+    .quiz-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    .question{
+      background:linear-gradient(180deg, rgba(20,56,79,.9), rgba(12,31,44,.97));
+      border:1px solid rgba(121,227,241,.13);
+      border-radius:18px;
+      padding:16px 16px 14px;
+      box-shadow:var(--shadow);
+    }
+
+    .question h4{
+      margin:0 0 10px;
+      font-size:1rem;
+      color:#fff;
+    }
+
+    .answers{
+      display:grid;
+      gap:6px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .answers .correct{
+      color:var(--ok);
+      font-weight:700;
+    }
+
+    .explanation{
+      color:#c8e8f7;
+      font-size:.95rem;
+      border-top:1px solid rgba(121,227,241,.12);
+      padding-top:10px;
+    }
+
+    /* FOOTER */
+    footer{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 20px 46px;
+      color:#9cc5d8;
+      font-size:.94rem;
+    }
+
+    footer .footer-box{
+      background:linear-gradient(180deg, rgba(20,56,79,.72), rgba(10,27,38,.9));
+      border:1px solid rgba(121,227,241,.12);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    @media (max-width: 980px){
+      .page-intro,
+      .lecture-grid{
+        grid-template-columns:1fr;
+      }
+
+      .image-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        justify-content:flex-start;
+        gap:14px;
+      }
+
+      .hero-inner{
+        padding:56px 20px 52px;
+      }
+
+      .lesson-head,
+      .lesson-section{
+        padding-left:18px;
+        padding-right:18px;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="site-wrap">
 
-<div id="login-overlay">
-  <div class="login-box">
-    <div class="login-logo">Rim Run&#8482; Ocean Science &mdash; Reef Keepers Program</div>
-    <h2 class="login-title">Welcome to the Curriculum</h2>
-    <p class="login-subtitle">
-      Enter your email to begin &mdash; or to pick up where you left off. No password required.
-      <span class="login-subtitle-es">Ingresa tu correo electr&oacute;nico para comenzar, o para continuar donde lo dejaste. No se requiere contrase&ntilde;a.</span>
-    </p>
-    <form id="login-form">
-      <div class="form-group">
-        <label class="form-label" for="email-input">Email Address / Correo Electr&oacute;nico</label>
-        <input class="form-input" id="email-input" type="email" placeholder="your@email.com" required autocomplete="email"/>
+    <div class="nav-wrap">
+      <nav class="nav">
+        <div class="brand">Catamaran <span>Dan</span></div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="expedition.html">Expedition</a>
+          <a href="rimrun.html">Rim Run™</a>
+          <a href="systems.html">Systems</a>
+          <a href="science.html">Science</a>
+          <a href="learn.html" class="active">Learn Along With Me</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="about.html">About</a>
+        </div>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-kicker">Bilingual Reef Science Learning</div>
+        <h1>Learn Along With Me</h1>
+        <p>
+          Oceanography, reef science, and real-world coastal observation tied directly to the
+          Mesoamerican Reef and the seven-country Rim Run™ corridor.
+        </p>
       </div>
-      <div class="optin-group">
-        <input class="optin-checkbox" type="checkbox" id="optin-check"/>
-        <label class="optin-label" for="optin-check">
-          Yes &mdash; keep me updated on the Rim Run&#8482; expedition, including the countdown to our October 2026 launch and dispatches from the field.
-          <span class="optin-label-es">S&iacute; &mdash; mant&eacute;nme informado/a sobre la expedici&oacute;n Rim Run&#8482;, incluyendo la cuenta regresiva hasta nuestro lanzamiento en octubre de 2026 y despachos desde el campo.</span>
-        </label>
+    </header>
+
+    <main class="main">
+
+      <section class="page-intro">
+        <div class="intro-card">
+          <h2>Lesson Format</h2>
+          <p>
+            Each lesson uses the same structure: images first, paired English and Spanish lecture
+            content, then five multiple-choice questions with answers and explanations.
+          </p>
+        </div>
+        <div class="status-card">
+          <h2>Current Build</h2>
+          <p>Section 1, Lesson 1 is fully loaded below as a complete working lesson block.</p>
+          <ul class="status-list">
+            <li>Images included directly in the page</li>
+            <li>English and Spanish separated correctly</li>
+            <li>Mesoamerican Reef connection included</li>
+            <li>All seven Rim Run countries included</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lesson-block">
+        <div class="lesson-head">
+          <div class="lesson-tag">Section 1 • Lesson 1</div>
+          <h2>What is Oceanography? / ¿Qué es la Oceanografía?</h2>
+          <p>
+            A foundational introduction to oceanography and why it matters to reef observation
+            across Mexico, Belize, Guatemala, Honduras, Nicaragua, Costa Rica, and Panama.
+          </p>
+        </div>
+
+        <div class="lesson-section">
+          <h3 class="section-title">Images — English</h3>
+          <div class="image-grid">
+
+            <figure class="image-card">
+              <svg class="panel-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Ocean layers and surface zone diagram">
+                <defs>
+                  <linearGradient id="skyA" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#9ee7ff"/>
+                    <stop offset="55%" stop-color="#44c5ee"/>
+                    <stop offset="56%" stop-color="#2bb3db"/>
+                    <stop offset="100%" stop-color="#032238"/>
+                  </linearGradient>
+                  <linearGradient id="waterA" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#38c4e7"/>
+                    <stop offset="30%" stop-color="#116b95"/>
+                    <stop offset="65%" stop-color="#09395a"/>
+                    <stop offset="100%" stop-color="#041a2b"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="520" fill="url(#skyA)"/>
+                <rect y="120" width="800" height="400" fill="url(#waterA)"/>
+                <rect y="120" width="800" height="110" fill="rgba(255,255,255,.12)"/>
+                <rect y="230" width="800" height="110" fill="rgba(255,255,255,.06)"/>
+                <rect y="340" width="800" height="180" fill="rgba(0,0,0,.18)"/>
+                <text x="30" y="55" fill="#08314b" font-size="34" font-weight="700">Ocean Study Begins Here</text>
+                <text x="30" y="95" fill="#0f425f" font-size="22">Sunlight, depth, and structure matter</text>
+                <text x="38" y="178" fill="#ffffff" font-size="26" font-weight="700">Sunlight Zone</text>
+                <text x="38" y="290" fill="#d9f5ff" font-size="24" font-weight="700">Twilight Zone</text>
+                <text x="38" y="412" fill="#d0e9f8" font-size="24" font-weight="700">Deep Ocean</text>
+                <text x="662" y="178" fill="#ffffff" font-size="22" font-weight="700">0–200 m</text>
+                <text x="640" y="290" fill="#d9f5ff" font-size="22" font-weight="700">200–1000 m</text>
+                <text x="671" y="412" fill="#d0e9f8" font-size="22" font-weight="700">1000+ m</text>
+                <circle cx="662" cy="72" r="36" fill="#ffd166"/>
+                <path d="M0 110 C120 85, 200 135, 320 110 S520 95, 800 118 L800 120 L0 120 Z" fill="#ffffff" opacity=".85"/>
+                <path d="M80 470 C130 430, 220 430, 285 472 S450 515, 560 470 S710 435, 790 470 L790 520 L80 520 Z" fill="#0a3a54"/>
+                <circle cx="585" cy="430" r="7" fill="#8ee4ff"/>
+                <circle cx="612" cy="450" r="5" fill="#8ee4ff"/>
+                <circle cx="640" cy="438" r="6" fill="#8ee4ff"/>
+              </svg>
+              <figcaption>
+                <strong>Image 1: Ocean Zones</strong>
+                Light and depth shape where marine life can live and where reef systems can form.
+              </figcaption>
+            </figure>
+
+            <figure class="image-card">
+              <svg class="panel-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Marine scientist observing coral reef">
+                <defs>
+                  <linearGradient id="reefBgA" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#4fd3ef"/>
+                    <stop offset="100%" stop-color="#08324c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="520" fill="url(#reefBgA)"/>
+                <ellipse cx="580" cy="420" rx="230" ry="68" fill="#0c4b5d"/>
+                <ellipse cx="260" cy="448" rx="250" ry="78" fill="#0a4258"/>
+                <circle cx="510" cy="335" r="66" fill="#f1a261"/>
+                <circle cx="580" cy="350" r="46" fill="#f7c96f"/>
+                <circle cx="656" cy="345" r="58" fill="#d87aa9"/>
+                <circle cx="430" cy="380" r="40" fill="#86d1a3"/>
+                <path d="M160 130 Q260 80 350 150 L380 210 Q280 230 200 190 Z" fill="#173d5d"/>
+                <circle cx="282" cy="178" r="44" fill="#1f2736"/>
+                <rect x="304" y="168" width="50" height="32" rx="6" fill="#cfe8f7"/>
+                <rect x="352" y="163" width="86" height="24" rx="8" fill="#9eb9c7"/>
+                <rect x="426" y="156" width="72" height="125" rx="18" fill="#b8c8d1"/>
+                <rect x="500" y="255" width="110" height="68" rx="8" fill="#eef5f9"/>
+                <line x1="160" y1="130" x2="110" y2="92" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="250" y1="212" x2="195" y2="305" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="320" y1="220" x2="455" y2="292" stroke="#173d5d" stroke-width="22" stroke-linecap="round"/>
+                <line x1="200" y1="282" x2="152" y2="375" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="390" y1="278" x2="338" y2="375" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="522" y1="280" x2="585" y2="240" stroke="#777" stroke-width="3"/>
+                <line x1="522" y1="298" x2="585" y2="278" stroke="#777" stroke-width="3"/>
+                <text x="30" y="50" fill="#eefbff" font-size="34" font-weight="700">Observation and Documentation</text>
+                <text x="30" y="88" fill="#d2eef7" font-size="22">Field work connects science to real reefs</text>
+              </svg>
+              <figcaption>
+                <strong>Image 2: Reef Observation</strong>
+                Oceanography includes direct observation of coral reefs, water conditions, and living systems.
+              </figcaption>
+            </figure>
+
+            <figure class="image-card">
+              <svg class="panel-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Global current patterns">
+                <rect width="800" height="520" fill="#0a2d46"/>
+                <ellipse cx="205" cy="216" rx="122" ry="146" fill="#8ec07a"/>
+                <ellipse cx="228" cy="340" rx="82" ry="120" fill="#98c97b"/>
+                <ellipse cx="445" cy="192" rx="150" ry="105" fill="#b5c47d"/>
+                <ellipse cx="486" cy="307" rx="90" ry="132" fill="#9dc17a"/>
+                <ellipse cx="635" cy="300" rx="114" ry="72" fill="#c9bb7e"/>
+                <ellipse cx="635" cy="155" rx="96" ry="62" fill="#cab87a"/>
+                <path d="M45 180 C150 100, 250 125, 320 160" stroke="#ff6b6b" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M65 340 C165 405, 255 390, 335 355" stroke="#61dafb" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M340 148 C425 110, 505 120, 592 172" stroke="#ff6b6b" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M314 338 C400 395, 510 392, 608 352" stroke="#61dafb" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M595 130 C675 110, 735 145, 780 190" stroke="#ff6b6b" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M592 386 C674 420, 735 400, 780 352" stroke="#61dafb" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <text x="30" y="55" fill="#eefbff" font-size="34" font-weight="700">Ocean Currents</text>
+                <text x="30" y="92" fill="#cbe7f6" font-size="22">Moving water redistributes heat, nutrients, and life</text>
+              </svg>
+              <figcaption>
+                <strong>Image 3: Ocean Currents</strong>
+                Currents move heat, nutrients, and organisms and strongly influence reef environments.
+              </figcaption>
+            </figure>
+
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3 class="section-title">Images — Español</h3>
+          <div class="image-grid">
+
+            <figure class="image-card">
+              <svg class="panel-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama de zonas del océano">
+                <defs>
+                  <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#a8ebff"/>
+                    <stop offset="55%" stop-color="#4ec8ec"/>
+                    <stop offset="56%" stop-color="#2bb3db"/>
+                    <stop offset="100%" stop-color="#032238"/>
+                  </linearGradient>
+                  <linearGradient id="waterB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3cc6e8"/>
+                    <stop offset="30%" stop-color="#126e98"/>
+                    <stop offset="65%" stop-color="#0a3b5d"/>
+                    <stop offset="100%" stop-color="#041a2b"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="520" fill="url(#skyB)"/>
+                <rect y="120" width="800" height="400" fill="url(#waterB)"/>
+                <rect y="120" width="800" height="110" fill="rgba(255,255,255,.12)"/>
+                <rect y="230" width="800" height="110" fill="rgba(255,255,255,.06)"/>
+                <rect y="340" width="800" height="180" fill="rgba(0,0,0,.18)"/>
+                <text x="30" y="55" fill="#08314b" font-size="34" font-weight="700">Zonas del Océano</text>
+                <text x="30" y="95" fill="#0f425f" font-size="22">La luz y la profundidad importan</text>
+                <text x="38" y="178" fill="#ffffff" font-size="26" font-weight="700">Zona de Luz Solar</text>
+                <text x="38" y="290" fill="#d9f5ff" font-size="24" font-weight="700">Zona Crepuscular</text>
+                <text x="38" y="412" fill="#d0e9f8" font-size="24" font-weight="700">Océano Profundo</text>
+                <text x="662" y="178" fill="#ffffff" font-size="22" font-weight="700">0–200 m</text>
+                <text x="640" y="290" fill="#d9f5ff" font-size="22" font-weight="700">200–1000 m</text>
+                <text x="671" y="412" fill="#d0e9f8" font-size="22" font-weight="700">1000+ m</text>
+                <circle cx="662" cy="72" r="36" fill="#ffd166"/>
+                <path d="M0 110 C120 85, 200 135, 320 110 S520 95, 800 118 L800 120 L0 120 Z" fill="#ffffff" opacity=".85"/>
+                <path d="M80 470 C130 430, 220 430, 285 472 S450 515, 560 470 S710 435, 790 470 L790 520 L80 520 Z" fill="#0a3a54"/>
+                <circle cx="585" cy="430" r="7" fill="#8ee4ff"/>
+                <circle cx="612" cy="450" r="5" fill="#8ee4ff"/>
+                <circle cx="640" cy="438" r="6" fill="#8ee4ff"/>
+              </svg>
+              <figcaption>
+                <strong>Imagen 1: Zonas Oceánicas</strong>
+                La luz y la profundidad ayudan a determinar dónde pueden existir la vida marina y los arrecifes.
+              </figcaption>
+            </figure>
+
+            <figure class="image-card">
+              <svg class="panel-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Observación de arrecife">
+                <defs>
+                  <linearGradient id="reefBgB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#4fd3ef"/>
+                    <stop offset="100%" stop-color="#08324c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="520" fill="url(#reefBgB)"/>
+                <ellipse cx="580" cy="420" rx="230" ry="68" fill="#0c4b5d"/>
+                <ellipse cx="260" cy="448" rx="250" ry="78" fill="#0a4258"/>
+                <circle cx="510" cy="335" r="66" fill="#f1a261"/>
+                <circle cx="580" cy="350" r="46" fill="#f7c96f"/>
+                <circle cx="656" cy="345" r="58" fill="#d87aa9"/>
+                <circle cx="430" cy="380" r="40" fill="#86d1a3"/>
+                <path d="M160 130 Q260 80 350 150 L380 210 Q280 230 200 190 Z" fill="#173d5d"/>
+                <circle cx="282" cy="178" r="44" fill="#1f2736"/>
+                <rect x="304" y="168" width="50" height="32" rx="6" fill="#cfe8f7"/>
+                <rect x="352" y="163" width="86" height="24" rx="8" fill="#9eb9c7"/>
+                <rect x="426" y="156" width="72" height="125" rx="18" fill="#b8c8d1"/>
+                <rect x="500" y="255" width="110" height="68" rx="8" fill="#eef5f9"/>
+                <line x1="160" y1="130" x2="110" y2="92" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="250" y1="212" x2="195" y2="305" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="320" y1="220" x2="455" y2="292" stroke="#173d5d" stroke-width="22" stroke-linecap="round"/>
+                <line x1="200" y1="282" x2="152" y2="375" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="390" y1="278" x2="338" y2="375" stroke="#173d5d" stroke-width="24" stroke-linecap="round"/>
+                <line x1="522" y1="280" x2="585" y2="240" stroke="#777" stroke-width="3"/>
+                <line x1="522" y1="298" x2="585" y2="278" stroke="#777" stroke-width="3"/>
+                <text x="30" y="50" fill="#eefbff" font-size="34" font-weight="700">Observación del Arrecife</text>
+                <text x="30" y="88" fill="#d2eef7" font-size="22">Trabajo de campo y documentación</text>
+              </svg>
+              <figcaption>
+                <strong>Imagen 2: Observación del Arrecife</strong>
+                La oceanografía incluye observación directa de arrecifes, agua y organismos marinos.
+              </figcaption>
+            </figure>
+
+            <figure class="image-card">
+              <svg class="panel-svg" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" aria-label="Corrientes oceánicas">
+                <rect width="800" height="520" fill="#0a2d46"/>
+                <ellipse cx="205" cy="216" rx="122" ry="146" fill="#8ec07a"/>
+                <ellipse cx="228" cy="340" rx="82" ry="120" fill="#98c97b"/>
+                <ellipse cx="445" cy="192" rx="150" ry="105" fill="#b5c47d"/>
+                <ellipse cx="486" cy="307" rx="90" ry="132" fill="#9dc17a"/>
+                <ellipse cx="635" cy="300" rx="114" ry="72" fill="#c9bb7e"/>
+                <ellipse cx="635" cy="155" rx="96" ry="62" fill="#cab87a"/>
+                <path d="M45 180 C150 100, 250 125, 320 160" stroke="#ff6b6b" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M65 340 C165 405, 255 390, 335 355" stroke="#61dafb" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M340 148 C425 110, 505 120, 592 172" stroke="#ff6b6b" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M314 338 C400 395, 510 392, 608 352" stroke="#61dafb" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M595 130 C675 110, 735 145, 780 190" stroke="#ff6b6b" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <path d="M592 386 C674 420, 735 400, 780 352" stroke="#61dafb" stroke-width="16" fill="none" stroke-linecap="round"/>
+                <text x="30" y="55" fill="#eefbff" font-size="34" font-weight="700">Corrientes Oceánicas</text>
+                <text x="30" y="92" fill="#cbe7f6" font-size="22">El agua en movimiento redistribuye calor y nutrientes</text>
+              </svg>
+              <figcaption>
+                <strong>Imagen 3: Corrientes Oceánicas</strong>
+                Las corrientes mueven calor, nutrientes y vida y afectan fuertemente a los arrecifes.
+              </figcaption>
+            </figure>
+
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3 class="section-title">Lecture Material — Paired English / Spanish</h3>
+          <div class="lecture-grid">
+
+            <div class="lecture-card">
+              <h4>English</h4>
+              <p>
+                Oceanography is the study of the ocean and its physical, chemical, biological,
+                and geological systems.
+              </p>
+              <p>
+                It helps explain how water moves, how temperature changes, how nutrients are
+                distributed, and how marine organisms survive in different environments.
+              </p>
+              <p>
+                For the Mesoamerican Reef, oceanography matters because coral reefs depend on
+                light, temperature, water movement, salinity, and water quality.
+              </p>
+              <p>
+                Along the Rim Run™ corridor, these conditions affect reef health in Mexico,
+                Belize, Guatemala, Honduras, Nicaragua, Costa Rica, and Panama.
+              </p>
+              <p>
+                This course connects basic ocean science to real-world reef observation so that
+                each lesson supports meaningful field awareness.
+              </p>
+            </div>
+
+            <div class="lecture-card">
+              <h4>Español</h4>
+              <p>
+                La oceanografía es el estudio del océano y de sus sistemas físicos, químicos,
+                biológicos y geológicos.
+              </p>
+              <p>
+                Ayuda a explicar cómo se mueve el agua, cómo cambia la temperatura, cómo se
+                distribuyen los nutrientes y cómo sobreviven los organismos marinos en
+                diferentes ambientes.
+              </p>
+              <p>
+                Para el Arrecife Mesoamericano, la oceanografía es importante porque los
+                arrecifes de coral dependen de la luz, la temperatura, el movimiento del agua,
+                la salinidad y la calidad del agua.
+              </p>
+              <p>
+                A lo largo del corredor Rim Run™, estas condiciones afectan la salud de los
+                arrecifes en México, Belice, Guatemala, Honduras, Nicaragua, Costa Rica y
+                Panamá.
+              </p>
+              <p>
+                Este curso conecta la ciencia oceánica básica con la observación real de los
+                arrecifes para que cada lección apoye una comprensión útil en el campo.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="lesson-section">
+          <h3 class="section-title">Knowledge Check</h3>
+          <div class="quiz-grid">
+
+            <div class="question">
+              <h4>1. What is oceanography?</h4>
+              <div class="answers">
+                <div>A. The study of landforms</div>
+                <div class="correct">B. The study of the ocean and its systems ✅</div>
+                <div>C. The study of space weather</div>
+                <div>D. The study of rivers only</div>
+              </div>
+              <div class="explanation">
+                Oceanography includes physical, chemical, biological, and geological study of the ocean.
+              </div>
+            </div>
+
+            <div class="question">
+              <h4>2. Why is oceanography important to coral reefs?</h4>
+              <div class="answers">
+                <div>A. Reefs only depend on rocks</div>
+                <div>B. Reefs do not respond to water conditions</div>
+                <div class="correct">C. Reefs depend on light, temperature, salinity, and water movement ✅</div>
+                <div>D. Reefs only form in deep dark water</div>
+              </div>
+              <div class="explanation">
+                Reef health is closely tied to the surrounding ocean conditions.
+              </div>
+            </div>
+
+            <div class="question">
+              <h4>3. Which reef system is directly connected to this lesson series?</h4>
+              <div class="answers">
+                <div>A. Great Barrier Reef</div>
+                <div>B. Red Sea reef systems</div>
+                <div class="correct">C. Mesoamerican Reef ✅</div>
+                <div>D. Arctic reef systems</div>
+              </div>
+              <div class="explanation">
+                The lesson series is tied directly to the Mesoamerican Reef and the wider Marine Systems Corridor extension.
+              </div>
+            </div>
+
+            <div class="question">
+              <h4>4. Which countries are part of the Rim Run™ lesson context?</h4>
+              <div class="answers">
+                <div>A. Only Mexico and Belize</div>
+                <div>B. Only Panama and Costa Rica</div>
+                <div class="correct">C. Mexico, Belize, Guatemala, Honduras, Nicaragua, Costa Rica, and Panama ✅</div>
+                <div>D. Only island nations</div>
+              </div>
+              <div class="explanation">
+                The lesson content is built around all seven Rim Run countries.
+              </div>
+            </div>
+
+            <div class="question">
+              <h4>5. What is one major goal of this lesson?</h4>
+              <div class="answers">
+                <div>A. Memorize random ocean facts</div>
+                <div>B. Focus only on deep-sea trenches</div>
+                <div class="correct">C. Connect ocean science to real reef observation in the field ✅</div>
+                <div>D. Avoid practical application</div>
+              </div>
+              <div class="explanation">
+                The lesson is meant to support real-world reef awareness and field understanding.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-box">
+        Learn Along With Me • Section 1 Lesson 1 loaded • Catamaran Dan • Rim Run™ Reef Science Curriculum
       </div>
-      <button class="btn-primary" type="submit">Enter the Curriculum / Ingresar al Curr&iacute;culo</button>
-    </form>
-    <p class="login-note">
-      Your email saves your progress and, if you opt in, delivers expedition updates. We never share your information.<br/>
-      Tu correo guarda tu progreso y, si lo autorizas, recibir&aacute;s actualizaciones de la expedici&oacute;n. Nunca compartimos tu informaci&oacute;n.
-    </p>
+    </footer>
+
   </div>
-</div>
-
-<nav id="main-nav">
-  <div class="nav-inner">
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-links" id="nav-links">
-      <a href="index.html">Home</a>
-      <a href="rimrun.html">Rim Run&#8482;</a>
-      <a href="science.html">The Science</a>
-      <a href="platform.html">Small Cat Platform</a>
-      <a href="learn.html" class="active">Learn Along With Me</a>
-      <a href="citizenscience.html">Citizen Science</a>
-      <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-      <a href="systems.html">Systems</a>
-      <a href="support.html">Support</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-    </div>
-  </div>
-</nav>
-
-<div class="page-hero">
-  <div class="hero-content">
-    <div class="hero-institution">Rim Run&#8482; Expedition &bull; Reef Keepers Educational Series</div>
-    <h1 class="hero-title">Learn Along <em>With Me</em></h1>
-    <div class="hero-subtitle">Aprende Conmigo &mdash; Serie Educativa del Arrecife</div>
-    <p class="hero-tagline">A university-equivalent ocean science curriculum &mdash; bilingual, free, and tied to a real expedition monitoring the reefs of the Western Caribbean.</p>
-    <div class="curriculum-stats">
-      <div class="c-stat"><span class="c-stat-num">22</span><span class="c-stat-label">Sections</span></div>
-      <div class="c-stat"><span class="c-stat-num">1,100</span><span class="c-stat-label">Exam Questions</span></div>
-      <div class="c-stat"><span class="c-stat-num">2</span><span class="c-stat-label">Languages</span></div>
-      <div class="c-stat"><span class="c-stat-num">7</span><span class="c-stat-label">Countries</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="main-wrap" id="main-content">
-
-  <div class="progress-panel" id="progress-panel">
-    <div class="progress-header">
-      <span class="progress-greeting" id="progress-greeting">Welcome back.</span>
-      <span class="progress-pct" id="progress-pct">0 / 22 SECTIONS COMPLETE — 0%</span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-    <div class="progress-dots" id="progress-dots"></div>
-  </div>
-
-  <div class="disclaimer">
-    <span class="disclaimer-icon">&#9888; Notice / Aviso</span>
-    <p>The educational content in this curriculum was developed with the assistance of artificial intelligence. Every effort has been made to ensure scientific accuracy and integrity across all 22 sections. If you identify an error or wish to suggest an improvement, please contact us at <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>.</p>
-    <p class="es-text">El contenido educativo de este curr&iacute;culo fue desarrollado con la asistencia de inteligencia artificial. Se ha hecho todo lo posible para garantizar la precisi&oacute;n e integridad cient&iacute;fica en las 22 secciones. Si identifica un error o desea sugerir una mejora, cont&aacute;ctenos en <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>.</p>
-  </div>
-
-  <div class="current-lesson-wrap" id="current-lesson-wrap">
-    <div class="section-label">Current Lesson / Lecci&oacute;n Actual</div>
-    <h2 class="section-title">The Active <em>Section</em></h2>
-    <div class="gold-rule"></div>
-    <div class="lesson-badge">Now Active / Ahora Activo</div>
-    <div class="lesson-card" id="active-lesson-card">
-      <div class="coming-soon" id="lesson-coming-soon">
-        <div class="coming-soon-title">Lessons Publishing Soon</div>
-        <p class="coming-soon-sub">Section 01 &mdash; Physical Oceanography &mdash; will appear here when published.<br/><em>La Secci&oacute;n 01 &mdash; Oceanograf&iacute;a F&iacute;sica &mdash; aparecer&aacute; aqu&iacute; cuando se publique.</em></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="archive-wrap" id="archive-wrap">
-    <div class="section-label">All Sections / Todas las Secciones</div>
-    <h2 class="section-title">The Full <em>Curriculum</em></h2>
-    <div class="gold-rule"></div>
-    <p style="font-family:'Source Serif 4',serif;color:var(--mist);font-style:italic;margin-bottom:.4rem;">Complete sections unlock as you progress. Click any available section to open it.</p>
-    <p style="font-family:'Source Serif 4',serif;color:rgba(138,170,187,.6);font-size:.88rem;font-style:italic;margin-bottom:2rem;">Las secciones se desbloquean a medida que avanzas. Haz clic en cualquier secci&oacute;n disponible para abrirla.</p>
-    <div class="archive-grid" id="archive-grid"></div>
-  </div>
-
-</div>
-
-<footer>
-  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
-  <div class="footer-tagline">&ldquo;As go the seas&hellip; so goes humanity.&rdquo;</div>
-  <div class="footer-contact">
-    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
-    &nbsp;&bull;&nbsp; www.catamarandan.org
-  </div>
-</footer>
-
-<script>
-const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
-
-const CURRICULUM = [
-  {id:1, num:'01', title:'Physical Oceanography', title_es:'Oceanograf\u00eda F\u00edsica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:true},
-  {id:2, num:'02', title:'Chemical Oceanography', title_es:'Oceanograf\u00eda Qu\u00edmica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
-  {id:3, num:'03', title:'Biological Oceanography', title_es:'Oceanograf\u00eda Biol\u00f3gica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
-  {id:4, num:'04', title:'Geological Oceanography', title_es:'Oceanograf\u00eda Geol\u00f3gica', category:'Oceanography', category_es:'Oceanograf\u00eda', published:false},
-  {id:5, num:'05', title:'Marine Ecology', title_es:'Ecolog\u00eda Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
-  {id:6, num:'06', title:'Marine Climatology', title_es:'Climatolog\u00eda Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
-  {id:7, num:'07', title:'Marine Acoustics', title_es:'Ac\u00fastica Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
-  {id:8, num:'08', title:'Marine Geology & Geophysics', title_es:'Geolog\u00eda y Geof\u00edsica Marina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
-  {id:9, num:'09', title:'Coastal & Estuarine Science', title_es:'Ciencia Costera y Estuarina', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
-  {id:10, num:'10', title:'Ocean Engineering & Technology', title_es:'Ingenier\u00eda y Tecnolog\u00eda Oce\u00e1nica', category:'Marine Sciences', category_es:'Ciencias Marinas', published:false},
-  {id:11, num:'11', title:'Marine Vertebrates', title_es:'Vertebrados Marinos', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
-  {id:12, num:'12', title:'Marine Invertebrates', title_es:'Invertebrados Marinos', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
-  {id:13, num:'13', title:'Marine Microbiology', title_es:'Microbiolog\u00eda Marina', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
-  {id:14, num:'14', title:'Marine Botany & Phycology', title_es:'Bot\u00e1nica Marina y Ficolog\u00eda', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
-  {id:15, num:'15', title:'Marine Ethology', title_es:'Etolog\u00eda Marina', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
-  {id:16, num:'16', title:'Marine Taxonomy & Systematics', title_es:'Taxonom\u00eda y Sistem\u00e1tica Marina', category:'Marine Biology', category_es:'Biolog\u00eda Marina', published:false},
-  {id:17, num:'17', title:'Coral Health Assessment', title_es:'Evaluaci\u00f3n de Salud del Coral', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
-  {id:18, num:'18', title:'Benthic Surveys', title_es:'Levantamientos Bent\u00f3nicos', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
-  {id:19, num:'19', title:'Fish Population Surveys', title_es:'Censos de Poblaciones de Peces', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
-  {id:20, num:'20', title:'Water Quality Monitoring', title_es:'Monitoreo de Calidad del Agua', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
-  {id:21, num:'21', title:'Invasive Species Tracking', title_es:'Seguimiento de Especies Invasoras', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false},
-  {id:22, num:'22', title:'Long-Term Change Detection', title_es:'Detecci\u00f3n de Cambios a Largo Plazo', category:'Reef Monitoring', category_es:'Monitoreo de Arrecifes', published:false}
-];
-
-const LESSONS = {
-  1: {
-    lessons: [
-      {
-        lesson: 1,
-        title_en: "Ocean Structure & Layers",
-        title_es: "Estructura y Capas del Océano",
-        images: [
-          "images/s01_l01_1.jpg",
-          "images/s01_l01_2.jpg",
-          "images/s01_l01_3.jpg"
-        ],
-        lecture_en: `
-          <h3>Ocean Layers Defined</h3>
-          <p>The ocean is vertically structured into layers based on light penetration, temperature, and pressure. The epipelagic zone, from the surface to roughly 200 meters, is the sunlit layer where photosynthesis occurs and where reef ecosystems can survive.</p>
-
-          <h3>Why It Matters to Reefs</h3>
-          <p>Coral reefs exist almost entirely in the epipelagic zone because corals rely on light-dependent symbiotic algae. When light drops, reef-building coral growth declines sharply.</p>
-
-          <h3>MAR Application</h3>
-          <p>Across the Mesoamerican Reef in Mexico, Belize, Guatemala, and Honduras, most reef structure lies in shallow water, commonly between 1 and 30 meters. That puts these reefs squarely in the sunlit layer where light drives the entire system.</p>
-
-          <h3>Marine Systems Corridor Extension</h3>
-          <p>Farther south in Nicaragua, Costa Rica, and Panama, the same shallow-water light requirement applies, but sediment and turbidity often reduce how deeply light penetrates. That makes local water clarity especially important for reef condition and coral growth.</p>
-        `,
-        lecture_es: `
-          <h3>Capas del Océano</h3>
-          <p>El océano está estructurado verticalmente en capas según la penetración de la luz, la temperatura y la presión. La zona epipelágica, desde la superficie hasta aproximadamente 200 metros, es la capa iluminada donde ocurre la fotosíntesis y donde pueden sobrevivir los ecosistemas arrecifales.</p>
-
-          <h3>Por Qué Importa para los Arrecifes</h3>
-          <p>Los arrecifes de coral existen casi por completo en la zona epipelágica porque los corales dependen de algas simbióticas que necesitan luz. Cuando la luz disminuye, el crecimiento del coral constructor de arrecife cae de forma marcada.</p>
-
-          <h3>Aplicación al MAR</h3>
-          <p>A lo largo del Arrecife Mesoamericano en México, Belice, Guatemala y Honduras, la mayor parte de la estructura arrecifal se encuentra en aguas poco profundas, comúnmente entre 1 y 30 metros. Eso sitúa a estos arrecifes firmemente en la capa iluminada donde la luz impulsa todo el sistema.</p>
-
-          <h3>Extensión del Corredor Marino</h3>
-          <p>M&aacute;s al sur, en Nicaragua, Costa Rica y Panam&aacute;, sigue existiendo la misma necesidad de luz en aguas someras, pero los sedimentos y la turbidez suelen reducir la profundidad efectiva de penetraci&oacute;n de la luz. Eso vuelve especialmente importante la claridad del agua para la condici&oacute;n del arrecife y el crecimiento coralino.</p>
-        `,
-        questions: [
-          {
-            q_en: "Which ocean layer supports most coral reef growth?",
-            q_es: "¿Qué capa del océano sostiene la mayor parte del crecimiento arrecifal?",
-            answers_en: ["Epipelagic", "Bathypelagic", "Abyssal", "Hadal"],
-            answers_es: ["Epipelágica", "Batipelágica", "Abisal", "Hadal"],
-            correct: 0,
-            explanation_en: "Coral reefs require sunlight, which is available in the epipelagic zone.",
-            explanation_es: "Los arrecifes requieren luz solar, la cual está disponible en la zona epipelágica."
-          },
-          {
-            q_en: "What is the main reason reefs remain in shallow water?",
-            q_es: "¿Cuál es la razón principal por la que los arrecifes permanecen en aguas someras?",
-            answers_en: ["High pressure", "Light availability", "Deep currents", "Low salinity"],
-            answers_es: ["Alta presión", "Disponibilidad de luz", "Corrientes profundas", "Baja salinidad"],
-            correct: 1,
-            explanation_en: "Reef-building corals depend on light for their symbiotic algae.",
-            explanation_es: "Los corales constructores de arrecife dependen de la luz para sus algas simbióticas."
-          },
-          {
-            q_en: "Most MAR reef structure commonly lies within what depth range?",
-            q_es: "¿En qué rango de profundidad se encuentra comúnmente la mayor parte del arrecife del MAR?",
-            answers_en: ["1–30 meters", "200–500 meters", "500–1000 meters", "More than 1000 meters"],
-            answers_es: ["1–30 metros", "200–500 metros", "500–1000 metros", "Más de 1000 metros"],
-            correct: 0,
-            explanation_en: "Most MAR reef environments are shallow and light-rich.",
-            explanation_es: "La mayor parte de los ambientes arrecifales del MAR son someros y ricos en luz."
-          },
-          {
-            q_en: "In the southern corridor, turbidity mainly affects reefs by reducing what?",
-            q_es: "En el corredor sur, la turbidez afecta principalmente a los arrecifes al reducir qué?",
-            answers_en: ["Salinity", "Oxygen", "Light penetration", "Wave height"],
-            answers_es: ["Salinidad", "Oxígeno", "Penetración de luz", "Altura de ola"],
-            correct: 2,
-            explanation_en: "Turbidity reduces the depth that usable light can reach.",
-            explanation_es: "La turbidez reduce la profundidad a la que puede llegar la luz utilizable."
-          },
-          {
-            q_en: "Why is understanding ocean layers useful during the Rim Run™?",
-            q_es: "¿Por qué es útil comprender las capas oceánicas durante el Rim Run™?",
-            answers_en: ["It helps explain reef depth, light, and habitat shifts", "It changes national borders", "It eliminates turbidity", "It replaces water testing"],
-            answers_es: ["Ayuda a explicar profundidad, luz y cambios de hábitat", "Cambia fronteras nacionales", "Elimina la turbidez", "Reemplaza las pruebas de agua"],
-            correct: 0,
-            explanation_en: "Ocean layers explain why reef communities change with depth and water clarity.",
-            explanation_es: "Las capas oceánicas explican por qué las comunidades arrecifales cambian con la profundidad y la claridad del agua."
-          }
-        ]
-      }
-    ],
-    final_exam: []
-  }
-};
-
-let userEmail = '';
-let userProgress = {};
-let currentSectionId = 1;
-let currentLessonNumber = 1;
-
-function sendToSheet(data){
-  if(!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
-  fetch(APPS_SCRIPT_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(data)
-  }).catch(()=>{});
-}
-
-function getLessonKey(sectionId, lessonNumber){
-  return `S${sectionId}L${lessonNumber}`;
-}
-
-function saveLocalProgress(){
-  try{
-    localStorage.setItem('rr_p_' + userEmail, JSON.stringify(userProgress));
-  }catch(e){}
-}
-
-function handleLogin(event){
-  event.preventDefault();
-  const email = document.getElementById('email-input').value.trim().toLowerCase();
-  const optIn = document.getElementById('optin-check').checked;
-  if(!email) return;
-
-  userEmail = email;
-
-  try{
-    const existing = localStorage.getItem('rr_p_' + email);
-    if(existing) userProgress = JSON.parse(existing);
-  }catch(e){
-    userProgress = {};
-  }
-
-  try{
-    sessionStorage.setItem('rr_user', JSON.stringify({email,optIn}));
-  }catch(e){}
-
-  sendToSheet({action:'login', email, optIn, timestamp:new Date().toISOString()});
-  document.getElementById('login-overlay').style.display = 'none';
-  initPage();
-}
-
-function updateProgressUI(){
-  const totalSections = 22;
-  const completedSections = 0;
-  const percent = Math.round((completedSections / totalSections) * 100);
-
-  document.getElementById('progress-panel').classList.add('visible');
-  document.getElementById('progress-greeting').textContent = 'Welcome back — ' + userEmail;
-  document.getElementById('progress-pct').textContent = `${completedSections} / 22 SECTIONS COMPLETE — ${percent}%`;
-  document.getElementById('progress-fill').style.width = percent + '%';
-
-  const dots = document.getElementById('progress-dots');
-  dots.innerHTML = '';
-  CURRICULUM.forEach(section => {
-    const dot = document.createElement('div');
-    dot.className = 'p-dot' + (section.id === currentSectionId ? ' current' : '');
-    dot.title = `Section ${section.num} ${section.title}`;
-    dots.appendChild(dot);
-  });
-}
-
-function buildArchiveGrid(){
-  const grid = document.getElementById('archive-grid');
-  grid.innerHTML = '';
-
-  CURRICULUM.forEach(section => {
-    const locked = !section.published;
-    const card = document.createElement('div');
-    card.className = 'archive-card' + (locked ? ' locked' : '');
-    const statusClass = section.id === 1 ? 'current' : 'locked';
-    const statusText = section.id === 1 ? 'ACTIVE' : 'COMING SOON';
-
-    card.innerHTML =
-      '<div class="archive-num">Section ' + section.num + '</div>' +
-      '<div class="archive-title-en">' + section.title + '</div>' +
-      '<div class="archive-title-es">' + section.title_es + '</div>' +
-      '<div class="archive-cat">' + section.category + ' &bull; ' + section.category_es + '</div>' +
-      '<div class="archive-status ' + statusClass + '">' + statusText + '</div>';
-
-    if(!locked){
-      card.addEventListener('click', () => openSection(section.id));
-    }
-
-    grid.appendChild(card);
-  });
-}
-
-function openSection(sectionId){
-  currentSectionId = sectionId;
-  currentLessonNumber = 1;
-  updateProgressUI();
-  renderCurrentLesson();
-  document.getElementById('active-lesson-card').scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-function renderCurrentLesson(){
-  const section = CURRICULUM.find(s => s.id === currentSectionId);
-  const lessonBundle = LESSONS[currentSectionId];
-  if(!section || !lessonBundle || !lessonBundle.lessons || !lessonBundle.lessons.length){
-    document.getElementById('active-lesson-card').innerHTML =
-      '<div class="coming-soon"><div class="coming-soon-title">Lessons Publishing Soon</div><p class="coming-soon-sub">This section will appear here when published.</p></div>';
-    return;
-  }
-
-  const lesson = lessonBundle.lessons.find(l => l.lesson === currentLessonNumber) || lessonBundle.lessons[0];
-  renderLesson(section, lesson);
-}
-
-function renderLesson(section, lesson){
-  const card = document.getElementById('active-lesson-card');
-  const lessonKey = getLessonKey(section.id, lesson.lesson);
-  const prev = userProgress[lessonKey];
-
-  let englishImages = '';
-  lesson.images.forEach((src, idx) => {
-    englishImages += '<div class="lesson-image-wrap"><img src="' + src + '" alt="Lesson image ' + (idx + 1) + '"></div>';
-  });
-
-  let spanishImages = '';
-  lesson.images.forEach((src, idx) => {
-    spanishImages += '<div class="lesson-image-wrap"><img src="' + src + '" alt="Imagen de la lección ' + (idx + 1) + '"></div>';
-  });
-
-  card.innerHTML =
-    '<div class="lesson-header">' +
-      '<div class="lesson-number">Section ' + section.num + ' • Lesson ' + lesson.lesson + '</div>' +
-      '<div class="lesson-title-main">' + lesson.title_en + '</div>' +
-      '<div style="font-family:\'Source Serif 4\',serif;font-size:1rem;color:var(--mist);font-style:italic;margin-top:.3rem;">' + lesson.title_es + '</div>' +
-      '<div class="lesson-category" style="margin-top:.5rem;">' + section.category + ' &bull; ' + section.category_es + '</div>' +
-    '</div>' +
-    '<div class="lesson-body">' +
-      '<div class="lesson-tabs">' +
-        '<button class="lesson-tab active" onclick="switchTab(this, \'tab-en\')">English</button>' +
-        '<button class="lesson-tab" onclick="switchTab(this, \'tab-es\')">Espa&ntilde;ol</button>' +
-        '<button class="lesson-tab" onclick="switchTab(this, \'tab-quiz\')">Quiz / Cuestionario</button>' +
-      '</div>' +
-
-      '<div class="tab-panel active" id="tab-en">' +
-        englishImages +
-        '<div class="lesson-columns">' +
-          '<div class="content-block">' + lesson.lecture_en + '</div>' +
-          '<div class="content-block">' + lesson.lecture_es + '</div>' +
-        '</div>' +
-      '</div>' +
-
-      '<div class="tab-panel" id="tab-es">' +
-        spanishImages +
-        '<div class="lesson-columns">' +
-          '<div class="content-block">' + lesson.lecture_en + '</div>' +
-          '<div class="content-block">' + lesson.lecture_es + '</div>' +
-        '</div>' +
-      '</div>' +
-
-      '<div class="tab-panel" id="tab-quiz">' + renderMCQ(section.id, lesson.lesson, lesson.questions, prev) + '</div>' +
-    '</div>';
-}
-
-function switchTab(btn, panelId){
-  const body = btn.closest('.lesson-body');
-  body.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
-  btn.classList.add('active');
-  body.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-  document.getElementById(panelId).classList.add('active');
-}
-
-function renderMCQ(sectionId, lessonNumber, questions, prev){
-  if(!questions || !questions.length){
-    return '<div class="coming-soon"><div class="coming-soon-title">Quiz Coming Soon</div><p class="coming-soon-sub">This lesson quiz will appear here when published.</p></div>';
-  }
-
-  const stateKey = `mcq_S${sectionId}L${lessonNumber}`;
-  window[stateKey] = {answered:new Array(questions.length).fill(false), correct:0, total:questions.length};
-
-  let html =
-    '<div class="mcq-header">' +
-      '<div class="mcq-title">Lesson Quiz — 5 MCQs</div>' +
-      '<div class="mcq-score-display" id="score-display">' + (prev ? (prev.score + ' / ' + prev.total + ' PREV SCORE') : ('0 / ' + questions.length + ' QUESTIONS')) + '</div>' +
-    '</div>';
-
-  const letters = ['A','B','C','D'];
-
-  questions.forEach((q, i) => {
-    html +=
-      '<div class="question-card" id="question-card-' + i + '">' +
-        '<div class="question-number">Question ' + (i + 1) + ' of ' + questions.length + '</div>' +
-        '<div class="question-text">' + q.q_en + '<br><em style="font-size:.88em;color:var(--mist);">' + q.q_es + '</em></div>' +
-        '<ul class="answers-list">';
-
-    q.answers_en.forEach((answer, ai) => {
-      html +=
-        '<li>' +
-          '<button class="answer-btn" id="answer-' + i + '-' + ai + '" onclick="selectAnswer(' + sectionId + ',' + lessonNumber + ',' + i + ',' + ai + ',' + q.correct + ')">' +
-            '<span class="answer-letter">' + letters[ai] + '</span>' +
-            '<span>' + answer + '<br><em style="font-size:.85em;opacity:.7;">' + (q.answers_es[ai] || '') + '</em></span>' +
-          '</button>' +
-        '</li>';
-    });
-
-    html +=
-        '</ul>' +
-        '<div class="question-feedback" id="feedback-' + i + '"></div>' +
-      '</div>';
-  });
-
-  html +=
-    '<div class="mcq-complete" id="mcq-complete">' +
-      '<span class="mcq-complete-score" id="final-score">0 / ' + questions.length + '</span>' +
-      '<div class="mcq-complete-msg">Lesson complete! Your score has been saved.<br><span class="mcq-complete-msg-es">&iexcl;Lecci&oacute;n completada! Tu puntaje ha sido guardado.</span></div>' +
-      '<button class="btn-retake" onclick="retakeQuiz(' + sectionId + ',' + lessonNumber + ')">Retake / Repetir</button>' +
-    '</div>';
-
-  return html;
-}
-
-function selectAnswer(sectionId, lessonNumber, questionIndex, chosenIndex, correctIndex){
-  const stateKey = `mcq_S${sectionId}L${lessonNumber}`;
-  const state = window[stateKey];
-  if(!state || state.answered[questionIndex]) return;
-
-  const lesson = LESSONS[sectionId].lessons.find(l => l.lesson === lessonNumber);
-  const question = lesson.questions[questionIndex];
-
-  state.answered[questionIndex] = true;
-  const correct = chosenIndex === correctIndex;
-  if(correct) state.correct++;
-
-  [0,1,2,3].forEach(ai => {
-    const btn = document.getElementById(`answer-${questionIndex}-${ai}`);
-    if(!btn) return;
-    btn.disabled = true;
-    if(ai === correctIndex) btn.classList.add('correct');
-    else if(ai === chosenIndex) btn.classList.add('incorrect');
-  });
-
-  const feedback = document.getElementById(`feedback-${questionIndex}`);
-  feedback.className = 'question-feedback show ' + (correct ? 'correct-fb' : 'incorrect-fb');
-  feedback.innerHTML =
-    '<span class="feedback-label">' + (correct ? '✓ Correct / Correcto' : '✗ Incorrect / Incorrecto') + '</span>' +
-    (correct ? '' : '<strong>Correct: ' + ['A','B','C','D'][correctIndex] + '</strong> &mdash; ') +
-    question.explanation_en + '<br><em style="font-size:.88em;">' + question.explanation_es + '</em>';
-
-  document.getElementById('score-display').textContent = state.correct + ' / ' + state.total + ' SCORE';
-
-  if(state.answered.every(Boolean)){
-    finishQuiz(sectionId, lessonNumber, state.correct, state.total);
-  }
-}
-
-function finishQuiz(sectionId, lessonNumber, score, total){
-  const lessonKey = getLessonKey(sectionId, lessonNumber);
-  userProgress[lessonKey] = {complete:true, score, total, date:new Date().toISOString()};
-  saveLocalProgress();
-  sendToSheet({
-    action:'lesson_progress',
-    email:userEmail,
-    sectionId,
-    lessonNumber,
-    score,
-    total,
-    timestamp:new Date().toISOString()
-  });
-
-  const complete = document.getElementById('mcq-complete');
-  if(complete){
-    complete.classList.add('show');
-    document.getElementById('final-score').textContent = score + ' / ' + total;
-    complete.scrollIntoView({behavior:'smooth', block:'center'});
-  }
-}
-
-function retakeQuiz(sectionId, lessonNumber){
-  const lesson = LESSONS[sectionId].lessons.find(l => l.lesson === lessonNumber);
-  document.getElementById('tab-quiz').innerHTML = renderMCQ(sectionId, lessonNumber, lesson.questions, null);
-}
-
-function initPage(){
-  updateProgressUI();
-  buildArchiveGrid();
-  renderCurrentLesson();
-}
-
-document.getElementById('login-form').addEventListener('submit', handleLogin);
-
-document.addEventListener('DOMContentLoaded', function(){
-  const tg = document.getElementById('nav-toggle');
-  const nav = document.getElementById('main-nav');
-  const nl = document.getElementById('nav-links');
-
-  if(tg && nl){
-    tg.addEventListener('click', function(e){
-      e.stopPropagation();
-      nl.classList.toggle('open');
-      tg.classList.toggle('open');
-    });
-
-    nl.querySelectorAll('a').forEach(a => a.addEventListener('click', function(){
-      nl.classList.remove('open');
-      tg.classList.remove('open');
-    }));
-
-    document.addEventListener('click', function(e){
-      if(!nav.contains(e.target)){
-        nl.classList.remove('open');
-        tg.classList.remove('open');
-      }
-    });
-  }
-
-  try{
-    const stored = sessionStorage.getItem('rr_user');
-    if(stored){
-      const user = JSON.parse(stored);
-      userEmail = user.email || '';
-      try{
-        const progress = localStorage.getItem('rr_p_' + userEmail);
-        if(progress) userProgress = JSON.parse(progress);
-      }catch(e){}
-      if(userEmail){
-        document.getElementById('login-overlay').style.display = 'none';
-        initPage();
-      }
-    }
-  }catch(e){}
-});
-</script>
 </body>
 </html>
