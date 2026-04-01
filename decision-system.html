@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -438,7 +439,60 @@ DMAP-CAL™ integrates evidence from multiple reef systems to identify transfera
   <!-- your current MAR + GBR + Red Sea example -->
 </section>
 
-<!-- NEW: DMAP-CAL LIVE ENGINE -->
+
+<section id="dmapcal-engine">
+  <div class="container">
+    <div class="section-label">Live Decision Engine</div>
+    <h2>DMAP-CAL™ Live Engine</h2>
+    <div class="gold-rule"></div>
+
+    <div class="card-grid">
+
+      <div class="card">
+        <h4>Inputs</h4>
+        <label>Temperature (°C)</label>
+        <input id="temp" type="number">
+
+        <label>Coral Cover (%)</label>
+        <input id="coral" type="number">
+
+        <label>Turbidity</label>
+        <input id="turbidity" type="number">
+
+        <button onclick="runEngine()">Run Model</button>
+      </div>
+
+      <div class="card" id="output">
+        <h4>Decision Output</h4>
+        <p>Awaiting input...</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function runEngine(){
+let t = +document.getElementById('temp').value;
+let c = +document.getElementById('coral').value;
+let turb = +document.getElementById('turbidity').value;
+
+let risk = 0;
+if(t > 30) risk += 40;
+if(c < 30) risk += 30;
+if(turb > 5) risk += 20;
+
+let decision = risk > 70 ? "Critical Intervention Required" :
+               risk > 40 ? "Moderate Action Recommended" :
+               "Monitor Conditions";
+
+document.getElementById('output').innerHTML =
+"<h4>Decision Output</h4>" +
+"<p><strong>Risk Score:</strong> " + risk + "%</p>" +
+"<p><strong>Decision:</strong> " + decision + "</p>";
+}
+</script>
+
 <section id="dmapcal-engine">
 
   <div class="section-header">
