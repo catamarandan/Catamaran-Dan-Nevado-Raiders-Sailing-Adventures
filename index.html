@@ -114,13 +114,9 @@ nav {
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  .nav-inner {
-    justify-content: flex-start;
-    padding: 0.8rem 1.5rem;
-    min-height: 52px;
-  }
+
   .nav-links {
-    display: none;
+    display: none;              /* ← THIS IS MISSING */
     position: absolute;
     top: 100%;
     left: 0;
@@ -134,15 +130,14 @@ nav {
     padding: 0.5rem 1.5rem 1rem;
     z-index: 99;
   }
-  .nav-links.open { display: flex; }
-  .nav-links a {
-    width: 100%;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid rgba(201,168,76,0.08);
-    font-size: 0.82rem;
+
+  .nav-links.open {
+    display: flex;
   }
-  .nav-links a:last-child { border-bottom: none; }
-  .nav-toggle { display: flex; right: 1.5rem; }
+
+  .nav-toggle {
+    display: flex;
+  }
 }
 
 section { position: relative; padding: 6rem 2rem; }
