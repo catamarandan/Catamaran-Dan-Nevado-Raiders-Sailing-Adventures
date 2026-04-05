@@ -1,647 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All About the Small Cat Platform | Catamaran Dan</title>
-  <meta
-    name="description"
-    content="All About the Small Cat Platform — why a small sailing catamaran and modular sled system make sense for coastal sailing, reef access, affordability, and repeatable exploration."
-  />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shamrocket — GROAN Level 1 Platform | Catamaran Dan</title>
+<meta name="description" content="Shamrocket is GROAN Level 1 — the Mobile Ocean Observation Platform for the Rim Run™ expedition. A Hobie Getaway catamaran with 24-inch draft, purpose-built for reef observation across 7 countries and 100+ sites annually."/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 
-  <style>
-    :root {
-      --bg: #07131d;
-      --bg-alt: #0d1f2c;
-      --panel: rgba(10, 29, 43, 0.88);
-      --panel-border: rgba(120, 190, 230, 0.18);
-      --text: #eaf6ff;
-      --muted: #b5cfde;
-      --accent: #62c6ff;
-      --accent-strong: #90e0ff;
-      --gold: #f0c36a;
-      --shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
-      --radius: 18px;
-      --max: 1200px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        linear-gradient(rgba(4, 12, 19, 0.92), rgba(4, 12, 19, 0.96)),
-        url("anchor2.jpg") center / cover fixed no-repeat;
-      color: var(--text);
-      line-height: 1.65;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(4, 12, 19, 0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(120, 190, 230, 0.12);
-    }
-
-    .nav-wrap {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 22px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 74px;
-  gap: 28px;
+:root{
+  --deep-ocean:#0a0f1a;
+  --midnight:#0d1520;
+  --reef-blue:#0e4d6e;
+  --caribbean:#1a7fa8;
+  --aqua:#29b0d4;
+  --gold:#c9a84c;
+  --old-gold:#a8833a;
+  --parchment:#f0e8d0;
+  --fog:#c8cdd8;
+  --text-light:#e8e4da;
+  --text-dim:#9aa0b0;
 }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex-shrink: 0;
-    }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
 
-    .brand-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #ffffff;
-      text-transform: uppercase;
-    }
+/* ── NAV ── */
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;width:100%;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-    .brand-subtitle {
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+/* ── LAYOUT ── */
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;color:var(--parchment);margin-bottom:0.8rem;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
 
-    .nav-links {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px 14px;
-  list-style: none;
+/* ── CARDS ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:2rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
+.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
+.card:hover{background:rgba(14,77,110,0.18);}
+.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
+.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
+
+/* ── FEATURE LIST ── */
+.feature-list{list-style:none;display:grid;gap:0.6rem;margin:1.5rem 0;}
+.feature-list li{padding:0.7rem 1rem;border-left:2px solid rgba(201,168,76,0.25);color:var(--fog);font-size:0.96rem;}
+.feature-list li strong{color:var(--text-light);}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border:1px solid rgba(201,168,76,0.15);}
+.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
+.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
+
+/* ── INFOBOX ── */
+.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.infobox.groan-box{border-color:rgba(41,176,212,0.3);background:linear-gradient(135deg,rgba(14,77,110,0.28),rgba(10,15,26,0.7));}
+.infobox.groan-box .infobox-label{color:var(--aqua);}
+
+/* ── LEVEL PILLS ── */
+.level-inline{display:flex;flex-wrap:wrap;gap:0.4rem;margin:1rem 0 1.2rem;align-items:center;}
+.level-pill{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.65rem;border:1px solid rgba(41,176,212,0.35);color:var(--fog);white-space:nowrap;}
+.level-pill.active{background:rgba(41,176,212,0.15);border-color:var(--aqua);color:var(--aqua);}
+.level-pill.thesis{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.5);color:var(--gold);}
+.level-arrow{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;color:var(--text-dim);}
+
+/* ── BUTTONS ── */
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+
+/* ── BACKGROUNDS ── */
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-top-gold{border-top:1px solid rgba(201,168,76,0.12);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+
+/* ── HERO ── */
+.page-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
+.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
+
+/* ── REVEAL ── */
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+
+/* ── FOOTER ── */
+footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
+.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
+.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
+.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
+.footer-contact a{color:var(--aqua);}
+
+/* ── TWO COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+
+@media(max-width:768px){
+  section{padding:4rem 1.5rem;}
+  nav{position:sticky;top:0;padding:0.8rem 1.5rem;justify-content:flex-end;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:1001;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}
+  .two-col{grid-template-columns:1fr;gap:2rem;}
+  .stat-strip{grid-template-columns:repeat(2,1fr);}
+  .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
+  .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
+  .level-inline{gap:0.3rem;}
 }
-
-    .nav-links a {
-  color: var(--muted);
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 8px 0;
-  transition: color 0.2s ease;
-  white-space: nowrap;
-}
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent-strong);
-    }
-
-    .hero {
-      position: relative;
-      min-height: 72vh;
-      display: flex;
-      align-items: center;
-      background:
-        linear-gradient(rgba(5, 15, 23, 0.55), rgba(5, 15, 23, 0.82)),
-        url("hero.png") center / cover no-repeat;
-      border-bottom: 1px solid rgba(120, 190, 230, 0.14);
-    }
-
-    .hero-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 90px 22px 84px;
-      width: 100%;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 16px;
-      padding: 8px 14px;
-      border: 1px solid rgba(144, 224, 255, 0.28);
-      border-radius: 999px;
-      background: rgba(8, 27, 40, 0.55);
-      color: var(--accent-strong);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      max-width: 940px;
-      font-size: clamp(2.5rem, 5vw, 4.6rem);
-      line-height: 1.05;
-      margin-bottom: 22px;
-      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-    }
-
-    .hero p {
-      max-width: 860px;
-      font-size: 1.12rem;
-      color: #eef7fd;
-      margin-bottom: 30px;
-    }
-
-    .hero-quote {
-      max-width: 880px;
-      padding: 18px 20px;
-      border-left: 4px solid var(--gold);
-      background: rgba(7, 24, 35, 0.72);
-      border-radius: 0 14px 14px 0;
-      box-shadow: var(--shadow);
-      color: #f7fbff;
-      font-size: 1.02rem;
-    }
-
-    main {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 42px 22px 80px;
-    }
-
-    .intro-panel,
-    .section,
-    .closing-panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .intro-panel {
-      margin-top: -52px;
-      position: relative;
-      z-index: 2;
-      padding: 30px 28px;
-    }
-
-    .intro-panel p {
-      color: var(--text);
-      font-size: 1.04rem;
-    }
-
-    .section {
-      padding: 34px 28px;
-      margin-top: 26px;
-    }
-
-    .section h2 {
-      font-size: 1.9rem;
-      margin-bottom: 14px;
-      color: #ffffff;
-    }
-
-    .section h3 {
-      font-size: 1.18rem;
-      margin-bottom: 10px;
-      color: var(--accent-strong);
-    }
-
-    .section p {
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .grid-2,
-    .grid-3 {
-      display: grid;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .card {
-      background: rgba(8, 24, 36, 0.9);
-      border: 1px solid rgba(120, 190, 230, 0.14);
-      border-radius: 16px;
-      padding: 22px 20px;
-    }
-
-    .card p:last-child,
-    .section p:last-child {
-      margin-bottom: 0;
-    }
-
-    .feature-list {
-      list-style: none;
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .feature-list li {
-      background: rgba(6, 21, 32, 0.88);
-      border: 1px solid rgba(120, 190, 230, 0.12);
-      border-radius: 14px;
-      padding: 15px 16px;
-      color: var(--muted);
-    }
-
-    .feature-list strong {
-      color: var(--text);
-    }
-
-    .statement {
-      font-size: 1.08rem;
-      color: #f7fbff;
-      padding: 18px 20px;
-      border-left: 4px solid var(--accent);
-      background: rgba(8, 25, 38, 0.86);
-      border-radius: 0 14px 14px 0;
-      margin-top: 18px;
-    }
-
-    .closing-panel {
-      padding: 34px 28px;
-      margin-top: 26px;
-      text-align: center;
-    }
-
-    .closing-panel h2 {
-      font-size: 2rem;
-      margin-bottom: 14px;
-    }
-
-    .closing-panel p {
-      max-width: 920px;
-      margin: 0 auto 16px;
-      color: var(--muted);
-    }
-
-    .footer {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 22px 40px;
-      color: #9eb8c8;
-      text-align: center;
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 980px) {
-  .grid-3,
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-wrap {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-top: 14px;
-    padding-bottom: 14px;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 760px) {
-  .hero {
-    min-height: 64vh;
-  }
-
-  .hero-inner {
-    padding-top: 72px;
-    padding-bottom: 62px;
-  }
-
-  .intro-panel,
-  .section,
-  .closing-panel {
-    padding: 26px 20px;
-  }
-}
-      }
-
-      .nav-links {
-        justify-content: flex-start;
-      }
-
-      .hero {
-        min-height: 64vh;
-      }
-
-      .hero-inner {
-        padding-top: 72px;
-        padding-bottom: 62px;
-      }
-
-      .intro-panel,
-      .section,
-      .closing-panel {
-        padding: 26px 20px;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <div class="brand">
-        <a href="index.html" class="brand-title">Catamaran Dan</a>
-        <div class="brand-subtitle">Coastal Sailing • Exploration • Observation</div>
-      </div>
 
-      <nav aria-label="Primary">
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="rimrun.html">Rim Run™</a></li>
-          <li><a href="systems.html">Systems</a></li>
-          <li><a href="science.html">The Science</a></li>
-          <li><a href="decision-system.html">Decision System</a>
-          <li><a href="platform.html" class="active">Small Cat Platform</a></li>
-          <li><a href="learn.html">Learn Along With Me/Aprende Conmigo</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          </ul>
-      </nav>
+<nav id="main-nav">
+<button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+<span></span><span></span><span></span>
+</button>
+<div class="nav-links" id="nav-links">
+  <a href="index.html">Home</a>
+  <a href="rimrun.html">Rim Run&#8482;</a>
+  <a href="systems.html">Systems</a>
+  <a href="science.html">The Science</a>
+  <a href="decision-system.html">PhD Research</a>
+  <a href="platform.html" class="active">Small Cat Platform</a>
+  <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
+  <a href="citizenscience.html">Citizen Science</a>
+  <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+  <a href="support.html">Support</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
+</div>
+</nav>
+
+
+<!-- ── HERO ── -->
+<div class="page-hero">
+<div class="page-hero-content">
+  <span class="hero-eyebrow">GROAN Level 1 &bull; Mobile Ocean Observation Platform &bull; Rim Run&#8482; Expedition Vessel</span>
+  <h1 class="hero-h1">Shamrocket <em>The Platform.</em></h1>
+  <p class="hero-sub">A Hobie Getaway catamaran with a 24-inch draft &mdash; purpose-built for reef observation, coastal science, and sustained expedition life across the Western Caribbean.</p>
+</div>
+</div>
+
+
+<!-- ── GROAN L1 CALLOUT ── -->
+<section class="bg-deep border-top-gold border-bottom-gold" style="padding-top:4rem;padding-bottom:3rem;">
+<div class="container">
+
+<div class="infobox groan-box reveal">
+  <div class="infobox-label">GROAN Level 1 &mdash; Mobile Ocean Observation Platform</div>
+  <p style="color:var(--fog);margin-bottom:0.8rem;">
+    Shamrocket is not just an expedition vessel. It is GROAN Level 1 &mdash; the physical decision arm of a five-level ocean intelligence system. Every deployment is tasked by DMAP-CAL&#8482; and the Cross-Module Interaction Engine above it. Every data point collected feeds directly into cross-ecosystem causal analysis. In the GROAN architecture, MOOP is where the intelligence system meets the ocean.
+  </p>
+  <div class="level-inline">
+    <span class="level-pill">L5 &mdash; META-LAYER</span>
+    <span class="level-arrow">&larr;</span>
+    <span class="level-pill">L4 &mdash; DMAP-CAL&#8482;</span>
+    <span class="level-arrow">&larr;</span>
+    <span class="level-pill thesis">L3 &mdash; CMIE &mdash; Thesis Core</span>
+    <span class="level-arrow">&larr;</span>
+    <span class="level-pill">L2 &mdash; 11 Modules</span>
+    <span class="level-arrow">&larr;</span>
+    <span class="level-pill active">L1 &mdash; MOOP &mdash; Shamrocket</span>
+  </div>
+  <a href="decision-system.html" class="btn-gold" style="margin-top:1.2rem;">PhD Research &mdash; Full System Overview &rarr;</a>
+</div>
+
+</div>
+</section>
+
+
+<!-- ── PLATFORM STATS ── -->
+<section class="bg-midnight border-bottom-gold" style="padding-top:3rem;padding-bottom:3rem;">
+<div class="container">
+<div class="stat-strip reveal" style="border-left:none;border-right:none;">
+  <div class="stat"><span class="stat-num">Hobie</span><span class="stat-label">Getaway Catamaran</span></div>
+  <div class="stat"><span class="stat-num">24"</span><span class="stat-label">Shallow Draft</span></div>
+  <div class="stat"><span class="stat-num">Oct 2026</span><span class="stat-label">Expedition Launch</span></div>
+  <div class="stat"><span class="stat-num">7</span><span class="stat-label">Countries</span></div>
+  <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Reef Sites / Year</span></div>
+  <div class="stat"><span class="stat-num">0</span><span class="stat-label">Carbon Emissions</span></div>
+</div>
+</div>
+</section>
+
+
+<!-- ── CORE IDEA ── -->
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">The Core Idea</div>
+<h2 class="serif reveal">Not a Scaled-Down Version <em>of Big-Boat Cruising.</em></h2>
+<div class="gold-rule reveal"></div>
+
+<p class="reveal">
+The small cat platform is built around a simple idea: use a lightweight, shallow-draft sailing catamaran as the primary vessel and pair it with a modular equipment sled carrying the essential systems needed for coastal living, travel, and exploration. The result is a system that stays close to shore, keeps passages short, reaches places larger vessels cannot, and lowers the barrier to ownership and long-term use.
+</p>
+
+<div class="card-grid reveal" style="margin-top:2rem;">
+  <div class="card">
+    <h4>Access</h4>
+    <p>A 24-inch draft opens up reef zones, sandbars, protected shallows, and remote coastal areas that deeper boats cannot safely reach. Shamrocket anchors directly over shallow reef structures that dive boats cannot approach &mdash; placing the science platform on top of sites that rarely see in-water observation.</p>
+  </div>
+  <div class="card">
+    <h4>Simplicity</h4>
+    <p>Sail-driven movement, fewer major systems, and reduced dependence on fuel and marina infrastructure create a cleaner, more practical operating model. Fewer systems mean fewer failure points &mdash; critical for sustained multi-year operation in remote coastal environments.</p>
+  </div>
+  <div class="card">
+    <h4>Repeatability</h4>
+    <p>Lower cost, lower complexity, and a modular support system make long-term repeat use realistic. The Rim Run&#8482; returns to the same 100+ sites every year. That continuity is the scientific value of the platform &mdash; it builds over time.</p>
+  </div>
+</div>
+
+<div class="pull-quote reveal">
+  The goal is not to imitate large-vessel cruising. The goal is to create the right platform for this mission &mdash; and to keep coming back.
+</div>
+</div>
+</section>
+
+
+<!-- ── WHY A SMALL CAT WORKS ── -->
+<section class="bg-midnight border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Platform Advantages</div>
+<h2 class="serif reveal">Why a Small Sailing Catamaran <em>Works.</em></h2>
+<div class="gold-rule reveal"></div>
+
+<ul class="feature-list reveal">
+  <li><strong>No primary fuel requirement &mdash;</strong> sail-driven propulsion reduces cost, logistics, and dependence on fuel availability. Zero carbon in operation.</li>
+  <li><strong>Extremely shallow draft &mdash;</strong> 24 inches of draft provides access to waters and shorelines that larger boats often cannot use. Essential for reef-edge science work.</li>
+  <li><strong>Fast and agile &mdash;</strong> well suited to short coastal legs and quick repositioning between reef sites.</li>
+  <li><strong>Beachable and nearshore capable &mdash;</strong> useful for landing, gear transfer, and operating close to reefs and shoreline communities.</li>
+  <li><strong>Lower purchase and maintenance cost &mdash;</strong> makes long-term ownership and multi-year commitment realistic without the financial burden of a large cruising platform.</li>
+  <li><strong>Lower insurance burden &mdash;</strong> generally easier and less expensive to insure than a full-size cruising vessel.</li>
+  <li><strong>Trailerable and transportable &mdash;</strong> can be broken down, containerized, shipped, and reassembled in another region without requiring an ocean crossing. Blue Rim 5&#8482; can move beyond the Caribbean without Shamrocket needing to cross oceans to get there.</li>
+</ul>
+</div>
+</section>
+
+
+<!-- ── SCIENTIFIC PAYLOAD ── -->
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Scientific Payload</div>
+<h2 class="serif reveal">What Shamrocket <em>Carries for the Mission.</em></h2>
+<div class="gold-rule reveal"></div>
+
+<p class="reveal">
+As GROAN Level 1, Shamrocket carries a disciplined scientific payload designed for repeatable, multi-year reef observation. Every instrument feeds data directly into the GROAN data architecture. The baseline kit keeps the mission operational continuously &mdash; support and partnerships expand what can be measured without changing what the platform fundamentally is.
+</p>
+
+<div class="card-grid reveal">
+  <div class="card">
+    <h4>Baseline Environmental Instruments</h4>
+    <p>Apera PCO60-Z multiparameter meter (surface air temperature, subsurface temperature, pH, salinity, ORP). DIY Secchi disk for visibility. Every site, every visit, every year.</p>
+  </div>
+  <div class="card">
+    <h4>Aerial Platform &mdash; FAA Drone</h4>
+    <p>FAA-licensed UAV operations for repeat photogrammetry, bleaching documentation, seagrass and mangrove mapping, and annual visual comparison of shallow coastal habitats. Operators must be licensed. This one is.</p>
+  </div>
+  <div class="card">
+    <h4>Subsurface &mdash; SCUBA / Snorkel</h4>
+    <p>Snorkel-based observation is the operational baseline. Reef Check EcoDiver SCUBA certification adds reef wall documentation, deeper fish community surveys, and benthic assessment at depth. Scheduled: Bocas del Toro, August 2026.</p>
+  </div>
+  <div class="card">
+    <h4>Visual Documentation</h4>
+    <p>Underwater camera for standardized wide-angle, close-up, and transect-style video and photography at every site. Visual record preserved for annual comparison and independent validation.</p>
+  </div>
+  <div class="card">
+    <h4>Navigation &amp; Data Logging</h4>
+    <p>GPS-enabled device for permanent site coordinates. Standardized logging format capturing all measurement parameters. Every observation is site-indexed, timestamped, and structured for long-term comparison.</p>
+  </div>
+  <div class="card">
+    <h4>Priority Expansion &mdash; Dissolved Oxygen</h4>
+    <p>Optical DO sensor is the highest-priority expansion instrument. Hypoxic events in Western Caribbean lagoons have caused mass coral mortality misattributed to temperature because DO goes unmeasured. Added when instrument support is secured.</p>
+  </div>
+</div>
+
+<p class="reveal" style="margin-top:1.5rem;">
+  <a href="science.html" class="btn-gold">Full Science Methodology &rarr;</a>
+</p>
+</div>
+</section>
+
+
+<!-- ── SLED SYSTEM ── -->
+<section class="bg-midnight border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">The Sled System</div>
+<h2 class="serif reveal">What Changes <em>the Equation.</em></h2>
+<div class="gold-rule reveal"></div>
+
+<p class="reveal">
+The sled is what transforms the catamaran from a day-sailing setup into a true coastal expedition platform. Instead of forcing the catamaran to carry every heavy or bulky system onboard, the modular sled carries essential support gear while the sailing platform remains light, efficient, and capable.
+</p>
+
+<div class="two-col reveal">
+  <div>
+    <h3 class="serif" style="margin-bottom:1rem;">What the Sled Carries</h3>
+    <ul class="feature-list">
+      <li><strong>Water and provisions &mdash;</strong> reserve capacity for coastal movement and short-duration independence.</li>
+      <li><strong>Electrical power &mdash;</strong> modular power systems and solar charging support.</li>
+      <li><strong>Cooking systems &mdash;</strong> compact galley capability for real daily living.</li>
+      <li><strong>Cold storage &mdash;</strong> small refrigeration support where needed.</li>
+      <li><strong>Shelter and camp gear &mdash;</strong> sleeping, shade, and privacy systems.</li>
+      <li><strong>Scientific instruments &mdash;</strong> all measurement tools, logging equipment, and data systems.</li>
+      <li><strong>Fishing and expedition gear &mdash;</strong> anchors, rods, safety gear, and other essentials.</li>
+    </ul>
+  </div>
+  <div>
+    <h3 class="serif" style="margin-bottom:1rem;">Why It Matters</h3>
+    <p style="color:var(--fog);">
+      The sled allows the primary sailing platform to stay simple while still supporting real coastal life. This makes the overall system practical for two adults and potentially workable for a small family within a disciplined coastal operating model.
+    </p>
+    <p style="color:var(--fog);margin-top:1.2rem;">
+      It becomes a true coastal exploration system with room for power, gear, food, water, and the full scientific payload &mdash; without compromising the performance and simplicity that make the catamaran the right tool.
+    </p>
+    <div class="pull-quote" style="font-size:1rem;margin-top:2rem;">
+      Small cat plus modular sled is not a workaround. It is the operating model.
     </div>
-  </header>
+  </div>
+</div>
+</div>
+</section>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="eyebrow">Platform</div>
-      <h1>All About the Small Cat Platform</h1>
-      <p>
-        This is not a scaled-down version of big-boat cruising. It is a deliberately designed coastal
-        sailing system built around simplicity, shallow-water access, affordability, and repeatable exploration.
-      </p>
-      <div class="hero-quote">
-        A small sailing catamaran paired with a modular sled system creates a practical platform for
-        coastal movement, nearshore access, and real life on the water.
-      </div>
-    </div>
-  </section>
 
-  <main>
-    <section class="intro-panel">
-      <p>
-        The small cat platform is built around a simple idea: use a lightweight, shallow-draft sailing
-        catamaran as the primary vessel and pair it with a modular equipment sled carrying the essential
-        systems needed for coastal living, travel, and exploration. The result is a system that stays
-        close to shore, keeps passages short, reaches places larger vessels cannot, and lowers the
-        barrier to ownership and long-term use.
-      </p>
-    </section>
+<!-- ── SAFETY MODEL ── -->
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Safety Model</div>
+<h2 class="serif reveal">Coastal Discipline. <em>Not Offshore Ambition.</em></h2>
+<div class="gold-rule reveal"></div>
 
-    <section class="section">
-      <h2>The Core Idea</h2>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Access</h3>
-          <p>
-            Extremely shallow draft opens up reef zones, sandbars, protected shallows, and remote coastal
-            areas that many deeper boats cannot safely reach.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Simplicity</h3>
-          <p>
-            Sail-driven movement, fewer major systems, and reduced dependence on fuel and marina
-            infrastructure create a cleaner and more practical operating model.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Repeatability</h3>
-          <p>
-            Lower cost, lower complexity, and a modular support system make this type of exploration more
-            realistic for long-term and repeat use.
-          </p>
-        </div>
-      </div>
-      <div class="statement">
-        The goal is not to imitate large-vessel cruising. The goal is to create a more practical way to
-        explore coastlines and live close to the water.
-      </div>
-    </section>
+<p class="reveal">
+This platform is built around coastal discipline. The model depends on short sailing legs, daily landing or anchoring, early arrivals, and constant awareness of nearby shelter options. A 200-Ton Master with nuclear submarine qualification does not take unnecessary risks. The platform stays in its operational envelope.
+</p>
 
-    <section class="section">
-      <h2>Why a Small Sailing Catamaran Works</h2>
-      <ul class="feature-list">
-        <li><strong>No primary fuel requirement:</strong> sail-driven propulsion reduces cost, logistics, and dependence on fuel availability.</li>
-        <li><strong>Extremely shallow draft:</strong> access to waters and shorelines that larger boats often cannot use.</li>
-        <li><strong>Fast and agile:</strong> well suited to short coastal legs and quick repositioning.</li>
-        <li><strong>Beachable and nearshore capable:</strong> useful for landing, shelter, gear transfer, and operating close to reefs and coastlines.</li>
-        <li><strong>Lower purchase and maintenance cost:</strong> makes ownership possible for far more people than large-boat cruising does.</li>
-        <li><strong>Lower insurance burden:</strong> generally easier and less expensive to insure than a much larger cruising platform.</li>
-        <li><strong>Trailerable and transportable:</strong> can be broken down, shipped, and reassembled in another region without requiring an ocean crossing.</li>
-      </ul>
-    </section>
+<div class="two-col reveal">
+  <div>
+    <h3 class="serif" style="margin-bottom:1rem;">How the Model Stays Practical</h3>
+    <ul class="feature-list">
+      <li><strong>Short coastal legs &mdash;</strong> reduced exposure compared with long offshore passages.</li>
+      <li><strong>Daily arrival model &mdash;</strong> landing or anchoring each day keeps options open.</li>
+      <li><strong>Quick weather response &mdash;</strong> the platform remains close to shore and closer to shelter.</li>
+      <li><strong>Shallow-water escape options &mdash;</strong> access to thin water creates alternatives not available to deeper boats.</li>
+      <li><strong>Operational simplicity &mdash;</strong> fewer major systems mean fewer major failures.</li>
+    </ul>
+  </div>
+  <div>
+    <h3 class="serif" style="margin-bottom:1rem;">What This Does Not Claim</h3>
+    <p style="color:var(--fog);">
+      No vessel removes risk. Seamanship, judgment, preparation, and conservative operation still matter. The point is that within a disciplined coastal envelope, a small catamaran operated by a qualified mariner is a practical and effective platform for exploration, science, and daily life.
+    </p>
+    <p style="color:var(--fog);margin-top:1.2rem;">
+      The operator holds a USCG 200-Ton Master license, USN submarine qualification, and has been operating on the water professionally for decades. The platform is capable. The operator is qualified. The envelope is understood.
+    </p>
+  </div>
+</div>
+</div>
+</section>
 
-    <section class="section">
-      <h2>The Sled System</h2>
-      <p>
-        The sled is what changes the equation. Instead of forcing the catamaran to carry every heavy or
-        bulky system onboard, the modular sled carries essential support gear while the sailing platform
-        remains light, efficient, and capable.
-      </p>
 
-      <div class="grid-2">
-        <div class="card">
-          <h3>What the Sled Can Carry</h3>
-          <ul class="feature-list">
-            <li><strong>Water and provisions:</strong> reserve capacity for coastal movement and short-duration independence.</li>
-            <li><strong>Electrical power:</strong> modular power systems and solar charging support.</li>
-            <li><strong>Cooking systems:</strong> compact galley capability for real daily living.</li>
-            <li><strong>Cold storage:</strong> small refrigeration support where needed.</li>
-            <li><strong>Shelter and camp gear:</strong> support for sleeping, shade, and privacy systems.</li>
-            <li><strong>Fishing and expedition gear:</strong> anchors, rods, safety gear, and other essentials.</li>
-            <li><strong>Navigation and observation equipment:</strong> electronics, communications, and mission-specific tools.</li>
-          </ul>
-        </div>
+<!-- ── AFFORDABILITY ── -->
+<section class="bg-midnight border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Affordability</div>
+<h2 class="serif reveal">Affordability <em>Changes Everything.</em></h2>
+<div class="gold-rule reveal"></div>
 
-        <div class="card">
-          <h3>Why It Matters</h3>
-          <p>
-            The sled allows the primary sailing platform to stay simple while still supporting real coastal
-            life. This makes the overall system more practical for two adults and potentially workable for a
-            small family within a disciplined coastal operating model.
-          </p>
-          <p>
-            It also turns the platform into more than a day-sailing setup. It becomes a true coastal
-            exploration system with room for power, gear, food, water, and shelter support.
-          </p>
-        </div>
-      </div>
+<p class="reveal">
+One of the biggest strengths of this model is that it lowers the barrier to entry. Many people will never own a large cruising yacht. That does not mean they should be excluded from meaningful time on the water &mdash; or from conducting real science.
+</p>
 
-      <div class="statement">
-        Small cat plus modular sled is not a workaround. It is the operating model.
-      </div>
-    </section>
+<div class="card-grid reveal">
+  <div class="card">
+    <h4>Lower Purchase Cost</h4>
+    <p>Boats in this category are dramatically less expensive than full-size cruising vessels. The financial barrier to sustained coastal expedition life is not what most people assume.</p>
+  </div>
+  <div class="card">
+    <h4>Lower Operating Cost</h4>
+    <p>Less dependence on fuel, marina infrastructure, and complex systems makes multi-year operation realistic on a practical budget. Zero carbon means zero fuel cost.</p>
+  </div>
+  <div class="card">
+    <h4>Lower Ownership Burden</h4>
+    <p>Insurance, maintenance, and logistics are far more manageable than large-boat cruising. The platform sustains itself. The science continues regardless of sponsorship.</p>
+  </div>
+</div>
 
-    <section class="section">
-      <h2>Safety Model</h2>
-      <p>
-        This platform is built around coastal discipline, not offshore ambition. The concept depends on
-        short sailing legs, daily landing or anchoring, early arrivals, and constant awareness of nearby
-        shelter options.
-      </p>
+<div class="pull-quote reveal">
+  Affordability is not a side benefit. It is one of the main reasons this platform matters &mdash; and one of the reasons the Rim Run&#8482; can make a 20-year commitment.
+</div>
+</div>
+</section>
 
-      <div class="grid-2">
-        <div class="card">
-          <h3>How the Model Stays Practical</h3>
-          <ul class="feature-list">
-            <li><strong>Short coastal legs:</strong> reduced exposure compared with long offshore passages.</li>
-            <li><strong>Daily arrival model:</strong> landing or anchoring each day keeps options open.</li>
-            <li><strong>Quick weather response:</strong> the platform remains close to shore and closer to shelter.</li>
-            <li><strong>Shallow-water escape options:</strong> access to thin water can create alternatives not available to deeper boats.</li>
-            <li><strong>Operational simplicity:</strong> fewer major systems mean fewer major failures.</li>
-          </ul>
-        </div>
 
-        <div class="card">
-          <h3>What This Does Not Claim</h3>
-          <p>
-            No vessel removes risk. Seamanship, judgment, preparation, and conservative operation still
-            matter. The point is that within a disciplined coastal envelope, a small catamaran can be a
-            practical and effective platform for exploration and daily life.
-          </p>
-        </div>
-      </div>
-    </section>
+<!-- ── GLOBAL MOBILITY ── -->
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Global Mobility</div>
+<h2 class="serif reveal">One Region at a Time. <em>One Container at a Time.</em></h2>
+<div class="gold-rule reveal"></div>
 
-    <section class="section">
-      <h2>Affordability Changes Everything</h2>
-      <p>
-        One of the biggest strengths of this model is that it lowers the barrier to entry. Many people
-        will never own a large cruising yacht. That does not mean they should be excluded from meaningful
-        time on the water.
-      </p>
+<p class="reveal">
+A major advantage of this type of platform is that it does not need to cross every ocean it explores. After covering one region thoroughly, it can be disassembled, containerized, shipped, and reassembled elsewhere. Blue Rim 5&#8482; begins in the Caribbean. It does not end there.
+</p>
 
-      <div class="grid-3">
-        <div class="card">
-          <h3>Lower Purchase Cost</h3>
-          <p>
-            Boats in this category are dramatically less expensive than full-size cruising vessels.
-          </p>
-        </div>
+<div class="two-col reveal">
+  <div class="infobox" style="margin:0;">
+    <div class="infobox-label">Why That Matters</div>
+    <p style="color:var(--fog);">
+      This opens the door to exploring many different coastlines without taking on unnecessary transoceanic passages. It saves time, lowers risk, and keeps the platform aligned with its real purpose: coastal exploration and sustained reef observation where the data is most needed.
+    </p>
+  </div>
+  <div class="infobox" style="margin:0;">
+    <div class="infobox-label">What It Enables</div>
+    <p style="color:var(--fog);">
+      Shamrocket can move from the Caribbean to the Indo-Pacific, the Red Sea, or any other coast without requiring an entirely different class of vessel. The same proven platform, the same scientific systems, a different region &mdash; and a growing comparative dataset that no single-deployment program can match.
+    </p>
+  </div>
+</div>
+</div>
+</section>
 
-        <div class="card">
-          <h3>Lower Operating Cost</h3>
-          <p>
-            Less dependence on fuel, marina infrastructure, and complex systems makes long-term operation
-            more realistic.
-          </p>
-        </div>
 
-        <div class="card">
-          <h3>Lower Ownership Burden</h3>
-          <p>
-            Insurance, maintenance, and logistics are generally far more manageable than in large-boat cruising.
-          </p>
-        </div>
-      </div>
+<!-- ── WHO THIS IS FOR ── -->
+<section class="bg-midnight border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Who This Platform Serves</div>
+<h2 class="serif reveal">Who This Platform <em>Makes Sense For.</em></h2>
+<div class="gold-rule reveal"></div>
 
-      <div class="statement">
-        Affordability is not a side benefit. It is one of the main reasons this platform matters.
-      </div>
-    </section>
+<div class="card-grid reveal">
+  <div class="card">
+    <h4>Independent Coastal Explorers</h4>
+    <p>People who want real coastline time, access, and freedom without the burden of a large cruising yacht. The platform is the mission, not a means to a marina.</p>
+  </div>
+  <div class="card">
+    <h4>Couples and Small Families</h4>
+    <p>Those willing to travel with discipline, keep passages short, and embrace practical coastal adventure. The model works for two adults and, within a disciplined operating envelope, for small families.</p>
+  </div>
+  <div class="card">
+    <h4>Field Scientists &amp; Marine Researchers</h4>
+    <p>The 24-inch draft places a science platform on top of reef sites that research vessels cannot approach. Multi-year commitment to the same sites builds longitudinal data. GROAN Level 1 operators need a platform that stays in the water, keeps coming back, and carries the instruments.</p>
+  </div>
+</div>
+</div>
+</section>
 
-    <section class="section">
-      <h2>Global Mobility</h2>
-      <p>
-        A major advantage of this type of platform is that it does not need to cross every ocean it
-        explores. After covering one region thoroughly, it can be disassembled, containerized, shipped,
-        and reassembled elsewhere.
-      </p>
 
-      <div class="grid-2">
-        <div class="card">
-          <h3>Why That Matters</h3>
-          <p>
-            This opens the door to exploring many different coastlines without taking on unnecessary
-            transoceanic passages. It saves time, lowers risk, and keeps the platform aligned with its
-            real purpose: coastal exploration.
-          </p>
-        </div>
+<!-- ── BOTTOM LINE ── -->
+<section class="bg-deep">
+<div class="container">
+<div class="section-label reveal">The Bottom Line</div>
+<h2 class="serif reveal">The Right Platform <em>for the Mission.</em></h2>
+<div class="gold-rule reveal"></div>
 
-        <div class="card">
-          <h3>What It Enables</h3>
-          <p>
-            Owners can move from one region to another and continue exploring with the same proven system
-            instead of needing an entirely different class of vessel.
-          </p>
-        </div>
-      </div>
-    </section>
+<p class="reveal">
+The small cat platform is not a lesser version of large-boat cruising. For coastal access, affordability, simplicity, and repeatable reef science, it is the better tool. Paired with a modular sled system and a disciplined scientific payload, Shamrocket becomes a true coastal expedition platform capable of supporting real travel, daily life, sustained observation, and the field intelligence work that GROAN requires.
+</p>
 
-    <section class="section">
-      <h2>Who This Platform Makes Sense For</h2>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Independent Coastal Explorers</h3>
-          <p>
-            People who want real coastline time, access, and freedom without the burden of a large cruising yacht.
-          </p>
-        </div>
+<p class="reveal">
+This is not about making do with less. It is about using the right platform for a 20-year commitment to the same reef systems &mdash; and building a record of what is happening to them that no one else is building.
+</p>
 
-        <div class="card">
-          <h3>Couples and Small Families</h3>
-          <p>
-            Those willing to travel with discipline, keep passages short, and embrace practical coastal adventure.
-          </p>
-        </div>
+<div class="pull-quote reveal">
+  The Rim Run&#8482; launches October 2026. Shamrocket is ready. The reefs are not getting better while we wait.
+</div>
+</div>
+</section>
 
-        <div class="card">
-          <h3>Mission-Driven Operators</h3>
-          <p>
-            Sailors, anglers, educators, observers, and citizen scientists who benefit from shallow-water access
-            and simple, repeatable operation.
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <section class="closing-panel">
-      <h2>The Bottom Line</h2>
-      <p>
-        The small cat platform is not a lesser version of large-boat cruising. For coastal access,
-        affordability, simplicity, and repeatable exploration, it may be the better tool.
-      </p>
-      <p>
-        Paired with a modular sled system, it becomes a practical coastal living and expedition platform
-        capable of supporting real travel, daily life, observation, fishing, and exploration close to the shore.
-      </p>
-      <p>
-        This is not about making do with less. It is about using the right platform for the mission.
-      </p>
-    </section>
-  </main>
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+<img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy™" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+</div>
 
-  <footer class="footer">
-    <p>&copy; 2026 Catamaran Dan. All rights reserved.</p>
-  </footer>
+<footer>
+<div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+<div class="footer-tagline">"As go the seas… so goes humanity."</div>
+<div class="footer-contact">Cell: (928) 250-9763 &nbsp;&bull;&nbsp; <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a> &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.body.classList.add('js-ready');
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  var navLinks = document.getElementById('nav-links');
+  function closeMenu() {
+    if (navLinks) navLinks.classList.remove('open');
+    if (toggle) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+  }
+  function openMenu() {
+    if (navLinks) navLinks.classList.add('open');
+    if (toggle) { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); }
+  }
+  function toggleMenu(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    if (!navLinks || !toggle) return;
+    if (navLinks.classList.contains('open')) { closeMenu(); } else { openMenu(); }
+  }
+  if (toggle && navLinks && nav) {
+    toggle.addEventListener('click', toggleMenu, false);
+    navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ closeMenu(); }); });
+    document.addEventListener('click', function(e){ if (!nav.contains(e.target)) closeMenu(); });
+  }
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+      });
+    }, { threshold:0.12 });
+    els.forEach(function(el){ obs.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('visible'); });
+  }
+});
+</script>
 </body>
 </html>
