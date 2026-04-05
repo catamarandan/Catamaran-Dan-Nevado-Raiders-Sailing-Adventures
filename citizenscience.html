@@ -84,11 +84,29 @@ p+p{margin-top:1.2rem;}
 .tier-card:hover{border-color:rgba(201,168,76,0.4);}
 .tier-card img{width:100%;max-width:180px;height:180px;object-fit:contain;display:block;margin:0 auto 1.4rem;}
 .tier-body{width:100%;}
-.tier-badge{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.25rem 0.65rem;margin-bottom:0.8rem;}
-.tier-badge.t1{border:1px solid var(--gold);color:var(--gold);background:rgba(201,168,76,0.1);}
-.tier-badge.t2{border:1px solid var(--aqua);color:var(--aqua);background:rgba(41,176,212,0.08);}
-.tier-badge.t3{border:1px solid var(--fog);color:var(--fog);background:rgba(200,205,216,0.06);}
-.tier-badge.t4{border:1px solid #8fbe6a;color:#8fbe6a;background:rgba(143,190,106,0.07);}
+.tier-badge{display:flex;align-items:center;gap:0.55rem;font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.3rem 0.75rem 0.3rem 0.55rem;margin-bottom:0.8rem;width:fit-content;}
+.tier-badge.t1{border:1px solid rgba(200,205,216,0.4);color:var(--text-dim);background:rgba(200,205,216,0.05);}
+.tier-badge.t2{border:1px solid rgba(41,176,212,0.45);color:var(--aqua);background:rgba(41,176,212,0.07);}
+.tier-badge.t3{border:1px solid rgba(201,168,76,0.45);color:var(--old-gold);background:rgba(201,168,76,0.07);}
+.tier-badge.t4{border:1px solid var(--gold);color:var(--gold);background:rgba(201,168,76,0.12);}
+/* rank bars */
+.tier-badge .bars{display:flex;gap:3px;align-items:center;flex-shrink:0;}
+.tier-badge .bars span{display:block;width:3px;border-radius:1px;}
+.tier-badge.t1 .bars span{background:var(--text-dim);}
+.tier-badge.t2 .bars span{background:var(--aqua);}
+.tier-badge.t3 .bars span{background:var(--old-gold);}
+.tier-badge.t4 .bars span{background:var(--gold);}
+.tier-badge.t1 .bars span:nth-child(1){height:10px;}
+.tier-badge.t1 .bars span:nth-child(2),.tier-badge.t1 .bars span:nth-child(3){display:none;}
+.tier-badge.t2 .bars span:nth-child(1){height:7px;}
+.tier-badge.t2 .bars span:nth-child(2){height:10px;}
+.tier-badge.t2 .bars span:nth-child(3){display:none;}
+.tier-badge.t3 .bars span:nth-child(1){height:6px;}
+.tier-badge.t3 .bars span:nth-child(2){height:9px;}
+.tier-badge.t3 .bars span:nth-child(3){height:12px;}
+.tier-badge.t4 .bars span:nth-child(1){height:6px;}
+.tier-badge.t4 .bars span:nth-child(2){height:9px;}
+.tier-badge.t4 .bars span:nth-child(3){height:12px;}
 .tier-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--parchment);margin-bottom:0.6rem;line-height:1.25;}
 .tier-desc{font-family:'EB Garamond',Georgia,serif;font-size:0.9rem;color:var(--fog);line-height:1.65;}
 .tier-detail{margin-top:0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);line-height:1.7;}
@@ -202,54 +220,54 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <div class="container-wide">
     <div class="container">
       <div class="section-label reveal">Observer Registry</div>
-      <h2 class="serif reveal">Four Tiers. <em>One Standard.</em></h2>
+      <h2 class="serif reveal">Four Levels. <em>One Standard.</em></h2>
       <div class="gold-rule reveal"></div>
-      <p class="reveal">The network is not a single category of participant. It is a structured four-tier registry &mdash; from professional mariners and field scientists at the top, to indigenous knowledge holders whose generational understanding of these reefs is irreplaceable. Every tier has a defined role, defined data standards, and defined standing within the network. Entry is earned. Data quality is non-negotiable at every level.</p>
+      <p class="reveal">The network is built on a four-level certification progression. Level 1 is the entry point &mdash; where every observer begins. Level 4 is the top of the ladder. Each level represents earned competency: specific skills, specific survey authority, and specific responsibilities within the network. You advance when you are ready. The data standard does not change. Only what you are qualified to collect.</p>
     </div>
 
     <div class="tier-grid reveal">
       <div class="tier-card">
-        <img src="level1.jpg" alt="Tier 1 Professional Field Observers"/>
+        <img src="level1.jpg" alt="Level 1 Observer Candidate"/>
         <div class="tier-body">
-          <div class="tier-badge t1">Tier 1</div>
-          <div class="tier-title">Professional Field Observers</div>
-          <div class="tier-desc">USCG-licensed mariners, research scientists, marine park rangers, and professional dive operators. Highest data quality. Full survey protocol execution.</div>
-          <div class="tier-detail">Can train &amp; certify Tier 2 &nbsp;&bull;&nbsp; Full survey authority &nbsp;&bull;&nbsp; Primary data validation</div>
+          <div class="tier-badge t1"><span class="bars"><span></span><span></span><span></span></span>Level 1</div>
+          <div class="tier-title">Observer Candidate</div>
+          <div class="tier-desc">The starting point. Level 1 observers have completed basic reef literacy training and can conduct surface and snorkel-depth visual assessments. They identify major ecosystem zones, document obvious stressors, estimate broad coral cover categories, and submit standardized condition reports with photo documentation. No prior dive certification required.</div>
+          <div class="tier-detail">Surface &amp; snorkel surveys &nbsp;&bull;&nbsp; Standardized condition reporting &nbsp;&bull;&nbsp; Photo documentation &nbsp;&bull;&nbsp; Entry level</div>
         </div>
       </div>
       <div class="tier-card">
-        <img src="level2.jpg" alt="Tier 2 Trained Community Observers"/>
+        <img src="level2.jpg" alt="Level 2 Certified Reef Observer"/>
         <div class="tier-body">
-          <div class="tier-badge t2">Tier 2</div>
-          <div class="tier-title">Trained Community Observers</div>
-          <div class="tier-desc">Locally trained fishers, dive guides, and coastal community members who have completed the standardized field training program. The backbone of the network.</div>
-          <div class="tier-detail">Repeat-site monitoring &nbsp;&bull;&nbsp; Between-expedition continuity &nbsp;&bull;&nbsp; CCRA certified</div>
+          <div class="tier-badge t2"><span class="bars"><span></span><span></span><span></span></span>Level 2</div>
+          <div class="tier-title">Certified Reef Observer</div>
+          <div class="tier-desc">Level 2 certification requires demonstrated competency in structured underwater reef survey methodology. Observers at this level conduct belt transect surveys, point-intercept coral assessments, and fish abundance counts at depth. They operate independently at assigned home sites, maintain consistent data quality between expedition visits, and submit records that meet CCRA scientific standards.</div>
+          <div class="tier-detail">Belt transect &amp; point-intercept surveys &nbsp;&bull;&nbsp; Fish counts at depth &nbsp;&bull;&nbsp; Independent site monitoring &nbsp;&bull;&nbsp; CCRA certified</div>
         </div>
       </div>
       <div class="tier-card">
-        <img src="level3.jpg" alt="Tier 3 General Public"/>
+        <img src="level3.jpg" alt="Level 3 Senior Field Observer"/>
         <div class="tier-body">
-          <div class="tier-badge t3">Tier 3</div>
-          <div class="tier-title">General Public</div>
-          <div class="tier-desc">Recreational divers, snorkelers, and coastal visitors. Passive observation mode &mdash; photos, sightings, and basic condition reports submitted through standardized tools.</div>
-          <div class="tier-detail">Passive submission &nbsp;&bull;&nbsp; Standardized reporting format &nbsp;&bull;&nbsp; Widest geographic reach</div>
+          <div class="tier-badge t3"><span class="bars"><span></span><span></span><span></span></span>Level 3</div>
+          <div class="tier-title">Senior Field Observer</div>
+          <div class="tier-desc">Level 3 observers add multi-parameter environmental data collection to their survey capability &mdash; water quality instrumentation, dissolved oxygen, salinity, pH, and thermocline profiling where equipment permits. They lead post-storm rapid assessments, conduct cross-site comparative analysis, and serve as site coordinators. They can train and evaluate Level 1 candidates and lead calibration sessions.</div>
+          <div class="tier-detail">Environmental instrumentation &nbsp;&bull;&nbsp; Rapid post-event assessment &nbsp;&bull;&nbsp; Level 1 training authority &nbsp;&bull;&nbsp; Site coordinator</div>
         </div>
       </div>
       <div class="tier-card">
-        <img src="level4.jpg" alt="Tier 4 Indigenous and TEK Holders"/>
+        <img src="level4.jpg" alt="Level 4 Master Observer"/>
         <div class="tier-body">
-          <div class="tier-badge t4">Tier 4</div>
-          <div class="tier-title">Indigenous &amp; TEK Holders</div>
-          <div class="tier-desc">Miskito, Garifuna, Q'eqchi' Maya, Guna, and other coastal indigenous communities. Generational reef knowledge no scientific program has systematically captured. Data sovereignty and benefit-sharing governed under CARE Principles and UNDRIP.</div>
-          <div class="tier-detail">Traditional Ecological Knowledge &nbsp;&bull;&nbsp; CARE Principles &nbsp;&bull;&nbsp; UNDRIP governance &nbsp;&bull;&nbsp; Benefit-sharing framework</div>
+          <div class="tier-badge t4"><span class="bars"><span></span><span></span><span></span></span>Level 4</div>
+          <div class="tier-title">Master Observer</div>
+          <div class="tier-desc">The top of the certification ladder. Level 4 observers hold full survey authority across all methodologies and environments. They design survey protocols for new sites, validate data quality across the network, and hold certification authority for Levels 1 and 2. They serve as the scientific backbone of the CCRA &mdash; the people who set the standard everyone else is measured against.</div>
+          <div class="tier-detail">Full survey authority &nbsp;&bull;&nbsp; Protocol design &nbsp;&bull;&nbsp; Certifies Levels 1 &amp; 2 &nbsp;&bull;&nbsp; Network data validation</div>
         </div>
       </div>
     </div>
 
     <div class="container">
       <div class="infobox reveal" style="margin-top:3rem;">
-        <div class="infobox-label">Data Sovereignty Principle</div>
-        <p style="color:var(--parchment);font-style:italic;">The ecological knowledge of Tier 4 communities is not an informal supplement to the scientific record. It is a primary data source &mdash; often spanning generations &mdash; covering reef conditions, species behavior, seasonal patterns, and environmental change that no instrument array has ever measured. It is treated accordingly: owned by the communities who hold it, shared on their terms, and credited in every dataset it informs.</p>
+        <div class="infobox-label">Certification Principle</div>
+        <p style="color:var(--parchment);font-style:italic;">Every observer in this network starts at Level 1. Advancement is earned through demonstrated field competency, not time served or credentials held elsewhere. A commercial fisherman who has worked the same reef for twenty years starts at Level 1 &mdash; and may reach Level 4 faster than anyone. The standard is what you can do in the water, not what is written on a certificate from somewhere else.</p>
       </div>
     </div>
   </div>
