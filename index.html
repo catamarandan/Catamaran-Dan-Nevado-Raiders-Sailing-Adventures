@@ -64,11 +64,13 @@
       display:none;
     }
 
+    /* ── THE FIX: flex-wrap:wrap allows nav to flow to two rows ── */
     .nav-links {
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:2.2rem;
+      flex-wrap:wrap;
+      gap:1.8rem;
       width:100%;
     }
 
@@ -465,7 +467,7 @@
     }
 
     .rimrunner-ritual::before {
-      content:'RIM RUNNER™ SUNSET PROTOCOL';
+      content:'RIM RUNNER\2122 SUNSET PROTOCOL';
       position:absolute;
       top:-0.65rem;
       left:2rem;
@@ -759,10 +761,10 @@
         <a href="rimrun.html">Rim Run&#8482;</a>
         <a href="systems.html">Systems</a>
         <a href="science.html">The Science</a>
-        <a href="decision-system.html">PHD RESEARCH</a>
+        <a href="decision-system.html">PhD Research</a>
         <a href="platform.html">Small Cat Platform</a>
         <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
-        <a href="citizenscience.html">Citizen Science/Ciencia Cuidadana</a>
+        <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
         <a href="thelivingsaga.html">The Living Saga&#8482;</a>
         <a href="support.html">Support</a>
         <a href="gallery.html">Gallery</a>
@@ -905,7 +907,6 @@
         <div class="section-label reveal">The Circuit</div>
         <h2 class="serif reveal">Seven Countries. <em>One Unbroken Loop.</em></h2>
         <div class="gold-rule reveal"></div>
-
         <p class="reveal">From Mexico's Yucat&aacute;n to Panama's San Blas and back — 1,500+ nautical miles, two ecosystem zones, two operational hubs. The same loop every year, refined each season. No leg is hurried. No community is passed through without respect for the people, the government, and the coastline that belongs to them.</p>
       </div>
 
@@ -913,55 +914,17 @@
         <table class="route-table reveal">
           <thead>
             <tr>
-              <th>Country</th>
-              <th>Key Stops</th>
-              <th>Days</th>
-              <th>Why It Matters</th>
+              <th>Country</th><th>Key Stops</th><th>Days</th><th>Why It Matters</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>&#127474;&#127485; Mexico</td>
-              <td>Puerto Aventuras &middot; Cozumel &middot; Xcalak &middot; Banco Chinchorro</td>
-              <td>~30</td>
-              <td>Northern hub — REEF coordination &amp; staging</td>
-            </tr>
-            <tr>
-              <td>&#127463;&#127487; Belize</td>
-              <td>Ambergris &middot; Turneffe &middot; Lighthouse Reef &middot; Blue Hole &middot; Glover's &middot; South Water &middot; Placencia</td>
-              <td>~117</td>
-              <td>World's 2nd largest barrier reef — home waters &amp; citizen science base</td>
-            </tr>
-            <tr>
-              <td>&#127468;&#127481; Guatemala</td>
-              <td>Livingston &middot; R&iacute;o Dulce &middot; Lake Izabal</td>
-              <td>~35</td>
-              <td>Most stunning inland waterway in the Americas</td>
-            </tr>
-            <tr>
-              <td>&#127469;&#127475; Honduras</td>
-              <td>Cayos Cochinos &middot; Utila &middot; Roat&aacute;n &middot; Guanaja</td>
-              <td>~80</td>
-              <td>Bay Islands — whale sharks &amp; 100+ ft visibility</td>
-            </tr>
-            <tr>
-              <td>&#127475;&#127470; Nicaragua</td>
-              <td>Big Corn Island &middot; Little Corn Island &middot; Pearl Cays</td>
-              <td>~29</td>
-              <td>Priority Year 1 — essentially unsurveyed</td>
-            </tr>
-            <tr>
-              <td>&#127464;&#127479; Costa Rica</td>
-              <td>Tortuguero &middot; Cahuita NP &middot; Puerto Viejo</td>
-              <td>~35</td>
-              <td>Southern Caribbean transition zone — reef, river, jungle, and protected coastline</td>
-            </tr>
-            <tr>
-              <td>&#127477;&#127462; Panama</td>
-              <td>Bocas del Toro &middot; Escudo de Veraguas &middot; Guna Yala / San Blas</td>
-              <td>~70</td>
-              <td>Southern hub — long-duration anchorage, biodiversity, and expedition reset point</td>
-            </tr>
+            <tr><td>&#127474;&#127485; Mexico</td><td>Puerto Aventuras &middot; Cozumel &middot; Xcalak &middot; Banco Chinchorro</td><td>~30</td><td>Northern hub — REEF coordination &amp; staging</td></tr>
+            <tr><td>&#127463;&#127487; Belize</td><td>Ambergris &middot; Turneffe &middot; Lighthouse Reef &middot; Blue Hole &middot; Glover's &middot; South Water &middot; Placencia</td><td>~117</td><td>World's 2nd largest barrier reef — home waters &amp; citizen science base</td></tr>
+            <tr><td>&#127468;&#127481; Guatemala</td><td>Livingston &middot; R&iacute;o Dulce &middot; Lake Izabal</td><td>~35</td><td>Most stunning inland waterway in the Americas</td></tr>
+            <tr><td>&#127469;&#127475; Honduras</td><td>Cayos Cochinos &middot; Utila &middot; Roat&aacute;n &middot; Guanaja</td><td>~80</td><td>Bay Islands — whale sharks &amp; 100+ ft visibility</td></tr>
+            <tr><td>&#127475;&#127470; Nicaragua</td><td>Big Corn Island &middot; Little Corn Island &middot; Pearl Cays</td><td>~29</td><td>Priority Year 1 — essentially unsurveyed</td></tr>
+            <tr><td>&#127464;&#127479; Costa Rica</td><td>Tortuguero &middot; Cahuita NP &middot; Puerto Viejo</td><td>~35</td><td>Southern Caribbean transition zone — reef, river, jungle, and protected coastline</td></tr>
+            <tr><td>&#127477;&#127462; Panama</td><td>Bocas del Toro &middot; Escudo de Veraguas &middot; Guna Yala / San Blas</td><td>~70</td><td>Southern hub — long-duration anchorage, biodiversity, and expedition reset point</td></tr>
           </tbody>
         </table>
       </div>
@@ -980,7 +943,6 @@
       <div class="section-label reveal">Two Permanent Programs</div>
       <h2 class="serif reveal">The Expedition is the Platform. <em>The Legacy is Bigger.</em></h2>
       <div class="gold-rule reveal"></div>
-
       <p class="reveal">Blue Rim 5&#8482; is not just an expedition. It is the field platform for two permanent, scalable programs designed to outlast any single voyage: a regional citizen science alliance and a living media archive.</p>
     </div>
 
@@ -993,7 +955,6 @@
           <p>The Caribbean Coastal Reef Alliance (CCRA) is the long-term citizen science framework connecting reef observers, partner institutions, and aligned coastal stakeholders across all seven Rim Run&#8482; countries. The goal is disciplined participation, standardized observations, and better continuity where formal monitoring is thin or absent.</p>
           <a href="citizenscience.html" class="btn-gold">Citizen Science &rarr;</a>
         </div>
-
         <div class="program-card">
           <img src="https://catamarandan.org/livingsaga.jpg" alt="The Living Saga visual archive"/>
           <span class="tag">Documenting the Human Story</span>
@@ -1010,12 +971,9 @@
       <div class="section-label reveal">Blue Rim 5&#8482; — First Chapters</div>
       <h2 class="serif reveal">The Global Sailing Expedition. <em>Beginning in the Caribbean.</em></h2>
       <div class="gold-rule reveal"></div>
-
       <p class="reveal">The Rim Run&#8482; is the first operating chapter of Blue Rim 5&#8482; — the larger global sailing expedition model that will eventually extend far beyond the western Caribbean. The first years are about proving the platform, establishing credibility, building a regional science network, and generating a repeatable field record where it matters most.</p>
-
       <p class="reveal">That means the early work is intensely local in method and global in significance: small boats, disciplined observation, reef systems under pressure, and a public-facing record grounded in real-world continuity rather than abstraction.</p>
     </div>
-
     <div class="container-wide">
       <div class="img-pair reveal">
         <div>
@@ -1035,37 +993,15 @@
       <div class="section-label reveal">Life at Anchor</div>
       <h2 class="serif reveal">This is not Escape. <em>It is the Point.</em></h2>
       <div class="gold-rule reveal"></div>
-
       <p class="reveal">The reef work matters. The science matters. But the life built around it matters too. The evenings at anchor, the food, the weather, the stories, the people, the rituals, the silence, the music — this is not some decorative side element to the mission. It is the other half of it.</p>
-
       <p class="reveal">What the Mint Julep is to horse racing, Bourbon Storm&#8482; is to the yachting community. Born on a blue-sky equatorial Pacific day in 1984 that turned dark, wet, and alive — then cleared just as fast. The recipe remained private for forty-one years. It belongs to the water and to the evenings the water gives you when you've earned them.</p>
 
       <div class="rimrunner-ritual reveal">
-        <div class="recipe-step">
-          <h5>Glass &amp; Rim</h5>
-          <p>Heavy straight-sided rocks glass with a blue rim band. Rim mix: 2 parts coarse sea salt, 1 part sugar. Wet the outside rim with fresh lime and dip. Fill with fresh ice.</p>
-        </div>
-
-        <div class="recipe-step">
-          <h5>Equatorial Blue Base</h5>
-          <p>1&frac12; oz white rum &bull; &frac34; oz blue cura&ccedil;ao &bull; 1 oz pineapple juice &bull; &frac12; oz fresh lime juice &bull; 1 oz coconut water &bull; 1&ndash;2 dashes ginger or aromatic bitters. Shake hard ~10 seconds. Strain over fresh ice.</p>
-        </div>
-
-        <div class="recipe-step">
-          <h5>The Dark Storm Cloud</h5>
-          <p>Float &frac12;&ndash;&frac34; oz dark rum over the back of a bar spoon. Blue below. Dark above. Salt and sky at the rim. Do not stir.</p>
-        </div>
-
-        <div class="recipe-step">
-          <h5>Bourbon Storm&#8482; Variation</h5>
-          <p>Same blue base. Float &frac12;&ndash;&frac34; oz bourbon instead of dark rum. The bourbon is the star — the first nose, first sip, and finish live in that top layer.</p>
-        </div>
-
-        <div class="recipe-step">
-          <h5>Rim Runner&#8482; Zero</h5>
-          <p>Pineapple juice, coconut water, orange juice, lime, blue cura&ccedil;ao syrup (NA). Float iced tea or cola as the storm band. Same glass. Same rim. Same protocol.</p>
-        </div>
-
+        <div class="recipe-step"><h5>Glass &amp; Rim</h5><p>Heavy straight-sided rocks glass with a blue rim band. Rim mix: 2 parts coarse sea salt, 1 part sugar. Wet the outside rim with fresh lime and dip. Fill with fresh ice.</p></div>
+        <div class="recipe-step"><h5>Equatorial Blue Base</h5><p>1&frac12; oz white rum &bull; &frac34; oz blue cura&ccedil;ao &bull; 1 oz pineapple juice &bull; &frac12; oz fresh lime juice &bull; 1 oz coconut water &bull; 1&ndash;2 dashes ginger or aromatic bitters. Shake hard ~10 seconds. Strain over fresh ice.</p></div>
+        <div class="recipe-step"><h5>The Dark Storm Cloud</h5><p>Float &frac12;&ndash;&frac34; oz dark rum over the back of a bar spoon. Blue below. Dark above. Salt and sky at the rim. Do not stir.</p></div>
+        <div class="recipe-step"><h5>Bourbon Storm&#8482; Variation</h5><p>Same blue base. Float &frac12;&ndash;&frac34; oz bourbon instead of dark rum. The bourbon is the star — the first nose, first sip, and finish live in that top layer.</p></div>
+        <div class="recipe-step"><h5>Rim Runner&#8482; Zero</h5><p>Pineapple juice, coconut water, orange juice, lime, blue cura&ccedil;ao syrup (NA). Float iced tea or cola as the storm band. Same glass. Same rim. Same protocol.</p></div>
         <div class="toast-code">
           First drink: Face the horizon — "Better Beachy than Bitchy&#8482;"<br/>
           <span style="font-size:0.85rem;color:var(--fog);">Second: "Better beachy than busted." &nbsp;|&nbsp; Empty glass: one tap. "Anchor down."</span>
@@ -1098,10 +1034,7 @@
         <div class="section-label reveal" style="justify-content:center;">Get Involved</div>
         <h2 class="serif reveal" style="text-align:center;">This is a Working Expedition. <em>Choose Your Role.</em></h2>
         <div class="gold-rule reveal" style="margin:1.2rem auto 2rem;"></div>
-
-        <p class="reveal" style="max-width:640px;margin:0 auto;">
-          The mission moves whether or not it is supported. But the right support — from the right people and institutions — determines how far it reaches, how many reefs get documented, how many coastal communities benefit, and how much of this story the world gets to hear.
-        </p>
+        <p class="reveal" style="max-width:640px;margin:0 auto;">The mission moves whether or not it is supported. But the right support — from the right people and institutions — determines how far it reaches, how many reefs get documented, how many coastal communities benefit, and how much of this story the world gets to hear.</p>
       </div>
 
       <div class="card-grid reveal" style="margin-top:3rem;">
@@ -1111,14 +1044,12 @@
           <p>Support expanded reef observation, improved data collection, and the environmental measurement capability that makes this data worth having for institutions and conservation organizations worldwide.</p>
           <a href="support.html" class="btn-gold">Support &rarr;</a>
         </div>
-
         <div class="card">
           <div class="card-icon">&#9875;</div>
           <h4>Join the Fleet</h4>
           <p>Become part of the Nevado Raiders&#8482; — disciplined sailors on real boats who understand that genuine respect for these coastlines and the people who live on them is the only operating standard that matters.</p>
           <a href="about.html" class="btn-gold">About &rarr;</a>
         </div>
-
         <div class="card">
           <div class="card-icon">&#127760;</div>
           <h4>Follow the Saga</h4>
@@ -1167,3 +1098,4 @@
 
 </body>
 </html>
+
