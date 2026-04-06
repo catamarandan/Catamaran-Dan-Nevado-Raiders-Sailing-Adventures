@@ -64,7 +64,6 @@
       display:none;
     }
 
-    /* ── THE FIX: flex-wrap:wrap allows nav to flow to two rows ── */
     .nav-links {
       display:flex;
       align-items:center;
@@ -396,6 +395,7 @@
 
     .img-pair img:hover,
     .img-trio img:hover,
+    .portrait-trio img:hover,
     .portrait-pair img:hover,
     .img-solo:hover {
       filter:brightness(0.97) saturate(1.05);
@@ -434,6 +434,7 @@
       margin-bottom:1.5rem;
     }
 
+    /* ── UPDATED: portrait-pair kept for 2-up use elsewhere; portrait-trio is new ── */
     .portrait-pair {
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -441,6 +442,21 @@
     }
 
     .portrait-pair img {
+      width:100%;
+      object-fit:cover;
+      aspect-ratio:3/4;
+      filter:brightness(0.85) saturate(0.88);
+      transition:filter 0.3s;
+    }
+
+    /* ── NEW: three-column portrait grid for Dan / Ove / Nevado Raiders ── */
+    .portrait-trio {
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:1rem;
+    }
+
+    .portrait-trio img {
       width:100%;
       object-fit:cover;
       aspect-ratio:3/4;
@@ -739,11 +755,14 @@
       .img-trio { grid-template-columns:1fr 1fr; }
       .img-pair img, .img-trio img { height:160px; }
       .program-pair { grid-template-columns:1fr; }
+      /* ── Mobile: portrait trio stacks to single column ── */
+      .portrait-trio { grid-template-columns:1fr; }
     }
 
     @media (max-width: 480px) {
       .img-trio { grid-template-columns:1fr; }
       .portrait-pair { grid-template-columns:1fr; }
+      .portrait-trio { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -821,12 +840,14 @@
     </div>
   </div>
 
+  <!-- ═══ COMMAND SECTION — UPDATED ═══ -->
   <section class="bg-midnight border-bottom-gold">
     <div class="container-wide">
       <div class="two-col">
         <div>
-          <div class="section-label reveal">Command</div>
-          <h2 class="serif reveal">Catamaran Dan — <em>Ove Ironhand</em></h2>
+          <div class="section-label reveal">Command &amp; Crew</div>
+          <!-- ── UPDATED heading ── -->
+          <h2 class="serif reveal">Catamaran Dan — <em>Ove Ironhand</em><br/><span style="font-size:clamp(1.2rem,2.5vw,1.8rem); color:var(--gold);">Nevado Raiders&#8482;</span></h2>
           <div class="gold-rule reveal"></div>
 
           <p class="reveal">Led by Daniel Roe — U.S. Coast Guard–licensed 200-Ton Master Captain, ASA sailing instructor, former U.S. Navy submariner, FAA-licensed drone pilot, Lean Six Sigma Black Belt, and expedition sailor who has been doing hard things on the water since before most sailing influencers were born.</p>
@@ -834,6 +855,9 @@
           <p class="reveal">One credential doesn't fit on a tag but shapes everything: qualifying in submarines in the U.S. Navy's nuclear program. When a submarine is submerged, it is a sealed world. No signal. No backup. No helpdesk. Every qualified watchstander owns their domain completely — because there is no one else coming. You solve every problem, at any location, with what you know and who you are. That discipline never leaves you. It is exactly how this expedition is designed and run.</p>
 
           <p class="reveal">Modern Y-DNA work traces his paternal line through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand. This combination shapes everything: calm decision-making, conservative risk management, genuine curiosity about the people and cultures of every coastline — and preparation over bravado. The life is extraordinary because the standards are real.</p>
+
+          <!-- ── NEW Nevado Raiders paragraph ── -->
+          <p class="reveal">The sailing identity and the mission are carried under the flag of the <strong style="color:var(--gold);">Nevado Raiders&#8482;</strong> — a name that has been in active circulation for more than three years, applied to every vessel, every circuit, and every field operation that carries this standard. Named for Nevado Ranch Camp in the White Mountains of Arizona, the Nevado Raiders&#8482; are the disciplined sailors, scientists, and expedition hands who understand that genuine respect for these coastlines and the people who live on them is the only operating standard that matters. Not visitors. Not tourists. Raiders — people who show up, do the work, and leave every anchorage better than they found it.</p>
 
           <div class="cred-list reveal">
             <span class="cred-tag">USCG 200-Ton Master</span>
@@ -847,13 +871,15 @@
             <span class="cred-tag">Shellback</span>
             <span class="cred-tag">MBA &middot; GWU</span>
             <span class="cred-tag">MS Health Informatics</span>
+            <span class="cred-tag">Nevado Raiders&#8482;</span>
           </div>
 
           <a href="about.html" class="btn-gold reveal">Full Background &rarr;</a>
         </div>
 
+        <!-- ── UPDATED: portrait-trio replacing portrait-pair ── -->
         <div class="reveal">
-          <div class="portrait-pair">
+          <div class="portrait-trio">
             <div>
               <img src="https://catamarandan.org/dan.jpg" alt="Daniel Roe — Catamaran Dan"/>
               <p class="img-caption">Daniel Roe — Catamaran Dan</p>
@@ -861,6 +887,10 @@
             <div>
               <img src="https://catamarandan.org/ove.jpg" alt="Ove Ironhand — Norse sailing identity"/>
               <p class="img-caption">Ove Ironhand</p>
+            </div>
+            <div>
+              <img src="https://catamarandan.org/nevado_raiders_tm.jpg" alt="Nevado Raiders&#8482; — Expedition flag and identity"/>
+              <p class="img-caption">Nevado Raiders&#8482; — Est. 3 Years</p>
             </div>
           </div>
         </div>
@@ -1048,7 +1078,7 @@
         <div class="card">
           <div class="card-icon">&#9875;</div>
           <h4>Join the Fleet</h4>
-          <p>Become part of the Nevado Raiders&#8482; — disciplined sailors on real boats who understand that genuine respect for these coastlines and the people who live on them is the only operating standard that matters.</p>
+          <p>Become part of the Nevado Raiders&#8482; — disciplined sailors on real boats who understand that genuine respect for these coastlines and the people who live on them is the only operating standard that matters. The name has been flying for three years. It means something.</p>
           <a href="about.html" class="btn-gold">About &rarr;</a>
         </div>
         <div class="card">
@@ -1063,7 +1093,6 @@
 
 <footer style="background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6;">
 
-  <!-- BRAND -->
   <div class="footer-logo">
     Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;
   </div>
@@ -1071,7 +1100,6 @@
     "As go the seas… so goes humanity."
   </div>
 
-  <!-- CONTACT -->
   <div class="footer-contact" style="margin:10px 0;">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
     <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff; text-decoration:none;">
@@ -1081,13 +1109,11 @@
     &nbsp;&bull;&nbsp; www.catamarandan.org
   </div>
 
-  <!-- COPYRIGHT + LINK -->
   <div style="margin-top:15px; font-weight:bold;">
     &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
     | <a href="intellectualproperty.html" style="color:#4db8ff; text-decoration:none;">Intellectual Property</a>
   </div>
 
-  <!-- TRADEMARKS -->
   <div style="margin:5px 0;">
     GROAN&#8482;, Rim Run&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
     GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;,
@@ -1097,7 +1123,6 @@
     designations of Nevado Ranch Camp LLC.
   </div>
 
-  <!-- FULL IP CLAIM -->
   <div>
     All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies,
     workflows, algorithms, decision-support processes, integration mechanisms, and all
@@ -1105,14 +1130,12 @@
     property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.
   </div>
 
-  <!-- LEGAL PROTECTION -->
   <div style="margin-top:8px;">
     Unauthorized reproduction, use, distribution, modification, reverse engineering,
     extraction, or creation of derivative works from any portion of these systems or materials
     is strictly prohibited without prior written permission.
   </div>
 
-  <!-- NO LICENSE -->
   <div style="margin-top:5px;">
     No license, express or implied, is granted by access to this website or its contents.
   </div>
