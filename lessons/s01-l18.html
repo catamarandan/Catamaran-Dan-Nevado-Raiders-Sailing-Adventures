@@ -1,698 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S01·L18 — Ocean Acoustics | Rim Run™ Marine Science</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L18 Physical Oceanography — Applications</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
 
-    :root {
-      --ocean-deep:    #0a1628;
-      --ocean-mid:     #0d2244;
-      --ocean-surface: #0f3460;
-      --teal-bright:   #00b4d8;
-      --teal-pale:     #90e0ef;
-      --teal-glow:     #48cae4;
-      --gold:          #e9c46a;
-      --coral:         #f4a261;
-      --white:         #f0f4f8;
-      --white-dim:     #b8c8d8;
-      --card-bg:       #0b1e38;
-      --panel-bg:      #0e2a4a;
-      --border:        rgba(0,180,216,0.18);
-      --radius:        12px;
-      --shadow:        0 8px 40px rgba(0,0,0,0.55);
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      background: var(--ocean-deep);
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.75;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 40px 16px 60px;
-    }
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
 
-    .card {
-      width: 100%;
-      max-width: 960px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
 
-    .card-header {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 24px;
-      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-surface) 100%);
-      padding: 36px 44px;
-      border-bottom: 1px solid var(--border);
-    }
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
 
-    .header-text .eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      color: var(--teal-glow);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
 
-    .header-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 3vw, 2.15rem);
-      font-weight: 700;
-      line-height: 1.2;
-      color: var(--white);
-    }
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
 
-    .header-text h1 em { font-style: italic; color: var(--teal-pale); }
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
 
-    .header-text .subtitle {
-      margin-top: 8px;
-      font-size: 0.88rem;
-      color: var(--white-dim);
-      font-weight: 400;
-    }
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
 
-    .header-svg { width: 230px; height: 160px; flex-shrink: 0; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    .section { padding: 38px 44px; border-bottom: 1px solid var(--border); }
-    .section:last-of-type { border-bottom: none; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
 
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      color: var(--teal-glow);
-      text-transform: uppercase;
-      margin-bottom: 22px;
-    }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
 
-    .lang-block { margin-bottom: 28px; }
-    .lang-block:last-child { margin-bottom: 0; }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
 
-    .flag-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      color: var(--teal-pale);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .flag-label .flag { font-size: 1rem; }
+  /* ── BODY LAYOUT ── */
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
 
-    .lang-block h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
+  /* ── LECTURE PANEL ── */
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
 
-    .lang-block p { font-size: 0.93rem; color: var(--white-dim); margin-bottom: 10px; }
-    .lang-block p:last-child { margin-bottom: 0; }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-    .lang-divider { border: none; border-top: 1px dashed var(--border); margin: 26px 0; }
-    .key-term { color: var(--teal-pale); font-weight: 500; }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
 
-    .data-table-wrap {
-      margin-top: 28px;
-      overflow-x: auto;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
+  .lang-block { margin-bottom: 24px; }
 
-    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
-    thead tr { background: var(--ocean-surface); }
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
 
-    thead th {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal-pale);
-      padding: 12px 16px;
-      text-align: left;
-      white-space: nowrap;
-    }
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
 
-    tbody tr { border-top: 1px solid var(--border); }
-    tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
-    tbody td { padding: 11px 16px; color: var(--white-dim); vertical-align: top; }
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
 
-    tbody td:first-child {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--teal-glow);
-      white-space: nowrap;
-    }
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
 
-    .app-panel { background: var(--panel-bg); }
-    .app-panel .panel-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--coral);
-      margin-bottom: 10px;
-    }
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
 
-    .mcq-section {
-      background: linear-gradient(180deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
-      padding: 38px 44px;
-    }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
 
-    .mcq-header { margin-bottom: 28px; }
+  .region-list { list-style: none; margin-top: 10px; }
 
-    .mcq-header h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
-    }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
 
-    .mcq-header p { font-size: 0.82rem; color: var(--white-dim); margin-top: 4px; }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
 
-    .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
 
-    @media (max-width: 700px) {
-      .mcq-grid { grid-template-columns: 1fr; }
-      .card-header { grid-template-columns: 1fr; }
-      .header-svg { display: none; }
-      .section, .mcq-section { padding: 28px 22px; }
-    }
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
 
-    .mcq-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
 
-    .mcq-q { font-size: 0.85rem; color: var(--white); margin-bottom: 12px; line-height: 1.5; }
-    .mcq-q .q-num {
-      font-family: 'DM Mono', monospace;
-      color: var(--teal-glow);
-      font-size: 0.72rem;
-      display: block;
-      margin-bottom: 4px;
-    }
-    .mcq-q .q-es {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--white-dim);
-      margin-top: 5px;
-      font-style: italic;
-    }
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
 
-    .mcq-options { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
 
-    .mcq-options li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.81rem;
-      line-height: 1.4;
-      padding: 7px 10px;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      color: var(--white-dim);
-      cursor: default;
-    }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
 
-    .mcq-options li .opt-key {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--teal-glow);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
 
-    .mcq-options li.correct {
-      background: rgba(0,180,216,0.1);
-      border-color: var(--teal-bright);
-      color: var(--teal-pale);
-    }
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
 
-    .mcq-options li.correct .opt-key { color: var(--teal-bright); }
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
 
-    .mcq-answer {
-      margin-top: 10px;
-      font-size: 0.75rem;
-      color: var(--teal-glow);
-      font-family: 'DM Mono', monospace;
-      border-top: 1px dashed var(--border);
-      padding-top: 8px;
-    }
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
 
-    .card-footer {
-      padding: 26px 44px 32px;
-      background: var(--ocean-mid);
-      border-top: 1px solid var(--border);
-    }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
 
-    .progress-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 10px;
-    }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 2.56%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
 
-    .progress-meta .lesson-id {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--teal-glow);
-      letter-spacing: 0.12em;
-    }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
 
-    .progress-meta .progress-pct {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--white-dim);
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: linear-gradient(90deg, var(--teal-bright), var(--teal-pale));
-      width: 2.56%; /* 18/704 */
-    }
-
-    .footer-nav { display: flex; justify-content: space-between; margin-top: 20px; }
-
-    .footer-nav a {
-      color: var(--teal-glow);
-      text-decoration: none;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .footer-nav a:hover { color: var(--teal-pale); }
-
-    .footer-credit {
-      text-align: center;
-      margin-top: 18px;
-      font-size: 0.72rem;
-      color: rgba(176,200,216,0.4);
-      font-family: 'DM Mono', monospace;
-    }
-  </style>
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
 </head>
 <body>
+<div class="card">
 
-<article class="card">
-
-  <!-- HEADER -->
-  <header class="card-header">
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
     <div class="header-text">
-      <p class="eyebrow">Section 01 · Lesson 18 &nbsp;|&nbsp; Physical Oceanography</p>
-      <h1>Sound Beneath the Waves:<br><em>Ocean Acoustics</em></h1>
-      <p class="subtitle">Speed of sound, refraction, the SOFAR channel, sonar &amp; marine noise</p>
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 18 · Physical Oceanography</div>
+        <h1 class="lesson-title">Applications</h1>
+        <div class="lesson-subtitle">Aplicaciones de la Oceanografía Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
     </div>
 
-    <!-- SVG: Sound velocity profile with SOFAR channel axis and ray-bending arcs -->
-    <svg class="header-svg" viewBox="0 0 230 160" xmlns="http://www.w3.org/2000/svg" aria-label="Sound velocity profile diagram showing how speed varies with depth, creating a SOFAR channel minimum at roughly 1000 m where sound rays are refracted to converge">
+    <!-- SVG: Sound velocity profile / SOFAR channel -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="ocCol" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#0d3060"/>
+            <stop offset="50%"  stop-color="#071e40"/>
+            <stop offset="100%" stop-color="#020810"/>
+          </linearGradient>
+        </defs>
 
-      <rect width="230" height="160" fill="#071220"/>
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
 
-      <!-- Ocean column background -->
-      <defs>
-        <linearGradient id="ocCol18" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#0d3060" stop-opacity="1"/>
-          <stop offset="50%"  stop-color="#071e40" stop-opacity="1"/>
-          <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="12" width="115" height="145" fill="url(#ocCol18)"/>
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.06)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
 
-      <!-- Surface -->
-      <line x1="0" y1="12" x2="115" y2="12" stroke="#48cae4" stroke-width="1" opacity="0.6"/>
-      <text x="57" y="9" font-family="monospace" font-size="5.5" fill="#48cae4" text-anchor="middle" opacity="0.8">SURFACE</text>
+        <!-- Ocean column (left half) -->
+        <rect x="30" y="20" width="140" height="220" fill="url(#ocCol)" rx="1"/>
 
-      <!-- Depth axis labels (left) -->
-      <line x1="0" y1="12"  x2="3"  y2="12"  stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
-      <text x="0" y="11" font-family="monospace" font-size="5" fill="#90e0ef" opacity="0.7">0</text>
-      <line x1="0" y1="38"  x2="3"  y2="38"  stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
-      <text x="0" y="42" font-family="monospace" font-size="5" fill="#90e0ef" opacity="0.65">200m</text>
-      <line x1="0" y1="68"  x2="3"  y2="68"  stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
-      <text x="0" y="72" font-family="monospace" font-size="5" fill="#90e0ef" opacity="0.6">600m</text>
-      <line x1="0" y1="92"  x2="3"  y2="92"  stroke="#48cae4" stroke-width="0.6" opacity="0.5"/>
-      <text x="0" y="96" font-family="monospace" font-size="5" fill="#90e0ef" opacity="0.55">1000m</text>
-      <line x1="0" y1="118" x2="3"  y2="118" stroke="#48cae4" stroke-width="0.6" opacity="0.4"/>
-      <text x="0" y="122" font-family="monospace" font-size="5" fill="#90e0ef" opacity="0.4">1500m</text>
-      <line x1="0" y1="155" x2="3"  y2="155" stroke="#48cae4" stroke-width="0.6" opacity="0.3"/>
-      <text x="0" y="159" font-family="monospace" font-size="5" fill="#90e0ef" opacity="0.3">3000m</text>
+        <!-- Surface line -->
+        <line x1="30" y1="20" x2="170" y2="20" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+        <text x="100" y="16" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="7" text-anchor="middle" letter-spacing="0.1em">SURFACE</text>
 
-      <!-- Sound velocity profile curve -->
-      <!-- Mixed layer (fast near surface, decreasing) -->
-      <!-- Thermocline (continuing decrease) -->
-      <!-- SOFAR minimum at ~1000m -->
-      <!-- Deep isothermal (increasing with pressure) -->
-      <path d="M95 12 Q88 22 82 38 Q76 55 70 68 Q64 80 58 92 Q54 105 58 118 Q64 130 72 142 Q80 152 88 158"
-            stroke="#e9c46a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Depth labels -->
+        <text x="26" y="24"  fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5" text-anchor="end">0</text>
+        <text x="26" y="60"  fill="rgba(138,184,204,0.55)" font-family="monospace" font-size="6.5" text-anchor="end">200m</text>
+        <text x="26" y="100" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="6.5" text-anchor="end">600m</text>
+        <text x="26" y="135" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="6.5" text-anchor="end">1000m</text>
+        <text x="26" y="175" fill="rgba(138,184,204,0.4)" font-family="monospace" font-size="6.5" text-anchor="end">1500m</text>
+        <text x="26" y="235" fill="rgba(138,184,204,0.3)" font-family="monospace" font-size="6.5" text-anchor="end">3000m</text>
 
-      <!-- Speed axis labels (bottom) -->
-      <text x="18" y="158" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.7" text-anchor="middle">1480</text>
-      <text x="58" y="158" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.85" text-anchor="middle">1490</text>
-      <text x="95" y="158" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.9" text-anchor="middle">1520</text>
-      <text x="57" y="11" font-family="monospace" font-size="4.5" fill="#e9c46a" opacity="0.6">← m/s →</text>
+        <!-- Sound velocity profile curve (gold) -->
+        <path d="M148,22 Q138,35 128,58 Q118,80 108,100 Q98,118 90,132 Q86,148 90,168 Q98,185 110,200 Q122,215 136,238"
+              fill="none" stroke="rgba(240,180,41,0.85)" stroke-width="2" stroke-linecap="round"/>
 
-      <!-- SOFAR channel axis at ~1000m -->
-      <line x1="0" y1="92" x2="115" y2="92" stroke="#48cae4" stroke-width="0.8" stroke-dasharray="4,2" opacity="0.6"/>
-      <text x="4" y="89" font-family="monospace" font-size="5" fill="#48cae4" opacity="0.85">SOFAR axis</text>
+        <!-- SOFAR axis at ~1000m -->
+        <line x1="30" y1="132" x2="170" y2="132" stroke="rgba(26,200,200,0.5)" stroke-width="0.8" stroke-dasharray="4,2"/>
+        <text x="34" y="129" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="6.5" letter-spacing="0.08em">SOFAR axis</text>
 
-      <!-- Sound rays emanating from source at SOFAR depth, bending back -->
-      <!-- Source dot -->
-      <circle cx="24" cy="92" r="3" fill="#f4a261"/>
-      <!-- Ray 1: upward, bends back down at thermocline -->
-      <path d="M24 92 Q34 70 44 58 Q54 46 58 68 Q60 80 58 92" stroke="#f4a261" stroke-width="1" fill="none" opacity="0.75" stroke-dasharray="none"/>
-      <!-- Ray 2: slightly upward -->
-      <path d="M24 92 Q36 78 48 72 Q58 68 62 78 Q64 86 62 92" stroke="#f4a261" stroke-width="1" fill="none" opacity="0.65"/>
-      <!-- Ray 3: downward, bends back up from pressure zone -->
-      <path d="M24 92 Q34 106 44 118 Q52 128 56 118 Q58 108 58 92" stroke="#f4a261" stroke-width="1" fill="none" opacity="0.75"/>
-      <!-- Ray 4: steeply downward -->
-      <path d="M24 92 Q36 112 50 130 Q58 142 62 128 Q64 114 62 92" stroke="#f4a261" stroke-width="0.9" fill="none" opacity="0.55"/>
+        <!-- Sound source dot at SOFAR depth -->
+        <circle cx="52" cy="132" r="3.5" fill="rgba(232,96,64,0.9)"/>
 
-      <!-- Convergence zone at right -->
-      <circle cx="105" cy="92" r="2.5" fill="#48cae4" opacity="0.8"/>
-      <text x="108" y="96" font-family="monospace" font-size="4.5" fill="#48cae4" opacity="0.8">CZ</text>
+        <!-- Sound rays bending back to SOFAR axis -->
+        <path d="M52,132 Q65,108 80,95 Q94,82 100,100 Q104,115 100,132"
+              fill="none" stroke="rgba(232,96,64,0.7)" stroke-width="1.2"/>
+        <path d="M52,132 Q66,118 80,112 Q92,108 96,120 Q98,127 96,132"
+              fill="none" stroke="rgba(232,96,64,0.55)" stroke-width="1"/>
+        <path d="M52,132 Q65,150 80,162 Q92,170 96,158 Q100,148 98,132"
+              fill="none" stroke="rgba(232,96,64,0.7)" stroke-width="1.2"/>
+        <path d="M52,132 Q66,158 80,175 Q94,186 100,170 Q104,155 102,132"
+              fill="none" stroke="rgba(232,96,64,0.5)" stroke-width="1"/>
 
-      <!-- ── RIGHT PANEL: Key facts ── -->
-      <text x="172" y="10" font-family="monospace" font-size="6" fill="#90e0ef" text-anchor="middle" font-weight="bold">Sound in Sea</text>
+        <!-- Convergence zone dot -->
+        <circle cx="158" cy="132" r="2.5" fill="rgba(26,200,200,0.8)"/>
+        <text x="162" y="136" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6">CZ</text>
 
-      <!-- Speed vs air -->
-      <rect x="120" y="14" width="104" height="16" rx="2" fill="rgba(0,180,216,0.1)" stroke="#48cae4" stroke-width="0.7"/>
-      <text x="172" y="22" font-family="monospace" font-size="5.5" fill="#48cae4" text-anchor="middle">~1,480–1,530 m/s in water</text>
-      <text x="172" y="29" font-family="monospace" font-size="5" fill="#90e0ef" text-anchor="middle">vs. 343 m/s in air</text>
+        <!-- Speed axis label -->
+        <text x="148" y="248" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">1480–1530 m/s</text>
 
-      <!-- Controls -->
-      <rect x="120" y="34" width="104" height="38" rx="2" fill="rgba(233,196,106,0.08)" stroke="#e9c46a" stroke-width="0.7"/>
-      <text x="126" y="43" font-family="monospace" font-size="5.5" fill="#e9c46a">Speed ↑ with:</text>
-      <text x="126" y="52" font-family="monospace" font-size="5" fill="#90e0ef">+ Temperature ↑</text>
-      <text x="126" y="60" font-family="monospace" font-size="5" fill="#90e0ef">+ Salinity ↑</text>
-      <text x="126" y="68" font-family="monospace" font-size="5" fill="#90e0ef">+ Pressure (depth) ↑</text>
+        <!-- RIGHT PANEL: Key facts -->
+        <text x="285" y="18" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="8" text-anchor="middle" letter-spacing="0.1em">ACOUSTICS  ·  KEY DATA</text>
 
-      <!-- SOFAR note -->
-      <rect x="120" y="76" width="104" height="28" rx="2" fill="rgba(72,202,228,0.1)" stroke="#48cae4" stroke-width="0.7"/>
-      <text x="126" y="85" font-family="monospace" font-size="5.5" fill="#48cae4">SOFAR channel</text>
-      <text x="126" y="93" font-family="monospace" font-size="5" fill="#90e0ef">Minimum speed ~800–1200 m</text>
-      <text x="126" y="101" font-family="monospace" font-size="5" fill="#90e0ef">Sound trapped → long range</text>
+        <!-- Speed comparison box -->
+        <rect x="192" y="24" width="176" height="28" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.25)" stroke-width="0.7"/>
+        <text x="280" y="36" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="7" text-anchor="middle">~1,480–1,530 m/s in seawater</text>
+        <text x="280" y="47" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">vs. 343 m/s in air  (4–5× faster)</text>
 
-      <!-- Whale / bio noise -->
-      <rect x="120" y="108" width="104" height="28" rx="2" fill="rgba(244,162,97,0.1)" stroke="#f4a261" stroke-width="0.7"/>
-      <text x="126" y="117" font-family="monospace" font-size="5.5" fill="#f4a261">Whale song</text>
-      <text x="126" y="125" font-family="monospace" font-size="5" fill="#90e0ef">Blue whale: 10–40 Hz</text>
-      <text x="126" y="132" font-family="monospace" font-size="5" fill="#90e0ef">Can travel 1,000+ km</text>
+        <!-- Controls box -->
+        <rect x="192" y="58" width="176" height="46" rx="2" fill="rgba(240,180,41,0.07)" stroke="rgba(240,180,41,0.25)" stroke-width="0.7"/>
+        <text x="198" y="70" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="7">Speed ↑ with:</text>
+        <text x="198" y="82" fill="rgba(138,184,204,0.65)" font-family="monospace" font-size="6.5">+ Temperature ↑  (+4.6 m/s per °C)</text>
+        <text x="198" y="92" fill="rgba(138,184,204,0.65)" font-family="monospace" font-size="6.5">+ Salinity ↑  (+1.3 m/s per psu)</text>
+        <text x="198" y="102" fill="rgba(138,184,204,0.65)" font-family="monospace" font-size="6.5">+ Pressure/depth ↑  (+1.7 m/s/100m)</text>
 
-      <!-- ADCP note -->
-      <rect x="120" y="140" width="104" height="18" rx="2" fill="rgba(144,224,239,0.08)" stroke="#90e0ef" stroke-width="0.6"/>
-      <text x="172" y="148" font-family="monospace" font-size="5" fill="#90e0ef" text-anchor="middle">ADCP · echo sounder · SONAR</text>
-      <text x="172" y="155" font-family="monospace" font-size="5" fill="#90e0ef" text-anchor="middle">all exploit acoustic physics</text>
-    </svg>
-  </header>
+        <!-- SOFAR box -->
+        <rect x="192" y="110" width="176" height="34" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+        <text x="198" y="122" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="7">SOFAR channel  (~600–1200 m)</text>
+        <text x="198" y="132" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5">Speed minimum → sound trapped</text>
+        <text x="198" y="142" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5">Low-freq signals travel 1,000+ km</text>
 
-  <!-- LECTURE -->
-  <section class="section" aria-label="Lecture content">
-    <p class="section-label">📖 Lecture</p>
+        <!-- Bio acoustics box -->
+        <rect x="192" y="150" width="176" height="34" rx="2" fill="rgba(232,96,64,0.07)" stroke="rgba(232,96,64,0.2)" stroke-width="0.7"/>
+        <text x="198" y="162" fill="rgba(232,96,64,0.75)" font-family="monospace" font-size="7">Blue whale song: 10–40 Hz</text>
+        <text x="198" y="172" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5">188 dB re 1 µPa — loudest animal</text>
+        <text x="198" y="182" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5">SOFAR-propagated across basins</text>
 
-    <!-- ENGLISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
-      <h2>The Ocean's Invisible Highway: How Sound Travels Through Water</h2>
+        <!-- Echo sounder box -->
+        <rect x="192" y="190" width="176" height="22" rx="2" fill="rgba(184,240,236,0.06)" stroke="rgba(184,240,236,0.18)" stroke-width="0.6"/>
+        <text x="280" y="200" fill="rgba(184,240,236,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">ADCP  ·  Echo Sounder  ·  SONAR</text>
+        <text x="280" y="209" fill="rgba(184,240,236,0.45)" font-family="monospace" font-size="6" text-anchor="middle">all exploit acoustic physics</text>
 
-      <p>While light is rapidly extinguished beneath the ocean surface (as we learned in L17), <span class="key-term">sound propagates with remarkable efficiency</span> through seawater. Sound travels approximately <span class="key-term">1,480–1,530 m/s</span> in the ocean — roughly four to five times faster than in air (343 m/s) — because water is far less compressible, transmitting pressure waves more readily. This makes acoustics the ocean's dominant long-range information carrier, exploited by marine mammals, naval technology, and scientists alike.</p>
+        <!-- TITLE BADGE -->
+        <rect x="30" y="0" width="210" height="16" fill="rgba(2,15,30,0.7)"/>
+        <text x="38" y="11" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="8" letter-spacing="0.15em">SOUND VELOCITY PROFILE  ·  SOFAR</text>
 
-      <p>The speed of sound in seawater, expressed by the <span class="key-term">Mackenzie equation</span> (a common empirical formula), depends on three variables: <span class="key-term">temperature</span> (strongest effect near the surface — speed increases ~4.6 m/s per °C), <span class="key-term">salinity</span> (speed increases ~1.3 m/s per psu), and <span class="key-term">pressure (depth)</span> (speed increases ~1.7 m/s per 100 m). The interplay of these three factors creates a characteristic <span class="key-term">sound velocity profile (SVP)</span> that varies with geography and season and fundamentally controls how sound rays bend — a process called <span class="key-term">acoustic refraction</span>.</p>
-
-      <p>The most important acoustic feature of the ocean is the <span class="key-term">SOFAR channel</span> (Sound Fixing and Ranging channel). In most mid-latitude ocean basins, temperature decreases strongly from the surface down through the thermocline, lowering sound speed. Below the thermocline, temperature becomes nearly constant while pressure (and thus depth) continues to increase, driving sound speed back up. The depth where sound speed reaches a <span class="key-term">minimum</span> — typically 600–1,200 m depending on latitude — defines the SOFAR channel axis. Sound rays emitted at this depth are refracted back toward the axis from above and below, creating a natural <span class="key-term">acoustic waveguide</span> that can carry low-frequency sounds thousands of kilometers with minimal loss. Hydrophones positioned at SOFAR depth can detect underwater explosions and whale calls across entire ocean basins.</p>
-
-      <p>Above the SOFAR channel, <span class="key-term">convergence zones (CZs)</span> occur when upward-refracting rays from a shallow source are bent back to the surface at predictable ranges — typically every 35–65 km — creating rings of anomalously loud sound around a source. This is a critical factor in naval sonar. Near the surface, a well-mixed isothermal <span class="key-term">surface duct</span> can also trap sound, while strong negative sound velocity gradients in the thermocline create a <span class="key-term">shadow zone</span> beneath — a region that sonar from a surface ship cannot easily reach, historically exploited by submarines.</p>
-
-      <p><span class="key-term">Anthropogenic ocean noise</span> — from commercial shipping, seismic air guns, sonar, and offshore construction — has increased dramatically over the past century, with profound impacts on marine life. Low-frequency shipping noise has doubled per decade since the 1950s. Marine mammals that rely on acoustic communication (whales, dolphins, porpoises) face masking of calls, displacement from critical habitat, and in severe cases, hemorrhage and stranding from intense military sonar. The <span class="key-term">NOAA Ocean Noise Strategy</span> and international frameworks are attempting to address this growing threat.</p>
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
     </div>
+  </div><!-- /header -->
 
-    <hr class="lang-divider"/>
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
 
-    <!-- SPANISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
-      <h2>La Autopista Invisible del Océano: Cómo Viaja el Sonido en el Agua</h2>
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
 
-      <p>Mientras que la luz se extingue rápidamente bajo la superficie del océano, el <span class="key-term">sonido se propaga con notable eficiencia</span> a través del agua de mar. El sonido viaja aproximadamente <span class="key-term">1,480–1,530 m/s</span> en el océano — unas cuatro a cinco veces más rápido que en el aire (343 m/s) — porque el agua es mucho menos compresible, transmitiendo ondas de presión más fácilmente. Esto convierte a la acústica en el principal portador de información de largo alcance del océano.</p>
-
-      <p>La velocidad del sonido en el agua de mar depende de tres variables: <span class="key-term">temperatura</span> (efecto más fuerte cerca de la superficie — la velocidad aumenta ~4.6 m/s por °C), <span class="key-term">salinidad</span> (la velocidad aumenta ~1.3 m/s por psu) y <span class="key-term">presión (profundidad)</span> (la velocidad aumenta ~1.7 m/s por 100 m). La interacción de estos tres factores crea un <span class="key-term">perfil de velocidad del sonido (PVS)</span> característico que controla cómo se doblan los rayos acústicos — un proceso llamado <span class="key-term">refracción acústica</span>.</p>
-
-      <p>La característica acústica más importante del océano es el <span class="key-term">canal SOFAR</span> (Sound Fixing and Ranging). La temperatura disminuye desde la superficie a través de la termoclina, reduciendo la velocidad del sonido. Por debajo de la termoclina, la temperatura se vuelve casi constante mientras que la presión continúa aumentando, elevando de nuevo la velocidad del sonido. La profundidad donde la velocidad del sonido alcanza un <span class="key-term">mínimo</span> — típicamente 600–1,200 m — define el eje del canal SOFAR. Los rayos de sonido emitidos a esta profundidad son refractados de regreso hacia el eje, creando una <span class="key-term">guía de ondas acústica</span> natural que puede transportar sonidos de baja frecuencia miles de kilómetros con pérdida mínima.</p>
-
-      <p>El <span class="key-term">ruido oceánico antropogénico</span> — del transporte marítimo comercial, cañones de aire sísmico, sonar y construcción offshore — ha aumentado dramáticamente en el último siglo. Los mamíferos marinos que dependen de la comunicación acústica (ballenas, delfines, marsopas) enfrentan el enmascaramiento de llamadas, el desplazamiento de hábitat crítico y, en casos graves, hemorragia y varamientos por sonar militar intenso.</p>
-    </div>
-
-    <!-- DATA TABLE -->
-    <div class="data-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Concept / Concepto</th>
-            <th>Value / Range</th>
-            <th>Controlling Factor / Factor</th>
-            <th>Application / Aplicación</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sound speed in seawater</td>
-            <td>~1,480–1,530 m/s</td>
-            <td>T, S, pressure (depth)</td>
-            <td>Baseline for all acoustic navigation and communication</td>
-          </tr>
-          <tr>
-            <td>Sound speed in air</td>
-            <td>~343 m/s (20°C)</td>
-            <td>Temperature, humidity</td>
-            <td>Ocean sound is ~4–5× faster; spreads farther with less loss</td>
-          </tr>
-          <tr>
-            <td>SOFAR channel axis</td>
-            <td>~600–1,200 m depth</td>
-            <td>Thermocline + pressure balance</td>
-            <td>Natural waveguide; whale calls, WWII survivor location</td>
-          </tr>
-          <tr>
-            <td>Convergence zone spacing</td>
-            <td>~35–65 km intervals</td>
-            <td>SVP shape; source depth</td>
-            <td>Naval sonar long-range detection rings around source</td>
-          </tr>
-          <tr>
-            <td>Blue whale calls</td>
-            <td>10–40 Hz; 188 dB re 1 µPa</td>
-            <td>Species, behavior, geography</td>
-            <td>Loudest animal on Earth; SOFAR-propagated across basins</td>
-          </tr>
-          <tr>
-            <td>Sperm whale clicks</td>
-            <td>0.1–30 kHz; up to 230 dB</td>
-            <td>Echolocation for deep prey</td>
-            <td>Deepest-diving whale (3,000 m); uses clicks to hunt squid</td>
-          </tr>
-          <tr>
-            <td>Ship noise (typical)</td>
-            <td>150–185 dB re 1 µPa at 1 m</td>
-            <td>Hull, propeller cavitation, machinery</td>
-            <td>Dominant low-freq noise source; masks whale communication</td>
-          </tr>
-          <tr>
-            <td>Echo sounder (SBES)</td>
-            <td>12–38 kHz (typical fisheries)</td>
-            <td>Pulse travel time × speed / 2</td>
-            <td>Measures water depth and fish school depth / biomass</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- WESTERN CARIBBEAN APPLICATION -->
-  <section class="section app-panel" aria-label="Western Caribbean application">
-    <p class="section-label">🌊 Western Caribbean Application</p>
-
-    <!-- ENGLISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
-      <p class="panel-heading">Acoustics in the Western Caribbean: Whales, Sonar &amp; the Noise Beneath the Keel</p>
-
-      <p>The Western Caribbean is an acoustically rich and increasingly noisy environment. The deep Cayman Trough — reaching 7,686 m, the deepest point in the Caribbean — provides water deep enough to support a well-defined SOFAR channel, though the tropical thermocline pushes the channel axis deeper here (~800–1,000 m) than in higher-latitude basins. <span class="key-term">Sperm whales</span> are the most acoustically prominent large cetacean in the Western Caribbean, regularly detected by passive acoustic monitoring networks. Their echolocation clicks — among the loudest biological sounds on Earth — can be detected by hydrophones tens to hundreds of kilometers away, enabling researchers to track their movements through the deep Cayman and Yucatán basins.</p>
-
-      <p><span class="key-term">Humpback whales</span> pass through Caribbean waters seasonally, with significant breeding and singing aggregations on the Silver Bank (off Dominican Republic) and in the waters north of the Yucatán from December to March. Male humpback song — complex, evolving acoustic displays lasting 20 minutes to hours — propagates through the Caribbean at frequencies of 20–4,000 Hz. Catamaran Dan's crew sailing in winter months may hear humpback song through the hull — or more practically, detect it via a portable hydrophone — a direct, tangible connection between physical ocean acoustics and biological behavior.</p>
-
-      <p>The <span class="key-term">shallow-water acoustics</span> of the Belize barrier reef system present a different acoustic landscape. Water depths of 10–40 m over the reef platform create a <span class="key-term">shallow waveguide</span> where sound bounces repeatedly between the seafloor and surface, causing complex interference patterns and rapid frequency-dependent attenuation. The reef itself is acoustically extraordinary: healthy coral reefs are among the ocean's noisiest environments, crackling and snapping constantly from the collective <span class="key-term">snapping shrimp</span> (Alpheid shrimp) that inhabit every crevice, plus fish choruses — particularly at dawn and dusk — that produce a distinctive soundscape used by fish and invertebrate larvae to locate settlement habitat. Research has shown that degraded reefs are dramatically quieter, and that playing recordings of healthy reef sounds can attract larval fish back to recovering reef patches.</p>
-
-      <p>For the Rim Run™ crew, the most practically significant acoustic tool is the <span class="key-term">depth sounder (echo sounder)</span> — the vessel's primary means of measuring water depth under the keel by timing the return of an acoustic pulse. In the complex bathymetry of the Belize cays and atolls, where the seafloor transitions from 1,500 m open water to 3 m reef flat within hundreds of meters, the depth sounder is a life-safety instrument. Understanding its physics — sound travels at ~1,500 m/s, so the displayed depth = (round-trip travel time × sound speed) / 2 — helps the crew recognize when a false bottom (dense fish school, thermocline layer, or coral overhang) might fool the instrument.</p>
-    </div>
-
-    <hr class="lang-divider"/>
-
-    <!-- SPANISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
-      <p class="panel-heading">Acústica en el Caribe Occidental: Ballenas, Sonar y el Ruido Bajo la Quilla</p>
-
-      <p>El Caribe Occidental es un entorno acústicamente rico y cada vez más ruidoso. La profunda Fosa de Caimán — alcanzando 7,686 m, el punto más profundo del Caribe — proporciona agua lo suficientemente profunda para soportar un canal SOFAR bien definido. Los <span class="key-term">cachalotes</span> son los grandes cetáceos acústicamente más prominentes en el Caribe Occidental, detectados regularmente por redes de monitoreo acústico pasivo. Sus clics de ecolocalización — entre los sonidos biológicos más fuertes de la Tierra — pueden detectarse a decenas o cientos de kilómetros de distancia.</p>
-
-      <p>Las <span class="key-term">ballenas jorobadas</span> pasan por aguas caribeñas estacionalmente, con importantes agregaciones de cría y canto en el Banco de la Plata (frente a República Dominicana) y en las aguas al norte del Yucatán de diciembre a marzo. La tripulación del Rim Run™ navegando en meses de invierno puede escuchar el canto de las jorobadas a través del casco — o detectarlo mediante un hidrófono portátil.</p>
-
-      <p>La acústica de aguas poco profundas del sistema de arrecife de barrera de Belice presenta un paisaje acústico diferente. El arrecife en sí es acústicamente extraordinario: los arrecifes de coral saludables son algunos de los entornos más ruidosos del océano, crepitando y chasqueando constantemente por los <span class="key-term">camarones chasqueadores</span> (camarones Alpheidos) que habitan cada grieta, más los coros de peces al amanecer y al anochecer. Los arrecifes degradados son dramáticamente más silenciosos, y reproducir grabaciones de sonidos de arrecifes saludables puede atraer larvas de peces de regreso a parches de arrecife en recuperación.</p>
-
-      <p>Para la tripulación del Rim Run™, la herramienta acústica más práctica es la <span class="key-term">sonda de profundidad (ecosonda)</span>. En la compleja batimetría de los cayos y atolones de Belice, donde el fondo marino pasa de 1,500 m de agua abierta a 3 m de plataforma de arrecife en cuestión de cientos de metros, la sonda de profundidad es un instrumento de seguridad vital.</p>
-    </div>
-  </section>
-
-  <!-- MCQ -->
-  <section class="mcq-section" aria-label="Multiple choice questions">
-    <div class="mcq-header">
-      <h3>Knowledge Check · Verificación de Conocimiento</h3>
-      <p>Static bilingual quiz — correct answers highlighted &nbsp;/&nbsp; Cuestionario bilingüe estático — respuestas correctas marcadas</p>
-    </div>
-
-    <div class="mcq-grid">
-
-      <!-- Q1 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q1</span>
-          Approximately how much faster does sound travel in seawater than in air?
-          <span class="q-es">¿Aproximadamente cuánto más rápido viaja el sonido en el agua de mar que en el aire?</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Twice as fast / El doble de rápido</li>
-          <li class="correct"><span class="opt-key">B</span> ~4–5 times faster / ~4–5 veces más rápido</li>
-          <li><span class="opt-key">C</span> 10 times faster / 10 veces más rápido</li>
-          <li><span class="opt-key">D</span> Sound is actually slower in water / El sonido es más lento en el agua</li>
-        </ul>
-        <p class="mcq-answer">✓ B — ~1,500 m/s in water vs. 343 m/s in air ≈ 4–5× faster.</p>
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          While light is rapidly extinguished beneath the ocean surface, sound propagates with remarkable efficiency through seawater. Sound travels approximately 1,480–1,530 m/s in the ocean — roughly four to five times faster than in air — because water is far less compressible, transmitting pressure waves more readily. This makes acoustics the ocean's dominant long-range information carrier, exploited by marine mammals, naval technology, and scientists alike.
+          <br><br>
+          The speed of sound in seawater depends on three variables: temperature (strongest effect near the surface — speed increases ~4.6 m/s per °C), salinity (speed increases ~1.3 m/s per psu), and pressure/depth (speed increases ~1.7 m/s per 100 m). The interplay of these three factors creates a characteristic sound velocity profile (SVP) that controls how sound rays bend — a process called acoustic refraction.
+          <br><br>
+          The most important acoustic feature of the ocean is the SOFAR channel (Sound Fixing and Ranging). The depth where sound speed reaches a minimum — typically 600–1,200 m — defines the SOFAR channel axis. Sound rays emitted at this depth are refracted back toward the axis from above and below, creating a natural acoustic waveguide that can carry low-frequency sounds thousands of kilometers with minimal loss. Anthropogenic ocean noise from shipping, seismic air guns, and military sonar has increased dramatically over the past century, masking marine mammal communication and causing displacement and injury.
+        </p>
       </div>
 
-      <!-- Q2 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q2</span>
-          The SOFAR channel axis occurs at the depth of…
-          <span class="q-es">El eje del canal SOFAR ocurre a la profundidad de…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Maximum sound speed / Velocidad máxima del sonido</li>
-          <li class="correct"><span class="opt-key">B</span> Minimum sound speed / Velocidad mínima del sonido</li>
-          <li><span class="opt-key">C</span> Maximum temperature / Temperatura máxima</li>
-          <li><span class="opt-key">D</span> The seafloor / El fondo marino</li>
-        </ul>
-        <p class="mcq-answer">✓ B — Sound refracts toward the speed minimum, trapping energy there.</p>
-      </div>
+      <div class="lang-divider"></div>
 
-      <!-- Q3 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q3</span>
-          Which three variables control the speed of sound in seawater?
-          <span class="q-es">¿Qué tres variables controlan la velocidad del sonido en el agua de mar?</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Light, turbidity, and salinity</li>
-          <li><span class="opt-key">B</span> Wind speed, wave height, and temperature</li>
-          <li class="correct"><span class="opt-key">C</span> Temperature, salinity, and pressure (depth)</li>
-          <li><span class="opt-key">D</span> Oxygen, pH, and density</li>
-        </ul>
-        <p class="mcq-answer">✓ C — The Mackenzie equation uses T, S, and depth/pressure.</p>
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Mientras que la luz se extingue rápidamente bajo la superficie del océano, el sonido se propaga con notable eficiencia a través del agua de mar. El sonido viaja aproximadamente 1,480–1,530 m/s en el océano — unas cuatro a cinco veces más rápido que en el aire — porque el agua es mucho menos compresible y transmite ondas de presión más fácilmente. Esto convierte a la acústica en el principal portador de información de largo alcance del océano.
+          <br><br>
+          La velocidad del sonido en el agua de mar depende de tres variables: temperatura (efecto más fuerte cerca de la superficie — la velocidad aumenta ~4.6 m/s por °C), salinidad (la velocidad aumenta ~1.3 m/s por psu) y presión/profundidad (la velocidad aumenta ~1.7 m/s por 100 m). La interacción de estos tres factores crea un perfil de velocidad del sonido (PVS) que controla cómo se doblan los rayos acústicos — un proceso llamado refracción acústica.
+          <br><br>
+          La característica acústica más importante del océano es el canal SOFAR. La profundidad donde la velocidad del sonido alcanza un mínimo — típicamente 600–1,200 m — define el eje del canal SOFAR. Los rayos de sonido emitidos a esta profundidad son refractados de regreso hacia el eje, creando una guía de ondas acústica natural que puede transportar sonidos de baja frecuencia miles de kilómetros con pérdida mínima. El ruido oceánico antropogénico del transporte marítimo, los cañones de aire sísmico y el sonar militar ha aumentado dramáticamente, enmascarando la comunicación de los mamíferos marinos y causando desplazamiento y lesiones.
+        </p>
       </div>
-
-      <!-- Q4 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q4</span>
-          A healthy coral reef produces a distinctive soundscape mainly due to…
-          <span class="q-es">Un arrecife de coral saludable produce un paisaje sonoro distintivo principalmente por…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Water flowing over hard coral structures</li>
-          <li><span class="opt-key">B</span> Breaking waves on the reef crest</li>
-          <li class="correct"><span class="opt-key">C</span> Snapping shrimp and dawn/dusk fish choruses</li>
-          <li><span class="opt-key">D</span> Humpback whale song echoing off the reef wall</li>
-        </ul>
-        <p class="mcq-answer">✓ C — Alpheid snapping shrimp + fish produce reefs' characteristic crackling sound.</p>
-      </div>
-
-      <!-- Q5 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q5</span>
-          An echo sounder calculates water depth by…
-          <span class="q-es">Una ecosonda calcula la profundidad del agua al…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Measuring pressure at the transducer</li>
-          <li class="correct"><span class="opt-key">B</span> Timing the round-trip travel time of an acoustic pulse and dividing by 2 × sound speed</li>
-          <li><span class="opt-key">C</span> Counting the number of reflections from the seafloor</li>
-          <li><span class="opt-key">D</span> Detecting the frequency shift of returning sound (Doppler)</li>
-        </ul>
-        <p class="mcq-answer">✓ B — Depth = (travel time × ~1,500 m/s) ÷ 2.</p>
-      </div>
-
-      <!-- Q6 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q6</span>
-          The primary conservation concern with rising anthropogenic ocean noise is…
-          <span class="q-es">La principal preocupación de conservación con el aumento del ruido oceánico antropogénico es…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> It heats the ocean and causes coral bleaching</li>
-          <li><span class="opt-key">B</span> It disrupts tidal patterns near shipping lanes</li>
-          <li class="correct"><span class="opt-key">C</span> It masks marine mammal communication, displaces animals from habitat, and can cause physical injury</li>
-          <li><span class="opt-key">D</span> It prevents ADCP measurements from working accurately</li>
-        </ul>
-        <p class="mcq-answer">✓ C — Noise masking, behavioral disruption, and injury are all documented impacts.</p>
-      </div>
-
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="card-footer">
-    <div class="progress-meta">
-      <span class="lesson-id">S01·L18 / 704 &nbsp;—&nbsp; Physical Oceanography: Ocean Acoustics &amp; Sound</span>
-      <span class="progress-pct">2.56 % complete</span>
-    </div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill"></div>
-    </div>
-    <nav class="footer-nav" aria-label="Lesson navigation">
-      <a href="s01-l17.html">← S01·L17</a>
-      <a href="../learn.html">⊞ Curriculum Grid</a>
-      <a href="s01-l19.html">S01·L19 →</a>
-    </nav>
-    <p class="footer-credit">Rim Run™ Marine Science Curriculum &nbsp;·&nbsp; Catamaran Dan / Nevado Raiders Sailing Adventures</p>
-  </footer>
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
 
-</article>
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean is an acoustically rich and increasingly noisy environment. The deep Cayman Trough — reaching 7,686 m, the deepest point in the Caribbean — supports a well-defined SOFAR channel, while the shallow Belize barrier reef creates a completely different shallow-water acoustic landscape dominated by biological sound.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Sperm whales</strong> are the most acoustically prominent cetaceans in the Western Caribbean, detected by passive acoustic networks throughout the Cayman and Yucatán basins. Their echolocation clicks — among the loudest biological sounds on Earth — can be tracked tens to hundreds of kilometers from their source.</li>
+        <li><strong>Humpback whales</strong> pass through Caribbean waters seasonally, with breeding aggregations on the Silver Bank and waters north of the Yucatán from December to March. Male humpback song (20 Hz–4 kHz) propagates through the Caribbean; it can be heard through a catamaran's hull or detected via a portable hydrophone.</li>
+        <li>The <strong>Belize barrier reef shallow waveguide</strong> (10–40 m depth) creates complex interference patterns. Healthy reefs crackle constantly from snapping shrimp (Alpheid shrimp) and fish choruses — degraded reefs are dramatically quieter. Larval fish use reef soundscapes to locate settlement habitat.</li>
+        <li>The <strong>depth sounder</strong> is the Rim Run™ crew's primary life-safety acoustic instrument. In the complex bathymetry of the Belize cays — where the seafloor transitions from 1,500 m to 3 m within hundreds of meters — understanding that depth = (round-trip travel time × ~1,500 m/s) ÷ 2 helps identify false-bottom returns from fish schools or thermocline layers.</li>
+        <li><strong>Commercial shipping noise</strong> in the Western Caribbean shipping lanes has doubled per decade since the 1950s, masking whale communication across the Yucatán Channel and the approaches to the Bay of Honduras.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Caribe Occidental es un entorno acústicamente rico y cada vez más ruidoso. La profunda Fosa de Caimán — alcanzando 7,686 m — soporta un canal SOFAR bien definido, mientras que el sistema de arrecife de barrera de Belice crea un paisaje acústico de aguas poco profundas completamente diferente, dominado por sonido biológico.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Los <strong>cachalotes</strong> son los cetáceos acústicamente más prominentes en el Caribe Occidental, detectados por redes de monitoreo acústico pasivo en las cuencas de Caimán y Yucatán. Sus clics de ecolocalización pueden rastrearse a decenas o cientos de kilómetros de su fuente.</li>
+        <li>Las <strong>ballenas jorobadas</strong> pasan por el Caribe estacionalmente, con agregaciones de cría al norte del Yucatán de diciembre a marzo. El canto de la jorobada puede escucharse a través del casco de un catamarán o detectarse mediante un hidrófono portátil.</li>
+        <li>La <strong>guía de ondas de aguas poco profundas del arrecife de Belice</strong> (10–40 m de profundidad) crea patrones de interferencia complejos. Los arrecifes saludables crepitan por los camarones chasqueadores y los coros de peces — los arrecifes degradados son dramáticamente más silenciosos.</li>
+        <li>La <strong>sonda de profundidad</strong> es el instrumento acústico de seguridad más importante de la tripulación del Rim Run™. Comprender que profundidad = (tiempo de viaje de ida y vuelta × ~1,500 m/s) ÷ 2 ayuda a identificar fondos falsos generados por cardúmenes o capas de termoclina.</li>
+        <li>El <strong>ruido del transporte marítimo comercial</strong> en las rutas del Caribe Occidental ha aumentado el doble por década desde la década de 1950, enmascarando la comunicación de las ballenas en el Canal de Yucatán.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which three variables control the speed of sound in seawater?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Light, turbidity, and salinity</li>
+            <li><span class="opt-letter">B.</span> Wind speed, wave height, and temperature</li>
+            <li><span class="opt-letter">C.</span> Temperature, salinity, and pressure (depth)</li>
+            <li><span class="opt-letter">D.</span> Oxygen, pH, and density</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Temperature, salinity, and depth/pressure are the three controlling variables in the sound velocity profile.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué tres variables controlan la velocidad del sonido en el agua de mar?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Luz, turbidez y salinidad</li>
+            <li><span class="opt-letter">B.</span> Velocidad del viento, altura de olas y temperatura</li>
+            <li><span class="opt-letter">C.</span> Temperatura, salinidad y presión (profundidad)</li>
+            <li><span class="opt-letter">D.</span> Oxígeno, pH y densidad</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Temperatura, salinidad y presión/profundidad son las tres variables controladoras del perfil de velocidad del sonido.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 The SOFAR channel axis occurs at the depth of minimum sound speed because sound rays:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Are absorbed by the thermocline above and the seafloor below</li>
+            <li><span class="opt-letter">B.</span> Refract toward the speed minimum from both above and below, trapping energy in a natural waveguide</li>
+            <li><span class="opt-letter">C.</span> Travel fastest at this depth due to maximum salinity</li>
+            <li><span class="opt-letter">D.</span> Are blocked by pressure gradients above the SOFAR depth</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Acoustic refraction bends rays toward the speed minimum from both directions, creating a self-reinforcing waveguide that can carry sound thousands of kilometers.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El eje del canal SOFAR ocurre a la profundidad de velocidad mínima del sonido porque los rayos acústicos:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Son absorbidos por la termoclina arriba y el fondo marino abajo</li>
+            <li><span class="opt-letter">B.</span> Se refractan hacia la velocidad mínima desde arriba y abajo, atrapando energía en una guía de ondas natural</li>
+            <li><span class="opt-letter">C.</span> Viajan más rápido a esta profundidad debido a la salinidad máxima</li>
+            <li><span class="opt-letter">D.</span> Son bloqueados por gradientes de presión por encima de la profundidad SOFAR</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La refracción acústica dobla los rayos hacia la velocidad mínima desde ambas direcciones, creando una guía de ondas que puede transportar sonido miles de kilómetros.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A healthy coral reef produces a distinctive soundscape primarily due to:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Water flowing over hard coral structures creating turbulence</li>
+            <li><span class="opt-letter">B.</span> Breaking waves on the reef crest at regular intervals</li>
+            <li><span class="opt-letter">C.</span> Snapping shrimp and dawn/dusk fish choruses that degrade reefs lose</li>
+            <li><span class="opt-letter">D.</span> Humpback whale song echoing off the reef wall</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Alpheid snapping shrimp and fish choruses produce reefs' characteristic crackling soundscape; degraded reefs lose this acoustic signature dramatically.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un arrecife de coral saludable produce un paisaje sonoro distintivo principalmente por:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El agua fluyendo sobre estructuras coralinas duras creando turbulencia</li>
+            <li><span class="opt-letter">B.</span> Las olas rompiendo en la cresta del arrecife a intervalos regulares</li>
+            <li><span class="opt-letter">C.</span> Camarones chasqueadores y coros de peces al amanecer y atardecer — los arrecifes degradados pierden esta firma</li>
+            <li><span class="opt-letter">D.</span> El canto de ballenas jorobadas rebotando en la pared del arrecife</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Los camarones Alpheidos y los coros de peces producen el característico crepitar del arrecife; los arrecifes degradados pierden esta firma acústica dramáticamente.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 18 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L18 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
 </body>
 </html>
