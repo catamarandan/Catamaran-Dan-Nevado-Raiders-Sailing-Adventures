@@ -1,148 +1,696 @@
-# Section 01 · Lesson 19 · Physical Oceanography — Case Studies
-## Estudios de Caso en Oceanografía Física
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L01 Physical Oceanography — Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
 
-**Level:** Intermediate
-**Geographic Focus:** Western Caribbean
-**Language:** Bilingual EN · ES
-**MCQs:** 3
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
----
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
 
-```
-0 m
-200m
-1km
-4km
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
 
-EPIPELAGIC · SUNLIT ZONE
-MESOPELAGIC · TWILIGHT
-BATHYPELAGIC · MIDNIGHT
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
 
-        Event A         Event B         Event C
-        Bleaching       Upwelling       Storm Surge
-          ↓               ↑               →
-    SST Anomaly     Nutrient Flux    Shelf Mixing
-          ↓               ↓               ↓
-     Coral Stress   Productivity    Sediment Load
-```
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
 
----
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
 
-## Lecture Text
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
 
-### 🇺🇸 English
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
 
-Case studies are the connective tissue between physical oceanographic theory and real-world reef management. By examining specific, documented events — bleaching episodes, upwelling pulses, storm-driven mixing events, and freshwater intrusion episodes — scientists and managers can evaluate how physical forcing translates into measurable biological and chemical responses within reef systems. A case study approach allows researchers to test models against observed outcomes, identify thresholds that trigger state changes in reef ecosystems, and build predictive frameworks grounded in empirical evidence rather than abstraction alone.
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 
-In physical oceanography, case studies typically center on anomalous events: departures from baseline conditions that expose the sensitivity of a system. Sea surface temperature anomalies during El Niño-Southern Oscillation (ENSO) events have produced the most globally documented bleaching case studies, demonstrating how thermal stress accumulating over weeks can collapse coral symbiosis at reef scale. Upwelling case studies reveal how localized current reversals deliver cold, nutrient-rich water to shallow shelves, temporarily depressing SST and elevating productivity — a double-edged physical event with both protective and disruptive ecological effects. Storm surge and hurricane case studies document how extreme physical forcing restructures benthic habitats, redistributes sediment, and creates post-disturbance successional trajectories that may span decades.
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
 
-Case study methodology in oceanography requires rigorous baseline data: pre-event physical measurements against which anomalies can be quantified. Without established temperature, salinity, current, and nutrient baselines, the magnitude of a forcing event cannot be assessed. This is precisely why long-term monitoring networks — such as those operating within the Mesoamerican Reef corridor — have irreplaceable scientific value: they transform isolated observations into interpretable case study records.
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
 
-### 🇲🇽 Español
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
 
-Los estudios de caso son el tejido conectivo entre la teoría oceanográfica física y la gestión real de los arrecifes. Al examinar eventos específicos y documentados — episodios de blanqueamiento, pulsos de surgencia, eventos de mezcla generados por tormentas e intrusiones de agua dulce — los científicos y gestores pueden evaluar cómo el forzamiento físico se traduce en respuestas biológicas y químicas medibles dentro de los sistemas arrecifales. El enfoque de estudio de caso permite a los investigadores contrastar modelos con resultados observados, identificar umbrales que desencadenan cambios de estado en los ecosistemas arrecifales y construir marcos predictivos basados en evidencia empírica en lugar de abstracción pura.
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 
-En oceanografía física, los estudios de caso suelen centrarse en eventos anómalos: desviaciones de las condiciones de referencia que exponen la sensibilidad de un sistema. Las anomalías de temperatura superficial del mar durante eventos de El Niño-Oscilación del Sur (ENSO) han producido los estudios de caso de blanqueamiento más documentados a nivel mundial, demostrando cómo el estrés térmico acumulado durante semanas puede colapsar la simbiosis coralina a escala arrecifal. Los estudios de caso de surgencia revelan cómo las inversiones localizadas de corriente llevan agua fría y rica en nutrientes hacia plataformas someras, deprimiendo temporalmente la TSM y elevando la productividad — un evento físico de doble filo con efectos ecológicos tanto protectores como disruptivos. Los estudios de caso de marejada ciclónica y huracanes documentan cómo el forzamiento físico extremo reestructura los hábitats bentónicos, redistribuye los sedimentos y crea trayectorias de sucesión post-disturbio que pueden abarcar décadas.
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 
-La metodología de estudio de caso en oceanografía requiere datos de referencia rigurosos: mediciones físicas previas al evento contra las cuales se puedan cuantificar las anomalías. Sin líneas base establecidas de temperatura, salinidad, corriente y nutrientes, no es posible evaluar la magnitud de un evento de forzamiento. Es precisamente por eso que las redes de monitoreo a largo plazo — como las que operan dentro del corredor del Arrecife Mesoamericano — tienen un valor científico irremplazable: transforman observaciones aisladas en registros interpretables de estudios de caso.
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
 
----
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-## Western Caribbean Application · Aplicación en el Caribe Occidental
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
 
-### 🇺🇸 English
+  .lang-block { margin-bottom: 24px; }
 
-- The **2005 Caribbean bleaching event** stands as the most consequential thermal anomaly case study for the MAR region, with sea surface temperatures exceeding 1–2°C above the maximum monthly mean for 8–10 weeks across the Belizean and Honduran shelf — conditions that produced widespread *Acropora* and *Montastraea* mortality across the barrier reef crest.
-- **ENSO-linked SST anomalies** in the Western Caribbean follow a well-documented pattern: during El Niño years, reduced trade wind stress weakens Caribbean Current velocity, suppresses upwelling along the Honduran shelf, and allows heat to accumulate in the semi-enclosed Yucatán basin — a physical cascade with direct bleaching implications for the MAR corridor.
-- The **freshwater lens events** documented off the Belize coast — driven by river discharge from the Belize River and Sibun River systems — represent a recurring case study in salinity-forced stratification, temporarily isolating shallow reef patches from normal mixing and creating localized hyposaline stress zones that suppress coral recruitment.
-- **Hurricane Mitch (1998)** remains the definitive storm-surge case study for the Western Caribbean, generating sustained winds exceeding 180 mph and catastrophic wave action across Honduran reef structures — a forcing event whose physical legacy (sediment redistribution, rubble fields, altered current pathways) shaped benthic recovery trajectories into the following decade.
-- **Upwelling pulses along the Honduran shelf** — documented via satellite SST imagery and in-situ buoy data — provide case study evidence that localized cold-water intrusions can depress reef temperatures by 2–4°C within 48–72 hours, offering temporary thermal refuge during background warming periods and underscoring the protective value of current-driven heterogeneity within the MAR system.
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
 
-### 🇲🇽 Español
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
 
-- El **evento de blanqueamiento del Caribe de 2005** es el estudio de caso de anomalía térmica más significativo para la región del SAM, con temperaturas superficiales del mar que superaron 1–2°C por encima de la media mensual máxima durante 8–10 semanas en las plataformas de Belice y Honduras — condiciones que produjeron mortalidad generalizada de *Acropora* y *Montastraea* en la cresta del arrecife de barrera.
-- Las **anomalías de TSM vinculadas al ENSO** en el Caribe Occidental siguen un patrón bien documentado: durante los años de El Niño, la reducción del estrés de los vientos alisios debilita la velocidad de la Corriente del Caribe, suprime la surgencia en la plataforma hondureña y permite la acumulación de calor en la semicerrada cuenca de Yucatán — una cascada física con implicaciones directas de blanqueamiento para el corredor del SAM.
-- Los **eventos de lente de agua dulce** documentados frente a la costa de Belice — impulsados por el caudal de los ríos Belice y Sibun — representan un estudio de caso recurrente de estratificación forzada por salinidad, que aísla temporalmente los parches de arrecife somero de la mezcla normal y crea zonas localizadas de estrés hiposalino que inhiben el reclutamiento coralino.
-- El **huracán Mitch (1998)** sigue siendo el estudio de caso definitivo de marejada ciclónica en el Caribe Occidental, con vientos sostenidos superiores a 180 mph y acción de olas catastrófica sobre las estructuras arrecifales hondureñas — un evento de forzamiento cuyo legado físico (redistribución de sedimentos, campos de escombros, alteración de vías de corriente) moldeó las trayectorias de recuperación bentónica durante la siguiente década.
-- Los **pulsos de surgencia a lo largo de la plataforma hondureña** — documentados mediante imágenes satelitales de TSM y datos de boyas in situ — aportan evidencia de estudios de caso de que las intrusiones localizadas de agua fría pueden reducir la temperatura del arrecife entre 2–4°C en 48–72 horas, ofreciendo refugio térmico temporal durante períodos de calentamiento de fondo y subrayando el valor protector de la heterogeneidad impulsada por corrientes dentro del sistema SAM.
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
 
----
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
 
-## Assessment — Multiple Choice Questions
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
 
----
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
 
-### QUESTION 01 / 03
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
 
-🇺🇸 **What physical forcing mechanism is most directly responsible for the thermal stress documented during the 2005 Caribbean bleaching event?**
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
 
-A. Increased tidal amplitude compressing the thermocline toward the surface
-B. Sustained sea surface temperature anomalies exceeding the maximum monthly mean for an extended period
-C. Freshwater intrusion from coastal rivers reducing salinity and increasing UV penetration
-D. Deep-water upwelling delivering warm, nutrient-poor water to the reef crest
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
 
-✓ **ANSWER: B** — Prolonged SST anomalies above the maximum monthly mean threshold drive thermal stress accumulation (Degree Heating Weeks), the primary physical mechanism behind mass bleaching events.
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
 
----
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
 
-🇲🇽 **¿Qué mecanismo de forzamiento físico es el principal responsable del estrés térmico documentado durante el evento de blanqueamiento del Caribe de 2005?**
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
 
-A. Aumento de la amplitud mareal que comprime la termoclina hacia la superficie
-B. Anomalías sostenidas de temperatura superficial del mar que superan la media mensual máxima durante un período prolongado
-C. Intrusión de agua dulce de ríos costeros que reduce la salinidad y aumenta la penetración de rayos UV
-D. Surgencia de aguas profundas que lleva agua cálida y pobre en nutrientes a la cresta arrecifal
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
 
-✓ **RESPUESTA: B** — Las anomalías prolongadas de TSM por encima del umbral de la media mensual máxima impulsan la acumulación del estrés térmico (Semanas de Calor Acumulado), el mecanismo físico primario detrás de los eventos masivos de blanqueamiento.
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
 
----
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
 
-### QUESTION 02 / 03
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
 
-🇺🇸 **In the Western Caribbean, localized upwelling pulses along the Honduran shelf are significant as case study evidence because they demonstrate which physical-ecological relationship?**
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
 
-A. That increased nutrient loading always produces algal blooms that outcompete coral
-B. That cold-water intrusions can provide temporary thermal refuge and reduce bleaching risk during warm periods
-C. That upwelling events permanently lower sea surface temperatures across the MAR corridor
-D. That current reversals eliminate thermocline formation in the epipelagic zone
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
 
-✓ **ANSWER: B** — Documented SST depression of 2–4°C during upwelling pulses provides evidence that current-driven thermal heterogeneity can buffer reef systems against background warming — a critical insight for MAR management.
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
 
----
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
 
-🇲🇽 **En el Caribe Occidental, los pulsos de surgencia localizados en la plataforma hondureña son significativos como evidencia de estudio de caso porque demuestran qué relación físico-ecológica?**
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
 
-A. Que el aumento de la carga de nutrientes siempre produce floraciones de algas que compiten con los corales
-B. Que las intrusiones de agua fría pueden proporcionar refugio térmico temporal y reducir el riesgo de blanqueamiento durante los períodos cálidos
-C. Que los eventos de surgencia reducen permanentemente las temperaturas superficiales en todo el corredor del SAM
-D. Que las inversiones de corriente eliminan la formación de termoclina en la zona epipelágica
+  .progress-fill {
+    width: 0.14%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
 
-✓ **RESPUESTA: B** — La depresión documentada de la TSM de 2–4°C durante los pulsos de surgencia proporciona evidencia de que la heterogeneidad térmica impulsada por corrientes puede amortiguar los sistemas arrecifales frente al calentamiento de fondo — una visión crítica para la gestión del SAM.
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
 
----
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
 
-### QUESTION 03 / 03
+  .header {
+    grid-template-columns: 1fr;
+  }
 
-🇺🇸 **Why is long-term baseline data considered essential for interpreting physical oceanographic case studies on coral reefs?**
+  .body {
+    grid-template-columns: 1fr;
+  }
 
-A. Baseline data enables researchers to predict future hurricane tracks with high precision
-B. Without pre-event physical measurements, the magnitude and significance of anomalous forcing events cannot be accurately quantified
-C. Baseline data eliminates the need for satellite remote sensing in reef monitoring programs
-D. Long-term records are required only for chemical oceanography studies, not physical forcing assessments
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
 
-✓ **ANSWER: B** — Anomalies are defined relative to established baselines. Without long-term temperature, salinity, and current records, it is impossible to determine whether an observed physical state represents a departure from normal conditions or simply natural variability.
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
 
----
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
 
-🇲🇽 **¿Por qué los datos de referencia a largo plazo se consideran esenciales para interpretar los estudios de caso de oceanografía física en los arrecifes de coral?**
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
 
-A. Los datos de referencia permiten a los investigadores predecir con alta precisión las trayectorias futuras de los huracanes
-B. Sin mediciones físicas previas al evento, la magnitud y la importancia de los eventos de forzamiento anómalos no pueden cuantificarse con precisión
-C. Los datos de referencia eliminan la necesidad de teledetección satelital en los programas de monitoreo arrecifal
-D. Los registros a largo plazo solo se requieren para estudios de oceanografía química, no para evaluaciones de forzamiento físico
+  body {
+    padding: 16px 10px;
+  }
 
-✓ **RESPUESTA: B** — Las anomalías se definen en relación con las líneas base establecidas. Sin registros a largo plazo de temperatura, salinidad y corriente, es imposible determinar si un estado físico observado representa una desviación de las condiciones normales o simplemente variabilidad natural.
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
 
----
+  .header {
+    grid-template-columns: 1fr;
+  }
 
-*Mesoamerican Reef Curriculum · Section 01 · Lesson 19 of 704*
-*S01 · L19 · EN/ES · MCQ ×3*
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 01 · Physical Oceanography</div>
+        <h1 class="lesson-title">Foundations</h1>
+        <div class="lesson-subtitle">Fundamentos de Oceanografía Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#0a6e8a" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="thermGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#e86040"/>
+            <stop offset="50%" stop-color="#f0b429"/>
+            <stop offset="100%" stop-color="#1ac8c8"/>
+          </linearGradient>
+          <clipPath id="oceanClip">
+            <rect x="0" y="45" width="380" height="215"/>
+          </clipPath>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="115" x2="380" y2="115"/>
+          <line x1="0" y1="165" x2="380" y2="165"/>
+          <line x1="0" y1="215" x2="380" y2="215"/>
+          <line x1="76" y1="45" x2="76" y2="260"/>
+          <line x1="152" y1="45" x2="152" y2="260"/>
+          <line x1="228" y1="45" x2="228" y2="260"/>
+          <line x1="304" y1="45" x2="304" y2="260"/>
+        </g>
+
+        <!-- DEPTH ZONE LABELS (left side) -->
+        <text x="8" y="59" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.08em">0 m</text>
+        <text x="8" y="109" fill="rgba(26,200,200,0.4)" font-family="monospace" font-size="7" letter-spacing="0.08em">200m</text>
+        <text x="8" y="159" fill="rgba(26,200,200,0.3)" font-family="monospace" font-size="7" letter-spacing="0.08em">1km</text>
+        <text x="8" y="209" fill="rgba(26,200,200,0.2)" font-family="monospace" font-size="7" letter-spacing="0.08em">4km</text>
+
+        <!-- OCEAN DEPTH BANDS -->
+        <!-- Epipelagic -->
+        <rect x="36" y="47" width="332" height="68" fill="rgba(26,200,200,0.08)" rx="1"/>
+        <text x="200" y="58" fill="rgba(26,200,200,0.55)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">EPIPELAGIC  ·  SUNLIT ZONE</text>
+
+        <!-- Mesopelagic -->
+        <rect x="36" y="115" width="332" height="50" fill="rgba(10,110,138,0.12)" rx="1"/>
+        <text x="200" y="126" fill="rgba(10,110,138,0.65)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">MESOPELAGIC  ·  TWILIGHT</text>
+
+        <!-- Bathypelagic -->
+        <rect x="36" y="165" width="332" height="50" fill="rgba(4,41,74,0.2)" rx="1"/>
+        <text x="200" y="176" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">BATHYPELAGIC  ·  MIDNIGHT</text>
+
+        <!-- WAVE SURFACE -->
+        <path d="M36,65 C70,60 104,70 138,65 C172,60 206,70 240,65 C274,60 308,70 342,65 L368,65 L368,47 L36,47 Z"
+              fill="url(#waveGrad)" opacity="0.6"/>
+        <path d="M36,65 C70,60 104,70 138,65 C172,60 206,70 240,65 C274,60 308,70 342,65"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+
+        <!-- TEMPERATURE PROFILE CURVE -->
+        <path d="M320,55 C316,68 290,100 270,115 C250,130 240,148 235,165 C230,182 232,200 230,215"
+              fill="none" stroke="url(#thermGrad)" stroke-width="2" stroke-dasharray="4,3"/>
+
+        <!-- TEMP LABEL -->
+        <text x="328" y="54" fill="rgba(232,96,64,0.7)" font-family="monospace" font-size="7" text-anchor="middle">28°C</text>
+        <text x="225" y="220" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" text-anchor="middle">2°C</text>
+
+        <!-- THERMOCLINE INDICATOR -->
+        <line x1="36" y1="115" x2="368" y2="115" stroke="rgba(240,180,41,0.35)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="42" y="112" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="7">THERMOCLINE</text>
+
+        <!-- CURRENT ARROWS (surface) -->
+        <g fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="1.2">
+          <path d="M50,80 L90,80" marker-end="url(#arrow)"/>
+          <path d="M100,88 L140,84" marker-end="url(#arrow)"/>
+          <path d="M155,80 L195,80" marker-end="url(#arrow)"/>
+          <path d="M210,88 L250,84" marker-end="url(#arrow)"/>
+          <path d="M268,80 L308,80" marker-end="url(#arrow)"/>
+        </g>
+        <!-- Arrow heads (manual since marker-end needs defs) -->
+        <g fill="rgba(26,200,200,0.5)">
+          <polygon points="90,77 90,83 96,80"/>
+          <polygon points="140,81 140,87 146,84"/>
+          <polygon points="195,77 195,83 201,80"/>
+          <polygon points="250,81 250,87 256,84"/>
+          <polygon points="308,77 308,83 314,80"/>
+        </g>
+
+        <!-- SALINITY PROFILE (dashed line) -->
+        <path d="M60,55 C58,75 64,100 60,115 C56,130 55,150 58,165 C61,180 65,200 62,215"
+              fill="none" stroke="rgba(184,240,236,0.4)" stroke-width="1.5" stroke-dasharray="2,4"/>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 230)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="url(#thermGrad)" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Temperature</text>
+          <line x1="95" y1="4" x2="113" y2="4" stroke="rgba(184,240,236,0.5)" stroke-width="1.5" stroke-dasharray="2,4"/>
+          <text x="117" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Salinity</text>
+          <line x1="175" y1="4" x2="193" y2="4" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+          <text x="197" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Currents</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="220" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">OCEAN STRUCTURE  ·  PROFILE</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Physical oceanography is the scientific study of the ocean's physical properties and processes — including temperature, salinity, density, pressure, currents, waves, and tides. As a discipline, it forms the structural backbone of all marine science: understanding <em>how</em> water moves and behaves is prerequisite to understanding <em>what</em> lives within it and <em>how</em> human activity affects it. The ocean is divided into vertical zones defined by light penetration and pressure, while horizontal circulation is governed by atmospheric forcing, the Coriolis effect, and thermohaline gradients. These interlocking physical systems regulate Earth's climate, redistribute heat and nutrients, and sustain every marine ecosystem on the planet.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La oceanografía física es el estudio científico de las propiedades y procesos físicos del océano: temperatura, salinidad, densidad, presión, corrientes, olas y mareas. Como disciplina, constituye la columna vertebral de toda la ciencia marina: comprender <em>cómo</em> se mueve y se comporta el agua es un requisito previo para entender <em>qué</em> vive en ella y <em>cómo</em> la actividad humana la afecta. El océano se divide en zonas verticales definidas por la penetración de la luz y la presión, mientras que la circulación horizontal es gobernada por la fuerza atmosférica, el efecto de Coriolis y los gradientes termohalinos. Estos sistemas físicos interconectados regulan el clima de la Tierra, redistribuyen el calor y los nutrientes, y sustentan todos los ecosistemas marinos del planeta.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean Sea — spanning the coasts of Mexico (Yucatán), Belize, Guatemala, Honduras, and Nicaragua — presents one of the most physically distinct ocean environments in the Atlantic basin, shaped by a semi-enclosed geometry, shallow continental shelving, and the powerful Caribbean Current.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>The <strong>Caribbean Current</strong> flows westward at 1–2 knots through the region, driving nutrient upwelling along the Honduran and Belizean shelves and delivering warm, high-salinity Atlantic water into the Gulf of Mexico via the Yucatán Channel.</li>
+        <li>Sea surface temperatures consistently reach <strong>28–30°C</strong> in summer, producing a sharp thermocline at 80–120 m depth that isolates the sunlit epipelagic zone — critical context for understanding reef biology throughout the Mesoamerican Barrier Reef System (MAR).</li>
+        <li>The <strong>Yucatán shelf</strong> is exceptionally shallow (&lt;50 m over broad areas), making it highly sensitive to wind-driven mixing, tidal forcing, and storm surge — physical forces that interact directly with seagrass beds and coral structures.</li>
+        <li>Physical oceanographic baselines established here underpin all monitoring work within the <strong>MAR corridor</strong>, from water quality assessment to bleaching event prediction.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Mar Caribe Occidental — que abarca las costas de México (Yucatán), Belice, Guatemala, Honduras y Nicaragua — presenta uno de los entornos oceánicos físicamente más distintivos de la cuenca del Atlántico, moldeado por una geometría semicerrada, una plataforma continental somera y la poderosa Corriente del Caribe.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>La <strong>Corriente del Caribe</strong> fluye hacia el oeste a 1–2 nudos por la región, impulsando la surgencia de nutrientes a lo largo de las plataformas de Honduras y Belice, y llevando agua atlántica cálida y de alta salinidad hacia el Golfo de México a través del Canal de Yucatán.</li>
+        <li>Las temperaturas superficiales del mar alcanzan consistentemente <strong>28–30°C</strong> en verano, produciendo una termoclina marcada a 80–120 m de profundidad que aísla la zona epipelágica iluminada — contexto clave para comprender la biología arrecifal en el Sistema Arrecifal Mesoamericano (SAM).</li>
+        <li>La <strong>plataforma de Yucatán</strong> es excepcionalmente somera (&lt;50 m en amplias zonas), lo que la hace muy sensible a la mezcla impulsada por el viento, las mareas y la marejada ciclónica — fuerzas físicas que interactúan directamente con praderas de pastos marinos y estructuras coralinas.</li>
+        <li>Las líneas base oceanográficas físicas establecidas aquí sustentan todo el trabajo de monitoreo dentro del <strong>corredor del SAM</strong>, desde la evaluación de la calidad del agua hasta la predicción de eventos de blanqueamiento.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which property of seawater is the PRIMARY driver of thermohaline circulation in the world's oceans?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Pressure differences caused by wind stress</li>
+            <li><span class="opt-letter">B.</span> Density differences caused by temperature and salinity</li>
+            <li><span class="opt-letter">C.</span> Tidal forcing from the moon's gravitational pull</li>
+            <li><span class="opt-letter">D.</span> Solar radiation absorbed at the ocean surface</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Density differences (temperature + salinity) drive thermohaline circulation.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué propiedad del agua de mar es el PRINCIPAL motor de la circulación termohalina en los océanos del mundo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Diferencias de presión causadas por el estrés del viento</li>
+            <li><span class="opt-letter">B.</span> Diferencias de densidad causadas por temperatura y salinidad</li>
+            <li><span class="opt-letter">C.</span> Forzamiento mareal por la atracción gravitatoria de la luna</li>
+            <li><span class="opt-letter">D.</span> Radiación solar absorbida en la superficie oceánica</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las diferencias de densidad (temperatura + salinidad) impulsan la circulación termohalina.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 In the Western Caribbean, the thermocline typically forms at what approximate depth range during the warm season?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 10–30 meters</li>
+            <li><span class="opt-letter">B.</span> 80–120 meters</li>
+            <li><span class="opt-letter">C.</span> 200–400 meters</li>
+            <li><span class="opt-letter">D.</span> 500–800 meters</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The thermocline in this region forms at roughly 80–120 m depth.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En el Caribe Occidental, ¿a qué rango aproximado de profundidad se forma la termoclina durante la temporada cálida?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 10–30 metros</li>
+            <li><span class="opt-letter">B.</span> 80–120 metros</li>
+            <li><span class="opt-letter">C.</span> 200–400 metros</li>
+            <li><span class="opt-letter">D.</span> 500–800 metros</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La termoclina en esta región se forma aproximadamente a 80–120 m de profundidad.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Which of the following best describes the epipelagic zone and its ecological significance?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The deepest ocean zone, characterized by extreme pressure and no light</li>
+            <li><span class="opt-letter">B.</span> The oxygen-minimum zone between 200–1,000 m depth</li>
+            <li><span class="opt-letter">C.</span> The upper 200 m of the ocean where sunlight supports photosynthesis</li>
+            <li><span class="opt-letter">D.</span> The seafloor zone where benthic organisms dominate</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The epipelagic (0–200 m) is the sunlit zone supporting most marine productivity.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál de las siguientes opciones describe mejor la zona epipelágica y su importancia ecológica?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La zona oceánica más profunda, caracterizada por presión extrema y ausencia de luz</li>
+            <li><span class="opt-letter">B.</span> La zona de mínimo oxígeno entre 200–1,000 m de profundidad</li>
+            <li><span class="opt-letter">C.</span> Los 200 m superiores del océano donde la luz solar sostiene la fotosíntesis</li>
+            <li><span class="opt-letter">D.</span> La zona del fondo marino donde dominan los organismos bentónicos</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La zona epipelágica (0–200 m) es la zona iluminada que sostiene la mayor productividad marina.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 01 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L01 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
