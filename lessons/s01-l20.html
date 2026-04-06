@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L20 Physical Oceanography — Regional Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+
+  .progress-fill { width: 2.84%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 20 · Physical Oceanography</div>
+        <h1 class="lesson-title">Regional Systems</h1>
+        <div class="lesson-subtitle">Sistemas Regionales de Oceanografía Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="currentGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.1"/>
+            <stop offset="50%" stop-color="#1ac8c8" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.1"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- GULF OF MEXICO (top) -->
+        <rect x="60" y="10" width="130" height="55" fill="rgba(10,110,138,0.15)" rx="3" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+        <text x="125" y="32" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.1em">GULF OF MEXICO</text>
+        <text x="125" y="44" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="6.5" text-anchor="middle">warm outflow</text>
+
+        <!-- YUCATAN CHANNEL connector -->
+        <rect x="108" y="65" width="34" height="30" fill="rgba(26,200,200,0.12)" rx="1"/>
+        <text x="125" y="76" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6" text-anchor="middle" letter-spacing="0.08em">YUCATÁN</text>
+        <text x="125" y="86" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6" text-anchor="middle" letter-spacing="0.08em">CHANNEL</text>
+        <!-- upward arrow -->
+        <line x1="125" y1="65" x2="125" y2="38" stroke="rgba(26,200,200,0.55)" stroke-width="1.5"/>
+        <polygon points="121,38 129,38 125,31" fill="rgba(26,200,200,0.55)"/>
+
+        <!-- CARIBBEAN CURRENT band -->
+        <path d="M30,115 C80,108 130,122 190,115 C250,108 310,122 360,115"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="2.5"/>
+        <path d="M30,125 C80,118 130,132 190,125 C250,118 310,132 360,125"
+              fill="none" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <!-- Current arrows -->
+        <g fill="rgba(26,200,200,0.6)">
+          <polygon points="70,115 70,121 76,118"/>
+          <polygon points="150,112 150,118 156,115"/>
+          <polygon points="230,115 230,121 236,118"/>
+          <polygon points="310,112 310,118 316,115"/>
+        </g>
+        <text x="190" y="108" fill="rgba(26,200,200,0.65)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">CARIBBEAN  CURRENT  →</text>
+
+        <!-- HONDURAN SHELF -->
+        <rect x="38" y="138" width="90" height="42" fill="rgba(10,110,138,0.12)" rx="2" stroke="rgba(138,184,204,0.15)" stroke-width="0.7"/>
+        <text x="83" y="155" fill="rgba(138,184,204,0.55)" font-family="monospace" font-size="7" text-anchor="middle">HONDURAN</text>
+        <text x="83" y="165" fill="rgba(138,184,204,0.55)" font-family="monospace" font-size="7" text-anchor="middle">SHELF</text>
+        <!-- upwelling arrows -->
+        <g stroke="rgba(26,200,200,0.45)" stroke-width="1" fill="none">
+          <line x1="60" y1="178" x2="60" y2="196"/>
+          <polygon points="56,178 64,178 60,171" fill="rgba(26,200,200,0.45)" stroke="none"/>
+          <line x1="83" y1="178" x2="83" y2="196"/>
+          <polygon points="79,178 87,178 83,171" fill="rgba(26,200,200,0.45)" stroke="none"/>
+        </g>
+        <text x="83" y="210" fill="rgba(26,200,200,0.4)" font-family="monospace" font-size="6" text-anchor="middle">upwelling ↑</text>
+
+        <!-- BELIZEAN SHELF -->
+        <rect x="155" y="138" width="90" height="42" fill="rgba(4,41,74,0.2)" rx="2" stroke="rgba(138,184,204,0.12)" stroke-width="0.7"/>
+        <text x="200" y="155" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="7" text-anchor="middle">BELIZEAN</text>
+        <text x="200" y="165" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="7" text-anchor="middle">SHELF</text>
+        <text x="200" y="210" fill="rgba(184,240,236,0.35)" font-family="monospace" font-size="6" text-anchor="middle">&lt;50 m shallow</text>
+
+        <!-- YUCATÁN SHELF -->
+        <rect x="272" y="138" width="90" height="42" fill="rgba(4,41,74,0.15)" rx="2" stroke="rgba(138,184,204,0.1)" stroke-width="0.7"/>
+        <text x="317" y="155" fill="rgba(138,184,204,0.45)" font-family="monospace" font-size="7" text-anchor="middle">YUCATÁN</text>
+        <text x="317" y="165" fill="rgba(138,184,204,0.45)" font-family="monospace" font-size="7" text-anchor="middle">SHELF</text>
+        <text x="317" y="210" fill="rgba(240,180,41,0.35)" font-family="monospace" font-size="6" text-anchor="middle">tidal mixing</text>
+
+        <!-- ATLANTIC inflow arrow (right side) -->
+        <line x1="360" y1="118" x2="330" y2="118" stroke="rgba(184,240,236,0.4)" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <polygon points="360,114 360,122 368,118" fill="rgba(184,240,236,0.4)"/>
+        <text x="370" y="122" fill="rgba(184,240,236,0.35)" font-family="monospace" font-size="6" text-anchor="middle">ATL</text>
+
+        <!-- SEASONAL WIND indicator -->
+        <g transform="translate(240,20)">
+          <text x="0" y="12" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="7" letter-spacing="0.08em">TRADE WINDS</text>
+          <line x1="0" y1="20" x2="50" y2="20" stroke="rgba(240,180,41,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+          <polygon points="50,17 50,23 57,20" fill="rgba(240,180,41,0.4)"/>
+          <text x="0" y="34" fill="rgba(240,180,41,0.35)" font-family="monospace" font-size="6">NE → SW</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="30" y="0" width="210" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="38" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">WESTERN CARIBBEAN  ·  BASIN</text>
+
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          A regional ocean system is not simply a bounded geographic area — it is a physically coherent domain defined by shared circulation patterns, bathymetric structure, atmospheric forcing, and water mass characteristics that distinguish it from adjacent ocean environments. Understanding physical oceanography at the regional scale requires integrating local measurements into basin-wide frameworks, recognizing that processes operating hundreds of kilometers away can directly determine conditions on a shallow reef flat within the region.
+          <br><br>
+          The Western Caribbean constitutes a well-defined regional system bounded by the Central American landmass to the west and south, the Greater Antilles to the north, and the open Atlantic to the east. Its circulation is dominated by the Caribbean Current — a westward-flowing surface current fed by Atlantic inflow through the Lesser Antilles passages — which accelerates as it approaches the Yucatán Channel and exits into the Gulf of Mexico as the Yucatán Current, a precursor to the Gulf Stream. This throughflow configuration makes the Western Caribbean a transit zone: water mass properties, thermal energy, and biological material are continuously advected through the system.
+          <br><br>
+          Regional physical systems are characterized by recurring seasonal patterns superimposed on longer-term climate variability. In the Western Caribbean, the dry season (November–April) brings strengthened trade winds, increased wave energy, and enhanced vertical mixing. The wet season (May–October) produces calmer seas, elevated river discharge, and intensified thermal stratification. Hurricane activity — concentrated June–November — introduces episodic extreme forcing events that reset physical and biological states across large portions of the regional system.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Un sistema oceánico regional no es simplemente un área geográfica delimitada — es un dominio físicamente coherente definido por patrones de circulación compartidos, estructura batimétrica, forzamiento atmosférico y características de masas de agua que lo distinguen de los entornos oceánicos adyacentes. Comprender la oceanografía física a escala regional requiere integrar mediciones locales en marcos de cuenca amplia, reconociendo que los procesos que operan a cientos de kilómetros de distancia pueden determinar directamente las condiciones en una planicie arrecifal somera dentro de la región.
+          <br><br>
+          El Caribe Occidental constituye un sistema regional bien definido, delimitado por la masa continental centroamericana al oeste y al sur, las Antillas Mayores al norte y el Atlántico abierto al este. Su circulación está dominada por la Corriente del Caribe, que se acelera al aproximarse al Canal de Yucatán y sale hacia el Golfo de México como la Corriente de Yucatán, precursora de la Corriente del Golfo. Esta configuración hace del Caribe Occidental una zona de tránsito: las propiedades de las masas de agua, la energía térmica y el material biológico se advengan continuamente a través del sistema.
+          <br><br>
+          Los sistemas físicos regionales se caracterizan por patrones estacionales recurrentes superpuestos a la variabilidad climática a largo plazo. En el Caribe Occidental, la estación seca (noviembre–abril) trae vientos alisios reforzados y mezcla vertical intensificada. La estación lluviosa (mayo–octubre) produce mares más calmados y estratificación térmica intensificada. La actividad de huracanes — concentrada de junio a noviembre — introduce eventos extremos episódicos que reinician los estados físicos y biológicos en grandes porciones del sistema regional.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean regional system is defined by its throughflow architecture — Atlantic water enters via the Lesser Antilles, transits westward as the Caribbean Current, and exits through the Yucatán Channel into the Gulf of Mexico, linking reef corridor conditions directly to basin-scale and global circulation dynamics.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>The <strong>Caribbean Current</strong> transports an estimated 26–28 Sverdrup (Sv) of warm, high-salinity Atlantic water westward through the basin — directly supplying the thermal and chemical environment experienced by reef systems from Nicaragua to the Yucatán Peninsula.</li>
+        <li>The <strong>Yucatán Channel</strong> functions as the regional system's outlet valve: current velocity accelerates to 1.5–2.5 knots through this ~200 km-wide passage, and its volume flux feeds Gulf Stream formation — linking Western Caribbean conditions to North Atlantic climate dynamics.</li>
+        <li><strong>Seasonal trade wind variability</strong> drives a dual-mode shelf regime: winter strengthening of northeasterly trades generates wave heights of 2–4 m on exposed reef crests, enhancing turbulent mixing; summer relaxation reduces mixing and deepens the thermocline, creating conditions most conducive to bleaching risk accumulation.</li>
+        <li>The <strong>semi-enclosed geometry</strong> of the Western Caribbean makes the region's thermal budget sensitive to interannual forcing — ENSO warm phases reduce Caribbean Current velocity and suppress shelf upwelling simultaneously, compounding thermal stress across the system in ways local measurements cannot fully capture.</li>
+        <li><strong>River plumes</strong> from major MAR-corridor watersheds — Motagua, Ulúa, Patuca, and Belize River systems — alter regional salinity structure seasonally, extending hyposaline surface layers across nearshore reef zones and introducing sediment and nutrient loads that modulate light and carbonate chemistry at reef scale.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El sistema regional del Caribe Occidental se define por su arquitectura de flujo de tránsito — el agua atlántica entra por las Antillas Menores, transita hacia el oeste como la Corriente del Caribe y sale por el Canal de Yucatán hacia el Golfo de México, vinculando las condiciones del corredor arrecifal directamente con la dinámica de circulación a escala de cuenca y global.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>La <strong>Corriente del Caribe</strong> transporta un estimado de 26–28 Sv de agua atlántica cálida y de alta salinidad hacia el oeste — suministrando directamente el entorno térmico y químico que experimentan los sistemas arrecifales desde Nicaragua hasta la Península de Yucatán.</li>
+        <li>El <strong>Canal de Yucatán</strong> funciona como la válvula de salida del sistema regional: la velocidad de la corriente se acelera hasta 1.5–2.5 nudos a través de este pasaje de ~200 km de ancho, y su flujo alimenta la formación de la Corriente del Golfo.</li>
+        <li>La <strong>variabilidad estacional de los vientos alisios</strong> impulsa un régimen de plataforma de doble modalidad: el reforzamiento invernal de los alisios genera alturas de ola de 2–4 m; la relajación veraniega reduce la mezcla y profundiza la termoclina, creando condiciones más propicias para la acumulación de riesgo de blanqueamiento.</li>
+        <li>La <strong>geometría semicerrada</strong> del Caribe Occidental hace que su balance térmico sea sensible al forzamiento interanual — las fases cálidas del ENSO reducen la velocidad de la Corriente del Caribe y suprimen la surgencia simultáneamente, amplificando el estrés térmico en todo el sistema.</li>
+        <li>Las <strong>plumas fluviales</strong> de las principales cuencas del corredor del SAM — Motagua, Ulúa, Patuca y Belice — alteran la estructura regional de salinidad estacionalmente, extendiendo capas hiposalinas sobre las zonas arrecifales costeras e introduciendo sedimentos y nutrientes que modulan la luz y la química del carbonato a escala arrecifal.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which of the following best defines a regional ocean system in physical oceanography?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Any ocean area enclosed by continental landmasses on at least three sides</li>
+            <li><span class="opt-letter">B.</span> A physically coherent domain defined by shared circulation, bathymetry, atmospheric forcing, and water mass characteristics</li>
+            <li><span class="opt-letter">C.</span> A management zone designated by international treaty for fisheries regulation</li>
+            <li><span class="opt-letter">D.</span> Any ocean region where SST remains above 26°C year-round</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — A regional system is defined by physical coherence — shared dynamics, water mass properties, and forcing mechanisms — not by geographic enclosure or political designation.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál de las siguientes opciones define mejor un sistema oceánico regional en oceanografía física?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Cualquier área oceánica encerrada por masas continentales en al menos tres lados</li>
+            <li><span class="opt-letter">B.</span> Un dominio físicamente coherente definido por circulación compartida, batimetría, forzamiento atmosférico y características de masas de agua</li>
+            <li><span class="opt-letter">C.</span> Una zona de gestión designada por tratado internacional para la regulación pesquera</li>
+            <li><span class="opt-letter">D.</span> Cualquier región oceánica donde la TSM permanece por encima de 26°C durante todo el año</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Un sistema regional se define por coherencia física — dinámica compartida, propiedades de masas de agua y mecanismos de forzamiento — no por cierre geográfico ni designación política.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 The Yucatán Channel is physically significant to the Western Caribbean regional system primarily because it:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Acts as the primary upwelling zone supplying cold, nutrient-rich water to the Belizean shelf</li>
+            <li><span class="opt-letter">B.</span> Serves as the regional system's outflow passage, accelerating current velocity and connecting Caribbean water to Gulf Stream formation</li>
+            <li><span class="opt-letter">C.</span> Blocks water mass exchange between the Gulf of Mexico and the Caribbean Sea during hurricane season</li>
+            <li><span class="opt-letter">D.</span> Generates the thermocline separating epipelagic and mesopelagic zones throughout the MAR corridor</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The Yucatán Channel is where accelerated Caribbean Current water exits into the Gulf of Mexico and feeds the Gulf Stream — a throughflow of global climatic significance.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El Canal de Yucatán es físicamente significativo para el sistema regional del Caribe Occidental principalmente porque:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Actúa como la principal zona de surgencia que suministra agua fría y rica en nutrientes a la plataforma de Belice</li>
+            <li><span class="opt-letter">B.</span> Funciona como el pasaje de salida del sistema regional, acelerando la velocidad de la corriente y conectando el agua caribeña con la Corriente del Golfo</li>
+            <li><span class="opt-letter">C.</span> Bloquea el intercambio de masas de agua entre el Golfo de México y el Mar Caribe durante la temporada de huracanes</li>
+            <li><span class="opt-letter">D.</span> Genera la termoclina que separa las zonas epipelágica y mesopelágica en todo el corredor del SAM</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El Canal de Yucatán es donde el agua acelerada de la Corriente del Caribe sale hacia el Golfo de México y alimenta la Corriente del Golfo — un flujo de tránsito de significado climático global.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 During the Western Caribbean dry season (November–April), which physical condition is most characteristic of the MAR shelf environment?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Elevated river discharge, reduced wave energy, and deepened thermocline</li>
+            <li><span class="opt-letter">B.</span> Strengthened trade winds, increased wave heights on reef crests, and enhanced vertical mixing</li>
+            <li><span class="opt-letter">C.</span> Suppressed upwelling, maximum thermal stratification, and peak bleaching risk accumulation</li>
+            <li><span class="opt-letter">D.</span> Reduced current velocity, freshwater lens formation, and hyposaline stress across nearshore reefs</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The dry season is defined by intensified northeasterly trade winds (nortes), generating 2–4 m wave heights on exposed reef crests and driving turbulent shelf mixing.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Durante la estación seca del Caribe Occidental (noviembre–abril), ¿qué condición física es más característica del ambiente de plataforma del SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Mayor descarga fluvial, menor energía de oleaje y termoclina más profunda</li>
+            <li><span class="opt-letter">B.</span> Vientos alisios reforzados, mayores alturas de ola en las crestas arrecifales y mezcla vertical intensificada</li>
+            <li><span class="opt-letter">C.</span> Surgencia suprimida, máxima estratificación térmica y acumulación pico de riesgo de blanqueamiento</li>
+            <li><span class="opt-letter">D.</span> Menor velocidad de corriente, formación de lente de agua dulce y estrés hiposalino en los arrecifes costeros</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La estación seca se define por la intensificación de los vientos alisios del noreste (nortes), que generan alturas de ola de 2–4 m en las crestas arrecifales expuestas e impulsan la mezcla turbulenta de la plataforma.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 20 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L20 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
