@@ -1,707 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S01·L14 — Thermohaline Circulation | Rim Run™ Marine Science</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L14 Physical Oceanography — Temporal Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
 
-    :root {
-      --ocean-deep:    #0a1628;
-      --ocean-mid:     #0d2244;
-      --ocean-surface: #0f3460;
-      --teal-bright:   #00b4d8;
-      --teal-pale:     #90e0ef;
-      --teal-glow:     #48cae4;
-      --gold:          #e9c46a;
-      --coral:         #f4a261;
-      --white:         #f0f4f8;
-      --white-dim:     #b8c8d8;
-      --card-bg:       #0b1e38;
-      --panel-bg:      #0e2a4a;
-      --border:        rgba(0,180,216,0.18);
-      --radius:        12px;
-      --shadow:        0 8px 40px rgba(0,0,0,0.55);
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      background: var(--ocean-deep);
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.75;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 40px 16px 60px;
-    }
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
 
-    .card {
-      width: 100%;
-      max-width: 960px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
 
-    /* HEADER */
-    .card-header {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 24px;
-      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-surface) 100%);
-      padding: 36px 44px;
-      border-bottom: 1px solid var(--border);
-    }
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
 
-    .header-text .eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      color: var(--teal-glow);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
 
-    .header-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 3vw, 2.15rem);
-      font-weight: 700;
-      line-height: 1.2;
-      color: var(--white);
-    }
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
 
-    .header-text h1 em { font-style: italic; color: var(--teal-pale); }
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
 
-    .header-text .subtitle {
-      margin-top: 8px;
-      font-size: 0.88rem;
-      color: var(--white-dim);
-      font-weight: 400;
-    }
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
 
-    .header-svg { width: 230px; height: 160px; flex-shrink: 0; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    /* SECTIONS */
-    .section { padding: 38px 44px; border-bottom: 1px solid var(--border); }
-    .section:last-of-type { border-bottom: none; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
 
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      color: var(--teal-glow);
-      text-transform: uppercase;
-      margin-bottom: 22px;
-    }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
 
-    .lang-block { margin-bottom: 28px; }
-    .lang-block:last-child { margin-bottom: 0; }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
 
-    .flag-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      color: var(--teal-pale);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .flag-label .flag { font-size: 1rem; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
 
-    .lang-block h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
 
-    .lang-block p { font-size: 0.93rem; color: var(--white-dim); margin-bottom: 10px; }
-    .lang-block p:last-child { margin-bottom: 0; }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-    .lang-divider { border: none; border-top: 1px dashed var(--border); margin: 26px 0; }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
 
-    .key-term { color: var(--teal-pale); font-weight: 500; }
+  .lang-block { margin-bottom: 24px; }
 
-    /* DATA TABLE */
-    .data-table-wrap {
-      margin-top: 28px;
-      overflow-x: auto;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
 
-    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
-    thead tr { background: var(--ocean-surface); }
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
 
-    thead th {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal-pale);
-      padding: 12px 16px;
-      text-align: left;
-      white-space: nowrap;
-    }
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
 
-    tbody tr { border-top: 1px solid var(--border); }
-    tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
-    tbody td { padding: 11px 16px; color: var(--white-dim); vertical-align: top; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
 
-    tbody td:first-child {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--teal-glow);
-      white-space: nowrap;
-    }
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
 
-    /* APP PANEL */
-    .app-panel { background: var(--panel-bg); }
-    .app-panel .panel-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--coral);
-      margin-bottom: 10px;
-    }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
 
-    /* MCQ */
-    .mcq-section {
-      background: linear-gradient(180deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
-      padding: 38px 44px;
-    }
+  .region-list { list-style: none; margin-top: 10px; }
 
-    .mcq-header { margin-bottom: 28px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
 
-    .mcq-header h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
-    }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
 
-    .mcq-header p { font-size: 0.82rem; color: var(--white-dim); margin-top: 4px; }
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
 
-    .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
 
-    @media (max-width: 700px) {
-      .mcq-grid { grid-template-columns: 1fr; }
-      .card-header { grid-template-columns: 1fr; }
-      .header-svg { display: none; }
-      .section, .mcq-section { padding: 28px 22px; }
-    }
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
 
-    .mcq-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
 
-    .mcq-q { font-size: 0.85rem; color: var(--white); margin-bottom: 12px; line-height: 1.5; }
-    .mcq-q .q-num {
-      font-family: 'DM Mono', monospace;
-      color: var(--teal-glow);
-      font-size: 0.72rem;
-      display: block;
-      margin-bottom: 4px;
-    }
-    .mcq-q .q-es {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--white-dim);
-      margin-top: 5px;
-      font-style: italic;
-    }
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
 
-    .mcq-options { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
 
-    .mcq-options li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.81rem;
-      line-height: 1.4;
-      padding: 7px 10px;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      color: var(--white-dim);
-      cursor: default;
-    }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
 
-    .mcq-options li .opt-key {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--teal-glow);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
 
-    .mcq-options li.correct {
-      background: rgba(0,180,216,0.1);
-      border-color: var(--teal-bright);
-      color: var(--teal-pale);
-    }
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
 
-    .mcq-options li.correct .opt-key { color: var(--teal-bright); }
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
 
-    .mcq-answer {
-      margin-top: 10px;
-      font-size: 0.75rem;
-      color: var(--teal-glow);
-      font-family: 'DM Mono', monospace;
-      border-top: 1px dashed var(--border);
-      padding-top: 8px;
-    }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
 
-    /* FOOTER */
-    .card-footer {
-      padding: 26px 44px 32px;
-      background: var(--ocean-mid);
-      border-top: 1px solid var(--border);
-    }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 1.99%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
 
-    .progress-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 10px;
-    }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
 
-    .progress-meta .lesson-id {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--teal-glow);
-      letter-spacing: 0.12em;
-    }
-
-    .progress-meta .progress-pct {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--white-dim);
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: linear-gradient(90deg, var(--teal-bright), var(--teal-pale));
-      width: 1.99%; /* 14/704 */
-    }
-
-    .footer-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    .footer-nav a {
-      color: var(--teal-glow);
-      text-decoration: none;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .footer-nav a:hover { color: var(--teal-pale); }
-
-    .footer-credit {
-      text-align: center;
-      margin-top: 18px;
-      font-size: 0.72rem;
-      color: rgba(176,200,216,0.4);
-      font-family: 'DM Mono', monospace;
-    }
-  </style>
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
 </head>
 <body>
+<div class="card">
 
-<article class="card">
-
-  <!-- HEADER -->
-  <header class="card-header">
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
     <div class="header-text">
-      <p class="eyebrow">Section 01 · Lesson 14 &nbsp;|&nbsp; Physical Oceanography</p>
-      <h1>The Ocean Conveyor:<br><em>Thermohaline Circulation</em></h1>
-      <p class="subtitle">Density-driven deep flow, water mass formation, and the global overturning belt</p>
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 14 · Physical Oceanography</div>
+        <h1 class="lesson-title">Temporal Patterns</h1>
+        <div class="lesson-subtitle">Patrones Temporales — Circulación Termohalina</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
     </div>
 
-    <!-- SVG: Simplified global conveyor belt map with warm surface / cold deep flow arrows -->
-    <svg class="header-svg" viewBox="0 0 230 160" xmlns="http://www.w3.org/2000/svg" aria-label="Simplified thermohaline conveyor belt diagram showing warm surface flow in red and cold deep flow in blue">
+    <!-- SVG: Global thermohaline conveyor belt -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <marker id="arrW" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(244,162,97,0.9)"/>
+          </marker>
+          <marker id="arrC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(26,200,200,0.9)"/>
+          </marker>
+        </defs>
 
-      <rect width="230" height="160" fill="#071220"/>
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
 
-      <!-- Faint continental outlines (simplified blobs) -->
-      <!-- North America -->
-      <path d="M10 30 Q18 20 30 22 Q40 24 44 35 Q46 48 38 58 Q30 66 20 62 Q10 56 8 45 Z" fill="#1a3a20" opacity="0.55"/>
-      <!-- South America -->
-      <path d="M28 70 Q36 66 42 72 Q48 82 46 100 Q44 116 36 120 Q28 122 24 112 Q18 98 20 84 Z" fill="#1a3a20" opacity="0.5"/>
-      <!-- Europe/Africa -->
-      <path d="M98 18 Q108 14 116 20 Q120 30 118 40 Q116 48 108 50 Q100 50 96 42 Q92 32 98 18 Z" fill="#1a3a20" opacity="0.5"/>
-      <!-- Africa lower -->
-      <path d="M100 54 Q112 52 118 62 Q124 76 120 96 Q116 110 108 114 Q98 116 94 104 Q88 88 90 70 Q92 58 100 54 Z" fill="#1a3a20" opacity="0.45"/>
-      <!-- Asia/Europe block -->
-      <path d="M118 14 Q148 8 170 16 Q188 22 192 36 Q194 48 182 52 Q166 56 148 50 Q130 44 120 34 Q114 26 118 14 Z" fill="#1a3a20" opacity="0.45"/>
-      <!-- Australia -->
-      <path d="M170 88 Q184 84 194 90 Q202 98 200 110 Q196 120 184 122 Q172 122 166 114 Q160 104 162 94 Z" fill="#1a3a20" opacity="0.4"/>
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.04)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
 
-      <!-- WARM SURFACE CURRENT (coral/orange) -->
-      <defs>
-        <marker id="arrWarm" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="#f4a261"/>
-        </marker>
-        <marker id="arrCold" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="#48cae4"/>
-        </marker>
-      </defs>
+        <!-- Continental masses (simplified) -->
+        <!-- N. America -->
+        <path d="M14,28 Q22,18 36,20 Q48,22 52,34 Q54,48 44,58 Q34,66 22,60 Q10,52 10,40 Z" fill="#1a3a20" opacity="0.55"/>
+        <!-- S. America -->
+        <path d="M30,72 Q40,66 48,74 Q56,86 52,106 Q48,122 40,126 Q30,128 24,116 Q16,100 18,84 Z" fill="#1a3a20" opacity="0.5"/>
+        <!-- Europe/N.Africa -->
+        <path d="M140,18 Q152,12 162,18 Q168,28 164,38 Q158,46 148,48 Q138,46 134,38 Q128,28 140,18 Z" fill="#1a3a20" opacity="0.5"/>
+        <!-- Africa -->
+        <path d="M138,52 Q152,50 160,60 Q168,76 164,100 Q158,116 148,118 Q136,118 128,106 Q120,90 124,70 Q128,56 138,52 Z" fill="#1a3a20" opacity="0.45"/>
+        <!-- Asia/Europe block -->
+        <path d="M168,14 Q204,8 228,16 Q244,24 246,36 Q244,48 228,52 Q208,56 186,48 Q166,42 162,30 Q160,20 168,14 Z" fill="#1a3a20" opacity="0.45"/>
+        <!-- Australia -->
+        <path d="M272,96 Q288,90 300,96 Q310,106 306,118 Q300,128 288,130 Q274,128 268,118 Q262,106 272,96 Z" fill="#1a3a20" opacity="0.4"/>
 
-      <!-- Atlantic warm surface northward (Gulf Stream / AMOC upper limb) -->
-      <path d="M50 90 Q56 72 58 54 Q60 36 72 28 Q86 22 100 26 Q112 28 114 40"
-            stroke="#f4a261" stroke-width="2.2" fill="none" marker-end="url(#arrWarm)" stroke-linecap="round"/>
-      <!-- Continuation east across Atlantic surface -->
-      <path d="M114 40 Q130 32 148 32 Q162 32 170 44"
-            stroke="#f4a261" stroke-width="2" fill="none" marker-end="url(#arrWarm)" stroke-linecap="round"/>
-      <!-- Indo-Pacific warm surface return west -->
-      <path d="M200 100 Q218 80 222 58 Q224 40 210 30 Q196 22 180 26 Q168 30 170 44"
-            stroke="#f4a261" stroke-width="1.8" fill="none" stroke-dasharray="none" stroke-linecap="round"/>
-      <!-- Around southern tip Africa eastward -->
-      <path d="M90 116 Q100 130 120 134 Q148 138 170 130 Q190 122 200 110 Q202 106 200 100"
-            stroke="#f4a261" stroke-width="1.8" fill="none" marker-end="url(#arrWarm)" stroke-linecap="round"/>
-      <!-- South Atlantic to Indian -->
-      <path d="M40 106 Q44 118 54 124 Q68 130 82 126 Q86 122 90 116"
-            stroke="#f4a261" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- WARM SURFACE FLOW (coral/orange) -->
+        <!-- Gulf Stream / AMOC upper limb northward -->
+        <path d="M52,100 Q58,80 62,60 Q66,40 80,30 Q96,22 112,26 Q126,30 130,42"
+              fill="none" stroke="rgba(244,162,97,0.85)" stroke-width="2.2" marker-end="url(#arrW)" stroke-linecap="round"/>
+        <!-- Atlantic surface eastward -->
+        <path d="M130,42 Q150,34 172,34 Q188,34 196,46"
+              fill="none" stroke="rgba(244,162,97,0.8)" stroke-width="2" marker-end="url(#arrW)" stroke-linecap="round"/>
+        <!-- Indo-Pacific return -->
+        <path d="M306,108 Q324,86 328,62 Q330,42 314,32 Q298,24 280,28 Q264,32 260,44 Q254,54 196,46"
+              fill="none" stroke="rgba(244,162,97,0.7)" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Southern hemisphere surface return -->
+        <path d="M42,112 Q48,126 62,134 Q88,144 120,140 Q152,138 172,130 Q196,120 208,114 Q248,112 280,118 Q294,116 306,108"
+              fill="none" stroke="rgba(244,162,97,0.65)" stroke-width="1.6" marker-end="url(#arrW)" stroke-linecap="round"/>
+        <!-- S. Atlantic close loop -->
+        <path d="M38,104 Q40,110 42,112"
+              fill="none" stroke="rgba(244,162,97,0.65)" stroke-width="1.6" stroke-linecap="round"/>
 
-      <!-- COLD DEEP SINKING (blue, dashed = deep) -->
-      <!-- North Atlantic sinking site -->
-      <circle cx="114" cy="40" r="5" fill="#48cae4" opacity="0.9"/>
-      <line x1="114" y1="45" x2="114" y2="65" stroke="#48cae4" stroke-width="1.6" stroke-dasharray="3,2" marker-end="url(#arrCold)"/>
+        <!-- COLD DEEP FLOW (cyan, dashed) -->
+        <!-- N. Atlantic sinking site -->
+        <circle cx="130" cy="42" r="6" fill="rgba(26,200,200,0.15)" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+        <text x="130" y="46" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="7" text-anchor="middle">↓</text>
+        <!-- NADW southward deep -->
+        <path d="M130,48 Q124,66 118,84 Q110,102 104,118 Q98,130 96,142"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrC)" stroke-linecap="round"/>
+        <!-- Antarctic sinking -->
+        <circle cx="168" cy="156" r="5" fill="rgba(26,200,200,0.12)" stroke="rgba(26,200,200,0.55)" stroke-width="1"/>
+        <text x="168" y="160" fill="rgba(26,200,200,0.65)" font-family="monospace" font-size="6.5" text-anchor="middle">↓</text>
+        <!-- AABW eastward abyssal -->
+        <path d="M172,156 Q210,152 250,150 Q286,148 314,146"
+              fill="none" stroke="rgba(26,200,200,0.6)" stroke-width="1.6" stroke-dasharray="5,3" stroke-linecap="round"/>
+        <!-- Upwelling returns -->
+        <line x1="312" y1="146" x2="308" y2="118" stroke="rgba(26,200,200,0.5)" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arrC)"/>
+        <line x1="96" y1="142" x2="58" y2="112" stroke="rgba(26,200,200,0.5)" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arrC)"/>
 
-      <!-- Deep cold flow southward (NADW) -->
-      <path d="M114 68 Q108 84 100 98 Q92 112 88 124"
-            stroke="#48cae4" stroke-width="1.8" fill="none" stroke-dasharray="4,2.5" marker-end="url(#arrCold)" stroke-linecap="round"/>
-      <!-- Antarctic bottom water formation -->
-      <circle cx="130" cy="150" r="4" fill="#48cae4" opacity="0.7"/>
-      <!-- Deep flow eastward along bottom -->
-      <path d="M130 148 Q160 144 190 142 Q212 140 220 130"
-            stroke="#48cae4" stroke-width="1.6" fill="none" stroke-dasharray="4,2.5" stroke-linecap="round"/>
+        <!-- Loop Current marker -->
+        <circle cx="46" cy="88" r="4" fill="none" stroke="rgba(240,180,41,0.6)" stroke-width="1" stroke-dasharray="2,1"/>
+        <text x="14" y="84" fill="rgba(240,180,41,0.65)" font-family="monospace" font-size="6">Loop</text>
+        <text x="14" y="92" fill="rgba(240,180,41,0.65)" font-family="monospace" font-size="6">Current</text>
 
-      <!-- Upwelling arrows (return to surface) -->
-      <line x1="200" y1="118" x2="200" y2="104" stroke="#48cae4" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arrCold)"/>
-      <line x1="88" y1="120" x2="60" y2="100" stroke="#48cae4" stroke-width="1.2" stroke-dasharray="2,2" marker-end="url(#arrCold)"/>
+        <!-- AMOC label -->
+        <text x="80" y="48" fill="rgba(244,162,97,0.75)" font-family="monospace" font-size="6.5">AMOC</text>
 
-      <!-- LABELS -->
-      <!-- Warm label -->
-      <rect x="3" y="3" width="80" height="13" rx="3" fill="rgba(244,162,97,0.15)"/>
-      <text x="7" y="13" font-family="monospace" font-size="6.5" fill="#f4a261" font-weight="bold">▬ Warm surface flow</text>
+        <!-- Sinking label -->
+        <text x="138" y="40" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6">sinking</text>
 
-      <!-- Cold label -->
-      <rect x="3" y="19" width="82" height="13" rx="3" fill="rgba(72,202,228,0.12)"/>
-      <text x="7" y="29" font-family="monospace" font-size="6.5" fill="#48cae4" font-weight="bold">╌ Cold deep flow</text>
+        <!-- Legend -->
+        <rect x="192" y="168" width="180" height="52" rx="2" fill="rgba(2,15,30,0.6)" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+        <line x1="200" y1="180" x2="222" y2="180" stroke="rgba(244,162,97,0.85)" stroke-width="2.2"/>
+        <text x="226" y="184" fill="rgba(244,162,97,0.8)" font-family="monospace" font-size="7">Warm surface flow</text>
+        <line x1="200" y1="194" x2="222" y2="194" stroke="rgba(26,200,200,0.7)" stroke-width="1.8" stroke-dasharray="5,3"/>
+        <text x="226" y="198" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="7">Cold deep flow</text>
+        <circle cx="207" cy="208" r="4" fill="none" stroke="rgba(26,200,200,0.6)" stroke-width="1"/>
+        <text x="226" y="212" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">Sinking site</text>
 
-      <!-- Sinking dot label -->
-      <text x="120" y="38" font-family="monospace" font-size="5.5" fill="#90e0ef" opacity="0.85">↓ sinking</text>
+        <!-- Cycle time + heat transport -->
+        <rect x="8" y="168" width="176" height="52" rx="2" fill="rgba(2,15,30,0.6)" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+        <text x="96" y="182" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="7" text-anchor="middle">Cycle: ~500–2,000 years</text>
+        <text x="96" y="194" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">Heat transport: ~1.3 petawatts N</text>
+        <text x="96" y="206" fill="rgba(138,184,204,0.55)" font-family="monospace" font-size="6.5" text-anchor="middle">AMOC weakened ~15% since 1950</text>
+        <text x="96" y="216" fill="rgba(232,96,64,0.55)" font-family="monospace" font-size="6.5" text-anchor="middle">Greenland melt → freshwater dilution</text>
 
-      <!-- N. Atlantic label -->
-      <text x="68" y="58" font-family="monospace" font-size="5.2" fill="#e9c46a" opacity="0.75" text-anchor="middle">N. Atlantic</text>
+        <!-- TITLE BADGE -->
+        <rect x="8" y="0" width="250" height="16" fill="rgba(2,15,30,0.7)"/>
+        <text x="16" y="11" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="8" letter-spacing="0.15em">THERMOHALINE CIRCULATION  ·  CONVEYOR</text>
 
-      <!-- AMOC label -->
-      <text x="72" y="46" font-family="monospace" font-size="5" fill="#f4a261" opacity="0.8">AMOC</text>
-
-      <!-- Loop Current region -->
-      <circle cx="44" cy="84" r="3" fill="none" stroke="#e9c46a" stroke-width="1" stroke-dasharray="2,1"/>
-      <text x="10" y="82" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.8">Loop</text>
-      <text x="10" y="90" font-family="monospace" font-size="5" fill="#e9c46a" opacity="0.8">Current</text>
-    </svg>
-  </header>
-
-  <!-- LECTURE -->
-  <section class="section" aria-label="Lecture content">
-    <p class="section-label">📖 Lecture</p>
-
-    <!-- ENGLISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
-      <h2>The Ocean's Hidden Engine: Thermohaline Circulation</h2>
-
-      <p>While wind drives surface currents, the deep ocean is set in motion by differences in water <span class="key-term">density</span>. Because seawater density is controlled by both <span class="key-term">temperature</span> (thermo-) and <span class="key-term">salinity</span> (-haline), this system of slow, density-driven deep circulation is called <span class="key-term">thermohaline circulation (THC)</span> — or more accurately, the <span class="key-term">Atlantic Meridional Overturning Circulation (AMOC)</span> when referring specifically to the Atlantic basin component. Together these flows form what is popularly called the <span class="key-term">global ocean conveyor belt</span>.</p>
-
-      <p>The process begins in the high-latitude North Atlantic — particularly the <span class="key-term">Labrador Sea</span>, <span class="key-term">Norwegian Sea</span>, and <span class="key-term">Greenland Sea</span>. Here, warm surface water carried northward by the Gulf Stream loses heat to the cold Arctic atmosphere. As it cools and evaporates, it becomes <span class="key-term">denser</span> — cold, salty, heavy — and sinks to the seafloor in a process called <span class="key-term">deep-water formation</span>. The resulting water mass, <span class="key-term">North Atlantic Deep Water (NADW)</span>, flows southward along the western Atlantic basin at depths of 1,500–4,000 m.</p>
-
-      <p>A second major sinking region exists around Antarctica. <span class="key-term">Antarctic Bottom Water (AABW)</span> forms on continental shelves when extremely cold, saline brine drains down from sea-ice formation areas. AABW is the densest water in the ocean, creeping northward along the abyssal seafloor of all three major ocean basins at depths greater than 4,000 m. Where NADW and AABW encounter each other, they stack in distinct <span class="key-term">water mass layers</span> identifiable by their T–S (temperature–salinity) signatures for centuries after formation.</p>
-
-      <p>Deep water must eventually return to the surface through <span class="key-term">upwelling</span> — driven by wind divergence, topographic steering, and slow diffusive mixing across the pycnocline. The complete overturning cycle takes approximately <span class="key-term">500–2,000 years</span>, making thermohaline circulation one of Earth's slowest but most consequential climate regulators. It transports roughly <span class="key-term">1.3 petawatts of heat</span> northward in the Atlantic — equivalent to about one million large power stations — moderating the climate of Western Europe and influencing rainfall patterns globally.</p>
-
-      <p>Climate scientists monitor AMOC strength carefully. Evidence suggests it has <span class="key-term">weakened by ~15%</span> since the mid-20th century, likely due to freshwater input from melting Greenland ice diluting the surface salinity that drives sinking. A significant weakening or collapse of AMOC would redistribute global heat dramatically, cooling Northwestern Europe, raising sea levels on the U.S. East Coast, and disrupting monsoon systems across the tropics.</p>
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
     </div>
+  </div><!-- /header -->
 
-    <hr class="lang-divider"/>
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
 
-    <!-- SPANISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
-      <h2>El Motor Oculto del Océano: La Circulación Termohalina</h2>
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
 
-      <p>Mientras el viento impulsa las corrientes superficiales, el océano profundo es puesto en movimiento por diferencias de <span class="key-term">densidad</span> del agua. Como la densidad del agua de mar está controlada tanto por la <span class="key-term">temperatura</span> (termo-) como por la <span class="key-term">salinidad</span> (-halina), este sistema de circulación profunda y lenta impulsado por densidad se llama <span class="key-term">circulación termohalina (CTH)</span> — o más precisamente, <span class="key-term">Circulación Meridional de Retorno del Atlántico (AMOC)</span> para el componente atlántico. Juntos estos flujos forman la llamada <span class="key-term">cinta transportadora oceánica global</span>.</p>
-
-      <p>El proceso comienza en el Atlántico Norte de altas latitudes — especialmente el <span class="key-term">Mar de Labrador</span>, el <span class="key-term">Mar de Noruega</span> y el <span class="key-term">Mar de Groenlandia</span>. Allí, el agua superficial cálida transportada hacia el norte por la Corriente del Golfo pierde calor hacia la atmósfera ártica fría. Al enfriarse y evaporarse, se vuelve más <span class="key-term">densa</span> — fría, salada, pesada — y se hunde en el fondo marino en un proceso llamado <span class="key-term">formación de agua profunda</span>. La masa de agua resultante, <span class="key-term">Agua Profunda del Atlántico Norte (NADW)</span>, fluye hacia el sur a profundidades de 1,500–4,000 m.</p>
-
-      <p>Una segunda región de hundimiento importante existe alrededor de la Antártida. El <span class="key-term">Agua de Fondo Antártica (AABW)</span> se forma en las plataformas continentales cuando la salmuera extremadamente fría drena hacia abajo desde las áreas de formación de hielo marino. El AABW es el agua más densa del océano, desplazándose hacia el norte por el fondo abisal de las tres cuencas oceánicas principales a profundidades mayores de 4,000 m.</p>
-
-      <p>El agua profunda eventualmente regresa a la superficie a través de la <span class="key-term">surgencia</span> — impulsada por divergencia del viento, guía topográfica y mezcla difusiva lenta a través de la picnoclina. El ciclo de retorno completo tarda aproximadamente <span class="key-term">500–2,000 años</span>, haciendo de la circulación termohalina uno de los reguladores climáticos más lentos pero más importantes de la Tierra. Transporta aproximadamente <span class="key-term">1.3 petavatios de calor</span> hacia el norte en el Atlántico — equivalente a alrededor de un millón de grandes centrales eléctricas — moderando el clima de Europa Occidental.</p>
-
-      <p>Los científicos climáticos monitorean la fortaleza del AMOC con atención. La evidencia sugiere que se ha <span class="key-term">debilitado ~15%</span> desde mediados del siglo XX, probablemente debido a la entrada de agua dulce del deshielo de Groenlandia que diluye la salinidad superficial que impulsa el hundimiento. Un debilitamiento significativo alteraría drásticamente la distribución global del calor.</p>
-    </div>
-
-    <!-- DATA TABLE -->
-    <div class="data-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Water Mass / Masa de Agua</th>
-            <th>Formation Region / Región de Formación</th>
-            <th>Temp / Temp</th>
-            <th>Salinity / Salinidad</th>
-            <th>Depth / Profundidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>NADW</td>
-            <td>Labrador, Norwegian &amp; Greenland Seas</td>
-            <td>2–4 °C</td>
-            <td>34.9–35.0 psu</td>
-            <td>1,500–4,000 m</td>
-          </tr>
-          <tr>
-            <td>AABW</td>
-            <td>Weddell Sea, Antarctic shelves</td>
-            <td>−0.5–1 °C</td>
-            <td>34.6–34.7 psu</td>
-            <td>&gt; 4,000 m (abyssal)</td>
-          </tr>
-          <tr>
-            <td>AAIW</td>
-            <td>Antarctic Polar Front (~50°S)</td>
-            <td>2–6 °C</td>
-            <td>33.8–34.5 psu</td>
-            <td>800–1,000 m</td>
-          </tr>
-          <tr>
-            <td>Mediterranean Outflow Water (MOW)</td>
-            <td>Strait of Gibraltar outflow</td>
-            <td>10–12 °C</td>
-            <td>36.0–36.5 psu</td>
-            <td>600–1,200 m</td>
-          </tr>
-          <tr>
-            <td>Caribbean Surface Water</td>
-            <td>Tropical Atlantic / Caribbean inflow</td>
-            <td>26–29 °C</td>
-            <td>35.5–36.2 psu</td>
-            <td>0–150 m</td>
-          </tr>
-          <tr>
-            <td>Gulf Stream Water</td>
-            <td>Florida Straits → N. Atlantic</td>
-            <td>20–28 °C</td>
-            <td>36.0–36.8 psu</td>
-            <td>0–800 m (surface core)</td>
-          </tr>
-          <tr>
-            <td>North Pacific Intermediate Water (NPIW)</td>
-            <td>Okhotsk Sea, N. Pacific</td>
-            <td>4–8 °C</td>
-            <td>33.8–34.1 psu</td>
-            <td>300–800 m</td>
-          </tr>
-          <tr>
-            <td>Indian Ocean Central Water</td>
-            <td>Subtropical convergence zones</td>
-            <td>8–25 °C</td>
-            <td>34.5–35.8 psu</td>
-            <td>200–1,000 m</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- WESTERN CARIBBEAN APPLICATION -->
-  <section class="section app-panel" aria-label="Western Caribbean application">
-    <p class="section-label">🌊 Western Caribbean Application</p>
-
-    <!-- ENGLISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇺🇸</span> English</span>
-      <p class="panel-heading">The Conveyor's Local Branch: Caribbean Water in the Global System</p>
-
-      <p>The Western Caribbean sits at a critical node of the thermohaline conveyor. Warm, salty <span class="key-term">Caribbean Surface Water</span> flowing through the Yucatán Channel into the Gulf of Mexico becomes the source water for the <span class="key-term">Loop Current</span>, which in turn feeds the <span class="key-term">Florida Current</span> through the Straits of Florida — and the Florida Current is the upstream source of the <span class="key-term">Gulf Stream</span>, the Atlantic's premier warm surface limb of AMOC.</p>
-
-      <p>In essence, water that Catamaran Dan's crew sails through in the Western Caribbean today may, decades later, be contributing to the northward heat transport that keeps the British Isles mild in winter. The journey begins here: tropical solar heating raises SST, excess evaporation over precipitation increases salinity slightly, and the resulting warm, moderately saline water is transported northward by the wind-driven circulation before being handed off to the thermohaline system.</p>
-
-      <p>The deep water in the Caribbean basin itself is largely isolated from the global conveyor. The <span class="key-term">Caribbean Deep Water</span> — found below ~1,800 m — is relatively old, stagnant water that entered the basin over the sills of the Anegada Passage and other Caribbean passages centuries ago. It has a distinctive T–S signature with temperatures near 3.8°C and salinities around 34.97 psu, essentially unchanged since it last communicated with the open Atlantic. Deep Caribbean waters are <span class="key-term">oxygen-poor</span> relative to open-ocean deep waters at the same depth, a consequence of this isolation and long residence time.</p>
-
-      <p>The <span class="key-term">Loop Current</span> is the most direct thermohaline-relevant feature for the Rim Run™ route. It brings Atlantic-origin warm water northward through the Yucatán Channel at speeds of 1–3 knots, completing a loop through the eastern Gulf of Mexico before exiting through the Florida Straits. Warm-core eddies that shed westward from the Loop Current — known as <span class="key-term">Loop Current Eddies (LCEs)</span> — carry anomalously warm, deep water across the Gulf toward Texas and Mexico, playing a crucial role in rapid hurricane intensification. Monitoring the Loop Current's position and eddy-shedding cycle is now a core component of hurricane intensity forecasting in the Gulf of Mexico.</p>
-    </div>
-
-    <hr class="lang-divider"/>
-
-    <!-- SPANISH -->
-    <div class="lang-block">
-      <span class="flag-label"><span class="flag">🇲🇽</span> Español</span>
-      <p class="panel-heading">La Rama Local de la Cinta Transportadora: El Agua Caribeña en el Sistema Global</p>
-
-      <p>El Caribe Occidental ocupa un nodo crítico de la cinta transportadora termohalina. El <span class="key-term">Agua Superficial del Caribe</span> cálida y salada que fluye por el Canal de Yucatán hacia el Golfo de México se convierte en el agua fuente de la <span class="key-term">Corriente del Lazo</span>, que alimenta la <span class="key-term">Corriente de Florida</span> a través del Estrecho de Florida — y la Corriente de Florida es la fuente aguas arriba de la <span class="key-term">Corriente del Golfo</span>, el principal brazo superficial cálido del AMOC en el Atlántico.</p>
-
-      <p>En esencia, el agua por la que navega la tripulación de Catamaran Dan en el Caribe Occidental hoy podría, décadas más tarde, estar contribuyendo al transporte de calor hacia el norte que mantiene las Islas Británicas templadas en invierno. El viaje comienza aquí: el calentamiento solar tropical eleva la TSM, la evaporación excesiva sobre la precipitación aumenta ligeramente la salinidad, y el agua cálida resultante es transportada hacia el norte por la circulación impulsada por el viento antes de ser entregada al sistema termohalino.</p>
-
-      <p>El agua profunda en la cuenca del Caribe está en gran medida aislada de la cinta transportadora global. El <span class="key-term">Agua Profunda del Caribe</span> — encontrada por debajo de ~1,800 m — es agua relativamente vieja y estancada que entró a la cuenca por los umbrales del Pasaje de Anegada y otros pasos caribeños hace siglos. Las aguas profundas del Caribe son <span class="key-term">pobres en oxígeno</span> en relación con las aguas profundas del océano abierto a la misma profundidad, consecuencia de este aislamiento y largo tiempo de residencia.</p>
-
-      <p>La <span class="key-term">Corriente del Lazo</span> es la característica más directamente relevante para la ruta Rim Run™. Transporta agua cálida de origen atlántico hacia el norte por el Canal de Yucatán a velocidades de 1–3 nudos. Los <span class="key-term">remolinos de la Corriente del Lazo (LCE)</span> que se desprenden hacia el oeste llevan agua anormalmente cálida y profunda a través del Golfo, desempeñando un papel crucial en la intensificación rápida de huracanes. Monitorear la posición de la Corriente del Lazo y su ciclo de desprendimiento de remolinos es ahora un componente fundamental de los pronósticos de intensidad de huracanes en el Golfo de México.</p>
-    </div>
-  </section>
-
-  <!-- MCQ -->
-  <section class="mcq-section" aria-label="Multiple choice questions">
-    <div class="mcq-header">
-      <h3>Knowledge Check · Verificación de Conocimiento</h3>
-      <p>Static bilingual quiz — correct answers highlighted &nbsp;/&nbsp; Cuestionario bilingüe estático — respuestas correctas marcadas</p>
-    </div>
-
-    <div class="mcq-grid">
-
-      <!-- Q1 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q1</span>
-          Thermohaline circulation is driven primarily by differences in…
-          <span class="q-es">La circulación termohalina es impulsada principalmente por diferencias en…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Wind speed / Velocidad del viento</li>
-          <li><span class="opt-key">B</span> Tidal forcing / Forzamiento de marea</li>
-          <li class="correct"><span class="opt-key">C</span> Water density (temperature &amp; salinity) / Densidad del agua</li>
-          <li><span class="opt-key">D</span> Solar radiation / Radiación solar</li>
-        </ul>
-        <p class="mcq-answer">✓ C — Density = f(T, S) drives thermohaline flow.</p>
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          While wind drives surface currents, the deep ocean is set in motion by differences in water density. Because seawater density is controlled by both temperature (thermo-) and salinity (-haline), this system of slow, density-driven deep circulation is called thermohaline circulation (THC) — or more precisely, the Atlantic Meridional Overturning Circulation (AMOC) for the Atlantic component. Together these flows form the global ocean conveyor belt.
+          <br><br>
+          The process begins in the high-latitude North Atlantic — the Labrador, Norwegian, and Greenland Seas. Warm surface water carried northward by the Gulf Stream loses heat to the Arctic atmosphere. As it cools and evaporates, it becomes denser — cold, salty, heavy — and sinks in a process called deep-water formation, creating North Atlantic Deep Water (NADW) flowing southward at 1,500–4,000 m depth. A second sinking region around Antarctica produces Antarctic Bottom Water (AABW), the densest water in the ocean, which creeps northward along the abyssal seafloor of all three major ocean basins below 4,000 m.
+          <br><br>
+          The complete overturning cycle takes approximately 500–2,000 years, making thermohaline circulation one of Earth's slowest but most consequential climate regulators — transporting roughly 1.3 petawatts of heat northward in the Atlantic. Evidence suggests AMOC has weakened ~15% since the mid-20th century, likely due to freshwater input from melting Greenland ice diluting the surface salinity that drives sinking.
+        </p>
       </div>
 
-      <!-- Q2 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q2</span>
-          Where does North Atlantic Deep Water (NADW) primarily form?
-          <span class="q-es">¿Dónde se forma principalmente el Agua Profunda del Atlántico Norte (NADW)?</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Gulf of Mexico / Golfo de México</li>
-          <li><span class="opt-key">B</span> Mediterranean Sea / Mar Mediterráneo</li>
-          <li class="correct"><span class="opt-key">C</span> Labrador, Norwegian &amp; Greenland Seas</li>
-          <li><span class="opt-key">D</span> Weddell Sea, Antarctica</li>
-        </ul>
-        <p class="mcq-answer">✓ C — Cold surface cooling + evaporation increases density → sinking.</p>
-      </div>
+      <div class="lang-divider"></div>
 
-      <!-- Q3 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q3</span>
-          Antarctic Bottom Water (AABW) is significant because it is…
-          <span class="q-es">El Agua de Fondo Antártica (AABW) es significativa porque es…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> The warmest water in the deep ocean</li>
-          <li class="correct"><span class="opt-key">B</span> The densest water in the ocean, filling abyssal basins globally</li>
-          <li><span class="opt-key">C</span> Found only in the Southern Ocean</li>
-          <li><span class="opt-key">D</span> Formed by wind-driven upwelling</li>
-        </ul>
-        <p class="mcq-answer">✓ B — Near-freezing temp + high salinity → maximum density.</p>
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Mientras el viento impulsa las corrientes superficiales, el océano profundo es puesto en movimiento por diferencias de densidad del agua. Como la densidad del agua de mar está controlada por la temperatura (termo-) y la salinidad (-halina), este sistema de circulación profunda y lenta se llama circulación termohalina (CTH) — o más precisamente, Circulación Meridional de Retorno del Atlántico (AMOC) para el componente atlántico. Juntos estos flujos forman la cinta transportadora oceánica global.
+          <br><br>
+          El proceso comienza en el Atlántico Norte de altas latitudes — los mares de Labrador, Noruega y Groenlandia. El agua superficial cálida transportada hacia el norte por la Corriente del Golfo pierde calor hacia la atmósfera ártica fría. Al enfriarse y evaporarse, se vuelve más densa y se hunde en la formación de agua profunda, creando el Agua Profunda del Atlántico Norte (NADW) que fluye hacia el sur a 1,500–4,000 m. Una segunda región de hundimiento alrededor de la Antártida produce el Agua de Fondo Antártica (AABW), el agua más densa del océano, que se desplaza hacia el norte por el fondo abisal de las tres cuencas principales por debajo de 4,000 m.
+          <br><br>
+          El ciclo completo de retorno tarda aproximadamente 500–2,000 años, transportando ~1.3 petavatios de calor hacia el norte en el Atlántico. La evidencia sugiere que el AMOC se ha debilitado ~15% desde mediados del siglo XX, probablemente debido a la entrada de agua dulce del deshielo de Groenlandia que diluye la salinidad superficial que impulsa el hundimiento.
+        </p>
       </div>
-
-      <!-- Q4 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q4</span>
-          How long does a complete thermohaline overturning cycle typically take?
-          <span class="q-es">¿Cuánto tiempo tarda un ciclo completo de retorno termohalino?</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> 10–50 years / 10–50 años</li>
-          <li><span class="opt-key">B</span> 100–200 years / 100–200 años</li>
-          <li class="correct"><span class="opt-key">C</span> ~500–2,000 years / ~500–2,000 años</li>
-          <li><span class="opt-key">D</span> 10,000+ years / 10,000+ años</li>
-        </ul>
-        <p class="mcq-answer">✓ C — Deep water aged by radiocarbon gives ~500–2,000 yr estimates.</p>
-      </div>
-
-      <!-- Q5 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q5</span>
-          The Loop Current connects the Caribbean to the global conveyor by…
-          <span class="q-es">La Corriente del Lazo conecta el Caribe a la cinta transportadora global al…</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> Forming deep water in the Gulf of Mexico</li>
-          <li><span class="opt-key">B</span> Bringing cold water from the Arctic into the Caribbean</li>
-          <li class="correct"><span class="opt-key">C</span> Feeding warm Caribbean water into the Florida Current → Gulf Stream → AMOC</li>
-          <li><span class="opt-key">D</span> Upwelling Antarctic Bottom Water onto Caribbean shelves</li>
-        </ul>
-        <p class="mcq-answer">✓ C — Caribbean → Loop Current → Florida Current → Gulf Stream pathway.</p>
-      </div>
-
-      <!-- Q6 -->
-      <div class="mcq-card">
-        <div class="mcq-q">
-          <span class="q-num">Q6</span>
-          Why are scientists concerned about AMOC weakening?
-          <span class="q-es">¿Por qué les preocupa a los científicos el debilitamiento del AMOC?</span>
-        </div>
-        <ul class="mcq-options">
-          <li><span class="opt-key">A</span> It would speed up surface currents dangerously</li>
-          <li><span class="opt-key">B</span> It would eliminate all ocean tides</li>
-          <li class="correct"><span class="opt-key">C</span> Reduced heat transport would cool N. Europe, raise U.S. sea levels, and disrupt global rainfall</li>
-          <li><span class="opt-key">D</span> It would increase tidal range in the Caribbean</li>
-        </ul>
-        <p class="mcq-answer">✓ C — AMOC carries ~1.3 PW of heat; its weakening reshapes regional climates.</p>
-      </div>
-
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="card-footer">
-    <div class="progress-meta">
-      <span class="lesson-id">S01·L14 / 704 &nbsp;—&nbsp; Physical Oceanography: Thermohaline Circulation</span>
-      <span class="progress-pct">1.99 % complete</span>
-    </div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill"></div>
-    </div>
-    <nav class="footer-nav" aria-label="Lesson navigation">
-      <a href="s01-l13.html">← S01·L13</a>
-      <a href="../learn.html">⊞ Curriculum Grid</a>
-      <a href="s01-l15.html">S01·L15 →</a>
-    </nav>
-    <p class="footer-credit">Rim Run™ Marine Science Curriculum &nbsp;·&nbsp; Catamaran Dan / Nevado Raiders Sailing Adventures</p>
-  </footer>
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
 
-</article>
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean sits at a critical node of the thermohaline conveyor — warm, salty Caribbean Surface Water flowing through the Yucatán Channel feeds the Loop Current, which feeds the Florida Current, which feeds the Gulf Stream, the Atlantic's premier warm surface limb of AMOC. Water sailed through by the Rim Run™ crew today may be contributing to North Atlantic deep-water formation decades later.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>The <strong>Loop Current</strong> brings Atlantic-origin warm water northward through the Yucatán Channel at 1–3 knots, completing a loop through the eastern Gulf of Mexico before exiting via the Florida Straits. Its position and eddy-shedding cycle are now core inputs to Gulf of Mexico hurricane intensity forecasting.</li>
+        <li><strong>Loop Current Eddies (LCEs)</strong> shed westward from the main Loop Current and carry anomalously warm, deep water across the Gulf toward Texas and Mexico — a crucial mechanism for rapid hurricane intensification, as warm deep water prevents the cold upwelling that would otherwise weaken a storm.</li>
+        <li><strong>Caribbean Deep Water</strong> — found below ~1,800 m — is largely isolated from the global conveyor, old stagnant water that entered over Caribbean sills centuries ago. It is oxygen-poor relative to open-ocean deep water at the same depth, a consequence of long isolation and residence time.</li>
+        <li>An <strong>AMOC slowdown</strong> would have direct consequences for the Western Caribbean: reduced heat transport would cool the North Atlantic, alter the position of the Intertropical Convergence Zone, and shift Caribbean rainfall patterns — potentially increasing drought risk across Central America and the MAR corridor.</li>
+        <li>The <strong>Florida Current</strong> — the AMOC's direct downstream link from the Caribbean — is monitored continuously by an undersea cable array across the Florida Straits, providing real-time measurements of transport volume that are used as a proxy for AMOC strength.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Caribe Occidental ocupa un nodo crítico de la cinta transportadora termohalina — el Agua Superficial del Caribe cálida y salada que fluye por el Canal de Yucatán alimenta la Corriente del Lazo, que alimenta la Corriente de Florida, que alimenta la Corriente del Golfo, el principal brazo superficial cálido del AMOC en el Atlántico.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>La <strong>Corriente del Lazo</strong> transporta agua cálida de origen atlántico hacia el norte por el Canal de Yucatán a 1–3 nudos, completando un lazo por el este del Golfo de México antes de salir por el Estrecho de Florida. Su posición y ciclo de desprendimiento de remolinos son entradas fundamentales para los pronósticos de intensidad de huracanes en el Golfo.</li>
+        <li>Los <strong>remolinos de la Corriente del Lazo (LCE)</strong> se desprenden hacia el oeste llevando agua anormalmente cálida y profunda a través del Golfo — un mecanismo crucial para la intensificación rápida de huracanes, ya que el agua cálida profunda impide la surgencia fría que debilitaría una tormenta.</li>
+        <li>El <strong>Agua Profunda del Caribe</strong> — por debajo de ~1,800 m — está en gran parte aislada de la cinta transportadora global, siendo agua vieja y estancada que entró por los umbrales del Caribe hace siglos. Es pobre en oxígeno en relación con el agua profunda del océano abierto a la misma profundidad.</li>
+        <li>Un <strong>debilitamiento del AMOC</strong> tendría consecuencias directas para el Caribe Occidental: el transporte de calor reducido enfriaría el Atlántico Norte, alteraría la posición de la Zona de Convergencia Intertropical y desplazaría los patrones de lluvia del Caribe — potencialmente aumentando el riesgo de sequía en América Central y el corredor del SAM.</li>
+        <li>La <strong>Corriente de Florida</strong> — el enlace directo aguas abajo del AMOC desde el Caribe — es monitoreada continuamente por un cable submarino a través del Estrecho de Florida, proporcionando mediciones en tiempo real del volumen de transporte utilizadas como proxy de la fortaleza del AMOC.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Thermohaline circulation is driven primarily by which physical property of seawater?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Wind stress applied at the ocean surface</li>
+            <li><span class="opt-letter">B.</span> Tidal forcing from the gravitational pull of the Moon</li>
+            <li><span class="opt-letter">C.</span> Density differences caused by variations in temperature and salinity</li>
+            <li><span class="opt-letter">D.</span> Solar radiation absorbed at the sea surface</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Density = f(temperature, salinity). Cold, salty water sinks; warm, fresh water rises. This density contrast drives the entire thermohaline overturning system.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 La circulación termohalina es impulsada principalmente por qué propiedad física del agua de mar?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El estrés del viento aplicado en la superficie del océano</li>
+            <li><span class="opt-letter">B.</span> El forzamiento mareal por la atracción gravitatoria de la Luna</li>
+            <li><span class="opt-letter">C.</span> Las diferencias de densidad causadas por variaciones en temperatura y salinidad</li>
+            <li><span class="opt-letter">D.</span> La radiación solar absorbida en la superficie del mar</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Densidad = f(temperatura, salinidad). El agua fría y salada se hunde; el agua cálida y fresca sube. Este contraste de densidad impulsa todo el sistema de retorno termohalino.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Antarctic Bottom Water (AABW) is considered the densest water in the ocean. Which combination of properties makes it so dense?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Very warm temperature and very high salinity</li>
+            <li><span class="opt-letter">B.</span> Near-freezing temperature and elevated salinity from sea-ice brine rejection</li>
+            <li><span class="opt-letter">C.</span> High pressure alone at abyssal depths compresses water to maximum density</li>
+            <li><span class="opt-letter">D.</span> Low salinity from Antarctic ice melt combined with cold temperature</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Sea-ice formation rejects salt into the surrounding water (brine rejection), raising salinity. Combined with near-freezing temperatures (~−0.5°C), this produces AABW's maximum density.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El Agua de Fondo Antártica (AABW) es considerada el agua más densa del océano. ¿Qué combinación de propiedades la hace tan densa?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Temperatura muy cálida y salinidad muy alta</li>
+            <li><span class="opt-letter">B.</span> Temperatura cercana al punto de congelación y salinidad elevada por el rechazo de salmuera del hielo marino</li>
+            <li><span class="opt-letter">C.</span> La alta presión por sí sola a profundidades abisales comprime el agua hasta su densidad máxima</li>
+            <li><span class="opt-letter">D.</span> Baja salinidad del deshielo antártico combinada con temperatura fría</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La formación de hielo marino rechaza sal al agua circundante (rechazo de salmuera), aumentando la salinidad. Combinada con temperaturas cercanas al punto de congelación (~−0.5°C), esto produce la densidad máxima del AABW.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 How does the Loop Current connect the Western Caribbean to the global thermohaline conveyor?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> By forming cold, dense deep water in the Gulf of Mexico that sinks and feeds NADW</li>
+            <li><span class="opt-letter">B.</span> By upwelling Antarctic Bottom Water onto Caribbean shelves, cooling surface temperatures</li>
+            <li><span class="opt-letter">C.</span> By feeding warm Caribbean surface water into the Florida Current → Gulf Stream → AMOC upper limb</li>
+            <li><span class="opt-letter">D.</span> By blocking the outflow of Mediterranean Outflow Water into the Atlantic</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Caribbean Surface Water → Yucatán Channel → Loop Current → Florida Current → Gulf Stream is the direct pathway connecting tropical Atlantic heat to the AMOC warm upper limb.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cómo conecta la Corriente del Lazo al Caribe Occidental con la cinta transportadora termohalina global?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Formando agua profunda fría y densa en el Golfo de México que se hunde y alimenta el NADW</li>
+            <li><span class="opt-letter">B.</span> Aflorando Agua de Fondo Antártica en las plataformas del Caribe, enfriando las temperaturas superficiales</li>
+            <li><span class="opt-letter">C.</span> Alimentando agua superficial cálida del Caribe hacia la Corriente de Florida → Corriente del Golfo → brazo superior cálido del AMOC</li>
+            <li><span class="opt-letter">D.</span> Bloqueando la salida del Agua de Desbordamiento del Mediterráneo hacia el Atlántico</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Agua Superficial del Caribe → Canal de Yucatán → Corriente del Lazo → Corriente de Florida → Corriente del Golfo es la vía directa que conecta el calor tropical atlántico con el brazo superior cálido del AMOC.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 14 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L14 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
 </body>
 </html>
