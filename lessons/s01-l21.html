@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L21 Physical Oceanography — MAR Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+
+  .progress-fill { width: 2.98%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 21 · Physical Oceanography</div>
+        <h1 class="lesson-title">MAR Focus</h1>
+        <div class="lesson-subtitle">Enfoque en el Sistema Arrecifal Mesoamericano</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Mesoamerican Reef</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — MAR SHELF CROSS-SECTION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="waterCol" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0a4a6a" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#020f1e" stop-opacity="0.9"/>
+          </linearGradient>
+          <linearGradient id="shelfGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a20"/>
+            <stop offset="100%" stop-color="#0a1e10"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- WATER COLUMN background -->
+        <rect x="0" y="60" width="380" height="200" fill="url(#waterCol)"/>
+
+        <!-- SEAFLOOR PROFILE — shelf break cross-section -->
+        <!-- Land/coast left -->
+        <polygon points="0,100 40,100 40,260 0,260" fill="rgba(30,50,20,0.7)"/>
+        <!-- Lagoon shallow area -->
+        <polygon points="40,100 40,145 110,145 110,260 40,260" fill="rgba(10,60,40,0.3)"/>
+        <!-- Barrier reef crest -->
+        <polygon points="108,125 118,115 128,125 128,260 108,260" fill="rgba(20,80,50,0.5)"/>
+        <!-- Fore reef slope -->
+        <polygon points="128,125 200,170 200,260 128,260" fill="rgba(10,50,35,0.3)"/>
+        <!-- Shelf break -->
+        <polygon points="200,170 220,180 220,260 200,260" fill="rgba(10,40,30,0.4)"/>
+        <!-- Deep ocean -->
+        <polygon points="220,180 380,220 380,260 220,260" fill="rgba(2,15,30,0.8)"/>
+
+        <!-- LAGOON LABEL -->
+        <text x="74" y="136" fill="rgba(184,240,236,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">LAGOON</text>
+        <text x="74" y="144" fill="rgba(184,240,236,0.35)" font-family="monospace" font-size="5.5" text-anchor="middle">&lt;30 m</text>
+
+        <!-- REEF CREST LABEL -->
+        <text x="118" y="108" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="6" text-anchor="middle">REEF</text>
+        <text x="118" y="116" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="6" text-anchor="middle">CREST</text>
+
+        <!-- FORE REEF LABEL -->
+        <text x="162" y="158" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">FORE REEF</text>
+
+        <!-- SHELF BREAK LABEL -->
+        <text x="215" y="168" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="6" text-anchor="middle">SHELF</text>
+        <text x="215" y="176" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="6" text-anchor="middle">BREAK</text>
+
+        <!-- DEPTH MARKERS -->
+        <line x1="8" y1="100" x2="8" y2="230" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+        <text x="14" y="108" fill="rgba(26,200,200,0.35)" font-family="monospace" font-size="5.5">0m</text>
+        <text x="14" y="150" fill="rgba(26,200,200,0.35)" font-family="monospace" font-size="5.5">50m</text>
+        <text x="14" y="195" fill="rgba(26,200,200,0.35)" font-family="monospace" font-size="5.5">200m</text>
+        <line x1="8" y1="100" x2="12" y2="100" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <line x1="8" y1="145" x2="12" y2="145" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <line x1="8" y1="190" x2="12" y2="190" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+
+        <!-- THERMOCLINE LINE -->
+        <line x1="40" y1="122" x2="380" y2="145" stroke="rgba(240,180,41,0.5)" stroke-width="1.2" stroke-dasharray="5,3"/>
+        <text x="290" y="136" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="6.5">THERMOCLINE</text>
+
+        <!-- CARIBBEAN CURRENT arrow (surface) -->
+        <path d="M240,80 C270,76 310,78 350,75" fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="2"/>
+        <polygon points="350,72 350,78 358,75" fill="rgba(26,200,200,0.7)"/>
+        <text x="288" y="72" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">CARIBBEAN CURRENT →</text>
+
+        <!-- UPWELLING arrows at shelf break -->
+        <g stroke="rgba(26,200,200,0.45)" stroke-width="1.2" fill="none">
+          <line x1="215" y1="200" x2="215" y2="175"/>
+          <polygon points="211,175 219,175 215,167" fill="rgba(26,200,200,0.45)" stroke="none"/>
+          <line x1="230" y1="205" x2="230" y2="182"/>
+          <polygon points="226,182 234,182 230,174" fill="rgba(26,200,200,0.45)" stroke="none"/>
+        </g>
+        <text x="222" y="215" fill="rgba(26,200,200,0.4)" font-family="monospace" font-size="5.5" text-anchor="middle">upwelling ↑</text>
+
+        <!-- TRADE WIND indicator -->
+        <g transform="translate(240,10)">
+          <text x="0" y="12" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="7" letter-spacing="0.08em">TRADE WINDS</text>
+          <line x1="0" y1="20" x2="50" y2="20" stroke="rgba(240,180,41,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+          <polygon points="50,17 50,23 57,20" fill="rgba(240,180,41,0.4)"/>
+          <text x="0" y="34" fill="rgba(240,180,41,0.35)" font-family="monospace" font-size="6">NE → SW</text>
+        </g>
+
+        <!-- WAVE breaking at reef crest -->
+        <path d="M105,112 C110,107 115,110 120,112" fill="none" stroke="rgba(184,240,236,0.6)" stroke-width="1.5"/>
+        <path d="M108,116 C113,111 118,114 123,116" fill="none" stroke="rgba(184,240,236,0.35)" stroke-width="1"/>
+
+        <!-- TITLE BADGE -->
+        <rect x="30" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="38" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">MAR  ·  SHELF  CROSS-SECTION</text>
+
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          The Mesoamerican Reef (MAR) is the largest barrier reef system in the Western Hemisphere and the second largest in the world, extending approximately 1,000 kilometers from the northern tip of the Yucatán Peninsula southward through Belize, Guatemala, and Honduras to the Bay Islands. Its physical oceanography is not a simple extrapolation of open-ocean Caribbean dynamics — the MAR shelf imposes its own bathymetric, hydrodynamic, and sedimentary controls that produce distinct local conditions across its latitudinal extent.
+          <br><br>
+          The MAR shelf is characterized by extreme bathymetric variability over short horizontal distances. The Belizean shelf — the widest section at 20–40 kilometers — is remarkably shallow, with lagoon depths averaging 10–30 meters separated from the open Caribbean by the barrier reef crest. South of Belize, the shelf narrows dramatically: the Honduran and Guatemalan shelf sections are less than 5 kilometers wide in places, exposing reef structures directly to open-ocean forcing with minimal lagoonal buffer. This north-to-south transition from wide, shallow shelf to narrow, deep-adjacent reef defines the MAR's physical diversity.
+          <br><br>
+          At the shelf break — the bathymetric transition from continental shelf to oceanic depth, occurring at approximately 200 meters along most of the MAR — internal waves and shelf-edge upwelling introduce episodic pulses of cold, nutrient-enriched water onto the fore reef. These upwelling events are modulated by Caribbean Current velocity, trade wind intensity, and tidal forcing, and represent one of the primary mechanisms by which the MAR's physical environment is connected to open-ocean circulation dynamics.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El Sistema Arrecifal Mesoamericano (SAM) es el sistema de arrecife de barrera más grande del Hemisferio Occidental y el segundo más grande del mundo, extendiéndose aproximadamente 1,000 kilómetros desde la punta norte de la Península de Yucatán hacia el sur a través de Belice, Guatemala y Honduras hasta las Islas de la Bahía. Su oceanografía física no es una simple extrapolación de la dinámica del Caribe en mar abierto — la plataforma del SAM impone sus propios controles batimétricos, hidrodinámicos y sedimentarios que producen condiciones locales distintas a lo largo de su extensión latitudinal.
+          <br><br>
+          La plataforma del SAM se caracteriza por una variabilidad batimétrica extrema en distancias horizontales cortas. La plataforma de Belice — la sección más ancha con 20–40 kilómetros — es notablemente somera, con profundidades de laguna que promedian 10–30 metros separadas del Caribe abierto por la cresta del arrecife de barrera. Al sur de Belice, la plataforma se estrecha drásticamente: las secciones hondureña y guatemalteca tienen menos de 5 kilómetros de ancho en algunos lugares, exponiendo las estructuras arrecifales directamente al forzamiento del océano abierto con un amortiguador lagunar mínimo.
+          <br><br>
+          En el borde de la plataforma — la transición batimétrica de la plataforma continental a la profundidad oceánica — las ondas internas y la surgencia en el borde de la plataforma introducen pulsos episódicos de agua fría enriquecida con nutrientes sobre el arrecife frontal. Estos eventos de surgencia son modulados por la velocidad de la Corriente del Caribe, la intensidad de los vientos alisios y el forzamiento mareal, y representan uno de los mecanismos primarios por los cuales el entorno físico del SAM está conectado a la dinámica de circulación oceánica abierta.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MAR APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">MAR Physical Application · Aplicación Física del SAM</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The MAR shelf's bathymetric architecture — wide lagoonal buffer in Belize transitioning to narrow, ocean-exposed shelf in Honduras — creates a north-south physical gradient that determines reef vulnerability, upwelling exposure, and thermal stress accumulation differently across the system's latitudinal range.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>The <strong>Belizean lagoonal shelf</strong> (20–40 km wide, 10–30 m deep) functions as a thermal and sediment buffer — it moderates wave energy reaching the barrier reef, traps terrestrial runoff from inland watersheds, and creates a semi-enclosed environment where temperature and salinity can deviate significantly from open-ocean values over tidal and diurnal cycles.</li>
+        <li>The <strong>MAR shelf break upwelling</strong> system operates as a cold-water delivery mechanism: when Caribbean Current velocity increases or trade winds intensify, isopycnal tilting at the shelf edge drives nutrient-rich subsurface water onto the fore reef slope — providing episodic fertilization that supports high MAR biodiversity but also introducing thermal variability that complicates bleaching risk assessment.</li>
+        <li><strong>Internal tidal bores</strong> — generated as barotropic tidal energy interacts with the shelf break topography — propagate shoreward across the MAR fore reef at velocities of 0.2–0.5 m/s, producing temperature drops of 2–4°C within minutes at fixed reef stations. These events are a primary mechanism of thermal stress relief during bleaching-risk periods.</li>
+        <li>The <strong>Honduras–Guatemala shelf transition</strong> represents the MAR's most physically exposed zone: reef structures here sit at or near the shelf break with minimal lagoonal separation, receiving full Caribbean Current forcing, higher wave energy, and stronger upwelling signals — producing reef communities adapted to higher physical stress but also more sensitive to current velocity anomalies.</li>
+        <li><strong>Tidal range</strong> along the MAR averages only 10–30 cm (microtidal regime), meaning tidal exchange contributes minimally to lagoonal flushing — water residence times in the Belizean lagoon can exceed 60–90 days, making this environment particularly sensitive to cumulative thermal and nutrient loading from both terrestrial and oceanic sources.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          La arquitectura batimétrica de la plataforma del SAM — amplio amortiguador lagunar en Belice que transiciona a una plataforma estrecha y expuesta al océano en Honduras — crea un gradiente físico norte-sur que determina la vulnerabilidad arrecifal, la exposición a la surgencia y la acumulación de estrés térmico de manera diferente a lo largo del rango latitudinal del sistema.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>La <strong>plataforma lagunar de Belice</strong> (20–40 km de ancho, 10–30 m de profundidad) funciona como un amortiguador térmico y sedimentario — modera la energía del oleaje que llega al arrecife de barrera y crea un entorno semi-cerrado donde la temperatura y la salinidad pueden desviarse significativamente de los valores del océano abierto durante ciclos mareales y diurnos.</li>
+        <li>El sistema de <strong>surgencia en el borde de la plataforma del SAM</strong> opera como un mecanismo de suministro de agua fría: cuando la velocidad de la Corriente del Caribe aumenta o los vientos alisios se intensifican, la inclinación isopicnal en el borde de la plataforma impulsa agua subsuperficial rica en nutrientes sobre el talud del arrecife frontal.</li>
+        <li>Las <strong>ondas internas de marea</strong> — generadas cuando la energía mareal barotropica interactúa con la topografía del borde de la plataforma — se propagan hacia la costa a velocidades de 0.2–0.5 m/s, produciendo descensos de temperatura de 2–4°C en minutos en estaciones arrecifales fijas. Estos eventos son un mecanismo primario de alivio del estrés térmico durante períodos de riesgo de blanqueamiento.</li>
+        <li>La <strong>transición de plataforma Honduras–Guatemala</strong> representa la zona más expuesta físicamente del SAM: las estructuras arrecifales aquí se encuentran en o cerca del borde de la plataforma con mínima separación lagunar, recibiendo el pleno forzamiento de la Corriente del Caribe y señales de surgencia más fuertes.</li>
+        <li>El <strong>rango mareal</strong> a lo largo del SAM promedia solo 10–30 cm (régimen micromareal), lo que significa que el intercambio mareal contribuye mínimamente al lavado lagunar — los tiempos de residencia del agua en la laguna de Belice pueden superar los 60–90 días, haciendo este entorno particularmente sensible a la carga acumulada térmica y de nutrientes.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 How does the Belizean shelf differ physically from the Honduran and Guatemalan shelf sections of the MAR?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The Belizean shelf is narrower and more exposed to open-ocean forcing than the Honduran shelf</li>
+            <li><span class="opt-letter">B.</span> The Belizean shelf is wider and shallower, providing a lagoonal buffer; the Honduran shelf is narrow, exposing reefs directly to Caribbean forcing</li>
+            <li><span class="opt-letter">C.</span> The Belizean shelf has stronger upwelling because it sits closer to the Caribbean Current axis</li>
+            <li><span class="opt-letter">D.</span> Both shelf sections are physically identical — differences are driven by water temperature alone</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The Belizean shelf (20–40 km wide) provides a lagoonal buffer that moderates wave energy and thermal forcing; the Honduran shelf narrows to under 5 km, leaving reefs fully exposed to open Caribbean dynamics.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cómo difiere físicamente la plataforma de Belice de las secciones hondureña y guatemalteca de la plataforma del SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La plataforma de Belice es más estrecha y más expuesta al forzamiento del océano abierto que la plataforma hondureña</li>
+            <li><span class="opt-letter">B.</span> La plataforma de Belice es más ancha y somera, proporcionando un amortiguador lagunar; la plataforma hondureña es estrecha, exponiendo los arrecifes directamente al forzamiento caribeño</li>
+            <li><span class="opt-letter">C.</span> La plataforma de Belice tiene una surgencia más fuerte porque está más cerca del eje de la Corriente del Caribe</li>
+            <li><span class="opt-letter">D.</span> Ambas secciones de plataforma son físicamente idénticas — las diferencias son impulsadas solo por la temperatura del agua</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La plataforma de Belice (20–40 km de ancho) proporciona un amortiguador lagunar que modera la energía del oleaje y el forzamiento térmico; la plataforma hondureña se estrecha a menos de 5 km, dejando los arrecifes completamente expuestos a la dinámica caribeña abierta.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 What physical mechanism do internal tidal bores provide to MAR reef ecosystems during bleaching-risk periods?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> They increase surface salinity by drawing up deep high-salinity water, reducing osmotic stress on coral tissue</li>
+            <li><span class="opt-letter">B.</span> They deliver episodic pulses of cold subsurface water onto the fore reef, providing short-term thermal stress relief</li>
+            <li><span class="opt-letter">C.</span> They transport coral larvae from deep spawning aggregations onto the shallow reef flat</li>
+            <li><span class="opt-letter">D.</span> They generate turbulence that suspends sediment and reduces light penetration, limiting photosynthetic heating</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Internal tidal bores propagating shoreward from the shelf break produce temperature drops of 2–4°C within minutes at reef stations — a documented mechanism of episodic thermal relief during elevated SST periods.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué mecanismo físico proporcionan las ondas internas de marea a los ecosistemas arrecifales del SAM durante los períodos de riesgo de blanqueamiento?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Aumentan la salinidad superficial al extraer agua profunda de alta salinidad, reduciendo el estrés osmótico en el tejido coralino</li>
+            <li><span class="opt-letter">B.</span> Entregan pulsos episódicos de agua subsuperficial fría sobre el arrecife frontal, proporcionando alivio térmico a corto plazo</li>
+            <li><span class="opt-letter">C.</span> Transportan larvas de coral desde agregaciones de desove profundas hacia la planicie arrecifal somera</li>
+            <li><span class="opt-letter">D.</span> Generan turbulencia que suspende sedimentos y reduce la penetración de luz, limitando el calentamiento fotosintético</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las ondas internas de marea que se propagan hacia la costa desde el borde de la plataforma producen descensos de temperatura de 2–4°C en minutos en estaciones arrecifales — un mecanismo documentado de alivio térmico episódico durante períodos de TSM elevada.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does the Belizean lagoon's microtidal regime (10–30 cm tidal range) create particular vulnerability to thermal and nutrient loading?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Small tidal range reduces current velocities, extending water residence times to 60–90 days and allowing cumulative stressors to accumulate</li>
+            <li><span class="opt-letter">B.</span> Microtidal conditions increase wave energy on the reef crest by removing tidal damping of swell</li>
+            <li><span class="opt-letter">C.</span> Low tidal range prevents thermocline formation, allowing surface heat to penetrate to the seafloor</li>
+            <li><span class="opt-letter">D.</span> Microtidal regimes increase salinity by reducing freshwater mixing from tidal reversal</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — With minimal tidal exchange driving lagoonal flushing, water residence times in the Belizean lagoon can exceed 60–90 days — meaning thermal anomalies, terrestrial nutrients, and sediment loads accumulate rather than being regularly exported to the open ocean.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué el régimen micromareal de la laguna de Belice (rango mareal de 10–30 cm) crea una vulnerabilidad particular a la carga térmica y de nutrientes?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El pequeño rango mareal reduce las velocidades de corriente, extendiendo los tiempos de residencia del agua a 60–90 días y permitiendo que los factores de estrés acumulativos se acumulen</li>
+            <li><span class="opt-letter">B.</span> Las condiciones micromareales aumentan la energía del oleaje en la cresta arrecifal al eliminar el amortiguamiento mareal del oleaje</li>
+            <li><span class="opt-letter">C.</span> El bajo rango mareal previene la formación de la termoclina, permitiendo que el calor superficial penetre hasta el fondo marino</li>
+            <li><span class="opt-letter">D.</span> Los regímenes micromareales aumentan la salinidad al reducir la mezcla de agua dulce por reversión mareal</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Con un intercambio mareal mínimo impulsando el lavado lagunar, los tiempos de residencia del agua en la laguna de Belice pueden superar los 60–90 días — lo que significa que las anomalías térmicas, los nutrientes terrestres y las cargas de sedimentos se acumulan en lugar de ser exportados regularmente al océano abierto.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 21 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L21 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
