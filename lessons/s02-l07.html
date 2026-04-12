@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L07 | Chemical Oceanography: Drivers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Driver stack */
+  .driver-stack { display: flex; flex-direction: column; gap: 0.65rem; margin: 1.2rem 0; }
+  .driver-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    background: rgba(2,15,30,0.5);
+    border: 1px solid rgba(26,200,200,0.1);
+  }
+  .driver-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .driver-label.atm   { color: var(--ocean-cyan); }
+  .driver-label.land  { color: #44b864; }
+  .driver-label.bio   { color: var(--gold); }
+  .driver-label.geo   { color: #e89060; }
+  .driver-label.human { color: var(--coral); }
+  .driver-desc { font-size: 0.81rem; line-height: 1.5; color: var(--text-dim); }
+  .driver-desc strong { color: var(--text-light); font-weight: 600; }
+  .driver-scale {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* Force-rank bar chart */
+  .rank-chart { margin: 1.2rem 0; }
+  .rank-row { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.55rem; }
+  .rank-name { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); width: 130px; flex-shrink: 0; text-align: right; }
+  .rank-bar-wrap { flex: 1; height: 14px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 3px; }
+  .rank-val { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); width: 40px; }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 5.54%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .driver-row { grid-template-columns: 1fr; }
+    .driver-scale { text-align: left; }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L07 · Lesson 39 of 704</div>
+      <h1>Drivers</h1>
+      <p class="subtitle">What forces ocean chemistry to change? Five categories of drivers — atmospheric, terrestrial, biological, geological, and anthropogenic — operate across different scales and determine whether GROAN's signals are trend, pulse, or background noise.</p>
+    </div>
+
+    <!-- SVG: Five-driver funnel converging on reef chemistry node -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="funnelGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#04294a"/>
+          <stop offset="100%" stop-color="#020f1e"/>
+        </linearGradient>
+        <filter id="softglow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Background -->
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.5)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Central reef chemistry node -->
+      <circle cx="105" cy="130" r="20" fill="rgba(26,200,200,0.12)" stroke="#1ac8c8" stroke-width="2" filter="url(#softglow)"/>
+      <text x="105" y="126" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" letter-spacing="0.5">REEF</text>
+      <text x="105" y="136" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" letter-spacing="0.5">CHEM</text>
+      <text x="105" y="146" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">output</text>
+
+      <!-- Driver nodes and arrows -->
+      <!-- 1. Atmospheric — top center -->
+      <circle cx="105" cy="22" r="14" fill="rgba(26,200,200,0.1)" stroke="#1ac8c8" stroke-width="1.5"/>
+      <text x="105" y="19" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">ATM</text>
+      <text x="105" y="28" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">CO₂·O₂</text>
+      <line x1="105" y1="36" x2="105" y2="108" stroke="#1ac8c8" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr)"/>
+
+      <!-- 2. Terrestrial — upper left -->
+      <circle cx="38" cy="48" r="13" fill="rgba(68,184,100,0.1)" stroke="#44b864" stroke-width="1.5"/>
+      <text x="38" y="45" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#44b864">LAND</text>
+      <text x="38" y="54" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">N·P·DOC</text>
+      <line x1="49" y1="58" x2="88" y2="116" stroke="#44b864" stroke-width="1.3" stroke-opacity="0.55" stroke-dasharray="4,2"/>
+
+      <!-- 3. Biological — upper right -->
+      <circle cx="172" cy="48" r="13" fill="rgba(240,180,41,0.1)" stroke="#f0b429" stroke-width="1.5"/>
+      <text x="172" y="45" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">BIO</text>
+      <text x="172" y="54" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">prod·resp</text>
+      <line x1="161" y1="57" x2="122" y2="116" stroke="#f0b429" stroke-width="1.3" stroke-opacity="0.55" stroke-dasharray="4,2"/>
+
+      <!-- 4. Geological — lower left -->
+      <circle cx="30" cy="115" r="13" fill="rgba(232,144,96,0.1)" stroke="#e89060" stroke-width="1.5"/>
+      <text x="30" y="112" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e89060">GEO</text>
+      <text x="30" y="121" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">alk·ions</text>
+      <line x1="43" y1="115" x2="85" y2="126" stroke="#e89060" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="3,3"/>
+
+      <!-- 5. Anthropogenic — lower right -->
+      <circle cx="180" cy="115" r="13" fill="rgba(232,96,64,0.1)" stroke="#e86040" stroke-width="1.5"/>
+      <text x="180" y="112" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#e86040">HUMAN</text>
+      <text x="180" y="121" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">effluent</text>
+      <line x1="167" y1="115" x2="125" y2="126" stroke="#e86040" stroke-width="1.5" stroke-opacity="0.65"/>
+
+      <!-- Legend label -->
+      <text x="105" y="170" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" letter-spacing="1">5 DRIVER CATEGORIES → REEF CHEMISTRY</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Before GROAN can interpret a chemical signal, it must attribute the signal to its source. A pH drop could reflect atmospheric CO₂ loading, river discharge, nighttime respiration, volcanic seep activity, or sewage effluent — each demanding a different management response. <strong>Driver attribution is the diagnostic step that separates GROAN's causal intelligence from a sensor alarm.</strong> Five categories of drivers force ocean chemistry at different scales, speeds, and spatial footprints.</p>
+
+        <div class="driver-stack">
+          <div class="driver-row">
+            <div class="driver-label atm">Atmospheric</div>
+            <div class="driver-desc"><strong>CO₂ and O₂ gas exchange</strong> at the air-sea interface. Rising atmospheric pCO₂ (now ~425 ppm) drives continuous ocean acidification at ~0.002 pH units/yr globally. Wind speed controls exchange rate; SST controls solubility. This is the <em>background forcing</em> — always present, always worsening, but slow relative to other drivers. GROAN's long-term GRIN baseline is calibrated against this trend.</div>
+            <div class="driver-scale">Decadal<br/>Global</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-label land">Terrestrial</div>
+            <div class="driver-desc"><strong>River discharge, groundwater, and overland runoff</strong> deliver freshwater (diluting alkalinity), nutrients (N, P — fueling productivity cycles), DOC (driving microbial O₂ demand), and sediment (suppressing photosynthesis). The Motagua is the dominant terrestrial driver on the Guatemala–Belize reef corridor. <em>Terrestrial drivers are the highest-leverage management intervention point</em> — they can be reduced by land-use change upstream.</div>
+            <div class="driver-scale">Event–Seasonal<br/>Regional</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-label bio">Biological</div>
+            <div class="driver-desc"><strong>Photosynthesis, respiration, and calcification</strong> are the primary biological drivers of diel chemistry (S02-L05). At ecosystem scale, the standing biomass of the photosynthetic community determines the amplitude of the diel O₂/pH swing. Coral calcification is a net CO₂ source (CaCO₃ precipitation releases CO₂). Seagrass and macroalgae are net CO₂ sinks during growth. <em>Biological drivers are the amplifiers</em> — they can multiply or dampen the physical and atmospheric forcing.</div>
+            <div class="driver-scale">Hours–Seasonal<br/>Local–Regional</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-label geo">Geological</div>
+            <div class="driver-desc"><strong>Seafloor weathering, carbonate dissolution, and volcanic seeps</strong> supply alkalinity and ions on geologic timescales. In the Caribbean, submarine groundwater discharge (SGD) through karst limestone geology delivers alkalinity-rich groundwater directly to reef zones — a natural buffering mechanism. Hydrothermal vents and CO₂ seeps are locally significant but spatially limited. <em>Geological drivers set the baseline alkalinity of a region</em> — they are the inherited chemical endowment that human and biological drivers operate on.</div>
+            <div class="driver-scale">Millennial–Geologic<br/>Local–Basin</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-label human">Anthropogenic</div>
+            <div class="driver-desc"><strong>Wastewater, agricultural runoff, coastal construction, and fossil-fuel combustion</strong> are the most rapidly changing drivers. Sewage effluent delivers bioavailable nitrogen and phosphorus that overwhelm the Redfield stoichiometry of natural reef systems, triggering macroalgal blooms. Coastal construction destroys mangrove nitrogen-interception buffers. <em>Anthropogenic drivers are the emergency management priority</em> — they operate on the same timescale as GROAN's decision outputs and are the only drivers with direct policy levers.</div>
+            <div class="driver-scale">Immediate–Decadal<br/>Local–Global</div>
+          </div>
+        </div>
+
+        <p><strong>Driver rank by management leverage in the Western Caribbean.</strong> Not all drivers are equal — GROAN weights them by the product of impact magnitude and management accessibility. The ranking below reflects Caribbean reef conditions and informs which CMIE inputs receive the highest decision-score coefficients.</p>
+
+        <div class="rank-chart">
+          <div class="rank-row">
+            <div class="rank-name">Anthropogenic N/P</div>
+            <div class="rank-bar-wrap"><div class="rank-bar" style="width:92%;background:var(--coral)"></div></div>
+            <div class="rank-val">92%</div>
+          </div>
+          <div class="rank-row">
+            <div class="rank-name">Terrestrial Runoff</div>
+            <div class="rank-bar-wrap"><div class="rank-bar" style="width:84%;background:#e89060"></div></div>
+            <div class="rank-val">84%</div>
+          </div>
+          <div class="rank-row">
+            <div class="rank-name">Biological Amplif.</div>
+            <div class="rank-bar-wrap"><div class="rank-bar" style="width:70%;background:var(--gold)"></div></div>
+            <div class="rank-val">70%</div>
+          </div>
+          <div class="rank-row">
+            <div class="rank-name">Atmospheric CO₂</div>
+            <div class="rank-bar-wrap"><div class="rank-bar" style="width:55%;background:var(--ocean-cyan)"></div></div>
+            <div class="rank-val">55%</div>
+          </div>
+          <div class="rank-row">
+            <div class="rank-name">Geological SGD</div>
+            <div class="rank-bar-wrap"><div class="rank-bar" style="width:28%;background:#8ab8cc"></div></div>
+            <div class="rank-val">28%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Antes de que GROAN pueda interpretar una señal química, debe atribuirla a su fuente. Una caída de pH podría reflejar carga de CO₂ atmosférico, descarga fluvial, respiración nocturna, actividad de filtración volcánica o efluente de aguas residuales — cada una exigiendo una respuesta de gestión diferente. <strong>La atribución de factores es el paso diagnóstico que separa la inteligencia causal de GROAN de una simple alarma de sensor.</strong></p>
+
+        <p>Los <strong>factores atmosféricos</strong> representan el forzamiento de fondo: el CO₂ atmosférico en ~425 ppm impulsa la acidificación oceánica continua a ~0.002 unidades de pH/año globalmente. Los <strong>factores terrestres</strong> son el punto de intervención de gestión de mayor apalancamiento — agua dulce (diluyendo la alcalinidad), nutrientes (N, P), DOC y sedimentos entregados por ríos como el Motagua pueden reducirse mediante cambios de uso de suelo aguas arriba. Los <strong>factores biológicos</strong> son los amplificadores: fotosíntesis, respiración y calcificación multiplican o amortiguan el forzamiento físico y atmosférico en ciclos de horas a estaciones.</p>
+
+        <p>Los <strong>factores geológicos</strong> — descarga de agua subterránea submarina (SGD) a través de la geología kárstica de piedra caliza del Caribe — suministran alcalinidad directamente a las zonas arrecifales, un mecanismo de amortiguación natural que GROAN debe mapear sitio por sitio. Los <strong>factores antropogénicos</strong> son la prioridad de gestión de emergencia — aguas residuales, escorrentía agrícola y construcción costera operan en la misma escala temporal que los resultados de decisión de GROAN y son los únicos factores con palancas de política directas.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Driver</th>
+            <th>Primary Chemical Effect</th>
+            <th>Timescale</th>
+            <th>Caribbean Example</th>
+            <th>Manageable?</th>
+            <th>GROAN Module</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Atmospheric CO₂</td>
+            <td>pH↓ · Ω↓ — global baseline</td>
+            <td class="neutral">Decades</td>
+            <td>Open-reef acidification trend</td>
+            <td class="caution">Partially</td>
+            <td>GRIN long-term</td>
+          </tr>
+          <tr>
+            <td>River Discharge</td>
+            <td>Alkalinity↓ · Salinity↓ · N↑ P↑</td>
+            <td class="caution">Hours–Months</td>
+            <td>Motagua flood pulse</td>
+            <td class="good">Yes (upstream)</td>
+            <td>CMIE priority</td>
+          </tr>
+          <tr>
+            <td>Biological Productivity</td>
+            <td>Diel O₂/pH swing; CaCO₃ cycling</td>
+            <td class="neutral">Hours–Seasonal</td>
+            <td>Reef/lagoon diel cycling</td>
+            <td class="caution">Indirectly</td>
+            <td>GRIN · GMAIN</td>
+          </tr>
+          <tr>
+            <td>Geological SGD</td>
+            <td>Alkalinity↑ — natural buffer input</td>
+            <td class="good">Continuous</td>
+            <td>Karst groundwater, Yucatán</td>
+            <td class="warn">No</td>
+            <td>GRIN baseline adj.</td>
+          </tr>
+          <tr>
+            <td>Sewage / Effluent</td>
+            <td>N↑↑ · P↑↑ · O₂↓ (night)</td>
+            <td class="warn">Immediate</td>
+            <td>Coastal town discharge</td>
+            <td class="good">Yes (direct)</td>
+            <td>GMAIN · CMIE</td>
+          </tr>
+          <tr>
+            <td>Coastal Construction</td>
+            <td>Mangrove loss → N buffer removed</td>
+            <td class="warn">Immediate–Permanent</td>
+            <td>Honduras bay development</td>
+            <td class="good">Yes (policy)</td>
+            <td>GMIN → CMIE lag</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>GROAN's driver attribution layer is what converts a pH alarm into a Decision Score action: the same Ω reading of 2.2 triggers "increase monitoring" if caused by the atmospheric trend, "issue land-use advisory" if caused by the Motagua, or "declare emergency" if caused by direct sewage discharge — the driver determines the response, not the number alone.</li>
+          <li>Submarine groundwater discharge (SGD) through Caribbean karst terrain is a spatially heterogeneous alkalinity source — some reef sites receive natural buffering that makes them appear more resilient than the regional average. MOOP must flag SGD-influenced sites in the GRIN dataset to avoid attributing geological buffering as ecosystem health.</li>
+          <li>Anthropogenic nutrient loading scores highest on GROAN's management-leverage ranking because it operates on the same timescale as enforcement actions: a wastewater treatment upgrade upstream can measurably reduce reef nitrogen loading within one wet season, making it the fastest-return management investment in GROAN's Decision Score framework.</li>
+          <li>For the Rim Run™ embassy letters, framing terrestrial drivers as the policy target is strategically correct: each of the 7 countries controls its own watershed management, whereas atmospheric CO₂ requires global coordination. GROAN's value to national reef managers is precisely that it identifies the drivers they can actually act on.</li>
+          <li>The Red Sea case study (KAUST) is dominated by a different driver mix: minimal terrestrial input, high evaporative salinity amplification of OA, and unique geological alkalinity from the basin's carbonate platform geology. CMIE coefficient weighting for the Red Sea case must down-weight terrestrial drivers and up-weight geological baseline and thermal-solubility interactions.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>La capa de atribución de factores de GROAN es lo que convierte una alarma de pH en una acción de Puntuación de Decisión: la misma lectura de Ω de 2.2 activa "aumentar monitoreo" si es causada por la tendencia atmosférica, "emitir aviso de uso de suelo" si es causada por el Motagua, o "declarar emergencia" si es causada por descarga directa de aguas residuales.</li>
+          <li>La descarga de agua subterránea submarina (SGD) a través del terreno kárstico del Caribe es una fuente de alcalinidad espacialmente heterogénea — algunos sitios arrecifales reciben amortiguación natural que los hace parecer más resilientes que el promedio regional. MOOP debe marcar los sitios influenciados por SGD en el conjunto de datos GRIN para evitar atribuir la amortiguación geológica como salud del ecosistema.</li>
+          <li>La carga antropogénica de nutrientes obtiene la puntuación más alta en el ranking de apalancamiento de gestión de GROAN porque opera en la misma escala temporal que las acciones de cumplimiento: una mejora de tratamiento de aguas residuales aguas arriba puede reducir mediblemente la carga de nitrógeno en el arrecife dentro de una temporada de lluvias.</li>
+          <li>Para las cartas de embajada del Rim Run™, enmarcar los factores terrestres como el objetivo de política es estratégicamente correcto: cada uno de los 7 países controla su propia gestión de cuencas hidrográficas, mientras que el CO₂ atmosférico requiere coordinación global. El valor de GROAN para los gestores nacionales de arrecifes es precisamente identificar los factores en los que pueden actuar.</li>
+          <li>El estudio de caso del Mar Rojo (KAUST) está dominado por una mezcla de factores diferente: entrada terrestre mínima, amplificación de salinidad evaporativa de la acidificación oceánica, y alcalinidad geológica única de la plataforma carbonatada de la cuenca. Los coeficientes del CMIE para el Mar Rojo deben reducir el peso de los factores terrestres y aumentar el de la línea base geológica.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">GROAN detects Ω = 2.1 at a reef site. Which driver attribution produces the highest-urgency Decision Score action?</div>
+        <div class="q-text-es">GROAN detecta Ω = 2.1 en un sitio arrecifal. ¿Qué atribución de factor produce la acción de Puntuación de Decisión de mayor urgencia?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Atmospheric CO₂ trend at current global rate</li>
+          <li><span class="opt-key">B</span> Submarine groundwater discharge delivering low-Ω water</li>
+          <li class="correct"><span class="opt-key">C</span> Direct sewage effluent discharge from a nearby coastal settlement</li>
+          <li><span class="opt-key">D</span> Seasonal wet-season freshwater dilution from normal rainfall</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Why must GROAN flag submarine groundwater discharge (SGD) sites separately in the GRIN dataset?</div>
+        <div class="q-text-es">¿Por qué GROAN debe marcar los sitios de descarga de agua subterránea submarina (SGD) por separado en el conjunto de datos GRIN?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> SGD always causes acute hypoxia that biases dissolved oxygen sensors</li>
+          <li class="correct"><span class="opt-key">B</span> Geological alkalinity input from SGD creates false resilience signals — sites appear healthier than ecosystem condition justifies</li>
+          <li><span class="opt-key">C</span> SGD introduces saltwater intrusion that masks freshwater dilution events</li>
+          <li><span class="opt-key">D</span> SGD sites are excluded from MOOP sampling because sensors cannot function in groundwater</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">Why does GROAN rank anthropogenic nutrient loading as the highest management-leverage driver for Caribbean reefs?</div>
+        <div class="q-text-es">¿Por qué GROAN clasifica la carga antropogénica de nutrientes como el factor de mayor apalancamiento de gestión para los arrecifes del Caribe?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> It produces the largest absolute change in pH of all five driver categories</li>
+          <li><span class="opt-key">B</span> It is the only driver that affects the nitrogen cycle exclusively</li>
+          <li><span class="opt-key">C</span> It operates globally and therefore affects the greatest number of reef sites simultaneously</li>
+          <li class="correct"><span class="opt-key">D</span> It combines high impact magnitude with direct policy levers — wastewater treatment and land-use change can produce measurable reef improvement within a single wet season</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: D</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">5.54% — Lesson 39 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L07 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
