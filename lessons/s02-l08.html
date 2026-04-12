@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L08 | Chemical Oceanography: Measurements</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Instrument cards */
+  .instrument-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin: 1.2rem 0;
+  }
+  .inst-card {
+    background: rgba(2,15,30,0.55);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 0.9rem;
+  }
+  .inst-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .inst-head.ph    { color: var(--ocean-cyan); }
+  .inst-head.alk   { color: var(--gold); }
+  .inst-head.do2   { color: #44b864; }
+  .inst-head.co2   { color: #e89060; }
+  .inst-head.nutr  { color: var(--coral); }
+  .inst-head.sal   { color: var(--text-dim); }
+  .inst-name { font-size: 0.82rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.3rem; }
+  .inst-detail { font-size: 0.75rem; line-height: 1.5; color: var(--text-dim); }
+  .inst-detail strong { color: var(--text-light); }
+  .inst-tier {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+  }
+  .tier-h { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .tier-m { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .tier-l { background: rgba(232,96,64,0.12); color: var(--coral); }
+
+  /* Confidence tier schema block */
+  .conf-tier-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.7rem;
+    margin: 1.2rem 0;
+  }
+  .conf-box {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid;
+  }
+  .conf-box.high   { background: rgba(26,200,200,0.08);  border-color: rgba(26,200,200,0.35); }
+  .conf-box.mod    { background: rgba(240,180,41,0.07);  border-color: rgba(240,180,41,0.35); }
+  .conf-box.low    { background: rgba(232,96,64,0.07);   border-color: rgba(232,96,64,0.35);  }
+  .conf-pct { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .conf-box.high .conf-pct { color: var(--ocean-cyan); }
+  .conf-box.mod  .conf-pct { color: var(--gold); }
+  .conf-box.low  .conf-pct { color: var(--coral); }
+  .conf-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .conf-box.high .conf-label { color: var(--ocean-cyan); }
+  .conf-box.mod  .conf-label { color: var(--gold); }
+  .conf-box.low  .conf-label { color: var(--coral); }
+  .conf-criteria { font-size: 0.74rem; line-height: 1.5; color: var(--text-dim); }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 5.68%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .instrument-grid { grid-template-columns: 1fr 1fr; }
+    .conf-tier-block { grid-template-columns: 1fr; }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L08 · Lesson 40 of 704</div>
+      <h1>Measurements</h1>
+      <p class="subtitle">GROAN's chemical intelligence is only as good as its measurements. This lesson covers the instruments, protocols, accuracy thresholds, and confidence-tier logic that determine whether a GRIN reading becomes a decision or a discard.</p>
+    </div>
+
+    <!-- SVG: instrument panel — pH, TA, DO, pCO2 gauges arranged as a sensor dashboard -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gaugeGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#020f1e"/>
+          <stop offset="100%" stop-color="#04294a"/>
+        </linearGradient>
+        <filter id="g3">
+          <feGaussianBlur stdDeviation="2" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.55)" stroke="rgba(26,200,200,0.08)" stroke-width="1"/>
+
+      <!-- pH gauge — top left -->
+      <circle cx="52" cy="52" r="28" fill="url(#gaugeGrad)" stroke="rgba(26,200,200,0.3)" stroke-width="1.5"/>
+      <path d="M30,60 A28,28 0 0,1 74,60" fill="none" stroke="rgba(26,200,200,0.15)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M30,60 A28,28 0 0,1 62,32" fill="none" stroke="#1ac8c8" stroke-width="6" stroke-linecap="round" filter="url(#g3)"/>
+      <text x="52" y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#1ac8c8" font-weight="600">8.1</text>
+      <text x="52" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">pH</text>
+      <text x="52" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">±0.01</text>
+
+      <!-- TA gauge — top right -->
+      <circle cx="158" cy="52" r="28" fill="url(#gaugeGrad)" stroke="rgba(240,180,41,0.3)" stroke-width="1.5"/>
+      <path d="M136,60 A28,28 0 0,1 180,60" fill="none" stroke="rgba(240,180,41,0.15)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M136,60 A28,28 0 0,1 165,30" fill="none" stroke="#f0b429" stroke-width="6" stroke-linecap="round" filter="url(#g3)"/>
+      <text x="158" y="48" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="#f0b429" font-weight="600">2310</text>
+      <text x="158" y="60" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc">TA µmol/kg</text>
+      <text x="158" y="71" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">±2 µmol</text>
+
+      <!-- DO gauge — bottom left -->
+      <circle cx="52" cy="132" r="28" fill="url(#gaugeGrad)" stroke="rgba(68,184,100,0.3)" stroke-width="1.5"/>
+      <path d="M30,140 A28,28 0 0,1 74,140" fill="none" stroke="rgba(68,184,100,0.15)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M30,140 A28,28 0 0,1 55,107" fill="none" stroke="#44b864" stroke-width="6" stroke-linecap="round" filter="url(#g3)"/>
+      <text x="52" y="130" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#44b864" font-weight="600">7.2</text>
+      <text x="52" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">DO mg/L</text>
+      <text x="52" y="152" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">±0.1</text>
+
+      <!-- pCO2 gauge — bottom right -->
+      <circle cx="158" cy="132" r="28" fill="url(#gaugeGrad)" stroke="rgba(232,144,96,0.3)" stroke-width="1.5"/>
+      <path d="M136,140 A28,28 0 0,1 180,140" fill="none" stroke="rgba(232,144,96,0.15)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M136,140 A28,28 0 0,1 180,140" fill="none" stroke="#e89060" stroke-width="6" stroke-linecap="round" opacity="0.6" filter="url(#g3)"/>
+      <text x="158" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#e89060" font-weight="600">412</text>
+      <text x="158" y="140" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc">pCO₂ µatm</text>
+      <text x="158" y="151" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">±2 µatm</text>
+
+      <!-- Center label -->
+      <text x="105" y="92" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" letter-spacing="1">MOOP · SENSOR</text>
+      <text x="105" y="103" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" letter-spacing="1">DASHBOARD</text>
+
+      <!-- Center connector lines -->
+      <line x1="80" y1="65" x2="96" y2="88" stroke="rgba(26,200,200,0.15)" stroke-width="1"/>
+      <line x1="130" y1="65" x2="114" y2="88" stroke="rgba(240,180,41,0.15)" stroke-width="1"/>
+      <line x1="80" y1="120" x2="96" y2="108" stroke="rgba(68,184,100,0.15)" stroke-width="1"/>
+      <line x1="130" y1="120" x2="114" y2="108" stroke="rgba(232,144,96,0.15)" stroke-width="1"/>
+
+      <!-- GROAN badge center -->
+      <rect x="89" y="106" width="32" height="12" rx="3" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+      <text x="105" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#1ac8c8" letter-spacing="1">GROAN</text>
+
+      <!-- Footer label -->
+      <text x="105" y="170" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" letter-spacing="0.8">4-PARAMETER MINIMUM SUITE</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Chemical measurements are where GROAN's theoretical architecture meets the physical ocean. Every Decision Score output depends on data quality — a pH reading with ±0.1 accuracy is too imprecise to distinguish a trend signal from sensor drift. A total alkalinity measurement without concurrent salinity is structurally incomplete. GROAN specifies a <strong>minimum four-parameter measurement suite</strong> for every MOOP station, and applies the Image Confidence Tier Schema to every reading before it enters the CMIE. <em>Measurements that cannot be validated do not feed decisions.</em></p>
+
+        <div class="instrument-grid">
+          <div class="inst-card">
+            <div class="inst-head ph">Parameter 01</div>
+            <div class="inst-name">pH</div>
+            <div class="inst-detail"><strong>Spectrophotometric method</strong> (purified m-cresol purple dye) is the research standard — accuracy ±0.001 pH units. Field electrodes (glass or ISFET) achieve ±0.01–0.02. MOOP targets ±0.01 using calibrated ISFET sensors with temperature compensation. <strong>Critical:</strong> pH alone cannot calculate Ω without a second carbonate parameter.</div>
+            <span class="inst-tier tier-h">High Conf. if ±0.01</span>
+          </div>
+          <div class="inst-card">
+            <div class="inst-head alk">Parameter 02</div>
+            <div class="inst-name">Total Alkalinity (TA)</div>
+            <div class="inst-detail"><strong>Open-cell potentiometric titration</strong> is the gold standard — accuracy ±1–2 µmol/kg. Field colorimetric methods achieve ±5–10 µmol/kg. TA is the single highest-value MOOP measurement: pH + TA together fully constrain the carbonate system, allowing calculation of Ω, DIC, and pCO₂. <strong>No TA = incomplete carbonate characterization.</strong></div>
+            <span class="inst-tier tier-h">High Conf. if ±5 µmol/kg</span>
+          </div>
+          <div class="inst-card">
+            <div class="inst-head do2">Parameter 03</div>
+            <div class="inst-name">Dissolved Oxygen (DO)</div>
+            <div class="inst-detail"><strong>Optical (luminescence quench) sensors</strong> are the field standard — accuracy ±0.1 mg/L, no fouling issues. Winkler titration provides ±0.02 mg/L for lab verification. DO tracks biological activity (diel driver from L05) and flags hypoxic stress. <strong>Essential for eutrophication signal detection</strong> in GMAIN and lagoon-zone deployments.</div>
+            <span class="inst-tier tier-h">High Conf. if ±0.1 mg/L</span>
+          </div>
+          <div class="inst-card">
+            <div class="inst-head co2">Parameter 04</div>
+            <div class="inst-name">pCO₂ / DIC</div>
+            <div class="inst-detail"><strong>Underway NDIR (non-dispersive infrared) systems</strong> measure pCO₂ at ±2 µatm — expensive, boat-mounted. Equilibrator systems are more portable. DIC can be calculated from pH + TA, avoiding direct measurement. <strong>pCO₂ is the direct OA forcing variable</strong> — confirms whether a site is a net CO₂ source or sink at the time of measurement.</div>
+            <span class="inst-tier tier-m">Moderate if calculated</span>
+          </div>
+          <div class="inst-card">
+            <div class="inst-head nutr">Parameter 05</div>
+            <div class="inst-name">Nutrients (N, P)</div>
+            <div class="inst-detail"><strong>Colorimetric field kits</strong> achieve ±5–10% accuracy for nitrate, phosphate. Lab-grade flow injection analysis reaches ±1%. Nutrient data activates GROAN's eutrophication alarm chain (L06 interaction — O₂×N). <strong>Required for GMIN and GMAIN</strong> but lower priority for open-reef GRIN stations where oligotrophic conditions prevail.</div>
+            <span class="inst-tier tier-m">Moderate — field kit</span>
+          </div>
+          <div class="inst-card">
+            <div class="inst-head sal">Parameter 06</div>
+            <div class="inst-name">Salinity + Temperature</div>
+            <div class="inst-detail"><strong>CTD (conductivity-temperature-depth) sensors</strong> are the universal baseline — accuracy ±0.01 PSU, ±0.01°C. Salinity is required to normalize alkalinity to salinity-corrected nTA (removes freshwater dilution signal). Temperature enables solubility corrections for DO and pCO₂. <strong>Every MOOP station records T and S</strong> — these are never optional.</div>
+            <span class="inst-tier tier-h">Always required</span>
+          </div>
+        </div>
+
+        <p><strong>The four-parameter minimum.</strong> pH + TA + DO + Salinity/Temperature is GROAN's minimum viable measurement suite. Together they allow full carbonate system calculation (Ω, DIC, pCO₂), eutrophication state assessment, and salinity-normalization of all parameters. Any station missing pH or TA cannot produce a valid Ω reading and is automatically down-tiered in the CMIE confidence scoring.</p>
+
+        <p><strong>GSIN Image Confidence Tier Schema — applied to chemical measurements.</strong> The same confidence framework developed for image ingestion (High &gt;85%, Moderate 60–85%, Low &lt;60%) maps directly onto chemical measurement quality. Tier assignment is determined by instrument precision, metadata completeness (time, tidal phase, temperature), calibration status, and number of parameters collected concurrently.</p>
+
+        <div class="conf-tier-block">
+          <div class="conf-box high">
+            <div class="conf-pct">&gt;85%</div>
+            <div class="conf-label">HIGH CONFIDENCE</div>
+            <div class="conf-criteria">All 4 core parameters present. Calibrated sensors (pH ±0.01, TA ±5 µmol/kg). Time-stamp + tidal phase recorded. Temperature-compensated. Feeds CMIE directly.</div>
+          </div>
+          <div class="conf-box mod">
+            <div class="conf-pct">60–85%</div>
+            <div class="conf-label">MODERATE CONFIDENCE</div>
+            <div class="conf-criteria">3 of 4 parameters present. One calculated (e.g. pCO₂ from pH+TA). Field-grade precision. Time-stamp recorded but tidal phase inferred. Flagged in CMIE output.</div>
+          </div>
+          <div class="conf-box low">
+            <div class="conf-pct">&lt;60%</div>
+            <div class="conf-label">LOW CONFIDENCE</div>
+            <div class="conf-criteria">Fewer than 3 parameters. Missing TA or pH. No time-stamp or tidal metadata. Uncalibrated sensor. Excluded from Decision Score; retained for spatial coverage only.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Las mediciones químicas son donde la arquitectura teórica de GROAN se encuentra con el océano físico. Cada salida de Puntuación de Decisión depende de la calidad de los datos — una lectura de pH con precisión de ±0.1 es demasiado imprecisa para distinguir una señal de tendencia de la deriva del sensor. GROAN especifica una <strong>suite mínima de cuatro parámetros</strong> para cada estación MOOP y aplica el Esquema de Niveles de Confianza a cada lectura antes de que entre al CMIE. <em>Las mediciones que no pueden validarse no alimentan decisiones.</em></p>
+
+        <p>Los <strong>seis parámetros clave</strong> son: pH (ISFET calibrado, ±0.01), alcalinidad total (titulación potenciométrica, ±5 µmol/kg), oxígeno disuelto (sensor óptico, ±0.1 mg/L), pCO₂/CID (calculado o NDIR directo), nutrientes N y P (colorimétrico de campo), y salinidad+temperatura (CTD, siempre obligatorio). Juntos permiten el cálculo completo del sistema de carbonatos (Ω, CID, pCO₂), evaluación del estado de eutrofización, y normalización de salinidad de todos los parámetros.</p>
+
+        <p>El <strong>Esquema de Niveles de Confianza</strong> se aplica directamente a las mediciones químicas. Confianza Alta (&gt;85%): los 4 parámetros principales presentes, sensores calibrados, marca de tiempo y fase de marea registradas — se alimenta directamente al CMIE. Confianza Moderada (60–85%): 3 de 4 parámetros, un parámetro calculado, marca de tiempo registrada pero fase de marea inferida — marcado en la salida del CMIE. Confianza Baja (&lt;60%): menos de 3 parámetros, sin TA o pH, sin metadatos — excluido de la Puntuación de Decisión.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Field Method</th>
+            <th>Accuracy Target</th>
+            <th>Lab Standard</th>
+            <th>MOOP Priority</th>
+            <th>Conf. Tier Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>pH</td>
+            <td>ISFET electrode</td>
+            <td>±0.01 units</td>
+            <td>Spectrophotometric ±0.001</td>
+            <td class="good">Mandatory</td>
+            <td class="warn">Missing = Low tier</td>
+          </tr>
+          <tr>
+            <td>Total Alkalinity</td>
+            <td>Colorimetric titration</td>
+            <td>±5 µmol/kg</td>
+            <td>Potentiometric ±1–2</td>
+            <td class="good">Mandatory</td>
+            <td class="warn">Missing = Low tier</td>
+          </tr>
+          <tr>
+            <td>Dissolved Oxygen</td>
+            <td>Optical luminescence</td>
+            <td>±0.1 mg/L</td>
+            <td>Winkler ±0.02</td>
+            <td class="good">Mandatory</td>
+            <td class="caution">Missing = Mod tier</td>
+          </tr>
+          <tr>
+            <td>Salinity + Temp</td>
+            <td>CTD sonde</td>
+            <td>±0.01 PSU / °C</td>
+            <td>Lab salinometer</td>
+            <td class="good">Always required</td>
+            <td class="warn">Missing = Low tier</td>
+          </tr>
+          <tr>
+            <td>pCO₂</td>
+            <td>Calc. from pH+TA</td>
+            <td>±5–10 µatm calc.</td>
+            <td>NDIR ±2 µatm</td>
+            <td class="caution">High priority</td>
+            <td class="neutral">Calculated = Moderate</td>
+          </tr>
+          <tr>
+            <td>Nutrients (N, P)</td>
+            <td>Field colorimetric kit</td>
+            <td>±5–10%</td>
+            <td>Flow injection ±1%</td>
+            <td class="caution">GMIN/GMAIN stations</td>
+            <td class="neutral">Adds Moderate → High</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The pH + TA combination is GROAN's most important field measurement pair — together they fully constrain the carbonate system. Collecting one without the other is equivalent to measuring only half the system: pH tells you the current acid state; TA tells you the remaining capacity. Neither can calculate Ω alone.</li>
+          <li>Shamrocket's MOOP sensor suite for the Rim Run™ circuit must achieve High Confidence tier at all designated GRIN stations to generate valid longitudinal baselines. Stations dropping to Moderate confidence due to missing TA will be flagged in the GSIN dataset with a calibration-recovery action item before data enters the CMIE.</li>
+          <li>Salinity normalization is non-negotiable for alkalinity data from the Western Caribbean: a raw TA of 2,050 µmol/kg at a Motagua-influenced site reflects freshwater dilution, not actual carbonate depletion. Normalizing to S=35 (nTA) recovers the true buffer state and prevents false alarms triggered by salinity variation rather than chemical change.</li>
+          <li>GROAN's 60–70% upload size compression target for the GSIN edge pipeline (Session 20 build item) applies to chemical data packets the same way it applies to image data — the confidence tier must be computed at the edge node before transmission so that Low-confidence readings are not transmitted at full resolution, conserving bandwidth for High-confidence station data.</li>
+          <li>For KAUST outreach, emphasizing GROAN's dual pH+TA measurement protocol differentiates it from single-parameter coral reef monitoring programs — the Red Sea Research Center's existing buoy network collects SST and pH but lacks co-located TA, meaning they cannot calculate Ω without GROAN's complementary measurement design.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>La combinación pH + alcalinidad total es el par de mediciones de campo más importante de GROAN — juntas restringen completamente el sistema de carbonatos. Recopilar uno sin el otro equivale a medir solo la mitad del sistema: el pH indica el estado ácido actual; la alcalinidad total indica la capacidad restante. Ninguno puede calcular Ω por sí solo.</li>
+          <li>La suite de sensores MOOP de Shamrocket para el circuito Rim Run™ debe alcanzar el nivel de Confianza Alta en todas las estaciones GRIN designadas para generar líneas de base longitudinales válidas. Las estaciones que caigan a Confianza Moderada debido a la falta de alcalinidad total serán marcadas en el conjunto de datos GSIN con un elemento de acción de recuperación de calibración antes de que los datos entren al CMIE.</li>
+          <li>La normalización de salinidad es innegociable para los datos de alcalinidad del Caribe Occidental: una TA bruta de 2,050 µmol/kg en un sitio influenciado por el Motagua refleja dilución de agua dulce, no agotamiento real del carbonato. Normalizar a S=35 (nTA) recupera el verdadero estado de amortiguación y evita falsas alarmas desencadenadas por variación de salinidad en lugar de cambio químico.</li>
+          <li>El objetivo de compresión del tamaño de carga del 60–70% de la canalización de borde GSIN de GROAN se aplica a los paquetes de datos químicos de la misma manera que se aplica a los datos de imagen — el nivel de confianza debe calcularse en el nodo de borde antes de la transmisión para que las lecturas de Baja Confianza no se transmitan a plena resolución.</li>
+          <li>Para el acercamiento a KAUST, destacar el protocolo de medición dual pH+TA de GROAN lo diferencia de los programas de monitoreo de arrecifes de un solo parámetro — la red de boyas del Centro de Investigación del Mar Rojo recopila SST y pH pero carece de TA co-localizada, lo que significa que no pueden calcular Ω sin el diseño de medición complementario de GROAN.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">A MOOP station collects pH = 7.9, DO = 5.2 mg/L, salinity = 31.2 PSU, and temperature = 28.4°C, but no total alkalinity. What confidence tier does GROAN assign?</div>
+        <div class="q-text-es">Una estación MOOP recopila pH = 7.9, DO = 5.2 mg/L, salinidad = 31.2 PSU y temperatura = 28.4°C, pero sin alcalinidad total. ¿Qué nivel de confianza asigna GROAN?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> High — three of four parameters are present and within accuracy targets</li>
+          <li><span class="opt-key">B</span> Moderate — missing one parameter but tidal phase was recorded</li>
+          <li class="correct"><span class="opt-key">C</span> Low — missing total alkalinity means Ω cannot be calculated; the station cannot feed a valid Decision Score</li>
+          <li><span class="opt-key">D</span> Moderate — DO and salinity together substitute for alkalinity in carbonate calculations</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Why must GROAN normalize raw total alkalinity (TA) to salinity-corrected nTA before entering data into the CMIE for Western Caribbean sites?</div>
+        <div class="q-text-es">¿Por qué GROAN debe normalizar la alcalinidad total bruta (TA) a nTA corregida por salinidad antes de ingresar datos al CMIE para sitios del Caribe Occidental?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because CMIE only accepts data in SI units and TA is reported in µmol/kg</li>
+          <li class="correct"><span class="opt-key">B</span> Because freshwater dilution from river discharge reduces raw TA without changing the actual carbonate buffer capacity — normalization isolates real chemical change from dilution signal</li>
+          <li><span class="opt-key">C</span> Because KAUST data standards require salinity normalization for inter-basin comparisons</li>
+          <li><span class="opt-key">D</span> Because tidal phase affects salinity but not alkalinity, creating a systematic offset</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">Which measurement capability most differentiates GROAN's MOOP protocol from existing Caribbean reef monitoring buoy networks?</div>
+        <div class="q-text-es">¿Qué capacidad de medición diferencia más el protocolo MOOP de GROAN de las redes de boyas de monitoreo de arrecifes del Caribe existentes?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Real-time SST recording at 15-minute intervals</li>
+          <li><span class="opt-key">B</span> Deployment of optical DO sensors instead of electrochemical probes</li>
+          <li class="correct"><span class="opt-key">C</span> Co-located pH and total alkalinity measurement, enabling full carbonate system calculation including Ω — which existing single-parameter pH buoys cannot produce</li>
+          <li><span class="opt-key">D</span> Use of ISFET pH sensors rather than glass electrodes</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">5.68% — Lesson 40 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L08 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
