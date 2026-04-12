@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L18 | Chemical Oceanography — Applications</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid: #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral: #e86040;
+    --gold: #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim: #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  /* ── PANELS ── */
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong {
+    color: var(--ocean-cyan);
+    font-weight: 600;
+  }
+
+  .lecture-text .highlight { color: var(--gold); font-weight: 500; }
+  .lecture-text .coral { color: var(--coral); font-weight: 500; }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .data-table thead tr {
+    background: rgba(10,110,138,0.3);
+  }
+
+  .data-table th {
+    padding: 10px 14px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 9px 14px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+
+  /* ── APPLICATION PANEL ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before {
+    content: '✓ ';
+    color: var(--ocean-cyan);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER / PROGRESS ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 7.10%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L18 / 32</div>
+      <h1 class="lesson-title">Applications</h1>
+      <p class="lesson-subtitle">Mapping chemical parameters to GROAN modules and decision outputs</p>
+    </div>
+
+    <!-- SVG: 4 chemical domains → GROAN modules → DS output -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Domain boxes (left column) -->
+      <!-- Carbonate -->
+      <rect x="4" y="10" width="64" height="22" rx="3" fill="rgba(26,200,200,0.10)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <text x="36" y="25" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">CARBONATE</text>
+
+      <!-- Dissolved Gas -->
+      <rect x="4" y="42" width="64" height="22" rx="3" fill="rgba(26,200,200,0.10)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <text x="36" y="57" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">DISS. GAS</text>
+
+      <!-- Nutrients -->
+      <rect x="4" y="74" width="64" height="22" rx="3" fill="rgba(26,200,200,0.10)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <text x="36" y="89" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">NUTRIENTS</text>
+
+      <!-- Proxies -->
+      <rect x="4" y="106" width="64" height="22" rx="3" fill="rgba(26,200,200,0.10)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <text x="36" y="121" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">PROXIES</text>
+
+      <!-- Module boxes (middle column) -->
+      <!-- GRIN -->
+      <rect x="88" y="6" width="44" height="18" rx="3" fill="rgba(10,110,138,0.25)" stroke="#0a6e8a" stroke-width="1"/>
+      <text x="110" y="18" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#b8f0ec">GRIN</text>
+
+      <!-- GSIN -->
+      <rect x="88" y="32" width="44" height="18" rx="3" fill="rgba(10,110,138,0.25)" stroke="#0a6e8a" stroke-width="1"/>
+      <text x="110" y="44" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#b8f0ec">GSIN</text>
+
+      <!-- GKIN -->
+      <rect x="88" y="58" width="44" height="18" rx="3" fill="rgba(10,110,138,0.25)" stroke="#0a6e8a" stroke-width="1"/>
+      <text x="110" y="70" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#b8f0ec">GKIN</text>
+
+      <!-- CMIE -->
+      <rect x="88" y="84" width="44" height="18" rx="3" fill="rgba(232,96,64,0.12)" stroke="rgba(232,96,64,0.45)" stroke-width="1"/>
+      <text x="110" y="96" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#e86040">CMIE</text>
+
+      <!-- L3 Arb -->
+      <rect x="88" y="110" width="44" height="18" rx="3" fill="rgba(240,180,41,0.10)" stroke="rgba(240,180,41,0.4)" stroke-width="1"/>
+      <text x="110" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429">L3·ARB</text>
+
+      <!-- DS output box (right) -->
+      <rect x="156" y="62" width="58" height="36" rx="4" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.5)" stroke-width="1.4"/>
+      <text x="185" y="77" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" letter-spacing="0.06em">DECISION</text>
+      <text x="185" y="89" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" letter-spacing="0.06em">SCORE</text>
+
+      <!-- Arrows: domains → modules -->
+      <!-- Carbonate → GRIN -->
+      <line x1="68" y1="21" x2="87" y2="15" stroke="#1ac8c8" stroke-width="0.9" opacity="0.5"/>
+      <!-- Carbonate → GSIN -->
+      <line x1="68" y1="21" x2="87" y2="41" stroke="#1ac8c8" stroke-width="0.9" opacity="0.35"/>
+      <!-- Diss Gas → GKIN -->
+      <line x1="68" y1="53" x2="87" y2="67" stroke="#1ac8c8" stroke-width="0.9" opacity="0.5"/>
+      <!-- Nutrients → GKIN -->
+      <line x1="68" y1="85" x2="87" y2="67" stroke="#1ac8c8" stroke-width="0.9" opacity="0.5"/>
+      <!-- Nutrients → CMIE -->
+      <line x1="68" y1="85" x2="87" y2="93" stroke="#e86040" stroke-width="0.9" opacity="0.45"/>
+      <!-- Proxies → L3 -->
+      <line x1="68" y1="117" x2="87" y2="119" stroke="#f0b429" stroke-width="0.9" opacity="0.5"/>
+
+      <!-- Arrows: modules → DS -->
+      <line x1="132" y1="15" x2="155" y2="72" stroke="#0a6e8a" stroke-width="0.9" opacity="0.55"/>
+      <line x1="132" y1="41" x2="155" y2="74" stroke="#0a6e8a" stroke-width="0.9" opacity="0.55"/>
+      <line x1="132" y1="67" x2="155" y2="78" stroke="#0a6e8a" stroke-width="0.9" opacity="0.55"/>
+      <line x1="132" y1="93" x2="155" y2="84" stroke="#e86040" stroke-width="0.9" opacity="0.55"/>
+      <line x1="132" y1="119" x2="155" y2="90" stroke="#f0b429" stroke-width="0.9" opacity="0.55"/>
+
+      <!-- DS arrow head -->
+      <polygon points="151,78 156,80 151,82" fill="rgba(26,200,200,0.6)"/>
+
+      <!-- Label row -->
+      <text x="36"  y="145" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">PARAMETERS</text>
+      <text x="110" y="145" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">MODULES</text>
+      <text x="185" y="145" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">OUTPUT</text>
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          Chemical oceanography applications in GROAN span four operational domains: carbonate system monitoring, dissolved gas tracking, nutrient chemistry, and biogeochemical proxy integration. Each domain maps to specific modules, carries defined confidence floors, and produces inputs that travel the canonical decision chain D → DMAP-CAL™ → CMIE → modules → Feature Layer → MOOP.
+          <strong>No chemical parameter enters CMIE raw.</strong> Every input is normalized, confidence-tiered, and arbitrated through L3 Source Arbitration before the Cross-Module Interaction Engine consumes it.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>1 · Carbonate System Applications.</strong> pH, aragonite saturation state (Ω<sub>arag</sub>), total alkalinity (TA), and dissolved inorganic carbon (DIC) are the primary GRIN and GSIN inputs. The critical decision threshold is <span class="coral">Ω<sub>arag</sub> &lt; 1.5</span> — sub-saturation conditions at which net carbonate dissolution exceeds accretion, triggering an automatic High-priority CMIE alert. MOOP collects in-situ pH and TA at reef zones; GSIN uses satellite-derived pCO₂ proxies for seagrass screening where direct sampling is unavailable. All carbonate parameters require SGD correction when submarine groundwater discharge signatures are present — raw values in SGD-affected zones systematically overstate acidification severity.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>2 · Dissolved Gas Applications.</strong> Dissolved oxygen (DO) is GROAN's primary metabolic proxy. A hypoxic event — <span class="coral">DO &lt; 2 mg/L</span> — at any MOOP station triggers an immediate GKIN mortality risk flag without waiting for confirmation from a second station. Diel DO amplitude serves as an ecosystem metabolism signal: amplitude <span class="highlight">&gt;3 mg/L</span> in a reef zone indicates net autotrophy, a positive health indicator that reduces CMIE intervention urgency. Radon-222 (Ra-222) anomalies identify submarine groundwater discharge — characterized by low salinity, elevated nutrients, and suppressed DO — and must be flagged before carbonate data from that station enters the normalization pipeline.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>3 · Nutrient Chemistry Applications.</strong> Dissolved inorganic nitrogen (DIN) and soluble reactive phosphorus (SRP) ratios determine eutrophication risk trajectory. An N:P ratio <span class="highlight">&gt;16</span> (excess nitrogen above the Redfield ratio) signals terrestrial agricultural runoff, elevating GKIN algal bloom probability. Two consecutive sampling events showing N:P &gt;16 in the same reef zone are required to advance the eutrophication prior in CMIE from background to Moderate — single-event anomalies may reflect tidal resuspension rather than chronic loading. CMIE uses persistent nutrient anomalies as a causal trigger when attributing coral-algae phase shift detection across the decision chain.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>4 · Biogeochemical Proxy Integration.</strong> When direct measurements are unavailable, proxies extend GROAN spatial coverage at the cost of elevated uncertainty. δ¹³C of dissolved inorganic carbon traces terrestrial carbon inputs. δ¹⁸O serves as a salinity proxy for freshwater mixing. CDOM (colored dissolved organic matter) derived from Sentinel-2 band ratios proxies terrestrial dissolved organic carbon loading. All satellite-derived proxies carry <span class="coral">automatic Moderate confidence</span> — no instrument calibration exists for satellite DOC retrieval in coral reef environments. A moored CDOM sensor co-located with the reef zone station is required to upgrade proxy confidence to High.
+        </p>
+        <p>
+          <strong>Key argument:</strong> The power of chemical applications in GROAN is not the parameters themselves — it is the <span class="coral">causal linkage</span> they provide to CMIE. A single DO reading means little. DO below threshold, coinciding with elevated DIN and suppressed Ω, in a zone with confirmed SGD signature, is a cross-module signal the CMIE can attribute to a specific driver and translate into a Decision Score that no single-ecosystem monitoring framework could generate.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          Las aplicaciones de oceanografía química en GROAN abarcan cuatro dominios operacionales: monitoreo del sistema de carbonatos, seguimiento de gases disueltos, química de nutrientes e integración de proxies biogeoquímicos. Cada dominio se mapea a módulos específicos, lleva pisos de confianza definidos y produce entradas que recorren la cadena de decisión canónica D → DMAP-CAL™ → CMIE → módulos → Capa de Características → MOOP.
+          <strong>Ningún parámetro químico ingresa al CMIE en bruto.</strong> Cada entrada se normaliza, clasifica por confianza y arbitra mediante Arbitraje de Fuentes L3 antes de que el Motor de Interacción Cruzada de Módulos lo consuma.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>1 · Aplicaciones del Sistema de Carbonatos.</strong> El pH, el estado de saturación de aragonita (Ω<sub>arag</sub>), la alcalinidad total (AT) y el carbono inorgánico disuelto (CID) son las principales entradas de GRIN y GSIN. El umbral de decisión crítico es <span class="coral">Ω<sub>arag</sub> &lt; 1.5</span> — condiciones de subsaturación en las que la disolución neta de carbonato supera la acreción, activando una alerta CMIE de alta prioridad automática. MOOP recolecta pH y AT in situ en zonas de arrecife; GSIN usa proxies de pCO₂ derivados de satélite para cribado de pastos marinos donde no hay muestreo directo disponible.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>2 · Aplicaciones de Gases Disueltos.</strong> El oxígeno disuelto (OD) es el proxy metabólico principal de GROAN. Un evento hipóxico — <span class="coral">OD &lt; 2 mg/L</span> — en cualquier estación MOOP activa inmediatamente una señal de riesgo de mortalidad en GKIN sin esperar confirmación de una segunda estación. La amplitud diurna del OD sirve como señal del metabolismo del ecosistema: amplitud <span class="highlight">&gt;3 mg/L</span> en una zona de arrecife indica autotrofía neta. Las anomalías de radón-222 identifican la descarga de aguas subterráneas submarinas (SGD) y deben marcarse antes de que los datos de carbonatos de esa estación ingresen al proceso de normalización.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>3 · Aplicaciones de Química de Nutrientes.</strong> Las relaciones de nitrógeno inorgánico disuelto (NID) y fósforo reactivo soluble (FRS) determinan la trayectoria del riesgo de eutrofización. Una relación N:P <span class="highlight">&gt;16</span> señala escorrentía agrícola terrestre, elevando la probabilidad de floración algal en GKIN. Se requieren dos eventos de muestreo consecutivos mostrando N:P &gt;16 en la misma zona de arrecife para avanzar el anterior de eutrofización en CMIE de fondo a Moderado — las anomalías de un solo evento pueden reflejar resuspensión mareal en lugar de carga crónica.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>4 · Integración de Proxies Biogeoquímicos.</strong> Cuando no hay mediciones directas disponibles, los proxies extienden la cobertura espacial de GROAN a costa de mayor incertidumbre. El δ¹³C del carbono inorgánico disuelto rastrea aportes de carbono terrestre. El δ¹⁸O sirve como proxy de salinidad para la mezcla de agua dulce. La CDOM derivada de las relaciones de bandas Sentinel-2 proxea la carga de carbono orgánico disuelto terrestre. Todos los proxies derivados de satélite llevan <span class="coral">confianza Moderada automática</span> — se requiere un sensor CDOM amarrado para actualizar la confianza del proxy a Alta.
+        </p>
+        <p>
+          <strong>Argumento clave:</strong> El poder de las aplicaciones químicas en GROAN no son los parámetros en sí mismos — es el <span class="coral">vínculo causal</span> que proporcionan al CMIE. Un solo valor de OD significa poco. OD por debajo del umbral, coincidiendo con DIN elevado y Ω suprimido, en una zona con firma SGD confirmada, es una señal de módulo cruzado que el CMIE puede atribuir a un factor específico y traducir en un Puntaje de Decisión que ningún marco de monitoreo de ecosistema único podría generar.
+        </p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Key Parameters</th>
+          <th>Decision Threshold</th>
+          <th>GROAN Module</th>
+          <th>Correction Required</th>
+          <th>Conf. Floor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Carbonate</strong></td>
+          <td>pH, Ω<sub>arag</sub>, TA, DIC</td>
+          <td>Ω &lt; 1.5 → High alert</td>
+          <td>GRIN, GSIN</td>
+          <td>SGD correction if Ra-222 flag</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong>Dissolved Gas</strong></td>
+          <td>DO, Ra-222, diel DO amplitude</td>
+          <td>DO &lt; 2 mg/L → GKIN flag</td>
+          <td>GKIN</td>
+          <td>SGD source flagging</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nutrients</strong></td>
+          <td>DIN, SRP, N:P ratio</td>
+          <td>N:P &gt; 16 × 2 events → Moderate prior</td>
+          <td>GKIN, CMIE</td>
+          <td>Tidal resuspension check</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+        </tr>
+        <tr>
+          <td><strong>Proxies</strong></td>
+          <td>δ¹³C, δ¹⁸O, CDOM (S-2)</td>
+          <td>Requires source endmember</td>
+          <td>L3 Arbitration</td>
+          <td>Moored sensor anchor for High</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>When DO drops below 2 mg/L at any MOOP station, trigger the GKIN hypoxia flag immediately — do not wait for a second station to confirm. Single-station hypoxia events carry sufficient mortality risk to warrant immediate escalation through the decision chain.</span></li>
+        <li><span class="app-num">02</span><span>Carbonate chemistry data from a MOOP station with a confirmed Ra-222 anomaly requires SGD correction before entering the normalization pipeline. Raw carbonate values in SGD-affected zones systematically overstate acidification severity and will produce a false high-priority CMIE alert if uncorrected.</span></li>
+        <li><span class="app-num">03</span><span>N:P ratio above 16 at a single sampling event is insufficient to advance the eutrophication prior in CMIE. Two consecutive events in the same reef zone are required. Document the single event as a flag in DMAP-CAL™ and re-sample within 14 days before escalating to CMIE.</span></li>
+        <li><span class="app-num">04</span><span>CDOM-derived DOC estimates from Sentinel-2 carry automatic Moderate confidence and cannot be upgraded through post-processing alone. A moored CDOM sensor co-located with the reef zone station is required before the proxy can contribute at High confidence to L3 Source Arbitration.</span></li>
+        <li><span class="app-num">05</span><span>When CMIE receives concurrent signals of suppressed Ω, elevated DIN, and hypoxic DO from the same reef zone, treat this as a compound stress event and assign a cross-module interaction flag. Compound events carry a Decision Score multiplier — document the co-occurrence timestamp in the CMIE calibration record.</span></li>
+      </ul>
+    </div>
+
+    <!-- ES -->
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Cuando el OD cae por debajo de 2 mg/L en cualquier estación MOOP, active la señal de hipoxia de GKIN de inmediato — no espere confirmación de una segunda estación. Los eventos de hipoxia de estación única conllevan suficiente riesgo de mortalidad para justificar escalada inmediata a través de la cadena de decisión.</span></li>
+        <li><span class="app-num">02</span><span>Los datos de química de carbonatos de una estación MOOP con anomalía Ra-222 confirmada requieren corrección SGD antes de ingresar al proceso de normalización. Los valores brutos en zonas afectadas por SGD sobreestiman sistemáticamente la severidad de la acidificación y producirán una alerta CMIE falsa de alta prioridad si no se corrigen.</span></li>
+        <li><span class="app-num">03</span><span>Una relación N:P superior a 16 en un solo evento de muestreo es insuficiente para avanzar el anterior de eutrofización en CMIE. Se requieren dos eventos consecutivos en la misma zona de arrecife. Documente el evento único como señal en DMAP-CAL™ y tome una nueva muestra dentro de 14 días antes de escalar al CMIE.</span></li>
+        <li><span class="app-num">04</span><span>Las estimaciones de DOC derivadas de CDOM de Sentinel-2 llevan confianza Moderada automática y no pueden actualizarse solo mediante posprocesamiento. Se requiere un sensor CDOM amarrado co-ubicado con la estación de zona de arrecife antes de que el proxy pueda contribuir con Alta confianza al Arbitraje de Fuentes L3.</span></li>
+        <li><span class="app-num">05</span><span>Cuando CMIE recibe señales simultáneas de Ω suprimido, DIN elevado y OD hipóxico de la misma zona de arrecife, trátelo como un evento de estrés compuesto y asigne una señal de interacción de módulo cruzado. Los eventos compuestos llevan un multiplicador del Puntaje de Decisión — documente la marca de tiempo de co-ocurrencia en el registro de calibración CMIE.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">What dissolved oxygen threshold triggers an immediate GKIN hypoxia flag in GROAN, without waiting for a second station to confirm?</div>
+        <div class="mcq-q-es">¿Qué umbral de oxígeno disuelto activa inmediatamente una señal de hipoxia de GKIN en GROAN, sin esperar confirmación de una segunda estación?</div>
+        <div class="mcq-option">A) DO &lt; 5 mg/L — moderate hypoxia threshold / OD &lt; 5 mg/L — umbral de hipoxia moderada</div>
+        <div class="mcq-option correct">B) DO &lt; 2 mg/L — single station, immediate escalation / OD &lt; 2 mg/L — estación única, escalada inmediata</div>
+        <div class="mcq-option">C) DO &lt; 4 mg/L only when co-occurring with low pH / OD &lt; 4 mg/L solo con pH bajo simultáneo</div>
+        <div class="mcq-option">D) DO &lt; 2 mg/L confirmed at two or more stations / OD &lt; 2 mg/L confirmado en dos o más estaciones</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">Why does a single N:P ratio event above 16 not advance the eutrophication prior in CMIE?</div>
+        <div class="mcq-q-es">¿Por qué un solo evento de relación N:P superior a 16 no avanza el anterior de eutrofización en CMIE?</div>
+        <div class="mcq-option">A) N:P must exceed 32 before CMIE registers any nutrient signal / N:P debe superar 32 antes de que CMIE registre señal</div>
+        <div class="mcq-option">B) Nutrient data always requires satellite confirmation before CMIE ingestion / Los nutrientes siempre requieren confirmación satelital</div>
+        <div class="mcq-option correct">C) A single event may reflect tidal resuspension rather than chronic loading — two consecutive events are required / Un solo evento puede reflejar resuspensión mareal — se requieren dos eventos consecutivos</div>
+        <div class="mcq-option">D) SRP must be measured simultaneously for N:P to be valid / SRP debe medirse simultáneamente para que N:P sea válido</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">When CMIE receives concurrent signals of suppressed Ω, elevated DIN, and hypoxic DO from the same reef zone, how should this be classified?</div>
+        <div class="mcq-q-es">Cuando CMIE recibe señales simultáneas de Ω suprimido, DIN elevado y OD hipóxico de la misma zona, ¿cómo debe clasificarse?</div>
+        <div class="mcq-option">A) Three independent alerts — process each parameter through its own module path only / Tres alertas independientes — procesar cada parámetro solo por su módulo</div>
+        <div class="mcq-option">B) Downgrade all three to Moderate confidence until a second sampling event confirms / Degradar las tres a Moderado hasta que un segundo muestreo confirme</div>
+        <div class="mcq-option correct">C) Compound stress event with a cross-module interaction flag and Decision Score multiplier — timestamp co-occurrence in the CMIE calibration record / Evento de estrés compuesto con señal de interacción cruzada y multiplicador DS — registrar co-ocurrencia en calibración CMIE</div>
+        <div class="mcq-option">D) Refer to MOOP for additional sampling before CMIE processes any of the signals / Referir a MOOP para muestreo adicional antes de que CMIE procese las señales</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER / PROGRESS -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 50 of 704</span>
+      <span class="progress-pct">7.10%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
