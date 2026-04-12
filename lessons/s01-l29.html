@@ -1,1 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L29 Physical Oceanography — Comparative Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  /* HEADER */
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
 
+  /* LECTURE PANEL */
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+
+  /* APPLICATION PANEL */
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+
+  /* MCQ SECTION */
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+
+  /* FOOTER */
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.12%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 29 · Physical Oceanography</div>
+        <div class="lesson-title">Comparative Systems</div>
+        <div class="lesson-subtitle">Caribbean, Red Sea, and Coral Triangle — Three Oceanographic Regimes</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">MAR · Red Sea · CTI</span>
+        <span class="tag tag-gold">Cross-System Analysis</span>
+        <span class="tag tag-coral">GROAN CMIE</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: three reef system nodes arranged in triangle formation with CMIE hub at center -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG29" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG29)"/>
+
+        <!-- CMIE hub (center) -->
+        <circle cx="170" cy="110" r="28" fill="rgba(2,15,30,0.85)" stroke="#f0b429" stroke-width="1.2" opacity="0.9"/>
+        <text x="170" y="106" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">GROAN</text>
+        <text x="170" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">CMIE</text>
+        <text x="170" y="126" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#b8f0ec" opacity="0.7">Cross-Module</text>
+
+        <!-- NODE 1: MAR / Caribbean (top left) -->
+        <circle cx="62" cy="46" r="34" fill="rgba(10,110,138,0.25)" stroke="#1ac8c8" stroke-width="1" opacity="0.85"/>
+        <text x="62" y="40" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">MAR</text>
+        <text x="62" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.75">Caribbean</text>
+        <text x="62" y="61" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.65">Mixed · Seasonal</text>
+        <!-- coral bumps -->
+        <ellipse cx="47" cy="68" rx="6" ry="4" fill="#1ac8c8" opacity="0.4"/>
+        <ellipse cx="58" cy="65" rx="7" ry="4" fill="#e86040" opacity="0.35"/>
+        <ellipse cx="70" cy="67" rx="5" ry="3" fill="#1ac8c8" opacity="0.4"/>
+
+        <!-- NODE 2: Red Sea (top right) -->
+        <circle cx="278" cy="46" r="34" fill="rgba(232,96,64,0.15)" stroke="#e86040" stroke-width="1" opacity="0.85"/>
+        <text x="278" y="40" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#e86040">RED SEA</text>
+        <text x="278" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.75">Indo-Pacific</text>
+        <text x="278" y="61" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.65">Stratified · Arid</text>
+        <!-- coral bumps -->
+        <ellipse cx="263" cy="68" rx="6" ry="4" fill="#e86040" opacity="0.4"/>
+        <ellipse cx="274" cy="65" rx="7" ry="4" fill="#1ac8c8" opacity="0.35"/>
+        <ellipse cx="286" cy="67" rx="5" ry="3" fill="#e86040" opacity="0.4"/>
+
+        <!-- NODE 3: Coral Triangle (bottom center) -->
+        <circle cx="170" cy="188" r="24" fill="rgba(240,180,41,0.12)" stroke="#f0b429" stroke-width="1" opacity="0.85"/>
+        <text x="170" y="184" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">CORAL</text>
+        <text x="170" y="193" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">TRIANGLE</text>
+        <text x="170" y="202" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.65">Warm · Biodiverse</text>
+
+        <!-- Connector lines: nodes → CMIE hub -->
+        <line x1="93"  y1="64"  x2="145" y2="92"  stroke="#1ac8c8" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <line x1="247" y1="64"  x2="195" y2="92"  stroke="#e86040" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <line x1="170" y1="164" x2="170" y2="138" stroke="#f0b429" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+        <!-- arrowheads toward hub -->
+        <polygon points="145,92 137,84 148,82" fill="#1ac8c8" opacity="0.5"/>
+        <polygon points="195,92 203,82 204,94" fill="#e86040" opacity="0.5"/>
+        <polygon points="170,138 163,128 177,128" fill="#f0b429" opacity="0.5"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Physical Oceanography: Comparative Systems</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>The world's tropical coral reef systems exist under fundamentally different oceanographic regimes. Comparing these regimes reveals why a single monitoring framework cannot serve all reef contexts — and why cross-system intelligence, as produced by GROAN's Cross-Module Interaction Engine, is the only analytical architecture capable of generating decisions that are valid across theaters.</p>
+
+      <p>The <strong>Mesoamerican Reef (MAR) / Caribbean system</strong> is characterized by a seasonally driven mixed layer, Atlantic-origin water masses, and a terrestrial influence regime unique among major reef systems. The Caribbean's semi-enclosed basin produces relatively weak oceanic upwelling, making surface thermal stress — rather than nutrient limitation — the dominant physical stressor. The MAR's 1,000 km barrier reef is further distinguished by its proximity to Central American river systems (Motagua, Usumacinta, Hondo), which deliver episodic freshwater, sediment, and nutrient pulses that have no direct analogue in the Red Sea or Coral Triangle. Tidal amplitude in the western Caribbean is micro-tidal (&lt;0.5 m), meaning wave energy and storm surge — not tidal mixing — drive vertical water column dynamics at reef sites.</p>
+
+      <p>The <strong>Red Sea system</strong> is oceanographically extreme: the world's warmest and saltiest major reef-bearing sea, averaging 22–32°C surface temperatures with salinity reaching 43 PSU in the northern basin. The Red Sea is tectonically young (formed ~30 Mya), semi-enclosed with restricted exchange through the Bab-el-Mandeb Strait, and receives virtually no river input — making its physical forcing almost entirely governed by evaporation, wind-driven circulation, and the Red Sea Overturning Circulation (RSOC). Its reefs have evolved under chronically elevated thermal regimes, producing genotypes with measurably higher bleaching thresholds than Caribbean or Indo-Pacific counterparts — the genetic adaptation that CORDAP's assisted evolution programs seek to transfer. GROAN's Red Sea proof-of-concept uses this system's KAUST-monitored seagrass-reef thermal coupling as the Feature Layer → GSIN → GRIN causal chain.</p>
+
+      <p>The <strong>Coral Triangle (CTI)</strong> — encompassing Indonesia, Malaysia, the Philippines, Papua New Guinea, Solomon Islands, and Timor-Leste — is the global center of marine biodiversity, containing approximately 76% of all known coral species and 37% of all reef fish species. Its oceanographic driver is the Indo-Pacific Warm Pool (IPWP), the largest body of warm water on Earth, which governs ENSO dynamics globally. The Coral Triangle's physical complexity — multiple semi-enclosed seas, strong throughflow currents (Indonesian Throughflow), and pronounced inter-annual ENSO variability — makes it the most challenging system to model with conventional single-site frameworks. GROAN designates the Coral Triangle as Blue Rim 5™ Chapter 2 and the third proof-of-concept theater.</p>
+
+      <p>The critical comparative insight is stressor hierarchy: in the Caribbean, <strong>thermal stress + local runoff</strong> are co-dominant; in the Red Sea, <strong>thermal stress + hypersalinity + wind-driven circulation</strong> drive system dynamics with negligible terrestrial input; in the Coral Triangle, <strong>ENSO-driven temperature anomalies + fishing pressure + coastal development</strong> produce the dominant degradation pattern. Each system requires a different module weighting within the GROAN Decision Score formula — which is precisely the function of the Cross-Module Interaction Engine.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Los sistemas de arrecifes de coral tropicales del mundo existen bajo regímenes oceanográficos fundamentalmente diferentes. Comparar estos regímenes revela por qué un único marco de monitoreo no puede servir a todos los contextos arrecifales — y por qué la inteligencia entre sistemas, producida por el Motor de Interacción entre Módulos (CMIE) de GROAN, es la única arquitectura analítica capaz de generar decisiones válidas en todos los teatros.</p>
+
+      <p>El <strong>sistema del Arrecife Mesoamericano (MAR) / Caribe</strong> se caracteriza por una capa de mezcla de impulso estacional, masas de agua de origen atlántico, y un régimen de influencia terrestre único entre los principales sistemas arrecifales. El estrés térmico superficial — más que la limitación de nutrientes — es el estresor físico dominante. La proximidad del MAR a los ríos centroamericanos (Motagua, Usumacinta, Hondo) genera pulsos episódicos de agua dulce, sedimentos y nutrientes sin análogo directo en el Mar Rojo o el Triángulo de Coral.</p>
+
+      <p>El <strong>sistema del Mar Rojo</strong> es oceanográficamente extremo: el mar portador de arrecifes más cálido y salino del mundo, con temperaturas superficiales de 22–32°C y salinidad que alcanza 43 PSU en la cuenca norte. Sus arrecifes han evolucionado bajo regímenes térmicos crónicamente elevados, produciendo genotipos con umbrales de blanqueamiento mediblemente más altos que sus contrapartes del Caribe o del Indo-Pacífico — la adaptación genética que los programas de evolución asistida de CORDAP buscan transferir.</p>
+
+      <p>El <strong>Triángulo de Coral (CTI)</strong> — que abarca Indonesia, Malasia, Filipinas, Papúa Nueva Guinea, Islas Salomón y Timor-Leste — es el centro global de biodiversidad marina, con aproximadamente el 76% de todas las especies de coral conocidas. Su complejidad física — múltiples mares semi-cerrados, corrientes de paso fuertes (Throughflow Indonesio) y pronunciada variabilidad ENOS interanual — lo convierte en el sistema más difícil de modelar con marcos convencionales de sitio único.</p>
+
+      <p>La visión comparativa crítica es la jerarquía de estresores: en el Caribe, el <strong>estrés térmico + escorrentía local</strong> son co-dominantes; en el Mar Rojo, el <strong>estrés térmico + hipersalinidad + circulación eólica</strong> gobiernan la dinámica del sistema; en el Triángulo de Coral, las <strong>anomalías de temperatura impulsadas por ENOS + presión pesquera + desarrollo costero</strong> producen el patrón de degradación dominante. Cada sistema requiere una ponderación diferente de módulos dentro de la fórmula de Puntuación de Decisión de GROAN — que es precisamente la función del CMIE.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Parameter / Parámetro</th>
+          <th>MAR / Caribbean</th>
+          <th>Red Sea / Mar Rojo</th>
+          <th>Coral Triangle / Triángulo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SST Range / Rango TSM</td><td>26–30°C</td><td>22–32°C</td><td>27–30°C</td></tr>
+        <tr><td>Salinity / Salinidad</td><td>35–36 PSU</td><td>37–43 PSU</td><td>33–34 PSU</td></tr>
+        <tr><td>Dominant Driver / Impulsor dominante</td><td>Thermal + Runoff</td><td>Thermal + Hypersalinity</td><td>ENSO + Fishing</td></tr>
+        <tr><td>Tidal Regime / Régimen mareal</td><td>Micro-tidal (&lt;0.5 m)</td><td>Mixed semi-diurnal</td><td>Macro-tidal (locally)</td></tr>
+        <tr><td>Terrestrial Input / Ingreso terrestre</td><td>High / Alto</td><td>Negligible / Despreciable</td><td>Moderate / Moderado</td></tr>
+        <tr><td>Coral Species / Especies coral</td><td>~65 spp</td><td>~300 spp</td><td>~600 spp</td></tr>
+        <tr><td>GROAN Proof-of-Concept</td><td>Case Study 1</td><td>Case Study 2</td><td>Blue Rim 5™ Ch. 2</td></tr>
+        <tr><td>Key Data Partner</td><td>CORDAP / CCRA</td><td>KAUST / KAUST RSRC</td><td>CTI Secretariat</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The MAR's micro-tidal, runoff-dominated physical regime means that GROAN module weighting for Caribbean nodes must assign higher coefficients to sediment and nutrient sub-indices relative to Red Sea or Coral Triangle nodes — the CMIE's cross-system calibration function operationalizes this weighting difference in the Decision Score formula (DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility).</li>
+        <li>Caribbean coral species richness (~65 spp) is an order of magnitude lower than the Coral Triangle (~600 spp), but MAR structural complexity — particularly the role of Acropora palmata and Orbicella spp. as framework builders — means that loss of individual keystone species has disproportionate structural consequences not captured by species count alone.</li>
+        <li>The Red Sea's thermal-adapted coral genotypes represent the primary genetic reservoir for assisted evolution programs targeting Caribbean restoration — establishing a direct data-sharing rationale between KAUST (Red Sea monitoring) and CORDAP-funded MAR restoration programs, the institutional bridge GROAN's dual proof-of-concept is designed to formalize.</li>
+        <li>Rim Run™ MOOP vessel transits across 7 countries and 1,500+ nm generate a uniquely continuous cross-system physical oceanography dataset: SST, salinity, wave height, and water clarity logged at &gt;100 reef sites across a single connected circuit — a dataset that no fixed monitoring program covers with equivalent spatial continuity.</li>
+        <li>GROAN's CMIE cross-system intelligence output: when a thermal anomaly in the Red Sea precedes a Caribbean bleaching event by 6–8 weeks (via ENSO teleconnections), the CMIE can generate a forward warning signal for MAR nodes — a decision output structurally impossible from any single-system monitoring framework.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>El régimen físico micro-mareal y dominado por escorrentía del MAR significa que la ponderación de módulos GROAN para nodos caribeños debe asignar coeficientes más altos a los subíndices de sedimentos y nutrientes en relación con los nodos del Mar Rojo o el Triángulo de Coral — la función de calibración entre sistemas del CMIE operacionaliza esta diferencia de ponderación en la fórmula de Puntuación de Decisión.</li>
+        <li>La riqueza de especies de coral del Caribe (~65 spp) es un orden de magnitud menor que la del Triángulo de Coral (~600 spp), pero la complejidad estructural del MAR significa que la pérdida de especies clave individuales tiene consecuencias estructurales desproporcionadas no capturadas solo por el conteo de especies.</li>
+        <li>Los genotipos de coral termalmente adaptados del Mar Rojo representan el principal reservorio genético para programas de evolución asistida dirigidos a la restauración del Caribe — estableciendo una justificación directa de intercambio de datos entre KAUST y los programas de restauración del MAR financiados por CORDAP.</li>
+        <li>Los tránsitos MOOP del Rim Run™ a través de 7 países y más de 1,500 mn generan un conjunto de datos de oceanografía física entre sistemas único y continuo: TSM, salinidad, altura de olas y claridad del agua registrados en más de 100 sitios arrecifales.</li>
+        <li>Inteligencia entre sistemas del CMIE de GROAN: cuando una anomalía térmica en el Mar Rojo precede a un evento de blanqueamiento en el Caribe por 6–8 semanas (vía teleconexiones ENOS), el CMIE puede generar una señal de advertencia anticipada para los nodos del MAR — un resultado de decisión estructuralmente imposible desde cualquier marco de monitoreo de sistema único.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why does the Red Sea's chronic thermal regime produce coral genotypes with higher bleaching thresholds, and what is the restoration implication for Caribbean reefs?</div>
+        <div class="mcq-q-es">¿Por qué el régimen térmico crónico del Mar Rojo produce genotipos de coral con umbrales de blanqueamiento más altos, y cuál es la implicación de restauración para los arrecifes del Caribe?</div>
+        <ul class="mcq-options">
+          <li>A. High salinity chemically protects zooxanthellae from thermal expulsion</li>
+          <li class="correct">B. Sustained exposure to elevated temperatures over geological time selects for thermally tolerant genotypes — which assisted evolution programs seek to introduce into Caribbean restoration stock via CORDAP-funded programs</li>
+          <li>C. Red Sea corals have no zooxanthellae and therefore cannot bleach</li>
+          <li>D. The Red Sea's restricted circulation prevents bleaching-triggering UV radiation from reaching reef depth</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">What physical oceanographic characteristic makes the Coral Triangle the most difficult system to model with single-site monitoring frameworks, and how does GROAN's CMIE address this?</div>
+        <div class="mcq-q-es">¿Qué característica oceanográfica física hace del Triángulo de Coral el sistema más difícil de modelar con marcos de monitoreo de sitio único, y cómo aborda esto el CMIE de GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. Extreme depth makes instrument deployment impossible</li>
+          <li>B. The Coral Triangle has no defined political boundary, preventing coordinated monitoring</li>
+          <li class="correct">C. Multiple semi-enclosed seas, strong Indonesian Throughflow currents, and pronounced inter-annual ENSO variability create system dynamics that no single fixed monitoring site can characterize — GROAN's CMIE integrates multi-module signals across sites to generate cross-system intelligence</li>
+          <li>D. Coral Triangle reefs are too biodiverse to assign meaningful stressor indices</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">When a Red Sea thermal anomaly precedes a Caribbean bleaching event by 6–8 weeks via ENSO teleconnections, what does GROAN's CMIE generate that single-system frameworks structurally cannot?</div>
+        <div class="mcq-q-es">Cuando una anomalía térmica del Mar Rojo precede a un evento de blanqueamiento en el Caribe por 6–8 semanas vía teleconexiones ENOS, ¿qué genera el CMIE de GROAN que los marcos de sistema único estructuralmente no pueden?</div>
+        <ul class="mcq-options">
+          <li>A. A retrospective analysis of past bleaching causes</li>
+          <li>B. An automatic shutdown of GROAN data collection at MAR nodes</li>
+          <li class="correct">C. A forward warning signal for MAR nodes — a decision output that requires cross-system causal intelligence and is impossible from any monitoring framework limited to a single ocean basin</li>
+          <li>D. A legal notification to Caribbean governments of impending bleaching liability</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S01·L29 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.12%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
