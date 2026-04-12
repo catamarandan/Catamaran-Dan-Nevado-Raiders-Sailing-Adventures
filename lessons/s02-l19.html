@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L19 | Chemical Oceanography — Case Studies</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid: #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral: #e86040;
+    --gold: #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim: #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold); font-weight: 500; }
+  .lecture-text .coral { color: var(--coral); font-weight: 500; }
+
+  /* ── CASE STUDY CALLOUT BLOCKS ── */
+  .case-block {
+    margin: 20px 0;
+    border-left: 3px solid rgba(26,200,200,0.4);
+    padding: 18px 20px;
+    background: rgba(4,41,74,0.3);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .case-block.red-sea {
+    border-left-color: rgba(232,96,64,0.5);
+    background: rgba(30,8,4,0.3);
+  }
+
+  .case-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .case-block.red-sea .case-header { color: var(--coral); }
+
+  .chain-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0 8px;
+  }
+
+  .chain-node {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background: rgba(10,110,138,0.25);
+    border: 1px solid rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+    white-space: nowrap;
+  }
+
+  .chain-node.cmie-node {
+    background: rgba(232,96,64,0.12);
+    border-color: rgba(232,96,64,0.35);
+    color: var(--coral);
+  }
+
+  .chain-node.chem-node {
+    background: rgba(240,180,41,0.10);
+    border-color: rgba(240,180,41,0.3);
+    color: var(--gold);
+  }
+
+  .chain-arrow {
+    font-size: 12px;
+    color: var(--text-dim);
+    opacity: 0.6;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 14px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 9px 14px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+
+  /* ── APPLICATION PANEL ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before {
+    content: '✓ ';
+    color: var(--ocean-cyan);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 7.24%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+    .chain-row { gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L19 / 32</div>
+      <h1 class="lesson-title">Case Studies</h1>
+      <p class="lesson-subtitle">Caribbean carbonate disruption &amp; Red Sea thermal-chemical amplification</p>
+    </div>
+
+    <!-- SVG: two geographic panels, Caribbean left / Red Sea right, chemical signal chains -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Caribbean panel (left) -->
+      <rect x="4" y="8" width="98" height="144" rx="5" fill="rgba(4,41,74,0.35)" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+      <text x="53" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" letter-spacing="0.1em">CARIBBEAN</text>
+
+      <!-- Caribbean signal chain nodes, stacked vertically -->
+      <rect x="14" y="30" width="78" height="14" rx="2" fill="rgba(10,110,138,0.2)" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+      <text x="53" y="40" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec">GMIN · Mangrove Loss</text>
+
+      <line x1="53" y1="44" x2="53" y2="52" stroke="rgba(26,200,200,0.4)" stroke-width="1" stroke-dasharray="2,2"/>
+      <polygon points="50,51 53,56 56,51" fill="rgba(26,200,200,0.5)"/>
+
+      <rect x="14" y="57" width="78" height="14" rx="2" fill="rgba(240,180,41,0.10)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8"/>
+      <text x="53" y="67" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">TA ↓  Ω↓  DIN ↑</text>
+
+      <line x1="53" y1="71" x2="53" y2="79" stroke="rgba(26,200,200,0.4)" stroke-width="1" stroke-dasharray="2,2"/>
+      <polygon points="50,78 53,83 56,78" fill="rgba(26,200,200,0.5)"/>
+
+      <rect x="14" y="84" width="78" height="14" rx="2" fill="rgba(10,110,138,0.2)" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+      <text x="53" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec">GRIN · Trophic Disruption</text>
+
+      <line x1="53" y1="98" x2="53" y2="106" stroke="rgba(232,96,64,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+      <polygon points="50,105 53,110 56,105" fill="rgba(232,96,64,0.6)"/>
+
+      <rect x="14" y="111" width="78" height="14" rx="2" fill="rgba(232,96,64,0.10)" stroke="rgba(232,96,64,0.35)" stroke-width="0.8"/>
+      <text x="53" y="121" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040">CMIE · DS Elevated</text>
+
+      <text x="53" y="143" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">CORDAP Data</text>
+
+      <!-- Red Sea panel (right) -->
+      <rect x="118" y="8" width="98" height="144" rx="5" fill="rgba(30,8,4,0.35)" stroke="rgba(232,96,64,0.22)" stroke-width="1"/>
+      <text x="167" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#e86040" letter-spacing="0.1em">RED SEA</text>
+
+      <!-- Red Sea chain -->
+      <rect x="128" y="30" width="78" height="14" rx="2" fill="rgba(232,96,64,0.10)" stroke="rgba(232,96,64,0.25)" stroke-width="0.8"/>
+      <text x="167" y="40" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040">SST Anomaly &gt;1°C</text>
+
+      <line x1="167" y1="44" x2="167" y2="52" stroke="rgba(232,96,64,0.4)" stroke-width="1" stroke-dasharray="2,2"/>
+      <polygon points="164,51 167,56 170,51" fill="rgba(232,96,64,0.5)"/>
+
+      <rect x="128" y="57" width="78" height="14" rx="2" fill="rgba(240,180,41,0.10)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8"/>
+      <text x="167" y="67" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">DO Amp ↓  pCO₂ ↑</text>
+
+      <line x1="167" y1="71" x2="167" y2="79" stroke="rgba(232,96,64,0.4)" stroke-width="1" stroke-dasharray="2,2"/>
+      <polygon points="164,78 167,83 170,78" fill="rgba(232,96,64,0.5)"/>
+
+      <rect x="128" y="84" width="78" height="14" rx="2" fill="rgba(10,110,138,0.2)" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+      <text x="167" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec">GSIN · Seagrass Collapse</text>
+
+      <line x1="167" y1="98" x2="167" y2="106" stroke="rgba(232,96,64,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+      <polygon points="164,105 167,110 170,105" fill="rgba(232,96,64,0.6)"/>
+
+      <rect x="128" y="111" width="78" height="14" rx="2" fill="rgba(232,96,64,0.10)" stroke="rgba(232,96,64,0.35)" stroke-width="0.8"/>
+      <text x="167" y="121" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040">CMIE · DS Elevated</text>
+
+      <text x="167" y="143" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">KAUST Data</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:16px;">
+          GROAN's two primary proof-of-concept case studies are not selected arbitrarily. They are chosen because each demonstrates a specific structural argument: that cross-ecosystem chemical signals, processed through the Cross-Module Interaction Engine, produce decisions that single-ecosystem monitoring frameworks are structurally incapable of generating. The Caribbean case proves CMIE's capacity for <span class="highlight">terrestrial-to-reef causal attribution</span>. The Red Sea case proves CMIE's capacity for <span class="coral">thermal-chemical amplification detection</span> across ecosystem boundaries. Neither conclusion is available without cross-module signal integration.
+        </p>
+
+        <!-- CASE 1 BLOCK -->
+        <div class="case-block">
+          <div class="case-header">Case Study 01 · Caribbean · CORDAP Data</div>
+          <div class="chain-row">
+            <span class="chain-node">GMIN · Mangrove Loss</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node chem-node">TA ↓ · Ω ↓ · DIN ↑</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">GMAIN · Juvenile Fish ↓</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">GRIN · Trophic Disruption</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node cmie-node">CMIE · DS Elevated</span>
+          </div>
+          <p style="margin-top:12px;">
+            Mangrove forests in the Caribbean serve as critical alkalinity sources. Root respiration and organic matter decomposition export bicarbonate-rich, high-alkalinity water into adjacent reef zones, buffering the local carbonate system against daytime metabolic acidification. When mangrove coverage contracts — through coastal development, deforestation, or storm damage — this alkalinity subsidy is removed. The chemical consequence at the downstream reef zone is measurable: <strong>total alkalinity (TA) decreases 30–80 µmol/kg</strong> in the wet season discharge plume, suppressing Ω<sub>arag</sub> from above 3.0 to the <span class="coral">1.8–2.2 danger zone</span>. Simultaneously, reduced mangrove filtration capacity allows elevated dissolved inorganic nitrogen (DIN) to reach the reef, promoting macroalgae growth and intensifying the trophic signal that GRIN detects.
+          </p>
+          <p style="margin-top:10px;">
+            A single-ecosystem monitoring framework watching only the reef would observe suppressed Ω and elevated nutrients — and could attribute this to ocean acidification trend or local runoff. <strong>Only CMIE, receiving concurrent GMIN coverage-loss data, GMAIN juvenile fish decline metrics, and GRIN carbonate suppression signals, can generate the correct causal attribution:</strong> mangrove loss is the primary driver. The Decision Score outcome — intervention at the mangrove watershed level, not at the reef — is structurally unavailable without cross-module integration. CORDAP data provides the reef carbonate baseline and temporal coverage for this case in the Caribbean theater.
+          </p>
+        </div>
+
+        <!-- CASE 2 BLOCK -->
+        <div class="case-block red-sea" style="margin-bottom:14px;">
+          <div class="case-header">Case Study 02 · Red Sea · KAUST Data</div>
+          <div class="chain-row">
+            <span class="chain-node" style="border-color:rgba(232,96,64,0.35);color:#e86040;background:rgba(232,96,64,0.08);">SST Anomaly &gt;1°C</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node chem-node">DO Amp ↓ · pCO₂ ↑ · pH ↓</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">GSIN · Seagrass Stress</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">GRIN · Bleaching Amplified</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node cmie-node">CMIE · DS Critical</span>
+          </div>
+          <p style="margin-top:12px;">
+            The Red Sea case demonstrates a thermal-chemical amplification pathway. Seagrass meadows in the Red Sea perform a carbonate buffering function analogous to mangroves in the Caribbean — net photosynthesis during daylight hours drives CO₂ uptake, locally elevating pH and Ω<sub>arag</sub> in adjacent reef zones. The chemical signature of a healthy seagrass meadow is a <strong>diel DO amplitude &gt;3 mg/L</strong> and a suppressed daytime pCO₂ signal. When SST exceeds 1°C above the maximum monthly mean (MMM) for four or more consecutive weeks, seagrass metabolic activity decelerates. The chemical consequence is diagnostic: <span class="coral">DO diel amplitude compresses below 2 mg/L, pCO₂ rises, and daytime Ω buffering disappears</span>.
+          </p>
+          <p style="margin-top:10px;">
+            Adjacent reef corals, which depend on this seagrass-mediated buffering during thermal stress events, now experience both elevated temperature and chemical destabilization simultaneously. The bleaching risk is <strong>not the sum of thermal stress plus acidification stress</strong> — it is a multiplicative amplification. CMIE receives the Feature Layer SST anomaly, the GSIN seagrass chemical stress flag, and the GRIN bleaching probability signal, and attributes the elevated DS to the cross-ecosystem amplification mechanism — not to thermal forcing alone. KAUST Red Sea Research Center data provides the SST anomaly record and seagrass chemical baseline for this case. The Red Sea endmember pCO₂ and alkalinity values differ materially from Caribbean defaults and must not be substituted with generic ocean parameters.
+          </p>
+        </div>
+
+        <p>
+          <strong>Key argument:</strong> Both case studies produce the same structural proof. The chemical parameters — TA, Ω, DIN, DO amplitude, pCO₂ — are not the contribution. The contribution is the <span class="coral">causal chain CMIE constructs across ecosystem boundaries</span> using those parameters. Remove any single module from either chain and the Decision Score collapses to a monitoring output. Retain the cross-module architecture and the output becomes an actionable decision with a defensible causal attribution.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:16px;">
+          Los dos estudios de caso de prueba de concepto principales de GROAN no se seleccionan arbitrariamente. Se eligen porque cada uno demuestra un argumento estructural específico: que las señales químicas entre ecosistemas, procesadas a través del Motor de Interacción Cruzada de Módulos, producen decisiones que los marcos de monitoreo de ecosistema único son estructuralmente incapaces de generar. El caso del Caribe prueba la capacidad del CMIE para la <span class="highlight">atribución causal terrestre-a-arrecife</span>. El caso del Mar Rojo prueba la capacidad del CMIE para la <span class="coral">detección de amplificación térmica-química</span> a través de límites de ecosistemas.
+        </p>
+
+        <div class="case-block">
+          <div class="case-header">Estudio de Caso 01 · Caribe · Datos CORDAP</div>
+          <p style="margin-top:8px;">
+            Los bosques de manglares en el Caribe sirven como fuentes críticas de alcalinidad. La respiración de las raíces y la descomposición de la materia orgánica exportan agua rica en bicarbonato y alta alcalinidad hacia las zonas de arrecife adyacentes, amortiguando el sistema de carbonatos local contra la acidificación metabólica diurna. Cuando la cobertura de manglares se contrae, la alcalinidad total (AT) disminuye <strong>30–80 µmol/kg</strong> en el penacho de descarga de la temporada lluviosa, suprimiendo Ω<sub>arag</sub> desde más de 3.0 a la <span class="coral">zona de peligro de 1.8–2.2</span>. Solo CMIE, recibiendo datos concurrentes de pérdida de cobertura GMIN, métricas de disminución de peces juveniles GMAIN y señales de supresión de carbonatos GRIN, puede generar la atribución causal correcta: la pérdida de manglares es el impulsor principal.
+          </p>
+        </div>
+
+        <div class="case-block red-sea" style="margin-bottom:14px;">
+          <div class="case-header">Estudio de Caso 02 · Mar Rojo · Datos KAUST</div>
+          <p style="margin-top:8px;">
+            El caso del Mar Rojo demuestra una vía de amplificación térmica-química. Los praderas de pastos marinos en el Mar Rojo realizan una función de amortiguación del carbonato análoga a los manglares en el Caribe. La firma química de un prado de pastos marinos saludable es una <strong>amplitud diurna de OD &gt;3 mg/L</strong> y una señal de pCO₂ diurna suprimida. Cuando la TSM supera 1°C por encima de la media mensual máxima (MMM) durante cuatro o más semanas consecutivas, la actividad metabólica de los pastos marinos se desacelera. La consecuencia química es diagnóstica: <span class="coral">la amplitud diurna del OD se comprime por debajo de 2 mg/L, el pCO₂ aumenta y la amortiguación diurna de Ω desaparece</span>. El riesgo de blanqueamiento es una amplificación multiplicativa — no la suma del estrés térmico más el estrés de acidificación.
+          </p>
+        </div>
+
+        <p>
+          <strong>Argumento clave:</strong> Ambos estudios de caso producen la misma prueba estructural. Los parámetros químicos no son la contribución. La contribución es la <span class="coral">cadena causal que CMIE construye a través de los límites del ecosistema</span> usando esos parámetros. Elimine cualquier módulo de cualquiera de las cadenas y el Puntaje de Decisión colapsa a una salida de monitoreo. Mantenga la arquitectura de módulo cruzado y la salida se convierte en una decisión accionable con una atribución causal defendible.
+        </p>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Caribbean Case</th>
+          <th>Red Sea Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Primary Driver</strong></td>
+          <td>Mangrove watershed loss</td>
+          <td>SST anomaly &gt;1°C above MMM</td>
+        </tr>
+        <tr>
+          <td><strong>Chemical Signal</strong></td>
+          <td>TA ↓ 30–80 µmol/kg, Ω suppressed to 1.8–2.2, DIN ↑</td>
+          <td>DO amplitude compressed &lt;2 mg/L, pCO₂ ↑, pH ↓</td>
+        </tr>
+        <tr>
+          <td><strong>Intermediate Module</strong></td>
+          <td>GMAIN (juvenile fish decline)</td>
+          <td>GSIN (seagrass metabolic stress)</td>
+        </tr>
+        <tr>
+          <td><strong>Reef Impact</strong></td>
+          <td>GRIN trophic disruption</td>
+          <td>GRIN bleaching amplification</td>
+        </tr>
+        <tr>
+          <td><strong>CMIE Attribution</strong></td>
+          <td>Terrestrial → reef causal chain</td>
+          <td>Thermal-chemical multiplicative amplification</td>
+        </tr>
+        <tr>
+          <td><strong>Data Source</strong></td>
+          <td>CORDAP</td>
+          <td>KAUST Red Sea Research Center</td>
+        </tr>
+        <tr>
+          <td><strong>Endmember Note</strong></td>
+          <td>Caribbean TA/pCO₂ baseline</td>
+          <td><span class="badge badge-low">Do not substitute generic ocean values</span></td>
+        </tr>
+        <tr>
+          <td><strong>DS Outcome</strong></td>
+          <td>Intervene at watershed — not at reef</td>
+          <td>Compound event multiplier — critical threshold</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>When GMIN detects mangrove coverage loss exceeding 10% in a reef-adjacent watershed, pre-apply an alkalinity buffering deficit correction to downstream MOOP carbonate data before normalization. Raw TA values from deficit zones will understate the buffering loss and produce a false elevated Ω reading in CMIE.</span></li>
+        <li><span class="app-num">02</span><span>In the Red Sea theater, SST anomaly exceeding 1°C above MMM for four or more consecutive weeks triggers a GSIN metabolic stress watch. Begin daily DO diel amplitude monitoring at all seagrass-adjacent MOOP stations immediately — compression of amplitude below 2 mg/L is the early chemical warning of buffering collapse before GRIN bleaching signal appears.</span></li>
+        <li><span class="app-num">03</span><span>Never apply Caribbean TA or pCO₂ endmember values to Red Sea stations. Red Sea baseline alkalinity and dissolved inorganic carbon concentrations differ materially from the Caribbean due to higher evaporation, lower freshwater input, and distinct biological carbonate production rates. Using generic ocean endmembers in CMIE Red Sea calculations will produce systematic attribution errors.</span></li>
+        <li><span class="app-num">04</span><span>When CMIE constructs a cross-ecosystem causal chain spanning three or more modules — as in both case studies — the Decision Score must include a cross-module confidence weight derived from the weakest-confidence input in the chain. The DS is only as defensible as its lowest-confidence link. Document the chain and the confidence floor in the CMIE calibration record.</span></li>
+        <li><span class="app-num">05</span><span>The intervention target generated by CMIE in the Caribbean case — the mangrove watershed, not the reef — must be explicitly stated in the DMAP-CAL™ output alongside the reef chemical data. Stakeholders presenting the reef data without the watershed attribution will misidentify the intervention point and waste resources treating symptoms rather than the causal driver.</span></li>
+      </ul>
+    </div>
+
+    <!-- ES -->
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Cuando GMIN detecta pérdida de cobertura de manglares superior al 10% en una cuenca adyacente al arrecife, aplique previamente una corrección de déficit de amortiguación de alcalinidad a los datos de carbonatos MOOP aguas abajo antes de la normalización. Los valores brutos de AT en zonas de déficit subestimarán la pérdida de amortiguación y producirán una lectura de Ω falsamente elevada en CMIE.</span></li>
+        <li><span class="app-num">02</span><span>En el teatro del Mar Rojo, una anomalía de TSM que supere 1°C por encima de la MMM durante cuatro o más semanas consecutivas activa una vigilancia de estrés metabólico en GSIN. Comience el monitoreo diario de amplitud diurna de OD en todas las estaciones MOOP adyacentes a pastos marinos inmediatamente — la compresión de la amplitud por debajo de 2 mg/L es la advertencia química temprana del colapso de amortiguación antes de que aparezca la señal de blanqueamiento de GRIN.</span></li>
+        <li><span class="app-num">03</span><span>Nunca aplique valores de referencia de AT o pCO₂ del Caribe a estaciones del Mar Rojo. Los valores de referencia del Mar Rojo difieren materialmente del Caribe debido a mayor evaporación, menor aporte de agua dulce y tasas distintas de producción de carbonatos biológicos. Usar valores oceánicos genéricos producirá errores de atribución sistemáticos en CMIE.</span></li>
+        <li><span class="app-num">04</span><span>Cuando CMIE construye una cadena causal entre ecosistemas que abarca tres o más módulos, el Puntaje de Decisión debe incluir un peso de confianza de módulo cruzado derivado de la entrada de menor confianza en la cadena. El DS es tan defendible como su eslabón de menor confianza.</span></li>
+        <li><span class="app-num">05</span><span>El objetivo de intervención generado por CMIE en el caso del Caribe — la cuenca de manglares, no el arrecife — debe declararse explícitamente en la salida DMAP-CAL™ junto con los datos químicos del arrecife. Las partes interesadas que presenten los datos del arrecife sin la atribución de la cuenca identificarán incorrectamente el punto de intervención y desperdiciarán recursos tratando síntomas en lugar del impulsor causal.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">In the Caribbean case study, what is the correct CMIE-attributed intervention target when mangrove loss suppresses reef Ω to the 1.8–2.2 danger zone?</div>
+        <div class="mcq-q-es">En el estudio de caso del Caribe, ¿cuál es el objetivo de intervención correcto atribuido por CMIE cuando la pérdida de manglares suprime Ω del arrecife a la zona de peligro 1.8–2.2?</div>
+        <div class="mcq-option">A) Direct reef carbonate supplementation at the affected zone / Suplementación directa de carbonatos en el arrecife afectado</div>
+        <div class="mcq-option">B) Increase MOOP sampling frequency to confirm the Ω reading / Aumentar frecuencia MOOP para confirmar lectura de Ω</div>
+        <div class="mcq-option correct">C) Intervene at the mangrove watershed level — the reef chemical signal is a symptom, not the cause / Intervenir en la cuenca de manglares — la señal química del arrecife es un síntoma, no la causa</div>
+        <div class="mcq-option">D) Downgrade the Ω signal to Moderate confidence pending second-station confirmation / Degradar señal Ω a Moderado pendiente confirmación segunda estación</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">In the Red Sea case, what is the early chemical warning signal that seagrass buffering is collapsing — before the GRIN bleaching signal appears?</div>
+        <div class="mcq-q-es">En el caso del Mar Rojo, ¿cuál es la señal química de advertencia temprana de que el amortiguamiento de los pastos marinos está colapsando, antes de que aparezca la señal de blanqueamiento de GRIN?</div>
+        <div class="mcq-option">A) Aragonite saturation state dropping below 1.5 at the reef station / Saturación de aragonita cayendo por debajo de 1.5 en la estación del arrecife</div>
+        <div class="mcq-option">B) SST exceeding 2°C above MMM for two consecutive weeks / TSM superando 2°C sobre MMM durante dos semanas consecutivas</div>
+        <div class="mcq-option correct">C) Diel DO amplitude compressing below 2 mg/L at seagrass-adjacent MOOP stations / Amplitud diurna de OD comprimiéndose por debajo de 2 mg/L en estaciones MOOP adyacentes a pastos marinos</div>
+        <div class="mcq-option">D) Elevated DIN concentrations coinciding with pCO₂ rise / Concentraciones elevadas de DIN coincidiendo con aumento de pCO₂</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">What is the structural argument both case studies prove about GROAN's Cross-Module Interaction Engine?</div>
+        <div class="mcq-q-es">¿Cuál es el argumento estructural que ambos estudios de caso prueban sobre el Motor de Interacción Cruzada de Módulos de GROAN?</div>
+        <div class="mcq-option">A) That chemical parameters alone are sufficient to generate reef management decisions / Que los parámetros químicos solos son suficientes para generar decisiones de gestión</div>
+        <div class="mcq-option">B) That CORDAP and KAUST data sources produce identical baseline values / Que CORDAP y KAUST producen valores de referencia idénticos</div>
+        <div class="mcq-option correct">C) That cross-ecosystem causal decisions are structurally unavailable to single-ecosystem monitoring frameworks — only CMIE cross-module integration generates the correct attribution and intervention target / Que las decisiones causales entre ecosistemas son estructuralmente inaccesibles para marcos de monitoreo de ecosistema único</div>
+        <div class="mcq-option">D) That thermal stress is always the dominant driver when co-occurring with chemical stress / Que el estrés térmico siempre es el impulsor dominante cuando coocurre con estrés químico</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 51 of 704</span>
+      <span class="progress-pct">7.24%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
