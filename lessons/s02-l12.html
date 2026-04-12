@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L12 | Chemical Oceanography: Data Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Analysis pipeline */
+  .analysis-pipeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 1.2rem 0;
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .ap-step {
+    padding: 0.85rem 0.75rem;
+    background: rgba(2,15,30,0.5);
+    border-right: 1px solid rgba(26,200,200,0.08);
+    text-align: center;
+  }
+  .ap-step:last-child { border-right: none; }
+  .ap-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .ap-step:nth-child(1) .ap-num { color: var(--ocean-cyan); }
+  .ap-step:nth-child(2) .ap-num { color: var(--gold); }
+  .ap-step:nth-child(3) .ap-num { color: #44b864; }
+  .ap-step:nth-child(4) .ap-num { color: #e89060; }
+  .ap-step:nth-child(5) .ap-num { color: var(--coral); }
+  .ap-name { font-size: 0.78rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.2rem; }
+  .ap-desc { font-size: 0.68rem; line-height: 1.4; color: var(--text-dim); }
+
+  /* Analysis method cards */
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1.2rem 0; }
+  .method-card {
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    background: rgba(2,15,30,0.5);
+    border: 1px solid rgba(26,200,200,0.1);
+  }
+  .method-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .method-head.norm   { color: var(--ocean-cyan); }
+  .method-head.trend  { color: var(--gold); }
+  .method-head.space  { color: #44b864; }
+  .method-head.cmie   { color: var(--coral); }
+  .method-title { font-size: 0.84rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.3rem; }
+  .method-desc { font-size: 0.79rem; line-height: 1.55; color: var(--text-dim); }
+  .method-desc strong { color: var(--text-light); }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 6.25%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .analysis-pipeline { grid-template-columns: 1fr 1fr; }
+    .method-grid { grid-template-columns: 1fr; }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L12 · Lesson 44 of 704</div>
+      <h1>Data Analysis</h1>
+      <p class="subtitle">Raw chemical readings are inputs. Decisions require analysis — normalization, trend detection, spatial interpolation, and cross-module signal extraction. This is where GROAN's data becomes causal intelligence.</p>
+    </div>
+
+    <!-- SVG: Analysis pipeline — raw data → normalization → trend → spatial → CMIE output with annotated curve -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="trendGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#e86040" stop-opacity="0.7"/>
+        </linearGradient>
+        <filter id="gfda">
+          <feGaussianBlur stdDeviation="1.6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.55)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Axes -->
+      <line x1="22" y1="20" x2="22" y2="140" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+      <line x1="22" y1="140" x2="196" y2="140" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+
+      <!-- Y-axis label -->
+      <text x="8" y="80" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" transform="rotate(-90,8,80)" text-anchor="middle">Ω ARAGONITE</text>
+
+      <!-- X-axis label -->
+      <text x="109" y="154" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc">STATION (SPATIAL)</text>
+
+      <!-- Gridlines -->
+      <line x1="22" y1="60"  x2="196" y2="60"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="22" y1="100" x2="196" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+      <!-- Y axis ticks + labels -->
+      <text x="18" y="63"  text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">3.5</text>
+      <text x="18" y="103" text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">2.5</text>
+      <text x="18" y="143" text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">1.5</text>
+
+      <!-- Alarm threshold line -->
+      <line x1="22" y1="88" x2="196" y2="88" stroke="#e86040" stroke-width="1" stroke-dasharray="4,3" stroke-opacity="0.7"/>
+      <text x="170" y="85" font-family="DM Mono,monospace" font-size="5.5" fill="#e86040">Ω 2.0 alarm</text>
+
+      <!-- Raw noisy data points -->
+      <circle cx="35"  cy="68"  r="2.5" fill="#8ab8cc" opacity="0.5"/>
+      <circle cx="52"  cy="74"  r="2.5" fill="#8ab8cc" opacity="0.5"/>
+      <circle cx="68"  cy="62"  r="2.5" fill="#8ab8cc" opacity="0.5"/>
+      <circle cx="84"  cy="79"  r="2.5" fill="#8ab8cc" opacity="0.5"/>
+      <circle cx="100" cy="84"  r="2.5" fill="#8ab8cc" opacity="0.5"/>
+      <circle cx="116" cy="91"  r="2.5" fill="#e86040" opacity="0.6"/>
+      <circle cx="132" cy="97"  r="2.5" fill="#e86040" opacity="0.6"/>
+      <circle cx="148" cy="103" r="2.5" fill="#e86040" opacity="0.7"/>
+      <circle cx="164" cy="98"  r="2.5" fill="#e86040" opacity="0.6"/>
+      <circle cx="180" cy="107" r="2.5" fill="#e86040" opacity="0.8"/>
+
+      <!-- Trend line (OLS fit) -->
+      <line x1="30" y1="65" x2="185" y2="108" stroke="url(#trendGrad)" stroke-width="2.5" stroke-linecap="round" filter="url(#gfda)"/>
+
+      <!-- Motagua zone bracket -->
+      <line x1="108" y1="76" x2="108" y2="118" stroke="#e86040" stroke-width="0.8" stroke-opacity="0.4"/>
+      <text x="112" y="123" font-family="DM Mono,monospace" font-size="5.5" fill="#e86040" opacity="0.8">MOTAGUA</text>
+      <text x="112" y="130" font-family="DM Mono,monospace" font-size="5.5" fill="#e86040" opacity="0.8">INFLUENCE</text>
+
+      <!-- Legend -->
+      <circle cx="30" cy="163" r="3" fill="#8ab8cc" opacity="0.5"/>
+      <text x="36" y="166" font-family="DM Sans,sans-serif" font-size="7" fill="#8ab8cc">Raw readings</text>
+      <line x1="90" y1="163" x2="106" y2="163" stroke="url(#trendGrad)" stroke-width="2"/>
+      <text x="110" y="166" font-family="DM Sans,sans-serif" font-size="7" fill="#8ab8cc">Trend (OLS)</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Data collection (L11) produces a structured dataset. Data analysis converts that dataset into the chemical state variables the CMIE needs to calculate a Decision Score. The analysis pipeline has five sequential steps — skip any one of them and the output is either meaningless, misleading, or structurally incomplete for GROAN's purposes. <strong>Analysis is not descriptive reporting; it is causal signal extraction.</strong></p>
+
+        <div class="analysis-pipeline">
+          <div class="ap-step">
+            <div class="ap-num">STEP 01</div>
+            <div class="ap-name">QC Flag Review</div>
+            <div class="ap-desc">Remove protocol-violation records. Resolve equipment flags. Confirm confidence tier assignments before any calculation.</div>
+          </div>
+          <div class="ap-step">
+            <div class="ap-num">STEP 02</div>
+            <div class="ap-name">Normalization</div>
+            <div class="ap-desc">Salinity-correct TA (→nTA). Apply diel phase correction. Remove tidal signal. Convert all params to 0–10 GROAN scale.</div>
+          </div>
+          <div class="ap-step">
+            <div class="ap-num">STEP 03</div>
+            <div class="ap-name">Carbonate Calc</div>
+            <div class="ap-desc">Run CO2SYS on pH + nTA batch. Output: Ω, DIC, pCO₂ per station. Flag stations below Ω 2.0 alarm threshold.</div>
+          </div>
+          <div class="ap-step">
+            <div class="ap-num">STEP 04</div>
+            <div class="ap-name">Spatial + Trend</div>
+            <div class="ap-desc">OLS trend across spatial transects. Kriging interpolation for coverage gaps. Identify gradient inflection points.</div>
+          </div>
+          <div class="ap-step">
+            <div class="ap-num">STEP 05</div>
+            <div class="ap-name">CMIE Input</div>
+            <div class="ap-desc">Cross-module signal extraction. Lag-compensated GMIN→GRIN pathways. Decision Score calculation per site.</div>
+          </div>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-card">
+            <div class="method-head norm">Method 01 — Normalization</div>
+            <div class="method-title">Removing Confounding Signals</div>
+            <div class="method-desc">Three normalizations are applied before any trend analysis. <strong>Salinity normalization (nTA):</strong> TA is corrected to S=35 equivalent using nTA = TA − 66.3·(S−35)/35. This removes the freshwater dilution signal, isolating true alkalinity change. <strong>Diel phase correction:</strong> pH and DO readings are adjusted to a common reference time (solar noon) using the moored time-series diel amplitude as a correction factor. A dawn reading at pH 8.05 at a station with a 0.3-unit diel swing is corrected to pH 8.20 at solar noon equivalent. <strong>Tidal phase correction:</strong> Ω readings are corrected to a flood-tide reference using the tidal model offset at each station. Without all three normalizations, spatial comparison of stations sampled at different times of day and tidal phases produces artifactual gradients that mimic real chemical trends.</div>
+          </div>
+          <div class="method-card">
+            <div class="method-head trend">Method 02 — Trend Detection</div>
+            <div class="method-title">OLS Regression and Anomaly Flagging</div>
+            <div class="method-desc"><strong>Ordinary least squares (OLS) regression</strong> across the spatial transect identifies the background Ω gradient from open ocean to reef to mangrove. Stations that deviate &gt;1.5 standard deviations from the OLS fit are flagged as chemical anomalies — candidates for driver attribution (L07). <strong>The Motagua plume signature</strong> appears as a step-down anomaly in the Guatemala–Belize transect section: Ω drops 0.5–1.2 units below the regional OLS trend at stations within the plume's influence radius. Anomaly flagging triggers CMIE driver-attribution query: is the deviation from trend caused by the atmospheric baseline, terrestrial input, biological activity, or geological SGD?</div>
+          </div>
+          <div class="method-card">
+            <div class="method-head space">Method 03 — Spatial Interpolation</div>
+            <div class="method-title">Kriging and Gap Coverage</div>
+            <div class="method-desc"><strong>Ordinary kriging</strong> interpolates Ω, pH, and nTA across the spatial gaps between MOOP stations. The variogram model (fitted to the observed spatial autocorrelation of Ω in Caribbean reef systems) defines the interpolation weights. <strong>Critical rule:</strong> kriged values are assigned Moderate confidence by default — they are spatial estimates, not measurements. CMIE weights kriged inputs at 0.6× the weight of a co-located High-confidence measurement. SGD-flagged stations are excluded from the kriging input set to prevent geological outliers from distorting the regional interpolated surface.</div>
+          </div>
+          <div class="method-card">
+            <div class="method-head cmie">Method 04 — Cross-Module Extraction</div>
+            <div class="method-title">Lag-Compensated Signal Routing</div>
+            <div class="method-desc"><strong>The CMIE's key analytical step:</strong> chemical signals detected at GMIN stations are propagated to GMAIN and GRIN with empirically-derived lag times. Mangrove nitrogen-interception loss signal: 6–18 month lag to GRIN (L04 linkage). River plume alkalinity reduction: 48–72 hour lag to adjacent reef (event-scale). Seasonal alkalinity shift: 2–4 month lag across the lagoon-reef continuum. <strong>Lag compensation prevents false attribution:</strong> a GRIN Ω anomaly detected in Month 8 is correctly attributed to GMIN mangrove loss in Month 1 only if the analysis pipeline includes the lag-compensation step. Without it, the CMIE would attribute the signal to a contemporaneous cause — likely an incorrect driver identification.</div>
+          </div>
+        </div>
+
+        <p><strong>The 0–10 normalization scale and GROAN's CMIE input protocol.</strong> All chemical parameters entering the CMIE are normalized to a 0–10 scale using parameter-specific functions. For Ω aragonite: <em>GROAN score = min(10, max(0, (Ω − 1.0) × (10 / 3.0)))</em> — mapping Ω 1.0 (floor) to 0 and Ω 4.0 (healthy open reef) to 10. For pH: <em>GROAN score = min(10, max(0, (pH − 7.4) × (10 / 1.0)))</em> — mapping 7.4 to 0 and 8.4 to 10. These functions are defined in the groan-data-registry.js normalization pipeline (Session 22 architecture) and applied as the final transformation before CMIE ingestion. <strong>The normalization scale is the analytical bridge between field chemistry and Decision Score algebra.</strong></p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>La recopilación de datos (L11) produce un conjunto de datos estructurado. El análisis de datos convierte ese conjunto de datos en las variables de estado químico que el CMIE necesita para calcular una Puntuación de Decisión. El pipeline de análisis tiene cinco pasos secuenciales: revisión de indicadores QC, normalización, cálculo de carbonatos (CO2SYS), análisis espacial y de tendencias, y extracción de señal entre módulos para CMIE. <strong>El análisis no es informe descriptivo; es extracción de señal causal.</strong></p>
+
+        <p>Las <strong>tres normalizaciones</strong> son obligatorias antes de cualquier análisis de tendencias: normalización de salinidad (nTA = TA − 66.3·(S−35)/35, que elimina la señal de dilución por agua dulce), corrección de fase diurna (ajuste al mediodía solar como referencia común usando la amplitud diurna de la serie temporal anclada), y corrección de fase de marea (corrección de Ω a referencia de marea entrante). Sin las tres, la comparación espacial de estaciones muestreadas en diferentes momentos del día y fases de marea produce gradientes artefactuales que imitan tendencias químicas reales.</p>
+
+        <p>La <strong>detección de tendencias por regresión OLS</strong> a través del transecto espacial identifica el gradiente de fondo de Ω del océano abierto al arrecife y al manglar. Las estaciones que se desvían más de 1.5 desviaciones estándar del ajuste OLS se marcan como anomalías químicas — candidatas para la atribución de factores (L07). La <strong>interpolación espacial por kriging</strong> asigna Confianza Moderada por defecto a los valores interpolados, y el CMIE los pondera a 0.6× el peso de una medición de Alta Confianza co-localizada. La <strong>extracción cruzada entre módulos con compensación de lag</strong> es el paso analítico clave del CMIE: una anomalía de Ω en GRIN en el Mes 8 se atribuye correctamente a la pérdida de manglares GMIN en el Mes 1 solo si el pipeline incluye el paso de compensación de lag.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Analysis Step</th>
+            <th>Method</th>
+            <th>Input</th>
+            <th>Output</th>
+            <th>If Skipped</th>
+            <th>GROAN Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>QC Flag Review</td>
+            <td>Protocol/equipment audit</td>
+            <td>Raw station records</td>
+            <td>Clean dataset</td>
+            <td class="warn">Corrupted inputs propagate</td>
+            <td class="warn">False DS outputs</td>
+          </tr>
+          <tr>
+            <td>Salinity Normalization</td>
+            <td>nTA = TA − 66.3·(S−35)/35</td>
+            <td>TA, Salinity</td>
+            <td>nTA (dilution-free)</td>
+            <td class="warn">Motagua plume = false low-Alk alarm</td>
+            <td class="warn">Driver misattribution</td>
+          </tr>
+          <tr>
+            <td>Diel Phase Correction</td>
+            <td>Moored amplitude reference</td>
+            <td>pH, DO, moored data</td>
+            <td>Noon-referenced pH/DO</td>
+            <td class="caution">Spatial gradient artifacts</td>
+            <td class="caution">False cross-site trend</td>
+          </tr>
+          <tr>
+            <td>CO2SYS Batch Calc</td>
+            <td>Carbonate equilibrium</td>
+            <td>pH + nTA</td>
+            <td>Ω, DIC, pCO₂</td>
+            <td class="warn">Ω never produced</td>
+            <td class="warn">CMIE OA input missing</td>
+          </tr>
+          <tr>
+            <td>OLS Trend + Anomaly Flag</td>
+            <td>Linear regression, ±1.5σ</td>
+            <td>Normalized Ω, transect</td>
+            <td>Trend line + anomaly stations</td>
+            <td class="caution">Motagua anomaly invisible</td>
+            <td class="caution">Driver attribution fails</td>
+          </tr>
+          <tr>
+            <td>Kriging Interpolation</td>
+            <td>Ordinary kriging</td>
+            <td>Station Ω, variogram</td>
+            <td>Spatial Ω surface (Mod. conf.)</td>
+            <td class="neutral">Coverage gaps unresolved</td>
+            <td class="neutral">CMIE spatial gaps</td>
+          </tr>
+          <tr>
+            <td>Lag-Compensated Routing</td>
+            <td>Cross-module lag table</td>
+            <td>GMIN/GMAIN/GRIN signals</td>
+            <td>Time-attributed CMIE inputs</td>
+            <td class="warn">False contemporaneous attribution</td>
+            <td class="warn">Wrong DS causal chain</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The OLS spatial trend analysis across the Guatemala–Belize transect section is the primary analytical evidence for the Caribbean proof-of-concept case study. The expected result is a statistically significant step-down in normalized Ω at stations within the Motagua plume influence radius — this is the chemical signature of terrestrial driver impact on reef chemistry that GROAN's thesis argument requires to be measurable.</li>
+          <li>Diel phase correction is the analysis step most likely to be underinvested in during field campaigns — it requires moored time-series data to calibrate, which means the 5–8 moored stations in the Rim Run™ circuit are not ancillary deployments, they are prerequisite to the analytical validity of the entire 100+ station synoptic dataset.</li>
+          <li>The GROAN 0–10 normalization functions for Ω and pH need to be implemented as named functions in groan-data-registry.js (Session 22 queued build): sstNormalize() is the SST template — omegaNormalize() and phNormalize() are the next two functions in the L2 Normalization Pipeline. These must be defined before CMIE ingestion can operate on chemical data.</li>
+          <li>The 0.6× kriging confidence weight in CMIE source arbitration is a design parameter, not an arbitrary number — it reflects the empirical finding that spatial autocorrelation of Ω in Caribbean reef systems degrades to below practical utility at inter-station distances greater than ~15 km. Stations closer than 15 km can be kriged with reasonable confidence; stations more than 30 km apart should not be interpolated without intermediate measurements.</li>
+          <li>Lag-compensated cross-module routing is the analysis step that makes GROAN's causal claim defensible. If the GMIN mangrove loss → GRIN trophic stress signal is detected without lag compensation, a skeptical peer reviewer will correctly note that contemporaneous attribution is correlation, not causation. The lag table — empirically derived from Caribbean mangrove-reef coupling literature — is the methodological evidence that converts correlation into a causal mechanism claim.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>El análisis de tendencia espacial OLS a través de la sección de transecto Guatemala–Belice es la evidencia analítica primaria para el estudio de caso de prueba de concepto del Caribe. El resultado esperado es una caída estadísticamente significativa en Ω normalizado en las estaciones dentro del radio de influencia de la pluma del Motagua — esta es la firma química del impacto del factor terrestre en la química arrecifal que el argumento de tesis de GROAN requiere que sea medible.</li>
+          <li>La corrección de fase diurna es el paso de análisis con mayor probabilidad de ser subestimado durante las campañas de campo — requiere datos de series temporales ancladas para calibrar, lo que significa que las 5–8 estaciones ancladas en el circuito Rim Run™ no son despliegues auxiliares, son un requisito previo para la validez analítica de todo el conjunto de datos sinóptico de más de 100 estaciones.</li>
+          <li>Las funciones de normalización 0–10 de GROAN para Ω y pH deben implementarse como funciones nombradas en groan-data-registry.js: sstNormalize() es la plantilla de SST — omegaNormalize() y phNormalize() son las dos funciones siguientes en el Pipeline de Normalización L2. Deben definirse antes de que la ingestión del CMIE pueda operar con datos químicos.</li>
+          <li>El peso de confianza de kriging de 0.6× en el arbitraje de fuentes del CMIE es un parámetro de diseño, no un número arbitrario — refleja el hallazgo empírico de que la autocorrelación espacial de Ω en los sistemas arrecifales del Caribe se degrada por debajo de la utilidad práctica a distancias entre estaciones superiores a ~15 km.</li>
+          <li>El enrutamiento cruzado entre módulos con compensación de lag es el paso analítico que hace defendible la afirmación causal de GROAN. La tabla de lag — derivada empíricamente de la literatura de acoplamiento manglar-arrecife del Caribe — es la evidencia metodológica que convierte la correlación en una afirmación de mecanismo causal.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">A GROAN analyst compares Ω values across 30 stations without applying salinity normalization or diel phase correction. The resulting transect shows a strong negative gradient toward the coast. What is the most significant risk of this analysis?</div>
+        <div class="q-text-es">Un analista de GROAN compara valores de Ω en 30 estaciones sin aplicar normalización de salinidad ni corrección de fase diurna. El transecto resultante muestra un fuerte gradiente negativo hacia la costa. ¿Cuál es el riesgo más significativo de este análisis?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> The kriging interpolation will fail due to insufficient station density</li>
+          <li><span class="opt-key">B</span> CO2SYS cannot calculate Ω without normalized TA inputs</li>
+          <li class="correct"><span class="opt-key">C</span> The gradient may be partly or wholly artifactual — stations sampled at different tidal phases and times of day produce apparent trends that do not reflect real spatial chemistry differences, leading to incorrect driver attribution</li>
+          <li><span class="opt-key">D</span> The OLS regression will overestimate the Motagua plume influence radius</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">GROAN's CMIE detects a GRIN Ω anomaly in Month 8 of the dataset. The lag-compensation analysis attributes it to a GMIN mangrove loss event in Month 1. What would happen to this causal attribution if the lag-compensation step were skipped?</div>
+        <div class="q-text-es">El CMIE de GROAN detecta una anomalía de Ω en GRIN en el Mes 8 del conjunto de datos. El análisis de compensación de lag la atribuye a un evento de pérdida de manglares GMIN en el Mes 1. ¿Qué sucedería con esta atribución causal si se omitiera el paso de compensación de lag?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> The anomaly would be suppressed entirely and not reported in the Decision Score</li>
+          <li><span class="opt-key">B</span> The anomaly would be attributed to the atmospheric CO₂ trend as the default long-term driver</li>
+          <li class="correct"><span class="opt-key">C</span> The anomaly would be attributed to a contemporaneous cause in Month 8 — likely a local disturbance event — producing an incorrect driver identification and a wrong management response</li>
+          <li><span class="opt-key">D</span> The CMIE would flag the anomaly as Low confidence due to missing temporal metadata</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">Why are the 5–8 moored time-series stations in the Rim Run™ circuit described as prerequisites for analytical validity rather than supplementary deployments?</div>
+        <div class="q-text-es">¿Por qué las 5–8 estaciones de series temporales ancladas en el circuito Rim Run™ se describen como requisitos previos para la validez analítica en lugar de despliegues suplementarios?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because moored stations collect nutrient data that synoptic stations cannot measure</li>
+          <li><span class="opt-key">B</span> Because the CMIE requires a minimum of 8 continuous data streams to calculate a Decision Score</li>
+          <li class="correct"><span class="opt-key">C</span> Because diel phase correction of the 100+ synoptic stations requires the diel amplitude measured at the moored stations — without this correction, the entire synoptic dataset carries uncorrectable dynamic bias</li>
+          <li><span class="opt-key">D</span> Because only moored stations can detect the Motagua river plume before it reaches reef stations</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">6.25% — Lesson 44 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L12 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
