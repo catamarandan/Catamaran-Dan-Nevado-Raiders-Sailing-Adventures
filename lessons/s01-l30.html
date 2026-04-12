@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L30 Physical Oceanography — Advanced Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.26%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 30 · Physical Oceanography</div>
+        <div class="lesson-title">Advanced Concepts</div>
+        <div class="lesson-subtitle">Nonlinearity, Tipping Points, and Ocean State Transitions in Reef Systems</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Regime Shifts</span>
+        <span class="tag tag-gold">Tipping Points</span>
+        <span class="tag tag-coral">GROAN CMIE</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: bifurcation diagram — stable coral state vs stable algae state separated by tipping threshold, with GROAN DS axis -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG30" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+          <linearGradient id="coralZone" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(26,200,200,0.15)"/>
+            <stop offset="100%" stop-color="rgba(26,200,200,0.0)"/>
+          </linearGradient>
+          <linearGradient id="algaeZone" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(232,96,64,0.0)"/>
+            <stop offset="100%" stop-color="rgba(232,96,64,0.18)"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG30)"/>
+
+        <!-- Zone backgrounds -->
+        <rect x="28" y="24" width="130" height="160" fill="url(#coralZone)" rx="2"/>
+        <rect x="182" y="24" width="130" height="160" fill="url(#algaeZone)" rx="2"/>
+
+        <!-- Axes -->
+        <!-- X axis: stressor level -->
+        <line x1="28" y1="184" x2="312" y2="184" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <polygon points="312,184 304,180 304,188" fill="rgba(26,200,200,0.3)"/>
+        <text x="170" y="200" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.8">Stressor Intensity →</text>
+
+        <!-- Y axis: coral cover -->
+        <line x1="28" y1="184" x2="28" y2="20" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <polygon points="28,20 24,28 32,28" fill="rgba(26,200,200,0.3)"/>
+        <text x="14" y="110" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.8" transform="rotate(-90,14,110)">Coral Cover →</text>
+
+        <!-- STABLE CORAL STATE curve (top left) -->
+        <path d="M35,45 Q80,42 130,55 Q150,62 158,80" stroke="#1ac8c8" stroke-width="2" fill="none" opacity="0.85"/>
+        <text x="70" y="38" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.9">CORAL STATE</text>
+        <text x="70" y="48" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.65">(stable attractor)</text>
+
+        <!-- UNSTABLE MIDDLE branch (dashed) -->
+        <path d="M158,80 Q165,108 172,120" stroke="#f0b429" stroke-width="1.5" fill="none" stroke-dasharray="4,3" opacity="0.7"/>
+        <text x="195" y="108" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.8">TIPPING</text>
+        <text x="195" y="118" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.8">THRESHOLD</text>
+
+        <!-- STABLE ALGAE STATE curve (bottom right) -->
+        <path d="M172,120 Q200,138 240,150 Q275,158 305,162" stroke="#e86040" stroke-width="2" fill="none" opacity="0.85"/>
+        <text x="255" y="145" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#e86040" opacity="0.9">ALGAE STATE</text>
+        <text x="255" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.65">(stable attractor)</text>
+
+        <!-- Hysteresis arrow: hard to return -->
+        <path d="M240,162 Q200,175 158,165 Q140,160 130,148" stroke="#f0b429" stroke-width="1" fill="none" stroke-dasharray="3,3" opacity="0.5"/>
+        <polygon points="130,148 126,158 136,157" fill="#f0b429" opacity="0.5"/>
+        <text x="190" y="178" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" opacity="0.65">hysteresis — recovery path longer</text>
+
+        <!-- GROAN DS readout -->
+        <rect x="32" y="148" width="88" height="30" rx="2" fill="rgba(2,15,30,0.75)" stroke="rgba(26,200,200,0.25)" stroke-width="0.8"/>
+        <text x="76" y="161" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429">GROAN DS &gt; 6.5</text>
+        <text x="76" y="171" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">Coral state predicted</text>
+
+        <!-- Tipping point vertical marker -->
+        <line x1="162" y1="24" x2="162" y2="184" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="3,4" opacity="0.4"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Physical Oceanography: Advanced Concepts</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>The preceding lessons in Section 01 have treated physical oceanographic variables — SST, salinity, wave energy, currents, stressors — largely as independent measurables. Advanced physical oceanography recognizes that reef systems are not linear aggregations of independent variables. They are <strong>complex adaptive systems</strong> exhibiting nonlinear dynamics, threshold behavior, and state transitions that cannot be predicted from the behavior of any single variable in isolation.</p>
+
+      <p><strong>Regime shifts and alternative stable states</strong> are the most consequential nonlinear phenomena in reef science. A reef system does not degrade gradually and proportionally as stressors increase — it can absorb stressor accumulation within a resilience envelope, then transition abruptly to an alternative stable state (typically macroalgae dominance) once a threshold is crossed. This bifurcation behavior means that a reef near the threshold can cross it from a perturbation that would have been trivial at lower stressor loads. The 2005 Caribbean mass bleaching event and the 2016–2017 Great Barrier Reef back-to-back bleaching events both represent threshold crossings in systems that had accumulated stressor load over prior decades.</p>
+
+      <p><strong>Hysteresis</strong> is the property that makes regime shifts particularly dangerous from a management perspective: the return path from the degraded state to the coral-dominated state requires substantially lower stressor conditions than the forward transition threshold. A reef that shifted from coral to algae dominance at a stressor index of 7.0 may require reduction to 4.0 — and years of active restoration — before coral re-establishment is possible. This asymmetry is why early warning and pre-threshold intervention are orders of magnitude more cost-effective than post-collapse restoration.</p>
+
+      <p><strong>Ocean acidification as a physical state variable</strong> introduces a second nonlinear process: as aragonite saturation state (Ω) declines below 2.0, carbonate framework dissolution accelerates faster than linear models predict, because dissolution rate is a function of the saturation deficit raised to a power — a fundamentally nonlinear relationship. Below Ω 1.5, net dissolution of reef framework occurs even without biological stressors, representing a physical tipping point independent of thermal dynamics.</p>
+
+      <p><strong>Compound events and interaction amplification</strong> occur when two stressors that are each subthreshold individually combine to produce a superthreshold effect. The canonical example is the nutrient-thermal interaction: a reef at 0.5 μM dissolved inorganic nitrogen (subthreshold alone) and 29.5°C SST (subthreshold alone) may bleach more severely than a reef at either stressor in isolation, because nitrogen loading amplifies the oxidative stress pathway activated by thermal expulsion of zooxanthellae. GROAN's CMIE is specifically architected to detect and weight these non-additive interactions.</p>
+
+      <p><strong>Connectivity and spatial resilience</strong> are physical oceanographic properties that determine whether a degraded reef can recruit larvae from adjacent healthy populations. Oceanographic retention — the degree to which larval dispersal loops return to the source reef rather than exporting larvae — governs local recovery potential. Upwelling-driven offshore transport can strand larvae in open ocean; counter-rotating eddies can concentrate them on reef sites. The spatial topology of the current field around a reef node is therefore a physical variable with direct ecological consequence — and a GROAN GRIN input.</p>
+
+      <p>The synthesis: GROAN's Decision Score is not a linear index. The formula DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility is weighted by coefficients (α, β, γ, δ) that the CMIE adjusts based on the nonlinear interaction state of the system — producing a score that behaves differently near a tipping threshold than it does in a resilient-state reef. This is the formal mathematical expression of why cross-module causal intelligence, not single-variable monitoring, is the PhD-defensible contribution.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La oceanografía física avanzada reconoce que los sistemas arrecifales no son agregaciones lineales de variables independientes. Son <strong>sistemas adaptativos complejos</strong> que exhiben dinámica no lineal, comportamiento de umbral y transiciones de estado que no pueden predecirse a partir del comportamiento de ninguna variable individual aislada.</p>
+
+      <p>Los <strong>cambios de régimen y los estados estables alternativos</strong> son los fenómenos no lineales más trascendentales en la ciencia arrecifal. Un sistema arrecifal puede absorber la acumulación de estresores dentro de un límite de resiliencia, luego hacer una transición abrupta a un estado estable alternativo (típicamente dominancia de macroalgas) una vez que se supera un umbral. Los eventos de blanqueamiento masivo del Caribe en 2005 y de la Gran Barrera de Coral en 2016–2017 representan cruzamientos de umbral en sistemas que habían acumulado carga de estresores durante décadas previas.</p>
+
+      <p>La <strong>histéresis</strong> hace que los cambios de régimen sean particularmente peligrosos: el camino de retorno desde el estado degradado al estado dominado por coral requiere condiciones de estrés sustancialmente menores que el umbral de transición hacia adelante. Esta asimetría es la razón por la que la advertencia temprana y la intervención pre-umbral son órdenes de magnitud más costo-efectivas que la restauración post-colapso.</p>
+
+      <p>La <strong>acidificación del océano como variable de estado físico</strong> introduce un segundo proceso no lineal: a medida que el estado de saturación de aragonita (Ω) cae por debajo de 2.0, la disolución del armazón de carbonato se acelera más rápido de lo que predicen los modelos lineales, porque la tasa de disolución es una función del déficit de saturación elevado a una potencia.</p>
+
+      <p>Los <strong>eventos compuestos y la amplificación de interacciones</strong> ocurren cuando dos estresores que individualmente están por debajo del umbral se combinan para producir un efecto supraumbral. El ejemplo canónico es la interacción nutriente-térmica. El CMIE de GROAN está específicamente diseñado para detectar y ponderar estas interacciones no aditivas.</p>
+
+      <p>La <strong>conectividad y resiliencia espacial</strong> determinan si un arrecife degradado puede reclutar larvas de poblaciones saludables adyacentes. La retención oceanográfica — el grado en que la dispersión larval regresa al arrecife fuente — gobierna el potencial de recuperación local. La topología espacial del campo de corriente alrededor de un nodo arrecifal es una variable física con consecuencia ecológica directa — y una entrada de GRIN de GROAN.</p>
+
+      <p>La síntesis: la Puntuación de Decisión de GROAN no es un índice lineal. Los coeficientes (α, β, γ, δ) que el CMIE ajusta basándose en el estado de interacción no lineal del sistema producen una puntuación que se comporta de manera diferente cerca de un umbral de colapso que en un arrecife en estado resiliente — la expresión matemática formal de por qué la inteligencia causal entre módulos es la contribución doctoral defendible.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Concept / Concepto</th>
+          <th>Physical Mechanism / Mecanismo</th>
+          <th>Reef Consequence / Consecuencia</th>
+          <th>GROAN Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Regime shift / Cambio de régimen</td><td>Threshold bifurcation under stressor accumulation</td><td>Abrupt coral → algae state transition</td><td>CMIE threshold flag; DS step-change</td></tr>
+        <tr><td>Hysteresis / Histéresis</td><td>Asymmetric forward/return transition thresholds</td><td>Recovery requires far lower stressors than degradation</td><td>CMIE return-path coefficient adjustment</td></tr>
+        <tr><td>Ocean acidification tipping / Punto de inflexión OA</td><td>Nonlinear dissolution below Ω 1.5</td><td>Net framework dissolution independent of biology</td><td>GRIN carbonate sub-index alarm</td></tr>
+        <tr><td>Compound stressor amplification</td><td>Non-additive nutrient × thermal interaction</td><td>Bleaching at subthreshold individual levels</td><td>CMIE interaction term (non-additive weighting)</td></tr>
+        <tr><td>Connectivity / Conectividad</td><td>Larval retention vs. offshore transport</td><td>Recovery potential governed by current topology</td><td>GRIN larval connectivity sub-index</td></tr>
+        <tr><td>ENSO teleconnection</td><td>Remote thermal forcing via ocean-atmosphere coupling</td><td>Cross-basin synchronized bleaching events</td><td>CMIE cross-system early warning signal</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The MAR crossed a system-scale tipping threshold in 2005: Caribbean-wide bleaching killed an estimated 30–40% of coral cover in a single event, with the southern MAR disproportionately affected. Post-event recovery data show hysteresis in action — 15+ years later, many impacted sites remain in macroalgae-dominated states despite reduced thermal anomaly frequency, confirming that the stressor load required for recovery is substantially lower than the threshold that triggered the shift.</li>
+        <li>Compound stressor amplification is operationally measurable in the MAR: AGRRA (Atlantic and Gulf Rapid Reef Assessment) data from Belizean and Honduran sites show that nutrient-enriched reefs (detectable by indicator species assemblage shifts) bleach at SST anomalies 0.5–1.0°C below the bleaching threshold observed at oligotrophic control sites — a directly quantifiable interaction term for GROAN's CMIE weighting.</li>
+        <li>Larval connectivity in the western Caribbean is governed by the North Equatorial Current and its Caribbean inflow branches; Rim Run™ transit timing (October–April) intersects the post-spawning dispersal window, creating direct MOOP vessel opportunities for surface current profiling and larval plankton tow sampling at inter-reef transit legs between circuit nodes.</li>
+        <li>Ocean acidification trajectory for the MAR: at current emission trajectories, aragonite saturation state is projected to reach Ω 2.0 in MAR surface waters by approximately 2060–2080 — entering the nonlinear dissolution acceleration zone. This timeline coincides with the operational lifespan of reef management institutions currently being built, making OA state tracking a current-decade management imperative, not a future-generation problem.</li>
+        <li>GROAN CMIE near-threshold behavior: for MAR nodes where the accumulated stressor index already places the system within 15–20% of estimated bifurcation threshold, the CMIE applies elevated β (risk) coefficients in the DS formula — producing a disproportionately lower Decision Score than a naive linear model would generate, correctly representing the nonlinear proximity to irreversible state change.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>El MAR cruzó un umbral de colapso a escala de sistema en 2005: el blanqueamiento del Caribe mató un estimado del 30–40% de la cobertura de coral en un solo evento. Los datos de recuperación post-evento muestran la histéresis en acción — más de 15 años después, muchos sitios afectados permanecen en estados dominados por macroalgas.</li>
+        <li>La amplificación de estresores compuestos es medible operacionalmente en el MAR: los datos de AGRRA de sitios beliceños y hondureños muestran que los arrecifes enriquecidos con nutrientes se blanquean con anomalías de TSM 0.5–1.0°C por debajo del umbral de blanqueamiento observado en sitios de control oligotróficos.</li>
+        <li>La conectividad larval en el Caribe occidental está gobernada por la Corriente Norteecuatorial y sus ramas de entrada al Caribe; el tiempo de tránsito del Rim Run™ intersecta la ventana de dispersión post-desove, creando oportunidades directas para el muestreo de corrientes superficiales y arrastre de plancton larval.</li>
+        <li>Trayectoria de acidificación del océano para el MAR: con las trayectorias de emisiones actuales, el estado de saturación de aragonita se proyecta para alcanzar Ω 2.0 en aguas superficiales del MAR aproximadamente entre 2060–2080 — entrando en la zona de aceleración de disolución no lineal.</li>
+        <li>Comportamiento del CMIE de GROAN cerca del umbral: para los nodos del MAR donde el índice de estresores acumulado ya coloca al sistema dentro del 15–20% del umbral de bifurcación estimado, el CMIE aplica coeficientes β (riesgo) elevados — produciendo una Puntuación de Decisión desproporcionadamente más baja que la que generaría un modelo lineal ingenuo.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why does hysteresis make post-threshold reef restoration more difficult than pre-threshold intervention, and what does this imply for GROAN's Decision Score near a tipping point?</div>
+        <div class="mcq-q-es">¿Por qué la histéresis hace que la restauración arrecifal post-umbral sea más difícil que la intervención pre-umbral, y qué implica esto para la Puntuación de Decisión de GROAN cerca de un punto de inflexión?</div>
+        <ul class="mcq-options">
+          <li>A. Hysteresis means the system cannot recover at all once the threshold is crossed</li>
+          <li>B. Hysteresis increases the cost of monitoring but not of restoration</li>
+          <li class="correct">C. The return path from degraded to coral-dominated state requires substantially lower stressor conditions than the forward transition — meaning the CMIE must apply elevated risk (β) coefficients near the threshold, producing a disproportionately lower DS that correctly signals urgency</li>
+          <li>D. Hysteresis only applies to freshwater systems and is irrelevant for marine reefs</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">At what aragonite saturation state (Ω) does net framework dissolution begin regardless of biological stressors, and why is this a physical tipping point independent of thermal dynamics?</div>
+        <div class="mcq-q-es">¿A qué estado de saturación de aragonita (Ω) comienza la disolución neta del armazón independientemente de los estresores biológicos, y por qué es este un punto de inflexión físico independiente de la dinámica térmica?</div>
+        <ul class="mcq-options">
+          <li>A. Ω 3.5 — above this point corals begin calcifying faster than they dissolve</li>
+          <li>B. Ω 2.0 — the same threshold as biological bleaching onset</li>
+          <li class="correct">C. Ω 1.5 — below this the dissolution rate (a nonlinear function of the saturation deficit) exceeds biological calcification, dissolving reef framework even without thermal or nutrient stress</li>
+          <li>D. Ω 0.5 — only extreme acidification triggers physical dissolution</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">AGRRA data shows MAR nutrient-enriched reefs bleach at SST anomalies 0.5–1.0°C below oligotrophic control sites. Why does this compound stressor interaction validate the CMIE as GROAN's core PhD contribution rather than a simple multi-variable index?</div>
+        <div class="mcq-q-es">Los datos de AGRRA muestran que los arrecifes del MAR enriquecidos con nutrientes se blanquean con anomalías de TSM 0.5–1.0°C por debajo de los sitios de control oligotróficos. ¿Por qué esta interacción de estresores compuestos valida el CMIE como la contribución doctoral central de GROAN en lugar de un índice multivariable simple?</div>
+        <ul class="mcq-options">
+          <li>A. Because AGRRA data is only accessible through GROAN's proprietary API</li>
+          <li class="correct">B. Because the bleaching outcome is non-additive — it cannot be predicted by summing individual stressor scores — requiring a cross-module interaction engine that models the amplification term explicitly, which is structurally impossible in a linear multi-variable index</li>
+          <li>C. Because CMIE is the only system that can ingest AGRRA data formats</li>
+          <li>D. Because simple indices already capture compound interactions through coefficient averaging</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S01·L30 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.26%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
