@@ -1,1 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02·L03 Chemical Oceanography — Systems Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.83%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 02 · Lesson 03 · Chemical Oceanography</div>
+        <div class="lesson-title">Systems Overview</div>
+        <div class="lesson-subtitle">Biogeochemical Cycles — Carbon, Nitrogen, Phosphorus, and Sulfur in Reef Systems</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Biogeochemical Cycles</span>
+        <span class="tag tag-gold">Carbon · Nitrogen · Phosphorus</span>
+        <span class="tag tag-coral">GROAN GRIN · CMIE</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: four biogeochemical cycle nodes (C, N, P, S) connected in a system diagram with reef at center and atmosphere/sediment boundaries -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG_s02l03" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG_s02l03)"/>
+
+        <!-- Atmosphere strip -->
+        <rect x="0" y="0" width="340" height="22" fill="rgba(10,110,138,0.12)"/>
+        <text x="170" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#8ab8cc" opacity="0.65">ATMOSPHERE — CO₂ · N₂ · SO₂ exchange</text>
+
+        <!-- Sediment strip -->
+        <rect x="0" y="196" width="340" height="24" fill="rgba(184,240,236,0.06)"/>
+        <text x="170" y="211" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#8ab8cc" opacity="0.55">SEDIMENT — burial · diagenesis · long-term storage</text>
+
+        <!-- Reef system hub (center) -->
+        <ellipse cx="170" cy="108" rx="34" ry="28" fill="rgba(10,110,138,0.3)" stroke="#1ac8c8" stroke-width="1" opacity="0.9"/>
+        <text x="170" y="104" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">REEF</text>
+        <text x="170" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.75">ecosystem</text>
+
+        <!-- Node C: Carbon (top) -->
+        <rect x="132" y="26" width="76" height="26" rx="3" fill="rgba(240,180,41,0.2)" stroke="#f0b429" stroke-width="0.9"/>
+        <text x="170" y="37" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#f0b429">C CYCLE</text>
+        <text x="170" y="47" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" opacity="0.75">photo · calc · pump</text>
+        <!-- C ↔ reef -->
+        <line x1="170" y1="52" x2="170" y2="80" stroke="#f0b429" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <polygon points="170,80 165,72 175,72" fill="#f0b429" opacity="0.5"/>
+
+        <!-- Node N: Nitrogen (left) -->
+        <rect x="14" y="92" width="76" height="26" rx="3" fill="rgba(26,200,200,0.18)" stroke="#1ac8c8" stroke-width="0.9"/>
+        <text x="52" y="103" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8">N CYCLE</text>
+        <text x="52" y="113" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" opacity="0.75">fix · nit · denit</text>
+        <!-- N ↔ reef -->
+        <line x1="90" y1="105" x2="136" y2="105" stroke="#1ac8c8" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <polygon points="136,105 128,100 128,110" fill="#1ac8c8" opacity="0.5"/>
+
+        <!-- Node P: Phosphorus (right) -->
+        <rect x="250" y="92" width="76" height="26" rx="3" fill="rgba(232,96,64,0.18)" stroke="#e86040" stroke-width="0.9"/>
+        <text x="288" y="103" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#e86040">P CYCLE</text>
+        <text x="288" y="113" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#e86040" opacity="0.75">uptake · release</text>
+        <!-- P ↔ reef -->
+        <line x1="250" y1="105" x2="204" y2="105" stroke="#e86040" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <polygon points="204,105 212,100 212,110" fill="#e86040" opacity="0.5"/>
+
+        <!-- Node S: Sulfur (bottom) -->
+        <rect x="132" y="162" width="76" height="26" rx="3" fill="rgba(184,240,236,0.14)" stroke="#b8f0ec" stroke-width="0.9"/>
+        <text x="170" y="173" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#b8f0ec">S CYCLE</text>
+        <text x="170" y="183" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.75">DMS · sulfate · DMSP</text>
+        <!-- S ↔ reef -->
+        <line x1="170" y1="162" x2="170" y2="136" stroke="#b8f0ec" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <polygon points="170,136 165,144 175,144" fill="#b8f0ec" opacity="0.5"/>
+
+        <!-- Cross-links between cycles (C-N, N-P, C-P) -->
+        <line x1="90"  y1="92"  x2="148" y2="52"  stroke="rgba(26,200,200,0.2)" stroke-width="0.7" stroke-dasharray="2,3"/>
+        <line x1="250" y1="92"  x2="200" y2="52"  stroke="rgba(240,180,41,0.2)"  stroke-width="0.7" stroke-dasharray="2,3"/>
+        <line x1="90"  y1="118" x2="148" y2="162" stroke="rgba(26,200,200,0.15)" stroke-width="0.7" stroke-dasharray="2,3"/>
+        <line x1="250" y1="118" x2="200" y2="162" stroke="rgba(232,96,64,0.15)"  stroke-width="0.7" stroke-dasharray="2,3"/>
+
+        <!-- Atm exchange arrows -->
+        <line x1="170" y1="22" x2="170" y2="34" stroke="#f0b429" stroke-width="0.8" opacity="0.4"/>
+        <polygon points="170,34 166,27 174,27" fill="#f0b429" opacity="0.4"/>
+        <line x1="52"  y1="22" x2="52"  y2="92" stroke="#1ac8c8" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.3"/>
+
+        <!-- Sediment arrows -->
+        <line x1="170" y1="188" x2="170" y2="196" stroke="#b8f0ec" stroke-width="0.8" opacity="0.4"/>
+        <polygon points="170,196 166,189 174,189" fill="#b8f0ec" opacity="0.4"/>
+
+        <!-- GROAN label -->
+        <rect x="246" y="158" width="88" height="32" rx="2" fill="rgba(2,15,30,0.75)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+        <text x="290" y="170" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429">GROAN GRIN</text>
+        <text x="290" y="180" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">monitors C · N · P</text>
+        <text x="290" y="189" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.7">CMIE links cycles</text>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Chemical Oceanography: Systems Overview</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Section 02's systems overview lesson integrates the chemical parameters introduced in L01 and the reaction mechanisms developed in L02 into the four major biogeochemical cycles operating simultaneously in every reef ecosystem: the carbon cycle, the nitrogen cycle, the phosphorus cycle, and the sulfur cycle. These cycles are not independent — they are chemically and biologically coupled, and their interactions determine whether a reef system is resilient or vulnerable. GROAN's CMIE is specifically designed to detect and weight these inter-cycle interactions, making biogeochemical systems literacy the chemical foundation of the PhD contribution.</p>
+
+      <p><strong>The carbon cycle</strong> in reef systems operates across three coupled pathways. <em>Photosynthetic carbon fixation</em> by zooxanthellae and algae converts dissolved CO₂ into organic carbon — fueling the food web and drawing down local pCO₂. <em>Calcification</em> converts dissolved carbonate ion into CaCO₃ skeleton — simultaneously consuming alkalinity and releasing CO₂ (net: 2HCO₃⁻ → CaCO₃ + CO₂ + H₂O), making reefs net carbon sources at the local scale. <em>Respiration and decomposition</em> by the entire biological community remineralize organic carbon back to CO₂, completing the internal cycle. The balance among these three pathways determines whether a reef's net metabolism is autotrophic (carbon-fixing) or heterotrophic (carbon-releasing) — a state variable that shifts under bleaching and stressor loading and that GROAN tracks through the GRIN productivity sub-index.</p>
+
+      <p><strong>The nitrogen cycle</strong> in reef systems is the most complex of the four, involving five distinct biological transformation processes. <em>Nitrogen fixation</em> (N₂ → NH₄⁺) by cyanobacteria and diazotrophic bacteria provides the internal nitrogen source that sustains oligotrophic reef productivity. <em>Nitrification</em> (NH₄⁺ → NO₂⁻ → NO₃⁻) by nitrifying bacteria converts ammonium to nitrate — the form most readily assimilated by phytoplankton and algae. <em>Denitrification</em> (NO₃⁻ → N₂) by anaerobic bacteria in sediments removes fixed nitrogen from the system, regenerating N₂ gas and regulating the nitrogen budget. <em>Assimilation</em> by primary producers and <em>remineralization</em> by decomposers complete the internal loop. The nitrogen cycle is the chemical bridge between the physical stressor regime (freshwater input carrying DIN from land) and the biological stressor response (macroalgae bloom) — making it the most decision-relevant chemical cycle in the MAR context.</p>
+
+      <p><strong>The phosphorus cycle</strong> lacks an atmospheric reservoir — unlike carbon and nitrogen, phosphorus has no gaseous phase. All phosphorus in the marine system originates from rock weathering, delivered via rivers and dust deposition. In reef systems, phosphorus is tightly retained by adsorption onto carbonate sediment surfaces — a geochemical property that buffers reef waters against phosphorus loading and explains why Caribbean reefs are more commonly nitrogen-limited than phosphorus-limited. However, when carbonate sediment surfaces become saturated (high riverine loading) or when resuspension releases sorbed phosphorus from bottom sediments, the buffering capacity is exceeded and phosphorus availability spikes — triggering algal growth in conjunction with available nitrogen. The Redfield Ratio (S02/L01) determines which nutrient is limiting at any given moment; GROAN's nutrient sub-index tracks both N and P concentrations to diagnose limitation state in real time.</p>
+
+      <p><strong>The sulfur cycle</strong> is the least familiar of the four but carries a direct reef management relevance: dimethylsulfoniopropionate (DMSP) — produced by zooxanthellae as an osmotic stress protectant — is the primary sulfur compound in reef systems. When bleaching occurs, DMSP is released from expelled zooxanthellae into the water column, where microbial degradation converts it to dimethylsulfide (DMS). DMS volatilizes to the atmosphere and has historically been proposed as a biogenic climate feedback mechanism (the CLAW hypothesis). More immediately relevant: DMSP is the settlement cue compound that coral planula larvae detect on CCA surfaces (introduced in S03/L02) — its concentration in reef water is therefore a proxy for both zooxanthellae health and larval settlement conditions, linking the sulfur cycle to coral reproduction and recovery.</p>
+
+      <p><strong>Cycle coupling and CMIE integration</strong>: the four cycles are linked through shared reactants and biological mediators. Carbon and nitrogen are coupled through the Redfield Ratio — the C:N:P stoichiometry of phytoplankton growth simultaneously governs organic carbon production and nitrogen demand. Nitrogen and phosphorus cycles are coupled through co-limitation dynamics — the nutrient that is scarcer governs production rate. The sulfur cycle is coupled to carbon through DMSP-DMS production by zooxanthellae, which are in turn governed by carbon fixation rates. When a physical stressor (SST anomaly from S01) disrupts zooxanthellae (biological consequence from S03), it simultaneously alters carbon fixation rates, DMSP release, and nitrogen demand — triggering cascading chemical changes across all four cycles simultaneously. The CMIE detects this cascade through the convergence of signals from GRIN chemical sub-indices, GMAIN mangrove-lagoon chemistry, and GKIN fish assemblage responses, producing a Decision Score that reflects the full biogeochemical state of the system — not a single-cycle snapshot.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La lección de visión general de sistemas de la Sección 02 integra los cuatro ciclos biogeoquímicos principales que operan simultáneamente en cada ecosistema arrecifal: el ciclo del carbono, el ciclo del nitrógeno, el ciclo del fósforo y el ciclo del azufre. Estos ciclos no son independientes — están química y biológicamente acoplados, y sus interacciones determinan si un sistema arrecifal es resiliente o vulnerable.</p>
+
+      <p>El <strong>ciclo del carbono</strong> en los sistemas arrecifales opera a través de tres vías acopladas: la fijación fotosintética de carbono por zooxantelas y algas, la calcificación que convierte el ion carbonato en esqueleto de CaCO₃ (haciendo que los arrecifes sean fuentes netas de carbono a escala local), y la respiración y descomposición que remineraliza el carbono orgánico de vuelta a CO₂. El balance entre estas tres vías determina si el metabolismo neto del arrecife es autotrófico o heterotrófico.</p>
+
+      <p>El <strong>ciclo del nitrógeno</strong> en los sistemas arrecifales es el más complejo de los cuatro, involucrando cinco procesos de transformación biológica distintos: fijación de nitrógeno, nitrificación, desnitrificación, asimilación y remineralización. El ciclo del nitrógeno es el puente químico entre el régimen de estresores físicos (ingreso de agua dulce que lleva NID desde tierra) y la respuesta biológica al estresor (floración de macroalgas) — convirtiéndolo en el ciclo químico más relevante para la toma de decisiones en el contexto del MAR.</p>
+
+      <p>El <strong>ciclo del fósforo</strong> carece de reservorio atmosférico. En los sistemas arrecifales, el fósforo es retenido estrechamente por adsorción sobre las superficies de sedimento carbonatado — una propiedad geoquímica que amortigua las aguas arrecifales contra la carga de fósforo y explica por qué los arrecifes del Caribe están más comúnmente limitados por nitrógeno que por fósforo.</p>
+
+      <p>El <strong>ciclo del azufre</strong> lleva una relevancia directa para la gestión arrecifal: el dimetilsulfoniopropionato (DMSP) — producido por las zooxantelas — es la señal de asentamiento que las larvas planula de coral detectan en las superficies de CCA. Su concentración en el agua arrecifal es por tanto un proxy tanto de la salud de las zooxantelas como de las condiciones de asentamiento larval — vinculando el ciclo del azufre con la reproducción y recuperación del coral.</p>
+
+      <p>El <strong>acoplamiento de ciclos e integración del CMIE</strong>: cuando un estresor físico (anomalía de TSM) perturba las zooxantelas, simultáneamente altera las tasas de fijación de carbono, la liberación de DMSP y la demanda de nitrógeno — desencadenando cambios químicos en cascada en los cuatro ciclos simultáneamente. El CMIE detecta esta cascada a través de la convergencia de señales de los subíndices químicos de GRIN, produciendo una Puntuación de Decisión que refleja el estado biogeoquímico completo del sistema.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Cycle / Ciclo</th>
+          <th>Key Transformation / Transformación</th>
+          <th>Reef Function / Función</th>
+          <th>Disruption Signal / Señal de ruptura</th>
+          <th>GROAN Module</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Carbon / Carbono</td><td>CO₂ ↔ organic C ↔ CaCO₃</td><td>Energy production; framework building</td><td>Bleaching → net heterotrophy; OA → Ω decline</td><td>GRIN productivity + OA sub-index</td></tr>
+        <tr><td>Nitrogen (fixation) / N fijación</td><td>N₂ → NH₄⁺ (diazotrophs)</td><td>Internal N supply in oligotrophic waters</td><td>Temperature suppresses diazotroph activity</td><td>GRIN nutrient sub-index</td></tr>
+        <tr><td>Nitrogen (denitrification) / N denitrif.</td><td>NO₃⁻ → N₂ (anaerobic bacteria)</td><td>N budget regulation; prevents N accumulation</td><td>Hypoxia expands denitrification zones</td><td>GRIN hypoxia + nutrient flags</td></tr>
+        <tr><td>Phosphorus / Fósforo</td><td>PO₄³⁻ adsorption ↔ release from carbonate</td><td>Co-limiting nutrient; Redfield ratio anchor</td><td>Sediment resuspension releases sorbed P</td><td>GRIN nutrient sub-index (P arm)</td></tr>
+        <tr><td>Sulfur (DMSP) / Azufre DMSP</td><td>DMSP → DMS (microbial degradation)</td><td>Larval settlement cue; osmotic protectant</td><td>Bleaching releases DMSP mass pulse</td><td>GRIN recruitment index proxy</td></tr>
+        <tr><td>Sulfur (DMS) / Azufre DMS</td><td>DMS → atmosphere (volatilization)</td><td>Climate feedback; aerosol nucleation</td><td>Mass bleaching → DMS atmospheric pulse</td><td>CMIE cross-system context flag</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The MAR nitrogen cycle is in anthropogenic disruption: AGRRA water quality data from Belize and Honduras document dissolved inorganic nitrogen (DIN) concentrations 3–8× above oligotrophic baseline at sites within 5 km of populated coastlines — indicating that external nitrogen loading from sewage and agriculture has overwhelmed the denitrification buffering capacity of coastal sediments and is delivering excess fixed nitrogen directly to reef algae. This is the chemical confirmation of the macroalgae dominance trend observable in belt transect surveys, and the nutrient sub-index input that the GRIN module ingests.</li>
+        <li>The phosphorus adsorption mechanism provides a geochemical explanation for the spatial pattern of reef degradation in the MAR: sites adjacent to carbonate sand flats (high adsorption capacity) show less phosphorus loading impact than sites adjacent to river delta sediments (siliciclastic, low carbonate content, poor phosphorus adsorption) — meaning reef chemical vulnerability maps onto sediment geology, a spatial variable that GROAN's GRIN can encode as a site-level modifier coefficient in the nutrient sub-index calculation.</li>
+        <li>DMSP dynamics during Rim Run™ transit provide a reef health indicator accessible without laboratory equipment: post-bleaching reef sites have a characteristic sulfurous odor detectable at snorkel depth from mass DMSP release and DMS volatilization — a qualitative field indicator that flags elevated bleaching prevalence before belt transect data is compiled, providing an immediate triage signal for MOOP survey priority at each circuit node.</li>
+        <li>Coupled N-P cycle disruption at MAR river mouth sites: when wet-season riverine discharge delivers simultaneous DIN and turbidity pulses, the phosphorus adsorption buffering on carbonate sediments is overwhelmed at the same time that light availability drops from turbidity — creating a chemical-physical compound event where the nutrient that would drive algae growth (N) arrives simultaneously with the physical condition (turbidity) that suppresses the coral photosynthesis needed to outcompete it. The CMIE's multi-cycle signal integration detects this simultaneous N + turbidity event as a higher-risk compound signal than either stressor alone.</li>
+        <li>Carbon cycle state as a reef health proxy: the net metabolic balance of a reef (autotrophic vs. heterotrophic) is measurable from dawn-to-dusk dissolved oxygen and pH changes at a fixed anchor point — an upstream-to-downstream chemical gradient that Shamrocket can measure passively from anchor position using the overnight DO logger and pH strip protocol established in S02/L02. A reef with net daytime DO increase and pH rise is net autotrophic (healthy, carbon-fixing); a reef with flat or declining DO and pH through the day is net heterotrophic (stressed, carbon-releasing) — a whole-system chemical diagnosis from two measurements.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>El ciclo del nitrógeno del MAR está en disrupción antropogénica: los datos de calidad del agua de AGRRA de Belice y Honduras documentan concentraciones de NID 3–8× por encima de la línea base oligotrófica en sitios a menos de 5 km de costas pobladas, indicando que la carga externa de nitrógeno ha abrumado la capacidad de amortiguación de desnitrificación de los sedimentos costeros.</li>
+        <li>El mecanismo de adsorción de fósforo proporciona una explicación geoquímica para el patrón espacial de degradación arrecifal en el MAR: los sitios adyacentes a planicies de arena carbonatada (alta capacidad de adsorción) muestran menor impacto de carga de fósforo que los sitios adyacentes a sedimentos de delta fluvial (siliciclásticos, baja adsorción de fósforo).</li>
+        <li>La dinámica del DMSP durante el tránsito Rim Run™ proporciona un indicador de salud arrecifal accesible sin equipo de laboratorio: los sitios arrecifales post-blanqueamiento tienen un olor sulfuroso característico detectable a profundidad de esnórquel por la liberación masiva de DMSP y la volatilización de DMS — un indicador de campo cualitativo que señala prevalencia elevada de blanqueamiento antes de que se compilen los datos del transecto de banda.</li>
+        <li>Perturbación acoplada del ciclo N-P en sitios de desembocadura fluvial del MAR: cuando la descarga fluvial de la temporada húmeda entrega pulsos simultáneos de NID y turbidez, el CMIE detecta este evento simultáneo de N + turbidez como una señal compuesta de mayor riesgo que cualquier estresor por separado.</li>
+        <li>El estado del ciclo del carbono como proxy de salud arrecifal: el balance metabólico neto de un arrecife es mensurable a partir de los cambios de oxígeno disuelto y pH del amanecer al atardecer en un punto de fondeo fijo — un diagnóstico químico de todo el sistema a partir de dos mediciones que el Shamrocket puede realizar pasivamente desde la posición de fondeo.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why does the phosphorus adsorption capacity of carbonate sediments explain the spatial pattern of reef degradation near MAR river deltas, and what does this mean for GROAN's GRIN nutrient sub-index site calibration?</div>
+        <div class="mcq-q-es">¿Por qué la capacidad de adsorción de fósforo de los sedimentos carbonatados explica el patrón espacial de degradación arrecifal cerca de los deltas fluviales del MAR, y qué significa esto para la calibración del sitio del subíndice de nutrientes GRIN de GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. Carbonate sediments release phosphorus during storms, creating localized bloom events</li>
+          <li class="correct">B. Siliciclastic river delta sediments have poor phosphorus adsorption capacity compared to carbonate sand flats — so reef sites adjacent to river deltas receive more bioavailable phosphorus from riverine loading, making them chemically more vulnerable to nutrient-driven degradation; GROAN must encode sediment geology as a site-level modifier coefficient in the GRIN nutrient sub-index rather than applying a uniform nutrient threshold across all MAR nodes</li>
+          <li>C. Carbonate sediments contain high nitrogen concentrations that neutralize phosphorus loading</li>
+          <li>D. River delta sediments are too turbid for phosphorus to reach reef depth</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">How does the DMSP → DMS sulfur cycle link coral bleaching events to larval settlement failure, and why does this make sulfur cycle disruption a compounding factor in post-bleaching recovery?</div>
+        <div class="mcq-q-es">¿Cómo vincula el ciclo del azufre DMSP → DMS los eventos de blanqueamiento de coral con el fallo de asentamiento larval, y por qué hace esto que la perturbación del ciclo del azufre sea un factor agravante en la recuperación post-blanqueamiento?</div>
+        <ul class="mcq-options">
+          <li>A. DMS is toxic to coral planula larvae, killing them before they can settle</li>
+          <li class="correct">B. DMSP produced by healthy zooxanthellae is the chemical settlement cue that planula larvae detect on CCA surfaces — mass bleaching releases a pulse of DMSP that is rapidly degraded to DMS and lost to the atmosphere, depleting the CCA-associated DMSP signal that larvae need to locate and commit to settlement substrate; recovery thus fails at both ends: bleaching kills adult coral and DMSP depletion prevents larval recruitment simultaneously</li>
+          <li>C. DMS acidifies the water column locally, reducing aragonite saturation below the calcification threshold</li>
+          <li>D. DMSP synthesis consumes phosphorus, creating localized phosphorus limitation after bleaching</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">Why does a dawn-to-dusk DO and pH measurement from a fixed anchor position constitute a whole-system carbon cycle diagnosis — and what does net heterotrophy at a reef node indicate for the GROAN Decision Score?</div>
+        <div class="mcq-q-es">¿Por qué una medición de DO y pH del amanecer al atardecer desde una posición de fondeo fija constituye un diagnóstico del ciclo del carbono de todo el sistema — y qué indica la heterotrofia neta en un nodo arrecifal para la Puntuación de Decisión de GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. Dawn-to-dusk changes only reflect tidal flushing, not biological metabolism</li>
+          <li class="correct">B. Daytime photosynthesis raises DO and pH; respiration lowers both — the net change from dawn to dusk integrates the metabolic balance of the entire reef community over a full light cycle; net heterotrophy (flat or declining DO and pH through the day) indicates that respiratory carbon release exceeds photosynthetic carbon fixation, signaling a stressed, carbon-releasing system where the CMIE applies elevated risk coefficients to the Decision Score</  li>
+          <li>C. The measurement only works in open-ocean conditions; reef turbulence makes it unreliable</li>
+          <li>D. Net heterotrophy is normal for healthy reefs during the dry season and requires no score adjustment</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S02·L03 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.83%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
