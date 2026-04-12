@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L14 | Chemical Oceanography: Temporal Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Temporal hierarchy stack */
+  .temp-stack { display: flex; flex-direction: column; gap: 0; margin: 1.2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(26,200,200,0.1); }
+  .ts-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 100px;
+    gap: 0.9rem;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    background: rgba(2,15,30,0.45);
+  }
+  .ts-row:last-child { border-bottom: none; }
+  .ts-scale { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; }
+  .ts-scale.diel     { color: var(--ocean-cyan); }
+  .ts-scale.tidal    { color: var(--gold); }
+  .ts-scale.seasonal { color: #44b864; }
+  .ts-scale.event    { color: var(--coral); }
+  .ts-scale.decadal  { color: #e89060; }
+  .ts-desc { font-size: 0.8rem; line-height: 1.5; color: var(--text-dim); }
+  .ts-desc strong { color: var(--text-light); }
+  .ts-amplitude {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-align: right;
+    line-height: 1.5;
+  }
+  .ts-scale.diel     ~ .ts-amplitude { color: var(--ocean-cyan); }
+  .ts-scale.tidal    ~ .ts-amplitude { color: var(--gold); }
+  .ts-scale.seasonal ~ .ts-amplitude { color: #44b864; }
+  .ts-scale.event    ~ .ts-amplitude { color: var(--coral); }
+  .ts-scale.decadal  ~ .ts-amplitude { color: #e89060; }
+
+  /* Decomposition equation block */
+  .decomp-block {
+    background: rgba(2,15,30,0.6);
+    border: 1px solid rgba(26,200,200,0.18);
+    border-radius: 8px;
+    padding: 1.1rem 1.4rem;
+    margin: 1.2rem 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--text-light);
+  }
+  .decomp-block .eq-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+  .decomp-block .eq-main { color: var(--ocean-cyan); font-size: 0.88rem; }
+  .decomp-block .eq-term { display: inline-block; padding: 0.05rem 0.4rem; border-radius: 3px; font-size: 0.78rem; margin: 0 0.15rem; }
+  .decomp-block .t-obs   { background: rgba(26,200,200,0.12); color: var(--ocean-foam); }
+  .decomp-block .t-dec   { background: rgba(26,200,200,0.08); color: var(--ocean-cyan); }
+  .decomp-block .t-tid   { background: rgba(240,180,41,0.1);  color: var(--gold); }
+  .decomp-block .t-sea   { background: rgba(68,184,100,0.1);  color: #44b864; }
+  .decomp-block .t-evt   { background: rgba(232,96,64,0.1);   color: var(--coral); }
+  .decomp-block .t-tre   { background: rgba(232,144,96,0.1);  color: #e89060; }
+  .decomp-block .eq-note { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.4rem; }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 6.53%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .ts-row { grid-template-columns: 1fr; }
+    .ts-amplitude { text-align: left; }
+    .app-grid { grid-template-columns: 1fr; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L14 · Lesson 46 of 704</div>
+      <h1>Temporal Patterns</h1>
+      <p class="subtitle">Spatial patterns (L13) tell you where chemistry differs. Temporal patterns tell you when, why, and whether a signal is trend, cycle, or event — the distinction that determines every CMIE response.</p>
+    </div>
+
+    <!-- SVG: Multi-timescale stacked signal — diel oscillation riding on seasonal wave riding on decadal trend -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="trendLine" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#e86040" stop-opacity="0.8"/>
+        </linearGradient>
+        <filter id="gftp">
+          <feGaussianBlur stdDeviation="1.4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.55)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Axes -->
+      <line x1="18" y1="16" x2="18" y2="148" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+      <line x1="18" y1="148" x2="198" y2="148" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+
+      <!-- Y label -->
+      <text x="8" y="82" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" transform="rotate(-90,8,82)" text-anchor="middle">pH</text>
+
+      <!-- Gridlines -->
+      <line x1="18" y1="54"  x2="198" y2="54"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="18" y1="82"  x2="198" y2="82"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="18" y1="110" x2="198" y2="110" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+      <!-- Y-axis labels -->
+      <text x="15" y="57"  text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">8.3</text>
+      <text x="15" y="85"  text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">8.1</text>
+      <text x="15" y="113" text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">7.9</text>
+
+      <!-- Decadal decline trend (subtle background line) -->
+      <line x1="22" y1="70" x2="196" y2="92" stroke="#e89060" stroke-width="1.2" stroke-opacity="0.45" stroke-dasharray="5,3"/>
+
+      <!-- Seasonal wave (medium frequency, medium amplitude) -->
+      <path d="M22,74 C38,60 54,86 70,72 C86,58 102,84 118,70 C134,56 150,82 166,68 C178,58 190,76 196,70"
+            fill="none" stroke="#44b864" stroke-width="1.4" stroke-opacity="0.55" stroke-dasharray="3,2"/>
+
+      <!-- Diel oscillation on top (high frequency, larger visible amplitude) -->
+      <path d="M22,74 C26,64 30,84 34,72 C38,60 42,82 46,70 C50,58 54,80 58,68 C62,56 66,78 70,66 C74,54 78,76 82,64 C86,52 90,74 94,62 C98,50 102,72 106,62 C110,52 114,74 118,64 C122,54 126,76 130,66 C134,56 138,78 142,68 C146,58 150,80 154,70 C158,60 162,82 166,72 C170,62 174,84 178,74 C182,64 188,82 196,76"
+            fill="none" stroke="#1ac8c8" stroke-width="1.8" stroke-opacity="0.8" filter="url(#gftp)"/>
+
+      <!-- Event pulse — spike down -->
+      <line x1="118" y1="50" x2="118" y2="130" stroke="#e86040" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+      <path d="M110,75 L118,128 L126,75" fill="none" stroke="#e86040" stroke-width="1.5" stroke-opacity="0.7"/>
+      <text x="122" y="132" font-family="DM Mono,monospace" font-size="5.5" fill="#e86040">EVENT</text>
+
+      <!-- X-axis time labels -->
+      <text x="22"  y="158" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc">Jan</text>
+      <text x="62"  y="158" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc">Apr</text>
+      <text x="102" y="158" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc">Jul</text>
+      <text x="142" y="158" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc">Oct</text>
+      <text x="180" y="158" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc">Jan</text>
+
+      <!-- Legend -->
+      <line x1="22" y1="168" x2="36" y2="168" stroke="#1ac8c8" stroke-width="1.8"/>
+      <text x="39" y="171" font-family="DM Sans,sans-serif" font-size="6.5" fill="#1ac8c8">Diel</text>
+      <line x1="65" y1="168" x2="79" y2="168" stroke="#44b864" stroke-width="1.4" stroke-dasharray="3,2"/>
+      <text x="82" y="171" font-family="DM Sans,sans-serif" font-size="6.5" fill="#44b864">Seasonal</text>
+      <line x1="122" y1="168" x2="136" y2="168" stroke="#e89060" stroke-width="1.2" stroke-dasharray="5,3"/>
+      <text x="139" y="171" font-family="DM Sans,sans-serif" font-size="6.5" fill="#e89060">Trend</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>A chemical reading at a Caribbean reef station at any given moment is the superposition of five distinct temporal signals: a <strong>diel cycle</strong>, a <strong>tidal cycle</strong>, a <strong>seasonal pattern</strong>, a potential <strong>episodic event</strong>, and a <strong>long-term trend</strong>. L05 introduced these signals as dynamic drivers. L12 covered their removal in analysis. This lesson examines their structural properties — amplitudes, periods, phase relationships, and characteristic shapes — because <strong>GROAN's CMIE must classify any new signal as belonging to one of these five categories before it can generate a Decision Score response.</strong> Misclassifying a large diel oscillation as a trend event, or an event pulse as a seasonal anomaly, produces entirely different and potentially wrong management actions.</p>
+
+        <div class="temp-stack">
+          <div class="ts-row">
+            <div class="ts-scale diel">Diel · 24 hr</div>
+            <div class="ts-desc"><strong>Period: 24 hours. Shape: sinusoidal.</strong> pH peaks at ~14:00 (maximum photosynthesis), troughs at ~06:00 (maximum respiratory CO₂). Amplitude in Caribbean reef lagoons: <strong>0.3–0.5 pH units, 0.5–1.2 Ω units, 4–8 mg/L DO.</strong> Diel amplitude is a reef health indicator — healthy reefs have large amplitude (active photosynthetic community); degraded reefs show amplitude compression. Phase leads by ~2 hours relative to solar noon due to thermal inertia of the water column. Requires moored sensor to capture directly; synoptic stations apply moored-station correction.</div>
+            <div class="ts-amplitude">pH: ±0.15–0.25<br/>Ω: ±0.25–0.6<br/>DO: ±2–4 mg/L</div>
+          </div>
+          <div class="ts-row">
+            <div class="ts-scale tidal">Tidal · 6–12 hr</div>
+            <div class="ts-desc"><strong>Period: 6 hrs (semidiurnal) or 12 hrs (diurnal). Shape: sinusoidal with harmonic overtones.</strong> Caribbean tides are mixed semidiurnal — two unequal highs and lows per day. Flood tide imports offshore water: higher Ω, lower nutrients, higher pH. Ebb exports reef-processed water: lower Ω, higher CO₂. <strong>Tidal amplitude in Ω: 0.3–0.8 units at reef crest;</strong> larger in constricted lagoon passes where tidal prism focuses flushing. Caribbean tidal range is small (~0.3–0.5 m) but the chemical signal is disproportionately large due to residence-time effects.</div>
+            <div class="ts-amplitude">pH: ±0.05–0.12<br/>Ω: ±0.15–0.4<br/>Salinity: ±0.5–2 PSU</div>
+          </div>
+          <div class="ts-row">
+            <div class="ts-scale seasonal">Seasonal · Months</div>
+            <div class="ts-desc"><strong>Period: 12 months (annual) with secondary 6-month harmonic. Shape: asymmetric — sharp wet-season onset, gradual dry-season recovery.</strong> Caribbean dry season (Dec–Apr): reduced runoff, clearer water, elevated photosynthesis, Ω peaks. Wet season (May–Nov): river discharge increases, freshwater dilutes alkalinity, elevated nutrients, Ω drops. <strong>Seasonal Ω amplitude at lagoon stations: 0.4–1.0 units.</strong> Hurricane chemistry resets baseline for weeks to months — not a seasonal cycle, but the damage overlaps with the wet-season signal. GROAN uses GLORYS-calibrated seasonal climatology to define the expected seasonal envelope.</div>
+            <div class="ts-amplitude">pH: ±0.08–0.15<br/>Ω: ±0.2–0.5<br/>TA: ±30–60 µmol/kg</div>
+          </div>
+          <div class="ts-row">
+            <div class="ts-scale event">Event · Hours–Weeks</div>
+            <div class="ts-desc"><strong>Period: variable. Shape: asymmetric spike — rapid onset, exponential decay.</strong> Three event types dominate Caribbean reef chemistry: (1) Motagua flood pulse — low-pH, low-Ω water mass arrives 48–72 hrs after highland rainfall, persists 1–3 weeks; (2) Bleaching event — local O₂ and calcification collapse, SST anomaly +1–2°C above MMM triggers cascade; (3) HAB (harmful algal bloom) — acute nighttime O₂ crash below 3 mg/L, pH spike from CO₂ uptake by dense biomass. <strong>Events are distinguished from cycles by their asymmetric shape and non-repeating timing.</strong> CMIE event flags use first-derivative spike detection on moored time-series data.</div>
+            <div class="ts-amplitude">pH: −0.2 to −0.5<br/>Ω: −0.5 to −1.5<br/>DO: −3 to −7 mg/L</div>
+          </div>
+          <div class="ts-row">
+            <div class="ts-scale decadal">Decadal Trend · Years</div>
+            <div class="ts-desc"><strong>Period: monotonic (non-cyclic). Shape: linear or slightly accelerating negative slope.</strong> Global ocean acidification: −0.002 pH units/yr, −0.01 Ω units/yr at open-ocean surface. Caribbean in-situ observations suggest slightly faster acidification near river-influenced reef zones due to freshwater dilution of alkalinity buffer. <strong>Trend detection requires multi-year records</strong> — the Rim Run™ 2026 synoptic survey establishes Year 0 baseline; repeat surveys in 2028 and 2030 will detect trend against this baseline. Annual change is smaller than diel noise — trend is only visible after removing cycles and events.</div>
+            <div class="ts-amplitude">pH: −0.002/yr<br/>Ω: −0.01/yr<br/>Cumulative over decades</div>
+          </div>
+        </div>
+
+        <p><strong>Temporal signal decomposition — the CMIE classification equation.</strong> Every moored-station time series entering the CMIE is decomposed into its five components before any signal is routed to a Decision Score calculation. The decomposition is applied sequentially, subtracting each component from the residual.</p>
+
+        <div class="decomp-block">
+          <div class="eq-label">GROAN Temporal Decomposition · Applied to any chemical time series X(t)</div>
+          <div class="eq-main">
+            <span class="eq-term t-obs">X_observed(t)</span>
+            =
+            <span class="eq-term t-dec">X_diel(t)</span>
+            +
+            <span class="eq-term t-tid">X_tidal(t)</span>
+            +
+            <span class="eq-term t-sea">X_seasonal(t)</span>
+            +
+            <span class="eq-term t-evt">X_event(t)</span>
+            +
+            <span class="eq-term t-tre">X_trend(t)</span>
+            +
+            ε(t)
+          </div>
+          <div class="eq-note">ε(t) = unexplained residual. If ε exceeds ±2σ of the expected noise floor, CMIE flags as unclassified anomaly — triggers driver attribution query (L07 process).</div>
+        </div>
+
+        <p><strong>Amplitude hierarchy and detection priority.</strong> The five temporal components do not contribute equally — their amplitudes span two orders of magnitude, and GROAN's analysis must strip the largest-amplitude components first to reveal the smaller but more consequential signals. Diel amplitude (±0.25 pH) is ~125× larger than the annual OA trend (−0.002/yr). <em>The long-term trend that matters most for reef survival is the hardest to see because it is buried under cycle noise.</em> This is why multi-year repeat surveys are structurally necessary — and why the 2026 Rim Run™ baseline is only actionable when compared against 2028 and 2030 repeat transects.</p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Una lectura química en una estación arrecifal del Caribe en un momento dado es la superposición de cinco señales temporales distintas: un <strong>ciclo diurno</strong>, un <strong>ciclo de mareas</strong>, un <strong>patrón estacional</strong>, un posible <strong>evento episódico</strong>, y una <strong>tendencia a largo plazo</strong>. El CMIE de GROAN debe clasificar cualquier señal nueva como perteneciente a una de estas cinco categorías antes de poder generar una respuesta de Puntuación de Decisión. <strong>Clasificar incorrectamente</strong> una gran oscilación diurna como un evento de tendencia, o un pulso de evento como una anomalía estacional, produce acciones de gestión completamente diferentes y potencialmente incorrectas.</p>
+
+        <p>La <strong>jerarquía de amplitudes</strong> abarca dos órdenes de magnitud: la amplitud diurna (±0.25 pH) es ~125× mayor que la tendencia anual de acidificación oceánica (−0.002/año). La tendencia a largo plazo que más importa para la supervivencia del arrecife es la más difícil de ver porque está enterrada bajo el ruido cíclico. Por eso los estudios de repetición plurianuales son estructuralmente necesarios — y por eso la línea de base Rim Run™ 2026 solo es procesable cuando se compara con transectos repetidos en 2028 y 2030.</p>
+
+        <p>La <strong>ecuación de descomposición temporal GROAN</strong> descompone cualquier serie temporal química observada en sus cinco componentes: X_observado(t) = X_diurno(t) + X_mareal(t) + X_estacional(t) + X_evento(t) + X_tendencia(t) + ε(t). Si ε supera ±2σ del nivel de ruido esperado, el CMIE lo marca como anomalía no clasificada y activa el proceso de atribución de factores (L07). Los tres tipos de eventos que dominan la química arrecifal del Caribe son: pulso de crecida del Motagua (agua de bajo pH/Ω llega 48–72 h después de lluvias en las tierras altas, persiste 1–3 semanas), evento de blanqueamiento (colapso de O₂ y calcificación, anomalía de SST +1–2°C sobre MMM), y florecimiento de algas nocivas (HAB — caída aguda de O₂ nocturno por debajo de 3 mg/L).</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Temporal Component</th>
+            <th>Period</th>
+            <th>pH Amplitude</th>
+            <th>Ω Amplitude</th>
+            <th>Shape</th>
+            <th>CMIE Classification Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Diel Cycle</td>
+            <td>24 hrs</td>
+            <td class="warn">±0.15–0.25</td>
+            <td class="warn">±0.25–0.6</td>
+            <td>Sinusoidal</td>
+            <td>Moored amplitude reference</td>
+          </tr>
+          <tr>
+            <td>Tidal Cycle</td>
+            <td>6–12 hrs</td>
+            <td class="caution">±0.05–0.12</td>
+            <td class="caution">±0.15–0.4</td>
+            <td>Harmonic sinusoid</td>
+            <td>TPXO tidal model subtraction</td>
+          </tr>
+          <tr>
+            <td>Seasonal Pattern</td>
+            <td>12 months</td>
+            <td class="caution">±0.08–0.15</td>
+            <td class="caution">±0.2–0.5</td>
+            <td>Asymmetric annual</td>
+            <td>GLORYS seasonal climatology</td>
+          </tr>
+          <tr>
+            <td>Event Pulse</td>
+            <td>Hours–Weeks</td>
+            <td class="warn">−0.2 to −0.5</td>
+            <td class="warn">−0.5 to −1.5</td>
+            <td>Asymmetric spike</td>
+            <td>First-derivative spike detect.</td>
+          </tr>
+          <tr>
+            <td>Decadal Trend</td>
+            <td>Years–Decades</td>
+            <td class="good">−0.002/yr</td>
+            <td class="good">−0.01/yr</td>
+            <td>Monotonic slope</td>
+            <td>Multi-year OLS regression</td>
+          </tr>
+          <tr>
+            <td>Unclassified residual ε</td>
+            <td>Variable</td>
+            <td class="neutral">&gt;±2σ = flag</td>
+            <td class="neutral">&gt;±2σ = flag</td>
+            <td>Irregular</td>
+            <td>Driver attribution query (L07)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The CMIE event flag using first-derivative spike detection is the real-time alarm mechanism for the Motagua flood pulse scenario: when the moored station at the Belize reef shows a rate-of-change in Ω exceeding the typical diel and tidal derivatives, and the direction is negative, the CMIE classifies it as an event pulse — not a cycle — and routes it to the terrestrial driver alert layer rather than the normalization pipeline.</li>
+          <li>Diel amplitude compression is simultaneously a temporal pattern diagnostic and a reef health metric: a lagoon station that showed ±0.35 pH diel swing in 2022 and shows ±0.18 pH swing in 2026 has lost nearly half its photosynthetic community biomass in four years — this is detectable only because the moored time-series records the diel shape, not just the mean value.</li>
+          <li>The 2026 Rim Run™ synoptic survey captures a temporal snapshot at a specific point in the seasonal cycle (October–November = late wet season onset). GROAN's long-term analysis must flag all 2026 readings as wet-season biased — they will be systematically lower in Ω than the annual mean by ~0.2–0.3 units at lagoon stations. Future repeat surveys must sample the same seasonal window to maintain longitudinal comparability.</li>
+          <li>For the KAUST Red Sea case study, the seasonal pattern is inverted relative to the Caribbean: the Red Sea experiences its most chemically stressful period in summer (peak SST, maximum thermal stratification, lowest O₂ in bottom water), not in the wet season. GROAN's seasonal climatology component for the Red Sea CMIE configuration must use Red Sea-specific seasonal envelopes, not Caribbean-calibrated GLORYS corrections.</li>
+          <li>The temporal decomposition equation is also the formal scientific justification for why GROAN's 5-moored-station minimum is not arbitrary: each moored station provides the empirical diel and tidal amplitude estimates required to calibrate the decomposition for that reef zone. Without them, the decomposition uses regional averages — introducing bias that is largest during event pulses, exactly when correct classification matters most.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>El indicador de eventos del CMIE que utiliza la detección de picos de primera derivada es el mecanismo de alarma en tiempo real para el escenario de pulso de crecida del Motagua: cuando la estación anclada en el arrecife de Belice muestra una tasa de cambio en Ω que supera las derivadas diurnas y mareales típicas, y la dirección es negativa, el CMIE lo clasifica como un pulso de evento y lo enruta a la capa de alerta de factor terrestre.</li>
+          <li>La compresión de la amplitud diurna es simultáneamente un diagnóstico de patrón temporal y una métrica de salud arrecifal: una estación de laguna que mostró una oscilación diurna de pH de ±0.35 en 2022 y muestra ±0.18 en 2026 ha perdido casi la mitad de su biomasa de comunidad fotosintética en cuatro años — esto solo es detectable porque la serie temporal anclada registra la forma diurna, no solo el valor medio.</li>
+          <li>La encuesta sinóptica Rim Run™ 2026 captura una instantánea temporal en un punto específico del ciclo estacional (octubre–noviembre = inicio de la temporada húmeda tardía). GROAN debe marcar todas las lecturas de 2026 como sesgadas hacia la temporada húmeda — serán sistemáticamente más bajas en Ω que la media anual en ~0.2–0.3 unidades en estaciones de laguna. Los estudios de repetición futuros deben muestrear la misma ventana estacional.</li>
+          <li>Para el estudio de caso del Mar Rojo de KAUST, el patrón estacional está invertido respecto al Caribe: el Mar Rojo experimenta su período más estresante químicamente en verano (SST máxima, máxima estratificación térmica, O₂ mínimo en agua de fondo), no en la temporada húmeda. La componente de climatología estacional de GROAN para la configuración CMIE del Mar Rojo debe usar envolventes estacionales específicas del Mar Rojo.</li>
+          <li>La ecuación de descomposición temporal es también la justificación científica formal de por qué el mínimo de 5 estaciones ancladas de GROAN no es arbitrario: cada estación anclada proporciona las estimaciones empíricas de amplitud diurna y mareal necesarias para calibrar la descomposición para esa zona arrecifal. Sin ellas, la descomposición usa promedios regionales, introduciendo sesgo que es mayor durante los pulsos de eventos.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">A moored station records a sudden Ω drop of −0.9 units over 6 hours, with rapid partial recovery over the next 3 days. Which temporal classification does GROAN's CMIE assign, and what does this trigger?</div>
+        <div class="q-text-es">Una estación anclada registra una caída repentina de Ω de −0.9 unidades en 6 horas, con recuperación parcial rápida en los siguientes 3 días. ¿Qué clasificación temporal asigna el CMIE de GROAN y qué activa?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Seasonal pattern — the wet-season onset is producing a gradual Ω depression</li>
+          <li><span class="opt-key">B</span> Diel cycle — the drop is within the expected 24-hour sinusoidal amplitude</li>
+          <li class="correct"><span class="opt-key">C</span> Event pulse — the asymmetric shape, rapid onset, and partial decay over days exceeds diel and tidal amplitudes; CMIE routes it to the terrestrial/bleaching driver alert layer and applies first-derivative spike flag</li>
+          <li><span class="opt-key">D</span> Decadal trend — Ω drops of this magnitude accumulate over years and this is the annual contribution</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Why is the diel pH amplitude described as ~125× larger than the annual OA trend signal, and what does this mean for GROAN's detection strategy?</div>
+        <div class="q-text-es">¿Por qué la amplitud diurna de pH se describe como ~125× mayor que la señal de tendencia anual de AO, y qué significa esto para la estrategia de detección de GROAN?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> It means the diel cycle is more ecologically important than the long-term trend and should receive higher CMIE weighting</li>
+          <li><span class="opt-key">B</span> It means the annual OA trend is negligible compared to natural variability and can be ignored for reef management</li>
+          <li class="correct"><span class="opt-key">C</span> It means the long-term trend is buried under diel noise and is only detectable after removing cycles — making multi-year repeat surveys and temporal decomposition structurally necessary, not optional refinements</li>
+          <li><span class="opt-key">D</span> It means MOOP sensors with ±0.01 pH accuracy cannot detect the annual OA signal and must be replaced with laboratory-grade instruments</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">The Rim Run™ 2026 survey samples in October–November. A 2028 repeat survey is planned. What analytical requirement must both surveys meet to produce a valid longitudinal comparison?</div>
+        <div class="q-text-es">El Rim Run™ 2026 muestrea en octubre–noviembre. Se planifica un estudio de repetición en 2028. ¿Qué requisito analítico deben cumplir ambos estudios para producir una comparación longitudinal válida?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Both surveys must use identical sensor hardware to eliminate instrument-to-instrument variability</li>
+          <li><span class="opt-key">B</span> Both surveys must sample during La Niña years to control for ENSO-driven interannual variability</li>
+          <li class="correct"><span class="opt-key">C</span> Both surveys must sample the same seasonal window (October–November) so that the seasonal component of the temporal decomposition is identical — comparing across different seasons introduces a systematic bias of 0.2–0.3 Ω units that exceeds two years of OA trend signal</li>
+          <li><span class="opt-key">D</span> Both surveys must include the same exact stations — any new stations added in 2028 must be excluded from the trend analysis</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">6.53% — Lesson 46 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L14 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
