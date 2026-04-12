@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02·L01 Chemical Oceanography — Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.55%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 02 · Lesson 01 · Chemical Oceanography</div>
+        <div class="lesson-title">Foundations</div>
+        <div class="lesson-subtitle">Seawater Chemistry — The Invisible Medium Governing Marine Life</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Seawater Composition</span>
+        <span class="tag tag-gold">Dissolved Gases</span>
+        <span class="tag tag-coral">GROAN GRIN</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: seawater chemistry wheel — major ions, dissolved gases, nutrients, carbonate system arranged as concentric rings -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG_s02l01" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG_s02l01)"/>
+
+        <!-- Outer ring label: Major ions -->
+        <circle cx="170" cy="110" r="88" fill="none" stroke="rgba(26,200,200,0.12)" stroke-width="16"/>
+        <!-- Middle ring: Dissolved gases -->
+        <circle cx="170" cy="110" r="62" fill="none" stroke="rgba(240,180,41,0.12)" stroke-width="14"/>
+        <!-- Inner ring: Nutrients + carbonate -->
+        <circle cx="170" cy="110" r="38" fill="none" stroke="rgba(232,96,64,0.12)" stroke-width="14"/>
+        <!-- Core -->
+        <circle cx="170" cy="110" r="18" fill="rgba(10,110,138,0.35)" stroke="#0a6e8a" stroke-width="1"/>
+        <text x="170" y="107" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">SEA</text>
+        <text x="170" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">WATER</text>
+
+        <!-- Major ion labels (outer ring, 8 positions) -->
+        <text x="170" y="18"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.85">Na⁺</text>
+        <text x="248" y="46"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.85">Cl⁻</text>
+        <text x="272" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.85">SO₄²⁻</text>
+        <text x="244" y="182" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.85">Mg²⁺</text>
+        <text x="170" y="206" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.85">Ca²⁺</text>
+        <text x="96"  y="182" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.85">K⁺</text>
+        <text x="68"  y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.75">HCO₃⁻</text>
+        <text x="96"  y="46"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.75">Br⁻</text>
+        <!-- Outer ring label -->
+        <text x="170" y="8" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#1ac8c8" opacity="0.4">MAJOR IONS</text>
+
+        <!-- Dissolved gas labels (middle ring, 4 positions) -->
+        <text x="218" y="62"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" opacity="0.85">O₂</text>
+        <text x="224" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" opacity="0.85">CO₂</text>
+        <text x="116" y="160" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" opacity="0.85">N₂</text>
+        <text x="116" y="62"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" opacity="0.75">Ar</text>
+
+        <!-- Nutrient / carbonate labels (inner ring) -->
+        <text x="196" y="88"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.85">NO₃⁻</text>
+        <text x="196" y="136" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.85">PO₄³⁻</text>
+        <text x="144" y="136" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.85">Si(OH)₄</text>
+        <text x="144" y="88"  text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.85">CO₃²⁻</text>
+
+        <!-- Ring labels right side -->
+        <text x="322" y="62"  font-family="DM Mono,monospace" font-size="6" fill="#f0b429" opacity="0.45" text-anchor="middle">GASES</text>
+        <text x="322" y="136" font-family="DM Mono,monospace" font-size="6" fill="#e86040" opacity="0.45" text-anchor="middle">NUTRIENTS</text>
+
+        <!-- GROAN reference -->
+        <rect x="8" y="190" width="108" height="22" rx="2" fill="rgba(2,15,30,0.7)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+        <text x="62" y="200" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429">GROAN monitors</text>
+        <text x="62" y="209" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">CO₂ · O₂ · N · P · Ω</text>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Chemical Oceanography: Foundations</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Chemical oceanography is the study of the chemical composition of seawater, the reactions occurring within it, and how those reactions govern the behavior of marine organisms and ecosystems. It occupies the middle layer of GROAN's knowledge architecture: physical forcing (Section 01) sets the temperature, circulation, and energy context; chemical oceanography (Section 02) defines the molecular medium in which biological processes operate; biological oceanography (Section 03) describes how life responds to and modifies that medium. Every GROAN module sub-index that is not purely physical or purely biological passes through chemistry.</p>
+
+      <p><strong>Seawater composition</strong> is remarkably constant across the global ocean in its major ion ratios — a property called <em>conservative behavior</em>. Seawater is approximately 96.5% water and 3.5% dissolved salts by mass. The dominant ions are chloride (Cl⁻, ~55% of dissolved solids), sodium (Na⁺, ~31%), sulfate (SO₄²⁻, ~8%), magnesium (Mg²⁺, ~4%), calcium (Ca²⁺, ~1%), and potassium (K⁺, ~1%). These major ions maintain constant ratios regardless of total salinity — meaning that if you know salinity, you know the concentration of every major ion. This conservative behavior is what makes salinity a reliable master variable for seawater chemistry, and why the GRIN salinity sub-index carries chemical as well as physical information.</p>
+
+      <p><strong>Dissolved gases</strong> are the chemically active fraction of seawater that directly governs biological metabolism. Oxygen (O₂) is produced by photosynthesis and consumed by aerobic respiration; its vertical profile in the water column reflects the balance of production (surface photic zone) and consumption (all depths). The <em>oxygen minimum zone</em> (OMZ), where dissolved O₂ drops below 2 mL/L, represents a metabolic exclusion zone for most aerobic organisms — including reef fish. Carbon dioxide (CO₂) dissolves from the atmosphere, reacts with seawater to form carbonic acid (H₂CO₃), and participates in the carbonate equilibrium system that governs ocean acidification. Nitrogen gas (N₂) is chemically inert in most contexts but is biologically converted to bioavailable forms by nitrogen-fixing microbes — the chemical foundation of reef nutrient cycling described in Section 03.</p>
+
+      <p><strong>Nutrients</strong> — nitrate (NO₃⁻), phosphate (PO₄³⁻), and silicate (Si(OH)₄) — are the dissolved inorganic compounds that fuel primary production. Unlike major ions, nutrients behave <em>non-conservatively</em>: they are rapidly consumed by phytoplankton in the photic zone and regenerated by microbial decomposition at depth. Their vertical profiles mirror primary production: depleted near the surface, elevated below the thermocline. In oligotrophic reef waters, surface nutrient concentrations approach analytical detection limits — which is why the sponge loop and nitrogen fixation (S03) are so critical: they generate internal nutrient supply where external supply is essentially zero.</p>
+
+      <p><strong>The Redfield Ratio</strong> is the foundational stoichiometric principle of marine chemistry: phytoplankton consume carbon, nitrogen, and phosphorus in a consistent atomic ratio of C:N:P = 106:16:1. This ratio — discovered by Alfred Redfield in 1934 — reveals which nutrient limits production: if the ambient N:P ratio exceeds 16:1, phosphorus is limiting; if below 16:1, nitrogen is limiting. Caribbean reef waters are typically nitrogen-limited (low N:P ratios), meaning nitrogen input from river runoff or sewage has a disproportionate stimulatory effect on primary production — the chemical explanation for why nitrogen loading drives macroalgae blooms in the MAR more than phosphorus loading does.</p>
+
+      <p><strong>Salinity and its chemical consequences</strong> extend beyond osmotic effects on organisms. Salinity controls seawater density (with temperature), determining stratification and circulation (S01). It governs the solubility of gases: colder, saltier water dissolves more CO₂ — which is why the Red Sea's high-salinity, warm surface waters (S01/L29) are less efficient at absorbing atmospheric CO₂ than the cooler, lower-salinity Caribbean. Salinity also sets the ionic strength of the solution, which affects carbonate mineral solubility and the aragonite saturation state (Ω) — the chemical parameter governing coral skeleton integrity introduced in S01/L30 and developed fully in S02.</p>
+
+      <p>GROAN monitors the chemical layer through GRIN water quality sub-indices (dissolved oxygen, turbidity as proxy for organic matter, salinity) and through the carbonate chemistry inputs to the OA alarm threshold. Section 02 builds the chemical foundation that makes every biological sub-index in Section 03 interpretable — and every physical sub-index from Section 01 mechanistically complete.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La oceanografía química es el estudio de la composición química del agua de mar, las reacciones que ocurren dentro de ella, y cómo esas reacciones gobiernan el comportamiento de los organismos y ecosistemas marinos. Ocupa la capa intermedia de la arquitectura de conocimiento de GROAN: el forzamiento físico (Sección 01) establece el contexto de temperatura, circulación y energía; la oceanografía química (Sección 02) define el medio molecular en el que operan los procesos biológicos; la oceanografía biológica (Sección 03) describe cómo la vida responde y modifica ese medio.</p>
+
+      <p>La <strong>composición del agua de mar</strong> es notablemente constante en sus proporciones de iones mayores — una propiedad llamada <em>comportamiento conservador</em>. Los iones dominantes son cloruro (~55% de los sólidos disueltos), sodio (~31%), sulfato (~8%), magnesio (~4%), calcio (~1%) y potasio (~1%). Estos iones mayores mantienen proporciones constantes independientemente de la salinidad total — lo que hace de la salinidad una variable maestra confiable para la química del agua de mar.</p>
+
+      <p>Los <strong>gases disueltos</strong> son la fracción químicamente activa del agua de mar que gobierna directamente el metabolismo biológico. El oxígeno (O₂) es producido por la fotosíntesis y consumido por la respiración aeróbica. El dióxido de carbono (CO₂) se disuelve desde la atmósfera y participa en el sistema de equilibrio carbonatado que gobierna la acidificación del océano. El nitrógeno gaseoso (N₂) es biológicamente convertido a formas biodisponibles por microbios fijadores de nitrógeno — la base química del ciclado de nutrientes arrecifales descrito en la Sección 03.</p>
+
+      <p>Los <strong>nutrientes</strong> — nitrato (NO₃⁻), fosfato (PO₄³⁻) y silicato (Si(OH)₄) — son los compuestos inorgánicos disueltos que alimentan la producción primaria. A diferencia de los iones mayores, se comportan de forma <em>no conservadora</em>: son rápidamente consumidos por el fitoplancton en la zona fótica y regenerados por la descomposición microbiana en profundidad.</p>
+
+      <p>La <strong>Relación de Redfield</strong> es el principio estequiométrico fundamental de la química marina: el fitoplancton consume carbono, nitrógeno y fósforo en una proporción atómica consistente de C:N:P = 106:16:1. Las aguas arrecifales del Caribe son típicamente limitadas por nitrógeno (bajas relaciones N:P), lo que significa que el ingreso de nitrógeno del escurrimiento fluvial o las aguas residuales tiene un efecto estimulante desproporcionado sobre la producción primaria — la explicación química de por qué la carga de nitrógeno impulsa las floraciones de macroalgas en el MAR.</p>
+
+      <p>La <strong>salinidad y sus consecuencias químicas</strong> se extienden más allá de los efectos osmóticos. La salinidad controla la solubilidad de gases: el agua más fría y salada disuelve más CO₂. También establece la fuerza iónica de la solución, que afecta la solubilidad de los minerales carbonatados y el estado de saturación de aragonita (Ω) — el parámetro químico que gobierna la integridad del esqueleto de coral.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Chemical Parameter / Parámetro</th>
+          <th>Behavior / Comportamiento</th>
+          <th>Reef Relevance / Relevancia</th>
+          <th>Typical MAR Value</th>
+          <th>GROAN Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Salinity / Salinidad</td><td>Conservative</td><td>Osmotic stress; density; gas solubility</td><td>35–36 PSU</td><td>GRIN salinity sub-index</td></tr>
+        <tr><td>Dissolved O₂ / Oxígeno disuelto</td><td>Non-conservative</td><td>Aerobic metabolism; hypoxia threshold</td><td>5–7 mL/L (surface)</td><td>GRIN water quality sub-index</td></tr>
+        <tr><td>Dissolved CO₂ / CO₂ disuelto</td><td>Non-conservative</td><td>Carbonate system; acidification</td><td>~380–420 μatm pCO₂</td><td>GRIN OA alarm (via Ω)</td></tr>
+        <tr><td>Nitrate NO₃⁻ / Nitrato</td><td>Non-conservative</td><td>Primary production; algae blooms</td><td>&lt;0.5 μM (oligotrophic)</td><td>GRIN nutrient sub-index</td></tr>
+        <tr><td>Phosphate PO₄³⁻ / Fosfato</td><td>Non-conservative</td><td>Co-limiting nutrient; Redfield ratio</td><td>&lt;0.1 μM (oligotrophic)</td><td>GRIN nutrient sub-index</td></tr>
+        <tr><td>Aragonite Ω / Saturación Ω</td><td>Non-conservative</td><td>Coral calcification; dissolution risk</td><td>~3.0–3.2 (MAR surface)</td><td>GRIN OA alarm threshold</td></tr>
+        <tr><td>pH</td><td>Non-conservative</td><td>Carbonate equilibrium; enzyme function</td><td>8.0–8.1</td><td>GRIN water quality sub-index</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The MAR's nitrogen-limited chemistry is the direct chemical explanation for the asymmetric stressor response observed in S01 and S03: phosphorus loading from agricultural runoff has measurable but moderate reef impact, while nitrogen loading — particularly dissolved inorganic nitrogen (DIN) from sewage and fertilizer — produces disproportionate macroalgae responses because nitrogen is the limiting nutrient in the Redfield ratio context. GROAN's GRIN nutrient sub-index weights DIN inputs accordingly.</li>
+        <li>Salinity anomalies in the western Caribbean coastal zone — produced by wet-season river discharge (Motagua, Usumacinta, Hondo) dropping surface salinity below 28 PSU — represent a chemical stressor with direct biological consequences: osmotic shock to zooxanthellae, suppression of coral calcification rates, and mass mortality of salinity-sensitive echinoderms (sea urchins) that are critical herbivore biomass contributors to the GKIN trophic completeness index.</li>
+        <li>Dissolved oxygen monitoring during the Rim Run™ transit captures hypoxic events in enclosed bays and river estuaries — environments that Shamrocket regularly transits at each country stopover. DO below 2 mL/L constitutes a fish exclusion threshold; events that force fish out of nursery habitat (lagoons, back-reef channels) have direct consequences for the GMAIN juvenile fish connectivity sub-index, linking a chemical measurement to a multi-module ecosystem consequence.</li>
+        <li>The Redfield Ratio provides a field-deployable diagnostic tool for the MOOP chemical protocol: a simple N:P ratio calculated from nitrate and phosphate strip test readings at each reef node indicates whether the site is nitrogen-limited (N:P &lt;16, normal Caribbean baseline) or phosphorus-limited (N:P &gt;16, indicating unusual phosphorus depletion or localized nitrogen enrichment from sewage) — a two-parameter chemical reading that carries ecosystem-level diagnostic information for the GRIN nutrient sub-index.</li>
+        <li>GROAN's chemical layer integration with the CMIE: when salinity drops (freshwater pulse signal from GRIN) coincide with elevated DIN (nutrient loading signal from GRIN) and elevated SST (thermal stress signal from GRIN physical sub-index), the CMIE recognizes a compound chemical-physical stressor event — the triple stressor scenario documented at MAR sites following major rainfall events — producing a Decision Score that reflects the non-additive amplification that no single chemical or physical sub-index can generate alone.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>La química limitada por nitrógeno del MAR es la explicación química directa de la respuesta asimétrica al estresor observada en S01 y S03: la carga de nitrógeno — particularmente el nitrógeno inorgánico disuelto (NID) de aguas residuales y fertilizantes — produce respuestas desproporcionadas de macroalgas porque el nitrógeno es el nutriente limitante en el contexto de la Relación de Redfield.</li>
+        <li>Las anomalías de salinidad en la zona costera del Caribe occidental — producidas por la descarga fluvial de la temporada húmeda que reduce la salinidad superficial por debajo de 28 PSU — representan un estresor químico con consecuencias biológicas directas: choque osmótico a las zooxantelas, supresión de las tasas de calcificación del coral, y mortalidad masiva de equinodermos sensibles a la salinidad que son contribuyentes críticos de biomasa herbívora.</li>
+        <li>El monitoreo de oxígeno disuelto durante el tránsito Rim Run™ captura eventos hipóxicos en bahías cerradas y estuarios de ríos. El DO por debajo de 2 mL/L constituye un umbral de exclusión de peces; los eventos que expulsan a los peces del hábitat de vivero tienen consecuencias directas para el subíndice de conectividad de peces juveniles de GMAIN.</li>
+        <li>La Relación de Redfield proporciona una herramienta de diagnóstico desplegable en campo para el protocolo químico MOOP: una simple relación N:P calculada a partir de lecturas de tiras reactivas de nitrato y fosfato en cada nodo arrecifal indica si el sitio está limitado por nitrógeno (N:P &lt;16, línea base normal del Caribe) o por fósforo.</li>
+        <li>Integración de la capa química de GROAN con el CMIE: cuando las caídas de salinidad coinciden con DIN elevado y TSM elevada, el CMIE reconoce un evento de estresor compuesto químico-físico — el escenario de triple estresor documentado en sitios del MAR tras eventos de lluvia mayor — produciendo una Puntuación de Decisión que refleja la amplificación no aditiva que ningún subíndice individual puede generar solo.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why does the Redfield Ratio (C:N:P = 106:16:1) explain why nitrogen loading from sewage drives macroalgae blooms in the MAR more powerfully than equivalent phosphorus loading?</div>
+        <div class="mcq-q-es">¿Por qué la Relación de Redfield (C:N:P = 106:16:1) explica por qué la carga de nitrógeno de las aguas residuales impulsa floraciones de macroalgas en el MAR más poderosamente que la carga equivalente de fósforo?</div>
+        <ul class="mcq-options">
+          <li>A. Because nitrogen molecules are physically smaller than phosphorus and penetrate reef structure more easily</li>
+          <li class="correct">B. Caribbean reef waters are nitrogen-limited (ambient N:P below 16:1) — adding nitrogen removes the primary growth constraint on phytoplankton and macroalgae, producing a disproportionate bloom response; adding phosphorus to an already phosphorus-replete system has much smaller marginal effect</li>
+          <li>C. Because sewage contains only nitrogen and no phosphorus compounds</li>
+          <li>D. Because coral consumes phosphorus directly, neutralizing its effect on macroalgae</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">Why does the conservative behavior of major seawater ions make salinity a reliable "master variable" for reef chemistry — and what does this mean for GROAN's GRIN salinity sub-index?</div>
+        <div class="mcq-q-es">¿Por qué el comportamiento conservador de los iones mayores del agua de mar hace de la salinidad una "variable maestra" confiable para la química arrecifal — y qué significa esto para el subíndice de salinidad de GRIN de GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. Conservative behavior means salinity never changes, so it requires no monitoring</li>
+          <li>B. Major ions are conservative because they are consumed by coral calcification at a fixed rate</li>
+          <li class="correct">C. Because major ion ratios are constant regardless of total salinity, measuring salinity alone reveals the concentration of every major dissolved ion — meaning the GRIN salinity sub-index carries simultaneous information about osmotic stress, carbonate ion availability, and gas solubility without requiring separate ion measurements</li>
+          <li>D. Conservative behavior means salinity is unaffected by freshwater input, so river discharge events are chemically neutral</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">When salinity drop, elevated DIN, and elevated SST coincide at a MAR reef node, why does GROAN's CMIE produce a Decision Score lower than the sum of the three individual sub-index penalties?</div>
+        <div class="mcq-q-es">Cuando una caída de salinidad, DIN elevado y TSM elevada coinciden en un nodo arrecifal del MAR, ¿por qué el CMIE de GROAN produce una Puntuación de Decisión más baja que la suma de las tres penalizaciones individuales de subíndices?</div>
+        <ul class="mcq-options">
+          <li>A. The CMIE averages the three sub-index penalties rather than summing them</li>
+          <li class="correct">B. The three stressors interact non-additively: osmotic stress from low salinity compromises the coral's ability to regulate ion transport during thermal stress, while elevated DIN amplifies the oxidative damage pathway activated during bleaching — the compound effect exceeds any linear sum, which the CMIE detects through its cross-module interaction term</li>
+          <li>C. GROAN applies a discount to simultaneous stressors to avoid double-counting</li>
+          <li>D. The CMIE only uses the highest single sub-index value when multiple stressors occur simultaneously</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S02·L01 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.55%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
