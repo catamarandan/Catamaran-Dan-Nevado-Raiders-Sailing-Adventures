@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L13 | Chemical Oceanography: Spatial Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Pattern type cards */
+  .pattern-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.2rem 0; }
+  .pattern-card {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(26,200,200,0.1);
+  }
+  .pattern-head {
+    padding: 0.55rem 0.9rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .pattern-head.shore  { background: rgba(26,200,200,0.1);  color: var(--ocean-cyan); }
+  .pattern-head.along  { background: rgba(240,180,41,0.08); color: var(--gold); }
+  .pattern-head.basin  { background: rgba(68,184,100,0.08); color: #44b864; }
+  .pattern-body { padding: 0.75rem 0.9rem; background: rgba(2,15,30,0.5); }
+  .pattern-name { font-size: 0.83rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.28rem; }
+  .pattern-desc { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); }
+  .pattern-desc strong { color: var(--text-light); }
+  .pattern-groan { font-size: 0.72rem; color: var(--ocean-cyan); font-style: italic; margin-top: 0.35rem; }
+
+  /* Spatial hierarchy */
+  .spatial-hierarchy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+  }
+  .sh-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 90px;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 1rem;
+    border-radius: 7px;
+    background: rgba(2,15,30,0.5);
+    border: 1px solid rgba(26,200,200,0.08);
+  }
+  .sh-scale { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; }
+  .sh-scale.micro  { color: var(--ocean-cyan); }
+  .sh-scale.meso   { color: var(--gold); }
+  .sh-scale.macro  { color: #44b864; }
+  .sh-scale.basin  { color: #e89060; }
+  .sh-desc { font-size: 0.8rem; line-height: 1.5; color: var(--text-dim); }
+  .sh-desc strong { color: var(--text-light); }
+  .sh-driver { font-family: 'DM Mono', monospace; font-size: 0.62rem; text-align: right; }
+  .sh-scale.micro ~ .sh-driver  { color: var(--ocean-cyan); }
+  .sh-scale.meso  ~ .sh-driver  { color: var(--gold); }
+  .sh-scale.macro ~ .sh-driver  { color: #44b864; }
+  .sh-scale.basin ~ .sh-driver  { color: #e89060; }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 6.39%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .pattern-grid { grid-template-columns: 1fr; }
+    .sh-row { grid-template-columns: 1fr; }
+    .sh-driver { text-align: left; }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L13 · Lesson 45 of 704</div>
+      <h1>Spatial Patterns</h1>
+      <p class="subtitle">Chemistry does not distribute evenly across a reef system. Understanding how and why chemical variables pattern across space — from centimetres to ocean basins — is what allows GROAN to assign the right CMIE module to the right location.</p>
+    </div>
+
+    <!-- SVG: Cross-section spatial gradient — shore to open ocean, colour-coded Ω bands -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="omegaGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#e86040" stop-opacity="0.85"/>
+          <stop offset="30%"  stop-color="#f0b429" stop-opacity="0.75"/>
+          <stop offset="65%"  stop-color="#1ac8c8" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#b8f0ec" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="seafloor" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#3a2010"/>
+          <stop offset="40%"  stop-color="#2a3a20"/>
+          <stop offset="100%" stop-color="#102030"/>
+        </linearGradient>
+        <filter id="gfsp">
+          <feGaussianBlur stdDeviation="1.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.55)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Omega gradient band across water column -->
+      <rect x="14" y="58" width="182" height="52" rx="0" fill="url(#omegaGrad)" opacity="0.45"/>
+
+      <!-- Water surface line -->
+      <path d="M14,58 Q50,55 86,58 Q122,61 158,57 Q176,55 196,58"
+            fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="1.5"/>
+
+      <!-- Seafloor profile -->
+      <path d="M14,140 L50,138 L70,128 L90,118 L110,115 L140,118 L170,122 L196,120"
+            fill="url(#seafloor)" fill-opacity="0.6" stroke="rgba(138,184,204,0.25)" stroke-width="1"/>
+      <path d="M14,172 L196,172 L196,120 L170,122 L140,118 L110,115 L90,118 L70,128 L50,138 L14,140 Z"
+            fill="rgba(4,20,35,0.7)"/>
+
+      <!-- Zone labels along surface -->
+      <text x="28"  y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#e86040">MGROV</text>
+      <text x="62"  y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#f0b429">LAGOON</text>
+      <text x="105" y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#1ac8c8">REEF</text>
+      <text x="152" y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#b8f0ec">OPEN</text>
+      <text x="152" y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#b8f0ec">OCEAN</text>
+
+      <!-- Vertical zone dividers -->
+      <line x1="46"  y1="56" x2="46"  y2="140" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" stroke-dasharray="2,3"/>
+      <line x1="82"  y1="56" x2="82"  y2="132" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" stroke-dasharray="2,3"/>
+      <line x1="128" y1="56" x2="128" y2="125" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" stroke-dasharray="2,3"/>
+
+      <!-- Ω values in water column -->
+      <text x="28"  y="90" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#e86040" font-weight="600" filter="url(#gfsp)">1.8</text>
+      <text x="62"  y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#f0b429" font-weight="600" filter="url(#gfsp)">2.7</text>
+      <text x="105" y="86" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1ac8c8" font-weight="600" filter="url(#gfsp)">3.2</text>
+      <text x="162" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#b8f0ec" font-weight="600" filter="url(#gfsp)">3.6</text>
+
+      <!-- Module labels below seafloor -->
+      <text x="28"  y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#44b864">GMIN</text>
+      <text x="62"  y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">GMAIN</text>
+      <text x="105" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#1ac8c8">GRIN</text>
+      <text x="162" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#b8f0ec">OPEN</text>
+
+      <!-- Ω label -->
+      <text x="8" y="88" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" transform="rotate(-90,8,88)" text-anchor="middle">Ω</text>
+
+      <!-- Arrow: shore → ocean -->
+      <line x1="14" y1="170" x2="196" y2="170" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+      <polygon points="192,167 196,170 192,173" fill="rgba(26,200,200,0.3)"/>
+      <text x="105" y="178" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc" opacity="0.7">SHORE → OPEN OCEAN</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Chemical oceanography in a reef system is <strong>spatially structured at every scale</strong> — from the centimetre-scale pH gradient across a coral's mucus layer to the basin-scale alkalinity gradient between the Caribbean Sea and the Atlantic Ocean. GROAN must operate across this full hierarchy. Each scale of spatial pattern is driven by a different set of processes, requires different sampling approaches, and feeds different layers of the CMIE. <em>Misidentifying the scale of a spatial pattern is equivalent to misattributing its driver.</em></p>
+
+        <div class="spatial-hierarchy">
+          <div class="sh-row">
+            <div class="sh-scale micro">Micro · cm–10 m</div>
+            <div class="sh-desc"><strong>Boundary layer chemistry.</strong> The pH immediately adjacent to a coral polyp is 0.1–0.3 units higher than ambient water during daylight — photosynthesis by zooxanthellae drives local CO₂ depletion. At night the gradient reverses. In macroalgae mats competing with coral, the boundary layer pH can be 0.2–0.4 units lower than ambient. GROAN does not resolve micro-scale patterns directly — MOOP sensors capture ambient water, and micro-scale effects are parameterized within GRIN calcification indices.</div>
+            <div class="sh-driver">Biological<br/>Local</div>
+          </div>
+          <div class="sh-row">
+            <div class="sh-scale meso">Meso · 10 m–10 km</div>
+            <div class="sh-desc"><strong>The reef–lagoon–mangrove cross-section.</strong> The primary spatial pattern at GROAN's operational scale. Ω drops systematically from open reef (~3.5) to lagoon (~2.8–3.2) to mangrove fringe (~1.8–2.4) in a shore-perpendicular gradient driven by biological calcification draw-down, freshwater input, and organic matter decomposition. <strong>This is the gradient the 3-station transect captures.</strong> Within-lagoon patchiness — seagrass beds vs. bare sediment, SGD discharge points, tidal channels — creates meso-scale heterogeneity within the broader cross-shore trend.</div>
+            <div class="sh-driver">Biological<br/>Terrestrial<br/>Geological</div>
+          </div>
+          <div class="sh-row">
+            <div class="sh-scale macro">Macro · 10–1,000 km</div>
+            <div class="sh-desc"><strong>Along-coast and basin-scale gradients.</strong> The Guatemala–Belize reef corridor sits downcoast of the Motagua River — the macro-scale chemical signature of that river extends 50–200 km along the coast depending on prevailing currents. The Mesoamerican Barrier Reef System runs 1,000 km from Mexico to Honduras — its northern sections (oligotrophic, clear) differ chemically from southern sections (more riverine influence, higher nutrient loading). <strong>GROAN's Rim Run™ dataset is the first synoptic chemical map at this scale.</strong></div>
+            <div class="sh-driver">Terrestrial<br/>Atmospheric<br/>Circulation</div>
+          </div>
+          <div class="sh-row">
+            <div class="sh-scale basin">Basin · &gt;1,000 km</div>
+            <div class="sh-desc"><strong>Caribbean Sea vs. Atlantic Ocean.</strong> The Caribbean is a semi-enclosed basin with restricted water exchange — its average alkalinity is slightly higher than the open Atlantic (TA ~2320 vs. ~2310 µmol/kg) and its warming trend is amplified relative to the open Atlantic SST record. Long-term acidification trends in the Caribbean track the global atmospheric CO₂ curve but with a local offset from basin residence time. <strong>GROAN uses GLORYS and CMIP6 at this scale</strong> — MOOP measurements are ground-truth anchors within the basin model.</div>
+            <div class="sh-driver">Atmospheric<br/>Basin dynamics<br/>Models</div>
+          </div>
+        </div>
+
+        <p><strong>Three canonical spatial patterns in Caribbean reef chemistry.</strong> Within GROAN's operational domain, three recurring spatial patterns carry diagnostic information about driver state — each maps to a specific CMIE input and management response.</p>
+
+        <div class="pattern-grid">
+          <div class="pattern-card">
+            <div class="pattern-head shore">Shore-Perpendicular Gradient</div>
+            <div class="pattern-body">
+              <div class="pattern-name">Ω decreases landward</div>
+              <div class="pattern-desc">The universal reef chemistry pattern: open ocean → reef crest → lagoon → mangrove, each zone progressively lower Ω and pH. <strong>Steepened gradient = elevated terrestrial stress.</strong> A compressed gradient (mangrove Ω unusually high) may indicate SGD buffering. A step-change rather than smooth gradient marks a discrete discharge point — Motagua signature.</div>
+              <div class="pattern-groan">→ CMIE: cross-module transect baseline</div>
+            </div>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-head along">Along-Shore Plume Pattern</div>
+            <div class="pattern-body">
+              <div class="pattern-name">Chemical anomaly tracks current</div>
+              <div class="pattern-desc">River plumes, coastal upwelling, and wastewater discharge create along-shore chemical signatures that can extend 50–200 km downcoast of their source. <strong>The Motagua plume is detectable as a 0.3–0.8 Ω unit depression</strong> across the Guatemala–Belize boundary zone. Sentinel-2 turbidity identifies the plume extent; MOOP stations confirm the Ω signal.</div>
+              <div class="pattern-groan">→ CMIE: terrestrial driver alert layer</div>
+            </div>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-head basin">Patchwork Heterogeneity</div>
+            <div class="pattern-body">
+              <div class="pattern-name">Within-zone chemical mosaic</div>
+              <div class="pattern-desc">Seagrass beds export alkalinity, creating local Ω highs within the lagoon. SGD discharge points create localized high-TA zones. Coral rubble zones with high dissolution rates create Ω lows. <strong>Patchwork heterogeneity makes single-point sampling unreliable</strong> — GROAN's kriging layer exists specifically because point measurements cannot represent within-zone variance without interpolation.</div>
+              <div class="pattern-groan">→ CMIE: spatial uncertainty weighting</div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Scale mismatch — GROAN's spatial attribution problem.</strong> A MOOP sensor reading at a single lagoon station may reflect local seagrass alkalinity export (meso-scale patchwork), the regional Motagua plume (macro-scale along-shore), or the basin-wide OA trend (basin-scale atmospheric) — or all three simultaneously. <strong>GROAN's CMIE uses spatial pattern analysis to decompose the signal</strong>: the regional OLS trend is subtracted first (removes basin-scale baseline), leaving a residual that is tested against the macro-scale plume signature (removes along-shore), leaving a residual attributable to local meso-scale drivers. This three-layer spatial decomposition is the analytical step that produces driver-attributed chemical state variables rather than raw chemical readings.</p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>La química oceánica en un sistema arrecifal está <strong>estructurada espacialmente en cada escala</strong> — desde el gradiente de pH a escala de centímetros a través de la capa mucosa de un coral hasta el gradiente de alcalinidad a escala de cuenca entre el Mar Caribe y el Océano Atlántico. GROAN debe operar en toda esta jerarquía. <em>Identificar erróneamente la escala de un patrón espacial equivale a atribuir erróneamente su factor.</em></p>
+
+        <p>La <strong>jerarquía espacial de cuatro niveles</strong>: Micro (cm–10 m) — química de capa límite biológica, no resuelta directamente por MOOP; Meso (10 m–10 km) — la sección transversal arrecife–laguna–manglar, escala operacional primaria de GROAN capturada por el transecto de 3 estaciones; Macro (10–1.000 km) — gradientes a lo largo de la costa y de cuencas, incluida la pluma del Motagua que se extiende 50–200 km corriente abajo; Cuenca (&gt;1.000 km) — el Mar Caribe como cuenca semi-cerrada con tendencias de acidificación que siguen la curva global de CO₂ atmosférico con un desplazamiento local de tiempo de residencia.</p>
+
+        <p>Los <strong>tres patrones espaciales canónicos</strong> en la química arrecifal del Caribe son: el gradiente perpendicular a la costa (Ω disminuye tierra adentro — gradiente intensificado = estrés terrestre elevado); el patrón de pluma a lo largo de la costa (firma química que sigue la corriente — la pluma del Motagua es detectable como depresión de 0.3–0.8 unidades de Ω en la zona fronteriza Guatemala–Belice); y la heterogeneidad en mosaico (praderas de pastos marinos exportan alcalinidad, SGD crea zonas locales de alta TA, zonas de escombros de coral crean bajos de Ω — esto justifica la capa de kriging de GROAN).</p>
+
+        <p>La <strong>descomposición espacial de tres capas del CMIE</strong> resta primero la tendencia OLS regional (elimina la línea de base a escala de cuenca), dejando un residual que se compara con la firma de la pluma a escala macro (elimina la señal a lo largo de la costa), dejando un residual atribuible a factores locales a escala meso. Este es el paso analítico que produce variables de estado químico atribuidas por factor.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Spatial Scale</th>
+            <th>Ω Range (Caribbean)</th>
+            <th>Primary Driver</th>
+            <th>MOOP Resolution</th>
+            <th>GROAN Module</th>
+            <th>Analysis Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Micro (cm–10 m)</td>
+            <td class="neutral">±0.1–0.3 local</td>
+            <td>Biological (photosyn.)</td>
+            <td class="warn">Not resolved</td>
+            <td>Parameterized in GRIN</td>
+            <td class="neutral">Index, not direct</td>
+          </tr>
+          <tr>
+            <td>Meso — Open Reef</td>
+            <td class="good">3.0 – 3.8</td>
+            <td>Atmospheric / biological</td>
+            <td class="good">Direct MOOP</td>
+            <td>GRIN</td>
+            <td>Transect baseline</td>
+          </tr>
+          <tr>
+            <td>Meso — Lagoon</td>
+            <td class="caution">2.6 – 3.4</td>
+            <td>Biological / terrestrial</td>
+            <td class="good">Direct MOOP</td>
+            <td>GMAIN</td>
+            <td>Kriging + transect</td>
+          </tr>
+          <tr>
+            <td>Meso — Mangrove</td>
+            <td class="warn">1.6 – 2.6</td>
+            <td>Terrestrial / biological</td>
+            <td class="good">Direct MOOP + profile</td>
+            <td>GMIN</td>
+            <td>3-depth transect</td>
+          </tr>
+          <tr>
+            <td>Macro — Plume Zone</td>
+            <td class="warn">−0.3 to −0.8 anomaly</td>
+            <td>Terrestrial (river)</td>
+            <td class="caution">MOOP + Sentinel-2</td>
+            <td>CMIE terrestrial alert</td>
+            <td>OLS residual + satellite</td>
+          </tr>
+          <tr>
+            <td>Basin — Caribbean</td>
+            <td class="neutral">Regional baseline</td>
+            <td>Atmospheric CO₂</td>
+            <td class="warn">GLORYS / CMIP6</td>
+            <td>Long-term GRIN</td>
+            <td>Model boundary condition</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The three-layer spatial decomposition (basin OLS → macro plume residual → meso local residual) is the analysis procedure that operationalizes GROAN's thesis claim. Without this decomposition, a MOOP reading of Ω 2.3 in a Belizean lagoon is ambiguous — it could reflect the atmospheric baseline, the Motagua plume, or local mangrove degradation. With decomposition, the CMIE can attribute the anomaly fraction and route it to the correct management action.</li>
+          <li>The shore-perpendicular Ω gradient is GROAN's primary spatial health indicator for each country visited on the Rim Run™. A healthy gradient (Ω 3.5 → 3.0 → 2.5 from open reef to mangrove) indicates the reef–lagoon–mangrove system is functioning as a coupled chemical unit. A compressed gradient (Ω 2.8 → 2.5 → 2.2 uniformly) indicates basin-wide or macro-scale stressor. A step-change at the lagoon boundary (Ω drops 0.8 units abruptly) indicates a discrete discharge point within sampling range.</li>
+          <li>Patchwork heterogeneity within lagoon zones is the spatial pattern most likely to produce High-variance MOOP readings that look like sensor error. The protocol response is not to average or discard the variance — it is to map it. High within-zone Ω variance at a lagoon station is itself a CMIE input: it signals the presence of chemical patchwork drivers (seagrass alkalinity export or SGD) that should be flagged and ground-truthed on the next Rim Run™ pass or via CCRA follow-up sampling.</li>
+          <li>For the KAUST Red Sea case study, the shore-perpendicular gradient operates differently from the Caribbean: the Red Sea's carbonate platform geology and limited freshwater input mean the mangrove-to-reef Ω gradient is compressed compared to the Caribbean reference. GSIN seagrass spatial patterns in the Red Sea are the primary meso-scale heterogeneity driver — GSIN module weighting in the Red Sea CMIE configuration should be higher than in the Caribbean configuration.</li>
+          <li>The Rim Run™ dataset will be the first dataset to map the along-shore Motagua plume chemical signature continuously from the Guatemala coast to the Honduran Bay Islands — currently this signature is inferred from isolated measurements at non-standardized stations. GROAN's standardized 16-field schema applied consistently across this corridor converts a fragmented picture into a defensible spatial pattern claim.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>La descomposición espacial de tres capas (OLS de cuenca → residual de pluma macro → residual local meso) es el procedimiento analítico que operacionaliza la afirmación de tesis de GROAN. Sin esta descomposición, una lectura MOOP de Ω 2.3 en una laguna de Belice es ambigua. Con la descomposición, el CMIE puede atribuir la fracción de anomalía y enrutarla a la acción de gestión correcta.</li>
+          <li>El gradiente de Ω perpendicular a la costa es el indicador de salud espacial primario de GROAN para cada país visitado en el Rim Run™. Un gradiente saludable (Ω 3.5 → 3.0 → 2.5 del arrecife abierto al manglar) indica que el sistema arrecife–laguna–manglar funciona como una unidad química acoplada. Un gradiente comprimido (Ω 2.8 → 2.5 → 2.2 uniformemente) indica un factor a escala de cuenca o macro. Un cambio escalonado en el límite de la laguna indica un punto de descarga discreto dentro del rango de muestreo.</li>
+          <li>La heterogeneidad en mosaico dentro de las zonas de laguna es el patrón espacial con mayor probabilidad de producir lecturas MOOP de alta varianza que parecen errores del sensor. La respuesta del protocolo no es promediar o descartar la varianza — es mapearla, ya que la alta varianza de Ω dentro de una zona de laguna es en sí misma una señal del CMIE.</li>
+          <li>Para el estudio de caso del Mar Rojo de KAUST, el gradiente perpendicular a la costa opera de manera diferente: la geología de la plataforma carbonatada del Mar Rojo y la entrada limitada de agua dulce significan que el gradiente de Ω manglar-arrecife está comprimido en comparación con la referencia del Caribe. Los patrones espaciales de pastos marinos GSIN en el Mar Rojo son el principal impulsor de heterogeneidad a escala meso.</li>
+          <li>El conjunto de datos Rim Run™ será el primer conjunto de datos que mapee la firma química de la pluma del Motagua a lo largo de la costa de forma continua desde la costa de Guatemala hasta las Islas de la Bahía de Honduras — convirtiendo una imagen fragmentada en una afirmación de patrón espacial defendible.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">A MOOP transect from mangrove to open reef shows Ω values of 2.2 → 2.5 → 2.7 → 2.9. What does this compressed gradient most likely indicate compared to a healthy gradient of 1.8 → 2.6 → 3.1 → 3.5?</div>
+        <div class="q-text-es">Un transecto MOOP del manglar al arrecife abierto muestra valores de Ω de 2.2 → 2.5 → 2.7 → 2.9. ¿Qué indica más probablemente este gradiente comprimido en comparación con un gradiente saludable de 1.8 → 2.6 → 3.1 → 3.5?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> The mangrove zone is unusually healthy, exporting high alkalinity that raises lagoonal Ω</li>
+          <li><span class="opt-key">B</span> Tidal phase contamination has flattened the apparent gradient — the data requires correction</li>
+          <li class="correct"><span class="opt-key">C</span> A basin-scale or macro-scale stressor is uniformly depressing Ω across all zones — the whole system is under background chemical pressure, not a localized meso-scale discharge event</li>
+          <li><span class="opt-key">D</span> The open reef is being suppressed by biological calcification draw-down more than normal</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Why does GROAN's CMIE subtract the regional OLS baseline trend before testing for the Motagua plume signature in spatial data?</div>
+        <div class="q-text-es">¿Por qué el CMIE de GROAN resta la tendencia de línea de base OLS regional antes de probar la firma de la pluma del Motagua en los datos espaciales?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> To convert Ω values from absolute units to the 0–10 GROAN normalization scale</li>
+          <li><span class="opt-key">B</span> Because the OLS trend contains the tidal phase correction that must be removed first</li>
+          <li class="correct"><span class="opt-key">C</span> To isolate the plume anomaly from the basin-scale background — without subtracting the baseline, the plume signal is confounded with the regional Ω gradient and cannot be attributed specifically to terrestrial discharge</li>
+          <li><span class="opt-key">D</span> Because kriging interpolation requires a detrended dataset as input to fit the variogram model</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">High within-zone Ω variance at a single lagoon MOOP station is detected. The protocol response is to map the variance, not discard it. Why?</div>
+        <div class="q-text-es">Se detecta alta varianza de Ω dentro de la zona en una sola estación MOOP de laguna. La respuesta del protocolo es mapear la varianza, no descartarla. ¿Por qué?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because high variance always indicates sensor malfunction that must be documented for equipment records</li>
+          <li><span class="opt-key">B</span> Because CMIE confidence tier rules require all variance data to be retained regardless of cause</li>
+          <li class="correct"><span class="opt-key">C</span> Because within-zone Ω variance is itself a CMIE signal — it indicates meso-scale heterogeneity drivers such as seagrass alkalinity export or SGD that should be flagged and ground-truthed, not averaged away</li>
+          <li><span class="opt-key">D</span> Because OLS regression cannot be performed on datasets with discarded variance observations</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">6.39% — Lesson 45 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L13 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
