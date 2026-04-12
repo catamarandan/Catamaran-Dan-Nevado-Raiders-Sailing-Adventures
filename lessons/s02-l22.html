@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L22 | Chemical Oceanography — Corridor Integration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid: #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral: #e86040;
+    --gold: #f0b429;
+    --green: #3ecf8e;
+    --purple: #9b7fe8;
+    --mar-reef: #0fd4a0;
+    --mar-karst: #c8a45a;
+    --text-light: #e8f4f8;
+    --text-dim: #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold); font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral); font-weight: 500; }
+  .lecture-text .reef      { color: var(--mar-reef); font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst); font-weight: 500; }
+  .lecture-text .green     { color: var(--green); font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple); font-weight: 500; }
+
+  /* ── CORRIDOR CONCEPT BLOCKS ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .concept-block {
+    border-radius: 6px;
+    padding: 14px 16px;
+    background: rgba(4,41,74,0.3);
+    border-left: 3px solid rgba(26,200,200,0.35);
+  }
+
+  .concept-block.alias   { border-left-color: rgba(240,180,41,0.5);  background: rgba(22,16,2,0.35); }
+  .concept-block.anchor  { border-left-color: rgba(26,200,200,0.45); background: rgba(4,25,40,0.35); }
+  .concept-block.transit { border-left-color: rgba(155,127,232,0.5); background: rgba(12,6,22,0.35); }
+  .concept-block.repeat  { border-left-color: rgba(62,207,142,0.5);  background: rgba(4,20,12,0.35); }
+
+  .concept-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 8px;
+  }
+
+  .concept-block.alias   .concept-header { color: var(--gold); }
+  .concept-block.anchor  .concept-header { color: var(--ocean-cyan); }
+  .concept-block.transit .concept-header { color: var(--purple); }
+  .concept-block.repeat  .concept-header { color: var(--green); }
+
+  .concept-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── CORRIDOR TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 12px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 12px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+    font-size: 11px;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high  { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod   { background: rgba(240,180,41,0.12); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low   { background: rgba(232,96,64,0.12);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-gap   { background: rgba(155,127,232,0.12);color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+
+  /* ── APPLICATION PANEL ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before {
+    content: '✓ ';
+    color: var(--ocean-cyan);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 7.67%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .concept-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L22 / 32</div>
+      <h1 class="lesson-title">Corridor Integration</h1>
+      <p class="lesson-subtitle">Rim Run™ transect chemistry — 7 countries, temporal aliasing, satellite anchoring, and annual repeatability</p>
+    </div>
+
+    <!-- SVG: vertical corridor strip Mexico→Panama with country zones, sampling dots, chemical gradient, route arrow -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Ocean background -->
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.6)"/>
+
+      <!-- Corridor gradient strip (left side — chemical gradient north karst → south upwelling) -->
+      <defs>
+        <linearGradient id="corrGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#c8a45a" stop-opacity="0.25"/>
+          <stop offset="35%"  stop-color="#0fd4a0" stop-opacity="0.20"/>
+          <stop offset="65%"  stop-color="#1ac8c8" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#9b7fe8" stop-opacity="0.25"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Reef corridor band -->
+      <rect x="70" y="6" width="22" height="148" rx="2" fill="url(#corrGrad)" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+
+      <!-- Rim Run route arrow -->
+      <line x1="81" y1="8" x2="81" y2="150" stroke="rgba(240,180,41,0.5)" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <polygon points="77,146 81,154 85,146" fill="rgba(240,180,41,0.65)"/>
+
+      <!-- Country zones with labels and chemical chips -->
+      <!-- MX -->
+      <line x1="68" y1="18" x2="96" y2="18" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="22" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#c8a45a" font-weight="500">MX</text>
+      <circle cx="81" cy="22" r="3" fill="rgba(200,164,90,0.6)" stroke="#c8a45a" stroke-width="0.8"/>
+      <text x="100" y="17" font-family="DM Mono,monospace" font-size="7" fill="#c8a45a" opacity="0.85">Karst SGD</text>
+      <text x="100" y="26" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 2.9–3.5</text>
+
+      <!-- BZ -->
+      <line x1="68" y1="42" x2="96" y2="42" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="46" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#0fd4a0" font-weight="500">BZ</text>
+      <circle cx="81" cy="44" r="3" fill="rgba(15,212,160,0.55)" stroke="#0fd4a0" stroke-width="0.8"/>
+      <text x="100" y="41" font-family="DM Mono,monospace" font-size="7" fill="#0fd4a0" opacity="0.9">MAR Core</text>
+      <text x="100" y="50" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 2.8–3.6</text>
+
+      <!-- GT -->
+      <line x1="68" y1="64" x2="96" y2="64" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="68" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#3ecf8e" font-weight="500">GT</text>
+      <circle cx="81" cy="66" r="3" fill="rgba(62,207,142,0.45)" stroke="#3ecf8e" stroke-width="0.8"/>
+      <text x="100" y="63" font-family="DM Mono,monospace" font-size="7" fill="#3ecf8e" opacity="0.9">River DIN</text>
+      <text x="100" y="72" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 2.6–3.2</text>
+
+      <!-- HN -->
+      <line x1="68" y1="86" x2="96" y2="86" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="90" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#3ecf8e" font-weight="500">HN</text>
+      <circle cx="81" cy="88" r="3" fill="rgba(62,207,142,0.35)" stroke="#3ecf8e" stroke-width="0.8"/>
+      <text x="100" y="85" font-family="DM Mono,monospace" font-size="7" fill="#3ecf8e" opacity="0.85">Motagua R.</text>
+      <text x="100" y="94" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 2.5–3.1</text>
+
+      <!-- NI -->
+      <line x1="68" y1="106" x2="96" y2="106" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="110" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" font-weight="500">NI</text>
+      <circle cx="81" cy="108" r="3" fill="rgba(26,200,200,0.5)" stroke="#1ac8c8" stroke-width="0.8"/>
+      <text x="100" y="105" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" opacity="0.9">Low Stress</text>
+      <text x="100" y="114" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 3.0–3.6</text>
+
+      <!-- CR -->
+      <line x1="68" y1="126" x2="96" y2="126" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="130" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#e86040" font-weight="500">CR</text>
+      <circle cx="81" cy="128" r="3" fill="rgba(232,96,64,0.45)" stroke="#e86040" stroke-width="0.8"/>
+      <text x="100" y="125" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.9">Pacific Trans.</text>
+      <text x="100" y="134" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 2.4–3.2</text>
+
+      <!-- PA -->
+      <line x1="68" y1="146" x2="96" y2="146" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+      <text x="64" y="150" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#9b7fe8" font-weight="500">PA</text>
+      <circle cx="81" cy="148" r="3" fill="rgba(155,127,232,0.5)" stroke="#9b7fe8" stroke-width="0.8"/>
+      <text x="100" y="145" font-family="DM Mono,monospace" font-size="7" fill="#9b7fe8" opacity="0.9">Upwelling</text>
+      <text x="100" y="154" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Ω 1.8–2.8</text>
+
+      <!-- Header label -->
+      <rect x="2" y="2" width="60" height="12" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(240,180,41,0.3)" stroke-width="0.7"/>
+      <text x="32" y="11" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" letter-spacing="0.08em">RIM RUN™</text>
+
+      <!-- Distance label -->
+      <text x="34" y="157" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.6">1,500+ nm</text>
+
+      <!-- Temporal arrow (horizontal, showing time offset) -->
+      <line x1="4" y1="8" x2="4" y2="152" stroke="rgba(240,180,41,0.25)" stroke-width="1"/>
+      <text x="2" y="83" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#f0b429" opacity="0.6" transform="rotate(-90,2,83)">OCT→DEC</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          The Rim Run™ expedition — a zero-carbon annual sailing circuit from Mexico to Panama aboard Shamrocket — is not simply a field sampling program. It is GROAN's <strong>primary in-situ chemical transect instrument</strong>: a 1,500+ nautical mile, 7-country, 100+ reef-site corridor that generates the ground-truth carbonate chemistry data against which satellite fields are calibrated and CMIE cross-module attributions are anchored. Integrating chemistry collected along this corridor into a coherent GROAN dataset requires solving four distinct analytical problems that do not arise in fixed-station monitoring programs.
+        </p>
+
+        <div class="concept-grid">
+
+          <!-- Temporal aliasing -->
+          <div class="concept-block alias">
+            <div class="concept-header">Problem 01 · Temporal Aliasing</div>
+            <p class="concept-desc">
+              A Mexico reef station sampled in October and a Panama reef station sampled in December are <strong>not contemporaneous observations</strong> — they are separated by up to eight weeks of evolving ocean conditions. Direct comparison without temporal correction will conflate seasonal chemistry with spatial chemistry, producing spurious longitudinal gradients in CMIE. The correction protocol: anchor each corridor sample to the GLORYS reanalysis field at the date and location of collection, compute the anomaly from the reanalysis baseline, and use anomalies — not raw values — for cross-country chemical comparison. Raw values are retained for country-specific CMIE calibration records only.
+            </p>
+          </div>
+
+          <!-- Satellite anchoring -->
+          <div class="concept-block anchor">
+            <div class="concept-header">Problem 02 · Satellite Anchoring</div>
+            <p class="concept-desc">
+              MOOP corridor stations are point measurements separated by <strong>15 km minimum spacing</strong> for valid kriging. Between stations, chemistry is inferred from satellite-derived fields — GLORYS SST/salinity, Sentinel-2 CDOM and turbidity proxies. Each MOOP station anchors a 15 km kriging radius in the satellite spatial field. For anchoring to be valid, each station must be logged with GPS position and UTC timestamp so it can be retrospectively aligned with the nearest Sentinel-2 overpass. A station without a confirmed overpass alignment within ±3 days is treated as an unanchored point — it contributes to the MOOP record but cannot upgrade satellite-derived estimates from Moderate to High confidence in its zone.
+            </p>
+          </div>
+
+          <!-- Cross-country transitions -->
+          <div class="concept-block transit">
+            <div class="concept-header">Problem 03 · Cross-Country Transitions</div>
+            <p class="concept-desc">
+              At each national boundary along the corridor, baseline chemistry, correction protocols, and data gap profiles change simultaneously. A <strong>25 km buffer zone</strong> on each side of every national boundary is designated as a transition zone in CMIE — stations within this buffer receive country-specific corrections applied from both adjacent national baselines, and the resulting DS carries an elevated uncertainty flag. The transition zone prevents CMIE from generating a hard attribution boundary at a political line that has no corresponding chemical discontinuity in the ocean. The Belize–Guatemala boundary near the Gulf of Honduras is the most chemically complex transition in the corridor — riverine discharge from the Motagua River creates a persistent turbid plume that crosses the boundary seasonally.
+            </p>
+          </div>
+
+          <!-- Annual repeatability -->
+          <div class="concept-block repeat">
+            <div class="concept-header">Problem 04 · Annual Repeatability</div>
+            <p class="concept-desc">
+              The Rim Run™ annual circuit means each reef site is re-sampled once per year — the temporal resolution of GROAN's corridor chemistry record is <strong>one year per site</strong>. For CMIE trend detection to be valid, consecutive-year samples at the same site must be collected within <strong>±2 hours of the same tidal phase and ±2 hours of the same time of day</strong>. Carbonate chemistry varies by 0.1–0.3 pH units and 0.3–0.5 Ω units within a single tidal cycle at reef sites — a sampling phase mismatch of four hours can exceed the annual trend signal GROAN is designed to detect. Tidal phase matching is not a best practice. It is a mandatory metadata constraint for all corridor sites in CMIE trend analysis.
+            </p>
+          </div>
+
+        </div>
+
+        <p style="margin-top:6px; margin-bottom:14px;">
+          <strong>The longitudinal gradient.</strong> The corridor's chemical character shifts systematically from north to south. Mexico and Belize are <span class="karst">karst-dominated</span> — SGD suppresses Ω and elevates DIN against an otherwise high-carbonate Caribbean background. Guatemala and Honduras are <span class="green">riverine-dominated</span> — the Motagua and Ulúa river systems deliver turbid, nutrient-loaded freshwater that depresses Ω and creates the corridor's largest DIN plume. Nicaragua is the corridor's <span class="reef">chemical refuge</span> — low anthropogenic pressure, minimal riverine loading, and Ω values approaching the corridor maximum. Costa Rica marks the <span class="coral">Pacific transition</span> — the Gulf of Nicoya introduces cooler, lower-pH water from Pacific influence, and Raising Coral NGO operations here provide the only independent verification data point in the southern corridor. Panama closes the circuit at the <span class="purple">upwelling boundary</span> — Gulf of Panama upwelling can drive Ω as low as 1.8 seasonally, the lowest in the corridor and the most analytically demanding CMIE attribution environment outside the Eastern Pacific theater.
+        </p>
+
+        <p>
+          <strong>Key argument:</strong> No satellite product, model reanalysis, or fixed-station network can replicate what the Rim Run™ corridor provides — a <span class="coral">continuous, annually repeated, zero-carbon, human-verified chemical transect</span> across seven national jurisdictions at a spatial resolution and reef-zone specificity that no other data collection method achieves at this scale. The corridor is not supporting evidence for GROAN. It is the ground-truth layer without which CMIE cross-border attribution is unverifiable.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          La expedición Rim Run™ — un circuito de navegación anual de cero carbono de México a Panamá a bordo de Shamrocket — es el <strong>instrumento primario de transecto químico in situ</strong> de GROAN: un corredor de 1,500+ millas náuticas, 7 países, 100+ sitios de arrecife que genera los datos de química de carbonatos de verdad sobre el terreno contra los cuales se calibran los campos satelitales y se anclan las atribuciones de módulo cruzado del CMIE. Integrar la química recolectada a lo largo de este corredor en un conjunto de datos GROAN coherente requiere resolver cuatro problemas analíticos distintos.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Aliasing Temporal:</strong> Una estación arrecifal de México muestreada en octubre y una de Panamá muestreada en diciembre no son observaciones contemporáneas — están separadas por hasta ocho semanas de condiciones oceánicas en evolución. El protocolo de corrección: ancle cada muestra del corredor al campo de reanálisis GLORYS en la fecha y ubicación de la recolección, calcule la anomalía desde la línea base de reanálisis y use anomalías — no valores brutos — para la comparación química entre países.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Anclaje Satelital:</strong> Las estaciones del corredor MOOP son mediciones puntuales separadas por un <strong>espaciado mínimo de 15 km</strong> para kriging válido. Cada estación MOOP ancla un radio de kriging de 15 km en el campo espacial satelital. Para que el anclaje sea válido, cada estación debe registrarse con posición GPS y marca de tiempo UTC para alinearse con el sobrevuelo Sentinel-2 más cercano.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Transiciones Entre Países:</strong> Una <strong>zona de amortiguación de 25 km</strong> en cada lado de cada frontera nacional se designa como zona de transición en CMIE. Las estaciones dentro de este buffer reciben correcciones de línea base específicas del país aplicadas desde ambas líneas base nacionales adyacentes. La frontera Belice–Guatemala es la transición química más compleja del corredor — la descarga fluvial del Río Motagua crea un penacho turbio persistente que cruza la frontera estacionalmente.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Repetibilidad Anual:</strong> Las muestras en años consecutivos en el mismo sitio deben recolectarse dentro de <strong>±2 horas de la misma fase de marea y ±2 horas de la misma hora del día</strong>. La química de carbonatos varía 0.1–0.3 unidades de pH y 0.3–0.5 unidades de Ω dentro de un solo ciclo de marea — un desajuste de fase de muestreo de cuatro horas puede superar la señal de tendencia anual. La concordancia de fase de marea es una restricción de metadatos obligatoria.
+        </p>
+        <p>
+          <strong>Argumento clave:</strong> Ningún producto satelital, reanálisis de modelo o red de estaciones fijas puede replicar lo que proporciona el corredor Rim Run™ — un <span class="coral">transecto químico continuo, repetido anualmente, de cero carbono y verificado humanamente</span> en siete jurisdicciones nacionales. El corredor es la capa de verdad terreno sin la cual la atribución transfronteriza del CMIE es inverificable.
+        </p>
+      </div>
+    </div>
+
+    <!-- CORRIDOR DATA TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Dominant Chemistry</th>
+          <th>Ω Range</th>
+          <th>Key Correction</th>
+          <th>Data Gap Risk</th>
+          <th>CMIE Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--mar-karst)">Mexico (MX)</strong></td>
+          <td>Karst SGD, Sargassum</td>
+          <td>2.9–3.5</td>
+          <td>Karst mandatory + sargassum flag</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--mar-reef)">Belize (BZ)</strong></td>
+          <td>MAR core, mangrove TA</td>
+          <td>2.8–3.6</td>
+          <td>Seasonal TA + karst</td>
+          <td><span class="badge badge-high">Low</span></td>
+          <td><span class="badge badge-high">High — CORDAP reference</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green)">Guatemala (GT)</strong></td>
+          <td>Motagua River plume, turbidity</td>
+          <td>2.6–3.2</td>
+          <td>Riverine δ¹⁵N + turbidity flag</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green)">Honduras (HN)</strong></td>
+          <td>Ulúa/Motagua discharge, DIN</td>
+          <td>2.5–3.1</td>
+          <td>Riverine correction + N:P check</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">Nicaragua (NI)</strong></td>
+          <td>Low anthropogenic, clean Caribbean</td>
+          <td>3.0–3.6</td>
+          <td>Standard Caribbean baseline</td>
+          <td><span class="badge badge-gap">High — sparse coverage</span></td>
+          <td><span class="badge badge-mod">Moderate — refuge baseline</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--coral)">Costa Rica (CR)</strong></td>
+          <td>Pacific transition, Gulf of Nicoya</td>
+          <td>2.4–3.2</td>
+          <td>Pacific endmember blend</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+          <td><span class="badge badge-high">High — Raising Coral anchor</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--purple)">Panama (PA)</strong></td>
+          <td>Gulf of Panama upwelling</td>
+          <td>1.8–2.8</td>
+          <td>Upwelling index correction mandatory</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+          <td><span class="badge badge-low">Critical — lowest Ω in corridor</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Never compare raw carbonate values across corridor countries collected at different expedition dates. Compute the anomaly from the GLORYS reanalysis field at the collection date and location for each sample, and use anomalies for cross-country comparison. The temporal aliasing error between an October Mexico sample and a December Panama sample can exceed the actual longitudinal chemical gradient CMIE is designed to detect.</span></li>
+        <li><span class="app-num">02</span><span>Each MOOP corridor station must be logged with GPS position and UTC timestamp at collection. Match each station to the nearest Sentinel-2 overpass within ±3 days. A station without a confirmed overpass alignment cannot upgrade satellite-derived CDOM or turbidity proxies in its 15 km kriging zone from Moderate to High confidence — the satellite field remains uncalibrated at that location regardless of instrument precision.</span></li>
+        <li><span class="app-num">03</span><span>Apply the 25 km transition zone buffer at every national boundary in the corridor. The Belize–Guatemala boundary near the Gulf of Honduras requires particular care — the Motagua River plume crosses this boundary seasonally, and DIN values on the Belize side during the wet season may reflect Guatemalan agricultural discharge rather than Belizean conditions. CMIE must not attribute elevated DIN to the country of measurement without plume tracking confirmation.</span></li>
+        <li><span class="app-num">04</span><span>At annual re-sampling, collect each site within ±2 hours of the previous year's tidal phase and ±2 hours of the previous year's time of day. If the tidal window cannot be matched within this constraint, flag the sample as phase-uncertain and assign Moderate confidence for CMIE trend analysis. A four-hour tidal phase mismatch produces a carbonate chemistry range that can exceed the inter-annual trend signal — the trend detection is invalidated, not merely degraded.</span></li>
+        <li><span class="app-num">05</span><span>Panama corridor stations in the Gulf of Panama upwelling zone require the same upwelling index correction mandatory in the Eastern Pacific theater — Ω values of 1.8–2.0 at Panama sites during upwelling season are natural, not anthropogenic. CMIE must not generate a High-priority acidification alert for Panama upwelling-suppressed Ω without first confirming that the upwelling index correction has been applied. Failing this check will produce the highest false-positive rate in the entire Rim Run™ corridor.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Nunca compare valores brutos de carbonatos en países del corredor recolectados en fechas de expedición diferentes. Calcule la anomalía del campo de reanálisis GLORYS en la fecha y ubicación de recolección de cada muestra, y use anomalías para la comparación entre países. El error de aliasing temporal entre una muestra de México de octubre y una de Panamá de diciembre puede superar el gradiente químico longitudinal real que CMIE está diseñado para detectar.</span></li>
+        <li><span class="app-num">02</span><span>Cada estación del corredor MOOP debe registrarse con posición GPS y marca de tiempo UTC en la recolección. Alinee cada estación con el sobrevuelo Sentinel-2 más cercano dentro de ±3 días. Una estación sin alineación de sobrevuelo confirmada no puede actualizar los proxies CDOM o turbidez derivados de satélite en su zona de kriging de 15 km de Moderado a Alta confianza.</span></li>
+        <li><span class="app-num">03</span><span>Aplique el buffer de zona de transición de 25 km en cada frontera nacional del corredor. La frontera Belice–Guatemala requiere atención particular — el penacho del Río Motagua cruza esta frontera estacionalmente, y los valores de DIN en el lado beliceño durante la temporada lluviosa pueden reflejar la descarga agrícola guatemalteca. CMIE no debe atribuir DIN elevado al país de medición sin confirmación de seguimiento del penacho.</span></li>
+        <li><span class="app-num">04</span><span>En el remuestreo anual, recolecte cada sitio dentro de ±2 horas de la fase de marea del año anterior y ±2 horas de la hora del día del año anterior. Si la ventana de marea no puede coincidir dentro de esta restricción, marque la muestra como de fase incierta y asigne confianza Moderada para el análisis de tendencias CMIE.</span></li>
+        <li><span class="app-num">05</span><span>Las estaciones del corredor de Panamá en la zona de surgencia del Golfo de Panamá requieren la misma corrección del índice de surgencia obligatoria en el teatro del Pacífico Oriental. CMIE no debe generar una alerta de acidificación de alta prioridad para el Ω suprimido por surgencia en Panamá sin confirmar primero que se ha aplicado la corrección del índice de surgencia.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">What is the correct unit of comparison for cross-country carbonate chemistry along the Rim Run™ corridor, and why?</div>
+        <div class="mcq-q-es">¿Cuál es la unidad correcta de comparación para la química de carbonatos entre países a lo largo del corredor Rim Run™, y por qué?</div>
+        <div class="mcq-option">A) Raw values — temporal corrections introduce additional uncertainty that outweighs the aliasing error / Valores brutos — las correcciones temporales introducen incertidumbre adicional que supera el error de aliasing</div>
+        <div class="mcq-option">B) Values normalized to salinity — salinity is the primary driver of cross-country carbonate variability / Valores normalizados a salinidad — la salinidad es el principal impulsor de la variabilidad de carbonatos entre países</div>
+        <div class="mcq-option correct">C) GLORYS reanalysis anomalies — raw values conflate temporal and spatial chemistry due to the 8-week collection window; anomalies isolate the spatial signal / Anomalías de reanálisis GLORYS — los valores brutos mezclan química temporal y espacial debido a la ventana de recolección de 8 semanas; las anomalías aíslan la señal espacial</div>
+        <div class="mcq-option">D) Values averaged to country-level means — individual station variability is too high for valid cross-country comparison / Valores promediados a medias nacionales — la variabilidad individual de estaciones es demasiado alta</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">What constraint governs annual re-sampling tidal phase matching at corridor sites, and what happens if the constraint is violated?</div>
+        <div class="mcq-q-es">¿Qué restricción rige la concordancia de fase de marea en el remuestreo anual en sitios del corredor, y qué ocurre si se viola la restricción?</div>
+        <div class="mcq-option">A) ±6 hours — a violation degrades confidence but does not invalidate the trend / ±6 horas — una violación degrada la confianza pero no invalida la tendencia</div>
+        <div class="mcq-option correct">B) ±2 hours of tidal phase and ±2 hours of time of day — a 4-hour mismatch produces a chemistry range that can exceed the inter-annual trend signal, invalidating trend detection / ±2 horas de fase de marea y ±2 horas de hora del día — un desajuste de 4 horas produce un rango que puede superar la señal de tendencia interanual, invalidando la detección de tendencia</div>
+        <div class="mcq-option">C) ±30 minutes — the tidal correction algorithm can compensate for anything beyond this window / ±30 minutos — el algoritmo de corrección de mareas puede compensar cualquier cosa más allá de esta ventana</div>
+        <div class="mcq-option">D) No constraint — GLORYS reanalysis temporally normalizes all corridor samples to a common reference frame / Sin restricción — el reanálisis GLORYS normaliza temporalmente todas las muestras</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">Why does the Belize–Guatemala boundary require special handling in CMIE cross-border attribution for the corridor?</div>
+        <div class="mcq-q-es">¿Por qué la frontera Belice–Guatemala requiere manejo especial en la atribución transfronteriza CMIE para el corredor?</div>
+        <div class="mcq-option">A) Guatemala has no reef zones and therefore no GROAN baseline exists on the Guatemala side / Guatemala no tiene zonas arrecifales y por lo tanto no existe línea base GROAN en el lado guatemalteco</div>
+        <div class="mcq-option">B) The boundary falls within the MAR core zone where karst SGD from both countries creates a combined discharge field / La frontera cae dentro de la zona central del MAR donde el SGD kárstico de ambos países crea un campo de descarga combinado</div>
+        <div class="mcq-option correct">C) The Motagua River plume crosses the boundary seasonally — elevated DIN on the Belize side during wet season may originate from Guatemalan agricultural discharge, making country-of-measurement attribution invalid without plume tracking confirmation / El penacho del Río Motagua cruza la frontera estacionalmente — DIN elevado en el lado beliceño puede originarse en descarga agrícola guatemalteca, invalidando la atribución al país de medición sin confirmación de seguimiento del penacho</div>
+        <div class="mcq-option">D) Belize and Guatemala use different salinity reference standards, requiring cross-calibration before CMIE can compare values / Belice y Guatemala usan diferentes estándares de referencia de salinidad que requieren calibración cruzada</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 54 of 704</span>
+      <span class="progress-pct">7.67%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
