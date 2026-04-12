@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L31 | Chemical Oceanography — Expedition Integration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --mar-karst:  #c8a45a;
+    --e-preflight: #1ac8c8;
+    --e-transit:   #f0b429;
+    --e-station:   #3ecf8e;
+    --e-data:      #9b7fe8;
+    --e-close:     #e86040;
+    --text-light:  #e8f4f8;
+    --text-dim:    #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);      font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);     font-weight: 500; }
+  .lecture-text .green     { color: var(--green);     font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);    font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst); font-weight: 500; }
+
+  /* ── PHASE TIMELINE ── */
+  .phase-timeline {
+    margin: 22px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 110px 18px 1fr;
+    align-items: stretch;
+    min-height: 64px;
+  }
+
+  .phase-label-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+    padding-right: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .phase-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .phase-days {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-top: 3px;
+  }
+
+  .phase-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phase-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-top: 10px;
+    flex-shrink: 0;
+    border: 2px solid;
+  }
+
+  .phase-line {
+    width: 2px;
+    flex: 1;
+    margin-top: 2px;
+    opacity: 0.3;
+  }
+
+  .phase-content {
+    padding: 10px 0 10px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+    border-left: 1px solid rgba(26,200,200,0.08);
+  }
+
+  /* Phase colors */
+  .p-preflight .phase-name  { color: var(--e-preflight); }
+  .p-preflight .phase-dot   { background: rgba(26,200,200,0.25); border-color: var(--e-preflight); }
+  .p-preflight .phase-line  { background: var(--e-preflight); }
+
+  .p-transit  .phase-name  { color: var(--e-transit); }
+  .p-transit  .phase-dot   { background: rgba(240,180,41,0.25); border-color: var(--e-transit); }
+  .p-transit  .phase-line  { background: var(--e-transit); }
+
+  .p-station  .phase-name  { color: var(--e-station); }
+  .p-station  .phase-dot   { background: rgba(62,207,142,0.25); border-color: var(--e-station); }
+  .p-station  .phase-line  { background: var(--e-station); }
+
+  .p-data     .phase-name  { color: var(--e-data); }
+  .p-data     .phase-dot   { background: rgba(155,127,232,0.25); border-color: var(--e-data); }
+  .p-data     .phase-line  { background: var(--e-data); }
+
+  .p-close    .phase-name  { color: var(--e-close); }
+  .p-close    .phase-dot   { background: rgba(232,96,64,0.25); border-color: var(--e-close); }
+  .p-close    .phase-line  { background: var(--e-close); }
+
+  /* ── INTEGRATION CHECKLIST ── */
+  .checklist {
+    margin: 18px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(4,41,74,0.3);
+    border-radius: 5px;
+    border-left: 3px solid rgba(26,200,200,0.3);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .check-item.warn { border-left-color: rgba(232,96,64,0.5); background: rgba(28,6,2,0.3); }
+  .check-item.note { border-left-color: rgba(240,180,41,0.45); background: rgba(22,16,2,0.3); }
+
+  .check-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 1px;
+    min-width: 20px;
+  }
+
+  .check-item.warn .check-icon { color: var(--coral); }
+  .check-item.note .check-icon { color: var(--gold); }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 11px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 11px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-gap  { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .badge-crit { background: rgba(192,57,43,0.18);   color: #ff8070;           border: 1px solid rgba(192,57,43,0.4); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--ocean-cyan); letter-spacing:.15em; margin-bottom:10px; text-transform:uppercase; }
+  .mcq-q-en { font-size:13px; font-weight:500; color:var(--text-light); line-height:1.5; margin-bottom:6px; }
+  .mcq-q-es { font-size:11.5px; font-style:italic; color:var(--text-dim); line-height:1.45; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(26,200,200,0.1); }
+  .mcq-option { font-size:12px; padding:7px 10px; margin-bottom:5px; border-radius:4px; color:var(--text-dim); border:1px solid transparent; line-height:1.45; }
+  .mcq-option.correct { background:rgba(26,200,200,0.08); border-color:rgba(26,200,200,0.25); color:var(--ocean-foam); }
+  .mcq-option.correct::before { content:'✓ '; color:var(--ocean-cyan); font-weight:700; }
+
+  /* ── FOOTER ── */
+  .footer { padding:24px 40px; background:rgba(2,15,30,0.6); }
+  .progress-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .progress-label,.progress-pct { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; }
+  .progress-label { color:var(--text-dim); }
+  .progress-pct   { color:var(--ocean-cyan); }
+  .progress-track { width:100%; height:4px; background:rgba(26,200,200,0.1); border-radius:2px; overflow:hidden; }
+  .progress-fill  { height:100%; background:linear-gradient(90deg,var(--ocean-teal),var(--ocean-cyan)); border-radius:2px; width:8.95%; transition:width 0.6s ease; }
+
+  .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(26,200,200,0.2),transparent); margin:0 40px; }
+
+  @media (max-width:720px) {
+    .header { flex-direction:column; padding:24px; }
+    .header-svg { width:180px; height:130px; align-self:center; }
+    .lesson-title { font-size:24px; }
+    .panel,.mcq-section { padding:24px; }
+    .mcq-grid { grid-template-columns:1fr; }
+    .phase-row { grid-template-columns: 80px 14px 1fr; }
+    .footer { padding:20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L31 / 32</div>
+      <h1 class="lesson-title">Expedition Integration</h1>
+      <p class="lesson-subtitle">Translating chemical oceanography into field operations — Rim Run™ sampling protocol, instrument workflow, CMIE data pipeline, and real-world constraints</p>
+    </div>
+
+    <!-- SVG: Shamrocket sampling workflow — vessel profile with instrument deploy positions and data flow arrows -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- Ocean surface -->
+      <line x1="0" y1="68" x2="220" y2="68" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+
+      <!-- Wave marks -->
+      <path d="M10,68 Q20,63 30,68 Q40,73 50,68 Q60,63 70,68 Q80,73 90,68 Q100,63 110,68 Q120,73 130,68 Q140,63 150,68 Q160,73 170,68 Q180,63 190,68 Q200,73 210,68"
+            fill="none" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+
+      <!-- Catamaran hull (simplified side view) -->
+      <!-- Main beam -->
+      <rect x="70" y="56" width="80" height="8" rx="2" fill="rgba(26,200,200,0.15)" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+      <!-- Port hull -->
+      <ellipse cx="82" cy="66" rx="18" ry="5" fill="rgba(4,41,74,0.6)" stroke="rgba(26,200,200,0.4)" stroke-width="0.9"/>
+      <!-- Starboard hull -->
+      <ellipse cx="138" cy="66" rx="18" ry="5" fill="rgba(4,41,74,0.6)" stroke="rgba(26,200,200,0.4)" stroke-width="0.9"/>
+      <!-- Mast -->
+      <line x1="110" y1="56" x2="110" y2="22" stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+      <!-- Boom -->
+      <line x1="110" y1="38" x2="148" y2="48" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+      <!-- SHAMROCKET label -->
+      <text x="110" y="53" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" opacity="0.8" letter-spacing="0.08em">SHAMROCKET</text>
+
+      <!-- Instrument deploy points with labeled lines -->
+
+      <!-- CTD + ISFET deploy (starboard, in water) -->
+      <line x1="148" y1="68" x2="156" y2="95" stroke="rgba(26,200,200,0.55)" stroke-width="1" stroke-dasharray="2,2"/>
+      <circle cx="156" cy="97" r="3" fill="rgba(26,200,200,0.4)" stroke="#1ac8c8" stroke-width="0.8"/>
+      <text x="160" y="91" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">CTD + ISFET</text>
+      <text x="160" y="99" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">pH · T · S</text>
+
+      <!-- DO Optode (port, in water) -->
+      <line x1="72" y1="68" x2="62" y2="90" stroke="rgba(62,207,142,0.55)" stroke-width="1" stroke-dasharray="2,2"/>
+      <circle cx="62" cy="92" r="3" fill="rgba(62,207,142,0.4)" stroke="#3ecf8e" stroke-width="0.8"/>
+      <text x="10" y="87" font-family="DM Mono,monospace" font-size="6.5" fill="#3ecf8e">DO Optode</text>
+      <text x="10" y="95" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">mg/L · amp</text>
+
+      <!-- Water sampler (center, mid-depth) -->
+      <line x1="110" y1="68" x2="110" y2="112" stroke="rgba(240,180,41,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+      <rect x="104" y="112" width="12" height="8" rx="2" fill="rgba(240,180,41,0.15)" stroke="rgba(240,180,41,0.5)" stroke-width="0.8"/>
+      <text x="92" y="126" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429">Water sample</text>
+      <text x="92" y="134" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">TA · DIC · nutrients</text>
+
+      <!-- Drone icon (airborne) -->
+      <rect x="168" y="18" width="28" height="10" rx="2" fill="rgba(155,127,232,0.12)" stroke="rgba(155,127,232,0.45)" stroke-width="0.8"/>
+      <text x="182" y="26" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#9b7fe8">FAA UAV</text>
+      <line x1="182" y1="28" x2="182" y2="58" stroke="rgba(155,127,232,0.3)" stroke-width="0.8" stroke-dasharray="2,3"/>
+      <text x="186" y="46" font-family="DM Mono,monospace" font-size="6" fill="#9b7fe8" opacity="0.8">aerial</text>
+
+      <!-- GPS track label (top left) -->
+      <rect x="4" y="4" width="58" height="12" rx="2" fill="rgba(4,41,74,0.5)" stroke="rgba(26,200,200,0.2)" stroke-width="0.6"/>
+      <text x="33" y="13" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">GPS + UTC log</text>
+
+      <!-- Ra-222 sampler (far port) -->
+      <line x1="64" y1="68" x2="30" y2="88" stroke="rgba(200,164,90,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+      <circle cx="28" cy="90" r="3" fill="rgba(200,164,90,0.35)" stroke="#c8a45a" stroke-width="0.8"/>
+      <text x="4" y="108" font-family="DM Mono,monospace" font-size="6.5" fill="#c8a45a">Ra-222</text>
+      <text x="4" y="116" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">SGD flag</text>
+
+      <!-- Data flow arrow to CMIE -->
+      <rect x="152" y="136" width="64" height="16" rx="3" fill="rgba(2,15,30,0.8)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+      <text x="184" y="144" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">→ L3 → CMIE → DS</text>
+      <line x1="148" y1="120" x2="158" y2="136" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          Every concept in Section 02 — the threshold architecture, the stressor taxonomy, the confidence tiers, the Bayesian updating, the regional correction protocols — exists to be executed from the deck of Shamrocket, a Hobie Getaway catamaran with a 24-inch draft operating in some of the most chemically complex coastal water on Earth. <strong>Expedition integration is the discipline of translating chemical oceanography theory into repeatable field protocol under real operational constraints</strong> — limited cold storage, no chase vessel, weather windows, tidal scheduling, HgCl₂ hazmat handling aboard a 17-foot sailing platform, and the non-negotiable requirement that data collected in circuit 1 is directly comparable to data collected in circuit 7. This lesson assembles all of Section 02 into a single operational framework.
+        </p>
+
+        <p style="margin-bottom:14px;"><strong>The five-phase sampling event sequence — executed at every corridor MOOP station:</strong></p>
+
+        <div class="phase-timeline">
+
+          <!-- Phase 1: Pre-flight -->
+          <div class="phase-row p-preflight">
+            <div class="phase-label-col">
+              <div class="phase-name">Pre-Station<br>Check</div>
+              <div class="phase-days">~15 min</div>
+            </div>
+            <div class="phase-connector">
+              <div class="phase-dot"></div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-content">
+              Confirm GPS position and log UTC timestamp. Cross-reference site with MOOP master index — is this a repeat site? If yes, pull prior tidal phase and confirm current tidal window is within ±2 hours. Check NOAA NESDIS sargassum index if May–October. Check current DHW value for the reef zone from CoralWatch or NOAA Coral Reef Watch. Verify ISFET pH sensor is within its 72-hour recalibration window — if expired, recalibrate now or flag all pH readings as Moderate confidence before deployment. Inspect DO optode membrane — clean if last inspection &gt;24 hours ago. Confirm HgCl₂ preservation kit and sample vials are staged for TA/DIC discrete sampling.
+            </div>
+          </div>
+
+          <!-- Phase 2: Transit chemistry -->
+          <div class="phase-row p-transit">
+            <div class="phase-label-col">
+              <div class="phase-name">Anchor &amp;<br>Stabilize</div>
+              <div class="phase-days">~10 min</div>
+            </div>
+            <div class="phase-connector">
+              <div class="phase-dot"></div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-content">
+              Set anchor at the GPS waypoint — not within 500m of a marina or commercial anchorage without flagging a dissolved copper data gap. Allow vessel motion to settle fully before any instrument deployment. Record surface air temperature. Deploy CTD to capture T, S, and depth profile before any fin-in-water activity disturbs the water column — fin kick resuspension affects near-surface chemistry readings within minutes. Log Secchi depth for turbidity assessment before any disturbance.
+            </div>
+          </div>
+
+          <!-- Phase 3: Station sampling -->
+          <div class="phase-row p-station">
+            <div class="phase-label-col">
+              <div class="phase-name">Instrument<br>Deploy</div>
+              <div class="phase-days">~30–45 min</div>
+            </div>
+            <div class="phase-connector">
+              <div class="phase-dot"></div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-content">
+              Deploy ISFET pH sensor and DO optode simultaneously at 0.5–1 m depth away from benthic surfaces — REV compliance check. Allow instruments to equilibrate for 5 minutes before logging readings. Collect TA/DIC discrete samples: fill sample bottles to overflow, zero headspace, cap immediately. Apply HgCl₂ within 4 hours — set a timer now, not later. Collect nutrient water samples in labeled cooler-stored vials. If Ra-222 detection is running (all MAR lagoon stations), confirm 4-hour count window is achievable before departure. Log all readings with UTC timestamp and instrument serial number. If this is a paired upstream-downstream NEC station: ensure both stations are sampled within the same 2-hour tidal window.
+            </div>
+          </div>
+
+          <!-- Phase 4: In-water survey -->
+          <div class="phase-row p-data">
+            <div class="phase-label-col">
+              <div class="phase-name">In-Water<br>Survey</div>
+              <div class="phase-days">~20–40 min</div>
+            </div>
+            <div class="phase-connector">
+              <div class="phase-dot"></div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-content">
+              Enter water and execute RLS/Reef Check structured transect. Conduct biological and benthic observations simultaneously with any remaining instrument monitoring. Operate FAA drone for aerial habitat documentation if conditions allow (Beaufort &lt;3). Every observation logged against GPS-matched site ID, not a named location — site IDs are the longitudinal anchor, not descriptive names that change. If a diel amplitude pair is required (Red Sea seagrass sites, or diel compound stress assessment), note the time and return for the predawn/midday pairing. Visual survey notes, bleaching codes, fish estimates, human impact codes — all entered in standardized log fields.
+            </div>
+          </div>
+
+          <!-- Phase 5: Close-out -->
+          <div class="phase-row p-close">
+            <div class="phase-label-col">
+              <div class="phase-name">Station<br>Close-Out</div>
+              <div class="phase-days">~10 min</div>
+            </div>
+            <div class="phase-connector">
+              <div class="phase-dot"></div>
+              <div class="phase-line" style="display:none"></div>
+            </div>
+            <div class="phase-content">
+              Retrieve all instruments. Check HgCl₂ preservation timer — if 4-hour window has passed and samples are not yet preserved, discard TA/DIC samples (not downgrade). Log final departure UTC timestamp and GPS for aliasing correction. If duplicate sampling was scheduled (every 5th station), confirm duplicates were collected and divergence check completed before departing. If divergence &gt;2% TA or &gt;0.01 pH units: re-sample before leaving. Add site to MOOP master index if new. Record any data gaps explicitly — sargassum flag, copper flag, tidal phase mismatch, ISFET calibration overrun. Upload field data to CMIE pipeline at next connectivity point.
+            </div>
+          </div>
+
+        </div>
+
+        <p style="margin-bottom:16px;"><strong>Operational constraints that shape data quality aboard Shamrocket — integration checklist:</strong></p>
+
+        <div class="checklist">
+          <div class="check-item">
+            <span class="check-icon">✓</span>
+            <span><strong>Cold storage:</strong> Nutrient colorimetric reagents degrade above 30°C. Maintain a sealed insulated cooler with ice blocks aboard at all times during the May–October corridor months. Reagent failure produces systematic underestimates of DIN that are indistinguishable from real low-DIN conditions — an undetected failure corrupts the eutrophication prior in CMIE for every affected station.</span>
+          </div>
+          <div class="check-item warn">
+            <span class="check-icon">!</span>
+            <span><strong>HgCl₂ hazmat:</strong> Mercuric chloride is acutely toxic. Store in a sealed secondary container away from food and water supplies. Dispose at designated port facilities — never at sea. Carry a spill kit and MSDS. On a sailing platform, a HgCl₂ spill is a full vessel decontamination event. Pre-measure doses into labeled vials before the circuit begins to minimize shipboard handling.</span>
+          </div>
+          <div class="check-item">
+            <span class="check-icon">✓</span>
+            <span><strong>Single-operator sampling:</strong> The five-phase sequence is designed to be executed solo. Instrument equilibration time (5 min), HgCl₂ timer, and duplicate check are the three points most likely to be skipped under solo pressure. All three have irreversible data quality consequences. They are not optional steps — build them into the sequence as hard stops, not reminders.</span>
+          </div>
+          <div class="check-item note">
+            <span class="check-icon">→</span>
+            <span><strong>Weather windows and tidal scheduling:</strong> If a tidal window cannot be matched within ±2 hours of the prior circuit at a repeat site, it is better to delay sampling by one tidal cycle than to collect an unmatched sample. An unmatched sample contributes a Moderate-confidence data point to CMIE. A matched sample collected one tidal cycle later contributes a High-confidence data point. When in doubt, wait for the correct tidal phase.</span>
+          </div>
+          <div class="check-item">
+            <span class="check-icon">✓</span>
+            <span><strong>Chain of custody for lab samples:</strong> IRMS stable isotope samples (δ¹⁵N, δ¹³C), DIC coulometry samples, and any samples requiring lab analysis must be submitted at a port with laboratory logistics — in practice, Placencia (Belize), Roatan (Honduras), or Panama City (Panama). Maintain a chain-of-custody log for each sample: collection UTC, site ID, preservation method, submission date, lab name. Without the chain-of-custody record, lab results cannot be entered into CMIE at High confidence regardless of lab precision.</span>
+          </div>
+          <div class="check-item warn">
+            <span class="check-icon">!</span>
+            <span><strong>Connectivity and data upload:</strong> CMIE data pipeline requires internet connectivity for upload. At remote corridor sites — particularly Nicaragua and southern Honduras — connectivity may be unavailable for days at a stretch. Buffer all field data in a locally-encrypted field dataset and upload at the next connectivity point. Never delay preservation or sampling procedures while waiting for connectivity — data quality decisions happen in the field, not at the upload point.</span>
+          </div>
+          <div class="check-item note">
+            <span class="check-icon">→</span>
+            <span><strong>Zero-carbon documentation:</strong> At every station, log vessel propulsion method (sail / anchor / dinghy) and confirm no combustion engine operation within 500m of the sampling point. This is the data quality differentiator that distinguishes GROAN corridor chemistry from diesel-vessel collected data. It is a one-line log entry that makes the entire dataset certifiably free of vessel-sourced chemical contamination.</span>
+          </div>
+        </div>
+
+        <p style="margin-top:6px;">
+          <strong>The integration argument.</strong> Every constraint above — cold storage, HgCl₂ handling, solo operation, tidal scheduling, lab chain of custody, connectivity buffering — has been solved by the expedition architecture before launch. Shamrocket's zero-carbon, shallow-draft platform is not a limitation. It is a purpose-built solution to each of these constraints simultaneously. <span class="coral">The vessel is the instrument. The circuit is the experiment. The annual return is the verification.</span> All three are required for GROAN chemistry to qualify as CMIE-ready data.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          Cada concepto de la Sección 02 existe para ser ejecutado desde la cubierta de Shamrocket. <strong>La integración de expedición es la disciplina de traducir la teoría de la oceanografía química en protocolo de campo repetible bajo restricciones operacionales reales</strong> — almacenamiento en frío limitado, sin embarcación de apoyo, ventanas meteorológicas, programación por marea, manejo de HgCl₂ como material peligroso a bordo de una plataforma de vela, y el requisito no negociable de que los datos recopilados en el circuito 1 sean directamente comparables con los recopilados en el circuito 7.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Secuencia de cinco fases en cada estación MOOP:</strong> (1) Verificación pre-estación: confirmar posición GPS, verificar ventana de marea ±2 horas, revisar ventana de recalibración del sensor ISFET; (2) Anclaje y estabilización: CTD antes de cualquier actividad de aleta, profundidad Secchi antes de perturbación; (3) Despliegue de instrumentos: equilibración de 5 minutos, muestras de AT/CID con HgCl₂ en 4 horas — iniciar temporizador ahora; (4) Encuesta submarina: transecto estructurado, documentación FAA de drones si condiciones permiten; (5) Cierre de estación: verificar temporizador HgCl₂, confirmar muestras duplicadas si corresponde, registrar brechas de datos explícitamente.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Restricciones operacionales clave:</strong> Los reactivos colorimétricos de nutrientes se degradan por encima de 30°C — mantener una hielera sellada en todo momento. El cloruro de mercurio es agudamente tóxico — pre-medir dosis antes del circuito para minimizar el manejo a bordo. El muestreo de un solo operador requiere que la equilibración de instrumentos, el temporizador HgCl₂ y la verificación de duplicados sean paradas duras, no recordatorios.
+        </p>
+        <p>
+          <strong>El argumento de integración:</strong> Shamrocket es una solución diseñada específicamente para cada una de estas restricciones simultáneamente. <span class="coral">El barco es el instrumento. El circuito es el experimento. El retorno anual es la verificación.</span> Los tres son necesarios para que la química GROAN califique como datos listos para CMIE.
+        </p>
+      </div>
+    </div>
+
+    <!-- INTEGRATION REFERENCE TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Duration</th>
+          <th>Critical Action</th>
+          <th>If Skipped / Failed</th>
+          <th>Conf. Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--e-preflight)">Pre-Station Check</strong></td>
+          <td>~15 min</td>
+          <td>ISFET calibration window check; tidal phase match</td>
+          <td>pH data at Moderate; repeat site comparison invalid</td>
+          <td><span class="badge badge-mod">Moderate pH if skipped</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--e-transit)">Anchor &amp; Stabilize</strong></td>
+          <td>~10 min</td>
+          <td>CTD before fin entry; Secchi depth before disturbance</td>
+          <td>T/S/D record contaminated; turbidity baseline lost</td>
+          <td><span class="badge badge-mod">Moderate carbonate calc.</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--e-station)">Instrument Deploy</strong></td>
+          <td>~30–45 min</td>
+          <td>5-min equilibration; HgCl₂ timer set; REV compliance</td>
+          <td>pH/DO biased; TA sample discarded; sub-REV artifact</td>
+          <td><span class="badge badge-crit">Data loss if TA skipped</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--e-data)">In-Water Survey</strong></td>
+          <td>~20–40 min</td>
+          <td>GPS-matched site ID; diel pair schedule if required</td>
+          <td>Longitudinal record breaks; amplitude pair missing</td>
+          <td><span class="badge badge-mod">Moderate biology</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--e-close)">Station Close-Out</strong></td>
+          <td>~10 min</td>
+          <td>HgCl₂ timer check; duplicate divergence check; gap log</td>
+          <td>TA sample discarded; undocumented uncertainty in CMIE</td>
+          <td><span class="badge badge-crit">Discard if 4-hr window missed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Always deploy the CTD before entering the water at any MOOP station. Fin kick resuspension affects near-surface chemistry readings within minutes of entry — pH and DO readings taken after in-water activity are from a disturbed water column. The CTD profile is your baseline. Enter the water after it is logged. This is not a procedural nicety — at shallow reef flat stations with 1–2 m water depth, the entire chemical profile can be disturbed within 60 seconds of a diver entering the water.</span></li>
+        <li><span class="app-num">02</span><span>Set the HgCl₂ preservation timer at the moment the TA/DIC discrete sample bottles are capped — not when you intend to preserve them, and not when you return to the vessel. The 4-hour window runs from the moment of sample collection. At stations where the in-water survey takes 40 minutes and close-out takes 10 minutes, you have approximately 3 hours of buffer time. At stations where weather delays collection by 90 minutes, that buffer is gone. The timer is the accountability mechanism — not the memory of the operator.</span></li>
+        <li><span class="app-num">03</span><span>When operating between Nicaragua and Honduras where connectivity may be unavailable for multiple days, maintain the complete field dataset in a locally-encrypted backup on a device separate from the primary logging tablet. The CMIE pipeline upload waits for connectivity. The preservation and sampling protocols do not. A corrupted or lost field dataset has no recovery path — the station is gone from the longitudinal record permanently. Redundant local storage is the insurance policy for the annual circuit's most data-sparse leg.</span></li>
+        <li><span class="app-num">04</span><span>At any station where the pre-station check reveals the ISFET sensor has exceeded its 72-hour calibration window, perform the spectrophotometric recalibration before deployment — not after. A post-hoc recalibration cannot retroactively correct readings already taken during the overrun period. Carry sufficient Tris buffer standard to perform recalibration at every 3rd station as a matter of course, not only when the window has already been exceeded. The 72-hour window is the maximum — not the target interval.</span></li>
+        <li><span class="app-num">05</span><span>When the 5th station in the corridor sequence is reached, collect duplicate samples from both the water column and the discrete TA/DIC bottles as a pair. If duplicate TA values diverge by more than 2% or pH diverges by more than 0.01 units, investigate the cause before leaving the site — likely options are REV violation (sample too close to benthic surface), instrument fouling, or sample handling contamination. Escalate to re-sample if the divergence is unexplained. A corridor segment with a failed duplicate check at the 5th station carries elevated uncertainty for the entire 5-station block in the CMIE trend analysis.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Siempre despliegue el CTD antes de entrar al agua en cualquier estación MOOP. La resuspensión por patada de aletas afecta las lecturas de química en aguas poco profundas dentro de minutos de la entrada. El perfil CTD es su línea base — entre al agua después de que esté registrado.</span></li>
+        <li><span class="app-num">02</span><span>Configure el temporizador de preservación de HgCl₂ en el momento en que se tapan las botellas de muestra discreta de AT/CID — no cuando pretenda preservarlas. La ventana de 4 horas comienza en el momento de la recolección de la muestra. El temporizador es el mecanismo de responsabilidad — no la memoria del operador.</span></li>
+        <li><span class="app-num">03</span><span>Al operar entre Nicaragua y Honduras donde la conectividad puede estar no disponible durante múltiples días, mantenga el conjunto de datos de campo completo en una copia de seguridad encriptada localmente en un dispositivo separado de la tableta de registro principal. La carga del pipeline CMIE espera conectividad. Los protocolos de preservación y muestreo no lo hacen.</span></li>
+        <li><span class="app-num">04</span><span>En cualquier estación donde la verificación previa revele que el sensor ISFET ha excedido su ventana de calibración de 72 horas, realice la recalibración espectrofotométrica antes del despliegue — no después. Una recalibración posterior no puede corregir retroactivamente las lecturas ya tomadas durante el período de exceso.</span></li>
+        <li><span class="app-num">05</span><span>Cuando se alcanza la 5ª estación en la secuencia del corredor, recolecte muestras duplicadas. Si los valores duplicados de AT divergen más del 2% o el pH diverge más de 0.01 unidades, investigue la causa antes de salir del sitio. Un segmento del corredor con una verificación de duplicado fallida lleva incertidumbre elevada para el bloque completo de 5 estaciones en el análisis de tendencias CMIE.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">Why must the CTD be deployed before any in-water activity at a MOOP station — and what is the specific risk at shallow reef flat sites?</div>
+        <div class="mcq-q-es">¿Por qué debe desplegarse el CTD antes de cualquier actividad en el agua en una estación MOOP — y cuál es el riesgo específico en sitios de planicie arrecifal poco profunda?</div>
+        <div class="mcq-option">A) To establish depth reference for instrument deployment positions — CTD data is only needed as a safety check, not for chemistry / Para establecer referencia de profundidad — los datos CTD solo se necesitan como verificación de seguridad</div>
+        <div class="mcq-option">B) To comply with MOOP protocol sequence order — order matters for data log formatting but not for data quality / Para cumplir con el orden de secuencia del protocolo MOOP — el orden importa para el formato del registro</div>
+        <div class="mcq-option correct">C) Because fin kick resuspension disturbs near-surface chemistry within minutes of water entry — at 1–2 m reef flat stations the entire chemical profile can be affected within 60 seconds, invalidating pH, DO, and salinity readings taken after entry / Porque la resuspensión por patada de aletas perturba la química en aguas poco profundas dentro de minutos — en estaciones de planicie arrecifal de 1–2 m el perfil químico completo puede verse afectado en 60 segundos</div>
+        <div class="mcq-option">D) Because CTD temperature readings must be logged before solar heating affects surface temperatures later in the sampling event / Porque las lecturas de temperatura CTD deben registrarse antes de que el calentamiento solar afecte las temperaturas superficiales</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">A TA/DIC discrete sample was collected at 10:00. Weather delayed the return to the vessel and HgCl₂ preservation was applied at 14:05 — 4 hours and 5 minutes after collection. What is the correct GROAN handling?</div>
+        <div class="mcq-q-es">Se recolectó una muestra discreta de AT/CID a las 10:00. El clima retrasó el regreso al barco y la preservación con HgCl₂ se aplicó a las 14:05 — 4 horas y 5 minutos después de la recolección. ¿Cuál es el manejo GROAN correcto?</div>
+        <div class="mcq-option">A) Retain at Moderate confidence — 5 minutes over the window is within acceptable field tolerance / Retener con confianza Moderada — 5 minutos sobre la ventana está dentro de la tolerancia de campo aceptable</div>
+        <div class="mcq-option">B) Apply a biological activity correction factor based on in-situ temperature and retain at Low confidence / Aplicar un factor de corrección de actividad biológica basado en temperatura in situ y retener con confianza Baja</div>
+        <div class="mcq-option correct">C) Discard the sample entirely — the 4-hour HgCl₂ preservation window is a hard threshold with no tolerance band; biological activity continues in warm reef water and alters TA by measurable amounts within hours; partial preservation data is not usable at any confidence tier / Descartar la muestra completamente — la ventana de preservación de 4 horas es un umbral fijo sin margen de tolerancia; la actividad biológica en agua arrecifal cálida altera la AT en cantidades medibles en horas</div>
+        <div class="mcq-option">D) Retain at High confidence if the sample was stored in a cooler below 20°C during the delay — cold storage compensates for the window exceedance / Retener con Alta confianza si la muestra se almacenó en frío por debajo de 20°C durante el retraso</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">A repeat site tidal window cannot be matched within ±2 hours of the prior circuit. What is the correct operational decision?</div>
+        <div class="mcq-q-es">La ventana de marea de un sitio de repetición no puede coincidir dentro de ±2 horas del circuito anterior. ¿Cuál es la decisión operacional correcta?</div>
+        <div class="mcq-option">A) Sample immediately to avoid falling behind the circuit schedule — apply a tidal correction model to normalize the chemistry retroactively / Muestrear inmediatamente para no atrasarse — aplicar un modelo de corrección mareal para normalizar la química retroactivamente</div>
+        <div class="mcq-option">B) Skip the site entirely this circuit — a phase-mismatched sample contributes more noise than signal to the longitudinal record / Omitir el sitio completamente este circuito — una muestra con fase no coincidente contribuye más ruido que señal</div>
+        <div class="mcq-option correct">C) Wait for the next tidal cycle and sample within the correct ±2 hour window — a matched High-confidence sample collected one tidal cycle later is more valuable than a Moderate-confidence unmatched sample collected on schedule; carbonate chemistry varies 0.1–0.3 pH units within a tidal cycle, sufficient to invalidate trend detection / Esperar el siguiente ciclo mareal y muestrear dentro de la ventana correcta ±2 horas — una muestra coincidente de Alta confianza es más valiosa que una muestra no coincidente de confianza Moderada</div>
+        <div class="mcq-option">D) Sample at the available time and flag as phase-uncertain — the GLORYS reanalysis temporal anchor will normalize the reading for trend comparison / Muestrear en el momento disponible y marcar como de fase incierta — el ancla temporal GLORYS normalizará la lectura</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 63 of 704</span>
+      <span class="progress-pct">8.95%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
