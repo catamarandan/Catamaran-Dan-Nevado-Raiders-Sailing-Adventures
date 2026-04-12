@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L28 Physical Oceanography — Restoration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  /* HEADER */
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+
+  /* LECTURE PANEL */
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+
+  /* APPLICATION PANEL */
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+
+  /* MCQ SECTION */
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+
+  /* FOOTER */
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 3.98%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 28 · Physical Oceanography</div>
+        <div class="lesson-title">Restoration</div>
+        <div class="lesson-subtitle">Active Recovery of Reef Structure, Function, and Resilience</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Coral Gardening</span>
+        <span class="tag tag-gold">Assisted Evolution</span>
+        <span class="tag tag-coral">GROAN GRIN</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: coral nursery tree with fragments → outplanted reef; GROAN recovery index readout -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG28" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="340" height="220" fill="url(#seaG28)"/>
+
+        <!-- Ocean floor -->
+        <rect x="0" y="165" width="340" height="55" fill="#020f1e" opacity="0.55"/>
+
+        <!-- Nursery tree (left) -->
+        <!-- vertical line -->
+        <line x1="70" y1="80" x2="70" y2="162" stroke="#0a6e8a" stroke-width="2" opacity="0.8"/>
+        <!-- horizontal branches -->
+        <line x1="70" y1="100" x2="40"  y2="100" stroke="#0a6e8a" stroke-width="1.5" opacity="0.7"/>
+        <line x1="70" y1="118" x2="100" y2="118" stroke="#0a6e8a" stroke-width="1.5" opacity="0.7"/>
+        <line x1="70" y1="136" x2="40"  y2="136" stroke="#0a6e8a" stroke-width="1.5" opacity="0.7"/>
+        <line x1="70" y1="154" x2="100" y2="154" stroke="#0a6e8a" stroke-width="1.5" opacity="0.7"/>
+        <!-- coral fragments on branches -->
+        <ellipse cx="32"  cy="100" rx="8" ry="5" fill="#1ac8c8" opacity="0.7"/>
+        <ellipse cx="108" cy="118" rx="8" ry="5" fill="#1ac8c8" opacity="0.65"/>
+        <ellipse cx="32"  cy="136" rx="8" ry="5" fill="#e86040" opacity="0.6"/>
+        <ellipse cx="108" cy="154" rx="8" ry="5" fill="#1ac8c8" opacity="0.7"/>
+        <!-- nursery float -->
+        <rect x="50" y="74" width="40" height="8" rx="2" fill="#04294a" stroke="#1ac8c8" stroke-width="0.8" opacity="0.8"/>
+        <text x="70" y="81" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">NURSERY</text>
+        <!-- anchor line -->
+        <line x1="70" y1="162" x2="70" y2="175" stroke="#0a6e8a" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+        <ellipse cx="70" cy="176" rx="5" ry="2" fill="#04294a" stroke="#0a6e8a" stroke-width="0.8"/>
+
+        <!-- Arrow: nursery → reef (transfer) -->
+        <path d="M115,130 Q170,110 205,145" stroke="#f0b429" stroke-width="1.2" fill="none" stroke-dasharray="5,3" opacity="0.7"/>
+        <polygon points="205,145 195,138 198,150" fill="#f0b429" opacity="0.7"/>
+        <text x="162" y="108" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.85">OUTPLANT</text>
+
+        <!-- Restored reef (right) -->
+        <ellipse cx="245" cy="167" rx="55" ry="13" fill="#0a6e8a" opacity="0.35"/>
+        <!-- healthy coral bumps -->
+        <ellipse cx="215" cy="161" rx="11" ry="8" fill="#1ac8c8" opacity="0.65"/>
+        <ellipse cx="233" cy="157" rx="13" ry="9" fill="#1ac8c8" opacity="0.7"/>
+        <ellipse cx="252" cy="155" rx="10" ry="8" fill="#e86040" opacity="0.55"/>
+        <ellipse cx="268" cy="158" rx="9"  ry="7" fill="#1ac8c8" opacity="0.6"/>
+        <ellipse cx="282" cy="162" rx="7"  ry="5" fill="#1ac8c8" opacity="0.5"/>
+        <!-- reef label -->
+        <text x="248" y="182" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.7">RESTORED REEF</text>
+
+        <!-- GROAN readout -->
+        <rect x="198" y="88" width="108" height="48" rx="3" fill="rgba(2,15,30,0.75)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+        <text x="252" y="103" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">GROAN GRIN</text>
+        <text x="252" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">Recovery Index</text>
+        <text x="252" y="126" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#b8f0ec" font-weight="bold">↑ Post-Restoration</text>
+
+        <!-- water column hint -->
+        <line x1="0" y1="160" x2="340" y2="160" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+        <!-- light rays from surface -->
+        <line x1="100" y1="0" x2="80"  y2="80" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+        <line x1="170" y1="0" x2="160" y2="80" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+        <line x1="240" y1="0" x2="240" y2="80" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Physical Oceanography: Restoration</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Coral reef restoration encompasses deliberate interventions that rebuild reef structure, re-establish coral cover, and recover ecological function following degradation. Unlike mitigation — which reduces stressor input — restoration operates on the reef system directly, accelerating biological recovery processes that would occur too slowly, or not at all, under ongoing anthropogenic pressure.</p>
+
+      <p><strong>Coral gardening</strong> is the most widely deployed restoration technique globally. Fragments of coral are collected from wild donor colonies or nursery-raised stock, cultivated on submerged tree-like nursery structures until they reach transplantable size (typically 5–15 cm), then outplanted onto degraded reef substrate. Fragment survivorship rates in Caribbean programs range from 60–90% to outplanting; post-outplanting survival over 12 months averages 40–70% depending on site conditions. The Coral Restoration Foundation (CRF) in Florida and SECORE International operate the largest Caribbean programs, with operations directly relevant to the northern Rim Run™ circuit.</p>
+
+      <p><strong>Assisted gene flow</strong> moves thermally tolerant coral genotypes from warmer source populations to cooler recipient reefs, pre-adapting recipient populations to projected future temperatures. This is distinct from genetic engineering; it works within existing natural genetic diversity. Trials are underway across the Great Barrier Reef and early-stage MAR programs.</p>
+
+      <p><strong>Assisted evolution</strong> — including selective breeding of thermally tolerant genotypes and symbiont shuffling (replacing heat-sensitive zooxanthellae with more tolerant strains) — represents the frontier of restoration biotechnology. CORDAP (Coral Research and Development Accelerator Platform), housed at KAUST, funds and coordinates the leading global assisted evolution programs. This is the direct institutional bridge between GROAN's Red Sea proof-of-concept and restoration science.</p>
+
+      <p><strong>Substrate restoration</strong> addresses the physical structure of the reef framework. Reef Balls, Reef Stars, and engineered limestone structures create settlement substrate where carbonate framework has collapsed. In the absence of hard substrate, coral larvae cannot settle and recruit — making structural restoration a prerequisite for biological recovery in severely degraded sites.</p>
+
+      <p><strong>Larval seeding</strong> — mass production and direct release of coral larvae during spawning events — is emerging as a high-throughput alternative to fragment-based gardening. Larval settlement densities achievable through seeding exceed gardening by orders of magnitude; the limiting factor is post-settlement survival, which requires benthic conditions (low algae, low sediment, adequate light) that mitigation must provide first.</p>
+
+      <p>GROAN integrates restoration tracking through GRIN: outplanting events, nursery inventory, and post-restoration coral cover surveys feed directly into the GRIN recovery sub-index, enabling the CMIE to model the trajectory of reef function improvement against a baseline Decision Score — quantifying restoration return on investment in decision-relevant units.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La restauración de arrecifes de coral abarca intervenciones deliberadas que reconstruyen la estructura arrecifal, restablecen la cobertura de coral y recuperan la función ecológica tras la degradación. A diferencia de la mitigación — que reduce el ingreso de estresores — la restauración opera directamente sobre el sistema arrecifal, acelerando procesos de recuperación biológica que ocurrirían demasiado lentamente, o que no ocurrirían, bajo presión antropogénica continua.</p>
+
+      <p>La <strong>jardinería de coral</strong> es la técnica de restauración más ampliamente implementada a nivel global. Fragmentos de coral se cultivan en estructuras tipo árbol sumergidas hasta alcanzar el tamaño de trasplante, luego se plantan en sustratos degradados. Las tasas de supervivencia post-trasplante en 12 meses promedian 40–70% dependiendo de las condiciones del sitio.</p>
+
+      <p>El <strong>flujo génico asistido</strong> mueve genotipos de coral termalmente tolerantes desde poblaciones fuente más cálidas hacia arrecifes receptores más fríos, pre-adaptando las poblaciones receptoras a las temperaturas futuras proyectadas. Trabaja dentro de la diversidad genética natural existente.</p>
+
+      <p>La <strong>evolución asistida</strong> — incluyendo cría selectiva de genotipos termalmente tolerantes e intercambio de simbiontes — representa la frontera de la biotecnología de restauración. CORDAP, con sede en KAUST, coordina los principales programas globales de evolución asistida — el puente institucional directo entre el caso de prueba del Mar Rojo de GROAN y la ciencia de restauración.</p>
+
+      <p>La <strong>restauración de sustrato</strong> aborda la estructura física del arco arrecifal. Las Reef Balls y las Reef Stars crean sustrato de asentamiento donde el armazón de carbonato ha colapsado — un prerrequisito para la recuperación biológica en sitios gravemente degradados.</p>
+
+      <p>La <strong>siembra larval</strong> — producción masiva y liberación directa de larvas de coral — emerge como una alternativa de alto rendimiento a la jardinería basada en fragmentos. Las densidades de asentamiento larval alcanzables superan la jardinería por órdenes de magnitud; el factor limitante es la supervivencia post-asentamiento, que requiere condiciones bénticas que la mitigación debe proveer primero.</p>
+
+      <p>GROAN integra el seguimiento de restauración a través de GRIN: los eventos de trasplante, el inventario de viveros y las encuestas post-restauración alimentan directamente el subíndice de recuperación de GRIN, permitiendo al CMIE modelar la trayectoria de mejora de la función arrecifal frente a una Puntuación de Decisión de referencia.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Technique / Técnica</th>
+          <th>Scale / Escala</th>
+          <th>Survival Rate / Supervivencia</th>
+          <th>Readiness / Madurez</th>
+          <th>GROAN Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Coral gardening / Jardinería de coral</td><td>Site / Sitio</td><td>40–70% (12 mo)</td><td>Operational / Operacional</td><td>GRIN cover index</td></tr>
+        <tr><td>Assisted gene flow / Flujo génico asistido</td><td>Regional</td><td>Variable — site-dependent</td><td>Trial / Ensayo</td><td>GRIN thermal tolerance sub-index</td></tr>
+        <tr><td>Assisted evolution / Evolución asistida</td><td>Lab → Field</td><td>Early data only</td><td>Emerging / Emergente</td><td>GRIN genotype registry</td></tr>
+        <tr><td>Substrate restoration / Restauración de sustrato</td><td>Site / Sitio</td><td>Structural (non-biological)</td><td>Operational / Operacional</td><td>GRIN rugosity index</td></tr>
+        <tr><td>Larval seeding / Siembra larval</td><td>Site → Regional</td><td>Low post-settlement (&lt;20%)</td><td>Scaling / En escala</td><td>GRIN recruitment index</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The Coral Restoration Foundation (CRF) operates nursery programs in Florida and the upper Caribbean; the Mesoamerican Reef Fund (MAR Fund) coordinates restoration investments across Belize, Guatemala, Honduras, and Mexico — both are direct institutional partners for Rim Run™ data exchange and MOOP integration at reef nodes within the circuit.</li>
+        <li>Belize's barrier reef system — the second longest in the world — contains some of the highest-priority MAR restoration sites: specifically the southern Belize atolls (Glover's Reef, Lighthouse Reef, Turneffe) where post-bleaching coral cover losses exceed 50% in documented sections since 2005.</li>
+        <li>Honduras Bay Islands (Roatán, Utila) host active coral gardening programs under the Bay Islands Conservation Association (BICA); genotype diversity in nursery stock is the primary limiting factor — the same challenge that CORDAP's assisted evolution program is positioned to address at the genetic level.</li>
+        <li>Larval seeding trials in the MAR are constrained by the seasonal spawning window (August–October, aligning with peak Rim Run™ transit through Honduras and Nicaragua) — creating a direct opportunity for MOOP-equipped vessel support during mass spawning events: larval collection, density surveys, and post-settlement rugosity assessment.</li>
+        <li>GROAN GRIN restoration tracking: outplanting event logs (date, site coordinates, genotype, fragment count), 3-month and 12-month survivorship checks, and coral cover delta estimates feed the GRIN recovery sub-index, enabling CMIE to model the Decision Score trajectory from pre-restoration baseline to projected 5-year recovery state — the analytical output that restoration funders currently lack.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>La Coral Restoration Foundation (CRF) opera programas de viveros en Florida y el Caribe superior; el MAR Fund coordina inversiones de restauración en Belice, Guatemala, Honduras y México — ambos son socios institucionales directos para el intercambio de datos del Rim Run™ y la integración MOOP en nodos arrecifales del circuito.</li>
+        <li>El sistema de barrera arrecifal de Belice — el segundo más largo del mundo — contiene algunos de los sitios de restauración del MAR de mayor prioridad, especialmente los atolones del sur de Belice, donde las pérdidas de cobertura de coral post-blanqueamiento superan el 50% en secciones documentadas desde 2005.</li>
+        <li>Las Islas de la Bahía de Honduras (Roatán, Utila) albergan programas activos de jardinería de coral bajo BICA; la diversidad de genotipos en el stock de viveros es el principal factor limitante — el mismo desafío que el programa de evolución asistida de CORDAP está posicionado para abordar a nivel genético.</li>
+        <li>Los ensayos de siembra larval en el MAR están limitados por la ventana estacional de desove (agosto–octubre, coincidiendo con el tránsito máximo del Rim Run™ por Honduras y Nicaragua) — creando una oportunidad directa para el apoyo de embarcaciones equipadas con MOOP durante eventos de desove masivo.</li>
+        <li>Seguimiento de restauración GROAN GRIN: los registros de eventos de trasplante, verificaciones de supervivencia a 3 y 12 meses, y estimaciones de delta de cobertura de coral alimentan el subíndice de recuperación de GRIN, permitiendo al CMIE modelar la trayectoria de la Puntuación de Decisión desde el estado de referencia pre-restauración hasta el estado proyectado de recuperación a 5 años.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why must mitigation precede larval seeding as a restoration intervention, and what benthic condition is the primary post-settlement survival bottleneck?</div>
+        <div class="mcq-q-es">¿Por qué debe la mitigación preceder a la siembra larval como intervención de restauración, y cuál es la condición béntica que es el principal cuello de botella de supervivencia post-asentamiento?</div>
+        <ul class="mcq-options">
+          <li>A. Mitigation increases water temperature, accelerating larval development</li>
+          <li class="correct">B. Post-settlement survival requires low algae, low sediment, and adequate light conditions — which mitigation must establish before seeding is viable</li>
+          <li>C. Larval seeding produces toxins that mitigation neutralizes</li>
+          <li>D. Mitigation eliminates competing coral species that would outcompete larvae</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">CORDAP is housed at KAUST and funds assisted evolution programs. Why does this make KAUST a strategically critical institutional partner for GROAN's Red Sea proof-of-concept case study?</div>
+        <div class="mcq-q-es">CORDAP tiene sede en KAUST y financia programas de evolución asistida. ¿Por qué hace esto de KAUST un socio institucional estratégicamente crítico para el caso de estudio de prueba de concepto del Mar Rojo de GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. KAUST owns all Red Sea coral reef sites under Saudi maritime law</li>
+          <li>B. CORDAP exclusively uses GROAN's decision framework for funding allocation</li>
+          <li class="correct">C. KAUST/CORDAP generates the thermal stress and genotype field data that feeds GROAN's Red Sea Feature Layer→GSIN→GRIN proof-of-concept chain, creating a direct data partnership opportunity</li>
+          <li>D. KAUST is the only institution with access to Red Sea satellite imagery</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">The MAR's peak coral spawning window (August–October) coincides with peak Rim Run™ transit through Honduras and Nicaragua. What MOOP-enabled vessel activities does this timing create opportunity for?</div>
+        <div class="mcq-q-es">La ventana de desove máxima del MAR (agosto–octubre) coincide con el tránsito máximo del Rim Run™ por Honduras y Nicaragua. ¿Qué actividades de embarcación habilitadas por MOOP crea esta coincidencia de tiempos?</div>
+        <ul class="mcq-options">
+          <li>A. Coral fragment harvesting for export to Florida nurseries</li>
+          <li class="correct">B. Larval collection, settlement density surveys, and post-settlement rugosity assessment during mass spawning events — direct field data contribution to restoration science</li>
+          <li>C. Thermal imaging of surface plumes to predict spawning timing</li>
+          <li>D. Genotype sequencing of wild donor colonies using onboard PCR equipment</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S01·L28 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">3.98%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
