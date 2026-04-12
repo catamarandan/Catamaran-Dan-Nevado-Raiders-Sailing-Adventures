@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L25 Physical Oceanography — Stressors</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 3.55%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 25 · Physical Oceanography</div>
+        <h1 class="lesson-title">Stressors</h1>
+        <div class="lesson-subtitle">Factores de Estrés Físico Oceánico</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Thermal · Wave · Salinity · Sediment</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — STRESSOR IMPACT DIAGRAM -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0a3a5a" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#020f1e" stop-opacity="0.95"/>
+          </linearGradient>
+          <linearGradient id="sedGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a6a30" stop-opacity="0.0"/>
+            <stop offset="100%" stop-color="#8a6a30" stop-opacity="0.55"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- WATER COLUMN -->
+        <rect x="0" y="55" width="380" height="205" fill="url(#waterGrad)"/>
+
+        <!-- SURFACE WAVE -->
+        <path d="M0,58 C30,50 60,62 90,55 C120,48 150,60 180,54 C210,48 240,60 270,54 C300,48 330,60 380,54"
+              fill="none" stroke="rgba(26,200,200,0.55)" stroke-width="2"/>
+
+        <!-- REEF STRUCTURE (centre) -->
+        <polygon points="130,200 155,155 180,145 205,155 230,200 230,260 130,260"
+                 fill="rgba(15,50,25,0.75)" stroke="rgba(26,200,200,0.15)" stroke-width="0.8"/>
+        <!-- coral bumps -->
+        <circle cx="155" cy="153" r="5" fill="rgba(232,96,64,0.5)" stroke="rgba(232,96,64,0.4)" stroke-width="0.8"/>
+        <circle cx="168" cy="148" r="4" fill="rgba(232,96,64,0.4)" stroke="rgba(232,96,64,0.3)" stroke-width="0.8"/>
+        <circle cx="180" cy="145" r="6" fill="rgba(232,96,64,0.55)" stroke="rgba(232,96,64,0.4)" stroke-width="0.8"/>
+        <circle cx="193" cy="148" r="4" fill="rgba(232,96,64,0.4)" stroke="rgba(232,96,64,0.3)" stroke-width="0.8"/>
+        <circle cx="206" cy="153" r="5" fill="rgba(232,96,64,0.45)" stroke="rgba(232,96,64,0.35)" stroke-width="0.8"/>
+
+        <!-- STRESSOR 1: THERMAL — sun rays from top -->
+        <circle cx="50" cy="18" r="12" fill="rgba(240,180,41,0.25)" stroke="rgba(240,180,41,0.6)" stroke-width="1"/>
+        <text x="50" y="22" fill="rgba(240,180,41,0.9)" font-family="monospace" font-size="7" text-anchor="middle">SST</text>
+        <g stroke="rgba(240,180,41,0.5)" stroke-width="1.2">
+          <line x1="50" y1="30" x2="50" y2="50"/>
+          <line x1="58" y1="26" x2="65" y2="42"/>
+          <line x1="42" y1="26" x2="35" y2="42"/>
+        </g>
+        <polygon points="46,50 54,50 50,58" fill="rgba(240,180,41,0.5)"/>
+        <text x="50" y="44" fill="rgba(240,180,41,0.55)" font-family="monospace" font-size="6" text-anchor="middle">THERMAL</text>
+
+        <!-- STRESSOR 2: WAVE ENERGY — from left -->
+        <path d="M10,80 C25,72 35,84 50,77 C65,70 75,80 90,75"
+              fill="none" stroke="rgba(184,240,236,0.7)" stroke-width="2"/>
+        <polygon points="88,71 88,79 98,75" fill="rgba(184,240,236,0.7)"/>
+        <text x="10" y="100" fill="rgba(184,240,236,0.55)" font-family="monospace" font-size="6.5">WAVE</text>
+        <text x="10" y="109" fill="rgba(184,240,236,0.55)" font-family="monospace" font-size="6.5">ENERGY</text>
+        <!-- wave impact line to reef -->
+        <line x1="100" y1="75" x2="145" y2="155" stroke="rgba(184,240,236,0.2)" stroke-width="1" stroke-dasharray="3,2"/>
+
+        <!-- STRESSOR 3: RIVER PLUME / SALINITY — from upper left -->
+        <rect x="8" y="120" width="55" height="22" rx="2" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8"/>
+        <text x="35" y="130" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="6.5" text-anchor="middle">RIVER</text>
+        <text x="35" y="139" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="6.5" text-anchor="middle">PLUME</text>
+        <!-- plume flow arrow -->
+        <path d="M63,131 C90,131 110,140 128,152" fill="none" stroke="rgba(240,180,41,0.35)" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <polygon points="125,148 130,156 133,148" fill="rgba(240,180,41,0.35)"/>
+
+        <!-- STRESSOR 4: SEDIMENTATION — descending particles -->
+        <rect x="0" y="55" width="380" height="120" fill="url(#sedGrad)" opacity="0.4"/>
+        <g fill="rgba(180,150,60,0.4)">
+          <circle cx="110" cy="80"  r="2"/>
+          <circle cx="145" cy="95"  r="1.5"/>
+          <circle cx="160" cy="110" r="2"/>
+          <circle cx="175" cy="88"  r="1.5"/>
+          <circle cx="200" cy="100" r="2"/>
+          <circle cx="220" cy="85"  r="1.5"/>
+          <circle cx="240" cy="105" r="2"/>
+          <circle cx="255" cy="78"  r="1.5"/>
+        </g>
+        <text x="308" y="88" fill="rgba(180,150,60,0.55)" font-family="monospace" font-size="6.5">SEDIMENT</text>
+        <text x="308" y="97" fill="rgba(180,150,60,0.45)" font-family="monospace" font-size="6">↓ turbidity</text>
+
+        <!-- STRESSOR 5: OCEAN ACIDIFICATION — pH arrow from right -->
+        <rect x="308" y="110" width="62" height="22" rx="2" fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.3)" stroke-width="0.8"/>
+        <text x="339" y="120" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="6.5" text-anchor="middle">OCEAN</text>
+        <text x="339" y="129" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="6.5" text-anchor="middle">ACIDIF.</text>
+        <line x1="308" y1="121" x2="235" y2="158" stroke="rgba(232,96,64,0.25)" stroke-width="1" stroke-dasharray="3,2"/>
+        <polygon points="232,154 238,162 240,153" fill="rgba(232,96,64,0.3)"/>
+
+        <!-- STRESSOR 6: HYPOXIA — from below right -->
+        <rect x="308" y="165" width="62" height="22" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+        <text x="339" y="175" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">LOW O₂</text>
+        <text x="339" y="184" fill="rgba(26,200,200,0.45)" font-family="monospace" font-size="6.5" text-anchor="middle">HYPOXIA</text>
+        <line x1="308" y1="176" x2="238" y2="185" stroke="rgba(26,200,200,0.15)" stroke-width="1" stroke-dasharray="3,2"/>
+
+        <!-- COMPOUND STRESS label on reef -->
+        <text x="180" y="175" fill="rgba(232,96,64,0.7)" font-family="monospace" font-size="7" text-anchor="middle" letter-spacing="0.1em">COMPOUND</text>
+        <text x="180" y="185" fill="rgba(232,96,64,0.7)" font-family="monospace" font-size="7" text-anchor="middle" letter-spacing="0.1em">STRESS</text>
+
+        <!-- SEAFLOOR -->
+        <polygon points="0,220 380,220 380,260 0,260" fill="rgba(10,30,15,0.6)"/>
+
+        <!-- TITLE BADGE -->
+        <rect x="30" y="0" width="210" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="38" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">PHYSICAL  ·  STRESSOR  VECTORS</text>
+
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          A physical stressor is any oceanographic forcing variable that, when it exceeds the physiological tolerance range of reef-building organisms, causes measurable biological damage. Physical stressors differ from chemical or biological stressors in that they operate through direct physical mechanisms — energy transfer, temperature, pressure, light, and fluid composition — rather than through metabolic pathways or species interactions. The critical distinction for reef management is that physical stressors are largely externally driven and cannot be controlled at the local reef scale; they can only be mitigated indirectly by reducing the biological vulnerability of the system to their impact.
+          <br><br>
+          Thermal stress is the dominant physical stressor on coral reefs globally. When SST exceeds a coral's thermal tolerance threshold — typically 1°C above the local maximum monthly mean — the symbiotic relationship between coral tissue and photosynthetic zooxanthellae breaks down, producing bleaching. If elevated temperatures persist, the coral dies. The thermal tolerance threshold is not fixed: it varies by species, by population history, and by prior thermal exposure. Corals that have experienced moderate warming events show evidence of acclimatization, raising their effective bleaching threshold — but this acclimatization capacity has limits that are exceeded under sustained high-DHW conditions.
+          <br><br>
+          Wave energy, sedimentation, freshwater and salinity stress, ocean acidification, and hypoxia constitute the remaining principal physical stressor categories. Wave energy causes mechanical damage to reef architecture and, at extreme intensities, can remove entire reef framework sections. Sedimentation smothers coral recruits and reduces light penetration, inhibiting photosynthesis and carbonate deposition. Freshwater pulses from river discharge create hyposaline surface layers that produce osmotic stress in near-surface corals. Ocean acidification — driven by CO₂ dissolution lowering seawater pH and aragonite saturation — reduces the rate of calcification, weakens reef framework, and ultimately lowers the depth threshold below which carbonate dissolution exceeds deposition. Compound stressor interactions — where two or more stressors co-occur — consistently produce greater biological damage than the additive sum of each stressor applied independently.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Un factor de estrés físico es cualquier variable de forzamiento oceanográfico que, cuando supera el rango de tolerancia fisiológica de los organismos constructores de arrecifes, causa daño biológico medible. La distinción crítica para la gestión arrecifal es que los factores de estrés físico son impulsados en gran medida externamente y no pueden controlarse a escala arrecifal local; solo pueden mitigarse indirectamente reduciendo la vulnerabilidad biológica del sistema a su impacto.
+          <br><br>
+          El estrés térmico es el factor de estrés físico dominante en los arrecifes de coral a nivel mundial. Cuando la TSM supera el umbral de tolerancia térmica de un coral — típicamente 1°C por encima de la media mensual máxima local — la relación simbiótica entre el tejido coralino y las zooxantelas fotosintéticas se rompe, produciendo el blanqueamiento. El umbral de tolerancia térmica no es fijo: varía según la especie, la historia de la población y la exposición térmica previa.
+          <br><br>
+          La energía del oleaje, la sedimentación, el estrés de salinidad y agua dulce, la acidificación oceánica y la hipoxia constituyen las categorías restantes de factores de estrés físico principales. La energía del oleaje causa daño mecánico a la arquitectura arrecifal. La sedimentación asfixia a los reclutas de coral y reduce la penetración de la luz. Las descargas de agua dulce crean capas superficiales hiposalinas que producen estrés osmótico. La acidificación oceánica reduce la tasa de calcificación y debilita el marco arrecifal. Las interacciones de factores de estrés compuestos — donde co-ocurren dos o más factores — producen consistentemente mayor daño biológico que la suma aditiva de cada factor aplicado de forma independiente.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MAR STRESSORS APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">MAR Stressors Application · Aplicación de Factores de Estrés en el SAM</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The MAR corridor is subject to all six principal physical stressor categories simultaneously, with compound stressor interactions — particularly thermal stress combined with sedimentation or low salinity — documented as the primary driver of accelerated reef degradation at corridor sites with high terrestrial runoff exposure.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Thermal stress</strong> across the MAR corridor has intensified with each successive ENSO warm phase since 1998 — the first mass bleaching event to affect the full corridor simultaneously. The 2005 bleaching event produced DHW accumulations exceeding 10°C-weeks at multiple Belizean and Honduran sites, resulting in coral mortality rates of 30–50% at affected reefs. Recovery periods between thermal stress events have shortened from decades to years, reducing the biological resilience window available before the next event.</li>
+        <li><strong>Sedimentation and turbidity</strong> from the MAR's major watershed systems — particularly the Motagua River (Guatemala/Honduras), which discharges some of the highest sediment loads in Central America — create chronic light-reduction stress on nearshore reef zones that is compounded during wet season discharge peaks. Nearshore MAR reefs receiving direct river plume exposure show structurally simplified community assemblages relative to offshore barrier reef sites receiving the same thermal forcing.</li>
+        <li><strong>Freshwater and salinity stress</strong> at southern MAR corridor nodes: during peak wet season discharge events, surface salinity in nearshore reef zones can drop from the oceanic baseline of ~36 PSU to below 28 PSU within hours — below the physiological tolerance of most reef-building coral species. These hyposaline events are brief (hours to days) but can cause rapid tissue necrosis in shallow, wave-protected reef zones adjacent to river mouths.</li>
+        <li><strong>Ocean acidification</strong> is a slow-onset but structurally irreversible physical stressor for the MAR: current aragonite saturation state (Ω arag) in the Western Caribbean averages 3.2–3.5 — already below pre-industrial values of ~3.9. Projections under RCP 8.5 place Ω arag below 2.0 by 2080, at which point net carbonate dissolution exceeds deposition across most of the MAR — meaning the physical reef framework erodes faster than corals can build it.</li>
+        <li><strong>Compound stressor interactions</strong> on the MAR are documented most severely at sites combining thermal stress with high terrestrial sediment and nutrient input: elevated nutrients increase zooxanthellae density, which paradoxically increases thermal sensitivity — nutrient-enriched corals bleach at lower DHW values than nutrient-limited corals at the same site. This nutrient-thermal interaction means that local land-use management (reducing river sediment and nutrient loads) directly reduces the biological impact of thermally forced bleaching events that cannot themselves be locally managed.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El corredor del SAM está sujeto a las seis categorías principales de factores de estrés físico simultáneamente, con interacciones de factores de estrés compuestos — particularmente el estrés térmico combinado con sedimentación o baja salinidad — documentadas como el principal impulsor de la degradación arrecifal acelerada en los sitios del corredor con alta exposición a escorrentía terrestre.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El <strong>estrés térmico</strong> en el corredor del SAM se ha intensificado con cada fase cálida sucesiva del ENSO desde 1998. El evento de blanqueamiento de 2005 produjo acumulaciones de DHW superiores a 10°C-semanas en múltiples sitios de Belice y Honduras, resultando en tasas de mortalidad de coral del 30–50% en los arrecifes afectados. Los períodos de recuperación entre eventos de estrés térmico se han acortado de décadas a años.</li>
+        <li>La <strong>sedimentación y turbidez</strong> de los principales sistemas de cuencas del SAM — particularmente el Río Motagua — crean estrés crónico de reducción de luz en las zonas arrecifales costeras que se ve agravado durante los picos de descarga de la estación lluviosa. Los arrecifes costeros del SAM que reciben exposición directa a plumas fluviales muestran ensamblajes comunitarios estructuralmente simplificados.</li>
+        <li>El <strong>estrés de agua dulce y salinidad</strong> en los nodos del corredor sur del SAM: durante los eventos de descarga pico de la estación lluviosa, la salinidad superficial en zonas arrecifales costeras puede caer de la línea base oceánica de ~36 PSU a menos de 28 PSU en horas — por debajo de la tolerancia fisiológica de la mayoría de las especies de coral constructoras de arrecifes.</li>
+        <li>La <strong>acidificación oceánica</strong> es un factor de estrés de inicio lento pero estructuralmente irreversible para el SAM: las proyecciones bajo RCP 8.5 sitúan Ω arag por debajo de 2.0 para 2080, punto en el que la disolución neta de carbonato supera el depósito en la mayor parte del SAM.</li>
+        <li>Las <strong>interacciones de factores de estrés compuestos</strong> en el SAM están documentadas más gravemente en sitios que combinan estrés térmico con alta entrada terrestre de sedimentos y nutrientes: los corales enriquecidos con nutrientes se blanquean a valores de DHW más bajos que los corales limitados en nutrientes, lo que significa que la gestión local del uso de la tierra reduce directamente el impacto biológico de los eventos de blanqueamiento térmico.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why is coral thermal tolerance threshold not a fixed value, and what is its management implication for the MAR corridor?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Threshold varies with water depth only — deeper corals always tolerate higher temperatures than shallow corals</li>
+            <li><span class="opt-letter">B.</span> Threshold varies by species, population history, and prior thermal exposure — corals with prior moderate warming show acclimatization, meaning local thermal history affects site-level bleaching predictions</li>
+            <li><span class="opt-letter">C.</span> Threshold is fixed at 28°C globally — all coral species bleach at the same temperature regardless of location or history</li>
+            <li><span class="opt-letter">D.</span> Threshold varies only with aragonite saturation state — acidified corals bleach at lower temperatures than non-acidified corals</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Thermal tolerance varies by species, genetic population, and acclimatization history. Corals at MAR sites with histories of moderate thermal variability show elevated bleaching thresholds relative to corals at thermally stable sites. This means corridor-wide bleaching predictions must be site-calibrated — a uniform DHW threshold applied across all MAR nodes will systematically mispredict outcomes at sites with divergent thermal histories.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué el umbral de tolerancia térmica del coral no es un valor fijo, y cuál es su implicación de gestión para el corredor del SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El umbral varía solo con la profundidad del agua — los corales más profundos siempre toleran temperaturas más altas que los corales superficiales</li>
+            <li><span class="opt-letter">B.</span> El umbral varía según la especie, la historia de la población y la exposición térmica previa — los corales con calentamiento moderado previo muestran aclimatación, lo que significa que la historia térmica local afecta las predicciones de blanqueamiento a nivel de sitio</li>
+            <li><span class="opt-letter">C.</span> El umbral es fijo en 28°C globalmente — todas las especies de coral se blanquean a la misma temperatura independientemente de la ubicación o historia</li>
+            <li><span class="opt-letter">D.</span> El umbral varía solo con el estado de saturación de aragonito — los corales acidificados se blanquean a temperaturas más bajas que los corales no acidificados</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La tolerancia térmica varía por especie, población genética e historia de aclimatación. Los corales en sitios del SAM con historias de variabilidad térmica moderada muestran umbrales de blanqueamiento elevados. Esto significa que las predicciones de blanqueamiento en todo el corredor deben calibrarse por sitio.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does the compound interaction of nutrient enrichment and thermal stress produce greater bleaching damage than thermal stress alone on MAR nearshore reefs?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Nutrients directly raise water temperature, increasing effective SST above the satellite-measured value at nutrient-enriched sites</li>
+            <li><span class="opt-letter">B.</span> Elevated nutrients increase zooxanthellae density in coral tissue, which paradoxically increases thermal sensitivity — nutrient-enriched corals bleach at lower DHW values than nutrient-limited corals</li>
+            <li><span class="opt-letter">C.</span> Nutrient-enriched water has lower dissolved oxygen, which reduces coral aerobic metabolism and lowers bleaching resistance</li>
+            <li><span class="opt-letter">D.</span> Nutrients stimulate algal overgrowth that physically blocks water circulation around coral colonies, trapping heat at the colony surface</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — High zooxanthellae density under nutrient enrichment increases the photosynthetic rate and reactive oxygen species production during thermal stress, triggering the bleaching response at lower temperature thresholds. This nutrient-thermal interaction means reducing terrestrial nutrient inputs via land-use management is a locally actionable lever that directly reduces bleaching severity — even though the thermal forcing itself cannot be locally controlled.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué la interacción compuesta de enriquecimiento de nutrientes y estrés térmico produce mayor daño por blanqueamiento que el estrés térmico solo en los arrecifes costeros del SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los nutrientes elevan directamente la temperatura del agua, aumentando la TSM efectiva por encima del valor medido por satélite en los sitios enriquecidos con nutrientes</li>
+            <li><span class="opt-letter">B.</span> Los nutrientes elevados aumentan la densidad de zooxantelas en el tejido coralino, lo que paradójicamente aumenta la sensibilidad térmica — los corales enriquecidos con nutrientes se blanquean a valores de DHW más bajos que los corales limitados en nutrientes</li>
+            <li><span class="opt-letter">C.</span> El agua enriquecida con nutrientes tiene menor oxígeno disuelto, lo que reduce el metabolismo aeróbico de los corales y disminuye la resistencia al blanqueamiento</li>
+            <li><span class="opt-letter">D.</span> Los nutrientes estimulan el crecimiento excesivo de algas que bloquea físicamente la circulación del agua alrededor de las colonias de coral, atrapando calor en la superficie de la colonia</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La alta densidad de zooxantelas bajo enriquecimiento de nutrientes aumenta la tasa fotosintética y la producción de especies reactivas de oxígeno durante el estrés térmico, desencadenando la respuesta de blanqueamiento a umbrales de temperatura más bajos. Esto significa que reducir los insumos terrestres de nutrientes es una palanca localmente accionable que reduce directamente la gravedad del blanqueamiento.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 At what aragonite saturation state (Ω arag) projection does ocean acidification become a net structural threat to the MAR reef framework, and why?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Below Ω arag 1.0 — only fully undersaturated water causes carbonate dissolution; values above 1.0 always support net calcification</li>
+            <li><span class="opt-letter">B.</span> Below Ω arag 2.0 — at this level net carbonate dissolution across the reef framework exceeds coral calcification rates, meaning the physical reef structure erodes faster than it is built</li>
+            <li><span class="opt-letter">C.</span> Below Ω arag 3.5 — the pre-industrial saturation state was 3.9, and any decline below 3.5 triggers immediate structural collapse</li>
+            <li><span class="opt-letter">D.</span> Below Ω arag 3.0 — coral spawning fails at this threshold, preventing new recruits from settling and rebuilding damaged reef sections</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Below Ω arag ≈ 2.0, chemical dissolution of the carbonate reef matrix accelerates to rates that exceed even healthy coral calcification. The reef framework physically disintegrates from below while surface corals are simultaneously stressed by warming. Under RCP 8.5 projections, the Western Caribbean reaches this threshold by approximately 2080 — making ocean acidification the slow-onset existential structural stressor for the MAR, distinct from but compounding the acute impacts of thermal bleaching events.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿A qué proyección de estado de saturación de aragonito (Ω arag) se convierte la acidificación oceánica en una amenaza estructural neta para el marco arrecifal del SAM, y por qué?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Por debajo de Ω arag 1.0 — solo el agua completamente subsaturada causa disolución de carbonato; los valores por encima de 1.0 siempre apoyan la calcificación neta</li>
+            <li><span class="opt-letter">B.</span> Por debajo de Ω arag 2.0 — a este nivel la disolución neta de carbonato en todo el marco arrecifal supera las tasas de calcificación de los corales, lo que significa que la estructura física del arrecife se erosiona más rápido de lo que se construye</li>
+            <li><span class="opt-letter">C.</span> Por debajo de Ω arag 3.5 — el estado de saturación preindustrial era 3.9, y cualquier disminución por debajo de 3.5 desencadena el colapso estructural inmediato</li>
+            <li><span class="opt-letter">D.</span> Por debajo de Ω arag 3.0 — el desove de corales falla en este umbral, impidiendo que nuevos reclutas se asienten y reconstruyan las secciones arrecifales dañadas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Por debajo de Ω arag ≈ 2.0, la disolución química de la matriz arrecifal de carbonato se acelera a tasas que superan incluso la calcificación de corales saludables. El marco arrecifal se desintegra físicamente desde abajo mientras los corales superficiales están simultáneamente estresados por el calentamiento. Bajo las proyecciones RCP 8.5, el Caribe Occidental alcanza este umbral aproximadamente en 2080.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 25 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L25 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
