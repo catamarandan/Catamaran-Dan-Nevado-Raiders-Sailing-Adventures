@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L06 | Chemical Oceanography: Interactions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Interaction chain */
+  .chain-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 1.2rem 0;
+    overflow-x: auto;
+  }
+  .chain-node {
+    flex: 1;
+    min-width: 110px;
+    padding: 0.85rem 0.8rem;
+    background: rgba(2,15,30,0.6);
+    border: 1px solid rgba(26,200,200,0.15);
+    text-align: center;
+  }
+  .chain-node:first-child { border-radius: 8px 0 0 8px; }
+  .chain-node:last-child  { border-radius: 0 8px 8px 0; }
+  .chain-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25rem;
+    color: var(--text-dim);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .chain-node .cn-module {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .cn-gmin  .cn-module { color: #44b864; }
+  .cn-gmain .cn-module { color: var(--ocean-cyan); }
+  .cn-grin  .cn-module { color: var(--gold); }
+  .cn-cmie  .cn-module { color: var(--coral); }
+  .chain-node .cn-label { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .chain-node .cn-chem { font-size: 0.7rem; line-height: 1.35; color: var(--text-dim); }
+
+  /* Interaction pairs grid */
+  .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1.2rem 0; }
+  .pair-box {
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    background: rgba(2,15,30,0.5);
+    border-left: 3px solid;
+  }
+  .pair-box.co2-alk  { border-color: var(--ocean-cyan); }
+  .pair-box.o2-n     { border-color: #44b864; }
+  .pair-box.temp-co2 { border-color: var(--coral); }
+  .pair-box.sal-alk  { border-color: var(--gold); }
+  .pair-box .pair-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .pair-box.co2-alk  .pair-head { color: var(--ocean-cyan); }
+  .pair-box.o2-n     .pair-head { color: #44b864; }
+  .pair-box.temp-co2 .pair-head { color: var(--coral); }
+  .pair-box.sal-alk  .pair-head { color: var(--gold); }
+  .pair-box p { font-size: 0.81rem; line-height: 1.55; color: var(--text-dim); }
+  .pair-box p strong { color: var(--text-light); }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text  { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 5.40%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .pair-grid  { grid-template-columns: 1fr; }
+    .app-grid   { grid-template-columns: 1fr; }
+    .mcq-grid   { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+    .chain-flow { flex-direction: column; }
+    .chain-arrow { transform: rotate(90deg); align-self: center; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L06 · Lesson 38 of 704</div>
+      <h1>Interactions</h1>
+      <p class="subtitle">No ocean chemical variable acts alone. Temperature, CO₂, alkalinity, oxygen, salinity, and nutrients form a coupled system — understanding their interactions is what separates GROAN from a sensor array.</p>
+    </div>
+
+    <!-- SVG: Coupled web — nodes for key variables with interaction lines -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glow2">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Background -->
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.5)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Interaction lines (drawn first, behind nodes) -->
+      <!-- CO2 <-> pH (central coupling) -->
+      <line x1="105" y1="88" x2="105" y2="38" stroke="#1ac8c8" stroke-width="1.8" stroke-opacity="0.7"/>
+      <!-- CO2 <-> Alkalinity -->
+      <line x1="105" y1="88" x2="55" y2="130" stroke="#1ac8c8" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="4,2"/>
+      <!-- CO2 <-> Temperature -->
+      <line x1="105" y1="88" x2="165" y2="55" stroke="#e86040" stroke-width="1.2" stroke-opacity="0.5"/>
+      <!-- O2 <-> Nutrients -->
+      <line x1="40" y1="60" x2="55" y2="130" stroke="#44b864" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="4,2"/>
+      <!-- pH <-> Alkalinity -->
+      <line x1="105" y1="38" x2="55" y2="130" stroke="#f0b429" stroke-width="1.4" stroke-opacity="0.6"/>
+      <!-- Temperature <-> O2 -->
+      <line x1="165" y1="55" x2="40" y2="60" stroke="#e86040" stroke-width="1.0" stroke-opacity="0.4" stroke-dasharray="3,3"/>
+      <!-- Salinity <-> Alkalinity -->
+      <line x1="170" y1="140" x2="55" y2="130" stroke="#8ab8cc" stroke-width="1.0" stroke-opacity="0.45" stroke-dasharray="3,3"/>
+      <!-- Nutrients <-> CO2 -->
+      <line x1="55" y1="130" x2="105" y2="88" stroke="#44b864" stroke-width="1.0" stroke-opacity="0.35" stroke-dasharray="3,3"/>
+
+      <!-- CENTRAL NODE: CO₂ -->
+      <circle cx="105" cy="88" r="18" fill="rgba(26,200,200,0.15)" stroke="#1ac8c8" stroke-width="2" filter="url(#glow2)"/>
+      <text x="105" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1ac8c8" font-weight="600">CO₂</text>
+      <text x="105" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">master var</text>
+
+      <!-- pH -->
+      <circle cx="105" cy="33" r="13" fill="rgba(26,200,200,0.1)" stroke="#1ac8c8" stroke-width="1.5"/>
+      <text x="105" y="30" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1ac8c8">pH</text>
+      <text x="105" y="40" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">indicator</text>
+
+      <!-- Alkalinity -->
+      <circle cx="50" cy="130" r="14" fill="rgba(240,180,41,0.1)" stroke="#f0b429" stroke-width="1.5"/>
+      <text x="50" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429">Alk</text>
+      <text x="50" y="138" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">buffer</text>
+
+      <!-- Temperature -->
+      <circle cx="165" cy="52" r="13" fill="rgba(232,96,64,0.1)" stroke="#e86040" stroke-width="1.5"/>
+      <text x="165" y="49" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#e86040">Temp</text>
+      <text x="165" y="58" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">solubility</text>
+
+      <!-- O₂ -->
+      <circle cx="36" cy="57" r="13" fill="rgba(100,200,120,0.1)" stroke="#44b864" stroke-width="1.5"/>
+      <text x="36" y="54" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#44b864">O₂</text>
+      <text x="36" y="63" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">redox</text>
+
+      <!-- Salinity -->
+      <circle cx="172" cy="140" r="13" fill="rgba(138,184,204,0.1)" stroke="#8ab8cc" stroke-width="1.5"/>
+      <text x="172" y="137" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#8ab8cc">Sal</text>
+      <text x="172" y="146" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">ionic str</text>
+
+      <!-- Nutrients -->
+      <circle cx="165" cy="140" r="0"/> <!-- placeholder spacing -->
+      <!-- Nutrients node lower left area -->
+      <circle cx="105" cy="158" r="12" fill="rgba(100,200,120,0.1)" stroke="#44b864" stroke-width="1.2" stroke-dasharray="3,2"/>
+      <text x="105" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#44b864">N·P</text>
+      <text x="105" y="164" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">limiting</text>
+      <!-- nutrients lines -->
+      <line x1="105" y1="146" x2="105" y2="106" stroke="#44b864" stroke-width="0.9" stroke-opacity="0.35" stroke-dasharray="2,3"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Ocean chemistry is a <strong>coupled system</strong>. No variable changes in isolation — every perturbation propagates through the chemical network, amplifying or dampening the original signal depending on the state of other variables. This coupling is precisely why the CMIE exists: a single-variable monitoring system cannot detect interaction effects, cannot model synergistic stress, and cannot generate the causal decision chain GROAN requires. Understanding chemical interactions is the analytical foundation of the entire GROAN thesis argument.</p>
+
+        <div class="pair-grid">
+          <div class="pair-box co2-alk">
+            <div class="pair-head">CO₂ × Alkalinity — The Buffering Interaction</div>
+            <p>Alkalinity sets the chemical capacity to absorb added CO₂ without pH collapse. <strong>High alkalinity = slow acidification.</strong> Low alkalinity (freshwater dilution, mangrove export loss) means CO₂ additions push pH rapidly toward the coral dissolution threshold. This interaction is why two reefs experiencing identical atmospheric CO₂ exposure can have Ω values differing by 1.0–1.5 units — the alkalinity state determines the outcome, not the CO₂ loading alone.</p>
+          </div>
+          <div class="pair-box o2-n">
+            <div class="pair-head">O₂ × Nutrients — The Eutrophication Cascade</div>
+            <p>Nutrient loading (N, P) stimulates algal and microbial productivity. <strong>Daytime O₂ rises sharply; nighttime respiration crashes O₂ toward hypoxia.</strong> In the Caribbean, land-sourced nitrogen from agricultural runoff is the primary driver. The Redfield Ratio (C:N:P = 106:16:1) defines the stoichiometry: every 16 moles of nitrogen consumed drives the production of biomass that, when it decomposes, demands 106 moles-equivalents of oxygen. GMIN mangrove loss disrupts this balance by reducing nitrogen interception.</p>
+          </div>
+          <div class="pair-box temp-co2">
+            <div class="pair-head">Temperature × CO₂ Solubility — The Warming Feedback</div>
+            <p>CO₂ solubility decreases as temperature rises. <strong>Warmer water absorbs less CO₂</strong>, leaving more in the atmosphere and accelerating the global warming signal. At the reef scale, SST anomalies from bleaching events raise surface water temperature locally, reducing CO₂ solubility and further depressing Ω in an already-stressed reef. This is a positive feedback loop: thermal stress → reduced CO₂ uptake → elevated pCO₂ → lower Ω → impaired calcification → slower recovery.</p>
+          </div>
+          <div class="pair-box sal-alk">
+            <div class="pair-head">Salinity × Alkalinity — The Freshwater Dilution Effect</div>
+            <p>Alkalinity scales approximately with salinity in open ocean water (TA ≈ 2300 µmol/kg at S = 35). <strong>Freshwater has near-zero alkalinity</strong> — river input dilutes not just salinity but the entire carbonate buffering system. The Motagua plume reduces both salinity and TA simultaneously. When GROAN's GSIN detects salinity drops in reef-adjacent water, the CMIE should immediately flag concurrent alkalinity reduction as a compounding OA risk — even before the pH sensor confirms the effect.</p>
+          </div>
+        </div>
+
+        <p><strong>Cross-ecosystem chemical transport — the CMIE foundation.</strong> The most consequential chemical interactions in GROAN are not within a single water mass — they are <em>transported interactions</em> crossing ecosystem boundaries. Mangrove export delivers DOC-rich, low-pH, low-O₂ water into lagoon systems. Seagrass beds export alkalinity via dissolution of biogenic carbonate — a net buffer contribution to adjacent reef zones. River plumes deliver nutrient slugs and freshwater that simultaneously suppress Ω and stimulate algal growth. The CMIE's cross-module weighting coefficients are calibrated to these transport pathways, with lag times of hours (tidal) to months (seasonal) depending on the pathway.</p>
+
+        <p><strong>Synergistic stress — why two stressors are worse than their sum.</strong> When temperature and CO₂ stress occur simultaneously, coral bleaching thresholds drop. A coral that bleaches at 1°C above the mean monthly maximum under current Ω (~3.4) may bleach at only 0.5°C above MMM when Ω falls to 2.5. This non-additive synergy is the scientific case for the CMIE — and the reason a Decision Score of DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility must incorporate interaction terms, not just linear stressor magnitudes.</p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>La química oceánica es un <strong>sistema acoplado</strong>. Ninguna variable cambia de forma aislada — cada perturbación se propaga a través de la red química, amplificando o amortiguando la señal original según el estado de otras variables. Este acoplamiento es precisamente la razón por la que existe el CMIE: un sistema de monitoreo de variable única no puede detectar efectos de interacción, no puede modelar estrés sinérgico, y no puede generar la cadena causal de decisiones que GROAN requiere.</p>
+
+        <p>La interacción <strong>CO₂ × Alcalinidad</strong> es la más importante para la gestión de arrecifes. La alcalinidad establece la capacidad química para absorber CO₂ añadido sin colapso del pH. Dos arrecifes que experimentan exposición idéntica al CO₂ atmosférico pueden tener valores de Ω que difieren en 1.0–1.5 unidades — el estado de alcalinidad determina el resultado, no la carga de CO₂ por sí sola.</p>
+
+        <p>La interacción <strong>Temperatura × Solubilidad de CO₂</strong> crea un ciclo de retroalimentación positiva: el estrés térmico reduce la absorción de CO₂ → el pCO₂ elevado reduce Ω → la calcificación deteriorada ralentiza la recuperación. Y la interacción <strong>Salinidad × Alcalinidad</strong> significa que cuando GSIN de GROAN detecta caídas de salinidad en aguas adyacentes al arrecife, el CMIE debe inmediatamente marcar la reducción concurrente de alcalinidad como un riesgo compuesto de acidificación — antes de que el sensor de pH confirme el efecto.</p>
+
+        <p>El estrés <strong>sinérgico</strong> es el argumento científico central para el CMIE. Un coral que se blanquea a 1°C por encima del máximo mensual promedio bajo la Ω actual (~3.4) puede blanquearse a solo 0.5°C por encima cuando Ω cae a 2.5. Esta sinergia no aditiva explica por qué la Puntuación de Decisión de GROAN debe incorporar términos de interacción, no solo magnitudes lineales de factores estresantes.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Interaction Pair</th>
+            <th>Mechanism</th>
+            <th>Direction</th>
+            <th>Reef Outcome</th>
+            <th>GROAN Module Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CO₂ + Low Alkalinity</td>
+            <td>Buffer exhaustion</td>
+            <td class="warn">Synergistic ↑ risk</td>
+            <td>Rapid Ω collapse</td>
+            <td>CMIE OA compound alarm</td>
+          </tr>
+          <tr>
+            <td>Nutrients + Warm Water</td>
+            <td>Algal bloom + hypoxia</td>
+            <td class="warn">Synergistic ↑ risk</td>
+            <td>Benthic O₂ crash</td>
+            <td>GMAIN + GRIN co-alert</td>
+          </tr>
+          <tr>
+            <td>Temp + Elevated CO₂</td>
+            <td>Lower bleach threshold</td>
+            <td class="warn">Synergistic ↑ risk</td>
+            <td>Bleaching at −0.5°C MMM</td>
+            <td>GRIN thermal × OA flag</td>
+          </tr>
+          <tr>
+            <td>Salinity drop + Low Alk</td>
+            <td>Freshwater dilution</td>
+            <td class="caution">Additive ↑ risk</td>
+            <td>Ω depression, GRIN stress</td>
+            <td>GSIN salinity trigger → CMIE</td>
+          </tr>
+          <tr>
+            <td>High Alk + Seagrass export</td>
+            <td>Biogenic carbonate dissolution</td>
+            <td class="good">Buffering ↓ risk</td>
+            <td>Ω protection for adjacent reef</td>
+            <td>GSIN → GRIN positive input</td>
+          </tr>
+          <tr>
+            <td>Mangrove loss + Nutrients</td>
+            <td>N-interception failure</td>
+            <td class="warn">Lagged ↑ risk (6–18 mo)</td>
+            <td>GRIN trophic stress</td>
+            <td>GMIN → CMIE lagged signal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The CMIE's core function is detecting chemical interaction effects that no single-module sensor array can see — a GMIN alkalinity reduction plus a GRIN temperature anomaly is a compound alarm, not two separate warnings, and the Decision Score must weight them as synergistic, not additive.</li>
+          <li>MOOP's dual-sensor configuration (pH + alkalinity at every station) is not redundant — pH tells you the current state, alkalinity tells you the remaining capacity. One without the other cannot predict whether the reef will survive the next CO₂ pulse.</li>
+          <li>The seagrass → reef alkalinity export pathway (GSIN → GRIN) is the most underappreciated chemical interaction in Caribbean reef management. Seagrass bed loss doesn't just remove fish nursery habitat — it eliminates a buffering service that suppresses local OA by a measurable Ω increment.</li>
+          <li>For the Red Sea case study (KAUST), the thermal × CO₂ interaction is particularly acute: the Red Sea is already among the world's warmest and most saline reef systems, and it is semi-enclosed, limiting alkalinity replenishment from offshore water exchange. GSIN seagrass collapse in that basin triggers CMIE amplification factors higher than any Caribbean scenario.</li>
+          <li>Every Rim Run™ site visit in October 2026 will record a chemical interaction fingerprint — the ratio of alkalinity to DIC (dissolved inorganic carbon) at each site defines how far that reef is from the tipping point where interactions shift from manageable to cascade.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>La función central del CMIE es detectar efectos de interacción química que ninguna red de sensores de módulo único puede ver — una reducción de alcalinidad en GMIN más una anomalía de temperatura en GRIN es una alarma compuesta, no dos advertencias separadas, y la Puntuación de Decisión debe pesarlas como sinérgicas, no aditivas.</li>
+          <li>La configuración de doble sensor de MOOP (pH + alcalinidad en cada estación) no es redundante — el pH indica el estado actual, la alcalinidad indica la capacidad restante. Uno sin el otro no puede predecir si el arrecife sobrevivirá al siguiente pulso de CO₂.</li>
+          <li>La vía de exportación de alcalinidad de pastos marinos hacia arrecife (GSIN → GRIN) es la interacción química más subestimada en la gestión de arrecifes del Caribe. La pérdida de praderas de pastos marinos no solo elimina el hábitat de cría de peces — elimina un servicio de amortiguación que suprime la acidificación local en un incremento de Ω medible.</li>
+          <li>Para el estudio de caso del Mar Rojo (KAUST), la interacción térmica × CO₂ es particularmente aguda: el Mar Rojo ya se encuentra entre los sistemas de arrecife más cálidos y salinos del mundo, y es semiencerrado, lo que limita la reposición de alcalinidad desde el intercambio de agua marina exterior.</li>
+          <li>Cada visita al sitio Rim Run™ en octubre de 2026 registrará una huella de interacción química — la relación entre alcalinidad y carbono inorgánico disuelto (DIC) en cada sitio define qué tan lejos está ese arrecife del punto de inflexión donde las interacciones pasan de manejables a cascada.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">Two reefs receive identical atmospheric CO₂ loading. Reef A has total alkalinity of 2,350 µmol/kg; Reef B has 2,050 µmol/kg. Which outcome is most likely?</div>
+        <div class="q-text-es">Dos arrecifes reciben la misma carga de CO₂ atmosférico. El Arrecife A tiene alcalinidad total de 2,350 µmol/kg; el Arrecife B tiene 2,050 µmol/kg. ¿Cuál resultado es más probable?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Both reefs show identical Ω values because CO₂ loading is the same</li>
+          <li><span class="opt-key">B</span> Reef A collapses faster due to its higher ionic strength</li>
+          <li class="correct"><span class="opt-key">C</span> Reef B shows significantly lower Ω — alkalinity state determines OA outcome, not CO₂ loading alone</li>
+          <li><span class="opt-key">D</span> Temperature differences between the reefs override the alkalinity effect</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Why does GROAN treat simultaneous temperature anomaly and low-Ω conditions as a synergistic alarm rather than two separate alerts?</div>
+        <div class="q-text-es">¿Por qué GROAN trata una anomalía de temperatura simultánea con condiciones de baja Ω como una alarma sinérgica y no como dos alertas separadas?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because both sensors are physically located in the same module housing</li>
+          <li><span class="opt-key">B</span> To reduce the total number of alerts sent to reef managers</li>
+          <li class="correct"><span class="opt-key">C</span> Because corals bleach at lower temperature thresholds when Ω is depressed — the combined risk exceeds the sum of individual stressors</li>
+          <li><span class="opt-key">D</span> Because temperature anomalies always cause alkalinity reductions</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">When GROAN's GSIN detects a salinity drop adjacent to a reef zone, what chemical inference should the CMIE draw before the pH sensor responds?</div>
+        <div class="q-text-es">Cuando GSIN de GROAN detecta una caída de salinidad adyacente a una zona arrecifal, ¿qué inferencia química debe hacer el CMIE antes de que el sensor de pH responda?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> That a tidal flood event is importing high-Ω offshore water</li>
+          <li><span class="opt-key">B</span> That dissolved oxygen is likely above saturation due to freshwater input</li>
+          <li><span class="opt-key">C</span> That nutrient levels will remain unchanged because salinity does not affect nutrient chemistry</li>
+          <li class="correct"><span class="opt-key">D</span> That total alkalinity has been diluted, compounding OA vulnerability — freshwater carries near-zero alkalinity, reducing the carbonate buffer before pH changes are visible</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: D</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">5.40% — Lesson 38 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L06 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
