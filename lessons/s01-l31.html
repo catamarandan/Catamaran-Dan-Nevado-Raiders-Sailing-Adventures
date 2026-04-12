@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L31 Physical Oceanography — Expedition Integration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.41%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 31 · Physical Oceanography</div>
+        <div class="lesson-title">Expedition Integration</div>
+        <div class="lesson-subtitle">Translating Section 01 Physical Oceanography into Rim Run™ Field Operations</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Rim Run™ MOOP</span>
+        <span class="tag tag-gold">Field Protocol</span>
+        <span class="tag tag-coral">GROAN Data Pipeline</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: Rim Run circuit map silhouette (Mexico → Panama arc) with MOOP sensor icons at reef nodes and data uplink arrow to GROAN cloud -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG31" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG31)"/>
+
+        <!-- Ocean background suggestion -->
+        <rect x="0" y="130" width="340" height="90" fill="#020f1e" opacity="0.4"/>
+
+        <!-- Rim Run arc: Mexico (top-left) → Belize → Guatemala → Honduras → Nicaragua → Costa Rica → Panama (bottom-right) -->
+        <path d="M48,38 Q70,60 88,85 Q105,108 118,128 Q135,148 155,162 Q175,174 200,180 Q225,184 255,178 Q280,170 300,155"
+              stroke="#1ac8c8" stroke-width="1.8" fill="none" stroke-dasharray="6,3" opacity="0.6"/>
+
+        <!-- Country node dots + labels -->
+        <!-- Mexico -->
+        <circle cx="48"  cy="38"  r="5" fill="#1ac8c8" opacity="0.85"/>
+        <text x="58"  y="36"  font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.8">MX</text>
+        <!-- Belize -->
+        <circle cx="88"  cy="85"  r="5" fill="#1ac8c8" opacity="0.85"/>
+        <text x="98"  y="83"  font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.8">BZ</text>
+        <!-- Guatemala -->
+        <circle cx="118" cy="128" r="5" fill="#1ac8c8" opacity="0.85"/>
+        <text x="128" y="126" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.8">GT</text>
+        <!-- Honduras -->
+        <circle cx="155" cy="162" r="5" fill="#1ac8c8" opacity="0.85"/>
+        <text x="165" y="160" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.8">HN</text>
+        <!-- Nicaragua -->
+        <circle cx="200" cy="180" r="5" fill="#1ac8c8" opacity="0.85"/>
+        <text x="210" y="178" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.8">NI</text>
+        <!-- Costa Rica -->
+        <circle cx="255" cy="178" r="5" fill="#1ac8c8" opacity="0.85"/>
+        <text x="265" y="176" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec" opacity="0.8">CR</text>
+        <!-- Panama -->
+        <circle cx="300" cy="155" r="5" fill="#f0b429" opacity="0.9"/>
+        <text x="308" y="153" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.9">PA</text>
+
+        <!-- Shamrocket vessel icon (catamaran silhouette near Honduras node) -->
+        <g transform="translate(135,148) scale(0.7)">
+          <!-- hull left -->
+          <ellipse cx="-8" cy="10" rx="12" ry="3" fill="#0a6e8a" opacity="0.9"/>
+          <!-- hull right -->
+          <ellipse cx="8"  cy="10" rx="12" ry="3" fill="#0a6e8a" opacity="0.9"/>
+          <!-- crossbeam -->
+          <rect x="-14" y="6" width="28" height="2" fill="#04294a" opacity="0.9"/>
+          <!-- mast -->
+          <line x1="0" y1="6" x2="0" y2="-18" stroke="#1ac8c8" stroke-width="1.2" opacity="0.9"/>
+          <!-- sail -->
+          <polygon points="0,-18 14,6 0,6" fill="rgba(26,200,200,0.25)" stroke="#1ac8c8" stroke-width="0.6"/>
+        </g>
+        <text x="125" y="172" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" opacity="0.75" text-anchor="middle">SHAMROCKET</text>
+
+        <!-- MOOP sensor bursts at 3 reef nodes -->
+        <!-- Belize node burst -->
+        <circle cx="88" cy="85" r="10" fill="none" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.5"/>
+        <circle cx="88" cy="85" r="16" fill="none" stroke="#f0b429" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.3"/>
+
+        <!-- Honduras node burst -->
+        <circle cx="155" cy="162" r="10" fill="none" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.5"/>
+        <circle cx="155" cy="162" r="16" fill="none" stroke="#f0b429" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.3"/>
+
+        <!-- Costa Rica node burst -->
+        <circle cx="255" cy="178" r="10" fill="none" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.5"/>
+        <circle cx="255" cy="178" r="16" fill="none" stroke="#f0b429" stroke-width="0.5" stroke-dasharray="2,3" opacity="0.3"/>
+
+        <!-- GROAN cloud uplink (top right) -->
+        <rect x="240" y="18" width="88" height="42" rx="3" fill="rgba(2,15,30,0.8)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+        <text x="284" y="33" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">GROAN</text>
+        <text x="284" y="43" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">MOOP → GRIN</text>
+        <text x="284" y="53" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.7">live data pipeline</text>
+
+        <!-- uplink arrow from Belize node -->
+        <line x1="90" y1="70" x2="240" y2="42" stroke="rgba(26,200,200,0.3)" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <polygon points="240,42 232,38 234,46" fill="rgba(26,200,200,0.3)"/>
+
+        <!-- Legend -->
+        <circle cx="18" cy="195" r="4" fill="#1ac8c8" opacity="0.7"/>
+        <text x="26" y="198" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">reef node</text>
+        <circle cx="80" cy="195" r="6" fill="none" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.6"/>
+        <text x="90" y="198" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">MOOP active</text>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Physical Oceanography: Expedition Integration</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Section 01 has built the complete physical oceanographic knowledge base underlying GROAN's GRIN module: water column structure, circulation systems, SST dynamics, wave energy, tidal regimes, current patterns, MAR geography, monitoring methods, indicators, stressors, human impacts, mitigation, restoration, comparative systems, and advanced nonlinear dynamics. Lesson 31 closes Section 01 by mapping each of these concepts directly to field operations aboard Shamrocket during Rim Run™ expeditions — translating academic framework into operational protocol.</p>
+
+      <p><strong>The MOOP (Mobile Ocean Observation Platform) vessel role</strong> is the physical execution layer of GROAN's data architecture. Every Section 01 variable has a corresponding MOOP sensor, observation protocol, or data ingestion pathway. The Hobie Getaway catamaran configuration provides a stable, shallow-draft platform capable of accessing reef flat and lagoon environments unreachable by conventional research vessels — enabling in-situ measurements at the exact physical interface (reef crest, back-reef slope, lagoon) where stressor dynamics are most consequential.</p>
+
+      <p><strong>SST field protocol</strong> directly implements the GRIN Source 001 pipeline built in Session 22. While NOAA/Open-Meteo satellite SST provides the spatial baseline, MOOP-acquired surface temperatures via calibrated thermistor string provide ground-truth validation at each reef node. The 7-day baseline, anomaly detection, and temporal smoothing algorithms in the GROAN SST engine are designed to accept both remote-sensed and in-situ inputs — the field measurement closes the loop against satellite products that have known coastal zone degradation from cloud cover and land contamination.</p>
+
+      <p><strong>Water column profiling</strong> at each reef node captures thermocline depth, halocline position, and dissolved oxygen profile — the three structural variables that determine whether stratification is protective (suppressing mixing of cooler deep water) or harmful (trapping warm surface water). A handheld CTD (conductivity-temperature-depth) instrument deployed from Shamrocket's beam takes the profile to 30–40 m in under five minutes, generating a data record that directly feeds GRIN's stratification sub-index.</p>
+
+      <p><strong>Wave and current observation</strong> during transit legs between reef nodes constitutes the Rim Run™ dataset's highest spatial value. No fixed monitoring station covers the 1,500+ nm arc from Mexico to Panama with continuous surface measurements. Shamrocket's GPS track, logged sea state (Beaufort scale + estimated Hs from visual observation), surface current estimated from COG/SOG offset, and wind direction/speed from the onboard Garmin chartplotter together constitute a continuous physical oceanographic transect — the spatial dataset that no ship-of-opportunity currently produces for this corridor.</p>
+
+      <p><strong>Tidal and circulation observations</strong> at each country stopover include: anchor drag assessment (proxy for current speed), tidal height recorded against visible datum marks, and comparison of predicted vs. observed tidal timing — confirming whether local tidal dynamics match the micro-tidal Caribbean baseline or are modified by bay geometry, river outflow, or atoll configuration.</p>
+
+      <p><strong>Stressor field assessment</strong> translates L25 stressor categories into visual and instrumental observation checklists: turbidity (Secchi disk depth), surface plume presence (color, extent), visible bleaching prevalence at snorkel depth, macroalgae cover estimate (belt transect), and fishing activity observation (vessel type, gear type, catch). Each checklist item maps to a GRIN sub-index input, making the MOOP protocol a direct field instrument for the GROAN decision system — not a separate citizen science exercise.</p>
+
+      <p>The expedition integration architecture means that every nautical mile of the Rim Run™ circuit is generating physical oceanographic data that flows upward through MOOP → GRIN → CMIE → Decision Score → DMAP-CAL™ output. The circuit is not just the expedition — it is the primary data collection instrument of the entire GROAN system.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La Lección 31 cierra la Sección 01 mapeando cada concepto directamente a las operaciones de campo a bordo del Shamrocket durante las expediciones Rim Run™ — traduciendo el marco académico en protocolo operacional.</p>
+
+      <p>El <strong>rol del buque MOOP (Plataforma Móvil de Observación Oceánica)</strong> es la capa de ejecución física de la arquitectura de datos de GROAN. El catamarán Hobie Getaway proporciona una plataforma estable y de poco calado capaz de acceder a entornos de planicie arrecifal y laguna inalcanzables por embarcaciones de investigación convencionales.</p>
+
+      <p>El <strong>protocolo de campo de TSM</strong> implementa directamente el pipeline GRIN Fuente 001. Las temperaturas superficiales adquiridas por MOOP mediante una cadena de termistores calibrada proporcionan validación de verdad de campo en cada nodo arrecifal — cerrando el ciclo contra los productos satelitales que tienen degradación conocida en zonas costeras.</p>
+
+      <p>El <strong>perfilado de la columna de agua</strong> en cada nodo arrecifal captura la profundidad de la termoclina, la posición de la haloclina y el perfil de oxígeno disuelto. Un instrumento CTD (conductividad-temperatura-profundidad) portátil desplegado desde la viga del Shamrocket toma el perfil hasta 30–40 m en menos de cinco minutos, generando un registro de datos que alimenta directamente el subíndice de estratificación de GRIN.</p>
+
+      <p>Las <strong>observaciones de oleaje y corriente</strong> durante los tramos de tránsito entre nodos arrecifales constituyen el mayor valor espacial del conjunto de datos del Rim Run™. Ninguna estación de monitoreo fija cubre el arco de más de 1,500 mn desde México hasta Panamá con mediciones superficiales continuas.</p>
+
+      <p>La <strong>evaluación de estresores en campo</strong> traduce las categorías de estresores de L25 en listas de verificación de observación visual e instrumental: profundidad de disco Secchi, prevalencia de blanqueamiento visible, estimación de cobertura de macroalgas, y observación de actividad pesquera. Cada elemento de la lista se mapea a una entrada de subíndice de GRIN.</p>
+
+      <p>La arquitectura de integración expedición significa que cada milla náutica del circuito Rim Run™ está generando datos de oceanografía física que fluyen hacia arriba a través de MOOP → GRIN → CMIE → Puntuación de Decisión → salida DMAP-CAL™. El circuito no es solo la expedición — es el instrumento principal de recolección de datos de todo el sistema GROAN.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>S01 Concept / Concepto</th>
+          <th>MOOP Field Method / Método</th>
+          <th>Instrument / Instrumento</th>
+          <th>GROAN Input</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SST / Temperatura superficial</td><td>Surface thermistor string at anchor</td><td>Calibrated thermistor / CTD</td><td>GRIN Source 001</td></tr>
+        <tr><td>Water column structure / Columna de agua</td><td>CTD drop to 30–40 m at each node</td><td>Handheld CTD profiler</td><td>GRIN stratification sub-index</td></tr>
+        <tr><td>Wave energy / Energía del oleaje</td><td>Visual Hs estimate + Beaufort log</td><td>Garmin chartplotter + logbook</td><td>GRIN wave sub-index</td></tr>
+        <tr><td>Surface current / Corriente</td><td>COG/SOG offset from GPS track</td><td>Garmin GPS chartplotter</td><td>GRIN connectivity sub-index</td></tr>
+        <tr><td>Turbidity / Turbidez</td><td>Secchi disk depth at each node</td><td>Secchi disk + measured line</td><td>GRIN sediment sub-index</td></tr>
+        <tr><td>Coral cover / Cobertura</td><td>Belt transect snorkel survey</td><td>Underwater slate + reel</td><td>GRIN cover index</td></tr>
+        <tr><td>Bleaching / Blanqueamiento</td><td>Visual prevalence estimate at 3–5 m</td><td>Snorkel + photo log</td><td>GRIN thermal stress sub-index</td></tr>
+        <tr><td>Tidal regime / Régimen mareal</td><td>Observed vs. predicted tidal timing</td><td>Tide tables + visual datum mark</td><td>GRIN physical context flag</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The October 2026 Rim Run™ launch timing is operationally optimal for physical oceanography integration: October marks the tail of the Caribbean hurricane season (sea states normalizing), the end of peak thermal anomaly period (bleaching recovery observable), and the beginning of the post-spawning larval dispersal window — compressing the highest-value observational windows for SST, bleaching, and recruitment science into the first weeks of the circuit.</li>
+        <li>Banco Chinchorro (Mexico, first major reef node) serves as the MOOP calibration site: baseline SST, CTD profile, Secchi depth, and belt transect are established here before any subsequent node data is logged — ensuring that inter-node comparisons across 7 countries are anchored to a consistent measurement baseline rather than sequential instrument drift.</li>
+        <li>The Bay Islands (Honduras, mid-circuit) represent the highest-priority compound stressor assessment node: elevated nutrient signatures from mainland river discharge interact with the thermal stress regime documented in AGRRA datasets — making this the circuit node where GROAN's CMIE non-additive interaction detection is most likely to produce a Decision Score meaningfully different from a naive linear stressor sum.</li>
+        <li>Costa Rica's Cocos Island (final MAR-adjacent node before Panama) is outside the barrier reef system but within the Eastern Tropical Pacific upwelling zone — providing the circuit's only cold-upwelling SST data point, directly testing whether the GRIN thermocline depth sub-index correctly flags the mechanistic shift from thermal stress to nutrient delivery as the dominant physical driver.</li>
+        <li>The complete Rim Run™ physical oceanography dataset — 7 countries, 100+ reef sites, 1,500+ nm, zero carbon — represents the only citizen science transect in the western hemisphere that continuously covers the full latitudinal and national range of the MAR system in a single annual survey, making it structurally irreplaceable as a GROAN ground-truth validation dataset.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>El lanzamiento del Rim Run™ en octubre de 2026 es óptimo operacionalmente: octubre marca el final de la temporada de huracanes del Caribe, el fin del período pico de anomalías térmicas y el inicio de la ventana de dispersión larval post-desove — comprimiendo las ventanas observacionales de mayor valor en las primeras semanas del circuito.</li>
+        <li>Banco Chinchorro (México, primer nodo arrecifal mayor) sirve como sitio de calibración MOOP: la TSM de referencia, el perfil CTD, la profundidad de disco Secchi y el transecto de banda se establecen aquí antes de que se registre cualquier dato de nodos subsiguientes.</li>
+        <li>Las Islas de la Bahía (Honduras, mitad del circuito) representan el nodo de evaluación de estresores compuestos de mayor prioridad: las firmas elevadas de nutrientes del río continental interactúan con el régimen de estrés térmico documentado en los conjuntos de datos de AGRRA.</li>
+        <li>La Isla del Coco de Costa Rica (último nodo adyacente al MAR antes de Panamá) proporciona el único punto de datos de TSM de surgencia fría del circuito — probando directamente si el subíndice de profundidad de termoclina de GRIN detecta correctamente el cambio mecánico del estrés térmico al suministro de nutrientes como impulsor físico dominante.</li>
+        <li>El conjunto de datos completo de oceanografía física del Rim Run™ — 7 países, más de 100 sitios arrecifales, más de 1,500 mn, cero carbono — representa el único transecto de ciencia ciudadana en el hemisferio occidental que cubre continuamente el rango latitudinal y nacional completo del sistema MAR en un solo levantamiento anual.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why is Banco Chinchorro designated as the MOOP calibration site for the Rim Run™ circuit, and what is the consequence if this baseline step is skipped?</div>
+        <div class="mcq-q-es">¿Por qué se designa Banco Chinchorro como el sitio de calibración MOOP para el circuito Rim Run™, y cuál es la consecuencia si se omite este paso de referencia?</div>
+        <ul class="mcq-options">
+          <li>A. Banco Chinchorro has the highest coral cover in the MAR and sets the biological reference</li>
+          <li class="correct">B. As the first major reef node, it establishes the measurement baseline before any subsequent node data is logged — without it, inter-node comparisons across 7 countries are vulnerable to sequential instrument drift rather than true ecological variation</li>
+          <li>C. Mexican maritime law requires all research vessels to calibrate instruments at Banco Chinchorro</li>
+          <li>D. Banco Chinchorro is the only site with sufficient water depth for CTD profiling</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">How does the Rim Run™ COG/SOG GPS offset method estimate surface current, and why does this transit-leg measurement have higher spatial value than any fixed monitoring station in the corridor?</div>
+        <div class="mcq-q-es">¿Cómo estima el método de desplazamiento COG/SOG del GPS del Rim Run™ la corriente superficial, y por qué esta medición de tramo de tránsito tiene mayor valor espacial que cualquier estación de monitoreo fija en el corredor?</div>
+        <ul class="mcq-options">
+          <li>A. The GPS directly measures water velocity using Doppler sonar integrated into the chartplotter</li>
+          <li class="correct">B. The difference between Course Over Ground (actual GPS track) and Speed Over Ground vs. wind-corrected heading reveals the surface current vector — and continuous GPS logging across 1,500+ nm covers a spatial arc no fixed station network currently monitors with equivalent continuity</li>
+          <li>C. COG/SOG offset measures tidal height, not current speed</li>
+          <li>D. The method only works in open ocean; reef passages require a separate ADCP instrument</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">Why does the Bay Islands (Honduras) node produce the highest probability of a GROAN CMIE Decision Score meaningfully different from a naive linear stressor sum, and what physical oceanographic mechanism drives this?</div>
+        <div class="mcq-q-es">¿Por qué el nodo de las Islas de la Bahía (Honduras) produce la mayor probabilidad de una Puntuación de Decisión del CMIE de GROAN significativamente diferente de una suma lineal simple de estresores, y qué mecanismo oceanográfico físico impulsa esto?</div>
+        <ul class="mcq-options">
+          <li>A. The Bay Islands have the highest fish biomass in the MAR, suppressing algae competition</li>
+          <li>B. Tidal amplitudes at the Bay Islands are macro-tidal, preventing thermal stratification</li>
+          <li class="correct">C. Elevated nutrient signatures from mainland river discharge interact non-additively with the thermal stress regime — producing compound bleaching at individually subthreshold stressor levels, an interaction the CMIE detects and weights explicitly while a linear index misses entirely</li>
+          <li>D. The Bay Islands are outside MAR jurisdiction so standard stressor indices do not apply</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S01·L31 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.41%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
