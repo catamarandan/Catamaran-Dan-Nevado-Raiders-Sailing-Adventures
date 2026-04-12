@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L16 | Chemical Oceanography — Scaling</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid: #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral: #e86040;
+    --gold: #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim: #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  /* ── PANELS ── */
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong {
+    color: var(--ocean-cyan);
+    font-weight: 600;
+  }
+
+  .lecture-text .highlight { color: var(--gold); font-weight: 500; }
+  .lecture-text .coral { color: var(--coral); font-weight: 500; }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .data-table thead tr {
+    background: rgba(10,110,138,0.3);
+  }
+
+  .data-table th {
+    padding: 10px 14px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 9px 14px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod { background: rgba(240,180,41,0.12); color: var(--gold); border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low { background: rgba(232,96,64,0.12); color: var(--coral); border: 1px solid rgba(232,96,64,0.3); }
+
+  /* ── APPLICATION PANEL ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before {
+    content: '✓ ';
+    color: var(--ocean-cyan);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER / PROGRESS ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 6.82%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L16 / 32</div>
+      <h1 class="lesson-title">Scaling</h1>
+      <p class="lesson-subtitle">Translating measurements across spatial and temporal resolutions</p>
+    </div>
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+      <!-- Scale hierarchy diagram: 4 nested trapezoids with labels + bidirectional arrows -->
+      <!-- Basin (outermost) -->
+      <polygon points="10,140 210,140 180,108 40,108" fill="none" stroke="#0a6e8a" stroke-width="1.2" opacity="0.5"/>
+      <text x="110" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8ab8cc">BASIN · &gt;1,000 km</text>
+      <!-- Macro -->
+      <polygon points="40,108 180,108 155,78 65,78" fill="none" stroke="#0a6e8a" stroke-width="1.2" opacity="0.65"/>
+      <text x="110" y="97" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8ab8cc">MACRO · 10–1,000 km</text>
+      <!-- Meso -->
+      <polygon points="65,78 155,78 132,50 88,50" fill="none" stroke="#1ac8c8" stroke-width="1.4" opacity="0.8"/>
+      <text x="110" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#b8f0ec">MESO · 10 m–10 km</text>
+      <!-- Micro (top) -->
+      <polygon points="88,50 132,50 118,26 102,26" fill="rgba(26,200,200,0.12)" stroke="#1ac8c8" stroke-width="1.6"/>
+      <text x="110" y="42" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8">MICRO</text>
+      <!-- Upscale arrow (left) -->
+      <line x1="28" y1="140" x2="28" y2="26" stroke="#f0b429" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6"/>
+      <polygon points="24,30 28,18 32,30" fill="#f0b429" opacity="0.7"/>
+      <text x="14" y="90" font-family="DM Mono,monospace" font-size="8" fill="#f0b429" opacity="0.8" transform="rotate(-90,14,90)">UPSCALE</text>
+      <!-- Downscale arrow (right) -->
+      <line x1="196" y1="26" x2="196" y2="140" stroke="#e86040" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6"/>
+      <polygon points="192,136 196,148 200,136" fill="#e86040" opacity="0.7"/>
+      <text x="209" y="90" font-family="DM Mono,monospace" font-size="8" fill="#e86040" opacity="0.8" transform="rotate(90,209,90)">DOWNSCALE</text>
+      <!-- GROAN tag -->
+      <rect x="78" y="4" width="64" height="14" rx="3" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+      <text x="110" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" letter-spacing="0.1em">GROAN STACK</text>
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          Chemical oceanography operates across scales spanning twelve orders of magnitude — from molecular reactions at nanometer resolution to basin-wide carbonate chemistry across thousands of kilometers. 
+          <strong>Scaling is not interpolation.</strong> It is the formal methodology for determining which processes dominate at which scale, how measurements at one resolution constrain estimates at another, and what information is irreversibly lost in aggregation.
+        </p>
+        <p style="margin-bottom:14px;">
+          Four scaling concepts govern GROAN operations:
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>1 · Representative Elementary Volume (REV).</strong> The minimum sample volume at which measured chemistry reflects the ambient water mass rather than microenvironment artifacts. For reef carbonate chemistry, REV is approximately <span class="highlight">1–10 liters</span> at 0.5–1 m depth, away from benthic surfaces. Samples smaller than REV carry automatic <span class="coral">Moderate confidence</span> regardless of instrument precision.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>2 · Scale-dependent dominance.</strong> Different drivers dominate at different scales. At meso scale (10 m–10 km), biological metabolism drives diel carbonate variability. At macro scale (10–1,000 km), atmospheric CO₂ exchange and terrestrial discharge dominate. At basin scale, thermohaline circulation and CMIP6 forcing dominate. A CMIE attribution error occurs when a meso-scale biological signal is misclassified as a macro-scale atmospheric signal — the Decision Score changes substantially.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>3 · Upscaling protocol.</strong> MOOP point measurements scale to reef zone estimates via kriging (<span class="highlight">15 km autocorrelation limit</span>, 0.6× weight for interpolated nodes). Reef zone estimates scale to country-level aggregates via area-weighted means with SGD correction. Country aggregates feed CMIE as L3 Source Arbitration inputs.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>4 · Downscaling constraint.</strong> CMIP6 basin projections (1° × 1° grid) cannot resolve meso-scale reef features. GLORYS regional reanalysis (<span class="highlight">1/12°, ~8 km</span>) is the minimum viable downscaling product for GROAN spatial attribution. Local calibration requires at least one moored station per reef zone to anchor the downscaled field.
+        </p>
+        <p>
+          <strong>Key argument:</strong> Scaling errors propagate <span class="coral">multiplicatively</span> into Decision Score. A 15% upscaling uncertainty at reef zone level compounds to ~35% uncertainty at country aggregate level when three zones are combined. GROAN's 3-layer Source Arbitration (L3) exists specifically to bound this compounding.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          La oceanografía química opera a través de escalas que abarcan doce órdenes de magnitud — desde reacciones moleculares a resolución nanométrica hasta la química del carbonato a escala de cuenca en miles de kilómetros. 
+          <strong>El escalado no es interpolación.</strong> Es la metodología formal para determinar qué procesos dominan a qué escala, cómo las mediciones a una resolución restringen las estimaciones a otra y qué información se pierde irreversiblemente en la agregación.
+        </p>
+        <p style="margin-bottom:14px;">Cuatro conceptos de escalado gobiernan las operaciones de GROAN:</p>
+        <p style="margin-bottom:12px;">
+          <strong>1 · Volumen Elemental Representativo (VER).</strong> El volumen mínimo de muestra en el que la química medida refleja la masa de agua ambiental en lugar de artefactos de microentorno. Para la química del carbonato en arrecifes, el VER es aproximadamente <span class="highlight">1–10 litros</span> a 0.5–1 m de profundidad, lejos de superficies bentónicas. Las muestras menores al VER tienen confianza <span class="coral">Moderada automática</span> independientemente de la precisión del instrumento.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>2 · Dominancia dependiente de escala.</strong> Diferentes impulsores dominan a diferentes escalas. A escala meso (10 m–10 km), el metabolismo biológico impulsa la variabilidad diurna del carbonato. A escala macro (10–1,000 km), dominan el intercambio de CO₂ atmosférico y la descarga terrestre. A escala de cuenca, dominan la circulación termohalina y el forzamiento CMIP6. Un error de atribución CMIE ocurre cuando una señal biológica de escala meso se clasifica erróneamente como una señal atmosférica de escala macro.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>3 · Protocolo de escalado ascendente.</strong> Las mediciones puntuales MOOP escalan a estimaciones de zona de arrecife mediante kriging (<span class="highlight">límite de autocorrelación de 15 km</span>, peso 0.6× para nodos interpolados). Las estimaciones de zona de arrecife escalan a agregados nacionales mediante medias ponderadas por área con corrección SGD.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>4 · Restricción de escalado descendente.</strong> Las proyecciones de cuenca CMIP6 (cuadrícula de 1° × 1°) no pueden resolver características de arrecife a escala meso. El reanálisis regional GLORYS (<span class="highlight">1/12°, ~8 km</span>) es el producto mínimo viable de reducción de escala para la atribución espacial de GROAN.
+        </p>
+        <p>
+          <strong>Argumento clave:</strong> Los errores de escalado se propagan <span class="coral">multiplicativamente</span> en el Puntaje de Decisión. Una incertidumbre de escalado ascendente del 15% a nivel de zona de arrecife se compone hasta ~35% a nivel de agregado nacional cuando se combinan tres zonas. La Arbitraje de Fuentes de 3 capas (L3) de GROAN existe específicamente para acotar esta acumulación.
+        </p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Scale</th>
+          <th>Spatial Extent</th>
+          <th>Temporal Res.</th>
+          <th>Dominant Process</th>
+          <th>GROAN Tool</th>
+          <th>Conf. Floor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Micro</strong></td>
+          <td>&lt;10 m</td>
+          <td>Minutes</td>
+          <td>Benthic metabolism</td>
+          <td>MOOP (REV check)</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+        </tr>
+        <tr>
+          <td><strong>Meso</strong></td>
+          <td>10 m–10 km</td>
+          <td>Hours–Days</td>
+          <td>Biological + Discharge</td>
+          <td>MOOP + Kriging</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong>Macro</strong></td>
+          <td>10–1,000 km</td>
+          <td>Days–Weeks</td>
+          <td>Atmospheric + Plume</td>
+          <td>Sentinel-2 + GLORYS</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+        </tr>
+        <tr>
+          <td><strong>Basin</strong></td>
+          <td>&gt;1,000 km</td>
+          <td>Months–Years</td>
+          <td>Thermohaline + OA</td>
+          <td>CMIP6 + GLORYS</td>
+          <td><span class="badge badge-low">Low</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Any MOOP sample collected within 0.5 m of coral surface is sub-REV — flag as microenvironment artifact, exclude from kriging, and retain as benthic flux reference only.</span></li>
+        <li><span class="app-num">02</span><span>When CMIE receives Ω signals from two zones in the same country, scale to country aggregate using reef area weights from the Sentinel-2 habitat map — not equal weighting.</span></li>
+        <li><span class="app-num">03</span><span>A GLORYS 8 km grid cell intersecting a reef zone without a local moored station anchor is treated as Moderate confidence regardless of model skill metrics.</span></li>
+        <li><span class="app-num">04</span><span>Scale mismatch flag: if CMIP6 projects Ω 2.8 at basin scale but the moored station reads Ω 3.3 locally, the local signal takes precedence for Decision Score — document the discrepancy as a CMIE calibration record.</span></li>
+        <li><span class="app-num">05</span><span>When upscaling from 3 MOOP stations to a full country estimate, report the 95% kriging prediction interval alongside the point estimate — CMIE consumes both for uncertainty-weighted DS calculation.</span></li>
+      </ul>
+    </div>
+
+    <!-- ES -->
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Cualquier muestra de MOOP recolectada dentro de 0.5 m de la superficie del coral está por debajo del VER — marcar como artefacto de microentorno, excluir del kriging y conservar solo como referencia de flujo bentónico.</span></li>
+        <li><span class="app-num">02</span><span>Cuando CMIE recibe señales de Ω de dos zonas en el mismo país, escalar al agregado nacional usando pesos de área de arrecife del mapa de hábitat Sentinel-2 — no pesos iguales.</span></li>
+        <li><span class="app-num">03</span><span>Una celda de cuadrícula GLORYS de 8 km que intersecta una zona de arrecife sin ancla de estación amarrada local se trata como confianza Moderada independientemente de las métricas de habilidad del modelo.</span></li>
+        <li><span class="app-num">04</span><span>Señal de desajuste de escala: si CMIP6 proyecta Ω 2.8 a escala de cuenca pero la estación amarrada lee Ω 3.3 localmente, la señal local tiene precedencia para el Puntaje de Decisión — documentar la discrepancia como registro de calibración CMIE.</span></li>
+        <li><span class="app-num">05</span><span>Al escalar desde 3 estaciones MOOP a una estimación de país completo, reportar el intervalo de predicción kriging del 95% junto con la estimación puntual — CMIE consume ambos para el cálculo DS ponderado por incertidumbre.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">What defines the Representative Elementary Volume (REV) threshold in GROAN's confidence protocol?</div>
+        <div class="mcq-q-es">¿Qué define el umbral del Volumen Elemental Representativo (VER) en el protocolo de confianza de GROAN?</div>
+        <div class="mcq-option">A) Sample volumes above 100 L at any depth / Volúmenes superiores a 100 L a cualquier profundidad</div>
+        <div class="mcq-option correct">B) 1–10 L at 0.5–1 m depth, away from benthic surfaces / 1–10 L a 0.5–1 m, lejos de superficies bentónicas</div>
+        <div class="mcq-option">C) Any volume collected with a calibrated ISFET sensor / Cualquier volumen con sensor ISFET calibrado</div>
+        <div class="mcq-option">D) Volume determined by tidal phase at collection / Volumen determinado por fase de marea</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">What is the minimum viable downscaling product for GROAN spatial attribution?</div>
+        <div class="mcq-q-es">¿Cuál es el producto de reducción de escala mínimo viable para la atribución espacial de GROAN?</div>
+        <div class="mcq-option">A) CMIP6 at 1° × 1° with kriging correction / CMIP6 a 1°×1° con corrección kriging</div>
+        <div class="mcq-option">B) Satellite SST resampled to 100 m / SST satelital remuestreado a 100 m</div>
+        <div class="mcq-option correct">C) GLORYS at 1/12° (~8 km) with moored station anchor / GLORYS a 1/12° (~8 km) con ancla de estación amarrada</div>
+        <div class="mcq-option">D) ROMS outputs averaged to country-level zones / ROMS promediado a zonas nacionales</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">If each reef zone carries 15% upscaling uncertainty, what is the approximate compound uncertainty at the three-zone country aggregate?</div>
+        <div class="mcq-q-es">Si cada zona de arrecife tiene 15% de incertidumbre de escalado, ¿cuál es la incertidumbre compuesta aproximada en el agregado nacional de tres zonas?</div>
+        <div class="mcq-option">A) 15% — uncertainty does not compound / 15% — la incertidumbre no se acumula</div>
+        <div class="mcq-option">B) 45% — uncertainty adds linearly / 45% — la incertidumbre se suma linealmente</div>
+        <div class="mcq-option correct">C) ~35% — uncertainty compounds multiplicatively / ~35% — la incertidumbre se acumula multiplicativamente</div>
+        <div class="mcq-option">D) &lt;5% — averaging three zones reduces uncertainty / &lt;5% — promediar tres zonas reduce la incertidumbre</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER / PROGRESS -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 48 of 704</span>
+      <span class="progress-pct">6.82%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
