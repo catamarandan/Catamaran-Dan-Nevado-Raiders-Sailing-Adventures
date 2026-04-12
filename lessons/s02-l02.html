@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02·L02 Chemical Oceanography — Core Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.69%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 02 · Lesson 02 · Chemical Oceanography</div>
+        <div class="lesson-title">Core Principles</div>
+        <div class="lesson-subtitle">The Carbonate System, Ocean Acidification, and the Oxygen Cycle</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Carbonate Chemistry</span>
+        <span class="tag tag-gold">Ocean Acidification</span>
+        <span class="tag tag-coral">GROAN GRIN · CMIE</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: carbonate equilibrium cascade — CO2(atm) → CO2(aq) → H2CO3 → HCO3- → CO3²⁻ → CaCO3, with pH arrow declining and Omega threshold marked -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG_s02l02" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+          <linearGradient id="pHgrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#1ac8c8"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG_s02l02)"/>
+
+        <!-- Atmosphere bar -->
+        <rect x="0" y="0" width="340" height="28" fill="rgba(10,110,138,0.15)" stroke="none"/>
+        <text x="170" y="17" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.7">ATMOSPHERE — CO₂ ↑ 280→420 ppm (pre-industrial → present)</text>
+
+        <!-- CO2 atm → aq arrow -->
+        <line x1="58" y1="28" x2="58" y2="50" stroke="#f0b429" stroke-width="1.5" opacity="0.7"/>
+        <polygon points="58,50 53,42 63,42" fill="#f0b429" opacity="0.7"/>
+
+        <!-- Step 1: CO2(aq) box -->
+        <rect x="18" y="52" width="80" height="24" rx="2" fill="rgba(10,110,138,0.3)" stroke="#1ac8c8" stroke-width="0.8"/>
+        <text x="58" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1ac8c8">CO₂ (aq)</text>
+
+        <!-- → arrow -->
+        <line x1="98" y1="64" x2="118" y2="64" stroke="#8ab8cc" stroke-width="1" opacity="0.6"/>
+        <polygon points="118,64 111,60 111,68" fill="#8ab8cc" opacity="0.6"/>
+        <text x="108" y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.6">+ H₂O</text>
+
+        <!-- Step 2: H2CO3 box -->
+        <rect x="120" y="52" width="80" height="24" rx="2" fill="rgba(10,110,138,0.25)" stroke="#0a6e8a" stroke-width="0.8"/>
+        <text x="160" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#8ab8cc">H₂CO₃</text>
+
+        <!-- → arrow -->
+        <line x1="200" y1="64" x2="220" y2="64" stroke="#8ab8cc" stroke-width="1" opacity="0.6"/>
+        <polygon points="220,64 213,60 213,68" fill="#8ab8cc" opacity="0.6"/>
+        <text x="210" y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.6">⇌</text>
+
+        <!-- Step 3: HCO3- box -->
+        <rect x="222" y="52" width="100" height="24" rx="2" fill="rgba(10,110,138,0.2)" stroke="#0a6e8a" stroke-width="0.8"/>
+        <text x="272" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#8ab8cc">HCO₃⁻ + H⁺</text>
+
+        <!-- Down arrow from HCO3- -->
+        <line x1="272" y1="76" x2="272" y2="96" stroke="#8ab8cc" stroke-width="1" opacity="0.5"/>
+        <polygon points="272,96 267,88 277,88" fill="#8ab8cc" opacity="0.5"/>
+        <text x="290" y="90" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.5">⇌ CO₃²⁻ + H⁺</text>
+
+        <!-- CO3 2- box -->
+        <rect x="222" y="98" width="100" height="24" rx="2" fill="rgba(10,110,138,0.18)" stroke="#0a6e8a" stroke-width="0.8"/>
+        <text x="272" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#8ab8cc">CO₃²⁻</text>
+
+        <!-- CaCO3 arrow -->
+        <line x1="222" y1="110" x2="160" y2="110" stroke="#f0b429" stroke-width="1.2" opacity="0.6"/>
+        <polygon points="160,110 168,105 168,115" fill="#f0b429" opacity="0.6"/>
+        <text x="191" y="105" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" opacity="0.7">+ Ca²⁺</text>
+
+        <!-- CaCO3 box -->
+        <rect x="70" y="98" width="88" height="24" rx="2" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="0.9"/>
+        <text x="114" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1ac8c8">CaCO₃ skeleton</text>
+
+        <!-- pH bar -->
+        <text x="18" y="142" font-family="DM Mono,monospace" font-size="7.5" fill="#8ab8cc" opacity="0.8">pH</text>
+        <rect x="32" y="134" width="200" height="10" rx="2" fill="url(#pHgrad)" opacity="0.7"/>
+        <text x="32"  y="157" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" opacity="0.8">8.2</text>
+        <text x="112" y="157" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.8">8.1 now</text>
+        <text x="212" y="157" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.8">7.8 →2100</text>
+        <!-- pH now marker -->
+        <line x1="145" y1="132" x2="145" y2="145" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.7"/>
+
+        <!-- Omega threshold -->
+        <rect x="18" y="168" width="300" height="20" rx="2" fill="rgba(2,15,30,0.6)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+        <text x="168" y="179" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">Ω 3.2 (now MAR) → Ω 2.0 (danger) → Ω 1.5 (net dissolution)</text>
+
+        <!-- CO2 rise label -->
+        <text x="78" y="43" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.7">↓ dissolves</text>
+
+        <!-- GROAN OA alarm -->
+        <rect x="18" y="194" width="130" height="18" rx="2" fill="rgba(2,15,30,0.7)" stroke="rgba(232,96,64,0.3)" stroke-width="0.7"/>
+        <text x="83" y="206" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#e86040">GROAN OA alarm: Ω &lt; 2.0</text>
+
+        <!-- O2 cycle mini -->
+        <rect x="240" y="168" width="92" height="44" rx="2" fill="rgba(4,41,74,0.5)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+        <text x="286" y="181" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">O₂ CYCLE</text>
+        <text x="286" y="191" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.8">Photo → O₂ ↑</text>
+        <text x="286" y="201" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#b8f0ec" opacity="0.8">Resp → O₂ ↓</text>
+        <text x="286" y="208" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#e86040" opacity="0.7">&lt;2mL/L = hypoxia</text>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Chemical Oceanography: Core Principles</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Two chemical systems dominate the reef science agenda and define the core principles of Section 02: the <strong>carbonate system</strong> — the set of chemical equilibria governing ocean acidification and coral calcification — and the <strong>oxygen cycle</strong> — the dissolved gas dynamics governing aerobic metabolism from microbes to fish. Both systems are non-conservative: they change in response to biological activity, temperature, and atmospheric forcing, and their state at any reef node directly determines the biological outcomes that GROAN's modules track.</p>
+
+      <p><strong>The carbonate equilibrium system</strong> is a cascade of four coupled chemical reactions. Atmospheric CO₂ dissolves into seawater to form aqueous CO₂ [CO₂(aq)], which reacts with water to form carbonic acid [H₂CO₃]. Carbonic acid dissociates to bicarbonate ion [HCO₃⁻] plus a hydrogen ion [H⁺], and bicarbonate further dissociates to carbonate ion [CO₃²⁻] plus another H⁺. It is the carbonate ion that coral and other calcifying organisms use — combined with dissolved calcium (Ca²⁺) — to build aragonite and calcite skeletons: Ca²⁺ + CO₃²⁻ → CaCO₃. Every additional CO₂ molecule absorbed from the atmosphere drives the equilibrium toward bicarbonate and away from carbonate ion, simultaneously releasing H⁺ ions that lower pH. This is ocean acidification: not the ocean becoming acid (it remains alkaline), but becoming progressively less alkaline — reducing the carbonate ion concentration that calcification depends on.</p>
+
+      <p><strong>Aragonite saturation state (Ω)</strong> is the chemical ratio that determines whether coral skeletons grow or dissolve: Ω = [Ca²⁺][CO₃²⁻] / K_sp, where K_sp is the solubility product of aragonite. When Ω > 1, seawater is supersaturated — aragonite spontaneously precipitates and coral can calcify. When Ω < 1, seawater is undersaturated — aragonite dissolves. Present-day MAR surface waters average Ω ~3.0–3.2, providing a comfortable margin above the dissolution threshold. But the margin is shrinking: pre-industrial Ω was ~3.5 in Caribbean surface waters, and under current emission trajectories Ω reaches 2.0 by 2060–2080 (the nonlinear dissolution acceleration zone introduced in S01/L30) and 1.5 before 2100. GROAN's OA alarm triggers at Ω 2.0 — not because dissolution begins there, but because below that level calcification rates decline measurably and the system enters the zone of accelerating structural risk.</p>
+
+      <p><strong>pH as a master indicator</strong> integrates the entire carbonate system state into a single logarithmic value. Pre-industrial ocean surface pH averaged ~8.2; current average is ~8.1 globally and tracking toward ~7.8 by 2100 under high-emission scenarios. Each 0.1 unit pH decline represents a 26% increase in hydrogen ion concentration — a nonlinear change that enzyme function, ion transport, and reproductive signaling in marine organisms are not evolutionarily calibrated for. Caribbean reefs currently experience natural diel pH variation of ±0.3 units (driven by photosynthesis and respiration cycles), which provides some buffering capacity — but the directional decline from ocean acidification is superimposed on this natural variation, compressing the upper buffer and exposing organisms to lower pH extremes during night-time respiratory troughs.</p>
+
+      <p><strong>The oxygen cycle</strong> in reef environments is driven by the balance of photosynthesis (O₂ production) and respiration (O₂ consumption) across the entire biological community. In healthy reef systems, daytime photosynthesis by zooxanthellae, turf algae, and phytoplankton produces excess O₂ that raises dissolved oxygen (DO) above air-equilibrium saturation (typically 6–7 mL/L). At night, photosynthesis ceases while respiration continues, drawing DO down toward or below saturation. In enclosed lagoons or reef flats with restricted tidal flushing, nighttime DO can drop below the hypoxia threshold (2 mL/L) — creating a chemically hostile environment that excludes reef fish from their nursery habitat during the hours when predator avoidance is most critical.</p>
+
+      <p><strong>Oxygen minimum zones (OMZ)</strong> develop in the open ocean where biological oxygen demand in the mesopelagic zone (200–1000 m) exceeds replenishment from surface ventilation. Caribbean intermediate waters carry OMZ signatures from their formation regions in the eastern tropical Atlantic and Pacific; where OMZ waters upwell onto reef slopes, they introduce suboxic conditions at depth that constrain reef fish vertical habitat range and influence benthic community composition on deeper reef slopes — a physical-chemical interaction that GROAN's GRIN depth zone flag captures.</p>
+
+      <p><strong>The biological pump</strong> is the chemical mechanism linking photosynthesis, carbon export, and deep ocean storage. Phytoplankton fix CO₂ into organic carbon; when they die or are grazed, particulate organic matter (POM) sinks — exporting carbon from the surface ocean to depth where it is remineralized back to CO₂ and sequestered on timescales of centuries to millennia. Reef systems are net carbon sources (calcification releases CO₂) rather than sinks, but they sit adjacent to the biological pump operating in the open-ocean water column — a chemical boundary condition that distinguishes reef biogeochemistry from open-ocean biogeochemistry and sets the chemical context for GROAN's coastal data architecture.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Dos sistemas químicos dominan la agenda de la ciencia arrecifal: el <strong>sistema carbonatado</strong> — el conjunto de equilibrios químicos que gobiernan la acidificación del océano y la calcificación del coral — y el <strong>ciclo del oxígeno</strong> — la dinámica del gas disuelto que gobierna el metabolismo aeróbico desde microbios hasta peces.</p>
+
+      <p>El <strong>sistema de equilibrio carbonatado</strong> es una cascada de cuatro reacciones químicas acopladas. El CO₂ atmosférico se disuelve en el agua de mar formando CO₂(ac), que reacciona con el agua para formar ácido carbónico (H₂CO₃). El ácido carbónico se disocia en ion bicarbonato (HCO₃⁻) más un ion hidrógeno (H⁺), y el bicarbonato se disocia adicionalmente en ion carbonato (CO₃²⁻) más otro H⁺. Es el ion carbonato que los organismos calcificadores utilizan — combinado con calcio disuelto (Ca²⁺) — para construir esqueletos de aragonita: Ca²⁺ + CO₃²⁻ → CaCO₃. Esto es la acidificación del océano: no que el océano se vuelva ácido, sino que se vuelva progresivamente menos alcalino.</p>
+
+      <p>El <strong>estado de saturación de aragonita (Ω)</strong> es la proporción química que determina si los esqueletos de coral crecen o se disuelven: Ω = [Ca²⁺][CO₃²⁻] / K_sp. Las aguas superficiales actuales del MAR promedian Ω ~3.0–3.2. La alarma OA de GROAN se activa en Ω 2.0 — porque por debajo de ese nivel las tasas de calcificación disminuyen mensurablemente y el sistema entra en la zona de riesgo estructural acelerado.</p>
+
+      <p>El <strong>pH como indicador maestro</strong> integra el estado de todo el sistema carbonatado en un solo valor logarítmico. El pH superficial oceánico pre-industrial promediaba ~8.2; el promedio actual es ~8.1 y se encamina hacia ~7.8 para 2100. Cada disminución de 0.1 unidades de pH representa un aumento del 26% en la concentración de iones hidrógeno — un cambio no lineal para el que la función enzimática y la señalización reproductiva de los organismos marinos no están calibradas evolutivamente.</p>
+
+      <p>El <strong>ciclo del oxígeno</strong> en entornos arrecifales está impulsado por el balance de fotosíntesis (producción de O₂) y respiración (consumo de O₂). En lagunas cerradas o plataformas arrecifales con flujo de marea restringido, el DO nocturno puede caer por debajo del umbral de hipoxia (2 mL/L) — creando un ambiente químicamente hostil que excluye a los peces arrecifales de su hábitat de vivero durante las horas críticas.</p>
+
+      <p>La <strong>bomba biológica</strong> es el mecanismo químico que vincula la fotosíntesis, la exportación de carbono y el almacenamiento oceánico profundo. Los sistemas arrecifales son fuentes netas de carbono (la calcificación libera CO₂) en lugar de sumideros — una condición química límite que distingue la biogeoquímica arrecifal de la biogeoquímica de océano abierto.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Chemical System / Sistema</th>
+          <th>Key Reaction / Reacción clave</th>
+          <th>Reef Impact / Impacto arrecifal</th>
+          <th>MAR Threshold / Umbral MAR</th>
+          <th>GROAN Trigger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>CO₂ dissolution / Disolución CO₂</td><td>CO₂ + H₂O → H₂CO₃</td><td>Drives pH decline; reduces CO₃²⁻</td><td>pCO₂ &gt; 450 μatm (risk zone)</td><td>GRIN OA sub-index</td></tr>
+        <tr><td>Calcification / Calcificación</td><td>Ca²⁺ + CO₃²⁻ → CaCO₃</td><td>Skeleton growth; framework building</td><td>Ω &lt; 2.0 (alarm); &lt;1.5 (dissolution)</td><td>GRIN OA alarm flag</td></tr>
+        <tr><td>pH decline / Descenso de pH</td><td>H⁺ accumulation from carbonate eq.</td><td>Enzyme disruption; reproductive failure</td><td>pH &lt; 7.9 (reef stress)</td><td>GRIN water quality sub-index</td></tr>
+        <tr><td>Photosynthesis / Fotosíntesis</td><td>CO₂ + H₂O → CH₂O + O₂</td><td>O₂ production; CO₂ drawdown</td><td>DO &gt; 6 mL/L (healthy)</td><td>GRIN DO sub-index</td></tr>
+        <tr><td>Respiration / Respiración</td><td>CH₂O + O₂ → CO₂ + H₂O</td><td>O₂ consumption; CO₂ release</td><td>DO &lt; 2 mL/L (hypoxia)</td><td>GRIN hypoxia alarm</td></tr>
+        <tr><td>Biological pump / Bomba biológica</td><td>POM sinking; deep remineralization</td><td>Carbon export from surface; CO₂ return</td><td>Net source (reef calcification)</td><td>CMIE carbon context flag</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>Caribbean surface water pH exhibits a natural diel cycle of ±0.3 units driven by reef community photosynthesis and respiration — pH peaks at ~8.3–8.4 in mid-afternoon (photosynthesis maximum) and troughs at ~8.0–8.1 at dawn (respiration minimum). The directional OA-driven pH decline is superimposed on this cycle, meaning the dawn trough is already tracking toward pH values (&lt;7.9) documented as causing reproductive failure in sea urchins — the same urchin species that are the MAR's critical herbivore biomass contributor flagged in S03/L02.</li>
+        <li>Enclosed back-reef environments within the Rim Run™ circuit — Belize's shallow lagoon systems, the Bay Island back-reef channels, Costa Rica's Golfo Dulce — are the highest-risk sites for nighttime hypoxic events: restricted tidal exchange prevents DO replenishment from the open ocean, and high organic loading from adjacent mangroves increases benthic respiratory oxygen demand. MOOP DO sensor logging during overnight anchor watches at these nodes generates the nighttime DO minimum data that daytime surveys systematically miss.</li>
+        <li>The Motagua River plume chemistry compounds the carbonate chemistry stress at southern MAR sites: river water carries elevated dissolved CO₂ from terrestrial decomposition (pCO₂ typically 2–5× atmospheric), depressing local pH and Ω at the reef surface below the background Caribbean baseline — meaning south MAR reef sites already experience local OA conditions approximately 10–20 years ahead of the trajectory projected for open Caribbean surface waters.</li>
+        <li>The MOOP chemical field protocol for the Rim Run™ circuit adds three measurements to the S01 physical and S03 biological protocols: (1) pH strip test or colorimetric indicator at each reef node (±0.05 pH unit accuracy, sufficient for trend detection); (2) water color assessment (Forel-Ule scale) as a proxy for dissolved organic matter and riverine influence; (3) overnight DO logging at enclosed anchorages using a submersible DO logger deployed from Shamrocket's stern — together constituting the chemical layer of the GRIN multi-source input dataset.</li>
+        <li>GROAN's CMIE carbonate-thermal interaction: declining Ω reduces the energy available for coral calcification, which increases the metabolic cost of skeleton maintenance — meaning a thermally stressed coral (bleaching, energy-depleted from zooxanthellae loss) is simultaneously managing elevated calcification costs from OA. The compound effect on post-bleaching recovery time is non-additive and is the mechanistic basis for GROAN's CMIE weighting of simultaneous thermal and chemical stressor signals at MAR nodes.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>El pH del agua superficial del Caribe exhibe un ciclo diurno natural de ±0.3 unidades impulsado por la fotosíntesis y la respiración de la comunidad arrecifal. El descenso direccional de pH impulsado por la OA está superpuesto en este ciclo, lo que significa que el mínimo del amanecer ya se encamina hacia valores de pH (&lt;7.9) documentados como causantes de fallo reproductivo en erizos de mar.</li>
+        <li>Los entornos de arrecife de popa cerrados dentro del circuito Rim Run™ — los sistemas de laguna poco profunda de Belice, los canales de arrecife de popa de las Islas de la Bahía, el Golfo Dulce de Costa Rica — son los sitios de mayor riesgo para eventos hipóxicos nocturnos. El registro nocturno de DO durante las guardias de anclaje en estos nodos genera los datos mínimos nocturnos de DO que los levantamientos diurnos sistemáticamente pierden.</li>
+        <li>La química del penacho del río Motagua compone el estrés de química carbonatada en los sitios del MAR sur: el agua del río lleva CO₂ disuelto elevado de la descomposición terrestre (pCO₂ típicamente 2–5× la atmosférica), deprimiendo el pH local y el Ω en la superficie arrecifal por debajo de la línea base caribeña de fondo.</li>
+        <li>El protocolo de campo químico MOOP añade tres mediciones al protocolo S01 y S03: (1) prueba de pH en cada nodo arrecifal; (2) evaluación del color del agua (escala Forel-Ule) como proxy de materia orgánica disuelta; (3) registro nocturno de DO en fondeos cerrados — constituyendo juntos la capa química del conjunto de datos de entrada multi-fuente de GRIN.</li>
+        <li>La interacción carbonato-térmica del CMIE de GROAN: el Ω en declive reduce la energía disponible para la calcificación del coral, aumentando el costo metabólico del mantenimiento del esqueleto — lo que significa que un coral bajo estrés térmico gestiona simultáneamente costos de calcificación elevados por OA. El efecto compuesto sobre el tiempo de recuperación post-blanqueamiento es no aditivo.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why does ocean acidification reduce coral calcification even when Ω remains above 1.0 — the thermodynamic undersaturation threshold?</div>
+        <div class="mcq-q-es">¿Por qué la acidificación del océano reduce la calcificación del coral incluso cuando Ω permanece por encima de 1.0 — el umbral de subsaturación termodinámica?</div>
+        <ul class="mcq-options">
+          <li>A. Ω above 1.0 has no effect on calcification; only Ω below 1.0 matters biologically</li>
+          <li class="correct">B. Calcification rate is proportional to the degree of supersaturation — as Ω declines from 3.2 toward 2.0, the chemical driving force for CaCO₃ precipitation weakens and coral must spend more metabolic energy actively pumping carbonate ions to the calcification site, increasing energy cost and slowing net skeleton growth well before Ω reaches the dissolution threshold</li>
+          <li>C. Ocean acidification directly dissolves zooxanthellae, reducing the energy supply for calcification</li>
+          <li>D. Below Ω 2.0, seawater pH drops below 7.0, making calcification chemically impossible</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">Why do southern MAR reef sites already experience local ocean acidification conditions approximately 10–20 years ahead of open Caribbean surface water projections?</div>
+        <div class="mcq-q-es">¿Por qué los sitios arrecifales del MAR sur ya experimentan condiciones locales de acidificación del océano aproximadamente 10–20 años por delante de las proyecciones del agua superficial caribeña abierta?</div>
+        <ul class="mcq-options">
+          <li>A. Southern MAR reefs are shallower, so atmospheric CO₂ exchange is faster</li>
+          <li class="correct">B. Motagua River water carries elevated dissolved CO₂ from terrestrial decomposition (pCO₂ 2–5× atmospheric), depressing local pH and Ω at the reef surface below the open Caribbean baseline — adding a riverine acidification signal on top of the background atmospheric OA trajectory</li>
+          <li>C. Southern MAR reefs have higher calcification rates that consume more carbonate ion</li>
+          <li>D. Upwelling at the southern MAR brings deep, CO₂-rich water to the surface more frequently</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">Why is nighttime DO logging during overnight anchor watches a higher-value MOOP measurement than daytime DO surveys at the same enclosed lagoon sites?</div>
+        <div class="mcq-q-es">¿Por qué el registro nocturno de DO durante las guardias de anclaje nocturnas es una medición MOOP de mayor valor que los levantamientos diurnos de DO en los mismos sitios de laguna cerrada?</div>
+        <ul class="mcq-options">
+          <li>A. Daytime DO is always at saturation in reef systems, making it uninformative</li>
+          <li class="correct">B. Nighttime hypoxic events occur when photosynthesis ceases but respiration continues — DO minima occur at dawn, not during daytime survey windows; daytime surveys in enclosed lagoons always show elevated DO from afternoon photosynthesis and systematically miss the hypoxic trough that excludes reef fish from nursery habitat during the critical overnight hours</li>
+          <li>C. DO sensors malfunction in sunlight, making daytime readings unreliable</li>
+          <li>D. Tidal flushing during the day dilutes hypoxic water, masking the signal that accumulates overnight</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S02·L02 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.69%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
