@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L09 | Chemical Oceanography: Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Tool tier matrix */
+  .tool-tier {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin: 1.2rem 0;
+  }
+  .tier-col {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+  .tier-col-head {
+    padding: 0.6rem 0.9rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .tier-col.field  .tier-col-head { background: rgba(26,200,200,0.12); color: var(--ocean-cyan); }
+  .tier-col.remote .tier-col-head { background: rgba(240,180,41,0.1);  color: var(--gold); }
+  .tier-col.model  .tier-col-head { background: rgba(232,96,64,0.09);  color: var(--coral); }
+  .tier-tool {
+    padding: 0.65rem 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    background: rgba(2,15,30,0.45);
+  }
+  .tier-tool-name { font-size: 0.8rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.2rem; }
+  .tier-tool-desc { font-size: 0.73rem; line-height: 1.45; color: var(--text-dim); }
+  .tier-tool-desc strong { color: var(--text-light); }
+
+  /* Decision pipeline flow */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 1.2rem 0;
+    overflow-x: auto;
+  }
+  .pipe-node {
+    flex: 1;
+    min-width: 90px;
+    padding: 0.75rem 0.6rem;
+    text-align: center;
+    background: rgba(2,15,30,0.55);
+    border-top: 1px solid rgba(26,200,200,0.12);
+    border-bottom: 1px solid rgba(26,200,200,0.12);
+  }
+  .pipe-node:first-child { border-left: 1px solid rgba(26,200,200,0.12); border-radius: 8px 0 0 8px; }
+  .pipe-node:last-child  { border-right: 1px solid rgba(26,200,200,0.12); border-radius: 0 8px 8px 0; }
+  .pipe-arrow { color: var(--text-dim); font-size: 1rem; padding: 0 0.15rem; flex-shrink: 0; }
+  .pipe-node .pn-layer { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .pipe-node .pn-tool  { font-size: 0.77rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.15rem; }
+  .pipe-node .pn-desc  { font-size: 0.66rem; color: var(--text-dim); line-height: 1.35; }
+  .pipe-node.l1 .pn-layer { color: var(--ocean-cyan); }
+  .pipe-node.l2 .pn-layer { color: var(--gold); }
+  .pipe-node.l3 .pn-layer { color: #44b864; }
+  .pipe-node.l4 .pn-layer { color: var(--coral); }
+  .pipe-node.l5 .pn-layer { color: #e89060; }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 5.82%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .tool-tier { grid-template-columns: 1fr; }
+    .pipeline  { flex-direction: column; }
+    .pipe-arrow { transform: rotate(90deg); }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L09 · Lesson 41 of 704</div>
+      <h1>Tools</h1>
+      <p class="subtitle">Field sensors measure the present. Remote sensing extends coverage. Models project forward. GROAN integrates all three — and the CMIE is only as powerful as the tool stack feeding it.</p>
+    </div>
+
+    <!-- SVG: Three-layer tool stack — field / remote / model — feeding CMIE node -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="stackBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#04294a" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#020f1e" stop-opacity="0.9"/>
+        </linearGradient>
+        <filter id="gf">
+          <feGaussianBlur stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.5)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Layer 1: Field Tools — top -->
+      <rect x="14" y="14" width="182" height="36" rx="6" fill="rgba(26,200,200,0.1)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="22" y="28" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" letter-spacing="1.5">L1 · FIELD SENSORS</text>
+      <text x="22" y="41" font-family="DM Sans,sans-serif" font-size="8" fill="#b8f0ec">MOOP · CTD · ISFET · Titration · Optical DO</text>
+
+      <!-- Arrow -->
+      <line x1="105" y1="52" x2="105" y2="62" stroke="#8ab8cc" stroke-width="1.2" stroke-dasharray="2,2"/>
+      <polygon points="101,60 105,66 109,60" fill="#8ab8cc"/>
+
+      <!-- Layer 2: Remote Sensing — middle -->
+      <rect x="14" y="68" width="182" height="36" rx="6" fill="rgba(240,180,41,0.08)" stroke="#f0b429" stroke-width="1.2"/>
+      <text x="22" y="82" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" letter-spacing="1.5">L2 · REMOTE SENSING</text>
+      <text x="22" y="95" font-family="DM Sans,sans-serif" font-size="8" fill="#b8f0ec">Satellite SST · Ocean Color · GOES · Landsat</text>
+
+      <!-- Arrow -->
+      <line x1="105" y1="106" x2="105" y2="116" stroke="#8ab8cc" stroke-width="1.2" stroke-dasharray="2,2"/>
+      <polygon points="101,114 105,120 109,114" fill="#8ab8cc"/>
+
+      <!-- Layer 3: Models — lower -->
+      <rect x="14" y="122" width="182" height="36" rx="6" fill="rgba(232,96,64,0.08)" stroke="#e86040" stroke-width="1.2"/>
+      <text x="22" y="136" font-family="DM Mono,monospace" font-size="6.5" fill="#e86040" letter-spacing="1.5">L3 · MODELS &amp; REANALYSIS</text>
+      <text x="22" y="149" font-family="DM Sans,sans-serif" font-size="8" fill="#b8f0ec">CO2SYS · ROMS · CMIP6 · GLORYS · CO2calc</text>
+
+      <!-- CMIE destination badge -->
+      <rect x="68" y="162" width="74" height="13" rx="4" fill="rgba(26,200,200,0.12)" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+      <text x="105" y="172" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" letter-spacing="1">→ CMIE INPUT</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Measurements (L08) define what GROAN collects at a single point in space and time. Tools define <strong>how GROAN assembles those measurements into a coherent, spatially continuous, temporally extended chemical picture</strong> of the reef system. Three categories of tools feed the CMIE: field instruments that measure directly, remote sensing platforms that extend spatial coverage, and computational models that interpolate gaps and project trends. Each layer has different strengths, different limitations, and different confidence-tier implications. <em>GROAN does not privilege any one layer — it integrates all three and weights each by its demonstrated accuracy in Caribbean reef chemistry contexts.</em></p>
+
+        <div class="tool-tier">
+          <!-- Field column -->
+          <div class="tier-col field">
+            <div class="tier-col-head">L1 · Field Instruments</div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">MOOP Sensor Suite</div>
+              <div class="tier-tool-desc">Shamrocket-deployed pH+TA+DO+CTD package. <strong>Highest spatial specificity</strong> — point measurements at exact reef locations. Used as CMIE ground-truth and confidence-tier anchor. 100+ stations over 7 countries, Oct 2026.</div>
+            </div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">Moored Buoys / Loggers</div>
+              <div class="tier-tool-desc">Continuous time-series at fixed stations. Captures diel and tidal cycles (L05). <strong>Critical for detecting dynamic chemical events</strong> — bleaching onset, HAB pulses, river flood arrivals. Deployed at key GRIN stations.</div>
+            </div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">CO2SYS Calculations</div>
+              <div class="tier-tool-desc">Software that calculates full carbonate system from any two measured parameters (pH+TA → Ω, DIC, pCO₂). <strong>Standard GROAN post-processing step</strong> applied to all MOOP field data before CMIE ingestion.</div>
+            </div>
+          </div>
+
+          <!-- Remote sensing column -->
+          <div class="tier-col remote">
+            <div class="tier-col-head">L2 · Remote Sensing</div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">Satellite SST (GOES / MODIS)</div>
+              <div class="tier-tool-desc">Daily or hourly sea surface temperature at ~1 km resolution. GRIN's thermal stress inputs (Degree Heating Weeks) derive from this layer. <strong>Spatially continuous</strong> — fills gaps between MOOP stations. Accuracy ±0.3°C.</div>
+            </div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">Ocean Color (Sentinel-2 / Landsat)</div>
+              <div class="tier-tool-desc">Chlorophyll-a, turbidity, and suspended sediment from optical reflectance. Proxies for nutrient loading and algal bloom state. <strong>Detects Motagua plume extent</strong> from space — pre-alerts CMIE before MOOP stations confirm ground truth.</div>
+            </div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">Salinity (Aquarius / SMOS)</div>
+              <div class="tier-tool-desc">Satellite-derived sea surface salinity at coarse resolution (~50 km). Flags large-scale freshwater plumes. <strong>Low spatial resolution limits reef-scale use</strong> — used for regional context and offshore boundary conditions only.</div>
+            </div>
+          </div>
+
+          <!-- Models column -->
+          <div class="tier-col model">
+            <div class="tier-col-head">L3 · Models &amp; Reanalysis</div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">ROMS / GLORYS Reanalysis</div>
+              <div class="tier-tool-desc">Regional Ocean Modeling System and global reanalysis products provide hindcast and forecast of temperature, salinity, and currents. <strong>GROAN uses GLORYS for historical baseline construction</strong> at sites without long field records.</div>
+            </div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">CMIP6 Projections</div>
+              <div class="tier-tool-desc">Ensemble climate model output (SSP2-4.5 and SSP5-8.5 scenarios). Provides 2026–2100 SST and pCO₂ trajectories for S01-L32 future outlook framing. <strong>GROAN's long-term Decision Score projections</strong> use CMIP6 as forcing boundary conditions.</div>
+            </div>
+            <div class="tier-tool">
+              <div class="tier-tool-name">CO2calc / SeaCarb</div>
+              <div class="tier-tool-desc">Carbonate chemistry calculation libraries (R and Python). Used in GROAN's data pipeline to batch-calculate Ω, DIC, pCO₂ from MOOP pH+TA datasets. <strong>Core computational tools in the L2 Normalization Pipeline</strong> (groan-data-registry.js context).</div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>The GROAN data pipeline — from tool to decision.</strong> Each tool layer feeds into the GROAN 3-layer data architecture established in Session 22. L1 field data enters via the API Registry (Source 001 onward), is normalized in the Normalization Pipeline (0–10 scale), and arbitrated by the Source Arbitration layer before the CMIE receives it. Remote sensing data enters the same pipeline but at lower confidence weights than co-located field measurements. Model output enters as boundary conditions and long-term trend inputs, not as primary reef-state data.</p>
+
+        <div class="pipeline">
+          <div class="pipe-node l1">
+            <div class="pn-layer">Step 01</div>
+            <div class="pn-tool">Field Collect</div>
+            <div class="pn-desc">MOOP sensor suite aboard Shamrocket</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-node l2">
+            <div class="pn-layer">Step 02</div>
+            <div class="pn-tool">CO2SYS Calc</div>
+            <div class="pn-desc">pH+TA → Ω, DIC, pCO₂</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-node l3">
+            <div class="pn-layer">Step 03</div>
+            <div class="pn-tool">Conf. Tier</div>
+            <div class="pn-desc">High / Mod / Low at edge node</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-node l4">
+            <div class="pn-layer">Step 04</div>
+            <div class="pn-tool">API Registry</div>
+            <div class="pn-desc">Normalized 0–10 scale</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-node l5">
+            <div class="pn-layer">Step 05</div>
+            <div class="pn-tool">CMIE Input</div>
+            <div class="pn-desc">Source Arbitration → Decision Score</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Las mediciones (L08) definen lo que GROAN recopila en un solo punto en el espacio y el tiempo. Las herramientas definen <strong>cómo GROAN ensambla esas mediciones en una imagen química coherente, espacialmente continua y temporalmente extendida</strong> del sistema arrecifal. Tres categorías de herramientas alimentan el CMIE: instrumentos de campo que miden directamente, plataformas de teledetección que extienden la cobertura espacial, y modelos computacionales que interpolan brechas y proyectan tendencias.</p>
+
+        <p>Los <strong>instrumentos de campo</strong> (L1) proporcionan la mayor especificidad espacial — mediciones puntuales en ubicaciones exactas del arrecife. La suite MOOP a bordo de Shamrocket, con CO2SYS para el cálculo del sistema de carbonatos en post-procesamiento, es el ancla de verdad de campo del CMIE. Las <strong>plataformas de teledetección</strong> (L2) extienden la cobertura entre estaciones: la temperatura superficial del mar satelital (GOES/MODIS) alimenta las entradas de estrés térmico de GRIN (Semanas de Calor Acumulado); el color del océano (Sentinel-2/Landsat) detecta la extensión de la pluma del Motagua desde el espacio, pre-alertando al CMIE antes de que las estaciones MOOP confirmen la verdad de campo.</p>
+
+        <p>Los <strong>modelos y reanálisis</strong> (L3) proporcionan condiciones de contorno y proyecciones a largo plazo. GLORYS construye líneas de base históricas donde no existen registros de campo. Las proyecciones CMIP6 (escenarios SSP2-4.5 y SSP5-8.5) impulsan las proyecciones de Puntuación de Decisión a largo plazo de GROAN de 2026 a 2100. CO2calc y SeaCarb son las bibliotecas computacionales en el Pipeline de Normalización que calculan Ω, CID y pCO₂ por lotes desde los conjuntos de datos pH+TA de MOOP.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Category</th>
+            <th>Spatial Resolution</th>
+            <th>Temporal Resolution</th>
+            <th>GROAN Use</th>
+            <th>Conf. Tier Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MOOP Sensor Suite</td>
+            <td>Field</td>
+            <td class="good">Point — exact station</td>
+            <td class="good">On-demand + moored</td>
+            <td>Primary CMIE ground truth</td>
+            <td class="good">High (if 4-param)</td>
+          </tr>
+          <tr>
+            <td>CO2SYS / SeaCarb</td>
+            <td>Calculation</td>
+            <td class="good">Matches input data</td>
+            <td class="good">Matches input data</td>
+            <td>Ω, DIC, pCO₂ from pH+TA</td>
+            <td class="caution">Moderate (calculated)</td>
+          </tr>
+          <tr>
+            <td>Satellite SST (GOES)</td>
+            <td>Remote</td>
+            <td class="caution">~1–4 km</td>
+            <td class="good">Hourly–Daily</td>
+            <td>GRIN thermal stress input</td>
+            <td class="caution">Moderate</td>
+          </tr>
+          <tr>
+            <td>Ocean Color (Sentinel-2)</td>
+            <td>Remote</td>
+            <td class="good">10–30 m</td>
+            <td class="caution">5–16 days (clear sky)</td>
+            <td>Plume extent, turbidity, Chl-a</td>
+            <td class="caution">Moderate</td>
+          </tr>
+          <tr>
+            <td>Satellite Salinity (SMOS)</td>
+            <td>Remote</td>
+            <td class="warn">~50 km</td>
+            <td class="caution">Weekly</td>
+            <td>Regional boundary condition only</td>
+            <td class="warn">Low (reef-scale)</td>
+          </tr>
+          <tr>
+            <td>GLORYS Reanalysis</td>
+            <td>Model</td>
+            <td class="caution">~8 km</td>
+            <td class="caution">Daily hindcast</td>
+            <td>Historical baseline construction</td>
+            <td class="caution">Moderate</td>
+          </tr>
+          <tr>
+            <td>CMIP6 Projections</td>
+            <td>Model</td>
+            <td class="warn">~100 km</td>
+            <td class="neutral">Monthly–Annual</td>
+            <td>2026–2100 DS projections</td>
+            <td class="warn">Low (boundary only)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>GROAN's Source Arbitration layer (L3 of the data architecture) is the tool-integration engine — when MOOP field data and satellite SST both report elevated thermal stress, CMIE weights the field measurement higher but uses the satellite coverage to spatially interpolate stress across unstations reef areas between MOOP stations.</li>
+          <li>CO2SYS is not optional post-processing — it is the mandatory calculation step that converts MOOP's two directly-measured parameters (pH + TA) into the full carbonate system. Without it, a High-confidence field measurement produces incomplete CMIE input. CO2SYS must be built into the groan-data-registry.js normalization pipeline as a required transformation function.</li>
+          <li>Sentinel-2 ocean color imagery is GROAN's early warning system for the Motagua plume: the plume's turbidity and sediment signature is detectable 48–72 hours before its low-pH water mass reaches Belizean reef stations — giving GROAN a pre-alert window to flag elevated CMIE risk before field sensors confirm it.</li>
+          <li>CMIP6 ensemble output (SSP5-8.5 as worst-case) sets the long-term DS projection horizon — a reef site with current Ω = 3.0 and current thermal stress = moderate may be projected to cross the GROAN alarm threshold (Ω 2.0) by 2045–2055 under high-emissions scenarios, converting a monitoring result into a 20-year management decision window.</li>
+          <li>For KAUST partnership framing: GROAN's tool stack is designed to be modular — the MOOP layer can be replaced by KAUST's existing Red Sea buoy network, the remote sensing layer by NOAA CoralTemp and ESA Copernicus products, and the model layer by KAUST's own ROMS configurations. GROAN provides the integration architecture and CMIE logic; KAUST provides the data.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>La capa de Arbitraje de Fuentes de GROAN (L3 de la arquitectura de datos) es el motor de integración de herramientas — cuando los datos de campo MOOP y la SST satelital informan ambos estrés térmico elevado, el CMIE pondera la medición de campo más alto pero usa la cobertura satelital para interpolar espacialmente el estrés a través de áreas arrecifales sin estaciones entre las estaciones MOOP.</li>
+          <li>CO2SYS no es un post-procesamiento opcional — es el paso de cálculo obligatorio que convierte los dos parámetros medidos directamente por MOOP (pH + TA) en el sistema completo de carbonatos. Sin él, una medición de campo de Alta Confianza produce una entrada incompleta al CMIE. CO2SYS debe integrarse en el pipeline de normalización de groan-data-registry.js como una función de transformación requerida.</li>
+          <li>Las imágenes de color del océano de Sentinel-2 son el sistema de advertencia temprana de GROAN para la pluma del Motagua: la firma de turbidez y sedimento de la pluma es detectable 48–72 horas antes de que su masa de agua de bajo pH llegue a las estaciones arrecifales de Belice — dando a GROAN una ventana de pre-alerta para señalar riesgo CMIE elevado antes de que los sensores de campo lo confirmen.</li>
+          <li>La salida del conjunto CMIP6 (SSP5-8.5 como caso más adverso) establece el horizonte de proyección de DS a largo plazo — un sitio arrecifal con Ω actual = 3.0 puede cruzar el umbral de alarma de GROAN (Ω 2.0) para 2045–2055 bajo escenarios de altas emisiones, convirtiendo un resultado de monitoreo en una ventana de decisión de gestión de 20 años.</li>
+          <li>Para el enfoque de asociación con KAUST: la pila de herramientas de GROAN está diseñada para ser modular — la capa MOOP puede ser reemplazada por la red de boyas existente del Mar Rojo de KAUST, la capa de teledetección por productos NOAA CoralTemp y ESA Copernicus, y la capa de modelos por las propias configuraciones ROMS de KAUST. GROAN proporciona la arquitectura de integración y la lógica CMIE; KAUST proporciona los datos.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">Why is CO2SYS described as a mandatory step in GROAN's data pipeline rather than optional post-processing?</div>
+        <div class="q-text-es">¿Por qué CO2SYS se describe como un paso obligatorio en el pipeline de datos de GROAN en lugar de un post-procesamiento opcional?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because it corrects for sensor drift in ISFET pH electrodes during field deployment</li>
+          <li><span class="opt-key">B</span> Because CMIE only accepts data normalized to the 0–10 scale and CO2SYS performs this normalization</li>
+          <li class="correct"><span class="opt-key">C</span> Because pH and TA alone cannot enter the CMIE as Ω values — CO2SYS calculates Ω, DIC, and pCO₂ from the measured pair, completing the carbonate characterization required for Decision Score inputs</li>
+          <li><span class="opt-key">D</span> Because it applies tidal phase and time-stamp corrections to raw field data</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">GROAN detects an incoming Motagua river plume via Sentinel-2 ocean color imagery 60 hours before MOOP field sensors at Belize reef stations confirm low Ω. What is the correct CMIE response?</div>
+        <div class="q-text-es">GROAN detecta una pluma del Motagua entrante mediante imágenes de color del océano de Sentinel-2 60 horas antes de que los sensores de campo MOOP en las estaciones arrecifales de Belice confirmen baja Ω. ¿Cuál es la respuesta correcta del CMIE?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Withhold any alert until field sensors confirm — satellite data is Low confidence and cannot trigger alarms</li>
+          <li><span class="opt-key">B</span> Escalate immediately to High confidence alert using only the satellite imagery</li>
+          <li class="correct"><span class="opt-key">C</span> Issue a Moderate confidence pre-alert to reef managers using satellite-derived plume trajectory, flagged as pending field confirmation — the 60-hour window is the management value GROAN provides</li>
+          <li><span class="opt-key">D</span> Log the satellite reading but route it only to the historical baseline dataset, not to real-time CMIE output</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">Which tool layer would GROAN use to construct a chemical baseline for a Caribbean reef site with no prior field measurement history?</div>
+        <div class="q-text-es">¿Qué capa de herramientas utilizaría GROAN para construir una línea de base química para un sitio arrecifal del Caribe sin historial previo de mediciones de campo?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Satellite salinity (SMOS) — it provides the longest continuous record at reef scale</li>
+          <li><span class="opt-key">B</span> CMIP6 projections — they provide backward-extrapolated chemical conditions at 100 km resolution</li>
+          <li class="correct"><span class="opt-key">C</span> GLORYS reanalysis — it provides daily hindcast temperature, salinity, and current fields at ~8 km resolution, from which a chemical baseline can be constructed via carbonate system calculation</li>
+          <li><span class="opt-key">D</span> CO2SYS — it can generate baseline conditions without any input measurement data</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">5.82% — Lesson 41 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L09 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
