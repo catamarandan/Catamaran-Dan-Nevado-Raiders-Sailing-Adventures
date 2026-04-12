@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L24 Physical Oceanography — Indicators</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 3.41%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 24 · Physical Oceanography</div>
+        <h1 class="lesson-title">Indicators</h1>
+        <div class="lesson-subtitle">Indicadores de Oceanografía Física</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">SST · DHW · SSH · Mixing</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — INDICATOR DASHBOARD -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="dhwBar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8"/>
+            <stop offset="55%" stop-color="#f0b429"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+          <linearGradient id="sstBar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1565c0"/>
+            <stop offset="60%" stop-color="#1ac8c8"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- PANEL BORDER -->
+        <rect x="18" y="10" width="344" height="240" rx="4"
+              fill="rgba(4,41,74,0.2)" stroke="rgba(26,200,200,0.12)" stroke-width="0.8"/>
+
+        <!-- ── INDICATOR 1: SST ── -->
+        <text x="30" y="32" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="8" letter-spacing="0.15em">SST  ·  SEA SURFACE TEMPERATURE</text>
+        <!-- scale bar -->
+        <rect x="30" y="38" width="200" height="8" rx="2" fill="url(#sstBar)"/>
+        <!-- needle at 29.4°C (~75% along bar) -->
+        <rect x="178" y="35" width="2" height="14" rx="1" fill="#fff" opacity="0.9"/>
+        <text x="233" y="46" fill="rgba(232,96,64,0.9)" font-family="monospace" font-size="9" font-weight="bold">29.4°C</text>
+        <text x="30" y="56" fill="rgba(138,184,204,0.4)" font-family="monospace" font-size="6">24°C</text>
+        <text x="215" y="56" fill="rgba(138,184,204,0.4)" font-family="monospace" font-size="6">32°C</text>
+        <text x="108" y="56" fill="rgba(240,180,41,0.5)" font-family="monospace" font-size="6">bleach threshold  28–29°C ▲</text>
+
+        <!-- divider -->
+        <line x1="30" y1="64" x2="350" y2="64" stroke="rgba(26,200,200,0.08)" stroke-width="0.8"/>
+
+        <!-- ── INDICATOR 2: DHW ── -->
+        <text x="30" y="78" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="8" letter-spacing="0.15em">DHW  ·  DEGREE HEATING WEEKS</text>
+        <rect x="30" y="84" width="200" height="8" rx="2" fill="url(#dhwBar)"/>
+        <!-- needle at 7 DHW (~70%) -->
+        <rect x="168" y="81" width="2" height="14" rx="1" fill="#fff" opacity="0.9"/>
+        <text x="233" y="92" fill="rgba(232,96,64,0.9)" font-family="monospace" font-size="9" font-weight="bold">7.0 DHW</text>
+        <text x="30" y="102" fill="rgba(138,184,204,0.4)" font-family="monospace" font-size="6">0</text>
+        <text x="95" y="102" fill="rgba(240,180,41,0.5)" font-family="monospace" font-size="6">Watch ≥4  Alert ≥8 ▲</text>
+        <text x="210" y="102" fill="rgba(138,184,204,0.4)" font-family="monospace" font-size="6">10+</text>
+
+        <!-- divider -->
+        <line x1="30" y1="110" x2="350" y2="110" stroke="rgba(26,200,200,0.08)" stroke-width="0.8"/>
+
+        <!-- ── INDICATOR 3: SSH ── -->
+        <text x="30" y="124" fill="rgba(184,240,236,0.6)" font-family="monospace" font-size="8" letter-spacing="0.15em">SSH  ·  SEA SURFACE HEIGHT ANOMALY</text>
+        <!-- anomaly bar centred -->
+        <rect x="100" y="130" width="130" height="8" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.2)" stroke-width="0.6"/>
+        <!-- centre line -->
+        <line x1="165" y1="128" x2="165" y2="140" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <!-- positive anomaly fill -->
+        <rect x="165" y="130" width="40" height="8" rx="0" fill="rgba(232,96,64,0.4)"/>
+        <text x="233" y="138" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="9" font-weight="bold">+8 cm</text>
+        <text x="30" y="150" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="6">anticyclonic eddy — warm core — depressed thermocline</text>
+
+        <!-- divider -->
+        <line x1="30" y1="156" x2="350" y2="156" stroke="rgba(26,200,200,0.08)" stroke-width="0.8"/>
+
+        <!-- ── INDICATOR 4: THERMOCLINE DEPTH ── -->
+        <text x="30" y="170" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="8" letter-spacing="0.15em">Z_THERM  ·  THERMOCLINE DEPTH</text>
+        <!-- vertical bar -->
+        <rect x="30" y="176" width="8" height="55" rx="2" fill="rgba(4,41,74,0.4)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8"/>
+        <!-- fill to 35m marker (~55%) -->
+        <rect x="30" y="176" width="8" height="30" rx="2" fill="rgba(240,180,41,0.35)"/>
+        <text x="44" y="183" fill="rgba(138,184,204,0.4)" font-family="monospace" font-size="6">0 m</text>
+        <text x="44" y="200" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="7" font-weight="bold">35 m ◀</text>
+        <text x="44" y="213" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="6">normal 40–60 m</text>
+        <text x="44" y="222" fill="rgba(232,96,64,0.5)" font-family="monospace" font-size="6">shallow = stress risk ↑</text>
+        <text x="44" y="231" fill="rgba(138,184,204,0.3)" font-family="monospace" font-size="6">100 m</text>
+
+        <!-- ── INDICATOR 5: WAVE ENERGY ── -->
+        <text x="180" y="170" fill="rgba(184,240,236,0.55)" font-family="monospace" font-size="8" letter-spacing="0.1em">Hs  ·  SIG. WAVE HEIGHT</text>
+        <!-- wave icon bars -->
+        <g fill="rgba(26,200,200,0.5)">
+          <rect x="182" y="210" width="8" height="20" rx="1"/>
+          <rect x="194" y="200" width="8" height="30" rx="1"/>
+          <rect x="206" y="193" width="8" height="37" rx="1"/>
+          <rect x="218" y="205" width="8" height="25" rx="1"/>
+          <rect x="230" y="215" width="8" height="15" rx="1"/>
+        </g>
+        <text x="205" y="185" fill="rgba(184,240,236,0.8)" font-family="monospace" font-size="9" text-anchor="middle" font-weight="bold">1.8 m</text>
+        <text x="205" y="243" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="6" text-anchor="middle">dry season avg 2–4 m</text>
+
+        <!-- ── INDICATOR 6: CURRENT VELOCITY ── -->
+        <text x="260" y="170" fill="rgba(26,200,200,0.55)" font-family="monospace" font-size="8" letter-spacing="0.1em">U  ·  CURRENT</text>
+        <!-- compass-style arrow -->
+        <circle cx="305" cy="208" r="22" fill="rgba(4,41,74,0.3)" stroke="rgba(26,200,200,0.2)" stroke-width="0.8"/>
+        <line x1="305" y1="208" x2="318" y2="195" stroke="rgba(26,200,200,0.8)" stroke-width="2"/>
+        <polygon points="318,195 313,200 323,200" fill="rgba(26,200,200,0.8)" transform="rotate(-45,318,195)"/>
+        <text x="305" y="212" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="5.5" text-anchor="middle">W</text>
+        <text x="305" y="240" fill="rgba(184,240,236,0.7)" font-family="monospace" font-size="7.5" text-anchor="middle" font-weight="bold">0.8 kt</text>
+
+        <!-- TITLE BADGE -->
+        <rect x="30" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="38" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">PHYSICAL  ·  INDICATOR  PANEL</text>
+
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          A physical oceanographic indicator is a measured or derived quantity that reliably represents the state of a physical process relevant to reef ecosystem function. Indicators are not raw observations — they are interpreted values that communicate where a system stands relative to known thresholds, baselines, or reference conditions. The selection of appropriate indicators requires understanding both the physical process being characterized and the ecological response that process drives.
+          <br><br>
+          Sea Surface Temperature (SST) is the most widely used physical indicator in coral reef science, primarily because photosynthetic endosymbionts (zooxanthellae) are expelled from coral tissue when SST exceeds a species-specific thermal tolerance threshold — the bleaching response. SST alone, however, is an insufficient indicator of bleaching risk because it captures only a single moment in time. The Degree Heating Week (DHW) index addresses this limitation by accumulating thermal stress over time: DHW is calculated as the sum of weekly SST anomalies exceeding the maximum monthly mean (MMM) temperature, expressed in degree-Celsius-weeks. A DHW value of 4°C-weeks is the empirical threshold for bleaching watch; 8°C-weeks predicts significant bleaching and mortality. DHW thus converts instantaneous SST into a time-integrated thermal stress index that correlates strongly with observed bleaching outcomes.
+          <br><br>
+          Sea Surface Height anomaly (SSH), thermocline depth, mixed layer depth, significant wave height, and current velocity each function as indicators of different physical dimensions of reef exposure. SSH anomaly reveals mesoscale eddy presence — positive anomalies indicate warm-core anticyclonic eddies that depress the thermocline and increase bleaching risk; negative anomalies indicate cold-core cyclonic eddies that shoal the thermocline and may provide thermal relief. Thermocline depth directly indicates how much cold water is available for upwelling-driven reef cooling. Wave height drives turbulent mixing, sediment resuspension, and mechanical stress on reef structures. Together these indicators form a multi-dimensional physical state vector that governs reef condition more completely than any single variable.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Un indicador oceanográfico físico es una cantidad medida o derivada que representa de manera confiable el estado de un proceso físico relevante para la función del ecosistema arrecifal. Los indicadores no son observaciones brutas — son valores interpretados que comunican dónde se encuentra un sistema en relación con umbrales, líneas base o condiciones de referencia conocidas.
+          <br><br>
+          La Temperatura Superficial del Mar (TSM) es el indicador físico más utilizado en la ciencia de arrecifes de coral, principalmente porque las endosimbiontes fotosintéticas son expulsadas del tejido coralino cuando la TSM supera el umbral de tolerancia térmica específico de la especie. El índice de Semanas de Calentamiento por Grado (DHW) aborda esta limitación acumulando el estrés térmico a lo largo del tiempo: el DHW se calcula como la suma de las anomalías semanales de TSM que superan la temperatura media mensual máxima (MMM). Un valor de DHW de 4°C-semanas es el umbral empírico para la vigilancia de blanqueamiento; 8°C-semanas predice blanqueamiento significativo y mortalidad.
+          <br><br>
+          La anomalía de la Altura de la Superficie del Mar (SSH), la profundidad de la termoclina, la profundidad de la capa de mezcla, la altura significativa de ola y la velocidad de la corriente funcionan cada uno como indicadores de diferentes dimensiones físicas de la exposición arrecifal. La anomalía SSH positiva indica remolinos anticiclónicos de núcleo cálido que deprimen la termoclina y aumentan el riesgo de blanqueamiento; las anomalías negativas indican remolinos ciclónicos de núcleo frío que elevan la termoclina y pueden proporcionar alivio térmico. Juntos, estos indicadores forman un vector de estado físico multidimensional que gobierna la condición arrecifal de manera más completa que cualquier variable individual.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MAR INDICATORS APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">MAR Indicators Application · Aplicación de Indicadores en el SAM</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          No single physical indicator captures the full reef stress state across the MAR corridor. DHW quantifies accumulated thermal exposure but misses upwelling relief events; SSH anomaly reveals eddy forcing but not river plume impacts; wave height measures physical disturbance but not chemical stress. Effective reef assessment requires a multi-indicator physical state vector.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>DHW as the primary bleaching predictor</strong> for the MAR corridor is operationalized through NOAA Coral Reef Watch: when DHW exceeds 4°C-weeks at any MAR corridor node, Bleaching Watch is declared; at 8°C-weeks, Alert Level 1 predicts significant bleaching across most coral species; at 12°C-weeks, Alert Level 2 predicts widespread mortality. The 1998 and 2005 mass bleaching events across the MAR were both preceded by DHW accumulations exceeding 8°C-weeks over multi-week periods.</li>
+        <li><strong>Thermocline depth anomaly</strong> as a bleaching risk modifier: when thermocline depth shoals to less than 30 meters at MAR shelf-edge sites — driven by upwelling intensification, cyclonic eddy impingement, or ENSO cold phases — cold subsurface water is more accessible to internal wave mixing processes, reducing net thermal stress accumulation even when surface SST is elevated. Monitoring thermocline depth alongside DHW significantly improves bleaching prediction accuracy.</li>
+        <li><strong>SSH anomaly as an eddy indicator</strong> for the MAR fore reef: positive SSH anomalies of +5 to +15 cm measured at Caribbean basin altimetry stations correspond to anticyclonic eddy encounters with the MAR shelf — events that have been correlated with intensified bleaching at affected reef segments. SSH anomaly functions as a real-time leading indicator of anomalous thermal exposure sourced from open-ocean mesoscale dynamics.</li>
+        <li><strong>Significant wave height (Hs)</strong> as a dual-role indicator: during the MAR dry season, Hs values of 2–4 m on exposed reef crests indicate sufficient turbulent mixing to reduce thermal stratification and suppress bleaching risk. During the wet season, Hs below 1 m signals calm, stratified conditions most conducive to thermal stress accumulation — wave height thus functions as an indirect indicator of vertical mixing intensity and bleaching risk state.</li>
+        <li><strong>GROAN's GRIN module</strong> (Global Reef Intelligence Network) ingests these physical indicators alongside biological observations, normalizing SST, DHW, SSH anomaly, thermocline depth, and wave height into the 0–10 GROAN scale — enabling the CMIE to compute cross-module interactions between physical stress state and ecological response indicators in real time.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Ningún indicador físico individual captura el estado completo de estrés arrecifal en el corredor del SAM. El DHW cuantifica la exposición térmica acumulada pero no detecta los eventos de alivio por surgencia; la anomalía SSH revela el forzamiento de los remolinos pero no los impactos de las plumas fluviales. La evaluación arrecifal efectiva requiere un vector de estado físico de múltiples indicadores.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El <strong>DHW como predictor primario de blanqueamiento</strong> para el corredor del SAM se operacionaliza a través de NOAA Coral Reef Watch: cuando el DHW supera las 4°C-semanas, se declara Vigilancia de Blanqueamiento; a las 8°C-semanas, la Alerta Nivel 1 predice blanqueamiento significativo en la mayoría de las especies de coral; a las 12°C-semanas, la Alerta Nivel 2 predice mortalidad generalizada.</li>
+        <li>La <strong>anomalía de profundidad de la termoclina</strong> como modificador del riesgo de blanqueamiento: cuando la termoclina sube a menos de 30 metros en los sitios del borde de la plataforma del SAM, el agua fría subsuperficial es más accesible a los procesos de mezcla por ondas internas, reduciendo la acumulación neta de estrés térmico incluso cuando la TSM superficial es elevada.</li>
+        <li>La <strong>anomalía SSH como indicador de remolinos</strong> para el arrecife frontal del SAM: las anomalías SSH positivas de +5 a +15 cm corresponden a encuentros de remolinos anticiclónicos con la plataforma del SAM — eventos que han sido correlacionados con blanqueamiento intensificado en los segmentos arrecifales afectados.</li>
+        <li>La <strong>altura significativa de ola (Hs)</strong> como indicador de doble función: durante la estación seca, los valores de Hs de 2–4 m en las crestas arrecifales expuestas indican mezcla turbulenta suficiente para reducir la estratificación térmica. Durante la estación lluviosa, Hs por debajo de 1 m señala condiciones de calma más propicias para la acumulación de estrés térmico.</li>
+        <li>El <strong>módulo GRIN de GROAN</strong> ingiere estos indicadores físicos junto con observaciones biológicas, normalizando TSM, DHW, anomalía SSH, profundidad de la termoclina y altura de ola en la escala 0–10 de GROAN — permitiendo al CMIE calcular interacciones entre módulos en tiempo real.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does the Degree Heating Week (DHW) index provide a more useful bleaching risk indicator than instantaneous SST alone?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> DHW measures temperature at greater depth than satellite SST, capturing subsurface thermal stress more accurately</li>
+            <li><span class="opt-letter">B.</span> DHW accumulates thermal stress anomalies over time, converting instantaneous SST into a time-integrated index that correlates with observed bleaching outcomes</li>
+            <li><span class="opt-letter">C.</span> DHW corrects for seasonal baseline variation by subtracting climatological mean temperature from each reading</li>
+            <li><span class="opt-letter">D.</span> DHW is measured in situ by moored buoys and therefore avoids the vertical blindness limitation of satellite SST</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — DHW sums weekly SST anomalies above the maximum monthly mean over a 12-week rolling window. A coral at 1°C above MMM for 8 weeks accumulates 8 DHW — the same stress as 2°C above MMM for 4 weeks. This time integration is what links DHW to bleaching outcomes; instantaneous SST cannot capture cumulative thermal dose.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué el índice de Semanas de Calentamiento por Grado (DHW) proporciona un indicador de riesgo de blanqueamiento más útil que la TSM instantánea por sí sola?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El DHW mide la temperatura a mayor profundidad que la TSM satelital, capturando el estrés térmico subsuperficial con mayor precisión</li>
+            <li><span class="opt-letter">B.</span> El DHW acumula anomalías de estrés térmico a lo largo del tiempo, convirtiendo la TSM instantánea en un índice integrado temporalmente que se correlaciona con los resultados de blanqueamiento observados</li>
+            <li><span class="opt-letter">C.</span> El DHW corrige la variación de la línea base estacional restando la temperatura media climatológica de cada lectura</li>
+            <li><span class="opt-letter">D.</span> El DHW es medido in situ por boyas amarradas y por lo tanto evita la limitación de ceguera vertical de la TSM satelital</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El DHW suma las anomalías semanales de TSM por encima de la media mensual máxima en una ventana móvil de 12 semanas. Esta integración temporal es lo que vincula el DHW con los resultados de blanqueamiento; la TSM instantánea no puede capturar la dosis térmica acumulada.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 A positive SSH anomaly of +10 cm detected at a MAR corridor site indicates which physical condition and associated reef risk?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Cyclonic eddy impingement — cold core — shoaled thermocline — reduced bleaching risk</li>
+            <li><span class="opt-letter">B.</span> Sea level rise signal — long-term trend — increased storm surge risk to reef crests</li>
+            <li><span class="opt-letter">C.</span> Anticyclonic eddy impingement — warm core — depressed thermocline — increased bleaching risk</li>
+            <li><span class="opt-letter">D.</span> River plume discharge — freshwater surface lens — reduced salinity stress on fore reef corals</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Positive SSH anomalies indicate anticyclonic (clockwise in Northern Hemisphere) eddies — rotating warm-core water masses that depress the thermocline below normal depth. A depressed thermocline reduces cold water availability for upwelling and internal wave cooling, increasing net thermal stress accumulation at affected reef sites.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Una anomalía SSH positiva de +10 cm detectada en un sitio del corredor del SAM indica ¿qué condición física y riesgo arrecifal asociado?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Impacto de remolino ciclónico — núcleo frío — termoclina elevada — riesgo de blanqueamiento reducido</li>
+            <li><span class="opt-letter">B.</span> Señal de aumento del nivel del mar — tendencia a largo plazo — mayor riesgo de marejadas en las crestas arrecifales</li>
+            <li><span class="opt-letter">C.</span> Impacto de remolino anticiclónico — núcleo cálido — termoclina deprimida — mayor riesgo de blanqueamiento</li>
+            <li><span class="opt-letter">D.</span> Descarga de pluma fluvial — lente de agua dulce superficial — estrés de salinidad reducido en los corales del arrecife frontal</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Las anomalías SSH positivas indican remolinos anticiclónicos — masas de agua rotantes de núcleo cálido que deprimen la termoclina por debajo de la profundidad normal. Una termoclina deprimida reduce la disponibilidad de agua fría para el enfriamiento por surgencia y ondas internas, aumentando la acumulación neta de estrés térmico.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 During the MAR wet season, why does low significant wave height (Hs &lt; 1 m) function as an indirect indicator of elevated bleaching risk?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Low wave heights allow river plumes to extend further offshore, delivering nutrient stress to fore reef corals</li>
+            <li><span class="opt-letter">B.</span> Low wave heights signal calm, thermally stratified conditions that suppress vertical mixing — allowing surface heat to accumulate rather than being distributed through the water column</li>
+            <li><span class="opt-letter">C.</span> Low wave heights reduce sediment resuspension, increasing light penetration and photosynthetic heating of the reef surface</li>
+            <li><span class="opt-letter">D.</span> Low wave heights correlate with reduced current velocity, slowing the Caribbean Current and increasing water residence time on the shelf</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Wave breaking and whitecapping drive turbulent mixing that distributes surface heat downward and breaks down thermal stratification. When Hs drops below 1 m during the wet season, this mixing mechanism weakens — heat accumulates in a thin surface layer, SST rises faster, and DHW accumulates more rapidly than under energetic wave conditions. Wave height is therefore an indirect indicator of vertical mixing intensity and thermal stratification state.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Durante la estación lluviosa del SAM, ¿por qué la baja altura significativa de ola (Hs &lt; 1 m) funciona como indicador indirecto de mayor riesgo de blanqueamiento?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Las bajas alturas de ola permiten que las plumas fluviales se extiendan más lejos mar adentro, entregando estrés de nutrientes a los corales del arrecife frontal</li>
+            <li><span class="opt-letter">B.</span> Las bajas alturas de ola señalan condiciones calmadas y térmicamente estratificadas que suprimen la mezcla vertical — permitiendo que el calor superficial se acumule en lugar de distribuirse a través de la columna de agua</li>
+            <li><span class="opt-letter">C.</span> Las bajas alturas de ola reducen la resuspensión de sedimentos, aumentando la penetración de luz y el calentamiento fotosintético de la superficie arrecifal</li>
+            <li><span class="opt-letter">D.</span> Las bajas alturas de ola se correlacionan con velocidad de corriente reducida, ralentizando la Corriente del Caribe y aumentando el tiempo de residencia del agua en la plataforma</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El rompimiento de olas impulsa la mezcla turbulenta que distribuye el calor superficial hacia abajo y rompe la estratificación térmica. Cuando Hs cae por debajo de 1 m durante la estación lluviosa, este mecanismo de mezcla se debilita — el calor se acumula en una capa superficial delgada y el DHW se acumula más rápidamente que bajo condiciones de oleaje energético.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 24 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L24 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
