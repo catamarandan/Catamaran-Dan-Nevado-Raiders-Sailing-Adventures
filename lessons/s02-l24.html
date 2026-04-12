@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L24 | Chemical Oceanography — Indicators</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --red-crit:   #c0392b;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);       font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);      font-weight: 500; }
+  .lecture-text .green     { color: var(--green);      font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);     font-weight: 500; }
+
+  /* ── INDICATOR THRESHOLD BARS (inline in lecture) ── */
+  .indicator-stack {
+    margin: 22px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .ind-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 110px;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ind-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-foam);
+    text-align: right;
+    line-height: 1.3;
+  }
+
+  .ind-label span {
+    display: block;
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .ind-bar-wrap {
+    position: relative;
+    height: 22px;
+    border-radius: 3px;
+    overflow: visible;
+  }
+
+  /* Zone segments — widths set inline as style attributes */
+  .zone {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+
+  .zone-healthy  { background: rgba(62,207,142,0.35); border-right: 1px solid rgba(62,207,142,0.2); }
+  .zone-monitor  { background: rgba(26,200,200,0.25); border-right: 1px solid rgba(26,200,200,0.2); }
+  .zone-stress   { background: rgba(240,180,41,0.30); border-right: 1px solid rgba(240,180,41,0.25); }
+  .zone-alert    { background: rgba(232,96,64,0.30);  border-right: 1px solid rgba(232,96,64,0.25); }
+  .zone-critical { background: rgba(192,57,43,0.40);  border-radius: 0 3px 3px 0; }
+
+  /* Threshold tick marks */
+  .tick {
+    position: absolute;
+    top: -4px;
+    width: 1px;
+    height: 30px;
+    background: rgba(255,255,255,0.35);
+  }
+
+  .tick-label {
+    position: absolute;
+    top: -14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: rgba(255,255,255,0.55);
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .ind-action {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    line-height: 1.4;
+    color: var(--text-dim);
+  }
+
+  .ind-action .act-crit { color: var(--coral); }
+  .ind-action .act-alert { color: var(--gold); }
+
+  /* ── INDICATOR DETAIL BLOCKS ── */
+  .ind-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .ind-detail {
+    border-radius: 6px;
+    padding: 14px 16px;
+    background: rgba(4,41,74,0.3);
+    border-left: 3px solid rgba(26,200,200,0.35);
+  }
+
+  .ind-detail.pair   { border-left-color: rgba(155,127,232,0.45); background: rgba(12,6,22,0.35); }
+  .ind-detail.trend  { border-left-color: rgba(240,180,41,0.45);  background: rgba(22,16,2,0.35); }
+  .ind-detail.couple { border-left-color: rgba(62,207,142,0.45);  background: rgba(4,20,12,0.35); }
+  .ind-detail.nec    { border-left-color: rgba(232,96,64,0.45);   background: rgba(25,6,2,0.35); }
+
+  .ind-detail-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 8px;
+  }
+
+  .ind-detail.pair   .ind-detail-header { color: var(--purple); }
+  .ind-detail.trend  .ind-detail-header { color: var(--gold); }
+  .ind-detail.couple .ind-detail-header { color: var(--green); }
+  .ind-detail.nec    .ind-detail-header { color: var(--coral); }
+
+  .ind-detail-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 12px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 12px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-crit { background: rgba(192,57,43,0.18);   color: #ff8070;           border: 1px solid rgba(192,57,43,0.4); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before { content: '✓ '; color: var(--ocean-cyan); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label, .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .progress-label { color: var(--text-dim); }
+  .progress-pct   { color: var(--ocean-cyan); }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 7.95%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid, .ind-detail-grid { grid-template-columns: 1fr; }
+    .ind-row { grid-template-columns: 90px 1fr; }
+    .ind-action { display: none; }
+    .footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L24 / 32</div>
+      <h1 class="lesson-title">Indicators</h1>
+      <p class="lesson-subtitle">Threshold architecture — from baseline chemistry to CMIE decision triggers</p>
+    </div>
+
+    <!-- SVG: 4-indicator gauge panel showing threshold zones as colored horizontal bars -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- Title row -->
+      <text x="110" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" letter-spacing="0.1em">INDICATOR THRESHOLD DASHBOARD</text>
+
+      <!-- Legend row -->
+      <rect x="4"  y="20" width="10" height="6" rx="1" fill="rgba(62,207,142,0.45)"/>
+      <text x="17" y="27" font-family="DM Mono,monospace" font-size="7" fill="#3ecf8e">Healthy</text>
+      <rect x="58" y="20" width="10" height="6" rx="1" fill="rgba(26,200,200,0.35)"/>
+      <text x="71" y="27" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">Monitor</text>
+      <rect x="114" y="20" width="10" height="6" rx="1" fill="rgba(240,180,41,0.40)"/>
+      <text x="127" y="27" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">Alert</text>
+      <rect x="160" y="20" width="10" height="6" rx="1" fill="rgba(192,57,43,0.50)"/>
+      <text x="173" y="27" font-family="DM Mono,monospace" font-size="7" fill="#ff8070">Critical</text>
+
+      <!-- ── Ω_arag gauge (row 1) ── -->
+      <text x="42" y="48" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#b8f0ec">Ω arag</text>
+      <!-- Bar: 0→1.5 critical, 1.5→2.0 alert, 2.0→3.0 stress, 3.0→3.5 monitor, 3.5→5.0 healthy -->
+      <!-- total scale 0–5 → 170px wide starting at x=46 -->
+      <!-- critical 0–1.5 = 30% = 51px -->
+      <rect x="46" y="38" width="51" height="14" rx="0" fill="rgba(192,57,43,0.45)"/>
+      <!-- alert 1.5–2.0 = 10% = 17px -->
+      <rect x="97" y="38" width="17" height="14" fill="rgba(232,96,64,0.35)"/>
+      <!-- stress 2.0–3.0 = 20% = 34px -->
+      <rect x="114" y="38" width="34" height="14" fill="rgba(240,180,41,0.35)"/>
+      <!-- monitor 3.0–3.5 = 10% = 17px -->
+      <rect x="148" y="38" width="17" height="14" fill="rgba(26,200,200,0.3)"/>
+      <!-- healthy 3.5–5.0 = 30% = 51px -->
+      <rect x="165" y="38" width="51" height="14" rx="0" fill="rgba(62,207,142,0.35)"/>
+      <!-- border -->
+      <rect x="46" y="38" width="170" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+      <!-- ticks -->
+      <line x1="97"  y1="36" x2="97"  y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="97"  y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">1.5</text>
+      <line x1="114" y1="36" x2="114" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="114" y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">2.0</text>
+      <line x1="148" y1="36" x2="148" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="148" y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">3.0</text>
+      <line x1="165" y1="36" x2="165" y2="53" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="165" y="58" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">3.5</text>
+
+      <!-- ── pH gauge (row 2) ── -->
+      <text x="42" y="80" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#b8f0ec">pH</text>
+      <!-- scale 7.6–8.3 = 0.7 range → 170px; critical <7.8=28px, alert 7.8–7.9=24px, stress 7.9–8.0=24px, monitor 8.0–8.1=24px, healthy 8.1–8.3=70px -->
+      <rect x="46" y="68" width="29" height="14" rx="0" fill="rgba(192,57,43,0.45)"/>
+      <rect x="75" y="68" width="24" height="14" fill="rgba(232,96,64,0.35)"/>
+      <rect x="99" y="68" width="24" height="14" fill="rgba(240,180,41,0.35)"/>
+      <rect x="123" y="68" width="24" height="14" fill="rgba(26,200,200,0.3)"/>
+      <rect x="147" y="68" width="69" height="14" rx="0" fill="rgba(62,207,142,0.35)"/>
+      <rect x="46" y="68" width="170" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+      <line x1="75"  y1="66" x2="75"  y2="83" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="75"  y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">7.8</text>
+      <line x1="99"  y1="66" x2="99"  y2="83" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="99"  y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">7.9</text>
+      <line x1="123" y1="66" x2="123" y2="83" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="123" y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">8.0</text>
+      <line x1="147" y1="66" x2="147" y2="83" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="147" y="88" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">8.1</text>
+
+      <!-- ── DO gauge (row 3) ── -->
+      <text x="42" y="110" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#b8f0ec">DO</text>
+      <!-- scale 0–10 mg/L; critical 0–2=34px, alert 2–4=34px, stress 4–6=34px, healthy >6=68px -->
+      <rect x="46" y="98" width="34" height="14" rx="0" fill="rgba(192,57,43,0.45)"/>
+      <rect x="80" y="98" width="34" height="14" fill="rgba(240,180,41,0.35)"/>
+      <rect x="114" y="98" width="34" height="14" fill="rgba(26,200,200,0.3)"/>
+      <rect x="148" y="98" width="68" height="14" rx="0" fill="rgba(62,207,142,0.35)"/>
+      <rect x="46" y="98" width="170" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+      <line x1="80"  y1="96" x2="80"  y2="113" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="80"  y="118" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">2</text>
+      <line x1="114" y1="96" x2="114" y2="113" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="114" y="118" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">4</text>
+      <line x1="148" y1="96" x2="148" y2="113" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="148" y="118" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">6</text>
+      <text x="216" y="109" text-anchor="end" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">mg/L</text>
+
+      <!-- ── DIN gauge (row 4) ── -->
+      <text x="42" y="140" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#b8f0ec">DIN</text>
+      <!-- scale 0–10 µmol/L; healthy 0–1=17px, monitor 1–3=34px, alert 3–5=34px, critical >5=85px -->
+      <rect x="46" y="128" width="17" height="14" rx="0" fill="rgba(62,207,142,0.35)"/>
+      <rect x="63" y="128" width="34" height="14" fill="rgba(26,200,200,0.3)"/>
+      <rect x="97" y="128" width="34" height="14" fill="rgba(240,180,41,0.35)"/>
+      <rect x="131" y="128" width="85" height="14" rx="0" fill="rgba(192,57,43,0.45)"/>
+      <rect x="46" y="128" width="170" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+      <line x1="63"  y1="126" x2="63"  y2="143" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="63"  y="148" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">1</text>
+      <line x1="97"  y1="126" x2="97"  y2="143" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="97"  y="148" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">3</text>
+      <line x1="131" y1="126" x2="131" y2="143" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="131" y="148" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(255,255,255,0.4)">5</text>
+      <text x="216" y="139" text-anchor="end" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">µmol/L</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          A chemical indicator is not simply a measured parameter. It is a parameter with a <strong>defined threshold architecture</strong> — a set of values at which monitoring frequency should increase, at which CMIE should elevate the Decision Score, and at which a Critical alert is generated. Without that architecture, a pH reading is a number. With it, pH is an actionable ecosystem signal. GROAN defines four threshold levels for each primary indicator: <span class="green">Healthy</span> (baseline, no action), <span class="highlight">Monitoring</span> (increase sampling frequency), <span class="coral">Alert</span> (CMIE elevated DS), and <span style="color:#ff8070;font-weight:500">Critical</span> (High-priority intervention flag). Every value entering CMIE from L3 Source Arbitration is tagged with its threshold zone at the time of measurement.
+        </p>
+
+        <p style="margin-bottom:10px;">The four primary GROAN chemical indicators and their threshold architectures:</p>
+
+        <!-- Threshold bar diagram (text description version) -->
+        <div class="indicator-stack">
+
+          <div class="ind-row">
+            <div class="ind-label">Ω<sub>arag</sub><span>Aragonite saturation</span></div>
+            <div class="ind-bar-wrap">
+              <div class="zone zone-critical" style="left:0;width:30%"></div>
+              <div class="zone zone-alert"    style="left:30%;width:10%"></div>
+              <div class="zone zone-stress"   style="left:40%;width:20%"></div>
+              <div class="zone zone-monitor"  style="left:60%;width:10%"></div>
+              <div class="zone zone-healthy"  style="left:70%;width:30%;border-radius:0 3px 3px 0"></div>
+              <div class="tick" style="left:30%"><div class="tick-label">1.5</div></div>
+              <div class="tick" style="left:40%"><div class="tick-label">2.0</div></div>
+              <div class="tick" style="left:60%"><div class="tick-label">3.0</div></div>
+              <div class="tick" style="left:70%"><div class="tick-label">3.5</div></div>
+            </div>
+            <div class="ind-action"><span class="act-crit">&lt;1.5 → Critical</span><br>&lt;2.0 → Alert<br>&lt;3.0 → Monitor</div>
+          </div>
+
+          <div class="ind-row">
+            <div class="ind-label">pH<span>Total scale (pH<sub>T</sub>)</span></div>
+            <div class="ind-bar-wrap">
+              <div class="zone zone-critical" style="left:0;width:17%"></div>
+              <div class="zone zone-alert"    style="left:17%;width:14%"></div>
+              <div class="zone zone-stress"   style="left:31%;width:14%"></div>
+              <div class="zone zone-monitor"  style="left:45%;width:14%"></div>
+              <div class="zone zone-healthy"  style="left:59%;width:41%;border-radius:0 3px 3px 0"></div>
+              <div class="tick" style="left:17%"><div class="tick-label">7.8</div></div>
+              <div class="tick" style="left:31%"><div class="tick-label">7.9</div></div>
+              <div class="tick" style="left:45%"><div class="tick-label">8.0</div></div>
+              <div class="tick" style="left:59%"><div class="tick-label">8.1</div></div>
+            </div>
+            <div class="ind-action"><span class="act-crit">&lt;7.8 → Critical</span><br>&lt;7.9 → Alert<br>&lt;8.0 → Monitor</div>
+          </div>
+
+          <div class="ind-row">
+            <div class="ind-label">DO<span>Dissolved oxygen (mg/L)</span></div>
+            <div class="ind-bar-wrap">
+              <div class="zone zone-critical" style="left:0;width:20%"></div>
+              <div class="zone zone-stress"   style="left:20%;width:20%"></div>
+              <div class="zone zone-monitor"  style="left:40%;width:20%"></div>
+              <div class="zone zone-healthy"  style="left:60%;width:40%;border-radius:0 3px 3px 0"></div>
+              <div class="tick" style="left:20%"><div class="tick-label">2</div></div>
+              <div class="tick" style="left:40%"><div class="tick-label">4</div></div>
+              <div class="tick" style="left:60%"><div class="tick-label">6</div></div>
+            </div>
+            <div class="ind-action"><span class="act-crit">&lt;2 → GKIN flag</span><br>&lt;4 → Alert<br>&lt;6 → Monitor</div>
+          </div>
+
+          <div class="ind-row">
+            <div class="ind-label">DIN<span>Dissolved inorganic nitrogen (µmol/L)</span></div>
+            <div class="ind-bar-wrap">
+              <div class="zone zone-healthy"  style="left:0;width:10%"></div>
+              <div class="zone zone-monitor"  style="left:10%;width:20%"></div>
+              <div class="zone zone-stress"   style="left:30%;width:20%"></div>
+              <div class="zone zone-critical" style="left:50%;width:50%;border-radius:0 3px 3px 0"></div>
+              <div class="tick" style="left:10%"><div class="tick-label">1</div></div>
+              <div class="tick" style="left:30%"><div class="tick-label">3</div></div>
+              <div class="tick" style="left:50%"><div class="tick-label">5</div></div>
+            </div>
+            <div class="ind-action"><span class="act-crit">&gt;5 → Eutroph. alert</span><br>&gt;3 → Alert<br>&gt;1 → Monitor</div>
+          </div>
+
+        </div>
+
+        <p style="margin-bottom:16px;">
+          Beyond individual thresholds, GROAN defines four <strong>derived indicators</strong> that reveal ecosystem dynamics not visible in any single parameter:
+        </p>
+
+        <div class="ind-detail-grid">
+
+          <div class="ind-detail pair">
+            <div class="ind-detail-header">Derived 01 · pH–Ω Decoupling</div>
+            <p class="ind-detail-desc">
+              pH and Ω<sub>arag</sub> co-vary predictably in normal seawater — a drop in pH should correspond to a drop in Ω. When they diverge (pH normal but Ω suppressed, or vice versa), it signals a water mass mixing event, an unusual TA anomaly, or a freshwater input with atypical chemistry. <strong>pH–Ω decoupling at any MOOP station triggers a mandatory water mass investigation</strong> before CMIE generates attribution from that station's data. Using decoupled values as independent inputs to CMIE will produce a false compound stress signal.
+            </p>
+          </div>
+
+          <div class="ind-detail trend">
+            <div class="ind-detail-header">Derived 02 · Annual Ω Trend Rate</div>
+            <p class="ind-detail-desc">
+              Absolute Ω value tells CMIE where a reef zone sits today. Ω trend rate tells CMIE where it is heading. A declining trend of <strong>&gt;0.1 Ω units per annual Rim Run™ circuit</strong> at the same corridor site generates a CMIE trend alert — even if the current absolute value is still in the Healthy zone. A reef at Ω 3.4 declining 0.15 units per year will reach the Alert zone in less than ten circuits. Trend alerts carry a lower DS weight than threshold alerts but are operationally more valuable — they identify intervention windows before crisis.
+            </p>
+          </div>
+
+          <div class="ind-detail couple">
+            <div class="ind-detail-header">Derived 03 · DO–pCO₂ Diel Coupling</div>
+            <p class="ind-detail-desc">
+              In a metabolically active reef zone, DO and pCO₂ are anti-correlated across the diel cycle: DO peaks and pCO₂ troughs at midday (photosynthesis dominant), reversing at night (respiration dominant). <strong>Coupling breakdown</strong> — where DO and pCO₂ move in the same direction, or where the diel amplitude collapses in both simultaneously — indicates metabolic suppression. This is a compound stress indicator that must be flagged in CMIE before attribution analysis. A diel DO amplitude below 1 mg/L with elevated flat-line pCO₂ is the chemical signature of a functionally dead reef zone.
+            </p>
+          </div>
+
+          <div class="ind-detail nec">
+            <div class="ind-detail-header">Derived 04 · Net Ecosystem Calcification (NEC)</div>
+            <p class="ind-detail-desc">
+              When two MOOP stations are positioned in the same reef zone along the direction of water flow, the TA drawdown between the upstream and downstream stations quantifies Net Ecosystem Calcification: NEC = −(ΔTA / 2) × flow rate. <strong>NEC approaching zero</strong> means calcification and dissolution are balanced — the reef is not growing. <strong>NEC negative</strong> means net dissolution is occurring — the structural foundation is eroding. NEC is the earliest chemical signal of structural reef collapse and must be reported alongside Ω in any CMIE calibration record where paired upstream-downstream stations exist.
+            </p>
+          </div>
+
+        </div>
+
+        <p style="margin-top:6px;">
+          <strong>The composite stress index.</strong> GROAN's most powerful indicator is not any single parameter — it is the simultaneous crossing of multiple monitoring thresholds. When <span class="coral">three or more primary indicators cross their monitoring thresholds concurrently</span> in the same reef zone — even if none has reached its Alert threshold — CMIE must generate a compound stress flag. Compound stress events have historically preceded mass bleaching by 4–8 weeks. The composite index is the chemical early warning architecture that gives GROAN its decision-lead-time advantage over reactive monitoring systems.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          Un indicador químico no es simplemente un parámetro medido. Es un parámetro con una <strong>arquitectura de umbral definida</strong> — un conjunto de valores en los que la frecuencia de monitoreo debe aumentar, en los que CMIE debe elevar el Puntaje de Decisión, y en los que se genera una alerta Crítica. Sin esa arquitectura, una lectura de pH es un número. Con ella, el pH es una señal de ecosistema accionable. GROAN define cuatro niveles de umbral para cada indicador primario: Saludable, Monitoreo, Alerta y Crítico.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Desacoplamiento pH–Ω:</strong> El pH y Ω<sub>arag</sub> covarían predeciblemente en agua de mar normal. Cuando divergen, indica un evento de mezcla de masas de agua o una anomalía de AT inusual. <strong>El desacoplamiento pH–Ω en cualquier estación MOOP activa una investigación obligatoria de masa de agua</strong> antes de que CMIE genere atribución con los datos de esa estación.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Tasa de Tendencia Anual de Ω:</strong> Una tendencia decreciente de <strong>&gt;0.1 unidades de Ω por circuito anual Rim Run™</strong> en el mismo sitio del corredor genera una alerta de tendencia CMIE — incluso si el valor absoluto actual sigue en la zona Saludable. Las alertas de tendencia identifican ventanas de intervención antes de la crisis.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Acoplamiento Diurno DO–pCO₂:</strong> En una zona arrecifal metabólicamente activa, DO y pCO₂ están anticorrelacionados a través del ciclo diurno. La ruptura del acoplamiento indica supresión metabólica. Una amplitud diurna de OD por debajo de 1 mg/L con pCO₂ plano elevado es la firma química de una zona arrecifal funcionalmente muerta.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Calcificación Neta del Ecosistema (CNE):</strong> La extracción de AT entre estaciones aguas arriba y aguas abajo cuantifica la calcificación neta. <strong>CNE negativo</strong> significa que está ocurriendo disolución neta — la estructura arrecifal se está erosionando. La CNE es la señal química más temprana del colapso estructural arrecifal.
+        </p>
+        <p>
+          <strong>Índice de estrés compuesto:</strong> Cuando <span class="coral">tres o más indicadores primarios cruzan simultáneamente sus umbrales de monitoreo</span> en la misma zona arrecifal — incluso si ninguno ha alcanzado su umbral de Alerta — CMIE debe generar una señal de estrés compuesto. Los eventos de estrés compuesto han precedido históricamente al blanqueamiento masivo en 4–8 semanas.
+        </p>
+      </div>
+    </div>
+
+    <!-- INDICATOR THRESHOLD TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Indicator</th>
+          <th>Healthy</th>
+          <th>Monitoring</th>
+          <th>Alert</th>
+          <th>Critical / CMIE Trigger</th>
+          <th>GROAN Module</th>
+          <th>Derived Flag</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">Ω<sub>arag</sub></strong></td>
+          <td>&gt;3.5</td>
+          <td>3.0–3.5</td>
+          <td>2.0–3.0</td>
+          <td><span class="badge badge-crit">&lt;1.5 High-priority</span></td>
+          <td>GRIN, GSIN</td>
+          <td>Trend &gt;0.1/yr; pH–Ω decouple; NEC</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">pH<sub>T</sub></strong></td>
+          <td>&gt;8.1</td>
+          <td>8.0–8.1</td>
+          <td>7.9–8.0</td>
+          <td><span class="badge badge-crit">&lt;7.8 Critical</span></td>
+          <td>GRIN, CMIE</td>
+          <td>pH–Ω decoupling check</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">DO (mg/L)</strong></td>
+          <td>&gt;6</td>
+          <td>4–6</td>
+          <td>2–4</td>
+          <td><span class="badge badge-crit">&lt;2 GKIN immediate</span></td>
+          <td>GKIN</td>
+          <td>Diel amplitude; DO–pCO₂ coupling</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--gold)">DIN (µmol/L)</strong></td>
+          <td>&lt;1</td>
+          <td>1–3</td>
+          <td>3–5</td>
+          <td><span class="badge badge-crit">&gt;5 Eutrophication</span></td>
+          <td>GKIN, CMIE</td>
+          <td>N:P ratio; δ¹⁵N source</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--gold)">N:P ratio</strong></td>
+          <td>10–16</td>
+          <td>&gt;16 (1 event)</td>
+          <td>&gt;16 (2 events)</td>
+          <td><span class="badge badge-low">&gt;25 — severe excess</span></td>
+          <td>GKIN, CMIE</td>
+          <td>Agricultural source flag</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green)">DO diel amplitude</strong></td>
+          <td>&gt;3 mg/L</td>
+          <td>1–3 mg/L</td>
+          <td>&lt;1 mg/L</td>
+          <td><span class="badge badge-crit">Flat + pCO₂ ↑ — dead zone</span></td>
+          <td>GSIN, GKIN</td>
+          <td>DO–pCO₂ coupling check</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--coral)">NEC</strong></td>
+          <td>&gt;0 (net accretion)</td>
+          <td>Near zero</td>
+          <td>Zero</td>
+          <td><span class="badge badge-crit">&lt;0 — net dissolution</span></td>
+          <td>GRIN, CMIE</td>
+          <td>Paired station ΔTA required</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--purple)">Composite Stress</strong></td>
+          <td>0–1 indicators at Monitor</td>
+          <td>2 indicators at Monitor</td>
+          <td>—</td>
+          <td><span class="badge badge-crit">≥3 indicators at Monitor → compound flag</span></td>
+          <td>CMIE (all modules)</td>
+          <td>4–8 wk bleaching lead time</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>When three or more primary indicators simultaneously cross their monitoring thresholds at the same reef zone — even if none has reached its individual Alert threshold — generate a CMIE compound stress flag immediately. Do not wait for a single indicator to reach Alert level. The composite stress index has historically preceded mass bleaching by 4–8 weeks. Early compound flagging is GROAN's primary operational advantage over single-parameter monitoring frameworks.</span></li>
+        <li><span class="app-num">02</span><span>Calculate the annual Ω trend rate for every corridor site that has been sampled in two or more consecutive Rim Run™ circuits using tidal phase-matched samples. A declining trend exceeding 0.1 Ω units per circuit generates a CMIE trend alert regardless of the current absolute Ω value. A reef at Ω 3.4 on a declining trend is a higher CMIE priority than a reef at Ω 2.8 on a stable or recovering trend — trajectory matters as much as position.</span></li>
+        <li><span class="app-num">03</span><span>If pH and Ω diverge from their expected co-variation at any MOOP station — for example, pH reads 8.05 (Healthy zone) while Ω reads 2.3 (Alert zone) — do not use the values as independent CMIE inputs. Investigate the water mass origin first. The decoupling may indicate a freshwater mixing event, an SGD plume with atypical chemistry, or a measurement error. Using decoupled values as independent inputs generates a false compound stress signal in CMIE that cannot be corrected downstream.</span></li>
+        <li><span class="app-num">04</span><span>Where paired upstream-downstream MOOP stations exist within the same reef zone, compute Net Ecosystem Calcification from the ΔTA between them and report it alongside Ω in the CMIE calibration record. NEC approaching zero is a structural dissolution warning that precedes Ω dropping below 2.0. It is not a redundant confirmation of the Ω signal — it is an independent early warning from a different chemical mechanism, and CMIE weights it accordingly in the Decision Score.</span></li>
+        <li><span class="app-num">05</span><span>Assess DO–pCO₂ diel coupling at each reef zone station by comparing midday and predawn readings. If DO amplitude is below 1 mg/L and pCO₂ shows no corresponding diel cycle, flag the zone as metabolically suppressed before CMIE ingestion. A metabolically suppressed reef zone has a different Decision Score profile than a chemically stressed but metabolically active zone — the intervention target and urgency differ, and CMIE cannot distinguish them without the coupling flag.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Cuando tres o más indicadores primarios cruzan simultáneamente sus umbrales de monitoreo en la misma zona arrecifal — incluso si ninguno ha alcanzado su umbral de Alerta individual — genere inmediatamente una señal de estrés compuesto CMIE. El índice de estrés compuesto ha precedido históricamente al blanqueamiento masivo en 4–8 semanas. La señalización compuesta temprana es la principal ventaja operacional de GROAN sobre los marcos de monitoreo de parámetro único.</span></li>
+        <li><span class="app-num">02</span><span>Calcule la tasa de tendencia anual de Ω para cada sitio del corredor muestreado en dos o más circuitos Rim Run™ consecutivos usando muestras coincidentes en fase de marea. Una tendencia decreciente que supere 0.1 unidades de Ω por circuito genera una alerta de tendencia CMIE independientemente del valor absoluto actual de Ω. La trayectoria importa tanto como la posición.</span></li>
+        <li><span class="app-num">03</span><span>Si pH y Ω divergen de su co-variación esperada en cualquier estación MOOP, no use los valores como entradas independientes de CMIE. Investigue primero el origen de la masa de agua. El desacoplamiento puede indicar un evento de mezcla de agua dulce, un penacho SGD con química atípica o un error de medición.</span></li>
+        <li><span class="app-num">04</span><span>Donde existan estaciones MOOP aguas arriba y aguas abajo emparejadas dentro de la misma zona arrecifal, calcule la Calcificación Neta del Ecosistema a partir del ΔTA entre ellas. La CNE que se aproxima a cero es una advertencia de disolución estructural que precede a que Ω caiga por debajo de 2.0.</span></li>
+        <li><span class="app-num">05</span><span>Evalúe el acoplamiento diurno DO–pCO₂ en cada estación de zona arrecifal comparando lecturas del mediodía y del amanecer. Si la amplitud de OD está por debajo de 1 mg/L y el pCO₂ no muestra el ciclo diurno correspondiente, marque la zona como metabólicamente suprimida antes de la ingestión en CMIE.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">Under GROAN's composite stress index, when does CMIE generate a compound stress flag — even if no single indicator has crossed its Alert threshold?</div>
+        <div class="mcq-q-es">Bajo el índice de estrés compuesto de GROAN, ¿cuándo genera CMIE una señal de estrés compuesto — incluso si ningún indicador individual ha cruzado su umbral de Alerta?</div>
+        <div class="mcq-option">A) When any single indicator reaches the Monitoring threshold for two consecutive sampling events / Cuando cualquier indicador único alcanza el umbral de Monitoreo en dos eventos de muestreo consecutivos</div>
+        <div class="mcq-option">B) When Ω and pH both cross into the Monitoring zone simultaneously / Cuando Ω y pH cruzan simultáneamente a la zona de Monitoreo</div>
+        <div class="mcq-option correct">C) When three or more primary indicators simultaneously cross their Monitoring thresholds in the same reef zone / Cuando tres o más indicadores primarios cruzan simultáneamente sus umbrales de Monitoreo en la misma zona arrecifal</div>
+        <div class="mcq-option">D) Only when the composite stress condition is confirmed at two or more stations within the same reef zone / Solo cuando la condición de estrés compuesto se confirma en dos o más estaciones dentro de la misma zona arrecifal</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">A corridor site shows Ω = 3.4 (Healthy zone) but with a declining annual trend of 0.15 Ω units per circuit. How does CMIE handle this?</div>
+        <div class="mcq-q-es">Un sitio del corredor muestra Ω = 3.4 (zona Saludable) pero con una tendencia anual decreciente de 0.15 unidades de Ω por circuito. ¿Cómo maneja CMIE esto?</div>
+        <div class="mcq-option">A) No action — the absolute value is Healthy and CMIE only responds to threshold crossings / Sin acción — el valor absoluto es Saludable y CMIE solo responde a cruzamientos de umbral</div>
+        <div class="mcq-option">B) Flag for additional sampling in next circuit but generate no DS elevation until Alert threshold is crossed / Marcar para muestreo adicional en el próximo circuito pero no generar elevación de DS hasta que se cruce el umbral de Alerta</div>
+        <div class="mcq-option correct">C) Generate a CMIE trend alert — a declining trend exceeding 0.1 Ω units per circuit triggers an alert regardless of current absolute value, because trajectory determines future threshold crossing / Generar una alerta de tendencia CMIE — una tendencia decreciente que supera 0.1 Ω por circuito activa una alerta independientemente del valor absoluto actual</div>
+        <div class="mcq-option">D) Compare against the regional baseline first — no alert unless the trend persists for three consecutive circuits / Comparar primero con la línea base regional — sin alerta a menos que la tendencia persista por tres circuitos consecutivos</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">What does a flat DO diel amplitude below 1 mg/L combined with flat elevated pCO₂ indicate in a reef zone, and what CMIE action does it require?</div>
+        <div class="mcq-q-es">¿Qué indica en una zona arrecifal una amplitud diurna de OD plana por debajo de 1 mg/L combinada con pCO₂ elevado plano, y qué acción CMIE requiere?</div>
+        <div class="mcq-option">A) Instrument fouling — both sensors should be cleaned and the station re-sampled before CMIE ingestion / Ensuciamiento del instrumento — ambos sensores deben limpiarse y la estación volver a muestrearse</div>
+        <div class="mcq-option">B) Moderate chemical stress — assign Moderate confidence to the station and proceed with standard CMIE ingestion / Estrés químico moderado — asignar confianza Moderada y proceder con la ingestión estándar CMIE</div>
+        <div class="mcq-option correct">C) Metabolic suppression — the chemical signature of a functionally dead reef zone; flag as metabolically suppressed before CMIE ingestion because the DS profile and intervention target differ from a chemically stressed but active zone / Supresión metabólica — la firma química de una zona arrecifal funcionalmente muerta; marcar como metabólicamente suprimida antes de la ingestión CMIE</div>
+        <div class="mcq-option">D) Upwelling intrusion — apply the upwelling index correction and re-run CMIE attribution / Intrusión de surgencia — aplicar corrección del índice de surgencia y re-ejecutar atribución CMIE</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 56 of 704</span>
+      <span class="progress-pct">7.95%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
