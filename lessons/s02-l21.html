@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L21 | Chemical Oceanography — MAR Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid: #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral: #e86040;
+    --gold: #f0b429;
+    --green: #3ecf8e;
+    --mar-reef: #0fd4a0;
+    --mar-karst: #c8a45a;
+    --text-light: #e8f4f8;
+    --text-dim: #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong  { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold); font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral); font-weight: 500; }
+  .lecture-text .reef      { color: var(--mar-reef); font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst); font-weight: 500; }
+
+  /* ── STRESSOR BLOCKS ── */
+  .stressor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .stressor-block {
+    border-radius: 6px;
+    padding: 14px 16px;
+    background: rgba(4,41,74,0.3);
+    border-left: 3px solid rgba(26,200,200,0.35);
+  }
+
+  .stressor-block.karst    { border-left-color: rgba(200,164,90,0.55);  background: rgba(20,14,4,0.35); }
+  .stressor-block.ag       { border-left-color: rgba(62,207,142,0.45);  background: rgba(4,20,12,0.35); }
+  .stressor-block.sargasso { border-left-color: rgba(232,96,64,0.45);   background: rgba(25,6,2,0.35); }
+  .stressor-block.thermal  { border-left-color: rgba(155,127,232,0.45); background: rgba(12,6,22,0.35); }
+
+  .stressor-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 8px;
+  }
+
+  .stressor-block.karst    .stressor-header { color: var(--mar-karst); }
+  .stressor-block.ag       .stressor-header { color: var(--green); }
+  .stressor-block.sargasso .stressor-header { color: var(--coral); }
+  .stressor-block.thermal  .stressor-header { color: #9b7fe8; }
+
+  .stressor-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .chip-cyan   { background: rgba(26,200,200,0.08);   border: 1px solid rgba(26,200,200,0.22);   color: var(--ocean-foam); }
+  .chip-karst  { background: rgba(200,164,90,0.10);   border: 1px solid rgba(200,164,90,0.3);    color: #e8d09a; }
+  .chip-green  { background: rgba(62,207,142,0.08);   border: 1px solid rgba(62,207,142,0.25);   color: #a8f4d4; }
+  .chip-coral  { background: rgba(232,96,64,0.10);    border: 1px solid rgba(232,96,64,0.28);    color: #f4b8a8; }
+  .chip-purple { background: rgba(155,127,232,0.10);  border: 1px solid rgba(155,127,232,0.28);  color: #d4c8f8; }
+
+  .stressor-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── COUNTRY ROW ── */
+  .country-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+  }
+
+  .country-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(15,212,160,0.3);
+    background: rgba(15,212,160,0.07);
+    color: var(--mar-reef);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 13px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 9px 13px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-high  { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod   { background: rgba(240,180,41,0.12); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low   { background: rgba(232,96,64,0.12);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-mand  { background: rgba(200,164,90,0.12); color: var(--mar-karst);  border: 1px solid rgba(200,164,90,0.3); }
+
+  /* ── APPLICATION PANEL ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before {
+    content: '✓ ';
+    color: var(--ocean-cyan);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 7.53%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .stressor-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L21 / 32</div>
+      <h1 class="lesson-title">MAR Focus</h1>
+      <p class="lesson-subtitle">Mesoamerican Reef — karst chemistry, multi-country attribution, and Rim Run™ operational context</p>
+    </div>
+
+    <!-- SVG: MAR cross-section schematic — karst peninsula left, barrier reef center, open Caribbean right -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Sky / atmosphere -->
+      <rect x="0" y="0" width="220" height="30" fill="rgba(2,10,20,0.4)"/>
+
+      <!-- Land mass (Yucatan / karst) -->
+      <polygon points="0,0 72,0 72,30 60,50 54,80 50,110 44,140 38,160 0,160"
+               fill="rgba(30,22,8,0.7)" stroke="rgba(200,164,90,0.3)" stroke-width="1"/>
+      <text x="22" y="55" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#c8a45a" opacity="0.9">YUCATAN</text>
+      <text x="22" y="66" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#c8a45a" opacity="0.7">KARST</text>
+
+      <!-- Karst aquifer pattern (dots below land surface) -->
+      <circle cx="20" cy="90"  r="3" fill="none" stroke="rgba(200,164,90,0.35)" stroke-width="0.8"/>
+      <circle cx="32" cy="100" r="3" fill="none" stroke="rgba(200,164,90,0.35)" stroke-width="0.8"/>
+      <circle cx="16" cy="108" r="2.5" fill="none" stroke="rgba(200,164,90,0.3)" stroke-width="0.8"/>
+      <circle cx="28" cy="118" r="3.5" fill="none" stroke="rgba(200,164,90,0.4)" stroke-width="0.8"/>
+      <circle cx="20" cy="130" r="2" fill="none" stroke="rgba(200,164,90,0.3)" stroke-width="0.8"/>
+
+      <!-- Lagoon (between land and reef) -->
+      <rect x="60" y="30" width="52" height="130" fill="rgba(4,60,80,0.35)"/>
+      <text x="86" y="95" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">LAGOON</text>
+
+      <!-- Barrier reef structure -->
+      <rect x="112" y="30" width="14" height="130" fill="rgba(15,212,160,0.15)" stroke="rgba(15,212,160,0.4)" stroke-width="1"/>
+      <text x="119" y="78" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#0fd4a0" transform="rotate(90,119,78)">BARRIER REEF</text>
+
+      <!-- Open Caribbean -->
+      <rect x="126" y="30" width="94" height="130" fill="rgba(2,15,40,0.5)"/>
+      <text x="173" y="90" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" opacity="0.6">CARIBBEAN</text>
+
+      <!-- SGD arrows (karst → lagoon floor) -->
+      <line x1="56" y1="120" x2="70" y2="148" stroke="rgba(200,164,90,0.6)" stroke-width="1.2" stroke-dasharray="3,2"/>
+      <polygon points="67,145 70,152 73,145" fill="rgba(200,164,90,0.7)"/>
+      <line x1="52" y1="100" x2="64" y2="130" stroke="rgba(200,164,90,0.5)" stroke-width="1" stroke-dasharray="3,2"/>
+      <polygon points="61,127 64,134 67,127" fill="rgba(200,164,90,0.6)"/>
+      <text x="62" y="115" font-family="DM Mono,monospace" font-size="6.5" fill="#c8a45a" opacity="0.85">SGD</text>
+
+      <!-- River discharge arrow (from land surface, green) -->
+      <line x1="58" y1="45" x2="82" y2="45" stroke="rgba(62,207,142,0.6)" stroke-width="1.2"/>
+      <polygon points="79,42 85,45 79,48" fill="rgba(62,207,142,0.7)"/>
+      <text x="66" y="40" font-family="DM Mono,monospace" font-size="6" fill="#3ecf8e" opacity="0.9">DIN ↑</text>
+
+      <!-- Sargassum surface drift (coral, right side) -->
+      <ellipse cx="158" cy="38" rx="18" ry="5" fill="rgba(232,96,64,0.15)" stroke="rgba(232,96,64,0.35)" stroke-width="0.8"/>
+      <ellipse cx="185" cy="36" rx="14" ry="4" fill="rgba(232,96,64,0.12)" stroke="rgba(232,96,64,0.3)" stroke-width="0.8"/>
+      <text x="170" y="33" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#e86040" opacity="0.9">SARGASSUM</text>
+      <line x1="190" y1="40" x2="130" y2="46" stroke="rgba(232,96,64,0.3)" stroke-width="0.8" stroke-dasharray="2,2"/>
+      <polygon points="133,43 128,46 133,49" fill="rgba(232,96,64,0.4)"/>
+
+      <!-- MOOP vessel icon (lagoon) -->
+      <polygon points="80,52 100,52 96,58 84,58" fill="rgba(26,200,200,0.25)" stroke="rgba(26,200,200,0.5)" stroke-width="0.8"/>
+      <line x1="90" y1="48" x2="90" y2="52" stroke="rgba(26,200,200,0.5)" stroke-width="0.8"/>
+      <text x="90" y="45" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#1ac8c8" opacity="0.9">MOOP</text>
+
+      <!-- Country flag dots along reef -->
+      <circle cx="119" cy="46"  r="2" fill="#1ac8c8" opacity="0.7"/>
+      <circle cx="119" cy="62"  r="2" fill="#1ac8c8" opacity="0.7"/>
+      <circle cx="119" cy="78"  r="2" fill="#1ac8c8" opacity="0.7"/>
+      <circle cx="119" cy="94"  r="2" fill="#1ac8c8" opacity="0.7"/>
+      <text x="132" y="46"  font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.7">MX</text>
+      <text x="132" y="62"  font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.7">BZ</text>
+      <text x="132" y="78"  font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.7">GT</text>
+      <text x="132" y="94"  font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.7">HN</text>
+
+      <!-- Rim Run route arrow along reef exterior -->
+      <path d="M 128 48 Q 134 80 130 140" fill="none" stroke="rgba(240,180,41,0.45)" stroke-width="1.2" stroke-dasharray="3,2"/>
+      <polygon points="127,136 130,144 133,136" fill="rgba(240,180,41,0.5)"/>
+      <text x="142" y="118" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" opacity="0.8">RIM RUN™</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          The Mesoamerican Reef (MAR) is the world's second-largest barrier reef system — <strong>~1,000 km of continuous coral structure</strong> running from the northern tip of the Yucatan Peninsula (Mexico) south through Belize, Guatemala, and Honduras. It is a UNESCO World Heritage Site, a critical fisheries resource for four nations, and the primary operational theater for the Rim Run™ expedition. Within GROAN, the MAR is the highest-priority multi-country chemical attribution challenge: a reef system chemically dominated not by ocean-scale forcing, but by <span class="karst">karst geology</span> and terrestrial land use across four distinct national jurisdictions.
+        </p>
+
+        <div class="country-row">
+          <span class="country-tag">Mexico · Quintana Roo</span>
+          <span class="country-tag">Belize</span>
+          <span class="country-tag">Guatemala</span>
+          <span class="country-tag">Honduras</span>
+          <span class="country-tag">~1,000 km reef extent</span>
+          <span class="country-tag">UNESCO World Heritage</span>
+        </div>
+
+        <p style="margin-bottom:16px;">
+          Four chemical stressors define the MAR operating environment. Each requires a specific GROAN correction protocol before CMIE attribution is valid.
+        </p>
+
+        <div class="stressor-grid">
+
+          <!-- Karst SGD -->
+          <div class="stressor-block karst">
+            <div class="stressor-header">Stressor 01 · Karst SGD</div>
+            <div class="stressor-chips">
+              <span class="chip chip-karst">pH ↓↓</span>
+              <span class="chip chip-karst">Low DO</span>
+              <span class="chip chip-karst">High DIN</span>
+              <span class="chip chip-karst">Low salinity</span>
+              <span class="chip chip-karst">Ra-222 flag</span>
+            </div>
+            <p class="stressor-desc">
+              The Yucatan Peninsula sits atop a vast carbonate limestone karst aquifer — the same geology that produces the region's iconic cenotes. This aquifer discharges groundwater directly into lagoonal and reef environments through submerged conduits at volumes <strong>orders of magnitude larger</strong> than typical coastal SGD. MAR karst discharge delivers low-pH, low-DO, high-DIN, low-salinity groundwater that has equilibrated with CO₂-rich soil air. The chemical result at receiving reef stations is suppressed Ω<sub>arag</sub>, elevated nutrients, and a salinity anomaly. Unlike discretionary SGD flags in other theaters, <span class="karst">karst SGD correction is mandatory for every MAR station</span> in the lagoon and reef flat zone — the discharge is structural, not episodic.
+            </p>
+          </div>
+
+          <!-- Agricultural runoff -->
+          <div class="stressor-block ag">
+            <div class="stressor-header">Stressor 02 · Agricultural Runoff</div>
+            <div class="stressor-chips">
+              <span class="chip chip-green">DIN ↑</span>
+              <span class="chip chip-green">SRP ↑</span>
+              <span class="chip chip-green">N:P &gt;16</span>
+              <span class="chip chip-green">Wet season peak</span>
+            </div>
+            <p class="stressor-desc">
+              Sugarcane and citrus agriculture dominate the inland watersheds of Belize and Honduras, generating elevated DIN and SRP loading that reaches MAR reef zones via river discharge and overland flow during the wet season (June–October). N:P ratios in discharge plumes regularly exceed <strong>16</strong>, crossing the CMIE eutrophication prior elevation threshold. Agricultural runoff is superimposed on karst SGD nutrient loading, making source attribution between the two non-trivial. CMIE must distinguish agricultural surface discharge from karst groundwater discharge using stable nitrogen isotope signatures (δ¹⁵N) where available — agricultural nitrogen is isotopically distinct from karst-dissolved nitrogen.
+            </p>
+          </div>
+
+          <!-- Sargassum -->
+          <div class="stressor-block sargasso">
+            <div class="stressor-header">Stressor 03 · Sargassum Events</div>
+            <div class="stressor-chips">
+              <span class="chip chip-coral">DO ↓</span>
+              <span class="chip chip-coral">pCO₂ ↑</span>
+              <span class="chip chip-coral">pH ↓ (local)</span>
+              <span class="chip chip-coral">H₂S possible</span>
+            </div>
+            <p class="stressor-desc">
+              Since 2011, the Caribbean has experienced a persistent sargassum influx driven by Atlantic nutrient loading and altered circulation patterns. Sargassum mats reaching MAR nearshore zones create acute localized chemical disturbances: <strong>decomposing biomass consumes dissolved oxygen, releases CO₂, and in extreme events produces hydrogen sulfide</strong>. These events can suppress DO below 2 mg/L and drive local pH drops of 0.2–0.4 units within hours. All MOOP nearshore DO and pCO₂ readings taken during an active regional sargassum event must be flagged as potentially confounded. A sargassum biomass index check — available from NOAA NESDIS — is required before CMIE ingests nearshore gas data during May–October.
+            </p>
+          </div>
+
+          <!-- Thermal bleaching -->
+          <div class="stressor-block thermal">
+            <div class="stressor-header">Stressor 04 · Thermal Bleaching History</div>
+            <div class="stressor-chips">
+              <span class="chip chip-purple">1998 · 2005</span>
+              <span class="chip chip-purple">2010 · 2015–16</span>
+              <span class="chip chip-purple">2023</span>
+              <span class="chip chip-purple">ENSO linked</span>
+            </div>
+            <p class="stressor-desc">
+              The MAR has experienced five major thermal bleaching events since 1998, each associated with SST anomalies driven by ENSO or Atlantic warm pool intensification. The 2023 event was the most severe on record for the southern MAR. Chemically, each bleaching event is preceded by a <strong>measurable carbonate suppression signal</strong> — SST rise suppresses coral calcification, reducing TA drawdown and allowing Ω to drift toward the danger zone before visible bleaching appears. CMIE uses this pre-bleaching chemical signal as an early warning input, integrating GRIN thermal stress with carbonate suppression for elevated Decision Score output 4–6 weeks before observable mortality.
+            </p>
+          </div>
+
+        </div>
+
+        <p style="margin-top:6px;">
+          <strong>Multi-country attribution rule:</strong> When a CMIE chemical signal spans reef zones across national boundaries — for example, an agricultural DIN plume originating in Belize reaching Honduras reef zones — GROAN must apply country-specific baseline corrections to each national segment before generating a cross-border Decision Score. <span class="coral">A single unified DS for the entire MAR is not valid</span> — national monitoring baselines, seasonal correction protocols, and intervention authority differ by jurisdiction. The Rim Run™ circuit's country-by-country sampling structure is designed precisely to maintain this national attribution granularity.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          El Arrecife Mesoamericano (MAR) es el segundo sistema de arrecife de barrera más grande del mundo — <strong>~1,000 km de estructura coralina continua</strong> que se extiende desde la punta norte de la Península de Yucatán (México) hacia el sur a través de Belice, Guatemala y Honduras. Dentro de GROAN, el MAR es el desafío de atribución química multinacional de mayor prioridad: un sistema de arrecife dominado químicamente no por el forzamiento a escala oceánica, sino por la <span class="karst">geología kárstica</span> y el uso de la tierra terrestre en cuatro jurisdicciones nacionales distintas.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>SGD Kárstico:</strong> La Península de Yucatán se asienta sobre un vasto acuífero kárstico de piedra caliza. A diferencia de las señales SGD discrecionales en otros teatros, <span class="karst">la corrección de SGD kárstico es obligatoria para cada estación MAR</span> en la zona lagunar y la planicie arrecifal — la descarga es estructural, no episódica.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Escorrentía Agrícola:</strong> La agricultura de caña de azúcar y cítricos domina las cuencas hidrográficas interiores de Belice y Honduras. Las relaciones N:P en los penachos de descarga superan regularmente <strong>16</strong>. CMIE debe distinguir la descarga superficial agrícola de la descarga de aguas subterráneas kársticas usando firmas de isótopos estables de nitrógeno (δ¹⁵N) donde estén disponibles.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Eventos de Sargazo:</strong> Desde 2011, el Caribe ha experimentado una afluencia persistente de sargazo. Las esteras de sargazo que llegan a las zonas costeras del MAR crean perturbaciones químicas localizadas agudas: la biomasa en descomposición consume oxígeno disuelto, libera CO₂ y en eventos extremos produce sulfuro de hidrógeno. Todas las lecturas MOOP de OD y pCO₂ costeras tomadas durante un evento regional activo de sargazo deben marcarse como potencialmente confundidas.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Historia de Blanqueamiento Térmico:</strong> El MAR ha experimentado cinco eventos importantes de blanqueamiento desde 1998. El evento de 2023 fue el más severo registrado para el MAR sur. CMIE usa la señal química de pre-blanqueamiento como entrada de advertencia temprana, integrando el estrés térmico de GRIN con la supresión de carbonatos para una salida de Puntaje de Decisión elevada 4–6 semanas antes de la mortalidad observable.
+        </p>
+        <p>
+          <strong>Regla de atribución multinacional:</strong> Cuando una señal química de CMIE abarca zonas arrecifales a través de fronteras nacionales, GROAN debe aplicar correcciones de línea base específicas de cada país a cada segmento nacional antes de generar un Puntaje de Decisión transfronterizo. <span class="coral">Un DS unificado único para todo el MAR no es válido.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Stressor</th>
+          <th>Chemical Signature</th>
+          <th>Season Peak</th>
+          <th>GROAN Correction</th>
+          <th>CMIE Flag</th>
+          <th>Conf. Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--mar-karst)">Karst SGD</strong></td>
+          <td>pH ↓, DO ↓, DIN ↑, Sal ↓, Ra-222 ↑</td>
+          <td>Year-round (structural)</td>
+          <td><span class="badge badge-mand">Mandatory all stations</span></td>
+          <td>Ω correction pre-CMIE</td>
+          <td><span class="badge badge-mod">Moderate floor</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--green)">Agricultural Runoff</strong></td>
+          <td>DIN ↑, SRP ↑, N:P &gt;16, δ¹⁵N signal</td>
+          <td>Wet season (Jun–Oct)</td>
+          <td>δ¹⁵N source attribution</td>
+          <td>Eutrophication prior ↑</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--coral)">Sargassum Event</strong></td>
+          <td>DO ↓, pCO₂ ↑, pH ↓ (local), H₂S possible</td>
+          <td>May–Oct (peak Aug–Sep)</td>
+          <td>NOAA NESDIS biomass check</td>
+          <td>Nearshore data confounded</td>
+          <td><span class="badge badge-low">Auto-downgrade nearshore</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#9b7fe8">Thermal Bleaching</strong></td>
+          <td>Ω drift, calcification ↓, TA drawdown ↓</td>
+          <td>Aug–Oct (ENSO-modulated)</td>
+          <td>ENSO state documented</td>
+          <td>Pre-bleaching early warning</td>
+          <td><span class="badge badge-high">High — DS elevated 4–6 wk early</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Karst SGD correction is mandatory for every MAR lagoon and reef flat MOOP station — it is not a discretionary flag triggered by Ra-222 anomaly detection as in other theaters. The Yucatan karst discharge is structural and continuous. Skipping the correction in the MAR will systematically understate Ω<sub>arag</sub> and overstate acidification severity in every CMIE attribution run for this theater.</span></li>
+        <li><span class="app-num">02</span><span>When agricultural N:P signal and karst SGD DIN signal co-occur at the same MAR station, do not aggregate them into a single elevated DIN reading before CMIE ingestion. Use δ¹⁵N isotopic signature to partition the contribution of each source — agricultural nitrogen (δ¹⁵N ~8–12‰) is isotopically distinct from karst-dissolved nitrogen (δ¹⁵N ~2–5‰). CMIE requires source-attributed DIN, not composite DIN, to generate a valid intervention target.</span></li>
+        <li><span class="app-num">03</span><span>During May–October, before ingesting any nearshore MAR DO or pCO₂ data into CMIE, check the NOAA NESDIS sargassum biomass index for the relevant reef zone. If a regional sargassum event is active, flag all nearshore gas readings as potentially confounded and assign Moderate confidence regardless of instrument calibration. Offshore MOOP stations beyond the sargassum mat boundary are unaffected and retain their normal confidence tier.</span></li>
+        <li><span class="app-num">04</span><span>When CMIE detects a chemical signal that crosses the Belize–Honduras national boundary along the MAR, apply country-specific baseline corrections to each national reef segment independently before generating any cross-border Decision Score. Belize and Honduras have different agricultural runoff baselines, different MPAcoverage, and different intervention authority frameworks. A single unified MAR-wide DS will obscure which jurisdiction holds the intervention responsibility.</span></li>
+        <li><span class="app-num">05</span><span>When GRIN thermal stress and carbonate suppression signals co-occur in the same MAR reef zone during August–October, generate the elevated Decision Score immediately — do not wait for visible bleaching confirmation. The pre-bleaching chemical signal precedes observable mortality by 4–6 weeks in MAR conditions. Early DS elevation is the operational value GROAN provides that single-ecosystem thermal monitoring cannot.</span></li>
+      </ul>
+    </div>
+
+    <!-- ES -->
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>La corrección de SGD kárstico es obligatoria para cada estación MOOP en la laguna del MAR y la planicie arrecifal — no es una señal discrecional activada por la detección de anomalías Ra-222 como en otros teatros. La descarga kárstica de Yucatán es estructural y continua. Omitir la corrección en el MAR subestimará sistemáticamente Ω<sub>arag</sub> y sobreestimará la severidad de la acidificación en cada ejecución de atribución CMIE para este teatro.</span></li>
+        <li><span class="app-num">02</span><span>Cuando la señal agrícola N:P y la señal de DIN del SGD kárstico coocurren en la misma estación MAR, no las agregue en una sola lectura de DIN elevado antes de la ingestión en CMIE. Use la firma isotópica δ¹⁵N para separar la contribución de cada fuente — el nitrógeno agrícola (δ¹⁵N ~8–12‰) es isotópicamente distinto del nitrógeno disuelto kárstico (δ¹⁵N ~2–5‰). CMIE requiere DIN atribuido por fuente, no DIN compuesto, para generar un objetivo de intervención válido.</span></li>
+        <li><span class="app-num">03</span><span>Durante mayo–octubre, antes de ingresar datos de OD o pCO₂ costeros del MAR a CMIE, consulte el índice de biomasa de sargazo NOAA NESDIS para la zona arrecifal relevante. Si hay un evento regional de sargazo activo, marque todas las lecturas de gas costeras como potencialmente confundidas y asigne confianza Moderada independientemente de la calibración del instrumento.</span></li>
+        <li><span class="app-num">04</span><span>Cuando CMIE detecte una señal química que cruce la frontera nacional Belice–Honduras a lo largo del MAR, aplique correcciones de línea base específicas del país a cada segmento arrecifal nacional de forma independiente antes de generar cualquier Puntaje de Decisión transfronterizo. Un DS unificado para todo el MAR ocultará qué jurisdicción tiene la responsabilidad de intervención.</span></li>
+        <li><span class="app-num">05</span><span>Cuando las señales de estrés térmico de GRIN y supresión de carbonatos coocurran en la misma zona arrecifal del MAR durante agosto–octubre, genere el Puntaje de Decisión elevado de inmediato — no espere confirmación de blanqueamiento visible. La señal química de pre-blanqueamiento precede a la mortalidad observable en 4–6 semanas en condiciones del MAR.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">Why is karst SGD correction mandatory for all MAR lagoon stations rather than discretionary as in other GROAN theaters?</div>
+        <div class="mcq-q-es">¿Por qué la corrección de SGD kárstico es obligatoria para todas las estaciones lagunares del MAR en lugar de discrecional como en otros teatros de GROAN?</div>
+        <div class="mcq-option">A) Karst SGD only occurs seasonally in the MAR and the correction window is short / El SGD kárstico solo ocurre estacionalmente en el MAR y la ventana de corrección es corta</div>
+        <div class="mcq-option">B) Ra-222 anomaly detection equipment is not available in the MAR theater / El equipo de detección de anomalías Ra-222 no está disponible en el teatro MAR</div>
+        <div class="mcq-option correct">C) Yucatan karst discharge is structural and continuous — not episodic — making the correction a permanent baseline requirement, not an event-triggered flag / La descarga kárstica de Yucatán es estructural y continua, haciendo que la corrección sea un requisito de línea base permanente, no una señal activada por evento</div>
+        <div class="mcq-option">D) Karst SGD correction is only mandatory during the wet season when discharge volumes peak / La corrección de SGD kárstico solo es obligatoria durante la temporada lluviosa cuando los volúmenes de descarga alcanzan su pico</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">When agricultural runoff N:P signal and karst SGD DIN signal co-occur at a MAR station, what does CMIE require before generating a valid intervention target?</div>
+        <div class="mcq-q-es">Cuando la señal N:P de escorrentía agrícola y la señal DIN del SGD kárstico coocurren en una estación MAR, ¿qué requiere CMIE antes de generar un objetivo de intervención válido?</div>
+        <div class="mcq-option">A) Double the eutrophication prior threshold to account for combined source loading / Duplicar el umbral previo de eutrofización para dar cuenta de la carga de fuente combinada</div>
+        <div class="mcq-option">B) Assign Moderate confidence to the station and proceed with the composite DIN value / Asignar confianza Moderada a la estación y proceder con el valor DIN compuesto</div>
+        <div class="mcq-option correct">C) δ¹⁵N isotopic source attribution to partition agricultural DIN (~8–12‰) from karst DIN (~2–5‰) — CMIE requires source-attributed DIN, not composite DIN, to identify the correct intervention target / Atribución de fuente isotópica δ¹⁵N para separar DIN agrícola (~8–12‰) de DIN kárstico (~2–5‰) — CMIE requiere DIN atribuido por fuente para identificar el objetivo correcto</div>
+        <div class="mcq-option">D) Apply the Eastern Pacific upwelling index correction as a proxy for SGD correction / Aplicar la corrección del índice de surgencia del Pacífico Oriental como proxy para la corrección SGD</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">How far in advance of visible bleaching does GROAN's pre-bleaching chemical signal elevate the Decision Score in MAR conditions?</div>
+        <div class="mcq-q-es">¿Con cuánta anticipación a la observación visible de blanqueamiento eleva la señal química de pre-blanqueamiento de GROAN el Puntaje de Decisión en condiciones del MAR?</div>
+        <div class="mcq-option">A) 1–2 days — chemical signal and bleaching are nearly simultaneous in warm shallow reef environments / 1–2 días — la señal química y el blanqueamiento son casi simultáneos en arrecifes poco profundos y cálidos</div>
+        <div class="mcq-option">B) 8–12 weeks — carbonate suppression begins at the start of warm season / 8–12 semanas — la supresión de carbonatos comienza al inicio de la temporada cálida</div>
+        <div class="mcq-option correct">C) 4–6 weeks — GRIN thermal stress plus carbonate suppression co-occurrence generates elevated DS before observable mortality / 4–6 semanas — la co-ocurrencia de estrés térmico GRIN más supresión de carbonatos genera DS elevado antes de la mortalidad observable</div>
+        <div class="mcq-option">D) 2–3 days — only during active sargassum events that accelerate the bleaching timeline / 2–3 días — solo durante eventos activos de sargazo que aceleran el cronograma de blanqueamiento</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 53 of 704</span>
+      <span class="progress-pct">7.53%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
