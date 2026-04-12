@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L05 | Chemical Oceanography: Dynamics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text { flex: 1; }
+
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--ocean-cyan);
+  }
+
+  .lesson-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* ── PANEL BASE ── */
+  .panel {
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(26,200,200,0.2);
+  }
+
+  /* ── LECTURE ── */
+  .lang-block { margin-bottom: 1.6rem; }
+
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+
+  .lecture-text {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--text-light);
+  }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Dynamics grid */
+  .dynamics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 1.2rem 0;
+  }
+  .dyn-box {
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(26,200,200,0.15);
+    background: rgba(2,15,30,0.5);
+  }
+  .dyn-box-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .dyn-box-head.diel { color: var(--ocean-cyan); }
+  .dyn-box-head.tidal { color: var(--gold); }
+  .dyn-box-head.seasonal { color: #64c878; }
+  .dyn-box-head.event { color: var(--coral); }
+  .dyn-box p { font-size: 0.82rem; line-height: 1.55; color: var(--text-dim); }
+  .dyn-box p strong { color: var(--text-light); }
+
+  /* Data table */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr {
+    background: rgba(26,200,200,0.1);
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+  thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+  }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good { color: #64c878; }
+
+  /* ── APPLICATION ── */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+  .bullet-list li::before {
+    content: '▸';
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+    font-size: 0.8rem;
+  }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* ── MCQ ── */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+  .mcq-card {
+    background: rgba(2,15,30,0.6);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 10px;
+    padding: 1.1rem;
+  }
+
+  .q-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .q-text { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-dim);
+    padding: 0.28rem 0;
+    display: flex;
+    gap: 0.45rem;
+  }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+
+  .answer-strip {
+    background: rgba(26,200,200,0.08);
+    border-left: 2px solid var(--ocean-cyan);
+    border-radius: 3px;
+    padding: 0.4rem 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 1.5rem 2.5rem 2rem;
+    background: rgba(2,15,30,0.5);
+  }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 5.26%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .dynamics-grid { grid-template-columns: 1fr; }
+    .app-grid { grid-template-columns: 1fr; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L05 · Lesson 37 of 704</div>
+      <h1>Dynamics</h1>
+      <p class="subtitle">Ocean chemistry is not static — it oscillates across hours, tides, seasons, and events. Understanding these rhythms is prerequisite to interpreting any GROAN sensor reading.</p>
+    </div>
+
+    <!-- SVG: Diel O₂/pH dual-curve oscillation with tidal overlay -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="o2grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#10e0d0" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="phgrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#f0b429" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#ffd060" stop-opacity="0.6"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background grid -->
+      <rect x="22" y="14" width="176" height="120" rx="4" fill="rgba(2,15,30,0.6)" stroke="rgba(26,200,200,0.08)" stroke-width="1"/>
+
+      <!-- Horizontal gridlines -->
+      <line x1="22" y1="44" x2="198" y2="44" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="22" y1="74" x2="198" y2="74" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="22" y1="104" x2="198" y2="104" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+
+      <!-- Time labels -->
+      <text x="22" y="145" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">00:00</text>
+      <text x="60" y="145" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">06:00</text>
+      <text x="98" y="145" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">12:00</text>
+      <text x="136" y="145" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">18:00</text>
+      <text x="174" y="145" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc">24:00</text>
+
+      <!-- Vertical tick marks -->
+      <line x1="66" y1="132" x2="66" y2="136" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <line x1="110" y1="132" x2="110" y2="136" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <line x1="154" y1="132" x2="154" y2="136" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+
+      <!-- DO curve (cyan) — peaks at solar noon -->
+      <!-- Sine-like: low at midnight/dawn, peaks at ~13:00, drops at dusk -->
+      <path d="M22,100 C44,100 55,95 66,85 C77,75 88,40 110,32 C132,24 143,60 154,82 C165,104 176,108 198,104"
+            fill="none" stroke="url(#o2grad)" stroke-width="2.5" stroke-linecap="round"/>
+
+      <!-- pH curve (gold) — slightly phase-lagged behind O₂ -->
+      <path d="M22,105 C44,105 55,100 66,90 C77,80 88,48 110,38 C132,28 143,66 154,88 C165,110 176,113 198,109"
+            fill="none" stroke="url(#phgrad)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,2"/>
+
+      <!-- Tidal fill bars — subtle -->
+      <rect x="22" y="125" width="44" height="5" rx="1" fill="rgba(26,200,200,0.25)"/>
+      <rect x="88" y="125" width="44" height="5" rx="1" fill="rgba(26,200,200,0.12)"/>
+      <rect x="154" y="125" width="44" height="5" rx="1" fill="rgba(26,200,200,0.25)"/>
+      <text x="26" y="133" font-family="DM Mono,monospace" font-size="5.5" fill="#1ac8c8" opacity="0.7">FLOOD</text>
+      <text x="92" y="133" font-family="DM Mono,monospace" font-size="5.5" fill="#8ab8cc" opacity="0.7">EBB</text>
+      <text x="158" y="133" font-family="DM Mono,monospace" font-size="5.5" fill="#1ac8c8" opacity="0.7">FLOOD</text>
+
+      <!-- Y-axis label -->
+      <text x="8" y="74" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" transform="rotate(-90,8,74)" text-anchor="middle">INTENSITY</text>
+
+      <!-- Legend -->
+      <line x1="28" y1="158" x2="48" y2="158" stroke="#1ac8c8" stroke-width="2.5"/>
+      <text x="51" y="161" font-family="DM Sans,sans-serif" font-size="8" fill="#1ac8c8">O₂ / pH</text>
+      <line x1="100" y1="158" x2="120" y2="158" stroke="#f0b429" stroke-width="2" stroke-dasharray="4,2"/>
+      <text x="123" y="161" font-family="DM Sans,sans-serif" font-size="8" fill="#f0b429">pH (lagged)</text>
+
+      <!-- Sun icon at peak -->
+      <circle cx="110" cy="25" r="5" fill="none" stroke="#f0b429" stroke-width="1.2" opacity="0.7"/>
+      <line x1="110" y1="17" x2="110" y2="15" stroke="#f0b429" stroke-width="1" opacity="0.7"/>
+      <line x1="118" y1="25" x2="120" y2="25" stroke="#f0b429" stroke-width="1" opacity="0.7"/>
+      <line x1="116" y1="19" x2="118" y2="17" stroke="#f0b429" stroke-width="1" opacity="0.7"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>A single chemical measurement taken at a Caribbean reef tells only a fraction of the story. Ocean chemistry is <strong>dynamically structured across multiple timescales</strong> — diel cycles, tidal rhythms, seasonal patterns, and episodic disturbance events each impose distinct chemical signatures on the water column. GROAN's sensor architecture and the GSIN Technical Specification are built on the premise that <em>uncontextualized measurements are unreliable measurements</em>. Time-of-day, tidal phase, season, and antecedent conditions must be recorded alongside every chemical reading.</p>
+
+        <div class="dynamics-grid">
+          <div class="dyn-box">
+            <div class="dyn-box-head diel">Diel Cycling · 24-Hour</div>
+            <p>Photosynthesis drives O₂ production and CO₂ drawdown during daylight, raising pH. Respiration and calcification dominate at night, consuming O₂ and releasing CO₂, depressing pH. <strong>Caribbean reef lagoons swing 0.3–0.5 pH units</strong> within a single day — larger than the projected open-ocean acidification signal for the next 50 years.</p>
+          </div>
+          <div class="dyn-box">
+            <div class="dyn-box-head tidal">Tidal Forcing · 6–12 Hour</div>
+            <p>Flood tide imports offshore water: higher Ω, lower nutrients, higher pH. Ebb tide exports reef-processed water: lower Ω from calcification draw-down, elevated nutrients, CO₂-enriched. <strong>Measuring at ebb vs. flood produces systematically different Ω readings</strong> — a critical MOOP calibration variable.</p>
+          </div>
+          <div class="dyn-box">
+            <div class="dyn-box-head seasonal">Seasonal Dynamics · Months</div>
+            <p>Caribbean dry season (Dec–Apr): reduced runoff, clearer water, higher photosynthetic rates, elevated Ω. Wet season (May–Nov): river discharge increases freshwater input, depressing salinity, alkalinity, and Ω. <strong>Hurricane chemistry</strong> — mixing, freshwater input, sediment resuspension — resets the chemical baseline for weeks to months.</p>
+          </div>
+          <div class="dyn-box">
+            <div class="dyn-box-head event">Event-Driven Pulses · Hours–Weeks</div>
+            <p>Bleaching events alter local O₂ dynamics as coral metabolism collapses. Harmful algal blooms (HABs) produce acute O₂ depletion at night. Motagua River flood pulses deliver low-pH, low-Ω slugs onto the reef within 48–72 hours of major rainfall events in the Guatemalan highlands. <strong>CMIE must discriminate trend from pulse.</strong></p>
+          </div>
+        </div>
+
+        <p><strong>Chemical lag and signal propagation.</strong> When GMIN detects mangrove dieback, the downstream chemical signal does not reach GRIN immediately. Nitrogen fixation loss (L04 linkage) propagates through the water column over 6–18 months. Alkalinity reduction from mangrove export loss reaches adjacent lagoon zones in weeks; it reaches open reef on seasonal timescales. The CMIE's lag-compensation coefficients are calibrated to these propagation rates. <em>A GROAN alarm triggered without lag awareness is a false alarm.</em></p>
+
+        <p><strong>MOOP sampling protocol implications.</strong> Because diel and tidal dynamics are both active simultaneously, a reef site sampled at 14:00 on a flood tide will show significantly different chemistry than the same site sampled at 06:00 on an ebb tide. GROAN's Image Confidence Tier Schema applies here: measurements without time-stamp and tidal-phase metadata are automatically assigned <strong>Low confidence (&lt;60%)</strong> regardless of sensor precision. Standardized MOOP deployments target dawn and dusk readings bracketing the diel extremes, with tidal phase logged at each station.</p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Una sola medición química tomada en un arrecife del Caribe cuenta solo una fracción de la historia. La química oceánica está <strong>estructurada dinámicamente en múltiples escalas temporales</strong> — ciclos diurnos, ritmos de marea, patrones estacionales y eventos episódicos de perturbación imponen cada uno firmas químicas distintas en la columna de agua. La arquitectura de sensores de GROAN y la Especificación Técnica de GSIN se basan en la premisa de que <em>las mediciones sin contexto son mediciones poco confiables</em>. La hora del día, la fase de marea, la estación y las condiciones antecedentes deben registrarse junto con cada lectura química.</p>
+
+        <p>El <strong>ciclo diurno</strong> es el más intenso de todos los forzadores dinámicos en los arrecifes del Caribe. La fotosíntesis eleva el O₂ y extrae CO₂ durante el día, subiendo el pH. La respiración y la calcificación dominan de noche, consumiendo O₂ y liberando CO₂, deprimiendo el pH. Las lagunas arrecifales del Caribe oscilan <strong>0.3–0.5 unidades de pH</strong> dentro de un solo día — más que la señal de acidificación de océano abierto proyectada para los próximos 50 años.</p>
+
+        <p>El <strong>forzamiento de mareas</strong> opera en ciclos de 6–12 horas. La marea entrante importa agua marina de mayor Ω, menor nutrientes y mayor pH. La marea saliente exporta agua procesada por el arrecife, con Ω reducida por la calcificación, nutrientes elevados y enriquecida en CO₂. <strong>Medir en marea saliente vs. entrante produce lecturas de Ω sistemáticamente diferentes</strong> — una variable crítica de calibración para los sensores MOOP.</p>
+
+        <p>El <strong>protocolo de muestreo MOOP</strong> tiene implicaciones directas: un sitio arrecifal muestreado a las 14:00 en marea entrante mostrará química significativamente diferente que el mismo sitio a las 06:00 en marea saliente. El Esquema de Nivel de Confianza de Imágenes de GROAN aplica aquí: las mediciones sin metadatos de hora y fase de marea se asignan automáticamente a <strong>Confianza Baja (&lt;60%)</strong> independientemente de la precisión del sensor.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dynamic Driver</th>
+            <th>Timescale</th>
+            <th>pH Swing</th>
+            <th>Ω Swing</th>
+            <th>O₂ Swing (mg/L)</th>
+            <th>GROAN Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Diel Cycle (reef lagoon)</td>
+            <td>24 hrs</td>
+            <td class="warn">0.3 – 0.5</td>
+            <td class="caution">0.5 – 1.2</td>
+            <td class="caution">4 – 8</td>
+            <td>Time-stamp required</td>
+          </tr>
+          <tr>
+            <td>Tidal Forcing</td>
+            <td>6 – 12 hrs</td>
+            <td class="caution">0.1 – 0.25</td>
+            <td class="caution">0.3 – 0.8</td>
+            <td>1 – 3</td>
+            <td>Phase-stamp required</td>
+          </tr>
+          <tr>
+            <td>Wet/Dry Season Shift</td>
+            <td>Months</td>
+            <td class="caution">0.1 – 0.2</td>
+            <td class="caution">0.4 – 1.0</td>
+            <td>1 – 4</td>
+            <td>Seasonal baseline correction</td>
+          </tr>
+          <tr>
+            <td>Hurricane Mixing Event</td>
+            <td>Days – Weeks</td>
+            <td class="warn">0.2 – 0.4</td>
+            <td class="warn">0.6 – 1.5</td>
+            <td class="warn">3 – 9</td>
+            <td>CMIE event flag</td>
+          </tr>
+          <tr>
+            <td>River Flood Pulse (Motagua)</td>
+            <td>48 – 96 hrs</td>
+            <td class="warn">0.3 – 0.6</td>
+            <td class="warn">0.8 – 2.0</td>
+            <td class="caution">2 – 6</td>
+            <td>CMIE priority alarm</td>
+          </tr>
+          <tr>
+            <td>Open-Ocean OA Trend</td>
+            <td>Decades</td>
+            <td class="good">~0.002/yr</td>
+            <td class="good">~0.01/yr</td>
+            <td class="good">Negligible</td>
+            <td>Long-term GRIN baseline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>A GROAN OA alarm triggered on a single ebb-tide reading at dusk would fire on almost every Caribbean lagoon on earth — the diel and tidal signal must be stripped before any threshold comparison is valid.</li>
+          <li>MOOP deployments aboard Shamrocket will standardize readings at dawn (diel minimum) and solar noon (diel maximum), with tidal phase logged by GPS timestamp against a regional tidal model — this is what converts raw sensor data into GSIN-credible inputs.</li>
+          <li>The Motagua flood-pulse scenario is the highest-priority CMIE event type in the Western Caribbean case study: a 48-hour rainfall event in the Guatemalan highlands delivers a detectably low-Ω water mass to Belizean reefs — GROAN should pre-alert reef managers 24 hours before the plume arrives using upstream river gauge data.</li>
+          <li>Seasonal baseline correction is non-negotiable: comparing a dry-season GRIN reading against a wet-season historical average will systematically overstate reef chemical health by 15–25% — a bias that would invalidate longitudinal trend detection.</li>
+          <li>The diel pH swing in a healthy Caribbean reef lagoon (0.3–0.5 units) actually demonstrates biological resilience — the photosynthetic community is large enough to draw CO₂ down substantially each day. A collapsing reef loses this swing, converging toward a flat, low-pH signal. GROAN should flag diel amplitude compression as an early warning indicator.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>Una alarma de acidificación oceánica de GROAN activada en una sola lectura de marea saliente al atardecer dispararía en casi cualquier laguna arrecifal del Caribe — la señal de ciclo diurno y de marea debe eliminarse antes de que cualquier comparación con umbrales sea válida.</li>
+          <li>Los despliegues MOOP a bordo de Shamrocket estandarizarán las lecturas al amanecer (mínimo diurno) y al mediodía solar (máximo diurno), con la fase de marea registrada por marca de tiempo GPS frente a un modelo de mareas regional — esto es lo que convierte los datos brutos del sensor en entradas creíbles para GSIN.</li>
+          <li>El escenario de pulso de crecida del Motagua es el tipo de evento CMIE de mayor prioridad en el estudio de caso del Caribe Occidental: un evento de lluvia de 48 horas en las tierras altas guatemaltecas entrega una masa de agua de baja Ω detectable en los arrecifes de Belice — GROAN debería pre-alertar a los gestores de arrecifes 24 horas antes de que llegue la pluma.</li>
+          <li>La corrección de línea de base estacional es innegociable: comparar una lectura GRIN de temporada seca con un promedio histórico de temporada húmeda sobreestimará sistemáticamente la salud química del arrecife en un 15–25%.</li>
+          <li>La oscilación diurna de pH en una laguna arrecifal del Caribe saludable (0.3–0.5 unidades) demuestra resiliencia biológica. Un arrecife en colapso pierde esta oscilación, convergiendo hacia una señal plana de bajo pH. GROAN debe marcar la compresión de la amplitud diurna como indicador de advertencia temprana.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">Why must GROAN MOOP sensors record time-of-day and tidal phase alongside every chemical measurement?</div>
+        <div class="q-text-es">¿Por qué los sensores MOOP de GROAN deben registrar la hora del día y la fase de marea junto con cada medición química?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> To comply with international maritime law</li>
+          <li><span class="opt-key">B</span> To calculate sailing speed for Shamrocket's log</li>
+          <li class="correct"><span class="opt-key">C</span> Because diel and tidal dynamics produce larger chemical swings than the long-term acidification trend, making uncontextualized readings unreliable</li>
+          <li><span class="opt-key">D</span> To enable comparison with satellite SST data</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Which process drives the largest short-term pH swings observed in a Caribbean reef lagoon?</div>
+        <div class="q-text-es">¿Qué proceso impulsa las mayores oscilaciones de pH a corto plazo observadas en una laguna arrecifal del Caribe?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Long-term anthropogenic CO₂ absorption by the ocean surface</li>
+          <li><span class="opt-key">B</span> Seasonal shifts between dry and wet season runoff</li>
+          <li class="correct"><span class="opt-key">C</span> The diel alternation between photosynthetic CO₂ drawdown during daylight and respiratory CO₂ release at night</li>
+          <li><span class="opt-key">D</span> Deep-water upwelling events delivering cold, CO₂-rich water to the surface</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">What does compression of a reef lagoon's diel pH amplitude signal to GROAN?</div>
+        <div class="q-text-es">¿Qué indica a GROAN la compresión de la amplitud diurna del pH en una laguna arrecifal?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Improved buffering capacity due to elevated alkalinity inputs</li>
+          <li><span class="opt-key">B</span> A seasonal transition to the dry period reducing river discharge</li>
+          <li><span class="opt-key">C</span> A flood-tide pulse overwhelming the reef's chemical signal</li>
+          <li class="correct"><span class="opt-key">D</span> Collapse of the photosynthetic community — an early-warning indicator of reef ecosystem decline</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: D</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">5.26% — Lesson 37 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L05 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
