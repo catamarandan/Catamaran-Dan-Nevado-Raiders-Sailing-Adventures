@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L22 Physical Oceanography — Corridor Integration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 3.13%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 22 · Physical Oceanography</div>
+        <h1 class="lesson-title">Corridor Integration</h1>
+        <div class="lesson-subtitle">Integración Física del Corredor Arrecifal</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">MAR Corridor</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — CORRIDOR CONNECTIVITY MAP -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="corridorGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.05"/>
+            <stop offset="50%" stop-color="#1ac8c8" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgGrad)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- CORRIDOR BAND — north to south spine -->
+        <rect x="155" y="10" width="50" height="240" fill="url(#corridorGrad)" rx="4"/>
+
+        <!-- LAND MASS — Central America (left) -->
+        <polygon points="0,20 120,20 130,80 125,140 120,200 110,260 0,260" fill="rgba(20,40,15,0.55)"/>
+        <text x="58" y="140" fill="rgba(184,240,236,0.3)" font-family="monospace" font-size="7" text-anchor="middle" letter-spacing="0.08em">CENTRAL</text>
+        <text x="58" y="150" fill="rgba(184,240,236,0.3)" font-family="monospace" font-size="7" text-anchor="middle" letter-spacing="0.08em">AMERICA</text>
+
+        <!-- CARIBBEAN SEA (right) -->
+        <text x="320" y="130" fill="rgba(26,200,200,0.2)" font-family="monospace" font-size="8" text-anchor="middle" letter-spacing="0.1em">CARIBBEAN</text>
+        <text x="320" y="142" fill="rgba(26,200,200,0.2)" font-family="monospace" font-size="8" text-anchor="middle" letter-spacing="0.1em">SEA</text>
+
+        <!-- NODE: YUCATÁN (N) -->
+        <circle cx="180" cy="28" r="8" fill="rgba(26,200,200,0.15)" stroke="rgba(26,200,200,0.6)" stroke-width="1.2"/>
+        <text x="180" y="31" fill="rgba(26,200,200,0.9)" font-family="monospace" font-size="6" text-anchor="middle">YUC</text>
+        <text x="210" y="24" fill="rgba(26,200,200,0.55)" font-family="monospace" font-size="6.5">YUCATÁN</text>
+        <text x="210" y="33" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="5.5">Mexico · N terminus</text>
+
+        <!-- NODE: BELIZE -->
+        <circle cx="180" cy="88" r="8" fill="rgba(26,200,200,0.15)" stroke="rgba(26,200,200,0.6)" stroke-width="1.2"/>
+        <text x="180" y="91" fill="rgba(26,200,200,0.9)" font-family="monospace" font-size="6" text-anchor="middle">BLZ</text>
+        <text x="210" y="84" fill="rgba(26,200,200,0.55)" font-family="monospace" font-size="6.5">BELIZE</text>
+        <text x="210" y="93" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="5.5">Wide shelf · lagoon buffer</text>
+
+        <!-- NODE: GUATEMALA -->
+        <circle cx="180" cy="148" r="8" fill="rgba(26,200,200,0.15)" stroke="rgba(240,180,41,0.6)" stroke-width="1.2"/>
+        <text x="180" y="151" fill="rgba(240,180,41,0.9)" font-family="monospace" font-size="6" text-anchor="middle">GTM</text>
+        <text x="210" y="144" fill="rgba(240,180,41,0.55)" font-family="monospace" font-size="6.5">GUATEMALA</text>
+        <text x="210" y="153" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="5.5">Narrow shelf · river input</text>
+
+        <!-- NODE: HONDURAS -->
+        <circle cx="180" cy="208" r="8" fill="rgba(26,200,200,0.15)" stroke="rgba(232,96,64,0.6)" stroke-width="1.2"/>
+        <text x="180" y="211" fill="rgba(232,96,64,0.9)" font-family="monospace" font-size="6" text-anchor="middle">HND</text>
+        <text x="210" y="204" fill="rgba(232,96,64,0.55)" font-family="monospace" font-size="6.5">HONDURAS</text>
+        <text x="210" y="213" fill="rgba(138,184,204,0.35)" font-family="monospace" font-size="5.5">Bay Islands · S terminus</text>
+
+        <!-- CORRIDOR SPINE CONNECTIONS -->
+        <line x1="180" y1="36" x2="180" y2="80" stroke="rgba(26,200,200,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <line x1="180" y1="96" x2="180" y2="140" stroke="rgba(26,200,200,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <line x1="180" y1="156" x2="180" y2="200" stroke="rgba(26,200,200,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+        <!-- LARVAL TRANSPORT arrows (southward along corridor) -->
+        <g fill="rgba(184,240,236,0.5)">
+          <polygon points="177,60 183,60 180,68"/>
+          <polygon points="177,120 183,120 180,128"/>
+          <polygon points="177,180 183,180 180,188"/>
+        </g>
+
+        <!-- CARIBBEAN CURRENT arrows (westward, hitting corridor) -->
+        <g fill="rgba(26,200,200,0.5)">
+          <polygon points="280,85 280,91 272,88"/>
+          <polygon points="300,125 300,131 292,128"/>
+          <polygon points="270,165 270,171 262,168"/>
+        </g>
+        <path d="M370,88 C340,86 310,87 275,88" fill="none" stroke="rgba(26,200,200,0.4)" stroke-width="1.5"/>
+        <path d="M370,128 C340,126 310,127 275,128" fill="none" stroke="rgba(26,200,200,0.3)" stroke-width="1.2"/>
+        <path d="M370,168 C340,166 310,167 265,168" fill="none" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+        <text x="360" y="80" fill="rgba(26,200,200,0.4)" font-family="monospace" font-size="6" text-anchor="middle">CC →</text>
+
+        <!-- RIVER PLUME indicators (left side) -->
+        <path d="M125,148 C145,150 160,150 172,148" fill="none" stroke="rgba(240,180,41,0.45)" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <path d="M125,208 C145,210 160,210 172,208" fill="none" stroke="rgba(240,180,41,0.35)" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="134" y="143" fill="rgba(240,180,41,0.4)" font-family="monospace" font-size="5.5">river plume</text>
+        <text x="134" y="203" fill="rgba(240,180,41,0.35)" font-family="monospace" font-size="5.5">river plume</text>
+
+        <!-- DISTANCE SCALE -->
+        <line x1="30" y1="240" x2="90" y2="240" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <line x1="30" y1="236" x2="30" y2="244" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <line x1="90" y1="236" x2="90" y2="244" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <text x="60" y="252" fill="rgba(26,200,200,0.35)" font-family="monospace" font-size="6" text-anchor="middle">~250 km</text>
+
+        <!-- TITLE BADGE -->
+        <rect x="30" y="0" width="210" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="38" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">MAR  ·  CORRIDOR  NODES</text>
+
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Corridor integration refers to the degree to which physically distinct reef segments within the MAR system function as a unified oceanographic unit rather than as isolated, independent environments. Physical integration occurs through two primary mechanisms: advective connectivity — the transport of water mass properties, heat, larvae, nutrients, and pollutants along and across the corridor by mean currents and mesoscale eddies — and forcing coherence — the simultaneous imposition of large-scale atmospheric and oceanic signals across the corridor's full latitudinal extent, producing correlated responses at geographically separated reef sites.
+          <br><br>
+          The Caribbean Current is the dominant integrating agent of the MAR corridor. Flowing westward at the surface along the corridor's seaward edge, it delivers Atlantic-origin water masses to each node in sequence — Yucatán, Belize, Guatemala, Honduras — with transit times on the order of weeks to months. This means that thermal anomalies, dissolved oxygen signals, and biological material entrained north of the corridor can appear at southern reef nodes days to weeks later, creating a temporally lagged but physically coherent system. Monitoring any single node in isolation captures only a fraction of the physical state space governing that node's ecology.
+          <br><br>
+          Mesoscale eddies — rotating water masses 50–200 kilometers in diameter generated by current instabilities and topographic interactions — provide a second integration mechanism. Caribbean Sea eddies can trap and transport surface water properties across hundreds of kilometers, delivering anomalous temperature, salinity, or biological signals to corridor reef segments in ways that bypass the mean current pathway. Eddy impingement on the MAR fore reef represents a poorly constrained but potentially significant source of episodic physical forcing that local measurement networks rarely resolve.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La integración del corredor se refiere al grado en que los segmentos arrecifales físicamente distintos dentro del sistema del SAM funcionan como una unidad oceanográfica unificada en lugar de como entornos aislados e independientes. La integración física ocurre a través de dos mecanismos primarios: conectividad advectiva — el transporte de propiedades de masas de agua, calor, larvas, nutrientes y contaminantes a lo largo y a través del corredor por corrientes medias y remolinos de mesoescala — y coherencia de forzamiento — la imposición simultánea de señales atmosféricas y oceánicas a gran escala en toda la extensión latitudinal del corredor.
+          <br><br>
+          La Corriente del Caribe es el agente integrador dominante del corredor del SAM. Fluyendo hacia el oeste en la superficie a lo largo del borde marino del corredor, entrega masas de agua de origen atlántico a cada nodo en secuencia — Yucatán, Belice, Guatemala, Honduras — con tiempos de tránsito del orden de semanas a meses. Esto significa que las anomalías térmicas y el material biológico entrampado al norte del corredor pueden aparecer en los nodos arrecifales del sur días o semanas después, creando un sistema temporalmente desfasado pero físicamente coherente.
+          <br><br>
+          Los remolinos de mesoescala — masas de agua rotantes de 50–200 kilómetros de diámetro generadas por inestabilidades de corrientes e interacciones topográficas — proporcionan un segundo mecanismo de integración. Los remolinos del Mar Caribe pueden atrapar y transportar propiedades de agua superficial a través de cientos de kilómetros, entregando señales anómalas de temperatura, salinidad o biológicas a los segmentos arrecifales del corredor de maneras que eluden la trayectoria de la corriente media.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── CORRIDOR APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Corridor Integration Application · Aplicación de Integración del Corredor</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The MAR corridor is physically integrated through Caribbean Current advection, mesoscale eddy impingement, and coherent large-scale atmospheric forcing — meaning that reef conditions at any single node are partially determined by physical processes occurring hundreds of kilometers away, weeks to months earlier.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Caribbean Current transit time</strong> along the MAR corridor — from the Yucatán node to the Bay Islands — is estimated at 3–8 weeks depending on current velocity anomalies. This lag means bleaching-season thermal signals detected at northern corridor nodes can serve as predictive leading indicators for southern reef segments, if monitoring systems are capable of resolving the temporal structure.</li>
+        <li><strong>Larval connectivity</strong> along the corridor is physically mediated by the same current field: reef fish and coral larvae spawned at northern MAR sites have documented settlement records at Belizean and Honduran reefs, with transport durations consistent with Caribbean Current advection timescales — making upstream reef health a direct determinant of downstream recruitment potential.</li>
+        <li><strong>River plume corridors</strong> from the Motagua, Ulúa, and Patuca watershed systems discharge into the MAR's southern nodes and are advected northward by wind-driven coastal currents during wet season, crossing international boundaries and delivering sediment and nutrient loads to reef systems in adjacent national waters — physical integration with direct governance implications.</li>
+        <li><strong>Mesoscale eddy impingement</strong> on the MAR fore reef has been documented via satellite altimetry: anticyclonic eddies (warm core, depressed thermocline) increase thermal stress exposure at impacted reef segments, while cyclonic eddies (cold core, elevated thermocline) can provide thermal relief — but eddy encounter is spatially and temporally unpredictable from any single reef monitoring station.</li>
+        <li><strong>ENSO-forced coherence</strong> across the corridor: during El Niño warm phases, reduced Caribbean Current velocity and suppressed upwelling operate simultaneously across all four corridor nodes, producing a basin-scale thermal stress signal that no individual reef management authority can independently mitigate — the corridor's physical integration makes it irreducibly a transboundary management problem.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El corredor del SAM está físicamente integrado a través de la advección de la Corriente del Caribe, el impacto de remolinos de mesoescala y el forzamiento atmosférico coherente a gran escala — lo que significa que las condiciones arrecifales en cualquier nodo individual están parcialmente determinadas por procesos físicos que ocurren a cientos de kilómetros de distancia, semanas o meses antes.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El <strong>tiempo de tránsito de la Corriente del Caribe</strong> a lo largo del corredor del SAM — desde el nodo de Yucatán hasta las Islas de la Bahía — se estima en 3–8 semanas. Este desfase significa que las señales térmicas de la temporada de blanqueamiento detectadas en los nodos del corredor norte pueden servir como indicadores predictivos para los segmentos arrecifales del sur.</li>
+        <li>La <strong>conectividad larval</strong> a lo largo del corredor está físicamente mediada por el mismo campo de corrientes: las larvas de peces arrecifales y corales desovadas en los sitios del SAM norte tienen registros documentados de asentamiento en arrecifes de Belice y Honduras, haciendo de la salud arrecifal aguas arriba un determinante directo del potencial de reclutamiento aguas abajo.</li>
+        <li>Los <strong>corredores de plumas fluviales</strong> de los sistemas de cuencas del Motagua, Ulúa y Patuca descargan en los nodos del sur del SAM y son advectados hacia el norte por corrientes costeras impulsadas por el viento durante la temporada lluviosa, cruzando fronteras internacionales y entregando cargas de sedimentos y nutrientes a sistemas arrecifales en aguas nacionales adyacentes.</li>
+        <li>El <strong>impacto de remolinos de mesoescala</strong> en el arrecife frontal del SAM ha sido documentado mediante altimetría satelital: los remolinos anticiclónicos (núcleo cálido, termoclina deprimida) aumentan la exposición al estrés térmico, mientras que los remolinos ciclónicos (núcleo frío, termoclina elevada) pueden proporcionar alivio térmico.</li>
+        <li>La <strong>coherencia forzada por ENSO</strong> en todo el corredor: durante las fases cálidas de El Niño, la reducción de la velocidad de la Corriente del Caribe y la supresión de la surgencia operan simultáneamente en los cuatro nodos del corredor — la integración física del corredor lo convierte irreductiblemente en un problema de gestión transfronteriza.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What are the two primary mechanisms of physical corridor integration in the MAR system?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Tidal forcing and river discharge</li>
+            <li><span class="opt-letter">B.</span> Advective connectivity and forcing coherence</li>
+            <li><span class="opt-letter">C.</span> Thermocline depth and salinity gradients</li>
+            <li><span class="opt-letter">D.</span> Lagoonal buffering and shelf break upwelling</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Advective connectivity transports water mass properties, larvae, and nutrients along the corridor via currents and eddies; forcing coherence imposes large-scale atmospheric and oceanic signals simultaneously across all corridor nodes.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuáles son los dos mecanismos primarios de integración física del corredor en el sistema del SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Forzamiento mareal y descarga fluvial</li>
+            <li><span class="opt-letter">B.</span> Conectividad advectiva y coherencia de forzamiento</li>
+            <li><span class="opt-letter">C.</span> Profundidad de la termoclina y gradientes de salinidad</li>
+            <li><span class="opt-letter">D.</span> Amortiguamiento lagunar y surgencia en el borde de la plataforma</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La conectividad advectiva transporta propiedades de masas de agua, larvas y nutrientes a lo largo del corredor; la coherencia de forzamiento impone señales atmosféricas y oceánicas a gran escala simultáneamente en todos los nodos del corredor.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does the 3–8 week Caribbean Current transit time along the MAR corridor have practical significance for reef monitoring?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It determines how long coral larvae remain viable before settling on a reef substrate</li>
+            <li><span class="opt-letter">B.</span> Thermal anomalies detected at northern nodes can serve as predictive leading indicators for southern reef segments weeks before arrival</li>
+            <li><span class="opt-letter">C.</span> It sets the minimum sampling frequency needed to detect seasonal temperature changes</li>
+            <li><span class="opt-letter">D.</span> It defines the period over which lagoonal water must be flushed to prevent eutrophication</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The advective lag means bleaching-risk thermal signals arriving at the Yucatán node appear at Belizean and Honduran nodes 3–8 weeks later — creating a monitoring-based early warning window if northern corridor data is integrated into corridor-wide assessment systems.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué el tiempo de tránsito de 3–8 semanas de la Corriente del Caribe a lo largo del corredor del SAM tiene importancia práctica para el monitoreo arrecifal?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Determina cuánto tiempo permanecen viables las larvas de coral antes de asentarse en el sustrato arrecifal</li>
+            <li><span class="opt-letter">B.</span> Las anomalías térmicas detectadas en los nodos del norte pueden servir como indicadores predictivos para los segmentos arrecifales del sur semanas antes de su llegada</li>
+            <li><span class="opt-letter">C.</span> Establece la frecuencia mínima de muestreo necesaria para detectar cambios de temperatura estacionales</li>
+            <li><span class="opt-letter">D.</span> Define el período durante el cual el agua lagunar debe ser lavada para prevenir la eutrofización</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El desfase advectivo significa que las señales térmicas de riesgo de blanqueamiento que llegan al nodo de Yucatán aparecen en los nodos de Belice y Honduras 3–8 semanas después — creando una ventana de alerta temprana basada en monitoreo si los datos del corredor norte se integran en sistemas de evaluación de todo el corredor.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does the MAR corridor's physical integration make reef thermal stress during ENSO warm phases an irreducibly transboundary management problem?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> ENSO disrupts international fishing treaties, preventing coordinated reef closures across national waters</li>
+            <li><span class="opt-letter">B.</span> Reduced Caribbean Current velocity and suppressed upwelling operate simultaneously across all four corridor nations — no single country can independently mitigate the basin-scale forcing</li>
+            <li><span class="opt-letter">C.</span> ENSO warm phases increase hurricane frequency, making coordinated reef response logistically impossible</li>
+            <li><span class="opt-letter">D.</span> Thermal stress only crosses national boundaries via river plume transport, which requires bilateral water quality agreements</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — ENSO-forced reduction in Caribbean Current velocity and simultaneous upwelling suppression affect all MAR corridor nations at the same time. The physical driver is basin-scale and cannot be locally managed — only a coordinated, transboundary monitoring and response framework can address corridor-wide thermal forcing events.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué la integración física del corredor del SAM hace que el estrés térmico arrecifal durante las fases cálidas del ENSO sea un problema de gestión irreductiblemente transfronterizo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El ENSO interrumpe los tratados internacionales de pesca, impidiendo el cierre coordinado de arrecifes en aguas nacionales</li>
+            <li><span class="opt-letter">B.</span> La reducción de la velocidad de la Corriente del Caribe y la supresión de la surgencia operan simultáneamente en las cuatro naciones del corredor — ningún país puede mitigar independientemente el forzamiento a escala de cuenca</li>
+            <li><span class="opt-letter">C.</span> Las fases cálidas del ENSO aumentan la frecuencia de huracanes, haciendo logísticamente imposible la respuesta arrecifal coordinada</li>
+            <li><span class="opt-letter">D.</span> El estrés térmico solo cruza fronteras nacionales a través del transporte de plumas fluviales, lo que requiere acuerdos bilaterales de calidad del agua</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La reducción forzada por el ENSO en la velocidad de la Corriente del Caribe y la supresión simultánea de la surgencia afectan a todas las naciones del corredor del SAM al mismo tiempo. El impulsor físico es a escala de cuenca y no puede gestionarse localmente — solo un marco coordinado y transfronterizo puede abordar los eventos de forzamiento térmico de todo el corredor.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 01 · Lesson 22 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S01 · L22 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
