@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L27 Physical Oceanography — Mitigation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  /* HEADER */
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+
+  /* LECTURE PANEL */
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+
+  /* APPLICATION PANEL */
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+
+  /* MCQ SECTION */
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+
+  /* FOOTER */
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 3.84%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 27 · Physical Oceanography</div>
+        <div class="lesson-title">Mitigation</div>
+        <div class="lesson-subtitle">Reducing Physical Stressors at the Source and the System</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Reef Management</span>
+        <span class="tag tag-gold">Climate Action</span>
+        <span class="tag tag-coral">GROAN GRIN</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: mitigation framework diagram — local levers (shade, runoff, MPA) feeding into reef system with global forcing arrow attenuated -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- Background -->
+        <rect width="340" height="220" fill="url(#seaGrad)"/>
+
+        <!-- Ocean floor -->
+        <rect x="0" y="160" width="340" height="60" fill="#020f1e" opacity="0.6"/>
+        <ellipse cx="80"  cy="163" rx="30" ry="8" fill="#04294a" opacity="0.5"/>
+        <ellipse cx="200" cy="163" rx="40" ry="9" fill="#04294a" opacity="0.5"/>
+
+        <!-- Reef structure (center) -->
+        <ellipse cx="170" cy="162" rx="50" ry="12" fill="#0a6e8a" opacity="0.4"/>
+        <!-- coral bumps -->
+        <ellipse cx="148" cy="158" rx="10" ry="7" fill="#1ac8c8" opacity="0.5"/>
+        <ellipse cx="165" cy="155" rx="12" ry="8" fill="#1ac8c8" opacity="0.6"/>
+        <ellipse cx="183" cy="157" rx="9"  ry="6" fill="#1ac8c8" opacity="0.5"/>
+        <ellipse cx="196" cy="160" rx="7"  ry="5" fill="#0a6e8a" opacity="0.7"/>
+        <!-- reef label -->
+        <text x="170" y="180" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" opacity="0.7">REEF SYSTEM</text>
+
+        <!-- GLOBAL FORCING arrow (top right → reef) — attenuated/dashed -->
+        <line x1="305" y1="30" x2="220" y2="140" stroke="#e86040" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+        <polygon points="220,140 228,128 215,130" fill="#e86040" opacity="0.5"/>
+        <text x="288" y="24" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#e86040" opacity="0.7">GLOBAL</text>
+        <text x="288" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#e86040" opacity="0.7">FORCING</text>
+        <!-- attenuation shield -->
+        <path d="M245,75 Q260,62 275,75 Q260,88 245,75Z" fill="none" stroke="#f0b429" stroke-width="1" opacity="0.6"/>
+        <text x="260" y="70" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" opacity="0.8">MPA</text>
+
+        <!-- LOCAL LEVER 1: Shade / Thermal (top left) -->
+        <rect x="10" y="20" width="70" height="28" rx="3" fill="rgba(10,110,138,0.3)" stroke="#1ac8c8" stroke-width="0.7" opacity="0.8"/>
+        <text x="45" y="32" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">SHADE /</text>
+        <text x="45" y="42" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">COOLING</text>
+        <line x1="80" y1="34" x2="128" y2="130" stroke="#1ac8c8" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <polygon points="128,130 120,120 132,118" fill="#1ac8c8" opacity="0.5"/>
+
+        <!-- LOCAL LEVER 2: Runoff / Sediment (left mid) -->
+        <rect x="10" y="72" width="70" height="28" rx="3" fill="rgba(10,110,138,0.3)" stroke="#1ac8c8" stroke-width="0.7" opacity="0.8"/>
+        <text x="45" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">RUNOFF /</text>
+        <text x="45" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">SEDIMENT</text>
+        <line x1="80" y1="86" x2="128" y2="145" stroke="#1ac8c8" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <polygon points="128,145 120,134 132,132" fill="#1ac8c8" opacity="0.5"/>
+
+        <!-- LOCAL LEVER 3: Nutrients / Eutrophication (left lower) -->
+        <rect x="10" y="124" width="70" height="28" rx="3" fill="rgba(10,110,138,0.3)" stroke="#1ac8c8" stroke-width="0.7" opacity="0.8"/>
+        <text x="45" y="136" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">NUTRIENT</text>
+        <text x="45" y="146" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8">CONTROL</text>
+        <line x1="80" y1="138" x2="125" y2="155" stroke="#1ac8c8" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <polygon points="125,155 115,148 127,144" fill="#1ac8c8" opacity="0.5"/>
+
+        <!-- GROAN readout box -->
+        <rect x="230" y="100" width="98" height="44" rx="3" fill="rgba(2,15,30,0.7)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+        <text x="279" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">GROAN GRIN</text>
+        <text x="279" y="125" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">Stressor Index</text>
+        <text x="279" y="136" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#b8f0ec" font-weight="bold">↓ Post-Mitigation</text>
+
+        <!-- Water column hint -->
+        <line x1="0" y1="155" x2="340" y2="155" stroke="rgba(26,200,200,0.08)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Physical Oceanography: Mitigation</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Mitigation in coral reef management refers to deliberate interventions that reduce the intensity or duration of physical stressors acting on reef systems. A foundational distinction separates <strong>global mitigation</strong> — primarily greenhouse gas emission reduction — from <strong>local mitigation</strong>, which targets stressors that managers can directly control: sediment, nutrients, freshwater input, and physical disturbance.</p>
+
+      <p>This distinction matters operationally. Global mitigation determines the thermal trajectory of the ocean over decades; local mitigation determines whether a reef enters a bleaching event in a compromised or resilient state. Reefs under chronic nutrient and sediment loading bleach earlier, recover slower, and exhibit lower coral cover post-event than reefs shielded from local stressors. This is the <strong>local stress amplification effect</strong> — and it is the primary lever available to reef managers today.</p>
+
+      <p><strong>Thermal mitigation</strong> strategies attempt to buffer heat stress at the site level. Passive approaches include strategic shading using shade cloth or naturally occurring turbidity windows, and site selection favoring naturally cooler upwelling zones. Active approaches — including assisted evolution of thermally tolerant coral genotypes and localized cooling through fog generation — remain experimental but are advancing rapidly through CORDAP-funded programs.</p>
+
+      <p><strong>Sediment mitigation</strong> focuses on watershed-scale land management: riparian buffer restoration, erosion control on agricultural and construction sites, and retention basin design. In MAR-adjacent watersheds, the Motagua River basin in Honduras and Guatemala represents the highest-priority sediment management challenge: estimated 1–3 million tonnes of sediment reach the reef annually, with direct correlation to turbidity events and coral mortality in Belize and the Bay Islands.</p>
+
+      <p><strong>Nutrient mitigation</strong> addresses agricultural runoff (nitrogen, phosphorus), sewage discharge, and aquaculture effluent. Elevated nutrients accelerate macroalgae growth on post-bleaching reefs, suppressing coral recruitment. Best-practice interventions include constructed wetland filtration, mangrove buffer zones, and wastewater treatment upgrades at coastal municipalities — all within the management authority of national governments inside the Rim Run™ circuit.</p>
+
+      <p><strong>Marine Protected Areas (MPAs)</strong> reduce physical disturbance from anchoring, trawling, and boat groundings, while simultaneously allowing fish biomass recovery. The trophic benefit of MPAs — particularly the recovery of herbivorous fish that control algal competition — is one of the most evidence-supported local mitigation tools in the literature.</p>
+
+      <p>GROAN integrates mitigation signals through the GRIN module: post-mitigation stressor reduction can be modeled as a negative delta applied to the raw stressor index, generating a Decision Score differential that quantifies the measurable benefit of each intervention type.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La mitigación en la gestión de arrecifes de coral se refiere a intervenciones deliberadas que reducen la intensidad o duración de los estresores físicos que actúan sobre los sistemas arrecifales. Una distinción fundamental separa la <strong>mitigación global</strong> — principalmente la reducción de emisiones de gases de efecto invernadero — de la <strong>mitigación local</strong>, que se enfoca en estresores que los gestores pueden controlar directamente: sedimentos, nutrientes, ingreso de agua dulce y perturbación física.</p>
+
+      <p>Esta distinción importa operacionalmente. La mitigación global determina la trayectoria térmica del océano durante décadas; la mitigación local determina si un arrecife entra en un evento de blanqueamiento en estado comprometido o resiliente. Los arrecifes bajo carga crónica de nutrientes y sedimentos blanquean antes, se recuperan más lento y exhiben menor cobertura de coral post-evento que los arrecifes protegidos de estresores locales. Este es el <strong>efecto de amplificación local del estrés</strong> — y es la palanca principal disponible para los gestores arrecifales hoy.</p>
+
+      <p>Las estrategias de <strong>mitigación térmica</strong> intentan amortiguar el estrés térmico a nivel de sitio. Los enfoques pasivos incluyen sombrado estratégico y selección de sitios que favorezcan zonas de surgencia naturalmente más frías. Los enfoques activos — incluida la evolución asistida de genotipos de coral termalmente tolerantes — siguen siendo experimentales pero avanzan rápidamente.</p>
+
+      <p>La <strong>mitigación de sedimentos</strong> se enfoca en la gestión de cuencas hidrográficas: restauración de riberas, control de erosión y diseño de cuencas de retención. La cuenca del río Motagua en Honduras y Guatemala representa el mayor desafío de gestión de sedimentos del MAR.</p>
+
+      <p>La <strong>mitigación de nutrientes</strong> aborda el escurrimiento agrícola, las descargas de aguas residuales y los efluentes de acuicultura. Las intervenciones de mejores prácticas incluyen filtración en humedales construidos, zonas de amortiguamiento de manglares y mejoras en el tratamiento de aguas residuales.</p>
+
+      <p>Las <strong>Áreas Marinas Protegidas (AMPs)</strong> reducen la perturbación física al tiempo que permiten la recuperación de la biomasa de peces, incluyendo herbívoros que controlan la competencia de algas — una de las herramientas de mitigación local con mayor evidencia científica.</p>
+
+      <p>GROAN integra las señales de mitigación a través del módulo GRIN: la reducción de estresores post-mitigación puede modelarse como un delta negativo aplicado al índice de estresores bruto, generando un diferencial de Puntuación de Decisión que cuantifica el beneficio medible de cada tipo de intervención.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Mitigation Type / Tipo</th>
+          <th>Target Stressor / Estresor</th>
+          <th>Management Scale / Escala</th>
+          <th>Evidence Level / Evidencia</th>
+          <th>GROAN Module</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Emission reduction / Reducción de emisiones</td><td>Thermal / Térmico</td><td>Global</td><td>High / Alta</td><td>GRIN S01</td></tr>
+        <tr><td>MPA establishment / Establecimiento de AMP</td><td>Physical disturbance / Perturbación</td><td>National / Nacional</td><td>High / Alta</td><td>GRIN S08</td></tr>
+        <tr><td>Watershed mgmt / Gestión de cuencas</td><td>Sediment / Sedimento</td><td>Regional</td><td>High / Alta</td><td>GRIN S05</td></tr>
+        <tr><td>Nutrient control / Control de nutrientes</td><td>Eutrophication / Eutrofización</td><td>Local / Local</td><td>Moderate / Moderada</td><td>GRIN S06</td></tr>
+        <tr><td>Assisted evolution / Evolución asistida</td><td>Thermal / Térmico</td><td>Site / Sitio</td><td>Emerging / Emergente</td><td>GRIN S01</td></tr>
+        <tr><td>Shading / Sombreado</td><td>Thermal / Térmico</td><td>Site / Sitio</td><td>Experimental</td><td>GRIN S01</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>The Mesoamerican Reef (MAR) operates under a dual-pressure regime: chronic local stressors (sediment, nutrients, overfishing) amplify thermal events that are globally determined — meaning local mitigation at watershed and MPA scale is the highest-leverage management action available to national governments today.</li>
+        <li>Motagua River sediment load (Honduras/Guatemala border) is the dominant single-source stressor for the southern MAR; satellite turbidity data shows post-rain plumes reaching Belizean barrier reef segments within 3–7 days, triggering measurable reductions in photosynthetically active radiation at reef depth.</li>
+        <li>The MAR's Healthy Reefs Initiative (HRI) Scorecard integrates water quality, fish biomass, algae cover, and coral cover as annual mitigation performance indicators across four countries — providing the closest real-world analogue to a GROAN multi-module stressor dashboard in the circuit.</li>
+        <li>Nutrient mitigation at coastal municipalities in Belize, Honduras, and Guatemala remains constrained by infrastructure investment gaps; constructed wetland filtration and mangrove buffer restoration are the highest cost-effectiveness interventions available without large capital outlays.</li>
+        <li>GROAN GRIN post-mitigation modeling: a 20% reduction in the sediment sub-index for MAR-southern nodes propagates to a measurable Decision Score improvement of approximately 0.8–1.2 points on a 0–10 scale, providing a quantified basis for prioritizing watershed investment over reactive restoration spending.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>El Arrecife Mesoamericano (MAR) opera bajo un régimen de doble presión: estresores locales crónicos (sedimentos, nutrientes, sobrepesca) amplifican eventos térmicos determinados globalmente — lo que significa que la mitigación local a escala de cuencas y AMPs es la acción de gestión de mayor palanca disponible para los gobiernos nacionales hoy.</li>
+        <li>La carga de sedimentos del río Motagua (frontera Honduras/Guatemala) es el estresor de fuente única dominante para el MAR sur; datos satelitales de turbidez muestran que los penachos post-lluvia alcanzan segmentos del arrecife de barrera beliceño en 3 a 7 días.</li>
+        <li>El Marcador de la Iniciativa Arrecifes Saludables (HRI) del MAR integra calidad del agua, biomasa de peces, cobertura de algas y cobertura de coral como indicadores anuales de desempeño de mitigación en cuatro países.</li>
+        <li>La mitigación de nutrientes en municipios costeros de Belice, Honduras y Guatemala sigue limitada por brechas de inversión en infraestructura; la filtración en humedales construidos y la restauración de manglares son las intervenciones de mayor costo-efectividad disponibles sin grandes desembolsos de capital.</li>
+        <li>Modelado GROAN GRIN post-mitigación: una reducción del 20% en el subíndice de sedimentos para los nodos MAR-sur se propaga a una mejora medible de la Puntuación de Decisión de aproximadamente 0.8–1.2 puntos en escala 0–10.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Why does local stress amplification make watershed management a higher-priority mitigation action than site-level shading for most MAR reef managers?</div>
+        <div class="mcq-q-es">¿Por qué la amplificación local del estrés hace que la gestión de cuencas sea una acción de mitigación de mayor prioridad que el sombreado a nivel de sitio para la mayoría de los gestores del MAR?</div>
+        <ul class="mcq-options">
+          <li>A. Shading has no measurable effect on coral thermal tolerance</li>
+          <li class="correct">B. Sediment and nutrient reduction improves reef resilience at scale across many sites simultaneously, while shading protects only single sites experimentally</li>
+          <li>C. Watershed management eliminates thermal stress entirely</li>
+          <li>D. Shading is prohibited under international marine law</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">The Motagua River sediment plume is detectable at Belizean reef depth within how many days of a major rainfall event, and what is the primary ecological mechanism of harm?</div>
+        <div class="mcq-q-es">¿En cuántos días tras un evento de lluvia mayor es detectable el penacho de sedimentos del río Motagua a profundidad arrecifal beliceña, y cuál es el mecanismo ecológico primario de daño?</div>
+        <ul class="mcq-options">
+          <li>A. 1–2 days; mechanical abrasion of coral tissue</li>
+          <li>B. 10–14 days; salinity shock to zooxanthellae</li>
+          <li class="correct">C. 3–7 days; reduction in photosynthetically active radiation suppressing zooxanthellae productivity</li>
+          <li>D. 30+ days; nitrogen loading triggering macroalgae bloom</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">In the GROAN GRIN mitigation model, a 20% reduction in the sediment sub-index for MAR-southern nodes produces what approximate Decision Score improvement, and why does this matter for management prioritization?</div>
+        <div class="mcq-q-es">En el modelo de mitigación GROAN GRIN, una reducción del 20% en el subíndice de sedimentos para nodos MAR-sur produce qué mejora aproximada en la Puntuación de Decisión, y ¿por qué importa esto para la priorización de gestión?</div>
+        <ul class="mcq-options">
+          <li>A. 0.1–0.2 points; negligible for decision-making</li>
+          <li>B. 3.0–4.0 points; sufficient to reclassify reef status</li>
+          <li class="correct">C. 0.8–1.2 points; quantified basis for prioritizing watershed investment over reactive restoration spending</li>
+          <li>D. 5.0 points; exceeds the threshold for emergency intervention</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S01·L27 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">3.84%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
