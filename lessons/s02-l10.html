@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L10 | Chemical Oceanography: Field Methods</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Station protocol steps */
+  .protocol-steps { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.2rem 0; }
+  .step-row {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0.9rem;
+    align-items: start;
+    padding: 0.75rem 0.9rem;
+    background: rgba(2,15,30,0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(26,200,200,0.09);
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .step-num.pre   { background: rgba(10,110,138,0.25);  color: var(--ocean-teal); border: 1px solid rgba(10,110,138,0.4); }
+  .step-num.arr   { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.35); }
+  .step-num.dep   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.35); }
+  .step-num.qc    { background: rgba(68,184,100,0.12);  color: #44b864;           border: 1px solid rgba(68,184,100,0.35); }
+  .step-num.post  { background: rgba(232,96,64,0.1);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .step-content { }
+  .step-title { font-size: 0.86rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.25rem; }
+  .step-desc { font-size: 0.79rem; line-height: 1.55; color: var(--text-dim); }
+  .step-desc strong { color: var(--text-light); }
+
+  /* Error / pitfall grid */
+  .pitfall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.2rem 0; }
+  .pitfall-box {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    background: rgba(2,15,30,0.5);
+    border-left: 3px solid var(--coral);
+  }
+  .pitfall-box.fix { border-left-color: #44b864; }
+  .pitfall-head { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .pitfall-box:not(.fix) .pitfall-head { color: var(--coral); }
+  .pitfall-box.fix .pitfall-head { color: #44b864; }
+  .pitfall-box p { font-size: 0.8rem; line-height: 1.5; color: var(--text-dim); }
+  .pitfall-box p strong { color: var(--text-light); }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 5.97%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .pitfall-grid { grid-template-columns: 1fr; }
+    .app-grid { grid-template-columns: 1fr; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L10 · Lesson 42 of 704</div>
+      <h1>Field Methods</h1>
+      <p class="subtitle">Knowing which instruments to use is necessary but not sufficient. How you deploy them — station protocol, sample handling, QC checks, and metadata discipline — determines whether your data earns a High confidence tier or gets discarded by the CMIE.</p>
+    </div>
+
+    <!-- SVG: Shamrocket deck station — Niskin bottle, CTD rosette, sensor deploy sequence -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#04294a" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#020f1e" stop-opacity="0.9"/>
+        </linearGradient>
+        <filter id="gfm">
+          <feGaussianBlur stdDeviation="1.8" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.5)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Waterline -->
+      <rect x="4" y="108" width="202" height="68" rx="0" fill="rgba(4,41,74,0.55)"/>
+      <line x1="4" y1="108" x2="206" y2="108" stroke="#1ac8c8" stroke-width="1" stroke-opacity="0.3"/>
+      <text x="16" y="120" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.6">SURFACE</text>
+
+      <!-- Catamaran hull — simplified top view indication (deck line) -->
+      <rect x="14" y="88" width="80" height="18" rx="4" fill="rgba(10,110,138,0.25)" stroke="rgba(26,200,200,0.35)" stroke-width="1.2"/>
+      <text x="54" y="100" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">SHAMROCKET</text>
+
+      <!-- Sensor string going down -->
+      <line x1="54" y1="106" x2="54" y2="158" stroke="#8ab8cc" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+      <!-- CTD at depth -->
+      <rect x="42" y="140" width="24" height="18" rx="3" fill="rgba(26,200,200,0.1)" stroke="#1ac8c8" stroke-width="1.3" filter="url(#gfm)"/>
+      <text x="54" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">CTD</text>
+      <text x="54" y="159" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc">pH·DO·T·S</text>
+
+      <!-- Depth label -->
+      <line x1="78" y1="108" x2="78" y2="150" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+      <text x="80" y="130" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">2–5 m</text>
+
+      <!-- Niskin bottle -->
+      <rect x="110" y="120" width="12" height="32" rx="2" fill="rgba(240,180,41,0.15)" stroke="#f0b429" stroke-width="1.2"/>
+      <text x="116" y="112" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#f0b429">NISKIN</text>
+      <text x="130" y="128" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc">TA sample</text>
+      <text x="130" y="137" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc">250 mL</text>
+      <text x="130" y="146" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc">+HgCl₂</text>
+
+      <!-- Timestamp / metadata box -->
+      <rect x="110" y="28" width="84" height="62" rx="5" fill="rgba(2,15,30,0.7)" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+      <text x="120" y="42" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">STATION LOG</text>
+      <text x="120" y="54" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">Time: 06:14 local</text>
+      <text x="120" y="64" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">Tide: flood +1.2h</text>
+      <text x="120" y="74" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">GPS: 16.42°N 88.11°W</text>
+      <text x="120" y="84" font-family="DM Sans,sans-serif" font-size="6.5" fill="#8ab8cc">Depth: 3.2 m</text>
+
+      <!-- Step markers -->
+      <circle cx="22" cy="22" r="8" fill="rgba(26,200,200,0.15)" stroke="#1ac8c8" stroke-width="1"/>
+      <text x="22" y="26" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8">1</text>
+      <circle cx="44" cy="22" r="8" fill="rgba(240,180,41,0.12)" stroke="#f0b429" stroke-width="1"/>
+      <text x="44" y="26" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#f0b429">2</text>
+      <circle cx="66" cy="22" r="8" fill="rgba(68,184,100,0.12)" stroke="#44b864" stroke-width="1"/>
+      <text x="66" y="26" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#44b864">3</text>
+      <circle cx="88" cy="22" r="8" fill="rgba(232,96,64,0.1)" stroke="#e86040" stroke-width="1"/>
+      <text x="88" y="26" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#e86040">4</text>
+      <text x="22" y="40" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc" text-anchor="middle">pre</text>
+      <text x="44" y="40" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc" text-anchor="middle">arrive</text>
+      <text x="66" y="40" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc" text-anchor="middle">deploy</text>
+      <text x="88" y="40" font-family="DM Sans,sans-serif" font-size="5.5" fill="#8ab8cc" text-anchor="middle">QC+log</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Field methods are the operational translation of measurement theory (L08) into executable station protocol. A scientist who understands carbonate chemistry but deploys sensors incorrectly produces data that looks valid but carries systematic errors invisible to the CMIE. <strong>GROAN's confidence tier system is only as honest as the field methods that generate the underlying readings.</strong> This lesson covers the MOOP station protocol in full — from pre-departure checks to post-processing submission — as it will be executed aboard Shamrocket during the Rim Run™ circuit.</p>
+
+        <div class="protocol-steps">
+          <div class="step-row">
+            <div class="step-num pre">PRE</div>
+            <div class="step-content">
+              <div class="step-title">Pre-Departure Calibration</div>
+              <div class="step-desc"><strong>pH sensor:</strong> 3-point calibration using NIST-traceable buffers (pH 4.0, 7.0, 10.0) — log calibration slope and offset before every transit leg. <strong>DO sensor:</strong> Air-saturated water or sodium sulfite zero check. <strong>CTD:</strong> Conductivity verified against certified saline standard. <strong>Titration kit:</strong> Verify HCl normality against certified CaCO₃ standard. Any sensor failing calibration is tagged LOW confidence for that leg — data collected but flagged.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num arr">ARR</div>
+            <div class="step-content">
+              <div class="step-title">Station Arrival Protocol</div>
+              <div class="step-desc"><strong>Log GPS coordinates, local time, and tidal phase</strong> before any sensor deployment. Tidal phase is determined from regional tidal model (TPXO or equivalent) at station coordinates — not estimated. <strong>Record sky conditions, sea state, and visible disturbance</strong> (active runoff, algal bloom, boat wake turbulence). Note depth at station. All metadata recorded in standardized MOOP station log — handwritten and digital backup.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num dep">DEP</div>
+            <div class="step-content">
+              <div class="step-title">Sensor Deployment Sequence</div>
+              <div class="step-desc"><strong>Step 1 — CTD cast:</strong> Lower sensor package slowly to target depth (reef crest: 2–5 m; lagoon: 1–3 m; mangrove fringe: surface). Hold 90 seconds for equilibration before logging. <strong>Step 2 — Niskin bottle:</strong> Collect 250 mL water sample at same depth as CTD cast. <em>Overflow bottle 3× before capping</em> — eliminates headspace that alters TA. Add 100 µL saturated HgCl₂ immediately to poison sample (halts biological activity). <strong>Step 3 — DO reading:</strong> Record at equilibration depth. Note if sensor reads above 110% saturation (supersaturation = active photosynthesis; flags diel timing requirement).</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num qc">QC</div>
+            <div class="step-content">
+              <div class="step-title">On-Site Quality Control</div>
+              <div class="step-desc"><strong>Duplicate cast:</strong> Every 5th station, conduct a duplicate CTD cast and collect a second Niskin sample. Duplicate pH readings should agree within ±0.02; if discrepancy exceeds ±0.05, station is flagged for resampling. <strong>Sensor drift check:</strong> Re-verify pH sensor against field reference buffer after cast — if drift exceeds ±0.02 from pre-departure calibration, all readings from that leg are down-tiered to Moderate. <strong>Temperature cross-check:</strong> CTD temperature vs. handheld thermometer — discrepancy &gt;0.2°C triggers sensor inspection.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num post">POST</div>
+            <div class="step-content">
+              <div class="step-title">Sample Handling &amp; Post-Processing</div>
+              <div class="step-desc"><strong>TA samples:</strong> Store at 4°C, dark. Titrate within 72 hours of collection. Post-titration, run CO2SYS with pH + TA to calculate Ω, DIC, pCO₂. <strong>Data submission:</strong> All field data enters GROAN API Registry (L1) within 24 hours of station completion. Confidence tier is computed at edge node before upload — Low-confidence packets compressed to minimum resolution; High-confidence packets transmitted at full resolution. Station log signed and archived.</div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Field method errors that invalidate data.</strong> The most common field method failures are procedural, not instrumental. Four errors account for the majority of data quality failures in Caribbean reef chemistry campaigns:</p>
+
+        <div class="pitfall-grid">
+          <div class="pitfall-box">
+            <div class="pitfall-head">Error 01 — Headspace Contamination</div>
+            <p>Collecting a Niskin sample with air headspace allows CO₂ gas exchange that alters TA by 5–15 µmol/kg before titration. <strong>Result: false low-TA reading → inflated OA alarm.</strong></p>
+          </div>
+          <div class="pitfall-box fix">
+            <div class="pitfall-head">Fix 01 — Overflow Protocol</div>
+            <p>Overflow bottle 3× before capping. Add HgCl₂ immediately. Store inverted. A correctly collected sample is stable for 72 hours and produces TA accurate to ±3 µmol/kg in field conditions.</p>
+          </div>
+          <div class="pitfall-box">
+            <div class="pitfall-head">Error 02 — Sensor Equilibration Skip</div>
+            <p>Logging pH immediately after immersion before thermal equilibration of the ISFET element. A 1°C disequilibrium introduces ~0.01–0.02 pH unit error. <strong>Result: confident-looking data with systematic offset.</strong></p>
+          </div>
+          <div class="pitfall-box fix">
+            <div class="pitfall-head">Fix 02 — 90-Second Rule</div>
+            <p>Hold sensor at target depth for minimum 90 seconds before logging. Watch for stable reading on display — pH drift &lt;0.003 units over 30 seconds signals equilibration. Document wait time in station log.</p>
+          </div>
+          <div class="pitfall-box">
+            <div class="pitfall-head">Error 03 — Missing Tidal Metadata</div>
+            <p>Recording only clock time without tidal phase. As established in L05, the same station can swing 0.3 pH units between flood and ebb. <strong>Result: data with correct values but uninterpretable context — automatic Low confidence tier.</strong></p>
+          </div>
+          <div class="pitfall-box fix">
+            <div class="pitfall-head">Fix 03 — Tidal Phase Stamp</div>
+            <p>Use TPXO tidal model output pre-loaded for all 100+ Rim Run™ station coordinates. At arrival, match GPS timestamp to tidal phase table. Record phase as flood/ebb/slack with hours from nearest high water.</p>
+          </div>
+          <div class="pitfall-box">
+            <div class="pitfall-head">Error 04 — Single-Depth Sampling</div>
+            <p>Collecting all samples at one depth when the reef zone has a shallow thermocline or chemocline. In mangrove fringe sites, DO and pH can differ by 2 mg/L and 0.4 units between surface and 2 m depth. <strong>Result: unrepresentative snapshot assigned full station weight.</strong></p>
+          </div>
+          <div class="pitfall-box fix">
+            <div class="pitfall-head">Fix 04 — Depth Profile Rule</div>
+            <p>At all mangrove fringe (GMIN) and lagoon (GMAIN) stations, conduct minimum 3-depth CTD profile: surface (0.5 m), mid-water (half depth), and bottom (−0.5 m from substrate). Flag chemocline presence in station log for CMIE stratification input.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Los métodos de campo son la traducción operacional de la teoría de medición (L08) en un protocolo de estación ejecutable. <strong>El sistema de niveles de confianza de GROAN es tan honesto como los métodos de campo que generan las lecturas subyacentes.</strong> El protocolo de estación MOOP cubre cinco fases: calibración previa a la salida, protocolo de llegada a la estación, secuencia de despliegue de sensores, control de calidad en sitio, y manejo de muestras y post-procesamiento.</p>
+
+        <p>La <strong>calibración previa a la salida</strong> requiere calibración de 3 puntos del sensor de pH con tampones trazables a NIST, verificación de DO, verificación de conductividad CTD y normalidad del kit de titulación. Cualquier sensor que falle la calibración se etiqueta como BAJA confianza para esa etapa. El <strong>protocolo de llegada</strong> exige registrar coordenadas GPS, hora local y fase de marea determinada del modelo de mareas regional TPXO antes de cualquier despliegue de sensor. La <strong>secuencia de despliegue</strong> sigue: sonda CTD (90 segundos de equilibración), botella Niskin (desbordar 3× antes de tapar, añadir HgCl₂ inmediatamente), lectura de DO.</p>
+
+        <p>Los <strong>cuatro errores de campo más comunes</strong> que invalidan datos: (1) contaminación por espacio de cabeza en muestras Niskin — corregida con el protocolo de desbordamiento; (2) omisión de equilibración del sensor — corregida con la regla de 90 segundos; (3) falta de metadatos de fase de marea — corregida con el sello de fase de TPXO; (4) muestreo a una sola profundidad en sitios estratificados — corregida con perfil CTD mínimo de 3 profundidades en estaciones GMIN y GMAIN.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Protocol Step</th>
+            <th>Action</th>
+            <th>Standard</th>
+            <th>If Skipped</th>
+            <th>Conf. Tier Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>pH Pre-calibration</td>
+            <td>3-point NIST buffer cal.</td>
+            <td>Slope 95–105%</td>
+            <td class="warn">Systematic offset undetected</td>
+            <td class="warn">Down to Low</td>
+          </tr>
+          <tr>
+            <td>GPS + Tidal Phase Log</td>
+            <td>TPXO model, on arrival</td>
+            <td>Phase to nearest 0.5 hr</td>
+            <td class="warn">Auto Low — no context</td>
+            <td class="warn">Auto Low tier</td>
+          </tr>
+          <tr>
+            <td>Sensor Equilibration</td>
+            <td>90 sec at depth, drift &lt;0.003</td>
+            <td>±0.01 pH stability</td>
+            <td class="caution">±0.02 systematic error</td>
+            <td class="caution">Down to Moderate</td>
+          </tr>
+          <tr>
+            <td>Niskin Overflow × 3</td>
+            <td>Overflow, HgCl₂, invert cap</td>
+            <td>Zero headspace</td>
+            <td class="warn">TA error ±5–15 µmol/kg</td>
+            <td class="warn">Down to Low (TA)</td>
+          </tr>
+          <tr>
+            <td>Duplicate Cast (1-in-5)</td>
+            <td>Repeat CTD + Niskin</td>
+            <td>pH agree ±0.02</td>
+            <td class="caution">No QC check — drift invisible</td>
+            <td class="caution">Moderate only</td>
+          </tr>
+          <tr>
+            <td>3-Depth Profile (GMIN/GMAIN)</td>
+            <td>Surface / mid / bottom CTD</td>
+            <td>Detect chemocline</td>
+            <td class="caution">Stratified sites unrepresentative</td>
+            <td class="caution">Moderate (single depth)</td>
+          </tr>
+          <tr>
+            <td>CO2SYS Post-processing</td>
+            <td>pH + TA → Ω, DIC, pCO₂</td>
+            <td>Within 24 hr of station</td>
+            <td class="warn">Ω never calculated</td>
+            <td class="warn">CMIE input incomplete</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The Rim Run™ circuit covers 100+ stations across 7 countries in a single October–November transit. Every station must produce GRIN-credible data on the first pass — there is no return visit. The MOOP protocol's pre-departure calibration and on-site QC checks are not optional quality enhancements; they are the only mechanism preventing a failed sensor from silently generating a false baseline across an entire national reef system.</li>
+          <li>The 90-second equilibration rule has a practical Shamrocket implication: the catamaran should be anchored or drifting with minimal wake before sensor deployment. Active motoring creates turbulence that introduces surface water into the sample depth, degrading pH and DO readings — the protocol note is "engines off before sensor in water."</li>
+          <li>HgCl₂ poisoning of Niskin samples is chemically essential but operationally hazardous — MOOP's field protocol must include proper hazmat handling procedures (gloves, sealed waste container, no overboard disposal) at every station. Port authorities in 3 of the 7 Rim Run™ countries may require declaration of HgCl₂ as a hazardous material aboard Shamrocket.</li>
+          <li>The 4-error / 4-fix framework maps directly to the GSIN Technical Specification's edge compression logic: field errors that produce Low-confidence data should be flagged at the edge node before upload, not discovered in post-processing. Implementing real-time QC alerts on the MOOP sensor display — drift alarm, equilibration timer, tidal-phase reminder — converts the protocol from a checklist into an automated quality gate.</li>
+          <li>For KAUST Red Sea protocol adaptation: the mangrove fringe 3-depth profile rule applies with modification — Red Sea reef sites have distinct thermocline and halocline structures at 10–20 m depth rather than 1–3 m. GSIN station protocols for the Red Sea case study should specify minimum 5-depth profiles at stratified stations.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>El circuito Rim Run™ cubre más de 100 estaciones en 7 países en un solo tránsito de octubre a noviembre. Cada estación debe producir datos creíbles para GRIN en el primer paso — no hay visita de regreso. Las verificaciones de calibración y QC en sitio del protocolo MOOP son el único mecanismo que previene que un sensor defectuoso genere silenciosamente una línea de base falsa en todo un sistema arrecifal nacional.</li>
+          <li>La regla de equilibración de 90 segundos tiene una implicación práctica para Shamrocket: el catamarán debe estar anclado o derivando con mínima estela antes del despliegue del sensor. La navegación activa crea turbulencia que introduce agua superficial en la profundidad de muestreo, degradando las lecturas de pH y DO — la nota de protocolo es "motores apagados antes de sumergir el sensor."</li>
+          <li>El envenenamiento con HgCl₂ de las muestras Niskin es químicamente esencial pero operativamente peligroso — el protocolo de campo MOOP debe incluir procedimientos adecuados de manejo de materiales peligrosos (guantes, recipiente de residuos sellado, sin disposición por la borda) en cada estación. Las autoridades portuarias en 3 de los 7 países Rim Run™ pueden requerir declaración del HgCl₂ como material peligroso a bordo de Shamrocket.</li>
+          <li>El marco de 4 errores / 4 soluciones se mapea directamente a la lógica de compresión de borde de la Especificación Técnica GSIN: los errores de campo que producen datos de Baja Confianza deben marcarse en el nodo de borde antes de la carga, no descubrirse en el post-procesamiento. Implementar alertas de QC en tiempo real en la pantalla del sensor MOOP convierte el protocolo de una lista de verificación en una puerta de calidad automatizada.</li>
+          <li>Para la adaptación del protocolo del Mar Rojo para KAUST: la regla de perfil de 3 profundidades del franja de manglar aplica con modificación — los sitios arrecifales del Mar Rojo tienen termoclina y haloclina distintas a 10–20 m de profundidad en lugar de 1–3 m. Los protocolos de estación GSIN para el estudio de caso del Mar Rojo deben especificar perfiles mínimos de 5 profundidades en estaciones estratificadas.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">A MOOP operator collects a Niskin bottle sample but does not overflow the bottle before capping, and forgets to add HgCl₂. What is the most likely data quality outcome?</div>
+        <div class="q-text-es">Un operador MOOP recopila una muestra de botella Niskin pero no desborda la botella antes de tapar, y olvida agregar HgCl₂. ¿Cuál es el resultado más probable en la calidad de los datos?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> pH reading is unaffected — only DO changes due to gas exchange</li>
+          <li><span class="opt-key">B</span> Salinity measurement is compromised by freshwater dilution from the bottle</li>
+          <li class="correct"><span class="opt-key">C</span> TA is underestimated by 5–15 µmol/kg due to headspace CO₂ exchange, and biological activity alters the sample before titration — the result is a falsely low TA driving an inflated OA alarm</li>
+          <li><span class="opt-key">D</span> The sample is valid as long as it is titrated within 24 hours</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">During a Rim Run™ transit, a pH sensor shows drift of ±0.04 units between pre-departure calibration and the post-cast field reference check at Station 12. What is GROAN's protocol response?</div>
+        <div class="q-text-es">Durante un tránsito Rim Run™, un sensor de pH muestra deriva de ±0.04 unidades entre la calibración previa a la salida y la verificación de referencia de campo posterior al muestreo en la Estación 12. ¿Cuál es la respuesta del protocolo de GROAN?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Data from all stations on that leg is discarded</li>
+          <li class="correct"><span class="opt-key">B</span> All pH readings from that leg are down-tiered to Moderate confidence — data is retained but flagged, and the sensor is inspected before the next leg</li>
+          <li><span class="opt-key">C</span> Only Station 12 data is discarded; prior stations are unaffected</li>
+          <li><span class="opt-key">D</span> Drift of ±0.04 is within acceptable limits and no action is required</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">Why does the MOOP protocol require a minimum 3-depth CTD profile at mangrove fringe (GMIN) stations rather than a single surface reading?</div>
+        <div class="q-text-es">¿Por qué el protocolo MOOP requiere un perfil CTD mínimo de 3 profundidades en las estaciones de franja de manglar (GMIN) en lugar de una sola lectura de superficie?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because mangrove roots extend to 3 m depth and interfere with surface sensor readings</li>
+          <li><span class="opt-key">B</span> Because the CMIE requires exactly 3 depth readings per station to calculate stratification indices</li>
+          <li class="correct"><span class="opt-key">C</span> Because DO and pH can differ by 2 mg/L and 0.4 units between surface and 2 m in stratified mangrove fringe water — a single depth reading produces an unrepresentative snapshot that biases CMIE chemical state inputs</li>
+          <li><span class="opt-key">D</span> Because tidal phase determination requires depth-referenced salinity profiles to be accurate</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">5.97% — Lesson 42 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L10 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
