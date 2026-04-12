@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L27 | Chemical Oceanography — Mitigation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --mar-karst:  #c8a45a;
+    --m-local:    #3ecf8e;
+    --m-buffer:   #1ac8c8;
+    --m-rest:     #9b7fe8;
+    --m-policy:   #f0b429;
+    --m-geo:      #e86040;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);      font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);     font-weight: 500; }
+  .lecture-text .green     { color: var(--green);     font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);    font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst); font-weight: 500; }
+
+  /* ── MITIGATION TIER GRID ── */
+  .mit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .mit-block {
+    border-radius: 6px;
+    padding: 14px 16px;
+    background: rgba(4,41,74,0.3);
+    border-left: 3px solid rgba(26,200,200,0.4);
+  }
+
+  .mb-local  { border-left-color: rgba(62,207,142,0.6);  background: rgba(4,22,12,0.38); }
+  .mb-buffer { border-left-color: rgba(26,200,200,0.55); background: rgba(4,28,40,0.38); }
+  .mb-rest   { border-left-color: rgba(155,127,232,0.55);background: rgba(12,6,22,0.38); }
+  .mb-policy { border-left-color: rgba(240,180,41,0.55); background: rgba(22,16,2,0.38); }
+  .mb-geo    { border-left-color: rgba(232,96,64,0.5);   background: rgba(28,6,2,0.38); }
+  .mb-cmie   { border-left-color: rgba(26,200,200,0.45); background: rgba(4,20,38,0.50); grid-column: 1 / -1; }
+
+  .mb-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .mb-local  .mb-header { color: var(--m-local); }
+  .mb-buffer .mb-header { color: var(--m-buffer); }
+  .mb-rest   .mb-header { color: var(--m-rest); }
+  .mb-policy .mb-header { color: var(--m-policy); }
+  .mb-geo    .mb-header { color: var(--m-geo); }
+  .mb-cmie   .mb-header { color: var(--ocean-cyan); }
+
+  .mb-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .c-local  { background: rgba(62,207,142,0.10);  border: 1px solid rgba(62,207,142,0.28);  color: #a8f4d4; }
+  .c-buffer { background: rgba(26,200,200,0.10);  border: 1px solid rgba(26,200,200,0.25);  color: #b8f0ec; }
+  .c-rest   { background: rgba(155,127,232,0.10); border: 1px solid rgba(155,127,232,0.28); color: #d4c8f8; }
+  .c-policy { background: rgba(240,180,41,0.12);  border: 1px solid rgba(240,180,41,0.28);  color: #f4e08a; }
+  .c-geo    { background: rgba(232,96,64,0.10);   border: 1px solid rgba(232,96,64,0.28);   color: #f4b8a8; }
+  .c-cyan   { background: rgba(26,200,200,0.10);  border: 1px solid rgba(26,200,200,0.22);  color: #b8f0ec; }
+
+  .mb-desc {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── EFFICACY MATRIX ── */
+  .efficacy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .efficacy-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .efficacy-table th {
+    padding: 8px 10px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .efficacy-table td {
+    padding: 7px 10px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: middle;
+    font-size: 10.5px;
+  }
+
+  .efficacy-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+
+  .eff-bar-wrap {
+    width: 100%;
+    height: 12px;
+    background: rgba(4,41,74,0.5);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .eff-bar {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 11px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 11px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-gap  { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .badge-crit { background: rgba(192,57,43,0.18);   color: #ff8070;           border: 1px solid rgba(192,57,43,0.4); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--ocean-cyan); letter-spacing:.15em; margin-bottom:10px; text-transform:uppercase; }
+  .mcq-q-en { font-size:13px; font-weight:500; color:var(--text-light); line-height:1.5; margin-bottom:6px; }
+  .mcq-q-es { font-size:11.5px; font-style:italic; color:var(--text-dim); line-height:1.45; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(26,200,200,0.1); }
+  .mcq-option { font-size:12px; padding:7px 10px; margin-bottom:5px; border-radius:4px; color:var(--text-dim); border:1px solid transparent; line-height:1.45; }
+  .mcq-option.correct { background:rgba(26,200,200,0.08); border-color:rgba(26,200,200,0.25); color:var(--ocean-foam); }
+  .mcq-option.correct::before { content:'✓ '; color:var(--ocean-cyan); font-weight:700; }
+
+  /* ── FOOTER ── */
+  .footer { padding: 24px 40px; background: rgba(2,15,30,0.6); }
+  .progress-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .progress-label,.progress-pct { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; }
+  .progress-label { color:var(--text-dim); }
+  .progress-pct   { color:var(--ocean-cyan); }
+  .progress-track { width:100%; height:4px; background:rgba(26,200,200,0.1); border-radius:2px; overflow:hidden; }
+  .progress-fill  { height:100%; background:linear-gradient(90deg,var(--ocean-teal),var(--ocean-cyan)); border-radius:2px; width:8.38%; transition:width 0.6s ease; }
+
+  .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(26,200,200,0.2),transparent); margin:0 40px; }
+
+  @media (max-width:720px) {
+    .header { flex-direction:column; padding:24px; }
+    .header-svg { width:180px; height:130px; align-self:center; }
+    .lesson-title { font-size:24px; }
+    .panel,.mcq-section { padding:24px; }
+    .mcq-grid,.mit-grid { grid-template-columns:1fr; }
+    .footer { padding:20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L27 / 32</div>
+      <h1 class="lesson-title">Mitigation</h1>
+      <p class="lesson-subtitle">Chemical stressor mitigation — local interventions, buffering strategies, restoration chemistry, and CMIE Decision Score routing</p>
+    </div>
+
+    <!-- SVG: mitigation efficacy pyramid — 5 tiers stacked largest→smallest, color-coded, with timescale labels -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- Pyramid tiers (trapezoids, bottom = widest = easiest/fastest) -->
+
+      <!-- Tier 1: Local stress reduction (base, green) — widest, fastest -->
+      <polygon points="20,148 200,148 188,122 32,122"
+               fill="rgba(62,207,142,0.20)" stroke="rgba(62,207,142,0.5)" stroke-width="1"/>
+      <text x="110" y="139" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#3ecf8e" font-weight="500">LOCAL STRESS REDUCTION</text>
+      <text x="110" y="149" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">Months · High feasibility · CMIE Tier 1</text>
+
+      <!-- Tier 2: Ecosystem buffering (cyan) -->
+      <polygon points="32,120 188,120 174,96 46,96"
+               fill="rgba(26,200,200,0.18)" stroke="rgba(26,200,200,0.45)" stroke-width="1"/>
+      <text x="110" y="111" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#1ac8c8" font-weight="500">ECOSYSTEM BUFFERING</text>
+      <text x="110" y="121" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">1–5 yrs · Moderate · CMIE Tier 2</text>
+
+      <!-- Tier 3: Active restoration (purple) -->
+      <polygon points="46,94 174,94 158,70 62,70"
+               fill="rgba(155,127,232,0.18)" stroke="rgba(155,127,232,0.45)" stroke-width="1"/>
+      <text x="110" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9b7fe8" font-weight="500">ACTIVE RESTORATION</text>
+      <text x="110" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">3–10 yrs · Complex · CMIE Tier 3</text>
+
+      <!-- Tier 4: Policy & watershed (gold) -->
+      <polygon points="62,68 158,68 144,46 76,46"
+               fill="rgba(240,180,41,0.18)" stroke="rgba(240,180,41,0.45)" stroke-width="1"/>
+      <text x="110" y="59" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" font-weight="500">POLICY / WATERSHED</text>
+      <text x="110" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">5–20 yrs · Institutional</text>
+
+      <!-- Tier 5: Geoengineering (apex, coral/red) — hardest -->
+      <polygon points="76,44 144,44 128,22 92,22"
+               fill="rgba(232,96,64,0.18)" stroke="rgba(232,96,64,0.45)" stroke-width="1"/>
+      <text x="110" y="35" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#e86040" font-weight="500">GEOENGINEERING</text>
+      <text x="110" y="44" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">Decades · Experimental</text>
+
+      <!-- Left axis label -->
+      <text x="8" y="90" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.6" transform="rotate(-90,8,90)">TIMESCALE / COMPLEXITY →</text>
+
+      <!-- Right axis label -->
+      <text x="212" y="90" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#3ecf8e" opacity="0.6" transform="rotate(90,212,90)">REEF IMPACT SPEED →</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          Mitigation is the output layer of the GROAN decision chain. Everything upstream — data collection, normalization, confidence tiering, CMIE cross-module attribution — exists to produce one thing: <strong>a specific, causally-attributed, DS-weighted recommendation for where and how to intervene</strong>. A monitoring system that identifies a stressor but cannot route to a mitigation strategy has not produced a decision. It has produced an observation. The distinction between GROAN and a conventional monitoring framework collapses here: GROAN's DMAP-CAL™ output is not "reef zone X is under stress" — it is "reef zone X requires intervention at the watershed level, with a 68% probability of Ω recovery within three circuits, contingent on agricultural DIN reduction."
+        </p>
+
+        <p style="margin-bottom:14px;">
+          GROAN organizes mitigation into five tiers, ordered by timescale, feasibility, and DS routing. <strong>Tier assignment is not a fixed property of a mitigation strategy — it is determined by the stressor attribution in the CMIE output.</strong> The same mangrove restoration action is a Tier 2 response when deployed as a buffering strategy against karst SGD dilution, and a Tier 3 response when deployed as an active habitat restoration following clearing by aquaculture.
+        </p>
+
+        <div class="mit-grid">
+
+          <!-- Tier 1: Local stress reduction -->
+          <div class="mit-block mb-local">
+            <div class="mb-header">Tier 1 · Local Stress Reduction</div>
+            <div class="mb-chips">
+              <span class="chip c-local">Fastest impact</span>
+              <span class="chip c-local">High feasibility</span>
+              <span class="chip c-local">Months</span>
+              <span class="chip c-local">CMIE primary route</span>
+            </div>
+            <p class="mb-desc">
+              Reducing the anthropogenic stressor directly at its proximal source — the action with the shortest lag between implementation and measurable chemical response at the reef. Examples: closing or relocating a sewage outfall adjacent to a reef zone (DO and NH₄⁺ recovery within weeks); reducing fertilizer application rates in the upstream watershed (DIN plume reduction within one wet season); eliminating conventional sunscreen at high-visitor dive sites (oxybenzone levels decline within days of policy enforcement). Tier 1 is CMIE's default routing when a human-attributed stressor has been positively identified and a proximal source is within regulatory reach of the national jurisdiction. <strong>This is where the Rim Run™ corridor data and CCRA stakeholder relationships become operationally critical</strong> — CMIE's attribution is only actionable if there is a trust relationship with the coastal community or government agency that controls the proximal source.
+            </p>
+          </div>
+
+          <!-- Tier 2: Ecosystem buffering -->
+          <div class="mit-block mb-buffer">
+            <div class="mb-header">Tier 2 · Ecosystem Buffering</div>
+            <div class="mb-chips">
+              <span class="chip c-buffer">1–5 years</span>
+              <span class="chip c-buffer">Mangrove TA</span>
+              <span class="chip c-buffer">Seagrass DO</span>
+              <span class="chip c-buffer">Biogenic buffering</span>
+            </div>
+            <p class="mb-desc">
+              Protecting or restoring the biological systems that chemically buffer reef zones — the natural alkalinity and DO regulation machinery that operates continuously without human intervention once healthy. Primary buffering systems: mangroves (TA export, DIN uptake, SGD dilution of alkalinity subsidy), seagrass meadows (diel DO amplitude, daytime pCO₂ drawdown, Ω buffering). When CMIE detects that a reef zone's carbonate chemistry has degraded due to loss of upstream buffering capacity rather than direct chemical loading, the Tier 2 response — protecting remaining buffer habitat and initiating passive restoration — can produce measurable Ω improvement within <strong>1–3 years</strong> at lower cost and complexity than active coral restoration. The chemical signal of successful buffering restoration is a recovering diel DO amplitude and TA normalization in the downstream reef zone.
+            </p>
+          </div>
+
+          <!-- Tier 3: Active restoration -->
+          <div class="mit-block mb-rest">
+            <div class="mb-header">Tier 3 · Active Chemical Restoration</div>
+            <div class="mb-chips">
+              <span class="chip c-rest">3–10 years</span>
+              <span class="chip c-rest">Biorock / mineral</span>
+              <span class="chip c-rest">Assisted evolution</span>
+              <span class="chip c-rest">Alkalinity enhancement</span>
+            </div>
+            <p class="mb-desc">
+              Direct intervention in reef zone chemistry or coral biology when passive and buffering approaches are insufficient. Three active restoration pathways have documented chemical evidence: <strong>Biorock mineral accretion technology</strong> (low-voltage electrolysis precipitating calcium carbonate substrate, directly elevating local Ω and providing thermally-tolerant settlement substrate); <strong>alkalinity enhancement</strong> (addition of crushed limestone or calcium hydroxide to locally elevate TA and Ω — documented at experimental scale, high-energy cost, spatial limitation); <strong>assisted coral evolution</strong> (transplanting thermally-tolerant coral genotypes that maintain calcification at lower Ω thresholds). CMIE routes to Tier 3 when the stressor cannot be reduced at source (OA is global, not controllable locally) and buffering capacity has been exhausted or cannot be restored within the intervention window.
+            </p>
+          </div>
+
+          <!-- Tier 4: Policy & watershed -->
+          <div class="mit-block mb-policy">
+            <div class="mb-header">Tier 4 · Policy &amp; Watershed Management</div>
+            <div class="mb-chips">
+              <span class="chip c-policy">5–20 years</span>
+              <span class="chip c-policy">MPA designation</span>
+              <span class="chip c-policy">Land use regulation</span>
+              <span class="chip c-policy">Cross-border governance</span>
+            </div>
+            <p class="mb-desc">
+              Institutional and regulatory interventions operating at watershed and national scales — the appropriate response when the stressor source is diffuse, cross-jurisdictional, or embedded in land use patterns that cannot be changed by individual stakeholders. Relevant chemical pathways: MPA designation reducing fishing pressure (indirect — improves reef resilience and biogenic carbonate production capacity); land use zoning reducing agricultural footprint in reef-adjacent watersheds (direct — DIN loading reduction over years to decades); cross-border wastewater treatment standards (direct — sewage NH₄⁺ reduction). CMIE routes to Tier 4 when a multi-year DIN trend in the corridor record demonstrates that Tier 1 proximal source control is insufficient — the stressor is distributed across a watershed too large for site-level intervention.
+            </p>
+          </div>
+
+          <!-- Tier 5: Geoengineering -->
+          <div class="mit-block mb-geo">
+            <div class="mb-header">Tier 5 · Geoengineering &amp; Experimental</div>
+            <div class="mb-chips">
+              <span class="chip c-geo">Decades</span>
+              <span class="chip c-geo">Ocean alkalinity</span>
+              <span class="chip c-geo">CDR</span>
+              <span class="chip c-geo">Experimental only</span>
+            </div>
+            <p class="mb-desc">
+              Large-scale interventions targeting global OA through carbon dioxide removal (CDR) or ocean alkalinity enhancement (OAE) at basin scale. These approaches are not operationally available within the Rim Run™ circuit timeframe — GROAN tracks them as background context, not as actionable DS outputs. Chemical monitoring of Tier 5 trial sites, however, represents a future GROAN data contribution: the corridor's longitudinal Ω and TA record would provide before-and-after baseline data for any OAE trial deployed in the Caribbean basin. CMIE does not route to Tier 5 as an intervention target. It routes to Tier 5 only as a <span class="coral">monitoring priority flag</span> — identifying reef zones where no Tier 1–4 intervention is sufficient to prevent Ω decline within the observable trend window.
+            </p>
+          </div>
+
+          <!-- CMIE routing logic — full width -->
+          <div class="mit-block mb-cmie">
+            <div class="mb-header">CMIE Mitigation Routing Logic</div>
+            <div class="mb-chips">
+              <span class="chip c-cyan">Attribution → Tier</span>
+              <span class="chip c-cyan">DS threshold → urgency</span>
+              <span class="chip c-cyan">Jurisdiction → feasibility</span>
+              <span class="chip c-cyan">Lead time → timing</span>
+            </div>
+            <p class="mb-desc">
+              CMIE selects a mitigation tier by combining four variables: <strong>stressor attribution</strong> (what is causing the chemical signal — determines which tier is capable of addressing it); <strong>DS threshold</strong> (how urgent — determines whether the response must be Tier 1 immediate or Tier 2–4 strategic); <strong>jurisdiction</strong> (which national authority controls the proximal source — determines whether CMIE's recommendation is actionable or theoretical); and <strong>chemical lead time</strong> (how many Rim Run™ circuits remain before Ω declines below the critical threshold at the current trend rate — determines whether there is time for a Tier 2 buffering response or whether Tier 3 active restoration must begin immediately). The Decision Score formula — DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility — weights each of these variables. A high-DS mitigation recommendation at a site with a trust-established CCRA partner government is structurally different from the same chemical signal at a site with no institutional relationship. The data is the same. The actionability is not.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Efficacy comparison -->
+        <p style="margin-bottom:12px;"><strong>Mitigation efficacy reference.</strong> Documented chemical response time and Ω recovery magnitude across intervention types:</p>
+
+        <table class="efficacy-table">
+          <thead>
+            <tr>
+              <th>Intervention</th>
+              <th>Stressor Addressed</th>
+              <th>Chemical Response Time</th>
+              <th>Ω Recovery Potential</th>
+              <th style="width:120px">Efficacy (Local)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--m-local)">Sewage outfall relocation</strong></td>
+              <td>NH₄⁺, DO, DIN</td>
+              <td>2–6 weeks</td>
+              <td>Indirect (DO/DIN)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:88%;background:linear-gradient(90deg,rgba(62,207,142,0.6),rgba(62,207,142,0.9))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-local)">Fertilizer reduction (upstream)</strong></td>
+              <td>DIN, N:P</td>
+              <td>1–2 wet seasons</td>
+              <td>Indirect (eutrophication)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:72%;background:linear-gradient(90deg,rgba(62,207,142,0.5),rgba(62,207,142,0.75))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-buffer)">Mangrove protection / passive rest.</strong></td>
+              <td>TA deficit, DIN, SGD</td>
+              <td>1–5 years</td>
+              <td>+0.1–0.3 Ω (buffering)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:65%;background:linear-gradient(90deg,rgba(26,200,200,0.5),rgba(26,200,200,0.75))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-buffer)">Seagrass protection</strong></td>
+              <td>Diel DO amplitude, pCO₂</td>
+              <td>1–3 years</td>
+              <td>DO amp +1–2 mg/L</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:60%;background:linear-gradient(90deg,rgba(26,200,200,0.45),rgba(26,200,200,0.70))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-rest)">Biorock mineral accretion</strong></td>
+              <td>Local Ω, thermal tolerance</td>
+              <td>3–7 years</td>
+              <td>+0.2–0.5 Ω (local)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:50%;background:linear-gradient(90deg,rgba(155,127,232,0.45),rgba(155,127,232,0.70))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-rest)">Alkalinity enhancement (pilot)</strong></td>
+              <td>Ω, pH (local)</td>
+              <td>Days–weeks (transient)</td>
+              <td>+0.3–0.6 Ω (temporary)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:35%;background:linear-gradient(90deg,rgba(155,127,232,0.35),rgba(155,127,232,0.55))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-policy)">MPA designation</strong></td>
+              <td>Fishing pressure, resilience</td>
+              <td>5–15 years</td>
+              <td>Indirect (NEC, biogenic)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:45%;background:linear-gradient(90deg,rgba(240,180,41,0.4),rgba(240,180,41,0.65))"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--m-geo)">OAE / CDR (experimental)</strong></td>
+              <td>Global OA trend</td>
+              <td>Decades</td>
+              <td>Basin-scale (uncertain)</td>
+              <td>
+                <div class="eff-bar-wrap">
+                  <div class="eff-bar" style="width:20%;background:linear-gradient(90deg,rgba(232,96,64,0.3),rgba(232,96,64,0.50))"></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:16px;">
+          <strong>Key argument:</strong> GROAN's mitigation value is not the list of interventions — every reef management body already has that list. GROAN's value is <span class="coral">knowing which intervention to apply, at which site, in which jurisdiction, in which order, and with what probability of measurable chemical recovery within a defined number of Rim Run™ circuits</span>. That specificity is the Decision Score output. It is produced by CMIE's cross-module attribution. And it is verified or falsified by the next annual corridor sampling event — closing the DMAP-CAL™ Learn loop.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          La mitigación es la capa de salida de la cadena de decisiones GROAN. Todo lo que está aguas arriba existe para producir una cosa: <strong>una recomendación específica, causalmente atribuida y ponderada por DS sobre dónde y cómo intervenir</strong>. Un sistema de monitoreo que identifica un estresor pero no puede enrutar a una estrategia de mitigación no ha producido una decisión. Ha producido una observación.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Nivel 1 — Reducción del Estrés Local:</strong> Reducir el estresor antropogénico directamente en su fuente proximal — la acción con el menor retraso entre implementación y respuesta química medible en el arrecife. CMIE enruta al Nivel 1 cuando un estresor atribuido a actividades humanas ha sido identificado positivamente y una fuente proximal está dentro del alcance regulatorio de la jurisdicción nacional.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Nivel 2 — Amortiguación del Ecosistema:</strong> Proteger o restaurar los sistemas biológicos que amortiguan químicamente las zonas arrecifales. Los sistemas de amortiguación primarios: manglares (exportación de AT, absorción de DIN) y praderas de pastos marinos (amplitud diurna de OD, reducción diurna de pCO₂). La señal química de una restauración exitosa es una amplitud diurna de OD en recuperación y normalización de AT en la zona arrecifal aguas abajo.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Nivel 3 — Restauración Química Activa:</strong> Tres vías de restauración activa con evidencia química documentada: tecnología de acreción mineral Biorock (electrólisis de bajo voltaje precipitando sustrato de carbonato de calcio); mejora de alcalinidad (adición de piedra caliza triturada); evolución asistida del coral.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Nivel 4 — Política y Gestión de Cuencas:</strong> Intervenciones institucionales y regulatorias — la respuesta apropiada cuando la fuente del estresor es difusa, transjurisdiccional o está integrada en patrones de uso de la tierra que no pueden cambiarse por partes interesadas individuales.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Nivel 5 — Geoingeniería:</strong> CMIE no enruta al Nivel 5 como objetivo de intervención. Enruta al Nivel 5 solo como <span class="coral">señal de prioridad de monitoreo</span> — identificando zonas arrecifales donde ninguna intervención de Nivel 1–4 es suficiente para prevenir el declive de Ω dentro de la ventana de tendencia observable.
+        </p>
+        <p>
+          <strong>Argumento clave:</strong> El valor de mitigación de GROAN no es la lista de intervenciones — cada organismo de gestión de arrecifes ya tiene esa lista. El valor de GROAN es <span class="coral">saber qué intervención aplicar, en qué sitio, en qué jurisdicción, en qué orden y con qué probabilidad de recuperación química medible dentro de un número definido de circuitos Rim Run™</span>. Esa especificidad es la salida del Puntaje de Decisión.
+        </p>
+      </div>
+    </div>
+
+    <!-- MITIGATION REFERENCE TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Strategy</th>
+          <th>Primary Stressor Target</th>
+          <th>Timescale</th>
+          <th>CMIE Routing Condition</th>
+          <th>Rim Run™ Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--m-local)">1 — Local</strong></td>
+          <td>Source removal · runoff control · sunscreen ban</td>
+          <td>DIN, NH₄⁺, DO, oxybenzone</td>
+          <td>Weeks–months</td>
+          <td>Human source identified + jurisdictional reach</td>
+          <td><span class="badge badge-high">Attribution data + CCRA trust</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--m-buffer)">2 — Buffering</strong></td>
+          <td>Mangrove / seagrass protection &amp; passive rest.</td>
+          <td>TA deficit, diel DO, Ω buffering</td>
+          <td>1–5 years</td>
+          <td>Buffering loss identified as proximal cause</td>
+          <td><span class="badge badge-high">TA / DO trend verification</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--m-rest)">3 — Restoration</strong></td>
+          <td>Biorock · alkalinity enhancement · assisted evol.</td>
+          <td>Local Ω, thermal tolerance, NEC</td>
+          <td>3–10 years</td>
+          <td>Source unreducible, buffering exhausted</td>
+          <td><span class="badge badge-mod">NEC + Ω trend baseline</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--m-policy)">4 — Policy</strong></td>
+          <td>MPA · land use zoning · wastewater standards</td>
+          <td>Diffuse DIN, fishing pressure, resilience</td>
+          <td>5–20 years</td>
+          <td>Stressor distributed across watershed</td>
+          <td><span class="badge badge-mod">Multi-year corridor trend</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--m-geo)">5 — Geo.</strong></td>
+          <td>OAE · CDR (experimental)</td>
+          <td>Global OA trend</td>
+          <td>Decades</td>
+          <td>No Tier 1–4 action sufficient</td>
+          <td><span class="badge badge-gap">Monitoring priority flag only</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>When CMIE generates a DS-elevated output for a reef zone with a confirmed agricultural DIN attribution and the proximal watershed is within the regulatory reach of the national government, route to Tier 1 before considering any other response. Document the specific source — the country, the watershed, the discharge mechanism, and the CCRA contact with jurisdiction — in the CMIE calibration record. A Tier 1 response without a named contact in the trust network is a data output, not an actionable decision. The attribution is only as useful as the relationship that can act on it.</span></li>
+        <li><span class="app-num">02</span><span>When CMIE identifies that a reef zone Ω has declined due to loss of mangrove buffering capacity — evidenced by declining upstream TA and loss of diel DO amplitude in the downstream reef station — route to Tier 2 before considering active coral restoration. Protecting or passively restoring the remaining mangrove buffer can produce measurable Ω recovery within 1–3 annual circuits at a fraction of the cost of active restoration. Tier 3 should not be initiated at a site where the Tier 2 buffering mechanism is still partially intact and restorable.</span></li>
+        <li><span class="app-num">03</span><span>When the Rim Run™ annual circuit re-samples a site where a Tier 1 or Tier 2 mitigation recommendation was generated in a prior circuit, compare the current chemistry against the CMIE-predicted recovery trajectory. If the chemical signal has improved in line with the DS prediction, record the confirmed recovery in the DMAP-CAL™ Learn cycle and reduce the DS alert level accordingly. If the signal has not improved, escalate the response — either from Tier 1 to Tier 2, or from Tier 2 to Tier 3 — and document the escalation rationale in the calibration record. The corridor's annual repeatability is the verification mechanism for every mitigation recommendation GROAN produces.</span></li>
+        <li><span class="app-num">04</span><span>At any site where the annual Ω trend rate exceeds −0.1 units per circuit and no Tier 1 through Tier 4 intervention is achievable within the observable trend window — because the stressor is global OA with no controllable proximal source — flag the site as a Tier 5 monitoring priority in the CMIE record. Do not generate a management action recommendation for the site. Instead, document it as a site where long-term Ω monitoring is the only viable GROAN contribution, and note it as a candidate for future OAE trial baseline monitoring if basin-scale interventions are deployed in the Caribbean.</span></li>
+        <li><span class="app-num">05</span><span>When generating a mitigation recommendation for a reef zone that crosses a national boundary along the MAR corridor, specify the national jurisdiction responsible for each component of the intervention separately. A DIN plume originating in a Guatemalan watershed and reaching a Belizean reef zone requires a Tier 1 response in Guatemala and a Tier 2 or monitoring response in Belize — the intervention authority and the impact location are in different countries. Combining them into a single cross-border recommendation without jurisdictional attribution will produce a DS output that no single government body can act on.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Cuando CMIE genera una salida DS elevada para una zona arrecifal con una atribución agrícola de DIN confirmada y la cuenca hidrográfica proximal está dentro del alcance regulatorio del gobierno nacional, enrute al Nivel 1 antes de considerar cualquier otra respuesta. Una respuesta de Nivel 1 sin un contacto nombrado en la red de confianza es una salida de datos, no una decisión accionable.</span></li>
+        <li><span class="app-num">02</span><span>Cuando CMIE identifica que el Ω de una zona arrecifal ha disminuido debido a la pérdida de capacidad de amortiguación de manglares — evidenciada por AT decreciente aguas arriba y pérdida de amplitud diurna de OD en la estación arrecifal aguas abajo — enrute al Nivel 2 antes de considerar la restauración activa de coral. El Nivel 3 no debe iniciarse en un sitio donde el mecanismo de amortiguación del Nivel 2 todavía esté parcialmente intacto y sea restaurable.</span></li>
+        <li><span class="app-num">03</span><span>Cuando el circuito anual Rim Run™ vuelve a muestrear un sitio donde se generó una recomendación de mitigación de Nivel 1 o Nivel 2 en un circuito anterior, compare la química actual con la trayectoria de recuperación predicha por CMIE. Si la señal química no ha mejorado, escale la respuesta — ya sea de Nivel 1 a Nivel 2, o de Nivel 2 a Nivel 3 — y documente la justificación de la escalada en el registro de calibración.</span></li>
+        <li><span class="app-num">04</span><span>En cualquier sitio donde la tasa de tendencia anual de Ω supere −0.1 unidades por circuito y no sea alcanzable ninguna intervención de Nivel 1 a Nivel 4, marque el sitio como una prioridad de monitoreo de Nivel 5 en el registro CMIE. No genere una recomendación de acción de gestión para el sitio.</span></li>
+        <li><span class="app-num">05</span><span>Al generar una recomendación de mitigación para una zona arrecifal que cruza una frontera nacional a lo largo del corredor MAR, especifique la jurisdicción nacional responsable de cada componente de la intervención por separado. Combinarlos en una recomendación transfronteriza única sin atribución jurisdiccional producirá una salida DS que ningún organismo gubernamental puede implementar.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">CMIE detects a reef zone Ω decline attributed to loss of upstream mangrove buffering capacity. The remaining mangrove fringe is degraded but partially intact. What is the correct GROAN mitigation routing?</div>
+        <div class="mcq-q-es">CMIE detecta un declive de Ω en una zona arrecifal atribuido a la pérdida de capacidad de amortiguación de manglares aguas arriba. El franja de manglares restante está degradada pero parcialmente intacta. ¿Cuál es el enrutamiento de mitigación GROAN correcto?</div>
+        <div class="mcq-option">A) Route to Tier 3 active restoration immediately — Ω decline indicates buffering has already failed and passive measures are insufficient / Enrutar al Nivel 3 inmediatamente — el declive de Ω indica que la amortiguación ya ha fallado</div>
+        <div class="mcq-option">B) Route to Tier 1 and identify the direct human source of mangrove loss for proximal removal / Enrutar al Nivel 1 e identificar la fuente humana directa de pérdida de manglares</div>
+        <div class="mcq-option correct">C) Route to Tier 2 — protecting and passively restoring the remaining buffer can produce measurable Ω recovery within 1–3 circuits at lower cost than active restoration; Tier 3 should not be initiated while Tier 2 capacity remains intact / Enrutar al Nivel 2 — proteger y restaurar pasivamente el buffer restante puede producir recuperación medible de Ω en 1–3 circuitos; el Nivel 3 no debe iniciarse mientras el Nivel 2 permanezca intacto</div>
+        <div class="mcq-option">D) Flag as Tier 5 monitoring priority — mangrove loss is driven by global land use change that is not locally controllable / Marcar como prioridad de monitoreo Nivel 5 — la pérdida de manglares es impulsada por cambios globales de uso de la tierra</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">The annual corridor re-sample shows a reef zone where a Tier 1 agricultural DIN intervention was recommended two circuits ago. DIN levels have not declined. What is the correct CMIE response?</div>
+        <div class="mcq-q-es">El remuestreo anual del corredor muestra una zona arrecifal donde se recomendó una intervención agrícola de DIN de Nivel 1 hace dos circuitos. Los niveles de DIN no han disminuido. ¿Cuál es la respuesta CMIE correcta?</div>
+        <div class="mcq-option">A) Maintain the Tier 1 recommendation — two circuits is insufficient time for agricultural runoff reduction to produce measurable DIN changes / Mantener la recomendación de Nivel 1 — dos circuitos son insuficientes para que la reducción de escorrentía agrícola produzca cambios medibles de DIN</div>
+        <div class="mcq-option">B) Downgrade the alert — persistent DIN at the same level indicates the reef has adapted to the elevated baseline / Degradar la alerta — el DIN persistente al mismo nivel indica que el arrecife se ha adaptado a la línea base elevada</div>
+        <div class="mcq-option correct">C) Escalate the response — document the failed recovery in the DMAP-CAL™ Learn cycle, re-examine the source attribution (the stressor may be distributed across the watershed rather than proximal), and escalate from Tier 1 to Tier 4 policy/watershed management / Escalar la respuesta — documentar la recuperación fallida en el ciclo Aprender de DMAP-CAL™ y escalar del Nivel 1 al Nivel 4</div>
+        <div class="mcq-option">D) Apply alkalinity enhancement to compensate for the persistent DIN-driven eutrophication locally / Aplicar mejora de alcalinidad para compensar localmente la eutrofización persistente</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">Why does GROAN route Tier 5 as a monitoring priority flag rather than a mitigation action target?</div>
+        <div class="mcq-q-es">¿Por qué GROAN enruta el Nivel 5 como una señal de prioridad de monitoreo en lugar de un objetivo de acción de mitigación?</div>
+        <div class="mcq-option">A) Because geoengineering interventions are illegal under international maritime law within the Caribbean basin / Porque las intervenciones de geoingeniería son ilegales bajo la ley marítima internacional en la cuenca caribeña</div>
+        <div class="mcq-option">B) Because the CMIE confidence tier for OAE and CDR outcomes is always Low, making DS generation unreliable / Porque el nivel de confianza CMIE para resultados de OAE y CDR es siempre Bajo</div>
+        <div class="mcq-option correct">C) Because Tier 5 addresses global OA which is not locally controllable — CMIE cannot generate an actionable intervention target at the site level; instead it identifies sites where the longitudinal Ω record would provide baseline data for future basin-scale OAE trials / Porque el Nivel 5 aborda la OA global que no es controlable localmente — CMIE no puede generar un objetivo de intervención accionable a nivel de sitio</div>
+        <div class="mcq-option">D) Because Tier 5 interventions require a separate decision framework outside DMAP-CAL™ and are handled by a different GROAN module / Porque las intervenciones de Nivel 5 requieren un marco de decisión separado fuera de DMAP-CAL™</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 59 of 704</span>
+      <span class="progress-pct">8.38%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
