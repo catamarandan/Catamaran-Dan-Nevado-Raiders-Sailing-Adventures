@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S01·L32 Physical Oceanography — Future Outlook</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15); color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);  color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .section-complete { margin: 0 40px 0; padding: 18px 24px; background: rgba(26,200,200,0.06); border: 1px solid rgba(26,200,200,0.2); border-radius: 3px; display: flex; align-items: center; gap: 16px; }
+  .section-complete-icon { font-family: 'DM Mono', monospace; font-size: 22px; color: var(--ocean-cyan); opacity: 0.85; }
+  .section-complete-text { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--ocean-cyan); text-transform: uppercase; line-height: 1.7; }
+  .section-complete-text span { color: var(--gold); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; margin-top: 0; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 4.55%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 01 · Lesson 32 · Physical Oceanography</div>
+        <div class="lesson-title">Future Outlook</div>
+        <div class="lesson-subtitle">Projected Ocean States, Emerging Technologies, and GROAN's Long-Range Role</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Climate Projections</span>
+        <span class="tag tag-gold">Emerging Tech</span>
+        <span class="tag tag-coral">GROAN META-LAYER</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: timeline projection — present → 2050 → 2100 with SST trajectory, Ω trajectory, and GROAN adaptive response arc -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="seaG32" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04294a"/>
+            <stop offset="100%" stop-color="#020f1e"/>
+          </linearGradient>
+          <linearGradient id="sstGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8"/>
+            <stop offset="60%" stop-color="#f0b429"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+          <linearGradient id="omegaGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="340" height="220" fill="url(#seaG32)"/>
+
+        <!-- Axes -->
+        <line x1="38" y1="185" x2="318" y2="185" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+        <line x1="38" y1="185" x2="38"  y2="20"  stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+
+        <!-- X axis labels -->
+        <text x="38"  y="197" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.8">2026</text>
+        <text x="131" y="197" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.8">2050</text>
+        <text x="224" y="197" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.8">2075</text>
+        <text x="315" y="197" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8ab8cc" opacity="0.8">2100</text>
+        <!-- X tick marks -->
+        <line x1="131" y1="183" x2="131" y2="187" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <line x1="224" y1="183" x2="224" y2="187" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+        <line x1="315" y1="183" x2="315" y2="187" stroke="rgba(26,200,200,0.3)" stroke-width="1"/>
+
+        <!-- SST trajectory curve (rising, coral-colored) -->
+        <path d="M38,140 Q100,132 131,118 Q180,98 224,78 Q270,58 315,42"
+              stroke="url(#sstGrad)" stroke-width="2" fill="none" opacity="0.85"/>
+        <text x="320" y="40" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.9">SST</text>
+        <text x="320" y="49" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.9">+2–4°C</text>
+
+        <!-- Aragonite saturation trajectory (declining) -->
+        <path d="M38,68 Q100,78 131,90 Q180,108 224,128 Q270,150 315,165"
+              stroke="url(#omegaGrad)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" opacity="0.75"/>
+        <text x="320" y="158" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.8">Ω→1.8</text>
+        <!-- Omega 2.0 danger line -->
+        <line x1="38" y1="120" x2="318" y2="120" stroke="#f0b429" stroke-width="0.7" stroke-dasharray="3,4" opacity="0.35"/>
+        <text x="42" y="117" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" opacity="0.6">Ω 2.0 threshold</text>
+
+        <!-- GROAN adaptive response arc (cyan, stable/hopeful) -->
+        <path d="M38,155 Q100,148 131,142 Q180,134 224,130 Q270,127 315,125"
+              stroke="#1ac8c8" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <text x="228" y="122" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" opacity="0.85">GROAN DS</text>
+        <text x="228" y="131" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" opacity="0.85">adaptive mgmt</text>
+
+        <!-- Tipping zone shading -->
+        <rect x="185" y="20" width="130" height="165" fill="rgba(232,96,64,0.04)" rx="2"/>
+        <text x="250" y="32" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040" opacity="0.45">HIGH-RISK ZONE</text>
+
+        <!-- Now marker -->
+        <line x1="38" y1="20" x2="38" y2="185" stroke="#1ac8c8" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.4"/>
+        <text x="42" y="30" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8" opacity="0.7">NOW</text>
+
+        <!-- Legend -->
+        <line x1="42" y1="210" x2="62" y2="210" stroke="#e86040" stroke-width="2" opacity="0.7"/>
+        <text x="65" y="213" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">SST rise</text>
+        <line x1="118" y1="210" x2="138" y2="210" stroke="#e86040" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7"/>
+        <text x="141" y="213" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">Ω decline</text>
+        <line x1="198" y1="210" x2="218" y2="210" stroke="#1ac8c8" stroke-width="1.5" opacity="0.7"/>
+        <text x="221" y="213" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.7">GROAN DS</text>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Physical Oceanography: Future Outlook</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>The final lesson of Section 01 synthesizes the physical oceanographic knowledge base built across 31 preceding lessons into a forward-looking assessment of how ocean systems will change through 2100, what those changes mean for reef science and management, and how GROAN's architecture is positioned to remain relevant — and decision-useful — across the full projected range of future ocean states.</p>
+
+      <p><strong>Projected SST trajectories</strong> under IPCC SSP2-4.5 (intermediate emissions) and SSP5-8.5 (high emissions) bracket a 2026–2100 surface warming range of +1.5°C to +4.0°C above pre-industrial baselines in tropical reef zones. Under SSP5-8.5, annual bleaching-level thermal stress events become the norm for most tropical reefs by 2040–2050 — eliminating the multi-year recovery windows that current restoration programs depend on. The management implication is not a distant risk projection; it is a current-decade operational constraint. Programs designed for a reef system that experiences bleaching every 5–7 years are architecturally inadequate for a system bleaching annually.</p>
+
+      <p><strong>Aragonite saturation projections</strong> follow atmospheric CO₂ concentration curves with approximately a 10–20 year lag. Under current trajectories, MAR surface water aragonite saturation (currently Ω ~3.0–3.2) reaches the nonlinear dissolution acceleration zone (Ω 2.0) by approximately 2060–2080, and the framework net-dissolution threshold (Ω 1.5) before 2100 under high-emissions scenarios. This is not a gradual transition — as demonstrated in L30, dissolution rate is nonlinear in the saturation deficit, meaning the last 0.5 Ω units of decline produce disproportionate structural damage.</p>
+
+      <p><strong>Sea level rise</strong> introduces a physical parameter absent from most current monitoring frameworks. Reef crests are hydrodynamically calibrated to present-day sea level: the wave energy dissipation, light attenuation, and tidal flushing dynamics that make crests habitable for shallow coral communities are all depth-dependent. A 0.5–1.0 m sea level rise by 2100 (IPCC median projection) shifts the entire physical forcing regime at reef crest depth — either drowning shallow specialists in deeper, lower-light water, or, where reef accretion keeps pace, producing a potential refugium from thermal stress as deeper water provides thermal buffering.</p>
+
+      <p><strong>Emerging monitoring technologies</strong> are transforming the observational capacity available to reef science within the GROAN operational window. Environmental DNA (eDNA) sampling — filtering seawater to capture genetic material shed by organisms — enables species presence/absence detection without visual surveys, reducing per-site survey time by an order of magnitude. Autonomous underwater vehicles (AUVs) equipped with photogrammetry systems generate sub-centimeter 3D reef structure models that replace weeks of diver survey time. Hyperspectral satellite imagery (Planet Labs, Maxar) is approaching the spatial and spectral resolution required to map coral species composition from orbit. Each of these technologies produces a new data stream requiring integration into GROAN's GRIN ingestion pipeline — a design demand that validates the three-layer data registry architecture (L1 API Registry, L2 Normalization, L3 Source Arbitration) developed in Session 22.</p>
+
+      <p><strong>AI and machine learning integration</strong> in reef monitoring is accelerating. Automated coral cover classification from photoquadrats (CoralNet), species identification from underwater video (ReefCloud, CoralScan), and predictive bleaching models trained on SST anomaly time series are all moving from research tools to operational platforms. GROAN's GSIN module — the image confidence tier schema (High >85%, Moderate 60–85%, Low <60%) and edge compression pipeline — is explicitly designed to ingest AI-classified imagery at scale, positioning the system to absorb emerging automated survey outputs without architectural refactoring.</p>
+
+      <p><strong>GROAN's long-range institutional role</strong> is defined by what decision-makers will need in a 2040–2060 ocean: not monitoring data (satellites will provide that at global scale), but <strong>cross-ecosystem causal intelligence</strong> that translates observed physical states into actionable management decisions under conditions of nonlinear system behavior, compressed recovery windows, and simultaneous multi-stressor pressure. The Cross-Module Interaction Engine is not a product of current ocean conditions — it is an architecture designed for the ocean states projected to dominate within the operational lifespan of every reef management institution active today.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La última lección de la Sección 01 sintetiza la base de conocimiento oceanográfico físico construida a lo largo de 31 lecciones previas en una evaluación prospectiva de cómo cambiarán los sistemas oceánicos hasta 2100 y cómo la arquitectura de GROAN está posicionada para permanecer relevante — y útil para la toma de decisiones — en todo el rango proyectado de estados oceánicos futuros.</p>
+
+      <p>Las <strong>trayectorias proyectadas de TSM</strong> bajo los escenarios SSP2-4.5 y SSP5-8.5 del IPCC abarcan un rango de calentamiento superficial de +1.5°C a +4.0°C por encima de las líneas base pre-industriales en zonas arrecifales tropicales. Bajo SSP5-8.5, los eventos de estrés térmico a nivel de blanqueamiento anual se convierten en la norma para la mayoría de los arrecifes tropicales hacia 2040–2050, eliminando las ventanas de recuperación de varios años de las que dependen los programas de restauración actuales.</p>
+
+      <p>Las <strong>proyecciones de saturación de aragonita</strong> siguen las curvas de concentración de CO₂ atmosférico con un retraso aproximado de 10 a 20 años. Con las trayectorias actuales, la saturación de aragonita del agua superficial del MAR alcanza la zona de aceleración de disolución no lineal (Ω 2.0) hacia aproximadamente 2060–2080, y el umbral de disolución neta del armazón (Ω 1.5) antes de 2100 bajo escenarios de altas emisiones.</p>
+
+      <p>El <strong>aumento del nivel del mar</strong> introduce un parámetro físico ausente en la mayoría de los marcos de monitoreo actuales. Las crestas arrecifales están hidrodinámicamente calibradas al nivel del mar actual: un aumento de 0.5–1.0 m para 2100 desplaza todo el régimen de forzamiento físico a la profundidad de la cresta arrecifal.</p>
+
+      <p>Las <strong>tecnologías de monitoreo emergentes</strong> están transformando la capacidad observacional disponible para la ciencia arrecifal: el muestreo de ADN ambiental (eDNa), los vehículos submarinos autónomos (AUVs) con fotogrametría, y las imágenes satelitales hiperespectrales. Cada una produce un nuevo flujo de datos que requiere integración en el pipeline de ingesta GRIN de GROAN — validando la arquitectura de registro de datos de tres capas desarrollada en la Sesión 22.</p>
+
+      <p>El <strong>rol institucional a largo plazo de GROAN</strong> está definido por lo que los tomadores de decisiones necesitarán en un océano de 2040–2060: no datos de monitoreo (los satélites los proporcionarán a escala global), sino <strong>inteligencia causal entre ecosistemas</strong> que traduzca estados físicos observados en decisiones de gestión accionables bajo condiciones de comportamiento sistémico no lineal, ventanas de recuperación comprimidas y presión simultánea de múltiples estresores.</p>
+    </div>
+
+    <!-- Data Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Parameter / Parámetro</th>
+          <th>2026 Baseline</th>
+          <th>2050 Projection</th>
+          <th>2100 Projection (SSP5-8.5)</th>
+          <th>GROAN Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Tropical SST / TSM tropical</td><td>+1.1°C above pre-industrial</td><td>+1.8–2.2°C</td><td>+3.0–4.0°C</td><td>GRIN thermal index recalibration</td></tr>
+        <tr><td>Aragonite saturation (MAR) / Ω</td><td>~3.0–3.2</td><td>~2.6–2.8</td><td>~1.8–2.0</td><td>GRIN OA sub-index alarm at Ω 2.0</td></tr>
+        <tr><td>Annual bleaching frequency</td><td>Every 5–7 years</td><td>Every 2–3 years</td><td>Annual (most reefs)</td><td>CMIE recovery window compression flag</td></tr>
+        <tr><td>Sea level rise / Nivel del mar</td><td>Baseline</td><td>+0.2–0.3 m</td><td>+0.5–1.0 m</td><td>GRIN depth regime flag</td></tr>
+        <tr><td>eDNA monitoring availability</td><td>Research phase</td><td>Operational</td><td>Standard protocol</td><td>GSIN image/bio ingestion pipeline</td></tr>
+        <tr><td>AI coral classification</td><td>Early tools (CoralNet)</td><td>Operational at scale</td><td>Autonomous global coverage</td><td>GSIN confidence tier schema</td></tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Western Caribbean Application — MAR &amp; Rim Run™ Circuit</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>Under SSP2-4.5, the MAR's most thermally exposed southern nodes (Bay Islands, Nicaraguan coast) are projected to experience annual bleaching-level thermal stress by 2035–2040 — within the operational lifespan of institutional partnerships being built now with CORDAP, KAUST, and CTI. This timeline means the management frameworks established in the Rim Run™ inaugural year (2026) will be tested by annually bleaching reef conditions within a decade of launch.</li>
+        <li>Sea level rise at MAR atolls (Lighthouse Reef, Glover's Reef, Banco Chinchorro) has a structural bifurcation outcome: atolls with active reef accretion rates exceeding sea level rise velocity will gain thermal buffering from increased depth; atolls with accretion suppressed by bleaching-induced coral mortality will experience drowning of shallow coral communities — a divergent fate directly trackable by GROAN's GRIN rugosity and cover indices over the Rim Run™ annual survey cycle.</li>
+        <li>eDNA integration into the MOOP protocol is the highest-value emerging technology addition for the 2026 inaugural circuit: a 1-liter water sample filtered through a 0.2 μm membrane at each reef node captures a genomic snapshot of species presence that supplements visual belt transect surveys with orders-of-magnitude higher species detection sensitivity — particularly for cryptic invertebrates and juvenile fish that snorkel surveys systematically undercount.</li>
+        <li>The Rim Run™ dataset's long-range institutional value is compounding: annual repeat surveys at 100+ fixed nodes generate a time series that becomes more analytically powerful each year. By Year 5 (2031), the dataset is sufficient for threshold detection analysis; by Year 10 (2036), it provides the first citizen science-derived, circuit-wide evidence base for MAR trajectory assessment under the 2026–2036 climate forcing decade.</li>
+        <li>GROAN's META-LAYER (Chapter 7 future work) is the architecture that positions the system for 2040–2060 ocean states: global federated data integration, AI-assisted CMIE weighting, and autonomous Decision Score generation without human data-entry bottlenecks. The physical oceanographic foundation built in Section 01 is the scientific bedrock on which every META-LAYER module will eventually be validated.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Bajo SSP2-4.5, los nodos más expuestos térmicamente del MAR (Islas de la Bahía, costa nicaragüense) proyectan experimentar estrés térmico a nivel de blanqueamiento anual hacia 2035–2040 — dentro del ciclo de vida operacional de las asociaciones institucionales que se están construyendo ahora con CORDAP, KAUST y CTI.</li>
+        <li>El aumento del nivel del mar en los atolones del MAR tiene un resultado de bifurcación estructural: los atolones con tasas de acreción arrecifal activa que superan la velocidad del aumento del nivel del mar ganarán amortiguación térmica; los atolones con acreción suprimida experimentarán el ahogamiento de las comunidades de coral superficiales.</li>
+        <li>La integración de eDNA en el protocolo MOOP es la adición de tecnología emergente de mayor valor para el circuito inaugural 2026: una muestra de agua de 1 litro filtrada a través de una membrana de 0.2 μm en cada nodo arrecifal captura una instantánea genómica de la presencia de especies que complementa las encuestas visuales con una sensibilidad de detección de órdenes de magnitud mayor.</li>
+        <li>El valor institucional a largo plazo del conjunto de datos del Rim Run™ es acumulativo: las encuestas repetidas anuales en más de 100 nodos fijos generan una serie temporal que se vuelve analíticamente más poderosa cada año. Para el Año 5 (2031), el conjunto de datos es suficiente para el análisis de detección de umbrales; para el Año 10 (2036), proporciona la primera base de evidencia derivada de ciencia ciudadana para la evaluación de la trayectoria del MAR.</li>
+        <li>La META-CAPA de GROAN (Capítulo 7, trabajo futuro) es la arquitectura que posiciona al sistema para los estados oceánicos de 2040–2060: integración de datos federados globales, ponderación del CMIE asistida por IA, y generación autónoma de Puntuación de Decisión. La base de oceanografía física construida en la Sección 01 es el fundamento científico sobre el que eventualmente se validará cada módulo de la META-CAPA.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Under SSP5-8.5, annual bleaching-level thermal stress becomes the norm for most tropical reefs by 2040–2050. Why does this projection make current restoration program architectures inadequate, and what does GROAN's CMIE need to do differently?</div>
+        <div class="mcq-q-es">Bajo SSP5-8.5, el estrés térmico anual se convierte en norma para la mayoría de los arrecifes tropicales hacia 2040–2050. ¿Por qué esta proyección hace inadecuadas las arquitecturas actuales de programas de restauración, y qué necesita hacer diferente el CMIE de GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. Annual bleaching makes restoration unnecessary since reefs will recover naturally</li>
+          <li class="correct">B. Current restoration programs assume 5–7 year recovery windows between bleaching events; annual bleaching eliminates those windows entirely — the CMIE must apply recovery window compression flags that down-weight restoration feasibility scores and up-weight pre-threshold intervention urgency</li>
+          <li>C. Annual bleaching only affects the Red Sea, not the Caribbean MAR system</li>
+          <li>D. Restoration programs need more funding but no architectural change</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">Why does the three-layer GROAN data registry architecture (L1 API Registry, L2 Normalization, L3 Source Arbitration) validate itself as future-proof specifically because of emerging technologies like eDNA and AI coral classification?</div>
+        <div class="mcq-q-es">¿Por qué la arquitectura de registro de datos de tres capas de GROAN (L1 Registro de API, L2 Normalización, L3 Arbitraje de fuentes) se valida como preparada para el futuro específicamente debido a tecnologías emergentes como eDNA y clasificación de coral por IA?</div>
+        <ul class="mcq-options">
+          <li>A. Because eDNA and AI tools only work with GROAN's proprietary data format</li>
+          <li class="correct">B. Each new technology is a new named source in the L1 registry, normalized to the 0–10 scale in L2, and arbitrated for confidence and recency against existing sources in L3 — the architecture absorbs new data streams without refactoring, which is precisely the design requirement for a system that must remain current across a 40-year projection horizon</li>
+          <li>C. The three-layer architecture automatically generates eDNA samples from satellite data</li>
+          <li>D. AI classification eliminates the need for Source Arbitration since AI outputs are always high confidence</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">Why does GROAN's long-range institutional value lie specifically in cross-ecosystem causal intelligence rather than monitoring data, given the projected 2040–2060 ocean observation landscape?</div>
+        <div class="mcq-q-es">¿Por qué el valor institucional a largo plazo de GROAN reside específicamente en la inteligencia causal entre ecosistemas en lugar de en datos de monitoreo, dado el panorama proyectado de observación oceánica 2040–2060?</div>
+        <ul class="mcq-options">
+          <li>A. Because satellites will be decommissioned by 2040 leaving GROAN as the only data source</li>
+          <li>B. Because monitoring data becomes less accurate at higher temperatures</li>
+          <li class="correct">C. By 2040–2060, global satellite networks will provide monitoring data at scale — the scarce and decision-critical output will be the causal interpretation of that data under nonlinear, multi-stressor, compressed-recovery conditions that single-ecosystem frameworks cannot model: exactly what the CMIE produces</li>
+          <li>D. Because GROAN's META-LAYER will replace all satellite monitoring programs by 2045</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- SECTION COMPLETE BANNER -->
+  <div style="padding: 24px 40px 0;">
+    <div class="section-complete">
+      <div class="section-complete-icon">✦</div>
+      <div class="section-complete-text">
+        <span>Section 01 Complete</span> — Physical Oceanography · 32 Lessons · L01–L32<br>
+        Next: Section 02 · Marine Biology · L01 begins the biological knowledge base
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top: 24px;">
+    <div class="progress-label">S01·L32 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">4.55%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
