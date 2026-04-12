@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L15 | Chemical Oceanography: Variability</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Variability type grid */
+  .var-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1.2rem 0; }
+  .var-card {
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    background: rgba(2,15,30,0.5);
+    border: 1px solid rgba(26,200,200,0.1);
+  }
+  .var-head { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .var-head.natural  { color: var(--ocean-cyan); }
+  .var-head.forced   { color: var(--gold); }
+  .var-head.stochast { color: #44b864; }
+  .var-head.regime   { color: var(--coral); }
+  .var-title { font-size: 0.84rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.3rem; }
+  .var-desc  { font-size: 0.79rem; line-height: 1.55; color: var(--text-dim); }
+  .var-desc strong { color: var(--text-light); }
+  .var-groan { font-size: 0.72rem; color: var(--ocean-cyan); font-style: italic; margin-top: 0.35rem; }
+
+  /* Variance budget bar chart */
+  .variance-budget { margin: 1.2rem 0; }
+  .vb-title { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.7rem; }
+  .vb-row { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.55rem; }
+  .vb-label { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); width: 140px; flex-shrink: 0; text-align: right; }
+  .vb-track { flex: 1; height: 14px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+  .vb-bar { height: 100%; border-radius: 3px; }
+  .vb-val { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--text-dim); width: 36px; flex-shrink: 0; }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 6.68%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .var-grid  { grid-template-columns: 1fr; }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L15 · Lesson 47 of 704</div>
+      <h1>Variability</h1>
+      <p class="subtitle">Temporal patterns (L14) describe how chemistry oscillates in time. Variability describes how much — the spread, structure, and predictability of chemical change. High variability is not disorder; it is information about ecosystem state, resilience, and exposure to stress.</p>
+    </div>
+
+    <!-- SVG: Two contrasting variance profiles — healthy reef (wide bounded spread) vs degraded reef (narrow collapsed spread) -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="healthyEnv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="degradedEnv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e86040" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#e86040" stop-opacity="0.04"/>
+        </linearGradient>
+        <filter id="gfv">
+          <feGaussianBlur stdDeviation="1.4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.55)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Axes -->
+      <line x1="18" y1="14" x2="18" y2="148" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+      <line x1="18" y1="148" x2="200" y2="148" stroke="rgba(26,200,200,0.2)" stroke-width="1"/>
+      <text x="8" y="82" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" transform="rotate(-90,8,82)" text-anchor="middle">pH</text>
+      <text x="109" y="162" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">TIME →</text>
+
+      <!-- Y labels -->
+      <text x="15" y="48"  text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">8.3</text>
+      <text x="15" y="82"  text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">8.1</text>
+      <text x="15" y="116" text-anchor="end" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc">7.9</text>
+
+      <!-- Gridlines -->
+      <line x1="18" y1="48"  x2="200" y2="48"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="18" y1="82"  x2="200" y2="82"  stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="18" y1="116" x2="200" y2="116" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+      <!-- LEFT: Healthy reef — wide variance envelope, strong oscillation -->
+      <!-- Envelope fill -->
+      <path d="M22,45 C30,38 38,72 46,52 C54,32 62,68 70,48 C78,28 86,64 94,44 C102,52 C102,52" fill="url(#healthyEnv)"/>
+      <path d="M22,45 C30,38 38,72 46,52 C54,32 62,68 70,48 C78,28 86,64 94,44
+               L94,110 C86,118 78,88 70,108 C62,128 54,96 46,116 C38,136 30,102 22,115 Z"
+            fill="url(#healthyEnv)"/>
+      <!-- Mean line -->
+      <line x1="22" y1="82" x2="100" y2="82" stroke="#1ac8c8" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="3,2"/>
+      <!-- Oscillation signal -->
+      <path d="M22,82 C28,52 34,112 40,70 C46,28 52,102 58,55 C64,18 70,98 76,52 C82,18 88,95 94,58"
+            fill="none" stroke="#1ac8c8" stroke-width="2" filter="url(#gfv)"/>
+      <!-- Label -->
+      <text x="58" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">HEALTHY</text>
+      <text x="58" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">high σ, bounded</text>
+
+      <!-- Divider -->
+      <line x1="108" y1="14" x2="108" y2="148" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <!-- RIGHT: Degraded reef — narrow, flat, low variance, trending down -->
+      <!-- Narrow envelope -->
+      <path d="M114,86 C122,82 130,90 138,84 C146,80 154,88 162,84 C170,80 178,88 196,84
+               L196,96 C178,100 170,92 162,96 C154,100 146,92 138,96 C130,100 122,92 114,94 Z"
+            fill="url(#degradedEnv)"/>
+      <!-- Mean line — declining -->
+      <line x1="114" y1="90" x2="196" y2="104" stroke="#e86040" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="3,2"/>
+      <!-- Flat compressed oscillation -->
+      <path d="M114,90 C120,86 126,94 132,88 C138,82 144,92 150,86 C156,80 162,90 168,84 C174,78 182,90 196,86"
+            fill="none" stroke="#e86040" stroke-width="2" filter="url(#gfv)"/>
+      <!-- Label -->
+      <text x="155" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#e86040">DEGRADED</text>
+      <text x="155" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">low σ, declining</text>
+
+      <!-- Sigma annotations -->
+      <line x1="94" y1="48" x2="94" y2="115" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.4"/>
+      <text x="97" y="78" font-family="DM Mono,monospace" font-size="6" fill="#1ac8c8">2σ</text>
+
+      <line x1="196" y1="82" x2="196" y2="98" stroke="#e86040" stroke-width="0.8" stroke-opacity="0.5"/>
+      <text x="199" y="92" font-family="DM Mono,monospace" font-size="6" fill="#e86040">2σ</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>Temporal patterns (L14) describe the structure of chemical change in time. Variability describes its <strong>magnitude, spread, and ecological meaning</strong>. The key insight of this lesson — and one of the most counterintuitive concepts in reef chemical oceanography — is that <em>high chemical variability is not a sign of a stressed system; it is often a sign of a healthy, biologically active one.</em> Conversely, the collapse of natural variability — particularly diel amplitude compression — is one of GROAN's most sensitive early-warning indicators of ecosystem decline. <strong>GROAN's CMIE does not just track mean chemical state; it tracks variance as an independent ecological variable.</strong></p>
+
+        <div class="var-grid">
+          <div class="var-card">
+            <div class="var-head natural">Natural / Endogenous</div>
+            <div class="var-title">Biological-Physical Coupling</div>
+            <div class="var-desc">Variability produced by the reef's own biological and physical processes — diel photosynthesis-respiration cycles, tidal flushing, internal wave mixing. <strong>This is "good" variability</strong> — it reflects an active, coupled ecosystem. A reef with high diel pH variance (σ > 0.15 units) has a functioning photosynthetic community driving the carbon cycle. Reducing this variability by killing the photosynthetic community does not reduce stress — it removes the indicator of ecosystem function. GROAN targets diel pH standard deviation as a primary GRIN health metric.</div>
+            <div class="var-groan">→ GRIN health index: diel σ pH target > 0.12 for High tier</div>
+          </div>
+          <div class="var-card">
+            <div class="var-head forced">Forced / Exogenous</div>
+            <div class="var-title">External Stressor Pulses</div>
+            <div class="var-desc">Variability imposed from outside the reef ecosystem — river flood pulses, storm mixing, thermal anomalies. <strong>This is "bad" variability</strong> — it exceeds the system's natural buffering capacity and introduces chemical states the reef has not adapted to. Forced variability events are classified by GROAN as event pulses (L14 taxonomy) — their variance contribution is extracted and attributed to external drivers via CMIE. <strong>Key diagnostic:</strong> forced events produce non-repeating, asymmetric variance spikes; natural variability produces regular, periodic patterns.</div>
+            <div class="var-groan">→ CMIE: event variance attributed to driver category</div>
+          </div>
+          <div class="var-card">
+            <div class="var-head stochast">Stochastic / Unpredictable</div>
+            <div class="var-title">Irreducible Noise</div>
+            <div class="var-desc">Variance that cannot be attributed to any systematic driver — turbulence, micro-scale biological patchwork, instrument noise. <strong>This is the confidence tier floor:</strong> GROAN's measurement system cannot meaningfully detect signal below approximately ±0.01–0.02 pH units (instrument noise) or ±0.05 Ω units (combined measurement and CO2SYS calculation uncertainty). Variance below this floor is treated as irreducible noise and excluded from CMIE signal detection. <strong>Critical:</strong> this noise floor sets the minimum detectable trend magnitude and determines how many years of data are needed to resolve the OA trend signal from noise.</div>
+            <div class="var-groan">→ Defines CMIE minimum detectable signal threshold</div>
+          </div>
+          <div class="var-card">
+            <div class="var-head regime">Regime-Shift Variance</div>
+            <div class="var-title">Step-Change in Variance Structure</div>
+            <div class="var-desc">A shift in the statistical properties of variability itself — not just a change in mean, but a change in the range, amplitude, or autocorrelation structure of the time series. <strong>Regime shifts in reef chemistry</strong> signal a fundamental ecological state change: a coral-dominated reef shifting to an algae-dominated state shows loss of diel variance amplitude, shift of pH range downward, and change in autocorrelation structure (shorter memory). GROAN detects regime shifts using a rolling-window variance test — when the ratio of current 30-day σ to the baseline σ drops below 0.5, CMIE flags a regime-shift candidate for expert review.</div>
+            <div class="var-groan">→ CMIE: rolling σ ratio < 0.5 = regime-shift flag</div>
+          </div>
+        </div>
+
+        <p><strong>Variance budget — where does total Ω variability come from?</strong> At a typical Caribbean reef lagoon station, the total observed Ω variance (σ²_total) can be partitioned into contributions from each driver. Understanding this budget determines where GROAN's monitoring effort yields the highest information return per sensor deployment.</p>
+
+        <div class="variance-budget">
+          <div class="vb-title">Caribbean Reef Lagoon — Approximate Ω Variance Budget</div>
+          <div class="vb-row">
+            <div class="vb-label">Diel cycle</div>
+            <div class="vb-track"><div class="vb-bar" style="width:42%;background:var(--ocean-cyan)"></div></div>
+            <div class="vb-val">~42%</div>
+          </div>
+          <div class="vb-row">
+            <div class="vb-label">Seasonal pattern</div>
+            <div class="vb-track"><div class="vb-bar" style="width:28%;background:#44b864"></div></div>
+            <div class="vb-val">~28%</div>
+          </div>
+          <div class="vb-row">
+            <div class="vb-label">Tidal cycle</div>
+            <div class="vb-track"><div class="vb-bar" style="width:14%;background:var(--gold)"></div></div>
+            <div class="vb-val">~14%</div>
+          </div>
+          <div class="vb-row">
+            <div class="vb-label">Event pulses</div>
+            <div class="vb-track"><div class="vb-bar" style="width:10%;background:var(--coral)"></div></div>
+            <div class="vb-val">~10%</div>
+          </div>
+          <div class="vb-row">
+            <div class="vb-label">Stochastic noise</div>
+            <div class="vb-track"><div class="vb-bar" style="width:4%;background:var(--text-dim)"></div></div>
+            <div class="vb-val">~4%</div>
+          </div>
+          <div class="vb-row">
+            <div class="vb-label">Long-term OA trend</div>
+            <div class="vb-track"><div class="vb-bar" style="width:2%;background:#e89060"></div></div>
+            <div class="vb-val">&lt;2%</div>
+          </div>
+        </div>
+
+        <p><strong>Variability and resilience.</strong> The variability budget has a direct management implication. Reefs that experience high natural diel variability — such as lagoon reefs with large seagrass beds driving strong diel O₂/pH swings — are paradoxically <em>more tolerant of transient OA events</em> than oligotrophic open reefs with low diel variance. The reasoning: corals adapted to cycling through pH 7.9 at dawn to pH 8.3 at noon every day already possess biochemical tolerance for the range that open-ocean reefs will not experience until mid-century under high-emissions scenarios. <strong>GROAN's Decision Score incorporates variance as a resilience multiplier</strong> — a reef with high natural diel variance receives a positive δ·Feasibility bonus in the recovery component of the DS formula.</p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>El conocimiento clave de esta lección — y uno de los conceptos más contraintuitivos en la oceanografía química de arrecifes — es que <em>la alta variabilidad química no es señal de un sistema estresado; a menudo es señal de uno saludable y biológicamente activo.</em> A la inversa, el colapso de la variabilidad natural — particularmente la compresión de la amplitud diurna — es uno de los indicadores de advertencia temprana más sensibles de GROAN para el declive del ecosistema. <strong>El CMIE de GROAN no solo rastrea el estado químico medio; rastrea la varianza como una variable ecológica independiente.</strong></p>
+
+        <p>Los cuatro tipos de variabilidad: <strong>Natural/Endógena</strong> — producida por los propios procesos biológicos y físicos del arrecife (GROAN objetivo: σ de pH diurno &gt; 0.12 para nivel Alto); <strong>Forzada/Exógena</strong> — impuesta desde fuera, pulsos de eventos atribuidos a factores externos por el CMIE; <strong>Estocástica</strong> — ruido irreducible que establece el umbral mínimo de señal detectable del CMIE (±0.01–0.02 pH, ±0.05 Ω); <strong>Cambio de Régimen</strong> — cambio en las propiedades estadísticas de la variabilidad misma, detectado por GROAN cuando el cociente de σ móvil de 30 días respecto a la σ de referencia cae por debajo de 0.5.</p>
+
+        <p>El <strong>presupuesto de varianza de Ω</strong> en una laguna arrecifal típica del Caribe: ciclo diurno ~42%, patrón estacional ~28%, ciclo de mareas ~14%, pulsos de eventos ~10%, ruido estocástico ~4%, tendencia OA a largo plazo &lt;2%. La tendencia de OA a largo plazo que importa más para la supervivencia del arrecife contribuye menos del 2% de la varianza total observada. La <strong>variabilidad y resiliencia</strong> están directamente relacionadas: los arrecifes que experimentan alta variabilidad diurna natural son paradójicamente más tolerantes a los eventos transitorios de acidificación que los arrecifes oligotróficos de bajo σ. La Puntuación de Decisión de GROAN incorpora la varianza como un multiplicador de resiliencia — un arrecife con alta varianza diurna natural recibe un bono positivo δ·Factibilidad en el componente de recuperación de la fórmula DS.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Variability Type</th>
+            <th>Ecological Meaning</th>
+            <th>pH σ Range</th>
+            <th>Ω σ Range</th>
+            <th>GROAN Response</th>
+            <th>DS Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Natural Diel (healthy)</td>
+            <td class="good">Active photosynthesis</td>
+            <td class="good">&gt;0.12 units</td>
+            <td class="good">&gt;0.25 units</td>
+            <td>GRIN health index positive</td>
+            <td class="good">+δ·Feasibility bonus</td>
+          </tr>
+          <tr>
+            <td>Natural Diel (compressed)</td>
+            <td class="warn">Community decline</td>
+            <td class="warn">&lt;0.06 units</td>
+            <td class="warn">&lt;0.12 units</td>
+            <td>Early-warning flag</td>
+            <td class="warn">−β·Risk increase</td>
+          </tr>
+          <tr>
+            <td>Forced Event Pulse</td>
+            <td class="warn">External stressor</td>
+            <td class="warn">Asymmetric spike</td>
+            <td class="warn">−0.5 to −1.5</td>
+            <td>Driver attribution → alert</td>
+            <td class="warn">−β·Risk acute</td>
+          </tr>
+          <tr>
+            <td>Stochastic Noise</td>
+            <td class="neutral">Irreducible</td>
+            <td class="neutral">±0.01–0.02</td>
+            <td class="neutral">±0.03–0.05</td>
+            <td>Below detection floor</td>
+            <td class="neutral">Excluded from DS</td>
+          </tr>
+          <tr>
+            <td>Regime-Shift σ Collapse</td>
+            <td class="warn">State change</td>
+            <td class="warn">σ ratio &lt;0.5</td>
+            <td class="warn">σ ratio &lt;0.5</td>
+            <td>Expert review flag</td>
+            <td class="warn">Maximum −β·Risk</td>
+          </tr>
+          <tr>
+            <td>Long-term OA Trend</td>
+            <td class="caution">Background forcing</td>
+            <td class="caution">−0.002/yr</td>
+            <td class="caution">−0.01/yr</td>
+            <td>Multi-year trend tracking</td>
+            <td class="caution">Cumulative −α·Benefit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The regime-shift σ ratio threshold (rolling 30-day σ / baseline σ &lt; 0.5) is GROAN's most consequential single CMIE flag — it signals that a reef has crossed from a high-variance healthy state into a low-variance degraded state. This flag should trigger an immediate in-person MOOP station visit to confirm, because a regime-shift flag on moored data represents the chemical signature of irreversible ecological state change, not a recoverable event pulse.</li>
+          <li>The variability-resilience relationship has a direct application to prioritizing Rim Run™ station management recommendations: a lagoon station with documented high natural diel variance (σ pH &gt; 0.15) is a candidate for a "protect the buffer" management recommendation — conserving the seagrass bed and mangrove cover that drives the high variance preserves the chemical resilience that protects the adjacent reef crest from the next bleaching event.</li>
+          <li>GROAN's noise floor (±0.05 Ω combined uncertainty) determines how many repeat survey years are needed to detect the OA trend: at −0.01 Ω/yr trend and ±0.05 noise floor, a minimum of 5 years of annual surveys is required to achieve 95% confidence that the observed Ω decline is a real trend and not noise. This is the statistical case for committing to Rim Run™ repeat surveys through 2030–2031, not stopping after the 2026 baseline.</li>
+          <li>Forced exogenous variability from the Motagua River is distinguishable from natural endogenous variability by its autocorrelation structure: natural diel variance is highly autocorrelated at 24-hour lag (today's pH peak predicts tomorrow's); Motagua pulse variance is autocorrelated at multi-day lags (day 1 of plume predicts days 2–5) but then abruptly de-correlated. CMIE uses this autocorrelation fingerprint — not just amplitude — to classify incoming variance as natural or forced.</li>
+          <li>For the KAUST partnership argument: GROAN's variance tracking adds a dimension to reef monitoring that the Red Sea Research Center's existing pH buoy network does not currently capture — those buoys report mean and trend but not σ structure. Demonstrating that variance compression preceded the 2015 Red Sea mass bleaching event (using historical buoy data retroactively processed through GROAN's σ ratio test) would be a compelling proof-of-concept result for the KAUST proposal.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>El umbral de cociente σ de cambio de régimen (σ móvil de 30 días / σ de referencia &lt; 0.5) es el indicador CMIE individual más importante de GROAN — señala que un arrecife ha cruzado de un estado saludable de alta varianza a un estado degradado de baja varianza. Este indicador debe desencadenar una visita inmediata de estación MOOP en persona para confirmar, ya que representa la firma química de un cambio de estado ecológico irreversible.</li>
+          <li>La relación variabilidad-resiliencia tiene una aplicación directa para priorizar las recomendaciones de gestión de estaciones Rim Run™: una estación de laguna con alta varianza diurna natural documentada (σ pH &gt; 0.15) es candidata para una recomendación de gestión de "proteger el amortiguador" — conservar la pradera de pastos marinos y la cobertura de manglar que impulsa la alta varianza preserva la resiliencia química que protege la cresta arrecifal adyacente del próximo evento de blanqueamiento.</li>
+          <li>El nivel de ruido de GROAN (±0.05 Ω de incertidumbre combinada) determina cuántos años de encuestas de repetición se necesitan para detectar la tendencia de AO: a −0.01 Ω/año de tendencia y ±0.05 de nivel de ruido, se requiere un mínimo de 5 años de encuestas anuales para lograr una confianza del 95% de que el declive de Ω observado es una tendencia real y no ruido. Este es el caso estadístico para comprometerse con encuestas de repetición Rim Run™ hasta 2030–2031.</li>
+          <li>La variabilidad exógena forzada del Río Motagua es distinguible de la variabilidad endógena natural por su estructura de autocorrelación: la varianza diurna natural es altamente autocorrelacionada al retraso de 24 horas; la varianza del pulso del Motagua es autocorrelacionada a retrasos de varios días pero luego abruptamente de-correlacionada. El CMIE usa esta huella de autocorrelación — no solo la amplitud — para clasificar la varianza entrante como natural o forzada.</li>
+          <li>Para el argumento de asociación con KAUST: el seguimiento de varianza de GROAN añade una dimensión al monitoreo arrecifal que la red de boyas pH existente del Centro de Investigación del Mar Rojo no captura actualmente. Demostrar que la compresión de varianza precedió al evento de blanqueamiento masivo del Mar Rojo de 2015 (usando datos históricos de boyas reprocesados a través de la prueba de cociente σ de GROAN) sería un resultado convincente de prueba de concepto para la propuesta de KAUST.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">A Caribbean lagoon reef shows a rolling 30-day diel pH σ that drops from 0.18 to 0.07 over 6 months. No event pulse is recorded. What does GROAN's CMIE flag, and what action does it trigger?</div>
+        <div class="q-text-es">Un arrecife de laguna del Caribe muestra un σ de pH diurno móvil de 30 días que cae de 0.18 a 0.07 en 6 meses. No se registra ningún pulso de evento. ¿Qué indica el CMIE de GROAN y qué acción activa?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> A seasonal pattern transition — wet season onset reduces photosynthetic rates and compresses diel amplitude normally</li>
+          <li><span class="opt-key">B</span> Sensor drift — a ±0.01 pH ISFET drift over 6 months can produce apparent σ compression of this magnitude</li>
+          <li class="correct"><span class="opt-key">C</span> A regime-shift candidate — σ ratio has fallen below 0.5 of baseline, signaling photosynthetic community decline and potential coral-to-algae state transition; CMIE triggers expert review and immediate MOOP verification visit</li>
+          <li><span class="opt-key">D</span> Normal interannual variability — diel σ fluctuates by ±50% seasonally and no action is warranted</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">Why does GROAN award a positive δ·Feasibility bonus to reef sites with high natural diel pH variance in the Decision Score formula?</div>
+        <div class="q-text-es">¿Por qué GROAN otorga un bono positivo de δ·Factibilidad a los sitios arrecifales con alta varianza natural de pH diurno en la fórmula de Puntuación de Decisión?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because high diel variance indicates large seagrass beds that provide additional fish nursery habitat value</li>
+          <li><span class="opt-key">B</span> Because high variance sites are easier to sample with MOOP sensors, reducing collection costs</li>
+          <li class="correct"><span class="opt-key">C</span> Because corals adapted to cycling through wide daily pH ranges already possess biochemical tolerance for pH states that low-variance reefs will not encounter until mid-century — high natural diel variance is a direct proxy for chemical resilience to future OA stress</li>
+          <li><span class="opt-key">D</span> Because high diel variance sites are located farther from terrestrial pollution sources, reducing chronic stressor loading</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">GROAN's noise floor is approximately ±0.05 Ω combined uncertainty, and the annual OA trend is −0.01 Ω/yr. How many years of annual Rim Run™ surveys are required to detect the trend at 95% confidence?</div>
+        <div class="q-text-es">El nivel de ruido de GROAN es aproximadamente ±0.05 Ω de incertidumbre combinada, y la tendencia anual de AO es −0.01 Ω/año. ¿Cuántos años de encuestas anuales Rim Run™ se requieren para detectar la tendencia con 95% de confianza?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> 1–2 years — the trend is detectable after the 2026 baseline and a single 2027 repeat</li>
+          <li><span class="opt-key">B</span> 2–3 years — the cumulative trend exceeds the noise floor by 2028–2029</li>
+          <li class="correct"><span class="opt-key">C</span> Minimum 5 years — at −0.01 Ω/yr against a ±0.05 noise floor, the cumulative signal (−0.05 Ω at Year 5) only just exceeds one noise floor unit; 95% confidence requires the signal to exceed ~2× the noise standard deviation</li>
+          <li><span class="opt-key">D</span> 10+ years — the trend is too slow relative to natural variability to be detected within a decade</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">6.68% — Lesson 47 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L15 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
