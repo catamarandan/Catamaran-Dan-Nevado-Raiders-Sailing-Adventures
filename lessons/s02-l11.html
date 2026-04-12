@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L11 | Chemical Oceanography: Data Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-mid);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #020f1e 0%, #03192e 60%, #04294a 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text { flex: 1; }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-badge::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--ocean-cyan); }
+  .lesson-id { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--text-light); line-height: 1.2; margin-bottom: 0.6rem; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); font-style: italic; line-height: 1.5; }
+  .header-svg { flex-shrink: 0; width: 210px; height: 180px; }
+
+  /* PANEL */
+  .panel { padding: 2rem 2.5rem; border-bottom: 1px solid rgba(26,200,200,0.08); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: rgba(26,200,200,0.2); }
+
+  /* LANG */
+  .lang-block { margin-bottom: 1.6rem; }
+  .lang-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .lang-tag.en { background: rgba(26,200,200,0.15); color: var(--ocean-cyan); }
+  .lang-tag.es { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .lecture-text { font-size: 0.92rem; line-height: 1.75; color: var(--text-light); }
+  .lecture-text p { margin-bottom: 0.9rem; }
+  .lecture-text strong { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* Collection mode cards */
+  .mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 1.2rem 0;
+  }
+  .mode-card {
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
+    background: rgba(2,15,30,0.5);
+    border: 1px solid rgba(26,200,200,0.12);
+  }
+  .mode-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.45rem;
+  }
+  .mode-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+  .mode-badge.synoptic  { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); }
+  .mode-badge.moored    { background: rgba(240,180,41,0.12);  color: var(--gold); }
+  .mode-badge.transect  { background: rgba(68,184,100,0.12);  color: #44b864; }
+  .mode-badge.citizen   { background: rgba(232,144,96,0.1);   color: #e89060; }
+  .mode-name { font-size: 0.86rem; font-weight: 600; color: var(--text-light); }
+  .mode-desc { font-size: 0.79rem; line-height: 1.55; color: var(--text-dim); }
+  .mode-desc strong { color: var(--text-light); }
+  .mode-groan { font-size: 0.73rem; color: var(--ocean-cyan); font-style: italic; margin-top: 0.35rem; }
+
+  /* Schema diagram — station record fields */
+  .schema-block {
+    margin: 1.2rem 0;
+    background: rgba(2,15,30,0.6);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .schema-head {
+    padding: 0.55rem 1rem;
+    background: rgba(26,200,200,0.08);
+    border-bottom: 1px solid rgba(26,200,200,0.12);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+  }
+  .schema-fields {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .schema-field {
+    padding: 0.65rem 0.9rem;
+    border-right: 1px solid rgba(26,200,200,0.08);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+  }
+  .schema-field:nth-child(4n) { border-right: none; }
+  .sf-key { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem; }
+  .sf-key.req  { color: var(--ocean-cyan); }
+  .sf-key.cond { color: var(--gold); }
+  .sf-key.meta { color: #44b864; }
+  .sf-val { font-size: 0.74rem; color: var(--text-dim); line-height: 1.35; }
+
+  /* DATA TABLE */
+  .data-table-wrap { overflow-x: auto; margin-top: 1.4rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: rgba(26,200,200,0.1); border-bottom: 1px solid rgba(26,200,200,0.25); }
+  thead th { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 0.65rem 0.9rem; text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(26,200,200,0.05); }
+  tbody td { padding: 0.6rem 0.9rem; color: var(--text-light); }
+  tbody td:first-child { color: var(--ocean-foam); font-weight: 600; }
+  .warn    { color: var(--coral); font-weight: 600; }
+  .caution { color: var(--gold); }
+  .good    { color: #64c878; }
+  .neutral { color: var(--text-dim); }
+
+  /* APPLICATION */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .bullet-list { list-style: none; }
+  .bullet-list li { display: flex; gap: 0.75rem; margin-bottom: 0.85rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-light); }
+  .bullet-list li::before { content: '▸'; color: var(--ocean-cyan); flex-shrink: 0; margin-top: 0.05rem; font-size: 0.8rem; }
+  .bullet-list.es li::before { color: var(--gold); }
+
+  /* MCQ */
+  .mcq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .mcq-card { background: rgba(2,15,30,0.6); border: 1px solid rgba(26,200,200,0.12); border-radius: 10px; padding: 1.1rem; }
+  .q-number { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--ocean-cyan); letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+  .q-text   { font-size: 0.82rem; line-height: 1.55; color: var(--text-light); margin-bottom: 0.35rem; font-weight: 500; }
+  .q-text-es { font-size: 0.76rem; line-height: 1.5; color: var(--text-dim); margin-bottom: 0.85rem; font-style: italic; }
+  .option-list { list-style: none; margin-bottom: 0.85rem; }
+  .option-list li { font-size: 0.78rem; line-height: 1.45; color: var(--text-dim); padding: 0.28rem 0; display: flex; gap: 0.45rem; }
+  .option-list li .opt-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-teal); flex-shrink: 0; }
+  .option-list li.correct { color: var(--ocean-foam); font-weight: 600; }
+  .option-list li.correct .opt-key { color: var(--ocean-cyan); }
+  .answer-strip { background: rgba(26,200,200,0.08); border-left: 2px solid var(--ocean-cyan); border-radius: 3px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ocean-cyan); letter-spacing: 0.08em; }
+
+  /* FOOTER */
+  .footer { padding: 1.5rem 2.5rem 2rem; background: rgba(2,15,30,0.5); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .progress-pct   { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ocean-cyan); }
+  .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 6.11%; }
+  .footer-note { margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-dim); font-style: italic; text-align: center; }
+
+  @media (max-width: 680px) {
+    .header { flex-direction: column; text-align: center; }
+    .header-svg { width: 160px; height: 138px; }
+    .mode-grid { grid-template-columns: 1fr; }
+    .schema-fields { grid-template-columns: 1fr 1fr; }
+    .app-grid  { grid-template-columns: 1fr; }
+    .mcq-grid  { grid-template-columns: 1fr; }
+    .panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ══════════════════ HEADER ══════════════════ -->
+  <div class="header">
+    <div class="header-text">
+      <div class="section-badge">Section 02 · Chemical Oceanography</div>
+      <div class="lesson-id">S02-L11 · Lesson 43 of 704</div>
+      <h1>Data Collection</h1>
+      <p class="subtitle">Field methods (L10) govern a single station visit. Data collection governs the entire campaign — how stations are chosen, how records are structured, how gaps are handled, and how the resulting dataset earns the right to feed a GROAN Decision Score.</p>
+    </div>
+
+    <!-- SVG: Station network map — dots on Caribbean arc with data flow lines to central node -->
+    <svg class="header-svg" viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="nodeGl" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="gfdc">
+          <feGaussianBlur stdDeviation="1.8" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="4" y="4" width="202" height="172" rx="8" fill="rgba(2,15,30,0.55)" stroke="rgba(26,200,200,0.07)" stroke-width="1"/>
+
+      <!-- Simplified Caribbean coastline suggestion -->
+      <path d="M20,60 Q40,55 60,62 Q80,70 100,68 Q120,66 140,72 Q160,78 180,75"
+            fill="none" stroke="rgba(26,200,200,0.12)" stroke-width="1.5"/>
+      <text x="16" y="52" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.5">CARIBBEAN COAST</text>
+
+      <!-- Central GROAN node -->
+      <circle cx="105" cy="130" r="16" fill="rgba(26,200,200,0.1)" stroke="#1ac8c8" stroke-width="1.8" filter="url(#gfdc)"/>
+      <text x="105" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">GROAN</text>
+      <text x="105" y="137" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8">REGISTRY</text>
+
+      <!-- Station dots — 7 countries roughly spaced -->
+      <!-- Mexico -->
+      <circle cx="38" cy="72" r="5" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="38" y="86" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">MX</text>
+      <line x1="40" y1="76" x2="95" y2="120" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+
+      <!-- Belize -->
+      <circle cx="68" cy="80" r="5" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="68" y="94" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">BZ</text>
+      <line x1="69" y1="84" x2="97" y2="120" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+
+      <!-- Guatemala -->
+      <circle cx="90" cy="88" r="5" fill="rgba(232,96,64,0.25)" stroke="#e86040" stroke-width="1.2"/>
+      <text x="90" y="102" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#e86040">GT</text>
+      <line x1="90" y1="92" x2="100" y2="118" stroke="#e86040" stroke-width="0.9" stroke-opacity="0.45" stroke-dasharray="3,2"/>
+      <!-- Motagua flag -->
+      <text x="74" y="104" font-family="DM Mono,monospace" font-size="5.5" fill="#e86040">MOTAGUA</text>
+
+      <!-- Honduras -->
+      <circle cx="118" cy="84" r="5" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="118" y="98" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">HN</text>
+      <line x1="117" y1="88" x2="110" y2="118" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+
+      <!-- Nicaragua -->
+      <circle cx="144" cy="80" r="5" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="144" y="94" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">NI</text>
+      <line x1="143" y1="84" x2="117" y2="120" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+
+      <!-- Costa Rica -->
+      <circle cx="164" cy="88" r="5" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="164" y="102" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">CR</text>
+      <line x1="163" y1="92" x2="120" y2="122" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+
+      <!-- Panama -->
+      <circle cx="182" cy="82" r="5" fill="rgba(26,200,200,0.2)" stroke="#1ac8c8" stroke-width="1.2"/>
+      <text x="182" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="6" fill="#8ab8cc">PA</text>
+      <line x1="181" y1="86" x2="122" y2="122" stroke="#1ac8c8" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+
+      <!-- Station count label -->
+      <text x="105" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc">100+ STATIONS · 7 COUNTRIES</text>
+      <text x="105" y="165" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.6">RIM RUN™ OCT 2026</text>
+    </svg>
+  </div>
+
+  <!-- ══════════════════ LECTURE PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <span class="lang-tag en">EN</span>
+      <div class="lecture-text">
+        <p>A single station visit, however perfectly executed, is an anecdote. A <strong>systematically designed data collection campaign</strong> is evidence. The difference lies in four decisions made before Shamrocket leaves port: what collection mode governs the campaign design, how stations are selected and distributed, what data record schema ensures completeness, and how gaps and missing data are handled without corrupting the CMIE's Source Arbitration layer. GROAN's Caribbean proof-of-concept case study depends entirely on answering these four questions correctly for the Rim Run™ 2026 dataset.</p>
+
+        <div class="mode-grid">
+          <div class="mode-card">
+            <div class="mode-head">
+              <span class="mode-badge synoptic">Synoptic Survey</span>
+              <span class="mode-name">Rim Run™ Primary Mode</span>
+            </div>
+            <div class="mode-desc">A single-pass spatial survey covering all stations within a defined time window. <strong>Captures a synoptic snapshot</strong> — all stations sampled under comparable seasonal and atmospheric conditions. Rim Run™ executes as a synoptic survey: 100+ stations across 7 countries in 6–8 weeks, October–November 2026. Limitation: <strong>no temporal repeat</strong> — diel and tidal dynamics (L05) must be normalized rather than directly observed at each station.</div>
+            <div class="mode-groan">→ GROAN: first Caribbean chemical baseline; feeds GRIN spatial layer</div>
+          </div>
+          <div class="mode-card">
+            <div class="mode-head">
+              <span class="mode-badge moored">Moored Time-Series</span>
+              <span class="mode-name">Key Station Anchors</span>
+            </div>
+            <div class="mode-desc">Continuous data from fixed sensors at selected stations — captures diel cycles, tidal forcing, and event pulses. <strong>High temporal resolution, zero spatial coverage.</strong> GROAN designates 5–8 priority moored stations in the Rim Run™ circuit — one per country minimum, plus the Motagua plume corridor. Moored data provides the temporal context that normalizes the synoptic survey readings.</div>
+            <div class="mode-groan">→ GROAN: diel normalization anchor; CMIE event detection layer</div>
+          </div>
+          <div class="mode-card">
+            <div class="mode-head">
+              <span class="mode-badge transect">Transect Sampling</span>
+              <span class="mode-name">Cross-Gradient Coverage</span>
+            </div>
+            <div class="mode-desc">Stations arranged along a defined transect — typically shore-to-reef or river-to-open-ocean. <strong>Captures chemical gradients across the reef–lagoon–mangrove continuum</strong> (S02-L03 architecture). At each country stop, GROAN executes a minimum 3-station transect: mangrove fringe (GMIN), lagoon (GMAIN), and reef crest (GRIN). This is the minimum dataset that activates CMIE cross-module reasoning at each site.</div>
+            <div class="mode-groan">→ GROAN: cross-module gradient; activates CMIE at each site</div>
+          </div>
+          <div class="mode-card">
+            <div class="mode-head">
+              <span class="mode-badge citizen">Citizen Science (CCRA)</span>
+              <span class="mode-name">Network Extension</span>
+            </div>
+            <div class="mode-desc">Caribbean Coastal Reef Alliance partners collect standardized chemical readings using the MOOP protocol between Rim Run™ transits. <strong>Extends spatial and temporal coverage</strong> beyond Shamrocket's physical reach. CCRA data enters GROAN at Moderate confidence by default — protocol standardization and training level determine whether individual contributors can achieve High confidence tier status.</div>
+            <div class="mode-groan">→ GROAN: gap-fill layer; CCRA stations enter as Source 003+</div>
+          </div>
+        </div>
+
+        <p><strong>Station selection criteria.</strong> Stations are not chosen arbitrarily. GROAN's Rim Run™ station network is designed around three selection rules: (1) <em>Ecological representativeness</em> — each reef type (fringing, barrier, atoll, patch) and each ecosystem zone (mangrove, seagrass, lagoon, reef crest) must be represented in every country. (2) <em>Chemical sensitivity</em> — priority weighting to sites known or suspected to be near chemical thresholds (Ω &lt;3.0, adjacent to river discharge, downstream of coastal development). (3) <em>Logistics feasibility</em> — Shamrocket's draft (~0.6 m hulls) enables access to shallow mangrove channels inaccessible to larger vessels; stations are selected to exploit this access advantage.</p>
+
+        <p><strong>GROAN station record schema — mandatory fields.</strong> Every data record submitted to the GROAN API Registry must be complete to the following schema. Partial records are retained in the raw archive but do not enter the CMIE until missing fields are resolved or explicitly assigned a "not collected" flag with justification.</p>
+
+        <div class="schema-block">
+          <div class="schema-head">GROAN Station Record — Required Fields</div>
+          <div class="schema-fields">
+            <div class="schema-field">
+              <div class="sf-key req">Station ID</div>
+              <div class="sf-val">Auto-assigned. Format: RR26-[country]-[seq]. e.g. RR26-BZ-014</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">GPS Coordinates</div>
+              <div class="sf-val">Decimal degrees ±0.0001°. Logged at anchor drop, not estimated.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">UTC Timestamp</div>
+              <div class="sf-val">ISO 8601. GPS-synced. Local time recorded separately in notes.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">Tidal Phase</div>
+              <div class="sf-val">Flood / Ebb / Slack. Hours from nearest high water. TPXO-derived.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">pH</div>
+              <div class="sf-val">ISFET reading ±0.01. Calibration slope logged. T-compensated.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">Total Alkalinity</div>
+              <div class="sf-val">Titration result µmol/kg. Duplicate flag if 1-in-5 station.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">DO</div>
+              <div class="sf-val">mg/L optical. Saturation % computed. Supersaturation flag if &gt;110%.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key req">Salinity + Temp</div>
+              <div class="sf-val">CTD sonde. PSU and °C. Depth of reading logged.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key cond">Depth Profile</div>
+              <div class="sf-val">Required at GMIN/GMAIN stations. 3-depth min. Surface/mid/bottom.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key cond">Nutrients (N, P)</div>
+              <div class="sf-val">Colorimetric field kit. Required at GMIN/GMAIN. Optional at GRIN.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key cond">Ω / DIC / pCO₂</div>
+              <div class="sf-val">CO2SYS calculated from pH + TA. Populated in post-processing.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key meta">Confidence Tier</div>
+              <div class="sf-val">Auto-assigned at edge node: High / Moderate / Low. Rationale logged.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key meta">Ecosystem Zone</div>
+              <div class="sf-val">GRIN / GMAIN / GMIN / GSIN. Determines CMIE module routing.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key meta">Observer</div>
+              <div class="sf-val">MOOP (Shamrocket) or CCRA partner ID. Affects default confidence weight.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key meta">Site Notes</div>
+              <div class="sf-val">Free text. Disturbance flags, visible runoff, bloom, turbidity, gear issues.</div>
+            </div>
+            <div class="schema-field">
+              <div class="sf-key meta">SGD Flag</div>
+              <div class="sf-val">Boolean. SGD-influenced sites tagged for GRIN baseline correction.</div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Handling gaps and missing data.</strong> No 100+ station campaign produces a complete dataset. GROAN's data collection protocol distinguishes three gap types with different responses: <em>Equipment failure</em> — sensor data absent for a parameter; flag as "not collected — equipment," retain all other parameters, down-tier confidence. <em>Protocol violation</em> — tidal phase not recorded, headspace contamination suspected; flag as "not collected — protocol error," down-tier to Low regardless of parameter count. <em>Environmental exclusion</em> — site inaccessible due to weather, reef closure, or safety; flag as "station not attempted," no confidence tier assigned, exclude from spatial coverage map without bias.</p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <span class="lang-tag es">ES</span>
+      <div class="lecture-text">
+        <p>Una sola visita a una estación, por perfectamente ejecutada que sea, es una anécdota. Una <strong>campaña de recopilación de datos sistemáticamente diseñada</strong> es evidencia. La diferencia reside en cuatro decisiones tomadas antes de que Shamrocket salga del puerto: qué modo de recopilación rige el diseño de la campaña, cómo se seleccionan y distribuyen las estaciones, qué esquema de registro de datos garantiza la integridad, y cómo se manejan las brechas sin corromper la capa de Arbitraje de Fuentes del CMIE.</p>
+
+        <p>El <strong>Rim Run™ 2026</strong> opera como una encuesta sinóptica primaria — más de 100 estaciones en 7 países en 6–8 semanas, con datos de series temporales ancladas en 5–8 estaciones prioritarias para anclar la normalización diurna. En cada parada de país, GROAN ejecuta un transecto mínimo de 3 estaciones: franja de manglar (GMIN), laguna (GMAIN) y cresta arrecifal (GRIN) — el conjunto de datos mínimo que activa el razonamiento cruzado del CMIE en cada sitio. La <strong>Red de Arrecifes Costeros del Caribe (CCRA)</strong> extiende la cobertura como capa de relleno de brechas entre los tránsitos de Shamrocket, entrando al Registro API de GROAN como Confianza Moderada por defecto.</p>
+
+        <p>El <strong>esquema de registro de estación GROAN</strong> define 16 campos: 8 requeridos (ID de estación, GPS, marca de tiempo UTC, fase de marea, pH, alcalinidad total, DO, salinidad+temperatura), 3 condicionales (perfil de profundidad, nutrientes, Ω/CID/pCO₂), y 5 de metadatos (nivel de confianza, zona de ecosistema, observador, notas del sitio, indicador SGD). Los registros parciales se retienen en el archivo bruto pero no entran al CMIE hasta que los campos faltantes se resuelvan o se les asigne explícitamente un indicador "no recopilado" con justificación.</p>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="data-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Collection Mode</th>
+            <th>Spatial Coverage</th>
+            <th>Temporal Coverage</th>
+            <th>Rim Run™ Role</th>
+            <th>Default Conf. Tier</th>
+            <th>GROAN Module</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Synoptic Survey (MOOP)</td>
+            <td class="good">100+ stations, 7 countries</td>
+            <td class="caution">Single pass, normalized</td>
+            <td>Primary baseline dataset</td>
+            <td class="good">High (if 4-param)</td>
+            <td>GRIN · GMAIN · GMIN</td>
+          </tr>
+          <tr>
+            <td>Moored Time-Series</td>
+            <td class="warn">5–8 fixed stations</td>
+            <td class="good">Continuous, 6–8 weeks</td>
+            <td>Diel normalization anchor</td>
+            <td class="good">High</td>
+            <td>CMIE event layer</td>
+          </tr>
+          <tr>
+            <td>Transect (3-station)</td>
+            <td class="caution">Per-country gradient</td>
+            <td class="caution">Single pass</td>
+            <td>Cross-module activation</td>
+            <td class="good">High (if complete)</td>
+            <td>CMIE cross-module</td>
+          </tr>
+          <tr>
+            <td>Citizen Science (CCRA)</td>
+            <td class="good">Network-wide extension</td>
+            <td class="caution">Variable, ongoing</td>
+            <td>Gap-fill layer</td>
+            <td class="caution">Moderate (default)</td>
+            <td>Source 003+</td>
+          </tr>
+          <tr>
+            <td>Equipment failure gap</td>
+            <td class="neutral">—</td>
+            <td class="neutral">—</td>
+            <td>Partial record retained</td>
+            <td class="caution">Down-tiered</td>
+            <td>Flagged in archive</td>
+          </tr>
+          <tr>
+            <td>Protocol violation gap</td>
+            <td class="neutral">—</td>
+            <td class="neutral">—</td>
+            <td>Flagged record</td>
+            <td class="warn">Auto Low</td>
+            <td>Excluded from DS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ APPLICATION PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+    <div class="app-grid">
+
+      <div class="app-col">
+        <span class="lang-tag en">EN</span>
+        <ul class="bullet-list">
+          <li>The 3-station minimum transect rule (GMIN → GMAIN → GRIN at each country stop) is the data collection decision that makes the Caribbean proof-of-concept case study scientifically defensible. Without all three, CMIE cannot calculate the cross-ecosystem chemical gradient that distinguishes GROAN from a single-module monitoring program — the transect is where the thesis argument becomes measurable.</li>
+          <li>Moored time-series stations at the Motagua plume corridor and at one Belizean barrier reef station are the two highest-priority fixed deployments in the Rim Run™ circuit — they provide the continuous record of flood pulse arrivals, diel pH cycling amplitude, and seasonal baseline shift that contextualizes every synoptic survey reading within 200 km of that corridor.</li>
+          <li>CCRA partner data at Moderate confidence default is not a weakness — it is a strategic design choice. GROAN explicitly builds a two-tier data system: Shamrocket's MOOP provides High-confidence anchors; CCRA partners extend spatial coverage at known lower precision. The Source Arbitration layer weights these proportionally rather than excluding the lower tier, maximizing information content while accurately representing uncertainty.</li>
+          <li>The SGD flag in the station record schema (L10 field method context) is a data collection decision, not just a metadata label — it determines whether a High-confidence Ω reading from a karst-influenced site is used as a regional reef benchmark or quarantined as a geological outlier in GRIN's baseline construction.</li>
+          <li>For the CORDAP grant application context: GROAN's 16-field station record schema, standardized across 100+ stations in 7 countries, is the dataset architecture that makes CORDAP's regional synthesis possible. No existing Caribbean reef chemistry dataset covers this geographic range with this parameter suite and this documentation standard simultaneously.</li>
+        </ul>
+      </div>
+
+      <div class="app-col">
+        <span class="lang-tag es">ES</span>
+        <ul class="bullet-list es">
+          <li>La regla de transecto mínimo de 3 estaciones (GMIN → GMAIN → GRIN en cada parada de país) es la decisión de recopilación de datos que hace científicamente defendible el estudio de caso de prueba de concepto del Caribe. Sin las tres, el CMIE no puede calcular el gradiente químico entre ecosistemas que distingue a GROAN de un programa de monitoreo de módulo único.</li>
+          <li>Las estaciones de series temporales ancladas en el corredor de la pluma del Motagua y en una estación de arrecife de barrera de Belice son los dos despliegues fijos de mayor prioridad en el circuito Rim Run™ — proporcionan el registro continuo de llegadas de pulsos de crecida, amplitud de ciclo de pH diurno, y cambio de línea de base estacional que contextualiza cada lectura de la encuesta sinóptica dentro de 200 km de ese corredor.</li>
+          <li>Los datos de los socios de la CCRA con Confianza Moderada por defecto no son una debilidad — es una elección de diseño estratégico. GROAN construye explícitamente un sistema de datos de dos niveles: MOOP de Shamrocket proporciona anclas de Alta Confianza; los socios de la CCRA extienden la cobertura espacial con menor precisión conocida. La capa de Arbitraje de Fuentes los pondera proporcionalmente en lugar de excluir el nivel inferior.</li>
+          <li>El indicador SGD en el esquema de registro de estación es una decisión de recopilación de datos, no solo una etiqueta de metadatos — determina si una lectura de Ω de Alta Confianza de un sitio influenciado por karst se usa como referencia arrecifal regional o se pone en cuarentena como valor atípico geológico en la construcción de la línea de base de GRIN.</li>
+          <li>Para el contexto de la solicitud de subvención de CORDAP: el esquema de registro de estación de 16 campos de GROAN, estandarizado en más de 100 estaciones en 7 países, es la arquitectura de datos que hace posible la síntesis regional de CORDAP. Ningún conjunto de datos existente de química de arrecifes del Caribe cubre este rango geográfico con esta suite de parámetros y este estándar de documentación simultáneamente.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ MCQ PANEL ══════════════════ -->
+  <div class="panel">
+    <div class="panel-label">Assessment · Evaluación</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 01</div>
+        <div class="q-text">Why does GROAN require a minimum 3-station transect (GMIN → GMAIN → GRIN) at every Rim Run™ country stop rather than simply collecting the highest number of reef crest readings possible?</div>
+        <div class="q-text-es">¿Por qué GROAN requiere un transecto mínimo de 3 estaciones (GMIN → GMAIN → GRIN) en cada parada de país del Rim Run™ en lugar de simplemente recopilar el mayor número posible de lecturas de cresta arrecifal?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Because international reef monitoring standards require tri-habitat sampling for certification</li>
+          <li><span class="opt-key">B</span> To ensure sufficient replication for statistical significance within each country</li>
+          <li class="correct"><span class="opt-key">C</span> Because the CMIE requires cross-ecosystem chemical gradient data to generate causal reasoning — without all three zones, GROAN functions as a single-module monitor, not a decision system</li>
+          <li><span class="opt-key">D</span> To maximize the number of stations that qualify for High confidence tier</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 02</div>
+        <div class="q-text">A CCRA citizen science partner submits a station record with pH, DO, salinity, and temperature — but no total alkalinity, no tidal phase, and no GPS coordinates. What happens to this record in GROAN?</div>
+        <div class="q-text-es">Un socio de ciencia ciudadana de la CCRA envía un registro de estación con pH, DO, salinidad y temperatura — pero sin alcalinidad total, sin fase de marea y sin coordenadas GPS. ¿Qué sucede con este registro en GROAN?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> It is rejected entirely and removed from the archive</li>
+          <li><span class="opt-key">B</span> It enters the CMIE at Moderate confidence since three parameters were collected</li>
+          <li class="correct"><span class="opt-key">C</span> It is retained in the raw archive at Low confidence — missing TA prevents Ω calculation, missing tidal phase prevents dynamic contextualization, and missing GPS prevents spatial assignment. It does not enter the CMIE until fields are resolved.</li>
+          <li><span class="opt-key">D</span> It is automatically upgraded to High confidence because CCRA partners use certified protocols</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="q-number">QUESTION 03</div>
+        <div class="q-text">What distinguishes an "equipment failure gap" from a "protocol violation gap" in GROAN's missing data handling, and why does the distinction matter?</div>
+        <div class="q-text-es">¿Qué distingue una "brecha por falla de equipo" de una "brecha por violación de protocolo" en el manejo de datos faltantes de GROAN, y por qué es importante la distinción?</div>
+        <ul class="option-list">
+          <li><span class="opt-key">A</span> Equipment failures produce more missing parameters, so they always result in lower confidence scores</li>
+          <li class="correct"><span class="opt-key">B</span> Equipment failures are random and uninformative about data quality — remaining parameters are still valid; protocol violations indicate systematic errors that may have compromised all parameters at that station, justifying auto-Low regardless of parameter count</li>
+          <li><span class="opt-key">C</span> Protocol violations are always correctable in post-processing; equipment failures are not</li>
+          <li><span class="opt-key">D</span> The distinction only matters for CCRA data, not for MOOP data collected aboard Shamrocket</li>
+        </ul>
+        <div class="answer-strip">ANSWER · RESPUESTA: B</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER / PROGRESS ══════════════════ -->
+  <div class="footer">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress · 704 Lessons</span>
+      <span class="progress-pct">6.11% — Lesson 43 of 704</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="footer-note">S01 Physical Oceanography ✓ Complete (L01–L32) &nbsp;|&nbsp; S02 Chemical Oceanography in progress (L11 of 32) &nbsp;|&nbsp; S03 On hold</div>
+  </div>
+
+</div>
+</body>
+</html>
