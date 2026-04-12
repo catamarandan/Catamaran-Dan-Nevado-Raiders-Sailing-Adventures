@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L28 | Chemical Oceanography — Restoration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --mar-karst:  #c8a45a;
+    --r-nec:      #1ac8c8;
+    --r-biorock:  #9b7fe8;
+    --r-mang:     #3ecf8e;
+    --r-seg:      #0fd4a0;
+    --r-ass:      #e86040;
+    --r-chem:     #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);      font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);     font-weight: 500; }
+  .lecture-text .green     { color: var(--green);     font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);    font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst); font-weight: 500; }
+  .lecture-text .teal      { color: var(--r-seg);     font-weight: 500; }
+
+  /* ── RESTORATION METHOD GRID ── */
+  .rest-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 13px;
+    margin: 20px 0;
+  }
+
+  .rest-block {
+    border-radius: 6px;
+    padding: 13px 15px;
+    background: rgba(4,41,74,0.3);
+    border-top: 3px solid rgba(26,200,200,0.4);
+  }
+
+  .rb-nec     { border-top-color: rgba(26,200,200,0.6);   background: rgba(4,28,40,0.4); }
+  .rb-biorock { border-top-color: rgba(155,127,232,0.6);  background: rgba(12,6,22,0.4); }
+  .rb-mang    { border-top-color: rgba(62,207,142,0.6);   background: rgba(4,22,12,0.4); }
+  .rb-seg     { border-top-color: rgba(15,212,160,0.6);   background: rgba(4,28,22,0.4); }
+  .rb-ass     { border-top-color: rgba(232,96,64,0.6);    background: rgba(28,6,2,0.4); }
+  .rb-chem    { border-top-color: rgba(240,180,41,0.6);   background: rgba(22,16,2,0.4); }
+
+  .rb-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .rb-nec     .rb-header { color: var(--r-nec); }
+  .rb-biorock .rb-header { color: var(--r-biorock); }
+  .rb-mang    .rb-header { color: var(--r-mang); }
+  .rb-seg     .rb-header { color: var(--r-seg); }
+  .rb-ass     .rb-header { color: var(--r-ass); }
+  .rb-chem    .rb-header { color: var(--r-chem); }
+
+  .rb-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .c-nec     { background: rgba(26,200,200,0.10);  border: 1px solid rgba(26,200,200,0.25);  color: #b8f0ec; }
+  .c-biorock { background: rgba(155,127,232,0.10); border: 1px solid rgba(155,127,232,0.28); color: #d4c8f8; }
+  .c-mang    { background: rgba(62,207,142,0.10);  border: 1px solid rgba(62,207,142,0.28);  color: #a8f4d4; }
+  .c-seg     { background: rgba(15,212,160,0.10);  border: 1px solid rgba(15,212,160,0.28);  color: #a8f8e8; }
+  .c-ass     { background: rgba(232,96,64,0.10);   border: 1px solid rgba(232,96,64,0.28);   color: #f4b8a8; }
+  .c-chem    { background: rgba(240,180,41,0.10);  border: 1px solid rgba(240,180,41,0.28);  color: #f4e08a; }
+
+  .rb-desc {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── RECOVERY SIGNAL STRIP ── */
+  .recovery-strip {
+    margin: 20px 0;
+    background: rgba(4,41,74,0.2);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+
+  .rs-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 14px;
+  }
+
+  .rs-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 90px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .rs-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-foam);
+    text-align: right;
+  }
+
+  .rs-bar-bg {
+    height: 14px;
+    background: rgba(4,41,74,0.5);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .rs-bar {
+    height: 100%;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  /* Baseline marker line */
+  .rs-baseline {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: rgba(255,255,255,0.25);
+    z-index: 2;
+  }
+
+  .rs-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 11px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 11px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-gap  { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .badge-crit { background: rgba(192,57,43,0.18);   color: #ff8070;           border: 1px solid rgba(192,57,43,0.4); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--ocean-cyan); letter-spacing:.15em; margin-bottom:10px; text-transform:uppercase; }
+  .mcq-q-en { font-size:13px; font-weight:500; color:var(--text-light); line-height:1.5; margin-bottom:6px; }
+  .mcq-q-es { font-size:11.5px; font-style:italic; color:var(--text-dim); line-height:1.45; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(26,200,200,0.1); }
+  .mcq-option { font-size:12px; padding:7px 10px; margin-bottom:5px; border-radius:4px; color:var(--text-dim); border:1px solid transparent; line-height:1.45; }
+  .mcq-option.correct { background:rgba(26,200,200,0.08); border-color:rgba(26,200,200,0.25); color:var(--ocean-foam); }
+  .mcq-option.correct::before { content:'✓ '; color:var(--ocean-cyan); font-weight:700; }
+
+  /* ── FOOTER ── */
+  .footer { padding: 24px 40px; background: rgba(2,15,30,0.6); }
+  .progress-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .progress-label,.progress-pct { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; }
+  .progress-label { color:var(--text-dim); }
+  .progress-pct   { color:var(--ocean-cyan); }
+  .progress-track { width:100%; height:4px; background:rgba(26,200,200,0.1); border-radius:2px; overflow:hidden; }
+  .progress-fill  { height:100%; background:linear-gradient(90deg,var(--ocean-teal),var(--ocean-cyan)); border-radius:2px; width:8.52%; transition:width 0.6s ease; }
+
+  .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(26,200,200,0.2),transparent); margin:0 40px; }
+
+  @media (max-width:720px) {
+    .header { flex-direction:column; padding:24px; }
+    .header-svg { width:180px; height:130px; align-self:center; }
+    .lesson-title { font-size:24px; }
+    .panel,.mcq-section { padding:24px; }
+    .mcq-grid,.rest-grid { grid-template-columns:1fr; }
+    .rs-row { grid-template-columns:100px 1fr; }
+    .rs-note { display:none; }
+    .footer { padding:20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L28 / 32</div>
+      <h1 class="lesson-title">Restoration</h1>
+      <p class="lesson-subtitle">Chemical signatures of reef recovery — NEC, buffering restoration, Biorock, assisted evolution, and CMIE verification protocols</p>
+    </div>
+
+    <!-- SVG: restoration timeline — 3 chemical recovery curves (NEC, Ω, DO amplitude) rising from degraded baseline -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- Axes -->
+      <line x1="30" y1="10" x2="30" y2="130" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+      <line x1="30" y1="130" x2="210" y2="130" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+
+      <!-- Y axis labels -->
+      <text x="4"  y="130" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Degraded</text>
+      <text x="4"  y="75"  font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Stress</text>
+      <text x="4"  y="25"  font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.7">Healthy</text>
+
+      <!-- X axis: Rim Run circuits -->
+      <text x="30"  y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">0</text>
+      <text x="75"  y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">1</text>
+      <text x="120" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">3</text>
+      <text x="165" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">5</text>
+      <text x="210" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.6">7</text>
+      <text x="120" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#8ab8cc" opacity="0.5">RIM RUN™ CIRCUITS</text>
+
+      <!-- Horizontal reference line (Alert threshold) -->
+      <line x1="30" y1="90" x2="210" y2="90" stroke="rgba(240,180,41,0.25)" stroke-width="0.8" stroke-dasharray="3,3"/>
+      <text x="212" y="93" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429" opacity="0.7">Alert</text>
+
+      <!-- Horizontal reference (Healthy threshold) -->
+      <line x1="30" y1="45" x2="210" y2="45" stroke="rgba(62,207,142,0.2)" stroke-width="0.8" stroke-dasharray="3,3"/>
+      <text x="212" y="48" font-family="DM Mono,monospace" font-size="6.5" fill="#3ecf8e" opacity="0.7">OK</text>
+
+      <!-- Intervention marker -->
+      <line x1="30" y1="12" x2="30" y2="132" stroke="rgba(26,200,200,0.5)" stroke-width="1.2" stroke-dasharray="2,2"/>
+      <text x="32" y="22" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" opacity="0.9">Intervention</text>
+
+      <!-- NEC recovery curve (cyan) — fastest, steep early rise -->
+      <!-- Starts at ~125 (degraded), rises quickly through circuits -->
+      <polyline points="30,125 75,105 120,72 165,45 210,30"
+                fill="none" stroke="rgba(26,200,200,0.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="210" cy="30" r="3" fill="var(--r-nec)"/>
+      <text x="196" y="27" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">NEC</text>
+
+      <!-- Ω curve (gold) — moderate rise, crosses healthy ~circuit 5 -->
+      <polyline points="30,125 75,118 120,100 165,70 210,48"
+                fill="none" stroke="rgba(240,180,41,0.75)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="210" cy="48" r="3" fill="var(--r-chem)"/>
+      <text x="196" y="58" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">Ω</text>
+
+      <!-- DO diel amplitude (green) — slowest, buffering-dependent -->
+      <polyline points="30,125 75,122 120,115 165,92 210,65"
+                fill="none" stroke="rgba(62,207,142,0.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="210" cy="65" r="3" fill="var(--r-mang)"/>
+      <text x="196" y="75" font-family="DM Mono,monospace" font-size="7" fill="#3ecf8e">DO amp</text>
+
+      <!-- Legend -->
+      <rect x="32" y="8" width="100" height="10" rx="2" fill="rgba(2,15,30,0.7)" stroke="rgba(26,200,200,0.12)" stroke-width="0.6"/>
+      <text x="37" y="15" font-family="DM Mono,monospace" font-size="6" fill="#8ab8cc" opacity="0.8">NEC · Ω · DO amplitude recovery</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          Restoration chemistry is the verification layer of GROAN. Mitigation generates an intervention recommendation. Restoration monitoring answers the question every funder, government partner, and conservation organization will ask: <strong>did it work?</strong> The answer must come from chemistry — not from coral cover estimates, fish counts, or visual assessments alone — because chemical signals precede and predict biological outcomes. A reef zone where Ω has recovered, NEC has returned to positive, and diel DO amplitude is rebuilding will recover biologically. A reef zone that looks healthy in a visual survey but shows continued Ω decline and flat NEC is still on a degradation trajectory. <strong>Chemistry is the leading indicator. Biology is the lagging confirmation.</strong>
+        </p>
+
+        <p style="margin-bottom:14px;">GROAN tracks six chemical restoration pathways, each with a defined recovery signal sequence that CMIE uses to verify intervention success:</p>
+
+        <div class="rest-grid">
+
+          <!-- NEC recovery -->
+          <div class="rest-block rb-nec">
+            <div class="rb-header">Pathway 01 · NEC Recovery</div>
+            <div class="rb-chips">
+              <span class="chip c-nec">ΔTA upstream↓</span>
+              <span class="chip c-nec">NEC → positive</span>
+              <span class="chip c-nec">3–5 circuits</span>
+            </div>
+            <p class="rb-desc">
+              Net Ecosystem Calcification returning to positive is the most direct chemical signal of structural reef recovery. Measured as TA drawdown between paired upstream-downstream MOOP stations, NEC turning positive means calcification is once again outpacing dissolution — the reef is building structure. <strong>NEC recovery precedes visible coral cover increase by 1–2 circuits</strong> and is GROAN's primary restoration verification metric at corridor sites with paired station deployments. NEC approaching zero despite improving coral cover indicates the reef community is calcifying less efficiently than expected — a warning that structural recovery may be superficial.
+            </p>
+          </div>
+
+          <!-- Biorock -->
+          <div class="rest-block rb-biorock">
+            <div class="rb-header">Pathway 02 · Biorock Restoration</div>
+            <div class="rb-chips">
+              <span class="chip c-biorock">Local Ω ↑</span>
+              <span class="chip c-biorock">CaCO₃ substrate</span>
+              <span class="chip c-biorock">Panama · Honduras</span>
+            </div>
+            <p class="rb-desc">
+              Biorock mineral accretion technology — operated by the Global Coral Reef Alliance with active projects in Panama and Honduras, both on the Rim Run™ circuit — uses low-voltage DC electrolysis to precipitate calcium carbonate directly onto conductive substrates. The electrochemical reaction locally elevates Ω within the structure's boundary layer, creating a chemically favorable settlement environment for coral larvae even when ambient Ω is suppressed. GROAN's verification protocol: MOOP pH and Ω sampling at the Biorock structure boundary versus ambient water. A confirmed boundary-layer Ω elevation of <strong>+0.2–0.5 units</strong> relative to ambient constitutes a positive restoration signal. The Rim Run™ circuit's Panama and Honduras stops create a natural annual Biorock verification cycle.
+            </p>
+          </div>
+
+          <!-- Mangrove restoration -->
+          <div class="rest-block rb-mang">
+            <div class="rb-header">Pathway 03 · Mangrove TA Restoration</div>
+            <div class="rb-chips">
+              <span class="chip c-mang">Upstream TA ↑</span>
+              <span class="chip c-mang">DIN plume ↓</span>
+              <span class="chip c-mang">1–4 circuits</span>
+            </div>
+            <p class="rb-desc">
+              Successful mangrove restoration is chemically verified by two converging signals in the downstream reef zone: rising total alkalinity (as the restored mangrove root system begins exporting bicarbonate-rich water) and declining DIN (as the growing canopy uptakes nitrogen from the water column). The recovery sequence is predictable: <strong>TA recovery precedes Ω recovery by 1–2 circuits</strong>, because TA normalization must rebuild the carbonate buffering pool before Ω responds. If TA is recovering but Ω is not, the downstream reef zone may carry an additional stressor — elevated CO₂ from decomposition, or an ongoing SGD chemical input — that is consuming the restored alkalinity.
+            </p>
+          </div>
+
+          <!-- Seagrass restoration -->
+          <div class="rest-block rb-seg">
+            <div class="rb-header">Pathway 04 · Seagrass DO Restoration</div>
+            <div class="rb-chips">
+              <span class="chip c-seg">DO amp ↑</span>
+              <span class="chip c-seg">pCO₂ diel ↓ day</span>
+              <span class="chip c-seg">2–5 circuits</span>
+            </div>
+            <p class="rb-desc">
+              Recovering seagrass meadows restore the diel DO amplitude and pCO₂ cycle that buffers adjacent reef zones during thermal stress events. The restoration verification signal is sequential: first, daytime DO amplitude begins increasing above the baseline flat-line; then, daytime pCO₂ begins showing a diel trough as photosynthesis resumes; finally, nighttime DO drops less severely as the restored biomass reduces overall respiration demand. <strong>A diel DO amplitude recovering from below 1 mg/L to above 3 mg/L</strong> over three or more circuits is GROAN's primary seagrass restoration verification criterion. This signal is particularly critical in the Red Sea theater where seagrass buffering provides thermal stress resilience for adjacent coral.
+            </p>
+          </div>
+
+          <!-- Assisted evolution -->
+          <div class="rest-block rb-ass">
+            <div class="rb-header">Pathway 05 · Assisted Evolution</div>
+            <div class="rb-chips">
+              <span class="chip c-ass">Calcif. rate ↑</span>
+              <span class="chip c-ass">Bleach resist.</span>
+              <span class="chip c-ass">Lower Ω threshold</span>
+            </div>
+            <p class="rb-desc">
+              Transplanting thermally-tolerant or acidification-resistant coral genotypes into degraded zones. Chemical verification differs from other pathways: the restoration signal is not ambient Ω recovery — transplanted corals do not change the water chemistry — but rather <strong>maintenance of calcification rates at ambient Ω values that would cause bleaching or calcification arrest in conventional genotypes</strong>. GROAN documents this by tracking NEC at transplant sites versus control sites under identical chemical conditions. A transplant site with the same ambient Ω but measurably higher NEC than a control site confirms that the tolerant genotype is calcifying successfully at conditions that suppress calcification in the local baseline population. Still emerging technology — verification protocols are not yet standardized across the literature.
+            </p>
+          </div>
+
+          <!-- Chemical alkalinity enhancement -->
+          <div class="rest-block rb-chem">
+            <div class="rb-header">Pathway 06 · Alkalinity Enhancement</div>
+            <div class="rb-chips">
+              <span class="chip c-chem">TA ↑ (local)</span>
+              <span class="chip c-chem">Ω ↑ transient</span>
+              <span class="chip c-chem">Pilot scale only</span>
+            </div>
+            <p class="rb-desc">
+              Direct addition of crushed calcium carbonate (limestone) or calcium hydroxide to locally elevate TA and Ω. Documented at experimental scale in controlled reef mesocosms — effects are measurable but spatially limited and temporally transient, as tidal flushing dilutes the added alkalinity within hours to days. The chemical signal is a sharp local TA spike followed by exponential decay toward ambient. <strong>Not a viable open-water corridor treatment</strong> at any site where tidal exchange exceeds 4 hours per cycle — the treatment window is too narrow. GROAN documents alkalinity enhancement trials where they occur in the corridor zone (Global Coral Reef Alliance partner sites) and uses them to validate the CMIE TA response model, not as a primary restoration pathway recommendation.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Recovery signal timeline strip -->
+        <div class="recovery-strip">
+          <div class="rs-title">Chemical Recovery Signal Sequence — From Intervention to Biological Confirmation</div>
+
+          <div class="rs-row">
+            <div class="rs-label">TA normalizes</div>
+            <div class="rs-bar-bg">
+              <div class="rs-bar" style="width:28%;background:linear-gradient(90deg,rgba(26,200,200,0.5),rgba(26,200,200,0.75));"></div>
+            </div>
+            <div class="rs-note">Circuits 1–2<br>Leading signal</div>
+          </div>
+
+          <div class="rs-row">
+            <div class="rs-label">NEC → positive</div>
+            <div class="rs-bar-bg">
+              <div class="rs-bar" style="width:42%;background:linear-gradient(90deg,rgba(26,200,200,0.45),rgba(62,207,142,0.65));"></div>
+            </div>
+            <div class="rs-note">Circuits 2–3<br>Structural signal</div>
+          </div>
+
+          <div class="rs-row">
+            <div class="rs-label">Ω recovers</div>
+            <div class="rs-bar-bg">
+              <div class="rs-bar" style="width:57%;background:linear-gradient(90deg,rgba(240,180,41,0.4),rgba(240,180,41,0.7));"></div>
+            </div>
+            <div class="rs-note">Circuits 3–5<br>Carbonate signal</div>
+          </div>
+
+          <div class="rs-row">
+            <div class="rs-label">DO amp rebuilds</div>
+            <div class="rs-bar-bg">
+              <div class="rs-bar" style="width:72%;background:linear-gradient(90deg,rgba(62,207,142,0.4),rgba(62,207,142,0.68));"></div>
+            </div>
+            <div class="rs-note">Circuits 3–6<br>Metabolic signal</div>
+          </div>
+
+          <div class="rs-row">
+            <div class="rs-label">Coral cover ↑</div>
+            <div class="rs-bar-bg">
+              <div class="rs-bar" style="width:88%;background:linear-gradient(90deg,rgba(155,127,232,0.4),rgba(155,127,232,0.65));"></div>
+            </div>
+            <div class="rs-note">Circuits 4–7+<br>Biological lag</div>
+          </div>
+
+          <p style="font-size:12.5px;line-height:1.6;color:var(--text-light);font-weight:300;margin-top:12px;">
+            The sequence is not a guarantee — it is a diagnostic template. If TA normalizes but NEC does not follow within two circuits, an additional stressor is consuming the restored alkalinity. If NEC turns positive but Ω does not recover, the ambient acidification rate exceeds the ecosystem's calcification capacity. If all chemical signals recover but coral cover does not increase after seven circuits, the limiting factor has shifted from chemistry to recruitment — substrate availability, crown-of-thorns pressure, or larval supply — and a different CMIE module set must be engaged.
+          </p>
+        </div>
+
+        <p style="margin-top:6px;">
+          <strong>The DMAP-CAL™ Learn loop.</strong> Every restoration monitoring event that re-samples a previously flagged site is an input to the DMAP-CAL™ Learn cycle. The predicted recovery trajectory — generated when the original DS recommendation was made — is compared against the measured chemistry at that circuit. If the prediction matches, the CMIE model parameters are confirmed for that stressor-ecosystem combination. If the prediction fails, the model is updated before the next circuit. <span class="coral">This is the mechanism that makes GROAN more accurate over time</span> — not the initial chemistry, but the annual verified return that tests every prediction CMIE makes. No other monitoring program along the Rim Run™ corridor commits to this verification loop at this spatial resolution and temporal frequency.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          La química de restauración es la capa de verificación de GROAN. La mitigación genera una recomendación de intervención. El monitoreo de restauración responde a la pregunta que harán todos los financiadores, socios gubernamentales y organizaciones de conservación: <strong>¿funcionó?</strong> La respuesta debe provenir de la química — no solo de estimaciones de cobertura de coral, conteos de peces o evaluaciones visuales — porque las señales químicas preceden y predicen los resultados biológicos. <strong>La química es el indicador adelantado. La biología es la confirmación rezagada.</strong>
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>CNE (NEC) en Recuperación:</strong> La CNE que vuelve a ser positiva es la señal química más directa de la recuperación estructural del arrecife. La recuperación de la CNE precede al aumento visible de la cobertura de coral en 1–2 circuitos y es la métrica de verificación de restauración principal de GROAN en sitios del corredor con despliegues de estaciones pareadas.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Restauración Biorock:</strong> Utiliza electrólisis de CC de bajo voltaje para precipitar carbonato de calcio directamente sobre sustratos conductores. El protocolo de verificación de GROAN: muestreo MOOP de pH y Ω en el límite de la estructura Biorock versus agua ambiente. Una elevación de Ω de capa límite confirmada de <strong>+0.2–0.5 unidades</strong> constituye una señal de restauración positiva. Las paradas de Panamá y Honduras del Rim Run™ crean un ciclo natural de verificación Biorock anual.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Restauración de AT por Manglar:</strong> Verificada por dos señales convergentes en la zona arrecifal aguas abajo: aumento de AT (el sistema de raíces exporta agua rica en bicarbonato) y disminución de DIN. La recuperación de AT precede a la recuperación de Ω en 1–2 circuitos.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Restauración de OD por Pastos Marinos:</strong> La señal de verificación es secuencial: primero la amplitud diurna de OD comienza a aumentar; luego el pCO₂ diurno comienza a mostrar un mínimo diurno; finalmente el OD nocturno cae menos severamente. Una amplitud diurna de OD que se recupera de por debajo de 1 mg/L a por encima de 3 mg/L durante tres o más circuitos es el criterio de verificación de restauración de pastos marinos de GROAN.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Evolución Asistida y Mejora de Alcalinidad:</strong> La verificación de evolución asistida rastrea la CNE en sitios de trasplante versus sitios de control bajo condiciones químicas idénticas. La mejora de alcalinidad no es viable en aguas abiertas del corredor donde el intercambio mareal supera 4 horas por ciclo — la ventana de tratamiento es demasiado estrecha.
+        </p>
+        <p>
+          <strong>El ciclo Aprender de DMAP-CAL™:</strong> Cada evento de monitoreo de restauración que vuelve a muestrear un sitio previamente marcado es una entrada al ciclo Aprender. <span class="coral">Este es el mecanismo que hace que GROAN sea más preciso con el tiempo</span> — no la química inicial, sino el retorno anual verificado que prueba cada predicción que hace CMIE.
+        </p>
+      </div>
+    </div>
+
+    <!-- RESTORATION REFERENCE TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Pathway</th>
+          <th>Primary Chemical Signal</th>
+          <th>Leading Indicator</th>
+          <th>Recovery Timeline</th>
+          <th>Corridor Verification</th>
+          <th>CMIE Conf. Tier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--r-nec)">NEC Recovery</strong></td>
+          <td>ΔTA (upstream–downstream) → positive</td>
+          <td>TA drawdown resumes</td>
+          <td>3–5 circuits</td>
+          <td>Paired MOOP stations required</td>
+          <td><span class="badge badge-high">High — direct structural</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--r-biorock)">Biorock</strong></td>
+          <td>Boundary-layer Ω +0.2–0.5 vs. ambient</td>
+          <td>pH elevation at structure</td>
+          <td>3–7 circuits</td>
+          <td>Annual Panama / Honduras stops</td>
+          <td><span class="badge badge-high">High — local measurable</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--r-mang)">Mangrove TA</strong></td>
+          <td>Upstream TA ↑, downstream DIN ↓</td>
+          <td>TA precedes Ω by 1–2 circuits</td>
+          <td>1–4 circuits</td>
+          <td>MOOP upstream + reef station</td>
+          <td><span class="badge badge-high">High — buffering verified</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--r-seg)">Seagrass DO</strong></td>
+          <td>Diel DO amp &gt;3 mg/L; pCO₂ diel trough</td>
+          <td>Daytime DO amp first</td>
+          <td>2–5 circuits</td>
+          <td>Midday + predawn MOOP pair</td>
+          <td><span class="badge badge-high">High — metabolic verified</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--r-ass)">Assisted Evolution</strong></td>
+          <td>NEC at transplant &gt; control at same Ω</td>
+          <td>Calcification rate differential</td>
+          <td>3–8 circuits</td>
+          <td>Transplant vs. control NEC pair</td>
+          <td><span class="badge badge-mod">Moderate — emerging protocol</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--r-chem)">Alk. Enhancement</strong></td>
+          <td>Local TA spike → decay to ambient</td>
+          <td>TA spike (hours)</td>
+          <td>Days (transient)</td>
+          <td>GCAR partner sites only</td>
+          <td><span class="badge badge-mod">Moderate — model validation only</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>When re-sampling a corridor site where a mangrove restoration intervention was recommended, check TA recovery before checking Ω. TA normalization leads Ω recovery by 1–2 circuits — if TA has increased but Ω has not yet responded, the restoration is on track and no escalation is needed. If TA has not recovered after two circuits, the mangrove restoration itself has likely failed or is insufficient in scale, and the CMIE response must be escalated to Tier 3 active restoration. Jumping to Tier 3 because Ω is still suppressed after one circuit misreads the recovery sequence entirely.</span></li>
+        <li><span class="app-num">02</span><span>At every Biorock site visited during the Panama and Honduras Rim Run™ circuit stops, collect paired MOOP pH and Ω samples — one within 2 m of the Biorock structure boundary and one at the ambient control station 50 m away. A boundary-layer Ω elevation of +0.2 units or greater relative to ambient constitutes confirmed Biorock restoration signal. Document both readings in the CMIE calibration record as a restoration verification data point. The annual Rim Run™ stop creates the only longitudinal Biorock verification record at these sites — no fixed monitoring program provides this continuity.</span></li>
+        <li><span class="app-num">03</span><span>When a reef zone's coral cover appears healthy in visual survey but NEC calculated from paired MOOP stations is near zero or negative, do not close the restoration record. Positive visual appearance with zero or negative NEC indicates the reef community is calcifying insufficiently relative to dissolution — structural collapse may follow within 2–4 circuits even as visual cover remains stable. Flag the site in CMIE as NEC-compromised, maintain the DS alert level, and increase sampling frequency to monthly if vessel position allows. Visual recovery is a lagging indicator. NEC is the leading structural signal.</span></li>
+        <li><span class="app-num">04</span><span>For seagrass restoration sites in the Red Sea theater, the verification criterion — diel DO amplitude recovering from below 1 mg/L to above 3 mg/L — must be assessed using paired predawn and midday MOOP readings on the same day, not readings from separate sampling events. A single-point DO reading cannot establish amplitude. Schedule the Red Sea corridor sampling routine to include both predawn (0500–0700 local) and midday (1100–1300 local) measurements at every seagrass-adjacent station. A 6-hour same-day pair is the minimum for valid diel amplitude calculation.</span></li>
+        <li><span class="app-num">05</span><span>When the DMAP-CAL™ Learn cycle comparison at a re-sampled site shows that the predicted chemical recovery trajectory was not achieved — chemistry has not improved or has continued declining despite an implemented intervention — do not simply extend the timeline. Re-examine the stressor attribution from the original CMIE calibration record. Prediction failure most commonly indicates either that the attributed stressor was not the dominant driver (attribution error), or that an additional stressor has emerged since the original DS was generated (new signal). Both require a fresh CMIE attribution run, not a patience extension on the original recommendation.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Al volver a muestrear un sitio del corredor donde se recomendó una intervención de restauración de manglares, verifique la recuperación de AT antes de verificar Ω. La normalización de AT precede a la recuperación de Ω en 1–2 circuitos. Si la AT no se ha recuperado después de dos circuitos, la restauración de manglares probablemente ha fallado o es insuficiente en escala, y la respuesta CMIE debe escalar al Nivel 3 de restauración activa.</span></li>
+        <li><span class="app-num">02</span><span>En cada sitio Biorock visitado durante las paradas del circuito Rim Run™ en Panamá y Honduras, recolecte muestras pareadas de pH y Ω MOOP — una dentro de 2 m del límite de la estructura Biorock y una en la estación de control ambiente a 50 m de distancia. Una elevación de Ω de capa límite de +0.2 unidades o más constituye una señal de restauración Biorock confirmada.</span></li>
+        <li><span class="app-num">03</span><span>Cuando la cobertura de coral de una zona arrecifal parece saludable en la encuesta visual pero la CNE calculada a partir de estaciones MOOP pareadas es cercana a cero o negativa, no cierre el registro de restauración. La apariencia visual positiva con CNE cero o negativa indica que la comunidad arrecifal está calcificando insuficientemente en relación con la disolución. La recuperación visual es un indicador rezagado. La CNE es la señal estructural adelantada.</span></li>
+        <li><span class="app-num">04</span><span>Para los sitios de restauración de pastos marinos en el teatro del Mar Rojo, el criterio de verificación debe evaluarse utilizando lecturas MOOP pareadas del amanecer y del mediodía en el mismo día. Un par del mismo día de 6 horas es el mínimo para el cálculo válido de amplitud diurna.</span></li>
+        <li><span class="app-num">05</span><span>Cuando la comparación del ciclo Aprender de DMAP-CAL™ muestra que la trayectoria de recuperación química predicha no se logró, no simplemente extienda el cronograma. Vuelva a examinar la atribución del estresor del registro de calibración CMIE original. El fallo de predicción más comúnmente indica un error de atribución o la emergencia de un nuevo estresor, ambos requieren una nueva ejecución de atribución CMIE.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">A mangrove restoration site shows rising TA after two circuits but Ω has not yet recovered. What is the correct CMIE interpretation and action?</div>
+        <div class="mcq-q-es">Un sitio de restauración de manglares muestra AT creciente después de dos circuitos pero Ω aún no se ha recuperado. ¿Cuál es la interpretación y acción CMIE correcta?</div>
+        <div class="mcq-option">A) Escalate to Tier 3 active restoration — two circuits without Ω recovery indicates mangrove restoration has failed / Escalar al Nivel 3 — dos circuitos sin recuperación de Ω indica que la restauración de manglares ha fallado</div>
+        <div class="mcq-option">B) Flag as monitoring priority — TA and Ω should recover simultaneously; any lag indicates an unresolved stressor / Marcar como prioridad de monitoreo — AT y Ω deberían recuperarse simultáneamente</div>
+        <div class="mcq-option correct">C) Restoration is on track — TA recovery leads Ω recovery by 1–2 circuits in the documented sequence; rising TA confirms the buffering mechanism is restoring, and Ω response should follow in circuits 3–4 / La restauración está en camino — la recuperación de AT precede a Ω en 1–2 circuitos; la AT creciente confirma que el mecanismo de amortiguación se está restaurando</div>
+        <div class="mcq-option">D) Collect additional seagrass DO amplitude data — the missing Ω signal indicates a concurrent seagrass degradation that is consuming the restored alkalinity / Recopilar datos adicionales de amplitud de OD de pastos marinos</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">Visual coral cover surveys at a restoration site show 45% live cover — a strong improvement. Paired MOOP stations show NEC near zero. What does GROAN conclude?</div>
+        <div class="mcq-q-es">Las encuestas visuales de cobertura de coral en un sitio de restauración muestran 45% de cobertura viva — una mejora sólida. Las estaciones MOOP pareadas muestran CNE cercana a cero. ¿Qué concluye GROAN?</div>
+        <div class="mcq-option">A) Restoration is successful — 45% live cover exceeds the recovery threshold and NEC will follow biological recovery with a 1–2 circuit lag / La restauración es exitosa — 45% de cobertura viva supera el umbral de recuperación</div>
+        <div class="mcq-option">B) Close the restoration record and reduce monitoring frequency — visual recovery is the primary GROAN success criterion / Cerrar el registro de restauración y reducir la frecuencia de monitoreo</div>
+        <div class="mcq-option correct">C) Maintain the DS alert level and flag as NEC-compromised — positive visual cover with near-zero NEC indicates calcification is not outpacing dissolution; structural collapse may follow within 2–4 circuits and visual recovery is a lagging indicator / Mantener el nivel de alerta DS y marcar como CNE-comprometido — la cobertura visual positiva con CNE cercana a cero indica que la calcificación no supera la disolución; el colapso estructural puede seguir en 2–4 circuitos</div>
+        <div class="mcq-option">D) Apply alkalinity enhancement to supplement the calcification deficit indicated by near-zero NEC / Aplicar mejora de alcalinidad para complementar el déficit de calcificación</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">The DMAP-CAL™ Learn cycle comparison shows a site's chemistry has not improved after three circuits despite an implemented Tier 1 intervention. What is the first diagnostic step?</div>
+        <div class="mcq-q-es">La comparación del ciclo Aprender de DMAP-CAL™ muestra que la química de un sitio no ha mejorado después de tres circuitos a pesar de una intervención de Nivel 1 implementada. ¿Cuál es el primer paso diagnóstico?</div>
+        <div class="mcq-option">A) Extend the prediction timeline by three additional circuits — Tier 1 interventions involving agricultural land use change require 5–6 years to produce measurable DIN reduction / Extender el cronograma de predicción tres circuitos adicionales</div>
+        <div class="mcq-option">B) Immediately escalate to Tier 3 active restoration — prediction failure after three circuits confirms the stressor is not locally controllable / Escalar inmediatamente al Nivel 3 de restauración activa</div>
+        <div class="mcq-option correct">C) Re-examine the stressor attribution in the original CMIE calibration record — prediction failure most commonly indicates either attribution error (the attributed stressor was not the dominant driver) or an emerging new stressor; both require a fresh CMIE attribution run, not a patience extension / Reexaminar la atribución del estresor en el registro de calibración CMIE original — el fallo de predicción más comúnmente indica un error de atribución o un nuevo estresor emergente; ambos requieren una nueva ejecución de atribución CMIE</div>
+        <div class="mcq-option">D) Apply the composite stress index to identify any new co-occurring threshold crossings, then add the Tier 1 to an additive Tier 2 response / Aplicar el índice de estrés compuesto para identificar nuevos cruzamientos de umbral</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 60 of 704</span>
+      <span class="progress-pct">8.52%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
