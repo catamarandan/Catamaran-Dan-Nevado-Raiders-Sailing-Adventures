@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L23 | Chemical Oceanography — Monitoring Methods</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --mar-karst:  #c8a45a;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  /* ── PANELS ── */
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);       font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);      font-weight: 500; }
+  .lecture-text .green     { color: var(--green);      font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);     font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst);  font-weight: 500; }
+
+  /* ── METHOD TIER BLOCKS ── */
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .method-block {
+    border-radius: 6px;
+    padding: 14px 16px;
+    background: rgba(4,41,74,0.3);
+    border-top: 3px solid rgba(26,200,200,0.4);
+  }
+
+  .method-block.tier-high   { border-top-color: rgba(26,200,200,0.6);  background: rgba(4,30,40,0.4); }
+  .method-block.tier-mod    { border-top-color: rgba(240,180,41,0.55); background: rgba(22,16,2,0.35); }
+  .method-block.tier-remote { border-top-color: rgba(155,127,232,0.5); background: rgba(12,6,22,0.35); }
+
+  .method-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .method-block.tier-high   .method-header { color: var(--ocean-cyan); }
+  .method-block.tier-mod    .method-header { color: var(--gold); }
+  .method-block.tier-remote .method-header { color: var(--purple); }
+
+  .tier-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-high   { background: var(--ocean-cyan); }
+  .dot-mod    { background: var(--gold); }
+  .dot-remote { background: var(--purple); }
+
+  .instrument-list { list-style: none; }
+
+  .instrument-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .instrument-list li:last-child { border-bottom: none; }
+
+  .inst-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-foam);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .method-block.tier-mod    .inst-name { color: #f4e0a0; }
+  .method-block.tier-remote .inst-name { color: #d4c8f8; }
+
+  /* ── CALIBRATION CHAIN ── */
+  .cal-chain {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 18px 0;
+    flex-wrap: wrap;
+  }
+
+  .cal-node {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 12px;
+    background: rgba(4,41,74,0.5);
+    border: 1px solid rgba(26,200,200,0.2);
+    color: var(--ocean-foam);
+    white-space: nowrap;
+  }
+
+  .cal-node:first-child { border-radius: 4px 0 0 4px; }
+  .cal-node:last-child  { border-radius: 0 4px 4px 0; }
+
+  .cal-arrow {
+    font-size: 14px;
+    color: var(--ocean-cyan);
+    opacity: 0.5;
+    padding: 0 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 12px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 12px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15); color: var(--ocean-cyan);  border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12); color: var(--gold);        border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);  color: var(--coral);       border: 1px solid rgba(232,96,64,0.3); }
+  .badge-rem  { background: rgba(155,127,232,0.12);color: var(--purple);      border: 1px solid rgba(155,127,232,0.3); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .mcq-q-es {
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before {
+    content: '✓ ';
+    color: var(--ocean-cyan);
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 24px 40px;
+    background: rgba(2,15,30,0.6);
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label, .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .progress-label { color: var(--text-dim); }
+  .progress-pct   { color: var(--ocean-cyan); }
+
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 7.81%;
+    transition: width 0.6s ease;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 0 40px;
+  }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid, .method-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+    .cal-chain { gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L23 / 32</div>
+      <h1 class="lesson-title">Monitoring Methods</h1>
+      <p class="lesson-subtitle">In-situ sensors, discrete sampling, remote sensing — instrumentation, calibration chains, and GROAN confidence tier assignment</p>
+    </div>
+
+    <!-- SVG: instrument panel grid — 3×2 tiles, each showing sensor type, parameters, confidence color -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Background -->
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- ── Row 1 ── -->
+
+      <!-- ISFET pH (High) -->
+      <rect x="4" y="4" width="66" height="48" rx="3" fill="rgba(4,41,74,0.5)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <rect x="4" y="4" width="66" height="5"  rx="3" fill="rgba(26,200,200,0.35)"/>
+      <text x="37" y="17" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" letter-spacing="0.06em">ISFET pH</text>
+      <!-- sensor icon: small probe shape -->
+      <rect x="32" y="20" width="10" height="16" rx="2" fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+      <circle cx="37" cy="38" r="3" fill="rgba(26,200,200,0.2)" stroke="rgba(26,200,200,0.5)" stroke-width="0.8"/>
+      <text x="37" y="48" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec">pH · ±0.001</text>
+
+      <!-- CTD (High) -->
+      <rect x="77" y="4" width="66" height="48" rx="3" fill="rgba(4,41,74,0.5)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <rect x="77" y="4" width="66" height="5"  rx="3" fill="rgba(26,200,200,0.35)"/>
+      <text x="110" y="17" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" letter-spacing="0.06em">CTD</text>
+      <!-- cylinder icon -->
+      <ellipse cx="110" cy="25" rx="8" ry="3" fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+      <line x1="102" y1="25" x2="102" y2="35" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+      <line x1="118" y1="25" x2="118" y2="35" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+      <ellipse cx="110" cy="35" rx="8" ry="3" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+      <text x="110" y="48" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec">T · S · D · density</text>
+
+      <!-- DO Optode (High) -->
+      <rect x="150" y="4" width="66" height="48" rx="3" fill="rgba(4,41,74,0.5)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+      <rect x="150" y="4" width="66" height="5"  rx="3" fill="rgba(26,200,200,0.35)"/>
+      <text x="183" y="17" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" letter-spacing="0.04em">DO OPTODE</text>
+      <!-- fluorescence circles -->
+      <circle cx="183" cy="28" r="8" fill="none" stroke="rgba(26,200,200,0.3)" stroke-width="1" stroke-dasharray="2,2"/>
+      <circle cx="183" cy="28" r="4" fill="rgba(26,200,200,0.15)" stroke="rgba(26,200,200,0.5)" stroke-width="0.8"/>
+      <text x="183" y="48" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#b8f0ec">DO · mg/L · diel amp</text>
+
+      <!-- ── Row 2 ── -->
+
+      <!-- TA Titration (High — discrete) -->
+      <rect x="4" y="58" width="66" height="48" rx="3" fill="rgba(22,16,2,0.45)" stroke="rgba(240,180,41,0.3)" stroke-width="1"/>
+      <rect x="4" y="58" width="66" height="5"  rx="3" fill="rgba(240,180,41,0.3)"/>
+      <text x="37" y="71" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" letter-spacing="0.04em">TA TITRATION</text>
+      <!-- flask icon -->
+      <polygon points="33,84 41,84 44,91 30,91" fill="rgba(240,180,41,0.08)" stroke="rgba(240,180,41,0.4)" stroke-width="0.8"/>
+      <line x1="33" y1="84" x2="33" y2="78" stroke="rgba(240,180,41,0.4)" stroke-width="0.8"/>
+      <line x1="41" y1="84" x2="41" y2="78" stroke="rgba(240,180,41,0.4)" stroke-width="0.8"/>
+      <text x="37" y="102" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e8d09a">TA · ±1 µmol/kg</text>
+
+      <!-- Nutrient Colorimetric (Mod) -->
+      <rect x="77" y="58" width="66" height="48" rx="3" fill="rgba(22,16,2,0.45)" stroke="rgba(240,180,41,0.3)" stroke-width="1"/>
+      <rect x="77" y="58" width="66" height="5"  rx="3" fill="rgba(240,180,41,0.3)"/>
+      <text x="110" y="71" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#f0b429" letter-spacing="0.04em">COLORIMETRIC</text>
+      <!-- test tube rack icon -->
+      <rect x="102" y="75" width="5" height="14" rx="1" fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.4)" stroke-width="0.7"/>
+      <rect x="110" y="75" width="5" height="14" rx="1" fill="rgba(240,180,41,0.20)" stroke="rgba(240,180,41,0.4)" stroke-width="0.7"/>
+      <rect x="118" y="75" width="5" height="14" rx="1" fill="rgba(240,180,41,0.08)" stroke="rgba(240,180,41,0.4)" stroke-width="0.7"/>
+      <text x="110" y="102" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e8d09a">DIN · SRP · N:P</text>
+
+      <!-- Sentinel-2 / Remote (Purple) -->
+      <rect x="150" y="58" width="66" height="48" rx="3" fill="rgba(12,6,22,0.45)" stroke="rgba(155,127,232,0.3)" stroke-width="1"/>
+      <rect x="150" y="58" width="66" height="5"  rx="3" fill="rgba(155,127,232,0.3)"/>
+      <text x="183" y="71" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#9b7fe8" letter-spacing="0.04em">SENTINEL-2</text>
+      <!-- satellite icon -->
+      <rect x="178" y="76" width="10" height="7" rx="1" fill="rgba(155,127,232,0.15)" stroke="rgba(155,127,232,0.45)" stroke-width="0.8"/>
+      <line x1="171" y1="80" x2="178" y2="80" stroke="rgba(155,127,232,0.5)" stroke-width="1"/>
+      <line x1="188" y1="80" x2="195" y2="80" stroke="rgba(155,127,232,0.5)" stroke-width="1"/>
+      <rect x="167" y="78" width="4" height="4" rx="0.5" fill="rgba(155,127,232,0.3)" stroke="rgba(155,127,232,0.4)" stroke-width="0.6"/>
+      <rect x="195" y="78" width="4" height="4" rx="0.5" fill="rgba(155,127,232,0.3)" stroke="rgba(155,127,232,0.4)" stroke-width="0.6"/>
+      <text x="183" y="102" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#d4c8f8">CDOM · turbidity · hab</text>
+
+      <!-- ── Row 3 ── -->
+
+      <!-- Ra-222 SGD (special) -->
+      <rect x="4" y="112" width="66" height="44" rx="3" fill="rgba(30,14,4,0.45)" stroke="rgba(200,164,90,0.3)" stroke-width="1"/>
+      <rect x="4" y="112" width="66" height="5"  rx="3" fill="rgba(200,164,90,0.3)"/>
+      <text x="37" y="125" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#c8a45a">Ra-222 SGD</text>
+      <text x="37" y="137" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e8d09a">SGD flag · karst ID</text>
+      <text x="37" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#c8a45a">Mandatory MAR</text>
+
+      <!-- δ¹⁵N IRMS (lab) -->
+      <rect x="77" y="112" width="66" height="44" rx="3" fill="rgba(12,6,22,0.45)" stroke="rgba(155,127,232,0.3)" stroke-width="1"/>
+      <rect x="77" y="112" width="66" height="5"  rx="3" fill="rgba(155,127,232,0.3)"/>
+      <text x="110" y="125" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#9b7fe8">δ¹⁵N IRMS</text>
+      <text x="110" y="137" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#d4c8f8">Source attribution</text>
+      <text x="110" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#9b7fe8">Lab · 4–6 wk TAT</text>
+
+      <!-- GLORYS / Argo (remote) -->
+      <rect x="150" y="112" width="66" height="44" rx="3" fill="rgba(12,6,22,0.45)" stroke="rgba(155,127,232,0.3)" stroke-width="1"/>
+      <rect x="150" y="112" width="66" height="5"  rx="3" fill="rgba(155,127,232,0.3)"/>
+      <text x="183" y="125" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#9b7fe8">GLORYS / ARGO</text>
+      <text x="183" y="137" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#d4c8f8">T · S · reanalysis</text>
+      <text x="183" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#9b7fe8">Temporal anchor</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          GROAN's chemical data quality is bounded at the bottom by the weakest instrument in the collection chain. A CMIE attribution that generates a defensible Decision Score depends on every input arriving with a documented confidence tier — and that tier is determined at the point of measurement, not during analysis. <strong>Method selection is a confidence tier decision.</strong> Choosing the wrong sensor for a given parameter, failing to calibrate on schedule, or mishandling a discrete sample does not produce uncertain data — it produces data whose uncertainty is unknown, which is structurally worse than a documented Moderate-confidence reading.
+        </p>
+
+        <p style="margin-bottom:10px;">GROAN's monitoring methods organize into three tiers:</p>
+
+        <div class="method-grid">
+
+          <!-- Tier High: In-situ sensors -->
+          <div class="method-block tier-high">
+            <div class="method-header">
+              <span class="tier-dot dot-high"></span>
+              High-eligible · In-situ Sensors
+            </div>
+            <ul class="instrument-list">
+              <li>
+                <span class="inst-name">ISFET pH sensor</span>
+                Gold standard for reef in-situ pH. Resolution ±0.001 units. Requires spectrophotometric recalibration every <strong>72 hours</strong> of deployment. Beyond that window without recalibration: automatic Moderate confidence.
+              </li>
+              <li>
+                <span class="inst-name">CTD (Conductivity-Temperature-Depth)</span>
+                Foundation measurement — salinity, temperature, density, depth. Required at every MOOP station. All carbonate calculations are temperature- and salinity-dependent; no CTD record = no valid carbonate calculation.
+              </li>
+              <li>
+                <span class="inst-name">DO Optode (fluorescence-based)</span>
+                Preferred over Clark electrodes for multi-day deployment — lower drift, no electrolyte consumption. Biofouling on membrane suppresses readings; inspection and cleaning mandatory every <strong>24 hours</strong> in reef zones.
+              </li>
+              <li>
+                <span class="inst-name">SAMI-CO₂ / pCO₂ sensor</span>
+                Autonomous underway pCO₂ measurement. Equilibrator-based; requires temperature correction for sea-surface pCO₂ calculation. High confidence when CTD co-deployed.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tier Mod: Discrete samples -->
+          <div class="method-block tier-mod">
+            <div class="method-header">
+              <span class="tier-dot dot-mod"></span>
+              High-eligible · Discrete Sampling
+            </div>
+            <ul class="instrument-list">
+              <li>
+                <span class="inst-name">Total Alkalinity (TA) — open-cell potentiometric titration</span>
+                Reference method, ±1 µmol/kg precision. Samples must be preserved with <strong>mercuric chloride (HgCl₂) within 4 hours</strong> of collection and stored at 4°C. Samples outside this window are discarded from the CMIE record — not downgraded.
+              </li>
+              <li>
+                <span class="inst-name">DIC — coulometric analysis</span>
+                Lab-only method, turnaround 2–4 weeks. TA + DIC pair fully constrains the carbonate system. Field collection; lab analysis; High confidence when certified reference material (CRM) batch correction applied.
+              </li>
+              <li>
+                <span class="inst-name">Nutrient colorimetry (DIN, SRP)</span>
+                Field-deployable for DIN and SRP. N:P ratio computed from co-collected DIN and SRP at same station. Reagent stability degrades above 30°C — carry cold storage for reagents aboard Shamrocket.
+              </li>
+              <li>
+                <span class="inst-name">Duplicate sampling protocol</span>
+                Duplicate samples collected at every <strong>5th corridor station</strong>. If duplicates diverge by &gt;2% for TA or &gt;0.01 pH units, flag the entire station record and re-sample before departing the site.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Remote sensing -->
+          <div class="method-block tier-remote">
+            <div class="method-header">
+              <span class="tier-dot dot-remote"></span>
+              Moderate floor · Remote &amp; Reanalysis
+            </div>
+            <ul class="instrument-list">
+              <li>
+                <span class="inst-name">Sentinel-2 (CDOM, turbidity, habitat)</span>
+                10 m spatial resolution. CDOM proxy valid only when Secchi depth &gt;3 m. Turbid zones (Secchi &lt;3 m) produce unreliable CDOM retrievals — turbidity flag check mandatory before any S-2 CDOM value upgrades station confidence. ±3 day overpass alignment with MOOP station required.
+              </li>
+              <li>
+                <span class="inst-name">GLORYS regional reanalysis (1/12°, ~8 km)</span>
+                Temperature, salinity, current fields. Temporal anchor for corridor aliasing correction. Minimum viable downscaling product for GROAN spatial attribution. Does not resolve reef-zone chemistry — requires MOOP anchor.
+              </li>
+              <li>
+                <span class="inst-name">Ra-222 SGD detector</span>
+                Identifies submarine groundwater discharge by dissolved radon anomaly. Mandatory at all MAR lagoon stations; discretionary elsewhere triggered by salinity anomaly. Turnaround: field-deployable, 4–8 hour count time.
+              </li>
+              <li>
+                <span class="inst-name">δ¹⁵N / δ¹³C / δ¹⁸O (IRMS — lab)</span>
+                Stable isotope source attribution. Lab only, 4–6 week turnaround. Required for agricultural vs. karst DIN partitioning in MAR. Samples collected in field; analysis outsourced. Results classified as Moderate confidence until IRMS batch QC confirmed.
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <p style="margin-bottom:10px;"><strong>The calibration chain.</strong> Every GROAN chemical value follows a documented path from reference standard to CMIE input:</p>
+
+        <div class="cal-chain">
+          <span class="cal-node">NIST / CRM Reference Standard</span>
+          <span class="cal-arrow">→</span>
+          <span class="cal-node">Lab Instrument Calibration</span>
+          <span class="cal-arrow">→</span>
+          <span class="cal-node">Field Sensor Cal. Check</span>
+          <span class="cal-arrow">→</span>
+          <span class="cal-node">MOOP Collection (REV-compliant)</span>
+          <span class="cal-arrow">→</span>
+          <span class="cal-node">L3 Source Arbitration</span>
+          <span class="cal-arrow">→</span>
+          <span class="cal-node">CMIE Input</span>
+        </div>
+
+        <p style="margin-bottom:14px;">
+          A break at any link in this chain does not just affect that link — it <span class="coral">propagates forward</span> as an undocumented uncertainty into every CMIE attribution that uses the affected value. A sensor calibrated against a lab instrument that was itself out of CRM compliance produces a High-labeled value with Moderate-or-worse actual uncertainty. GROAN's L3 Source Arbitration exists partly to catch these chain breaks through recency weighting and confidence cross-checks before CMIE consumes the data.
+        </p>
+
+        <p>
+          <strong>Zero-carbon constraint and method selection.</strong> Shamrocket is a sailing catamaran with no chase vessel and limited cold-storage capacity. This <span class="green">shapes method selection</span> directly: reagent-dependent colorimetric methods require cold storage; HgCl₂-preserved TA samples require a secure hazardous materials protocol aboard; IRMS samples require chain of custody from collection to lab submission at country ports. Methods that cannot be executed reliably from a sailing platform under expedition conditions are not High-confidence methods for GROAN — they are Moderate-confidence by operational constraint, regardless of their laboratory precision specification.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          La calidad de los datos químicos de GROAN está limitada en su límite inferior por el instrumento más débil en la cadena de recolección. <strong>La selección del método es una decisión de nivel de confianza.</strong> Elegir el sensor equivocado para un parámetro dado, no calibrarlo según el cronograma, o manejar incorrectamente una muestra discreta no produce datos inciertos — produce datos cuya incertidumbre es desconocida, lo que es estructuralmente peor que una lectura de confianza Moderada documentada.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Sensores in situ (High elegible):</strong> El sensor ISFET de pH es el estándar de oro con resolución ±0.001 unidades, requiriendo recalibración espectrofotométrica cada <strong>72 horas</strong>. El CTD es la medición fundamental — sin registro CTD no hay cálculo de carbonatos válido. El optode de OD requiere inspección y limpieza cada <strong>24 horas</strong> en zonas de arrecife para prevenir el ensuciamiento de la membrana.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Muestreo discreto (High elegible):</strong> Las muestras de Alcalinidad Total deben preservarse con cloruro de mercurio (HgCl₂) dentro de <strong>4 horas</strong> de la recolección y almacenarse a 4°C. Las muestras fuera de esta ventana se descartan — no se degradan. Se recolectan muestras duplicadas en cada <strong>5ª estación del corredor</strong>; si los duplicados divergen más del 2% para TA o 0.01 unidades de pH, se marca el registro completo de la estación.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Métodos remotos y de reanálisis (piso Moderado):</strong> El proxy CDOM de Sentinel-2 solo es válido cuando la profundidad Secchi es &gt;3 m. GLORYS proporciona el ancla temporal para la corrección de aliasing del corredor. Ra-222 es obligatorio en todas las estaciones lagunares del MAR. Los isótopos estables (δ¹⁵N, δ¹³C) tienen un tiempo de respuesta de 4–6 semanas en laboratorio.
+        </p>
+        <p>
+          <strong>Restricción de cero carbono:</strong> Shamrocket es un catamarán de vela sin embarcación de apoyo y capacidad limitada de almacenamiento en frío. Esto <span class="green">influye directamente en la selección de métodos</span> — los métodos que no pueden ejecutarse de manera confiable desde una plataforma de vela bajo condiciones de expedición son métodos de confianza Moderada por restricción operacional, independientemente de su especificación de precisión de laboratorio.
+        </p>
+      </div>
+    </div>
+
+    <!-- METHODS REFERENCE TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Parameters</th>
+          <th>Precision</th>
+          <th>Critical Constraint</th>
+          <th>Field / Lab</th>
+          <th>Conf. Tier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">ISFET pH</strong></td>
+          <td>pH</td>
+          <td>±0.001 units</td>
+          <td>Recal. every 72 hr — else Moderate</td>
+          <td>Field</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">CTD</strong></td>
+          <td>T, S, D, density</td>
+          <td>±0.001 PSU</td>
+          <td>Required at every MOOP station</td>
+          <td>Field</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ocean-cyan)">DO Optode</strong></td>
+          <td>DO mg/L, diel amplitude</td>
+          <td>±0.1 mg/L</td>
+          <td>Clean membrane every 24 hr reef zone</td>
+          <td>Field</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--gold)">TA Titration</strong></td>
+          <td>Total Alkalinity</td>
+          <td>±1 µmol/kg</td>
+          <td>HgCl₂ within 4 hr — else discard</td>
+          <td>Field→Lab</td>
+          <td><span class="badge badge-high">High eligible</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--gold)">Colorimetric</strong></td>
+          <td>DIN, SRP, N:P</td>
+          <td>±0.5 µmol/L</td>
+          <td>Reagent cold storage &lt;30°C</td>
+          <td>Field</td>
+          <td><span class="badge badge-mod">Moderate</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--purple)">Sentinel-2</strong></td>
+          <td>CDOM, turbidity, habitat</td>
+          <td>10 m spatial</td>
+          <td>Secchi &gt;3 m · ±3 day overpass align</td>
+          <td>Remote</td>
+          <td><span class="badge badge-mod">Moderate floor</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--purple)">GLORYS</strong></td>
+          <td>T, S, currents</td>
+          <td>1/12° (~8 km)</td>
+          <td>Temporal anchor only — no reef-zone chem</td>
+          <td>Remote</td>
+          <td><span class="badge badge-mod">Moderate floor</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--mar-karst)">Ra-222 Detector</strong></td>
+          <td>SGD flag</td>
+          <td>4–8 hr count time</td>
+          <td>Mandatory all MAR lagoon stations</td>
+          <td>Field</td>
+          <td><span class="badge badge-mod">Moderate → High w/ correction</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--purple)">IRMS (δ¹⁵N / δ¹³C)</strong></td>
+          <td>Source attribution</td>
+          <td>±0.1‰</td>
+          <td>4–6 wk TAT · chain of custody</td>
+          <td>Lab only</td>
+          <td><span class="badge badge-mod">Moderate until QC confirmed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>ISFET pH sensors deployed for more than 72 hours without recalibration against a spectrophotometric reference must have all readings from that period downgraded to Moderate confidence before L3 Source Arbitration. The drift accumulates non-linearly — a sensor at hour 80 is not 10% less accurate than at hour 72; it may have drifted into a different error regime entirely. The 72-hour window is a hard threshold, not a guideline.</span></li>
+        <li><span class="app-num">02</span><span>Inspect and clean DO optode membranes every 24 hours in reef zones. Biofouling in warm, productive shallow water accumulates faster than in open ocean deployments — a fouled membrane suppresses DO readings and will produce false hypoxia flags in CMIE. If a 24-hour inspection cycle cannot be maintained during a passage leg, flag all DO readings from that period as potentially fouled and assign Moderate confidence regardless of instrument diagnostics.</span></li>
+        <li><span class="app-num">03</span><span>Preserve all TA and DIC discrete samples with HgCl₂ within 4 hours of collection. Samples not preserved within this window are discarded — not downgraded to Moderate. Biological activity continues in unpreserved samples and will alter TA by measurable amounts within hours in warm reef water. Partial preservation data are not usable as Moderate-confidence inputs; they are unusable. Carry adequate HgCl₂ stock for the full corridor count before departure.</span></li>
+        <li><span class="app-num">04</span><span>Before using any Sentinel-2 CDOM proxy value to upgrade a corridor station from Moderate to High confidence, confirm Secchi depth exceeds 3 m at the station. In turbid zones — particularly near river plume boundaries in Guatemala and Honduras — CDOM retrieval algorithms produce systematically biased outputs. The turbidity check is not a post-hoc quality filter; it must be performed before the upgrade decision is made. A station in a turbid zone remains at Moderate confidence regardless of how many Sentinel-2 overpasses are available.</span></li>
+        <li><span class="app-num">05</span><span>Collect duplicate samples at every 5th MOOP corridor station. If duplicates diverge by more than 2% for TA or 0.01 pH units, do not leave the site without re-sampling. A failed duplicate check indicates either a collection error or an REV violation — both require resolution before the station enters the CMIE record. If re-sampling is operationally impossible (weather, vessel constraint), mark the station as single-sample unconfirmed and assign Moderate confidence for all parameters collected there.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Los sensores ISFET de pH desplegados durante más de 72 horas sin recalibración contra una referencia espectrofotométrica deben tener todas las lecturas de ese período degradadas a confianza Moderada antes del Arbitraje de Fuentes L3. La ventana de 72 horas es un umbral fijo, no una guía.</span></li>
+        <li><span class="app-num">02</span><span>Inspeccione y limpie las membranas del optode de OD cada 24 horas en zonas de arrecife. El ensuciamiento biológico en aguas cálidas y productivas poco profundas se acumula más rápido que en despliegues en océano abierto. Si no se puede mantener un ciclo de inspección de 24 horas durante un tramo de travesía, marque todas las lecturas de OD de ese período como potencialmente contaminadas y asigne confianza Moderada.</span></li>
+        <li><span class="app-num">03</span><span>Preserve todas las muestras discretas de AT y CID con HgCl₂ dentro de las 4 horas de la recolección. Las muestras no preservadas dentro de esta ventana se descartan — no se degradan a Moderado. Las muestras de preservación parcial no son utilizables como entradas de confianza Moderada; son inutilizables.</span></li>
+        <li><span class="app-num">04</span><span>Antes de usar cualquier valor proxy CDOM de Sentinel-2 para actualizar una estación del corredor de Moderado a Alta confianza, confirme que la profundidad Secchi supere 3 m. En zonas turbias — particularmente cerca de los límites de los penachos de los ríos en Guatemala y Honduras — los algoritmos de recuperación CDOM producen resultados sistemáticamente sesgados.</span></li>
+        <li><span class="app-num">05</span><span>Recolecte muestras duplicadas en cada 5ª estación del corredor MOOP. Si los duplicados divergen más del 2% para AT o 0.01 unidades de pH, no abandone el sitio sin volver a muestrear. Si el remuestreo es operacionalmente imposible, marque la estación como no confirmada de muestra única y asigne confianza Moderada para todos los parámetros.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">An ISFET pH sensor has been deployed for 80 hours without recalibration. What is the correct GROAN confidence handling for all readings from hours 73–80?</div>
+        <div class="mcq-q-es">Un sensor ISFET de pH ha estado desplegado durante 80 horas sin recalibración. ¿Cuál es el manejo correcto de confianza GROAN para todas las lecturas de las horas 73–80?</div>
+        <div class="mcq-option">A) Retain High confidence — 8 hours past the window is within instrument specification tolerance / Mantener Alta confianza — 8 horas más allá de la ventana está dentro de la tolerancia de especificación del instrumento</div>
+        <div class="mcq-option">B) Apply a linear drift correction based on the hour-72 calibration value and retain High confidence / Aplicar corrección de deriva lineal basada en el valor de calibración de hora 72 y mantener Alta confianza</div>
+        <div class="mcq-option correct">C) Downgrade all readings from hours 73–80 to Moderate confidence before L3 Source Arbitration — the 72-hour window is a hard threshold, drift is non-linear, and the readings may have entered a different error regime / Degradar todas las lecturas de horas 73–80 a confianza Moderada — la ventana de 72 horas es un umbral fijo, la deriva es no lineal</div>
+        <div class="mcq-option">D) Discard all readings from hours 73–80 entirely — past the calibration window, ISFET data cannot be used at any confidence tier / Descartar todas las lecturas de horas 73–80 completamente</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">A TA sample was collected at 09:00 but the vessel encountered weather and HgCl₂ preservation was not applied until 14:00 — five hours after collection. What is the correct handling?</div>
+        <div class="mcq-q-es">Una muestra de AT fue recolectada a las 09:00 pero el barco encontró clima adverso y la preservación con HgCl₂ no se aplicó hasta las 14:00 — cinco horas después de la recolección. ¿Cuál es el manejo correcto?</div>
+        <div class="mcq-option">A) Downgrade the sample to Moderate confidence and flag it in the CMIE record / Degradar la muestra a confianza Moderada y marcarla en el registro CMIE</div>
+        <div class="mcq-option">B) Apply a biological activity correction factor and retain the sample at Low confidence / Aplicar un factor de corrección de actividad biológica y retener la muestra con confianza Baja</div>
+        <div class="mcq-option correct">C) Discard the sample entirely — TA samples not preserved within 4 hours are discarded, not downgraded; biological activity alters TA in warm reef water within hours and the contamination is not correctable / Descartar la muestra completamente — las muestras de AT no preservadas dentro de 4 horas se descartan, no se degradan</div>
+        <div class="mcq-option">D) Retain the sample if the temperature log shows the sample was stored below 20°C during the delay / Retener la muestra si el registro de temperatura muestra almacenamiento por debajo de 20°C durante el retraso</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">Under what condition is a Sentinel-2 CDOM proxy value prohibited from upgrading a corridor MOOP station from Moderate to High confidence?</div>
+        <div class="mcq-q-es">¿Bajo qué condición se prohíbe que un valor proxy CDOM de Sentinel-2 actualice una estación MOOP del corredor de Moderado a Alta confianza?</div>
+        <div class="mcq-option">A) When the Sentinel-2 overpass occurred more than 7 days before the MOOP sample collection / Cuando el sobrevuelo de Sentinel-2 ocurrió más de 7 días antes de la recolección de la muestra MOOP</div>
+        <div class="mcq-option">B) When the station is located within the 25 km national boundary transition zone / Cuando la estación está ubicada dentro de la zona de transición de frontera nacional de 25 km</div>
+        <div class="mcq-option correct">C) When Secchi depth is less than 3 m — turbid conditions produce systematically biased CDOM retrievals and the proxy is invalid regardless of overpass alignment or instrument quality / Cuando la profundidad Secchi es menor de 3 m — condiciones turbias producen recuperaciones CDOM sistemáticamente sesgadas y el proxy es inválido independientemente de la alineación del sobrevuelo</div>
+        <div class="mcq-option">D) When the station is co-located with a Ra-222 SGD anomaly — groundwater chemistry interferes with CDOM signal interpretation / Cuando la estación está co-ubicada con una anomalía Ra-222 SGD</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 55 of 704</span>
+      <span class="progress-pct">7.81%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
