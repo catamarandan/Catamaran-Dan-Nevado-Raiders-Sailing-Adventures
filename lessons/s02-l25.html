@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L25 | Chemical Oceanography — Stressors</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --red-crit:   #c0392b;
+    --s-oa:       #9b7fe8;
+    --s-thermal:  #e86040;
+    --s-eutroph:  #3ecf8e;
+    --s-fresh:    #1ac8c8;
+    --s-organic:  #c8a45a;
+    --s-sgd:      #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);       font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);      font-weight: 500; }
+  .lecture-text .green     { color: var(--green);      font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);     font-weight: 500; }
+  .lecture-text .oa        { color: var(--s-oa);       font-weight: 500; }
+  .lecture-text .fresh     { color: var(--s-fresh);    font-weight: 500; }
+  .lecture-text .organic   { color: var(--s-organic);  font-weight: 500; }
+
+  /* ── STRESSOR GRID ── */
+  .stressor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 13px;
+    margin: 20px 0;
+  }
+
+  .stressor-block {
+    border-radius: 6px;
+    padding: 13px 15px;
+    background: rgba(4,41,74,0.3);
+    border-top: 3px solid rgba(26,200,200,0.4);
+  }
+
+  /* per-stressor colors */
+  .sb-oa       { border-top-color: rgba(155,127,232,0.6); background: rgba(12,6,22,0.4); }
+  .sb-thermal  { border-top-color: rgba(232,96,64,0.6);   background: rgba(28,6,2,0.4); }
+  .sb-eutroph  { border-top-color: rgba(62,207,142,0.6);  background: rgba(4,22,12,0.4); }
+  .sb-fresh    { border-top-color: rgba(26,200,200,0.6);  background: rgba(4,28,40,0.4); }
+  .sb-organic  { border-top-color: rgba(200,164,90,0.6);  background: rgba(22,14,2,0.4); }
+  .sb-sgd      { border-top-color: rgba(240,180,41,0.6);  background: rgba(22,18,2,0.4); }
+
+  .sb-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .sb-oa      .sb-header { color: var(--s-oa); }
+  .sb-thermal .sb-header { color: var(--s-thermal); }
+  .sb-eutroph .sb-header { color: var(--s-eutroph); }
+  .sb-fresh   .sb-header { color: var(--s-fresh); }
+  .sb-organic .sb-header { color: var(--s-organic); }
+  .sb-sgd     .sb-header { color: var(--s-sgd); }
+
+  .sb-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .c-oa      { background: rgba(155,127,232,0.10); border: 1px solid rgba(155,127,232,0.28); color: #d4c8f8; }
+  .c-thermal { background: rgba(232,96,64,0.10);   border: 1px solid rgba(232,96,64,0.28);   color: #f4b8a8; }
+  .c-eutroph { background: rgba(62,207,142,0.10);  border: 1px solid rgba(62,207,142,0.28);  color: #a8f4d4; }
+  .c-fresh   { background: rgba(26,200,200,0.10);  border: 1px solid rgba(26,200,200,0.25);  color: #b8f0ec; }
+  .c-organic { background: rgba(200,164,90,0.12);  border: 1px solid rgba(200,164,90,0.28);  color: #e8d09a; }
+  .c-sgd     { background: rgba(240,180,41,0.10);  border: 1px solid rgba(240,180,41,0.28);  color: #f4e08a; }
+
+  .sb-desc {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── INTERACTION MATRIX ── */
+  .int-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .int-matrix th {
+    padding: 7px 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+    background: rgba(4,25,40,0.5);
+    text-align: center;
+  }
+
+  .int-matrix th:first-child { text-align: left; width: 110px; }
+
+  .int-matrix td {
+    padding: 7px 8px;
+    text-align: center;
+    font-size: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.05);
+    border-right: 1px solid rgba(26,200,200,0.05);
+  }
+
+  .int-matrix td:first-child {
+    text-align: left;
+    font-size: 10px;
+    color: var(--text-dim);
+    padding-left: 10px;
+  }
+
+  .int-matrix tbody tr:nth-child(odd) { background: rgba(4,41,74,0.2); }
+
+  .cell-syn  { background: rgba(192,57,43,0.25);   color: #ff8070;  border-radius: 3px; padding: 3px 6px; font-size: 9px; }
+  .cell-add  { background: rgba(240,180,41,0.20);  color: #f0b429;  border-radius: 3px; padding: 3px 6px; font-size: 9px; }
+  .cell-ind  { background: rgba(26,200,200,0.10);  color: #8ab8cc;  border-radius: 3px; padding: 3px 6px; font-size: 9px; }
+  .cell-self { background: rgba(4,41,74,0.4);      color: #445566;  border-radius: 3px; padding: 3px 6px; font-size: 9px; }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 11px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 11px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-crit { background: rgba(192,57,43,0.18);   color: #ff8070;           border: 1px solid rgba(192,57,43,0.4); }
+  .badge-gap  { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .mcq-q-en { font-size: 13px; font-weight: 500; color: var(--text-light); line-height: 1.5; margin-bottom: 6px; }
+  .mcq-q-es { font-size: 11.5px; font-style: italic; color: var(--text-dim); line-height: 1.45; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+
+  .mcq-option {
+    font-size: 12px;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    line-height: 1.45;
+  }
+
+  .mcq-option.correct {
+    background: rgba(26,200,200,0.08);
+    border-color: rgba(26,200,200,0.25);
+    color: var(--ocean-foam);
+  }
+
+  .mcq-option.correct::before { content: '✓ '; color: var(--ocean-cyan); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  .footer { padding: 24px 40px; background: rgba(2,15,30,0.6); }
+
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+
+  .progress-label, .progress-pct { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; }
+  .progress-label { color: var(--text-dim); }
+  .progress-pct   { color: var(--ocean-cyan); }
+
+  .progress-track { width: 100%; height: 4px; background: rgba(26,200,200,0.1); border-radius: 2px; overflow: hidden; }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan));
+    border-radius: 2px;
+    width: 8.10%;
+    transition: width 0.6s ease;
+  }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 0 40px; }
+
+  @media (max-width: 720px) {
+    .header { flex-direction: column; padding: 24px; }
+    .header-svg { width: 180px; height: 130px; align-self: center; }
+    .lesson-title { font-size: 24px; }
+    .panel, .mcq-section { padding: 24px; }
+    .mcq-grid, .stressor-grid { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L25 / 32</div>
+      <h1 class="lesson-title">Stressors</h1>
+      <p class="lesson-subtitle">Chemical stressor taxonomy, interaction architecture, and CMIE multiplicative weighting</p>
+    </div>
+
+    <!-- SVG: hexagonal stressor web — 6 nodes in pentagon+center, connecting lines colored by interaction type -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- Legend -->
+      <line x1="4"  y1="10" x2="18" y2="10" stroke="rgba(192,57,43,0.8)"  stroke-width="1.5"/>
+      <text x="20" y="13" font-family="DM Mono,monospace" font-size="6.5" fill="#ff8070">Synergistic</text>
+      <line x1="70" y1="10" x2="84" y2="10" stroke="rgba(240,180,41,0.7)" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="86" y="13" font-family="DM Mono,monospace" font-size="6.5" fill="#f0b429">Additive</text>
+      <line x1="130" y1="10" x2="144" y2="10" stroke="rgba(100,120,140,0.5)" stroke-width="1" stroke-dasharray="2,3"/>
+      <text x="146" y="13" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc">Independent</text>
+
+      <!-- Node positions (pentagon + center):
+           OA      (110, 32)   top
+           Thermal (168, 68)   upper-right
+           Eutroph (150,126)   lower-right
+           Freshwater (70,126) lower-left
+           SGD      (52, 68)   upper-left
+           Organic  (110, 90)  center
+      -->
+
+      <!-- Interaction lines (drawn before nodes so nodes appear on top) -->
+
+      <!-- OA × Thermal — SYNERGISTIC (most important) -->
+      <line x1="110" y1="38" x2="163" y2="70" stroke="rgba(192,57,43,0.75)" stroke-width="1.8"/>
+
+      <!-- OA × Eutroph — SYNERGISTIC -->
+      <line x1="110" y1="38" x2="147" y2="120" stroke="rgba(192,57,43,0.55)" stroke-width="1.4"/>
+
+      <!-- Thermal × Eutroph — SYNERGISTIC -->
+      <line x1="163" y1="76" x2="147" y2="120" stroke="rgba(192,57,43,0.55)" stroke-width="1.4"/>
+
+      <!-- Eutroph × Freshwater — ADDITIVE -->
+      <line x1="144" y1="122" x2="76" y2="122" stroke="rgba(240,180,41,0.65)" stroke-width="1.4" stroke-dasharray="4,2"/>
+
+      <!-- Freshwater × SGD — ADDITIVE -->
+      <line x1="70" y1="120" x2="56" y2="76" stroke="rgba(240,180,41,0.55)" stroke-width="1.2" stroke-dasharray="4,2"/>
+
+      <!-- SGD × OA — ADDITIVE -->
+      <line x1="58" y1="68" x2="104" y2="36" stroke="rgba(240,180,41,0.55)" stroke-width="1.2" stroke-dasharray="4,2"/>
+
+      <!-- Organic × all (center) — INDEPENDENT/ADDITIVE short spokes -->
+      <line x1="110" y1="84" x2="110" y2="42" stroke="rgba(200,164,90,0.4)"  stroke-width="1" stroke-dasharray="2,3"/>
+      <line x1="110" y1="84" x2="160" y2="74" stroke="rgba(200,164,90,0.4)"  stroke-width="1" stroke-dasharray="2,3"/>
+      <line x1="110" y1="84" x2="146" y2="120" stroke="rgba(200,164,90,0.4)" stroke-width="1" stroke-dasharray="2,3"/>
+      <line x1="110" y1="84" x2="74"  y2="120" stroke="rgba(200,164,90,0.4)" stroke-width="1" stroke-dasharray="2,3"/>
+      <line x1="110" y1="84" x2="58"  y2="74"  stroke="rgba(200,164,90,0.4)" stroke-width="1" stroke-dasharray="2,3"/>
+
+      <!-- Thermal × Freshwater — INDEPENDENT -->
+      <line x1="162" y1="74" x2="72" y2="120" stroke="rgba(100,120,140,0.35)" stroke-width="0.9" stroke-dasharray="2,4"/>
+
+      <!-- ── Stressor nodes ── -->
+
+      <!-- OA (top) -->
+      <circle cx="110" cy="34" r="14" fill="rgba(12,6,22,0.85)" stroke="rgba(155,127,232,0.6)" stroke-width="1.5"/>
+      <text x="110" y="31" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#9b7fe8" font-weight="500">OA</text>
+      <text x="110" y="41" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#d4c8f8">Ocean</text>
+      <text x="110" y="49" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#d4c8f8">Acid.</text>
+
+      <!-- Thermal (upper-right) -->
+      <circle cx="166" cy="74" r="14" fill="rgba(28,6,2,0.85)" stroke="rgba(232,96,64,0.6)" stroke-width="1.5"/>
+      <text x="166" y="71" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#e86040" font-weight="500">SST</text>
+      <text x="166" y="81" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#f4b8a8">Thermal</text>
+
+      <!-- Eutroph (lower-right) -->
+      <circle cx="148" cy="124" r="14" fill="rgba(4,22,12,0.85)" stroke="rgba(62,207,142,0.6)" stroke-width="1.5"/>
+      <text x="148" y="121" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#3ecf8e" font-weight="500">EUTR</text>
+      <text x="148" y="131" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#a8f4d4">Nutrient</text>
+
+      <!-- Freshwater (lower-left) -->
+      <circle cx="72" cy="124" r="14" fill="rgba(4,28,40,0.85)" stroke="rgba(26,200,200,0.55)" stroke-width="1.5"/>
+      <text x="72" y="121" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#1ac8c8" font-weight="500">FW</text>
+      <text x="72" y="131" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#b8f0ec">Fresh­water</text>
+
+      <!-- SGD (upper-left) -->
+      <circle cx="54" cy="74" r="14" fill="rgba(22,18,2,0.85)" stroke="rgba(240,180,41,0.55)" stroke-width="1.5"/>
+      <text x="54" y="71" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#f0b429" font-weight="500">SGD</text>
+      <text x="54" y="81" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#f4e08a">Ground­water</text>
+
+      <!-- Organic center -->
+      <circle cx="110" cy="90" r="12" fill="rgba(22,14,2,0.9)" stroke="rgba(200,164,90,0.55)" stroke-width="1.3"/>
+      <text x="110" y="87" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#c8a45a" font-weight="500">ORG</text>
+      <text x="110" y="96" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="#e8d09a">Organic</text>
+
+      <!-- CMIE label below -->
+      <rect x="78" y="146" width="64" height="12" rx="3" fill="rgba(2,15,30,0.8)" stroke="rgba(26,200,200,0.3)" stroke-width="0.7"/>
+      <text x="110" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#1ac8c8" letter-spacing="0.1em">CMIE WEIGHTS</text>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          A stressor is not an indicator reading. An indicator tells CMIE <em>where a system is</em>. A stressor tells CMIE <em>why it got there</em> and — critically — <em>which other stressors are amplifying or moderating the response</em>. GROAN defines six primary chemical stressors. The single most important architectural fact about these stressors is that <strong>their interactions are not additive — they are multiplicative or synergistic</strong>. A reef experiencing two stressors simultaneously is not twice as stressed as a reef experiencing one. It may be four times as stressed, or it may be approaching a tipping point where recovery becomes structurally impossible. CMIE's cross-module interaction weighting exists to capture this non-linearity. No single-ecosystem monitoring framework can compute it.
+        </p>
+
+        <div class="stressor-grid">
+
+          <!-- OA -->
+          <div class="stressor-block sb-oa">
+            <div class="sb-header">Stressor 01 · Ocean Acidification</div>
+            <div class="sb-chips">
+              <span class="chip c-oa">pH −0.002/yr</span>
+              <span class="chip c-oa">Ω secular ↓</span>
+              <span class="chip c-oa">Long-term trend</span>
+            </div>
+            <p class="sb-desc">
+              The global long-term background stressor — atmospheric CO₂ uptake driving a secular ocean pH decline of <strong>~0.002 units per year</strong> and systematic Ω suppression. OA operates on decadal timescales; it is the baseline against which all episodic acidification events are measured. CMIE must separate OA trend signal from episodic stressors: a single low-Ω event is not OA evidence. OA is confirmed by a <strong>declining multi-year Ω trend</strong> at corridor sites combined with Argo or CORDAP open-ocean records. Primary GROAN module: GRIN (calcification). Synergistic with thermal stress — the canonical OA × Thermal interaction is the Red Sea proof-of-concept case.
+            </p>
+          </div>
+
+          <!-- Thermal -->
+          <div class="stressor-block sb-thermal">
+            <div class="sb-header">Stressor 02 · Thermal Stress</div>
+            <div class="sb-chips">
+              <span class="chip c-thermal">DHW &gt;4 → bleach</span>
+              <span class="chip c-thermal">DHW &gt;8 → severe</span>
+              <span class="chip c-thermal">MMM + 1°C trigger</span>
+            </div>
+            <p class="sb-desc">
+              Elevated SST quantified by Degree Heating Weeks (DHW) — the accumulated thermal anomaly above the maximum monthly mean. DHW &gt;4 predicts bleaching; DHW &gt;8 predicts severe bleaching and mortality. Chemically, thermal stress drives a measurable pCO₂ rise (warmer water holds less CO₂) and suppresses coral calcification, reducing TA drawdown. In the Red Sea, SST anomaly ≥1°C MMM for ≥4 weeks triggers GSIN seagrass metabolic stress before reef bleaching appears. <strong>Thermal stress is GROAN's most synergistically dangerous stressor</strong> — its OA interaction and its eutrophication interaction are both classified as synergistic in the CMIE interaction matrix.
+            </p>
+          </div>
+
+          <!-- Eutrophication -->
+          <div class="stressor-block sb-eutroph">
+            <div class="sb-header">Stressor 03 · Eutrophication</div>
+            <div class="sb-chips">
+              <span class="chip c-eutroph">DIN &gt;3 µmol/L</span>
+              <span class="chip c-eutroph">N:P &gt;16</span>
+              <span class="chip c-eutroph">Phase shift risk</span>
+            </div>
+            <p class="sb-desc">
+              Excess nutrient loading from agricultural runoff, sewage, and aquaculture driving algal proliferation, increased respiration, DO depletion, and local CO₂ production. Chemically: elevated DIN, N:P &gt;16 (agricultural signature), DO suppression at night, pCO₂ elevation during algal decomposition. <strong>Eutrophication is the primary phase-shift accelerant</strong> — elevated nutrients shift the competitive advantage from coral to macroalgae, and the chemical signature (elevated respiration, DO suppression) precedes the visible phase shift by weeks. Synergistic with both thermal stress (warm water accelerates bacterial decomposition) and OA (local CO₂ production from respiration further depresses Ω).
+            </p>
+          </div>
+
+          <!-- Freshwater -->
+          <div class="stressor-block sb-fresh">
+            <div class="sb-header">Stressor 04 · Freshwater Discharge</div>
+            <div class="sb-chips">
+              <span class="chip c-fresh">TA dilution</span>
+              <span class="chip c-fresh">Ω suppression</span>
+              <span class="chip c-fresh">Wet season / flood</span>
+            </div>
+            <p class="sb-desc">
+              River flooding and storm surge deliver large volumes of low-alkalinity, low-pH freshwater directly to reef zones — particularly acute along the MAR corridor in Guatemala and Honduras during wet season and post-hurricane events. The chemical mechanism: freshwater dilutes TA, suppressing Ω even when absolute pH may not change dramatically. In flood events, turbidity simultaneously blocks light, compounding the chemical stress with a physical stressor. Freshwater discharge is additive with eutrophication (runoff carries both low-TA water and DIN simultaneously) and additive with SGD in karst environments. Post-hurricane freshwater surges along the MAR have historically driven Ω below 2.0 at reef flat stations within 48 hours.
+            </p>
+          </div>
+
+          <!-- Organic loading -->
+          <div class="stressor-block sb-organic">
+            <div class="sb-header">Stressor 05 · Organic Loading</div>
+            <div class="sb-chips">
+              <span class="chip c-organic">DO ↓ (BOD)</span>
+              <span class="chip c-organic">pCO₂ ↑</span>
+              <span class="chip c-organic">H₂S threshold</span>
+            </div>
+            <p class="sb-desc">
+              Decomposing organic matter — primarily sargassum influx events, but also terrestrial DOC loading and aquaculture waste — exerts biological oxygen demand (BOD) that suppresses DO and elevates pCO₂ as decomposition releases CO₂. In extreme sargassum events, anaerobic decomposition produces hydrogen sulfide (H₂S), a toxin with a <span style="color:var(--coral);font-weight:500">zero-tolerance threshold</span> — any H₂S detection at a reef zone station triggers an immediate Critical alert in CMIE, regardless of other indicator levels. The H₂S threshold is not a monitoring escalation — it is an acute toxicity event requiring immediate DS elevation.
+            </p>
+          </div>
+
+          <!-- SGD chemical stress -->
+          <div class="stressor-block sb-sgd">
+            <div class="sb-header">Stressor 06 · SGD Chemical Stress</div>
+            <div class="sb-chips">
+              <span class="chip c-sgd">pH ↓ (soil CO₂)</span>
+              <span class="chip c-sgd">DO ↓</span>
+              <span class="chip c-sgd">Structural (MAR)</span>
+            </div>
+            <p class="sb-desc">
+              Submarine groundwater discharge delivers low-pH, low-DO, high-DIN water that has equilibrated with soil CO₂ in the aquifer. In the MAR, karst SGD is structural and continuous — a permanent background stressor that must be corrected before any other stressor is attributed. Outside the MAR, SGD is episodic, triggered by rainfall recharge events and tidal pumping. SGD interacts additively with both OA (further pH suppression) and freshwater discharge (both dilute TA). The critical CMIE distinction: SGD-sourced DIN is isotopically distinct from agricultural DIN (δ¹⁵N ~2–5‰ vs ~8–12‰) — source attribution prevents CMIE from misidentifying the intervention target.
+            </p>
+          </div>
+
+        </div>
+
+        <p style="margin-bottom:16px;">
+          <strong>The interaction matrix.</strong> CMIE's weighting architecture uses three interaction classifications — <span class="coral">Synergistic</span> (combined effect &gt; sum of parts), <span class="highlight">Additive</span> (combined effect ≈ sum of parts), and <span style="color:var(--text-dim);font-weight:500">Independent</span> (stressors do not amplify each other):
+        </p>
+
+        <!-- Interaction matrix -->
+        <table class="int-matrix">
+          <thead>
+            <tr>
+              <th>Stressor</th>
+              <th style="color:var(--s-oa)">OA</th>
+              <th style="color:var(--s-thermal)">Thermal</th>
+              <th style="color:var(--s-eutroph)">Eutroph</th>
+              <th style="color:var(--s-fresh)">Freshwater</th>
+              <th style="color:var(--s-organic)">Organic</th>
+              <th style="color:var(--s-sgd)">SGD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--s-oa)">Ocean Acid.</td>
+              <td><span class="cell-self">—</span></td>
+              <td><span class="cell-syn">Synergistic</span></td>
+              <td><span class="cell-syn">Synergistic</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--s-thermal)">Thermal</td>
+              <td><span class="cell-syn">Synergistic</span></td>
+              <td><span class="cell-self">—</span></td>
+              <td><span class="cell-syn">Synergistic</span></td>
+              <td><span class="cell-ind">Independent</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-ind">Independent</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--s-eutroph)">Eutrophication</td>
+              <td><span class="cell-syn">Synergistic</span></td>
+              <td><span class="cell-syn">Synergistic</span></td>
+              <td><span class="cell-self">—</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--s-fresh)">Freshwater</td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-ind">Independent</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-self">—</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--s-organic)">Organic</td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-self">—</span></td>
+              <td><span class="cell-ind">Independent</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--s-sgd)">SGD</td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-ind">Independent</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-add">Additive</span></td>
+              <td><span class="cell-ind">Independent</span></td>
+              <td><span class="cell-self">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:16px;">
+          <strong>Key argument:</strong> The three synergistic pairs — OA × Thermal, OA × Eutrophication, Thermal × Eutrophication — are the <span class="coral">mechanistic core of CMIE's PhD contribution</span>. A monitoring system that tracks these stressors independently will underestimate combined reef stress by a factor of 1.5–3× compared to the CMIE interaction-weighted DS. That underestimate is not a rounding error — it is the difference between a management decision to maintain existing protocols versus a decision to mobilize immediate intervention.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          Un estresor no es una lectura de indicador. Un indicador le dice a CMIE <em>dónde está un sistema</em>. Un estresor le dice a CMIE <em>por qué llegó ahí</em> y — de manera crítica — <em>qué otros estresores están amplificando o moderando la respuesta</em>. GROAN define seis estresores químicos primarios. El hecho arquitectónico más importante es que <strong>sus interacciones no son aditivas — son multiplicativas o sinérgicas</strong>. CMIE existe para capturar esta no-linealidad.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Acidificación Oceánica (OA):</strong> El estresor de fondo global a largo plazo — descenso secular del pH oceánico de ~0.002 unidades por año. CMIE debe separar la señal de tendencia OA de los estresores episódicos: un único evento de Ω bajo no es evidencia de OA. Sinérgico con el estrés térmico — el caso del Mar Rojo.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Estrés Térmico:</strong> Cuantificado por Semanas de Calentamiento (DHW). DHW &gt;4 predice blanqueamiento; DHW &gt;8 predice blanqueamiento severo. <strong>El estrés térmico es el estresor sinérgicamente más peligroso de GROAN</strong> — sus interacciones con OA y eutrofización se clasifican ambas como sinérgicas.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Eutrofización:</strong> El principal acelerador de cambio de fase coral→algas. Sinérgico tanto con el estrés térmico (el agua cálida acelera la descomposición bacteriana) como con OA (la producción local de CO₂ por respiración deprime aún más Ω).
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Descarga de Agua Dulce:</strong> Diluye la AT, suprimiendo Ω incluso cuando el pH absoluto no cambia dramáticamente. Aditivo con eutrofización (la escorrentía transporta agua de baja AT y DIN simultáneamente).
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Carga Orgánica:</strong> Materia orgánica en descomposición ejerce demanda biológica de oxígeno suprimiendo OD y elevando pCO₂. La producción de H₂S en eventos extremos tiene umbral <span style="color:var(--coral);font-weight:500">cero tolerancia</span> — cualquier detección de H₂S activa una alerta Crítica inmediata CMIE.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>SGD Químico:</strong> Descarga de aguas subterráneas de bajo pH, bajo OD, alto DIN. Estructural en el MAR; episódico en otros lugares. La atribución de fuente por δ¹⁵N evita que CMIE identifique erróneamente el objetivo de intervención.
+        </p>
+        <p>
+          <strong>Argumento clave:</strong> Los tres pares sinérgicos — OA × Térmico, OA × Eutrofización, Térmico × Eutrofización — son el <span class="coral">núcleo mecánico de la contribución doctoral del CMIE</span>. Un sistema de monitoreo que rastrea estos estresores de forma independiente subestimará el estrés combinado del arrecife en un factor de 1.5–3× en comparación con el DS ponderado por interacción del CMIE.
+        </p>
+      </div>
+    </div>
+
+    <!-- STRESSOR REFERENCE TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Stressor</th>
+          <th>Chemical Signature</th>
+          <th>Season Peak</th>
+          <th>Primary Module</th>
+          <th>Key Interaction</th>
+          <th>CMIE Weight Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--s-oa)">Ocean Acidification</strong></td>
+          <td>Secular pH ↓, Ω ↓ trend</td>
+          <td>Year-round (trend)</td>
+          <td>GRIN</td>
+          <td>OA × Thermal = Synergistic</td>
+          <td><span class="badge badge-gap">Trend multiplier</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--s-thermal)">Thermal Stress</strong></td>
+          <td>DHW, pCO₂ ↑, calcif. ↓</td>
+          <td>Aug–Oct (ENSO-modulated)</td>
+          <td>GRIN, GSIN</td>
+          <td>Thermal × OA, × Eutroph = Synergistic</td>
+          <td><span class="badge badge-crit">Synergistic × 2</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--s-eutroph)">Eutrophication</strong></td>
+          <td>DIN ↑, N:P &gt;16, DO ↓ night</td>
+          <td>Wet season (Jun–Oct)</td>
+          <td>GKIN, CMIE</td>
+          <td>Eutroph × OA, × Thermal = Synergistic</td>
+          <td><span class="badge badge-crit">Synergistic × 2</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--s-fresh)">Freshwater Discharge</strong></td>
+          <td>TA ↓, salinity ↓, Ω suppressed</td>
+          <td>Wet season / post-hurricane</td>
+          <td>GRIN, CMIE</td>
+          <td>FW + Eutroph = Additive</td>
+          <td><span class="badge badge-mod">Additive</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--s-organic)">Organic Loading</strong></td>
+          <td>DO ↓ (BOD), pCO₂ ↑, H₂S flag</td>
+          <td>May–Oct (sargassum)</td>
+          <td>GKIN, CMIE</td>
+          <td>Org + Thermal = Additive</td>
+          <td><span class="badge badge-crit">H₂S → zero-tolerance Critical</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--s-sgd)">SGD Chemical</strong></td>
+          <td>pH ↓, DO ↓, DIN ↑, Ra-222 ↑</td>
+          <td>Year-round (MAR structural)</td>
+          <td>GRIN, L3 Arb.</td>
+          <td>SGD + OA = Additive</td>
+          <td><span class="badge badge-mod">Additive / correction baseline</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Never classify a single low-Ω or low-pH event as Ocean Acidification signal in CMIE. OA is confirmed only by a declining multi-year trend at tidal phase-matched corridor sites combined with an open-ocean record from Argo floats or CORDAP. A single event may be episodic acidification from freshwater discharge, SGD, sargassum decomposition, or upwelling — each requiring a different intervention target. Misattributing episodic stress to OA directs resources to the wrong timescale and policy lever.</span></li>
+        <li><span class="app-num">02</span><span>When DHW exceeds 4 at a reef zone, automatically apply the OA × Thermal synergistic weight in CMIE — not the thermal DS alone. The synergistic weight reflects that OA-suppressed Ω magnifies the bleaching response to thermal stress. A reef already at Ω 2.8 will bleach at lower DHW than a reef at Ω 3.5. Applying the standalone thermal DS without the OA interaction context systematically underestimates bleaching probability at all MAR corridor sites where Ω has been declining.</span></li>
+        <li><span class="app-num">03</span><span>During wet season flood events in Guatemala and Honduras, treat co-occurring freshwater TA dilution and elevated DIN from agricultural runoff as a single compound stressor — not two independent inputs. Both arrive simultaneously via the same river discharge mechanism, and their combined Ω suppression plus nutrient loading effect is additive in CMIE. Processing them independently will produce two separate lower-priority DS signals when the correct output is one elevated compound DS.</span></li>
+        <li><span class="app-num">04</span><span>If H₂S is detected at any MOOP station — by smell, by sensor, or by instrument anomaly consistent with sulfide interference — immediately elevate the reef zone DS to Critical regardless of all other indicator levels. H₂S is an acute reef toxin with no threshold below which it is acceptable. Do not downgrade to Alert pending confirmation from a second station. A single H₂S detection is sufficient for the Critical classification. Document the event timestamp, GPS position, and instrument reading in the CMIE calibration record before leaving the site.</span></li>
+        <li><span class="app-num">05</span><span>When a reef zone under agricultural or tourism pressure has no targeted organic chemistry data (pesticides, herbicides, oxybenzone, octinoxate), document the data gap explicitly in the CMIE calibration record before generating a DS for that zone. Absence of pollution data is not evidence of absence of pollution. The DS generated without this data carries an undocumented uncertainty that may materially understate intervention urgency. Flag the gap, note which compound classes are unsampled, and record it as a data collection priority for the next Rim Run™ circuit.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Nunca clasifique un único evento de Ω bajo o pH bajo como señal de Acidificación Oceánica en CMIE. La OA se confirma solo mediante una tendencia multianual decreciente en sitios del corredor con fase de marea coincidente, combinada con un registro de océano abierto de flotadores Argo o CORDAP. Atribuir erróneamente el estrés episódico a OA dirige recursos al escala de tiempo y palanca de política incorrectas.</span></li>
+        <li><span class="app-num">02</span><span>Cuando DHW supere 4 en una zona arrecifal, aplique automáticamente el peso sinérgico OA × Térmico en CMIE — no solo el DS térmico. El peso sinérgico refleja que el Ω suprimido por OA magnifica la respuesta de blanqueamiento al estrés térmico. Aplicar el DS térmico independiente sin el contexto de interacción OA subestima sistemáticamente la probabilidad de blanqueamiento.</span></li>
+        <li><span class="app-num">03</span><span>Durante eventos de inundación en temporada lluviosa en Guatemala y Honduras, trate la dilución de AT por agua dulce y el DIN elevado de escorrentía agrícola como un único estresor compuesto — no dos entradas independientes. Procesarlos de forma independiente producirá dos señales DS de menor prioridad cuando la salida correcta es un DS compuesto elevado único.</span></li>
+        <li><span class="app-num">04</span><span>Si se detecta H₂S en cualquier estación MOOP, eleve inmediatamente el DS de la zona arrecifal a Crítico independientemente de todos los demás niveles de indicadores. H₂S es una toxina aguda de arrecife sin umbral por debajo del cual sea aceptable. Una sola detección de H₂S es suficiente para la clasificación Crítica.</span></li>
+        <li><span class="app-num">05</span><span>Cuando una zona arrecifal bajo presión agrícola o turística no tiene datos de química orgánica dirigida, documente explícitamente la brecha de datos en el registro de calibración CMIE antes de generar un DS para esa zona. La ausencia de datos de contaminación no es evidencia de ausencia de contaminación.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">When DHW exceeds 4 at a MAR reef zone, what does CMIE apply instead of the standalone thermal DS — and why?</div>
+        <div class="mcq-q-es">Cuando DHW supera 4 en una zona arrecifal del MAR, ¿qué aplica CMIE en lugar del DS térmico independiente — y por qué?</div>
+        <div class="mcq-option">A) The standalone thermal DS doubled — DHW &gt;4 is an automatic severity multiplier / El DS térmico independiente duplicado — DHW &gt;4 es un multiplicador automático de severidad</div>
+        <div class="mcq-option">B) No change to DS — thermal stress is tracked separately from carbonate chemistry in CMIE / Sin cambio en DS — el estrés térmico se rastrea por separado de la química de carbonatos</div>
+        <div class="mcq-option correct">C) The OA × Thermal synergistic weight — OA-suppressed Ω magnifies bleaching response to thermal stress, and applying standalone thermal DS underestimates bleaching probability at all sites where Ω has been declining / El peso sinérgico OA × Térmico — el Ω suprimido por OA magnifica la respuesta de blanqueamiento, y el DS térmico independiente subestima la probabilidad de blanqueamiento</div>
+        <div class="mcq-option">D) The composite stress index — any DHW &gt;4 event automatically triggers the three-indicator compound flag / El índice de estrés compuesto — cualquier evento DHW &gt;4 activa automáticamente la señal compuesta de tres indicadores</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">Why does GROAN classify the OA × Thermal and OA × Eutrophication stressor pairs as synergistic rather than additive in the CMIE interaction matrix?</div>
+        <div class="mcq-q-es">¿Por qué GROAN clasifica los pares OA × Térmico y OA × Eutrofización como sinérgicos en lugar de aditivos en la matriz de interacción CMIE?</div>
+        <div class="mcq-option">A) Because both stressors affect the same chemical parameter (pH), their measurement errors are correlated / Porque ambos estresores afectan el mismo parámetro (pH), sus errores de medición están correlacionados</div>
+        <div class="mcq-option correct">C) Because the combined stress is greater than the sum of individual stressors — OA-suppressed carbonate buffering amplifies the damage from thermal events, and local CO₂ from eutrophication further depresses an already OA-acidified system; a monitoring system tracking them independently underestimates combined stress by 1.5–3× / Porque el estrés combinado es mayor que la suma de los estresores individuales — la amortiguación de carbonatos suprimida por OA amplifica el daño térmico, y el CO₂ local de la eutrofización deprime aún más un sistema ya acidificado</div>
+        <div class="mcq-option">B) Because synergistic classification is required by CORDAP data standards for all co-occurring stressor pairs / Porque la clasificación sinérgica es requerida por los estándares de datos CORDAP para todos los pares de estresores co-ocurrentes</div>
+        <div class="mcq-option">D) Because field measurements cannot separate synergistic from additive effects, so synergistic is used as a conservative default / Porque las mediciones de campo no pueden separar los efectos sinérgicos de los aditivos, por lo que el sinérgico se usa como valor predeterminado conservador</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">H₂S is detected at a MOOP station where Ω = 2.6 (Alert zone) and DO = 3.1 mg/L (Alert zone). What is the correct CMIE DS classification and why?</div>
+        <div class="mcq-q-es">Se detecta H₂S en una estación MOOP donde Ω = 2.6 (zona Alerta) y OD = 3.1 mg/L (zona Alerta). ¿Cuál es la clasificación DS correcta de CMIE y por qué?</div>
+        <div class="mcq-option">A) Alert — two indicators in the Alert zone; H₂S is a secondary flag that elevates DS within the Alert tier / Alerta — dos indicadores en zona Alerta; H₂S es una señal secundaria que eleva DS dentro del nivel Alerta</div>
+        <div class="mcq-option">B) High-priority Alert — H₂S presence combined with two Alert-zone indicators qualifies as a compound stress event / Alerta de alta prioridad — la presencia de H₂S combinada con dos indicadores en zona Alerta califica como evento de estrés compuesto</div>
+        <div class="mcq-option">C) Moderate — the station should be re-sampled to confirm H₂S before escalating DS beyond the indicator-derived level / Moderado — la estación debe volver a muestrearse para confirmar H₂S antes de escalar DS</div>
+        <div class="mcq-option correct">D) Critical — H₂S detection is a zero-tolerance threshold that triggers immediate Critical DS regardless of all other indicator levels; a single detection is sufficient and confirmation from a second station is not required / Crítico — la detección de H₂S es un umbral de cero tolerancia que activa DS Crítico inmediato independientemente de todos los demás niveles de indicadores</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 57 of 704</span>
+      <span class="progress-pct">8.10%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
