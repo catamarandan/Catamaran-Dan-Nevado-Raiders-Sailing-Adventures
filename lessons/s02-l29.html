@@ -1,1 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S02-L29 | Chemical Oceanography — Comparative Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --mar-karst:  #c8a45a;
+    --sys-mar:    #1ac8c8;
+    --sys-gbr:    #f0b429;
+    --sys-red:    #e86040;
+    --sys-ct:     #3ecf8e;
+    --sys-epac:   #9b7fe8;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
+    border: 1px solid rgba(26,200,200,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
+    padding: 32px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    gap: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
+
+  .panel {
+    padding: 36px 40px;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .lang-block { margin-bottom: 28px; }
+
+  .lang-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lecture-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
+  .lecture-text .highlight { color: var(--gold);      font-weight: 500; }
+  .lecture-text .coral     { color: var(--coral);     font-weight: 500; }
+  .lecture-text .green     { color: var(--green);     font-weight: 500; }
+  .lecture-text .purple    { color: var(--purple);    font-weight: 500; }
+  .lecture-text .karst     { color: var(--mar-karst); font-weight: 500; }
+
+  /* ── SYSTEM COMPARISON CARDS ── */
+  .sys-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .sys-card {
+    border-radius: 6px;
+    padding: 14px 16px;
+    background: rgba(4,41,74,0.3);
+    border-left: 3px solid rgba(26,200,200,0.4);
+  }
+
+  .sc-mar  { border-left-color: rgba(26,200,200,0.6);  background: rgba(4,28,40,0.4); }
+  .sc-gbr  { border-left-color: rgba(240,180,41,0.6);  background: rgba(22,16,2,0.4); }
+  .sc-red  { border-left-color: rgba(232,96,64,0.6);   background: rgba(28,6,2,0.4); }
+  .sc-ct   { border-left-color: rgba(62,207,142,0.6);  background: rgba(4,22,12,0.4); }
+  .sc-epac { border-left-color: rgba(155,127,232,0.6); background: rgba(12,6,22,0.4); }
+
+  .sc-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .sc-mar  .sc-header { color: var(--sys-mar); }
+  .sc-gbr  .sc-header { color: var(--sys-gbr); }
+  .sc-red  .sc-header { color: var(--sys-red); }
+  .sc-ct   .sc-header { color: var(--sys-ct); }
+  .sc-epac .sc-header { color: var(--sys-epac); }
+
+  .sc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .c-mar  { background: rgba(26,200,200,0.10);  border: 1px solid rgba(26,200,200,0.25);  color: #b8f0ec; }
+  .c-gbr  { background: rgba(240,180,41,0.12);  border: 1px solid rgba(240,180,41,0.28);  color: #f4e08a; }
+  .c-red  { background: rgba(232,96,64,0.10);   border: 1px solid rgba(232,96,64,0.28);   color: #f4b8a8; }
+  .c-ct   { background: rgba(62,207,142,0.10);  border: 1px solid rgba(62,207,142,0.28);  color: #a8f4d4; }
+  .c-epac { background: rgba(155,127,232,0.10); border: 1px solid rgba(155,127,232,0.28); color: #d4c8f8; }
+
+  .sc-desc {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ── TRANSFERABILITY MATRIX ── */
+  .trans-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+  }
+
+  .trans-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .trans-table th {
+    padding: 8px 10px;
+    text-align: center;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.06em;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .trans-table th:first-child { text-align: left; width: 130px; }
+
+  .trans-table td {
+    padding: 7px 8px;
+    text-align: center;
+    border-bottom: 1px solid rgba(26,200,200,0.05);
+    border-right: 1px solid rgba(26,200,200,0.04);
+    font-size: 10px;
+  }
+
+  .trans-table td:first-child {
+    text-align: left;
+    color: var(--text-dim);
+    font-size: 10px;
+    padding-left: 10px;
+  }
+
+  .trans-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.2); }
+
+  .tcell-high { background: rgba(62,207,142,0.18);  color: #a8f4d4; border-radius: 3px; padding: 2px 6px; font-size: 9px; }
+  .tcell-mod  { background: rgba(240,180,41,0.15);  color: #f4e08a; border-radius: 3px; padding: 2px 6px; font-size: 9px; }
+  .tcell-low  { background: rgba(232,96,64,0.13);   color: #f4b8a8; border-radius: 3px; padding: 2px 6px; font-size: 9px; }
+  .tcell-na   { background: rgba(4,41,74,0.4);      color: #445566; border-radius: 3px; padding: 2px 6px; font-size: 9px; }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .data-table thead tr { background: rgba(10,110,138,0.3); }
+
+  .data-table th {
+    padding: 10px 11px;
+    text-align: left;
+    color: var(--ocean-cyan);
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(26,200,200,0.25);
+  }
+
+  .data-table td {
+    padding: 8px 11px;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    vertical-align: top;
+  }
+
+  .data-table tbody tr:nth-child(odd) { background: rgba(4,41,74,0.3); }
+  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-high { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .badge-mod  { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .badge-low  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .badge-gap  { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+
+  /* ── APP LIST ── */
+  .app-list { list-style: none; }
+
+  .app-list li {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.06);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .app-list li:last-child { border-bottom: none; }
+
+  .app-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ocean-cyan);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 22px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-section {
+    padding: 36px 40px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.4);
+    border: 1px solid rgba(26,200,200,0.12);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .mcq-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--ocean-cyan); letter-spacing:.15em; margin-bottom:10px; text-transform:uppercase; }
+  .mcq-q-en { font-size:13px; font-weight:500; color:var(--text-light); line-height:1.5; margin-bottom:6px; }
+  .mcq-q-es { font-size:11.5px; font-style:italic; color:var(--text-dim); line-height:1.45; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(26,200,200,0.1); }
+  .mcq-option { font-size:12px; padding:7px 10px; margin-bottom:5px; border-radius:4px; color:var(--text-dim); border:1px solid transparent; line-height:1.45; }
+  .mcq-option.correct { background:rgba(26,200,200,0.08); border-color:rgba(26,200,200,0.25); color:var(--ocean-foam); }
+  .mcq-option.correct::before { content:'✓ '; color:var(--ocean-cyan); font-weight:700; }
+
+  /* ── FOOTER ── */
+  .footer { padding:24px 40px; background:rgba(2,15,30,0.6); }
+  .progress-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .progress-label,.progress-pct { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; }
+  .progress-label { color:var(--text-dim); }
+  .progress-pct   { color:var(--ocean-cyan); }
+  .progress-track { width:100%; height:4px; background:rgba(26,200,200,0.1); border-radius:2px; overflow:hidden; }
+  .progress-fill  { height:100%; background:linear-gradient(90deg,var(--ocean-teal),var(--ocean-cyan)); border-radius:2px; width:8.66%; transition:width 0.6s ease; }
+
+  .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(26,200,200,0.2),transparent); margin:0 40px; }
+
+  @media (max-width:720px) {
+    .header { flex-direction:column; padding:24px; }
+    .header-svg { width:180px; height:130px; align-self:center; }
+    .lesson-title { font-size:24px; }
+    .panel,.mcq-section { padding:24px; }
+    .mcq-grid,.sys-grid { grid-template-columns:1fr; }
+    .footer { padding:20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="section-tag">Section 02 · Chemical Oceanography · L29 / 32</div>
+      <h1 class="lesson-title">Comparative Systems</h1>
+      <p class="lesson-subtitle">MAR · GBR · Red Sea · Coral Triangle · E. Pacific — chemical architecture, transferable lessons, and CMIE cross-system evidence rules</p>
+    </div>
+
+    <!-- SVG: 5-system radar / spider chart comparing key chemical dimensions -->
+    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
+
+      <!-- Radar axes (5: Ω baseline, OA vulnerability, Terrestrial stress, Thermal risk, Data coverage) -->
+      <!-- Center: 110, 82 -->
+
+      <!-- Axis lines (5 axes, 72° apart) -->
+      <!-- Axis 1: up       (110, 82) → (110, 18)   Ω baseline -->
+      <line x1="110" y1="82" x2="110" y2="20" stroke="rgba(26,200,200,0.15)" stroke-width="0.8"/>
+      <text x="110" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.8">Ω</text>
+
+      <!-- Axis 2: upper-right (110,82)→(168,44) Thermal risk -->
+      <line x1="110" y1="82" x2="168" y2="42" stroke="rgba(26,200,200,0.15)" stroke-width="0.8"/>
+      <text x="174" y="40" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.8">Therm</text>
+
+      <!-- Axis 3: lower-right (110,82)→(160,138) Terrestrial stress -->
+      <line x1="110" y1="82" x2="160" y2="140" stroke="rgba(26,200,200,0.15)" stroke-width="0.8"/>
+      <text x="163" y="148" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.8">Terr.</text>
+
+      <!-- Axis 4: lower-left  (110,82)→(60,138) OA vulnerability -->
+      <line x1="110" y1="82" x2="60" y2="140" stroke="rgba(26,200,200,0.15)" stroke-width="0.8"/>
+      <text x="40" y="148" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.8">OA risk</text>
+
+      <!-- Axis 5: upper-left  (110,82)→(52,44) Data coverage -->
+      <line x1="110" y1="82" x2="52" y2="42" stroke="rgba(26,200,200,0.15)" stroke-width="0.8"/>
+      <text x="30" y="40" font-family="DM Mono,monospace" font-size="6.5" fill="#8ab8cc" opacity="0.8">Data</text>
+
+      <!-- Grid rings at 33% and 66% -->
+      <polygon points="110,56 136,64 127,92 93,92 84,64"
+               fill="none" stroke="rgba(26,200,200,0.08)" stroke-width="0.6"/>
+      <polygon points="110,38 152,52 140,102 80,102 68,52"
+               fill="none" stroke="rgba(26,200,200,0.08)" stroke-width="0.6"/>
+
+      <!-- MAR polygon (cyan) — High Ω, Mod thermal, High terrestrial, Mod OA, High data -->
+      <!-- Axis values as fraction of max radius ~62px:
+           Ω=0.82→51, Thermal=0.55→34, Terrestrial=0.88→55, OA=0.60→37, Data=0.78→48 -->
+      <polygon
+        points="110,31 152,56 147,108 79,106 69,50"
+        fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.7)" stroke-width="1.3"/>
+      <text x="122" y="44" font-family="DM Mono,monospace" font-size="7" fill="#1ac8c8">MAR</text>
+
+      <!-- GBR polygon (gold) — High Ω, Very High thermal, Low terrestrial, Mod OA, Very High data -->
+      <polygon
+        points="110,28 162,44 134,116 82,116 64,44"
+        fill="rgba(240,180,41,0.06)" stroke="rgba(240,180,41,0.55)" stroke-width="1.1" stroke-dasharray="4,2"/>
+      <text x="162" y="58" font-family="DM Mono,monospace" font-size="7" fill="#f0b429">GBR</text>
+
+      <!-- Red Sea polygon (coral) — Very High Ω, Extreme thermal, Very Low terrestrial, Low OA, Mod data -->
+      <polygon
+        points="110,24 168,46 122,118 100,118 58,48"
+        fill="rgba(232,96,64,0.05)" stroke="rgba(232,96,64,0.50)" stroke-width="1.1" stroke-dasharray="2,3"/>
+      <text x="98" y="22" font-family="DM Mono,monospace" font-size="7" fill="#e86040">Red Sea</text>
+
+      <!-- Coral Triangle (green) — High Ω, High thermal, High terrestrial, Mod OA, Low data -->
+      <polygon
+        points="110,33 156,52 150,110 76,108 66,48"
+        fill="rgba(62,207,142,0.05)" stroke="rgba(62,207,142,0.45)" stroke-width="1.0" stroke-dasharray="3,3"/>
+      <text x="154" y="120" font-family="DM Mono,monospace" font-size="7" fill="#3ecf8e">CT</text>
+
+      <!-- E. Pacific (purple) — Low Ω, Mod thermal, Mod terrestrial, Very High OA, Mod data -->
+      <polygon
+        points="110,50 138,60 134,118 76,118 66,56"
+        fill="rgba(155,127,232,0.05)" stroke="rgba(155,127,232,0.45)" stroke-width="1.0" stroke-dasharray="2,4"/>
+      <text x="58" y="124" font-family="DM Mono,monospace" font-size="7" fill="#9b7fe8">EPac</text>
+
+      <!-- Center dot -->
+      <circle cx="110" cy="82" r="2" fill="rgba(26,200,200,0.4)"/>
+
+    </svg>
+  </div>
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">Lecture</div>
+
+    <!-- ENGLISH -->
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <div class="lecture-text">
+
+        <p style="margin-bottom:14px;">
+          Comparative systems analysis is not an academic exercise in GROAN. It is a <strong>calibration discipline</strong>. CMIE draws on chemical evidence from multiple reef systems to generate cross-ecosystem attributions — which means every lesson from the GBR's bleaching record, the Red Sea's thermal chemistry, or the Coral Triangle's throughflow dynamics carries operational weight in a Caribbean DS calculation. The rule that governs all cross-system evidence transfer is explicit: <span class="coral">transferable lessons travel through mechanism, not geography</span>. A GBR bleaching response function is applicable to a MAR reef zone only if the carbonate chemistry, thermal stress trajectory, and biological community structure are sufficiently analogous. Applying GBR thermal thresholds to the Eastern Pacific upwelling zone without endmember correction is not conservative — it is wrong.
+        </p>
+
+        <div class="sys-grid">
+
+          <!-- MAR -->
+          <div class="sys-card sc-mar">
+            <div class="sc-header">System 01 · Mesoamerican Reef (MAR) — GROAN Primary Theater</div>
+            <div class="sc-chips">
+              <span class="chip c-mar">Ω 2.8–3.8</span>
+              <span class="chip c-mar">Karst-dominated</span>
+              <span class="chip c-mar">7-country arc</span>
+              <span class="chip c-mar">Rim Run™ ground-truth</span>
+            </div>
+            <p class="sc-desc">
+              The MAR is GROAN's primary chemical reference system — the theater with the densest in-situ MOOP coverage, the most complete annual Rim Run™ corridor record, and the most complex multi-stressor attribution challenge. Its defining chemical character is the karst geology–terrestrial connectivity coupling: karst SGD, agricultural DIN, and seasonal freshwater dilution operate simultaneously against a Caribbean carbonate baseline that is inherently higher-Ω than global average. The MAR is the system against which all cross-system evidence transfers are evaluated for applicability — not because it is typical, but because it is the <strong>ground-truth anchor of the entire GROAN corridor</strong>. Lessons from other systems apply to the MAR when the controlling stressor mechanism is chemically analogous, not when the reef type or geography matches.
+            </p>
+          </div>
+
+          <!-- GBR -->
+          <div class="sys-card sc-gbr">
+            <div class="sc-header">System 02 · Great Barrier Reef (GBR) — Bleaching Reference</div>
+            <div class="sc-chips">
+              <span class="chip c-gbr">Ω 3.2–3.8</span>
+              <span class="chip c-gbr">Thermal benchmark</span>
+              <span class="chip c-gbr">Strongest dataset</span>
+              <span class="chip c-gbr">DHW validated</span>
+            </div>
+            <p class="sc-desc">
+              The GBR is the world's most extensively monitored coral reef system — its thermal bleaching record, DHW response functions, and carbonate chemistry datasets form the empirical foundation of most global reef bleaching models. For GROAN, the GBR provides the highest-quality thermal stress × carbonate chemistry interaction data: the relationship between SST anomaly, Ω, and bleaching probability is better characterized at the GBR than anywhere else. <strong>Transferable to MAR via the thermal stress × OA synergistic pathway</strong> — DHW thresholds and bleaching probability curves are applicable when GBR ambient Ω (3.2–3.8) is comparable to the target MAR zone. When MAR Ω is suppressed by karst SGD below 3.0, the GBR bleaching curves must be shifted — lower Ω amplifies bleaching response at lower DHW. Non-transferable: GBR's offshore, low-terrestrial-input chemistry is not applicable to MAR lagoonal or near-shore stations dominated by SGD and agricultural runoff.
+            </p>
+          </div>
+
+          <!-- Red Sea -->
+          <div class="sys-card sc-red">
+            <div class="sc-header">System 03 · Red Sea — Thermal-Chemical Amplification Reference</div>
+            <div class="sc-chips">
+              <span class="chip c-red">Ω 3.5–4.2</span>
+              <span class="chip c-red">Hypersaline</span>
+              <span class="chip c-red">KAUST data</span>
+              <span class="chip c-red">Seagrass buffer</span>
+            </div>
+            <p class="sc-desc">
+              The Red Sea is GROAN's proof-of-concept case for thermal-chemical amplification across ecosystem boundaries — the seagrass buffering collapse → reef bleaching amplification causal chain. Its exceptionally high TA (~2450 µmol/kg) means it operates at elevated carbonate buffering capacity relative to any Caribbean system, making direct Ω comparison invalid. The Red Sea's transferable lesson for GROAN is <strong>mechanistic, not numerical</strong>: the seagrass metabolic suppression signal (diel DO amplitude collapse below 2 mg/L) as an early warning of thermal stress amplification is applicable wherever seagrass meadows buffer adjacent reef zones — including Costa Rica's Caribbean coast and Belize's southern lagoon system. The specific Ω thresholds are non-transferable; the biological chemical mechanism is fully transferable.
+            </p>
+          </div>
+
+          <!-- Coral Triangle -->
+          <div class="sys-card sc-ct">
+            <div class="sc-header">System 04 · Coral Triangle — Multi-Stressor Integration Reference</div>
+            <div class="sc-chips">
+              <span class="chip c-ct">Ω 3.2–3.9</span>
+              <span class="chip c-ct">Throughflow mixing</span>
+              <span class="chip c-ct">Max. biodiversity</span>
+              <span class="chip c-ct">CTI partnership</span>
+            </div>
+            <p class="sc-desc">
+              The Coral Triangle is the world's most chemically complex reef system — Indonesian Throughflow water mass mixing, intense artisanal and industrial fishing pressure, Crown-of-Thorns outbreaks, and coastal development stressors operate simultaneously across six national jurisdictions. Its chemical lesson for GROAN is multi-stressor attribution under data-sparse conditions: the CTI has developed multi-stressor frameworks — integrating thermal, chemical, biological, and human pressure signals — that CMIE can apply where the MAR data record is thin. <strong>Transferable: the principle that single-stressor DS calculations systematically underestimate combined stress in high-biodiversity, high-pressure systems.</strong> The specific endmember chemistry is non-transferable — the Throughflow signature has no analogue in the Caribbean.
+            </p>
+          </div>
+
+          <!-- E. Pacific -->
+          <div class="sys-card sc-epac">
+            <div class="sc-header">System 05 · Eastern Pacific — Upwelling OA Reference</div>
+            <div class="sc-chips">
+              <span class="chip c-epac">Ω 1.5–3.2</span>
+              <span class="chip c-epac">Natural low-Ω</span>
+              <span class="chip c-epac">ENSO-governed</span>
+              <span class="chip c-epac">Panama corridor terminus</span>
+            </div>
+            <p class="sc-desc">
+              The Eastern Pacific upwelling zone provides GROAN's reference case for naturally low-Ω reef chemistry — the critical baseline for understanding what carbonate suppression looks like when it is natural and periodic rather than anthropogenic and secular. The Panama Bight and Costa Rica Dome have the lowest naturally occurring Ω in any GROAN theater. Their chemical lesson: <strong>coral communities can acclimatize to periodic low-Ω conditions when OA is natural and cyclical, but the same communities show catastrophic bleaching and dissolution when OA-acclimated reefs experience superimposed anthropogenic acidification on top of upwelling suppression</strong>. This is the mechanistic basis for CMIE's mandatory upwelling index correction at Panama corridor stations — distinguishing natural periodic suppression from the secular trend matters because the biological responses are fundamentally different.
+            </p>
+          </div>
+
+        </div>
+
+        <p style="margin-bottom:16px;"><strong>Cross-system evidence transferability matrix.</strong> CMIE applies evidence from other systems only when transferability conditions are met:</p>
+
+        <table class="trans-table">
+          <thead>
+            <tr>
+              <th>Evidence Type</th>
+              <th style="color:var(--sys-gbr)">GBR → MAR</th>
+              <th style="color:var(--sys-red)">Red Sea → MAR</th>
+              <th style="color:var(--sys-ct)">CT → MAR</th>
+              <th style="color:var(--sys-epac)">E.Pac → MAR</th>
+              <th>Transfer Condition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DHW bleaching thresholds</td>
+              <td><span class="tcell-high">High</span></td>
+              <td><span class="tcell-low">Low</span></td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td>Comparable Ω baseline required</td>
+            </tr>
+            <tr>
+              <td>Seagrass DO buffer mechanism</td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-high">High</span></td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-low">Low</span></td>
+              <td>Seagrass-adjacent reef zone present</td>
+            </tr>
+            <tr>
+              <td>Multi-stressor DS framework</td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-high">High</span></td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td>Mechanism analogous; endmembers recalibrated</td>
+            </tr>
+            <tr>
+              <td>Upwelling Ω suppression</td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td><span class="tcell-low">Low</span></td>
+              <td><span class="tcell-high">High</span></td>
+              <td>Panama corridor stations only</td>
+            </tr>
+            <tr>
+              <td>Terrestrial DIN attribution</td>
+              <td><span class="tcell-low">Low</span></td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-low">Low</span></td>
+              <td>Karst and tropical watershed only</td>
+            </tr>
+            <tr>
+              <td>OA × Thermal synergy weight</td>
+              <td><span class="tcell-high">High</span></td>
+              <td><span class="tcell-mod">Moderate</span></td>
+              <td><span class="tcell-high">High</span></td>
+              <td><span class="tcell-high">High</span></td>
+              <td>Universal — mechanism not system-specific</td>
+            </tr>
+            <tr>
+              <td>Regional endmember TA values</td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td><span class="tcell-na">N/A</span></td>
+              <td>Never transferable — use regional baseline only</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:4px;">
+          <strong>Key argument:</strong> GROAN's CMIE is not a MAR-specific model — it is a <span class="coral">cross-system evidence integration engine</span>. Its ability to draw on the GBR bleaching record, Red Sea seagrass chemistry, Coral Triangle multi-stressor frameworks, and Eastern Pacific upwelling baselines to improve MAR Decision Scores is the structural advantage that distinguishes it from every single-system monitoring program operating in the Caribbean today. <strong>No regional monitoring body has this evidence architecture.</strong> Each operates within its own system's data. CMIE operates across all of them simultaneously — constrained by the transferability rules that prevent false analogy while exploiting every mechanistically valid cross-system lesson.
+        </p>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div class="lang-block">
+      <div class="lang-tag">ES — Español</div>
+      <div class="lecture-text">
+        <p style="margin-bottom:14px;">
+          El análisis de sistemas comparativos no es un ejercicio académico en GROAN. Es una <strong>disciplina de calibración</strong>. La regla que rige toda la transferencia de evidencia entre sistemas es explícita: <span class="coral">las lecciones transferibles viajan a través del mecanismo, no de la geografía</span>. Una función de respuesta al blanqueamiento del GBR es aplicable a una zona arrecifal del MAR solo si la química de carbonatos, la trayectoria del estrés térmico y la estructura de la comunidad biológica son suficientemente análogas.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>MAR:</strong> El teatro de referencia primario de GROAN — la única fuente de verdad terreno del corredor. Las lecciones de otros sistemas se aplican al MAR cuando el mecanismo de control del estresor es químicamente análogo, no cuando el tipo de arrecife o la geografía coinciden.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>GBR:</strong> Proporciona los datos de interacción más de alta calidad entre estrés térmico y química de carbonatos. Transferible al MAR a través de la vía sinérgica estrés térmico × OA cuando el Ω ambiente del GBR (3.2–3.8) es comparable a la zona MAR objetivo. No transferible: la química del GBR fuera de la costa sin aportes terrestres no es aplicable a estaciones lagunares del MAR dominadas por SGD.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Mar Rojo:</strong> La lección transferible es <strong>mecanística, no numérica</strong>: la señal de supresión metabólica de los pastos marinos (colapso de la amplitud diurna de OD por debajo de 2 mg/L) es aplicable donde los pastos marinos amortiguan zonas arrecifales adyacentes — incluyendo la costa caribeña de Costa Rica y el sistema lagunar del sur de Belice.
+        </p>
+        <p style="margin-bottom:12px;">
+          <strong>Triángulo de Coral:</strong> La lección es que los cálculos de DS de estresor único subestiman sistemáticamente el estrés combinado en sistemas de alta biodiversidad y alta presión. La química de endmember específica no es transferible.
+        </p>
+        <p style="margin-bottom:14px;">
+          <strong>Pacífico Oriental:</strong> Las comunidades de coral pueden aclimatarse a condiciones periódicas de Ω bajo cuando la OA es natural y cíclica, pero las mismas comunidades muestran blanqueamiento catastrófico cuando la acidificación antropogénica se superpone a la supresión por surgencia. Esta es la base mecanística para la corrección obligatoria del índice de surgencia de CMIE en las estaciones del corredor de Panamá.
+        </p>
+        <p>
+          <strong>Argumento clave:</strong> El CMIE de GROAN no es un modelo específico del MAR — es un <span class="coral">motor de integración de evidencia entre sistemas</span>. Su capacidad para extraer del registro de blanqueamiento del GBR, la química de pastos marinos del Mar Rojo, los marcos multi-estresores del Triángulo de Coral y las líneas base de surgencia del Pacífico Oriental para mejorar los Puntajes de Decisión del MAR es la ventaja estructural que lo distingue de cada programa de monitoreo de sistema único que opera en el Caribe hoy.
+        </p>
+      </div>
+    </div>
+
+    <!-- SYSTEM REFERENCE TABLE -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>System</th>
+          <th>Ω Range</th>
+          <th>Dominant Stressor</th>
+          <th>Transferable to MAR</th>
+          <th>Non-Transferable</th>
+          <th>GROAN Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--sys-mar)">MAR</strong></td>
+          <td>2.8–3.8</td>
+          <td>Karst SGD + terrestrial DIN</td>
+          <td>Ground-truth reference</td>
+          <td>—</td>
+          <td><span class="badge badge-high">Primary corridor</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--sys-gbr)">GBR</strong></td>
+          <td>3.2–3.8</td>
+          <td>Thermal + OA trend</td>
+          <td>DHW curves (when Ω comparable)</td>
+          <td>Offshore chemistry, low terrestrial input</td>
+          <td><span class="badge badge-high">Bleaching benchmark</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--sys-red)">Red Sea</strong></td>
+          <td>3.5–4.2</td>
+          <td>Thermal × seagrass amplification</td>
+          <td>Seagrass DO buffer mechanism</td>
+          <td>TA endmembers, Ω values</td>
+          <td><span class="badge badge-high">Thermal-chem proof of concept</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--sys-ct)">Coral Triangle</strong></td>
+          <td>3.2–3.9</td>
+          <td>Multi-stressor + throughflow</td>
+          <td>Multi-stressor DS framework</td>
+          <td>Throughflow endmembers</td>
+          <td><span class="badge badge-mod">Blue Rim 5™ Ch. 2</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--sys-epac)">E. Pacific</strong></td>
+          <td>1.5–3.2</td>
+          <td>Upwelling OA + ENSO</td>
+          <td>Upwelling correction (Panama only)</td>
+          <td>Ω thresholds, all Caribbean stations</td>
+          <td><span class="badge badge-mod">Panama corridor terminus</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION PANEL -->
+  <div class="panel">
+    <div class="panel-label">Application</div>
+
+    <div class="lang-block">
+      <div class="lang-tag">EN — English</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>When applying GBR bleaching probability curves to a MAR reef zone CMIE calculation, first confirm that the target zone's ambient Ω is within the GBR comparable range of 3.2–3.8. If MAR Ω is suppressed below 3.0 by karst SGD or agricultural loading, the GBR bleaching curves must be shifted — lower Ω amplifies bleaching response at lower DHW values than the GBR baseline predicts. Using uncorrected GBR curves at a suppressed-Ω MAR station will systematically underestimate bleaching probability at every DHW level.</span></li>
+        <li><span class="app-num">02</span><span>When CMIE detects a seagrass diel DO amplitude collapse below 2 mg/L at any MAR station adjacent to a seagrass meadow — particularly in Costa Rica's southern Caribbean or Belize's southern lagoon — apply the Red Sea thermal-chemical amplification mechanism. The seagrass buffering collapse signal is mechanistically identical in both systems even though the absolute Ω and TA values differ. The mechanism transfers; the endmember numbers do not. Route the DS elevation using the Red Sea-validated mechanism but calibrated against MAR regional chemistry.</span></li>
+        <li><span class="app-num">03</span><span>When a MAR corridor site has sparse chemical data — particularly in Nicaragua where data gaps are documented — apply the Coral Triangle multi-stressor framework as a conservative DS floor rather than generating a low-confidence single-stressor estimate. The CT framework's principle that combined stressors in data-sparse, high-pressure systems are systematically underestimated by single-stressor models is transferable as a methodological posture, even when the specific CT chemistry is not applicable. Document the framework application in the CMIE calibration record with the transferability condition stated explicitly.</span></li>
+        <li><span class="app-num">04</span><span>Never apply any regional TA endmember value from a non-Caribbean system to a MAR MOOP station. This restriction applies without exception to GBR (~2300 µmol/kg open ocean), Red Sea (~2450 µmol/kg hypersaline), Coral Triangle (~2280 µmol/kg Pacific-influenced), and Eastern Pacific (~2250 µmol/kg upwelling). The Caribbean MAR baseline (~2300 µmol/kg wet season, ~2380 µmol/kg dry season with mangrove buffering) must be used exclusively for MAR carbonate calculations. Regional endmember values are the one category of cross-system data that is never transferable — see L20 for the quantified consequences of this error.</span></li>
+        <li><span class="app-num">05</span><span>When generating a CMIE DS for a Panama corridor station that uses Eastern Pacific upwelling correction, explicitly document in the calibration record that this station cannot be compared directly to any other MAR corridor station without the upwelling correction applied. Panama stations post-correction are comparable to other MAR stations on the anomaly scale — but their raw chemistry is not comparable to Mexico, Belize, or Honduras stations. A future researcher pooling uncorrected Panama data with the rest of the corridor record will generate a systematic artifact in any longitudinal trend analysis. The documentation prevents this downstream error.</span></li>
+      </ul>
+    </div>
+
+    <div class="lang-block" style="margin-bottom:0;">
+      <div class="lang-tag">ES — Español</div>
+      <ul class="app-list">
+        <li><span class="app-num">01</span><span>Al aplicar curvas de probabilidad de blanqueamiento del GBR a un cálculo CMIE de una zona arrecifal del MAR, primero confirme que el Ω ambiente de la zona objetivo está dentro del rango comparable del GBR de 3.2–3.8. Si el Ω del MAR está suprimido por debajo de 3.0 por SGD kárstico o carga agrícola, las curvas del GBR deben ajustarse — el Ω más bajo amplifica la respuesta de blanqueamiento a valores de DHW más bajos de lo que predice la línea base del GBR.</span></li>
+        <li><span class="app-num">02</span><span>Cuando CMIE detecta un colapso de la amplitud diurna de OD de pastos marinos por debajo de 2 mg/L en cualquier estación del MAR adyacente a una pradera de pastos marinos, aplique el mecanismo de amplificación térmica-química del Mar Rojo. El mecanismo se transfiere; los números de endmember no.</span></li>
+        <li><span class="app-num">03</span><span>Cuando un sitio del corredor MAR tiene datos químicos escasos — particularmente en Nicaragua — aplique el marco multi-estresores del Triángulo de Coral como un piso DS conservador. El principio del CT de que los estresores combinados son sistemáticamente subestimados por modelos de estresor único es transferible como postura metodológica.</span></li>
+        <li><span class="app-num">04</span><span>Nunca aplique ningún valor de endmember de AT regional de un sistema no caribeño a una estación MOOP del MAR. Los valores de endmember regional son la única categoría de datos entre sistemas que nunca es transferible.</span></li>
+        <li><span class="app-num">05</span><span>Al generar un DS CMIE para una estación del corredor de Panamá que usa corrección de surgencia del Pacífico Oriental, documente explícitamente en el registro de calibración que esta estación no puede compararse directamente con ninguna otra estación del corredor MAR sin la corrección de surgencia aplicada.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 01</div>
+        <div class="mcq-q-en">Under what condition are GBR bleaching probability curves directly applicable to a MAR reef zone CMIE calculation?</div>
+        <div class="mcq-q-es">¿Bajo qué condición son directamente aplicables las curvas de probabilidad de blanqueamiento del GBR a un cálculo CMIE de una zona arrecifal del MAR?</div>
+        <div class="mcq-option">A) Always — the GBR is the global bleaching benchmark and its curves apply universally to all coral reef systems / Siempre — el GBR es el referente global de blanqueamiento y sus curvas se aplican universalmente</div>
+        <div class="mcq-option">B) Never — the GBR is an Indo-Pacific system and its chemistry is categorically different from Caribbean systems / Nunca — el GBR es un sistema del Indo-Pacífico con química categorialmente diferente al Caribe</div>
+        <div class="mcq-option correct">C) When the target MAR zone's ambient Ω is within the GBR comparable range of 3.2–3.8 — if MAR Ω is suppressed below 3.0, the curves must be shifted to account for amplified bleaching response at lower DHW / Cuando el Ω ambiente de la zona MAR objetivo está dentro del rango comparable del GBR de 3.2–3.8 — si el Ω del MAR está suprimido por debajo de 3.0, las curvas deben ajustarse</div>
+        <div class="mcq-option">D) When the MAR zone has experienced at least two previous bleaching events, establishing a site-specific thermal tolerance baseline comparable to the GBR record / Cuando la zona MAR ha experimentado al menos dos eventos de blanqueamiento previos</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 02</div>
+        <div class="mcq-q-en">The Red Sea's TA baseline (~2450 µmol/kg) is materially different from MAR values (~2300–2380 µmol/kg). Why does GROAN still classify the Red Sea seagrass DO mechanism as highly transferable to the MAR?</div>
+        <div class="mcq-q-es">La línea base de AT del Mar Rojo (~2450 µmol/kg) es materialmente diferente de los valores del MAR (~2300–2380 µmol/kg). ¿Por qué GROAN clasifica el mecanismo de OD de pastos marinos del Mar Rojo como altamente transferible al MAR?</div>
+        <div class="mcq-option">A) Because the diel DO amplitude threshold of 2 mg/L is the same in both systems, making the absolute TA values irrelevant to the transfer / Porque el umbral de amplitud diurna de OD de 2 mg/L es el mismo en ambos sistemas</div>
+        <div class="mcq-option">B) Because KAUST data has been recalibrated to Caribbean TA endmembers, making the Red Sea and MAR carbonate systems directly comparable / Porque los datos KAUST han sido recalibrados a endmembers de AT del Caribe</div>
+        <div class="mcq-option correct">C) Because transferable lessons travel through mechanism, not geography — the biological process of seagrass metabolic suppression producing DO amplitude collapse and loss of Ω buffering is chemically identical regardless of the ambient TA baseline; the mechanism transfers while the absolute numbers do not / Porque las lecciones transferibles viajan a través del mecanismo, no de la geografía — el proceso biológico de supresión metabólica de los pastos marinos es químicamente idéntico independientemente de la AT ambiente</div>
+        <div class="mcq-option">D) Because the Red Sea and MAR share the same ENSO forcing pattern, making their thermal stress chemistry directly analogous / Porque el Mar Rojo y el MAR comparten el mismo patrón de forzamiento ENSO</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">Question 03</div>
+        <div class="mcq-q-en">Which cross-system evidence category does GROAN classify as NEVER transferable between any reef system pair — and why?</div>
+        <div class="mcq-q-es">¿Qué categoría de evidencia entre sistemas clasifica GROAN como NUNCA transferible entre cualquier par de sistemas de arrecife — y por qué?</div>
+        <div class="mcq-option">A) DHW bleaching thresholds — thermal tolerance is too site-specific to apply across geographic boundaries / Umbrales de blanqueamiento DHW — la tolerancia térmica es demasiado específica del sitio</div>
+        <div class="mcq-option">B) Multi-stressor DS frameworks — different systems have different stressor combinations that cannot be combined / Marcos DS multi-estresores — los diferentes sistemas tienen combinaciones de estresores que no se pueden combinar</div>
+        <div class="mcq-option correct">C) Regional TA endmember values — each system's total alkalinity baseline reflects its specific geology, salinity regime, and freshwater inputs; substituting another system's endmember produces systematic Ω calculation errors that cannot be corrected after ingestion into CMIE / Valores de endmember de AT regional — la línea base de AT de cada sistema refleja su geología, régimen de salinidad y aportes de agua dulce específicos; sustituir el endmember de otro sistema produce errores sistemáticos de cálculo de Ω</div>
+        <div class="mcq-option">D) OA × Thermal synergistic weights — the interaction magnitude differs too much between systems to produce valid cross-system transfer / Pesos sinérgicos OA × Térmico — la magnitud de interacción difiere demasiado entre sistemas</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="margin-top:24px;">
+    <div class="progress-meta">
+      <span class="progress-label">GROAN Curriculum Progress — Lesson 61 of 704</span>
+      <span class="progress-pct">8.66%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
