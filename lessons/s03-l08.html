@@ -1,1 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L08 Biological Oceanography — Measurements</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green  { background: rgba(62,207,142,0.15);   color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .tag-purple { background: rgba(155,127,232,0.15);  color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);   font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);  font-weight: 500; }
+  .lang-block .gr  { color: var(--green);  font-weight: 500; }
+  .lang-block .pu  { color: var(--purple); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .b-hi     { background: rgba(62,207,142,0.15);  color: #3ecf8e;           border: 1px solid rgba(62,207,142,0.4); }
+  .b-mod    { background: rgba(240,180,41,0.15);  color: #f0b429;           border: 1px solid rgba(240,180,41,0.4); }
+  .b-low    { background: rgba(232,96,64,0.14);   color: #e86040;           border: 1px solid rgba(232,96,64,0.38); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral);  font-weight: 500; }
+  .app-panel .pu { color: var(--purple); font-weight: 500; }
+  .app-panel .hl { color: var(--gold);   font-weight: 500; }
+  .app-panel .gr { color: var(--green);  font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 10.23%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 08 · Biological Oceanography · Lesson 72 of 704</div>
+        <div class="lesson-title">Measurements</div>
+        <div class="lesson-subtitle">Belt transects · PAM fluorometry · CTD profiling · water chemistry · image confidence tiers · tidal phase discipline · MOOP field protocol</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Belt Transect · Fish Survey</span>
+        <span class="tag tag-green">PAM Fluorometry · CTD</span>
+        <span class="tag tag-gold">Image Confidence Tiers</span>
+        <span class="tag tag-coral">Tidal Phase Discipline</span>
+        <span class="tag tag-purple">MOOP Protocol · GRIN</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: MOOP measurement station cross-section — Shamrocket at surface, CTD drop line, belt transect on reef below, water chemistry sampling zone, measurement layers labelled with confidence tier indicators -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="msrG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#04294a" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="skyM" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#020f1e"/>
+            <stop offset="100%" stop-color="#04294a" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Sky -->
+        <rect x="0"   y="0"   width="340" height="48" fill="url(#skyM)"/>
+        <!-- Sea body -->
+        <rect x="0"   y="48"  width="340" height="172" fill="url(#msrG)"/>
+        <!-- Surface line -->
+        <line x1="0" y1="48" x2="340" y2="48" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+
+        <!-- SHAMROCKET (catamaran silhouette at surface, centred) -->
+        <g transform="translate(170,42)">
+          <!-- hulls -->
+          <ellipse cx="-14" cy="8"  rx="20" ry="3.5" fill="rgba(10,110,138,0.9)"/>
+          <ellipse cx="14"  cy="8"  rx="20" ry="3.5" fill="rgba(10,110,138,0.9)"/>
+          <!-- crossbeam -->
+          <rect x="-28" y="4" width="56" height="2.5" fill="rgba(4,41,74,0.95)"/>
+          <!-- mast -->
+          <line x1="0" y1="4" x2="0" y2="-30" stroke="rgba(26,200,200,0.85)" stroke-width="1.4"/>
+          <!-- sail -->
+          <polygon points="0,-30 22,4 0,4" fill="rgba(26,200,200,0.2)" stroke="rgba(26,200,200,0.5)" stroke-width="0.7"/>
+          <!-- label -->
+          <text x="0" y="-34" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(26,200,200,0.7)">SHAMROCKET</text>
+        </g>
+
+        <!-- CTD DROP LINE (left of vessel) -->
+        <line x1="148" y1="52" x2="148" y2="155" stroke="rgba(240,180,41,0.5)" stroke-width="0.9" stroke-dasharray="3,2"/>
+        <!-- CTD instrument -->
+        <rect x="143" y="150" width="10" height="14" rx="2" fill="rgba(240,180,41,0.35)" stroke="rgba(240,180,41,0.6)" stroke-width="0.8"/>
+        <text x="148" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.9)">CTD</text>
+        <!-- CTD label -->
+        <rect x="100" y="88" width="38" height="18" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(240,180,41,0.3)" stroke-width="0.7"/>
+        <text x="119" y="96" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.8)">T · S · DO</text>
+        <text x="119" y="103" text-anchor="middle" font-family="DM Mono,monospace" font-size="5" fill="rgba(240,180,41,0.55)">0–40 m profile</text>
+
+        <!-- SECCHI DISK (right of vessel) -->
+        <line x1="194" y1="52" x2="194" y2="100" stroke="rgba(26,200,200,0.4)" stroke-width="0.9" stroke-dasharray="3,2"/>
+        <circle cx="194" cy="100" r="7" fill="none" stroke="rgba(26,200,200,0.55)" stroke-width="1"/>
+        <!-- half black half white pattern -->
+        <path d="M 187,100 A 7,7 0 0,1 201,100 Z" fill="rgba(26,200,200,0.3)"/>
+        <text x="206" y="96" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.7)">Secchi disk</text>
+        <text x="206" y="103" font-family="DM Mono,monospace" font-size="5" fill="rgba(26,200,200,0.5)">turbidity</text>
+
+        <!-- WATER CHEMISTRY SAMPLE POINT -->
+        <circle cx="170" cy="68" r="5" fill="rgba(155,127,232,0.25)" stroke="rgba(155,127,232,0.5)" stroke-width="1"/>
+        <text x="180" y="66" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.8)">N·P·pH</text>
+        <text x="180" y="73" font-family="DM Mono,monospace" font-size="5" fill="rgba(155,127,232,0.55)">Redfield check</text>
+
+        <!-- REEF SUBSTRATE -->
+        <rect x="0" y="170" width="340" height="50" fill="rgba(2,8,16,0.7)"/>
+        <ellipse cx="90"  cy="173" rx="35" ry="10" fill="rgba(10,60,50,0.65)"/>
+        <ellipse cx="200" cy="171" rx="40" ry="12" fill="rgba(10,60,50,0.65)"/>
+        <ellipse cx="300" cy="174" rx="30" ry="9"  fill="rgba(10,60,50,0.6)"/>
+        <!-- coral heads -->
+        <ellipse cx="76"  cy="167" rx="10" ry="7"  fill="rgba(232,96,64,0.4)"/>
+        <ellipse cx="94"  cy="164" rx="12" ry="8"  fill="rgba(232,96,64,0.44)"/>
+        <ellipse cx="185" cy="162" rx="11" ry="7"  fill="rgba(232,96,64,0.4)"/>
+        <ellipse cx="204" cy="160" rx="14" ry="9"  fill="rgba(232,96,64,0.44)"/>
+        <ellipse cx="222" cy="163" rx="11" ry="7"  fill="rgba(232,96,64,0.38)"/>
+
+        <!-- BELT TRANSECT LINE on reef -->
+        <line x1="60" y1="172" x2="290" y2="172" stroke="rgba(62,207,142,0.65)" stroke-width="1.2" stroke-dasharray="5,3"/>
+        <line x1="60" y1="180" x2="290" y2="180" stroke="rgba(62,207,142,0.4)"  stroke-width="0.8" stroke-dasharray="5,3"/>
+        <!-- Transect width arrows -->
+        <line x1="58" y1="172" x2="58" y2="180" stroke="rgba(62,207,142,0.5)" stroke-width="0.8"/>
+        <line x1="292" y1="172" x2="292" y2="180" stroke="rgba(62,207,142,0.5)" stroke-width="0.8"/>
+        <text x="170" y="190" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.7)">BELT TRANSECT · 25 m × 2 m</text>
+
+        <!-- DIVER with PAM fluorometer icon -->
+        <ellipse cx="128" cy="160" rx="6" ry="8"  fill="rgba(26,200,200,0.2)" stroke="rgba(26,200,200,0.45)" stroke-width="0.8"/>
+        <circle  cx="128" cy="151" r="3.5" fill="rgba(26,200,200,0.3)" stroke="rgba(26,200,200,0.5)" stroke-width="0.7"/>
+        <!-- PAM probe line -->
+        <line x1="134" y1="158" x2="142" y2="163" stroke="rgba(62,207,142,0.6)" stroke-width="1"/>
+        <circle  cx="143" cy="164" r="2" fill="rgba(62,207,142,0.7)"/>
+        <text x="118" y="148" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.7)" text-anchor="middle">PAM</text>
+
+        <!-- IMAGE CONFIDENCE TIER legend (top right) -->
+        <rect x="240" y="4" width="96" height="42" rx="2" fill="rgba(2,15,30,0.88)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+        <text x="288" y="13" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(26,200,200,0.75)" letter-spacing="0.05em">IMAGE CONFIDENCE</text>
+        <rect x="244" y="17" width="22" height="8" rx="1" fill="rgba(62,207,142,0.2)"  stroke="rgba(62,207,142,0.5)"  stroke-width="0.5"/>
+        <text x="256" y="23" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.9)">HIGH</text>
+        <text x="278" y="23" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.7)">&gt;85%</text>
+        <rect x="244" y="28" width="22" height="8" rx="1" fill="rgba(240,180,41,0.18)" stroke="rgba(240,180,41,0.5)"  stroke-width="0.5"/>
+        <text x="256" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.9)">MOD</text>
+        <text x="278" y="34" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.7)">60–85%</text>
+        <rect x="244" y="38" width="22" height="8" rx="1" fill="rgba(232,96,64,0.16)"  stroke="rgba(232,96,64,0.5)"   stroke-width="0.5"/>
+        <text x="256" y="44" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.9)">LOW</text>
+        <text x="278" y="44" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.7)">&lt;60%</text>
+
+        <!-- Tidal phase flag -->
+        <rect x="4" y="4" width="72" height="14" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(240,180,41,0.3)" stroke-width="0.7"/>
+        <text x="40" y="13" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,180,41,0.8)">TIDAL PHASE LOCKED</text>
+
+        <!-- Depth ticks right margin -->
+        <line x1="332" y1="48"  x2="336" y2="48"  stroke="rgba(26,200,200,0.3)" stroke-width="0.6"/>
+        <text x="330" y="51"  text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.45)">0m</text>
+        <line x1="332" y1="88"  x2="336" y2="88"  stroke="rgba(26,200,200,0.3)" stroke-width="0.6"/>
+        <text x="330" y="91"  text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.38)">10m</text>
+        <line x1="332" y1="128" x2="336" y2="128" stroke="rgba(26,200,200,0.3)" stroke-width="0.6"/>
+        <text x="330" y="131" text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.3)">20m</text>
+        <line x1="332" y1="168" x2="336" y2="168" stroke="rgba(26,200,200,0.3)" stroke-width="0.6"/>
+        <text x="330" y="171" text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.25)">30m</text>
+
+        <!-- Bioluminescent sparks -->
+        <circle cx="240" cy="130" r="0.9" fill="rgba(26,200,200,0.7)"/>
+        <circle cx="56"  cy="140" r="0.8" fill="rgba(26,200,200,0.55)"/>
+        <circle cx="310" cy="148" r="1.0" fill="rgba(26,200,200,0.6)"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Measurements</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>A monitoring system is only as defensible as its measurements. GROAN's 20-year corridor record will be cited, contested, and used to justify management decisions affecting seven national jurisdictions — every measurement in that record must be traceable to a documented protocol, comparable across circuits, and tagged with a confidence tier that tells the CMIE how much weight to assign it in the Decision Score. <span class="hl">This lesson is the operational core of GROAN's field science: not what to measure, but exactly how to measure it, in what sequence, under what conditions, and with what quality controls.</span> Every shortcut here creates a methodological fault line that runs through all 20 circuits of the record.</p>
+
+      <p><strong>Belt Transect — Benthic Cover</strong> is GRIN's primary structural measurement. Protocol: a 25 m tape reel is deployed along the reef at a fixed depth contour (typically 5–7 m on the fore-reef slope). A 2 m belt width is surveyed on each side of the tape, yielding a 25 m × 4 m sampling area per transect. Three transects per site at 10 m separation constitute a standard GRIN node survey. Within each transect the observer records: live coral cover by morphological category (branching, massive, encrusting, foliose), macroalgae cover by genus where possible, crustose coralline algae (CCA) cover, bare substrate, soft coral and sponge, juvenile coral density (recruits &lt;4 cm diameter) per m², and SCTLD prevalence. <span class="cr">All benthic recordings must be made at the same depth contour ±0.5 m across circuits — depth variation introduces a light gradient artifact that mimics cover change and corrupts the longitudinal record.</span></p>
+
+      <p><strong>Belt Transect — Fish Biomass</strong> uses a 25 m × 4 m belt concurrent with the benthic transect. The observer records all fish species, estimated total length (TL) to the nearest 5 cm, and abundance within the belt during a single slow swim. Biomass is calculated post-survey using published length-weight relationships (W = aL^b). Fish are binned by functional group: herbivores (parrotfish, surgeonfish, rabbitfish), invertivores, piscivores, apex predators, and cleaners. Lionfish are recorded separately with density per 100 m² as the primary management metric. <span class="hl">Observer consistency is the dominant source of error in fish biomass surveys — a trained observer typically shows ±15% inter-survey variance; an inconsistent observer pair can show ±40–60%, destroying longitudinal comparability.</span> GROAN protocol requires observer pair certification at the Banco Chinchorro calibration site before circuit 1 data is accepted into the pipeline.</p>
+
+      <p><strong>PAM Fluorometry</strong> (Pulse Amplitude Modulated fluorometry) measures the quantum yield of photosystem II in coral tissue — the ratio of variable fluorescence to maximum fluorescence (Fv/Fm). A healthy zooxanthellae symbiont shows Fv/Fm of 0.55–0.65; values below 0.45 indicate photoinhibition and pre-bleaching stress; values below 0.30 indicate severe symbiont dysfunction preceding expulsion. PAM measurement protocol: taken in low ambient light (early morning or via shading) on the same three coral colonies per site tagged with a stainless-steel marker pin in circuit 1, measuring five points per colony surface and averaging. <span class="cr">PAM measurements taken in full ambient light are unreliable — daytime non-photochemical quenching suppresses Fv/Fm by 20–30% independent of thermal stress, producing false-positive bleaching alerts.</span> All GROAN PAM data is flagged with measurement time and ambient PAR reading.</p>
+
+      <p><strong>CTD Profiling</strong> captures the water column structure at each reef node: temperature, salinity, and dissolved oxygen (DO) from surface to 40 m in a single lowering and recovery cycle. Protocol: instrument lowered at 0.5 m/s, sampling at 1 Hz, yielding 1 m depth resolution. Key outputs: thermocline depth (maximum dT/dz), halocline position, DO minimum depth, and surface layer thickness. <span class="hl">CTD profiles must be taken within 2 hours of the belt transect survey at the same GPS waypoint</span> — profiles taken hours later or at a different horizontal position introduce thermal stratification artifacts that are not representative of conditions during the biological survey. The CTD profile is also the instrument that validates tidal phase compliance: a profile showing anomalous salinity (river plume) or temperature (internal wave passage) within the neritic survey zone triggers a site re-survey flag.</p>
+
+      <p><strong>Water Chemistry Sampling</strong> at each GRIN node collects a 500 mL discrete sample at 1 m depth for laboratory analysis of dissolved inorganic nitrogen (DIN = NH₄⁺ + NO₂⁻ + NO₃⁻), dissolved inorganic phosphorus (DIP = PO₄³⁻), and silicic acid (Si(OH)₄). N:P ratio is calculated against the Redfield baseline (16:1) and logged as a nutrient regime deviation. A Secchi disk depth reading is taken concurrently as a turbidity proxy. <span class="cr">Water chemistry samples must be preserved within 30 minutes of collection (frozen or HgCl₂ addition) — unpreserved samples experience bacterial-driven N and P transformation within 2–4 hours at tropical temperatures that can shift the measured N:P ratio by 30–50%, producing false Redfield deviations.</span></p>
+
+      <p><strong>Image Confidence Tier Schema</strong> governs how photographic and video evidence is weighted in GRIN data and DMAP-CAL™ Decision Scores. GROAN's formal schema assigns three tiers based on the analytical confidence achievable from a given image or image set: <strong>High confidence (&gt;85%)</strong> covers unambiguous presence/absence determinations, color change detection, gross spatial coverage estimation, and before/after comparative change — achievable with a single clear image at appropriate resolution. <strong>Moderate confidence (60–85%)</strong> covers species identification, quantitative cover metrics, coral health staging (pale/partial bleach/full bleach), and tissue loss extent estimation — requires multiple images from consistent angles or specialist review. <strong>Low confidence (&lt;60%)</strong> covers physiological state inference, water chemistry attribution from image color alone, and causal attribution — requires corroborating instrument data. <span class="hl">All GRIN images are tagged at ingestion with their assigned confidence tier, and the CMIE weights image-derived observations accordingly in the Decision Score computation.</span> An image submitted as High confidence that an experienced reviewer would classify as Moderate creates a systematic DS inflation that compounds across all sites using similar images.</p>
+
+      <p><strong>Tidal Phase Discipline</strong> is the single most important protocol constraint for longitudinal comparability across the 20-year GROAN record. Tidal phase affects water clarity, current speed, fish activity patterns, coral polyp extension, and localized SST — all of which alter the biological signals recorded in a belt transect survey. <span class="cr">GROAN protocol requires all reef node surveys to be conducted within ±1 hour of the same tidal phase as the circuit 1 survey at that site</span> — specifically, the 2–3 hour window following low tide, when water clarity is typically maximum and fish activity is moderate. Sites surveyed at different tidal phases across circuits produce a tidal confound artifact that can easily exceed 10–15% coral cover equivalent — larger than many real ecological signals in the early circuit record. The circuit 1 tidal phase is the irreversible anchor; every subsequent circuit must match it.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Un sistema de monitoreo es tan defendible como sus mediciones. El registro de 20 años del corredor de GROAN será citado, contestado y utilizado para justificar decisiones de gestión — cada medición debe ser trazable a un protocolo documentado, comparable entre circuitos y etiquetada con un nivel de confianza. <span class="hl">Este es el núcleo operacional de la ciencia de campo de GROAN: no qué medir, sino exactamente cómo medirlo, en qué secuencia y con qué controles de calidad.</span></p>
+
+      <p><strong>Transecto de Banda — Cobertura Bentónica:</strong> 25 m × 4 m en un contorno de profundidad fijo (5–7 m). Tres transectos por sitio. <span class="cr">Todas las grabaciones bentónicas deben realizarse en el mismo contorno de profundidad ±0,5 m entre circuitos</span> — la variación de profundidad introduce un artefacto de gradiente de luz que imita el cambio de cobertura.</p>
+
+      <p><strong>Transecto de Banda — Biomasa de Peces:</strong> 25 m × 4 m concurrente. La biomasa se calcula con relaciones longitud-peso publicadas. <span class="hl">La consistencia del observador es la fuente dominante de error — un par de observadores inconsistentes puede mostrar ±40–60% de varianza, destruyendo la comparabilidad longitudinal.</span> El protocolo de GROAN requiere certificación del par de observadores en Banco Chinchorro antes del circuito 1.</p>
+
+      <p><strong>Fluorometría PAM:</strong> Mide el rendimiento cuántico del fotosistema II (Fv/Fm). Valores saludables: 0,55–0,65; &lt;0,45 = fotosinhibición pre-blanqueamiento; &lt;0,30 = disfunción grave. <span class="cr">Las mediciones PAM tomadas bajo luz ambiental plena son poco confiables</span> — la extinción no fotoquímica diurna suprime Fv/Fm en 20–30% independientemente del estrés térmico.</p>
+
+      <p><strong>Perfilado CTD:</strong> Temperatura, salinidad y oxígeno disuelto de 0–40 m. <span class="hl">Los perfiles CTD deben tomarse dentro de las 2 horas del transecto de banda en el mismo punto GPS.</span> El perfil CTD también valida el cumplimiento de la fase de marea.</p>
+
+      <p><strong>Muestreo de Química del Agua:</strong> DIN, DIP y Si(OH)₄ a 1 m de profundidad. <span class="cr">Las muestras deben preservarse dentro de los 30 minutos de la recolección</span> — las muestras no preservadas experimentan transformación bacteriana de N y P que puede desplazar la relación N:P medida en 30–50%.</p>
+
+      <p><strong>Esquema de Niveles de Confianza de Imagen:</strong> Alto (&gt;85%), Moderado (60–85%), Bajo (&lt;60%). <span class="hl">Todas las imágenes de GRIN se etiquetan con su nivel de confianza asignado en la ingestión, y el CMIE pondera las observaciones derivadas de imágenes en consecuencia.</span></p>
+
+      <p><strong>Disciplina de Fase de Marea:</strong> <span class="cr">El protocolo de GROAN requiere que todas las encuestas de nodos arrecifales se realicen dentro de ±1 hora de la misma fase de marea que la encuesta del circuito 1 en ese sitio.</span> La fase de marea del circuito 1 es el ancla irreversible; cada circuito posterior debe coincidir con ella.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Measurement / Medición</th>
+          <th>Protocol Standard</th>
+          <th>Critical Constraint</th>
+          <th>Failure Mode</th>
+          <th>GROAN Module</th>
+          <th>Confidence Tier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-coral">Belt Transect — Benthic</span></td>
+          <td>25 m × 4 m; 3 transects; fixed depth ±0.5 m</td>
+          <td>Same depth contour every circuit</td>
+          <td>Depth drift → light gradient artifact mimics cover change</td>
+          <td>GRIN</td>
+          <td><span class="badge b-hi">High</span> cover · <span class="badge b-mod">Mod</span> species ID</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Belt Transect — Fish</span></td>
+          <td>25 m × 4 m; length-weight biomass; functional groups</td>
+          <td>Certified observer pair; calibration at Banco Chinchorro</td>
+          <td>Observer inconsistency → ±40–60% variance; destroys trend</td>
+          <td>GRIN</td>
+          <td><span class="badge b-mod">Mod</span> biomass · <span class="badge b-hi">High</span> abundance</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">PAM Fluorometry</span></td>
+          <td>Fv/Fm; early morning / shaded; 5 pts per tagged colony</td>
+          <td>Low ambient PAR (&lt;50 µmol m⁻² s⁻¹); fixed tagged colonies</td>
+          <td>Full ambient light → NQP suppresses Fv/Fm 20–30% artificially</td>
+          <td>GRIN · CMIE</td>
+          <td><span class="badge b-hi">High</span> stress detection</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">CTD Profile</span></td>
+          <td>0–40 m; 0.5 m/s descent; 1 Hz sampling; within 2 hr of transect</td>
+          <td>Same GPS waypoint; within 2 hr of biological survey</td>
+          <td>Temporal/spatial offset → thermal stratification artifact</td>
+          <td>GRIN · GKIN</td>
+          <td><span class="badge b-hi">High</span> physical parameters</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Water Chemistry</span></td>
+          <td>500 mL at 1 m depth; DIN, DIP, Si; Secchi disk concurrent</td>
+          <td>Preserve within 30 min (freeze or HgCl₂)</td>
+          <td>Delayed preservation → bacterial N/P shift ±30–50% N:P ratio</td>
+          <td>GRIN · GKIN</td>
+          <td><span class="badge b-hi">High</span> if preserved; <span class="badge b-low">Low</span> if delayed</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Image Confidence Tiers</span></td>
+          <td>High &gt;85% · Moderate 60–85% · Low &lt;60%</td>
+          <td>Tag at ingestion; reviewer calibration required</td>
+          <td>Tier inflation → systematic DS overestimation across all sites</td>
+          <td>GRIN · CMIE · DMAP-CAL™</td>
+          <td>Tier assigned per image at ingestion</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Tidal Phase</span></td>
+          <td>±1 hr of circuit 1 tidal phase; 2–3 hr post-low tide window</td>
+          <td>Circuit 1 phase is irreversible anchor for all 20 circuits</td>
+          <td>Phase drift → 10–15% cover artifact exceeds real signal magnitude</td>
+          <td>All modules</td>
+          <td>Protocol compliance flag — not a confidence tier</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — MOOP Field Protocol &amp; Data Quality Control</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When arriving at a new GRIN node for the first time (circuit 1), <strong>record the exact tidal phase, time, and GPS waypoint of every survey element before beginning any biological observations</strong> — these three parameters become the permanent anchor for all 20 circuits at that site. Use a tide table verified against local observed conditions (not just predicted), log the time of low tide and the time survey began, and photograph the GPS chartplotter screen showing position and time as a circuit 1 metadata record. <span class="cr">A circuit 1 tidal phase record that is missing or ambiguous cannot be reconstructed retrospectively and invalidates the longitudinal comparability of every subsequent circuit at that site.</span></li>
+        <li>When conducting PAM fluorometry at a corridor site, <strong>always measure before 0800 local time or shade the target colonies for 10 minutes before measurement</strong> to allow dark adaptation and eliminate non-photochemical quenching (NPQ) suppression. Record the ambient PAR reading from the dive computer or PAR sensor at the time of each colony measurement. If PAR exceeds 50 µmol m⁻² s⁻¹ and shading is not possible, flag the measurement as unreliable and enter it at Moderate confidence in the GRIN record with a PAR exceedance note — do not enter it at High confidence. <span class="hl">A PAM dataset collected in full ambient light looks like a bleaching event and is not distinguishable from a real pre-bleaching signal without the PAR metadata.</span></li>
+        <li>When assigning image confidence tiers at ingestion, <strong>apply the schema conservatively — when in doubt, assign the lower tier</strong>. The asymmetry matters: a Low-confidence image assigned as Moderate inflates the Decision Score by contributing analytical weight it has not earned; a Moderate image assigned as Low slightly reduces DS weight but does not generate a false management signal. Tier inflation compounds across sites — if 60% of a corridor's image record is systematically over-tiered by one level, the aggregate DS portfolio overstates condition by a margin that will only be detectable retrospectively when circuit 5+ data reveals divergence from physical instrument readings. <span class="cr">One mis-tiered image is trivial; one mis-tiering convention applied consistently across 100+ sites across 20 circuits is a systematic error that invalidates the policy instrument.</span></li>
+        <li>When water chemistry samples cannot be processed within 30 minutes of collection (vessel logistics, equipment failure), <strong>log the preservation delay in minutes alongside the sample</strong> and apply a confidence downgrade: samples preserved at 30–60 minutes are flagged as Moderate confidence; samples preserved after 60 minutes are flagged as Low confidence and should not be used for Redfield N:P deviation calculations. Never discard delayed samples — even Low-confidence data has value for turbidity, conductivity, and visual color assessment. <span class="hl">The sample log note "preserved at +47 minutes" is more scientifically valuable than a missing entry.</span></li>
+        <li>Before accepting observer pair data into the GRIN pipeline at circuit 1, <strong>conduct an inter-observer calibration exercise at Banco Chinchorro using a standardized test transect with known composition</strong>. The acceptable threshold for inter-observer consistency is ±10% on coral cover, ±15% on fish biomass, and ±20% on species-level fish identification. Pairs exceeding these thresholds require additional training before circuit 1 data collection begins. <span class="pu">An observer pair that enters the circuit without calibration carries an unknown systematic bias that cannot be corrected or quantified in post-processing — it becomes a permanent feature of every circuit record they contribute to. Calibration is not optional quality control; it is a prerequisite for data entry into a 20-year longitudinal record.</span></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Al llegar a un nuevo nodo GRIN por primera vez (circuito 1), <strong>registre la fase de marea exacta, la hora y el punto GPS de cada elemento de encuesta antes de comenzar cualquier observación biológica</strong>. <span class="cr">Un registro de fase de marea del circuito 1 que falta o es ambiguo no puede reconstruirse retrospectivamente e invalida la comparabilidad longitudinal de cada circuito posterior en ese sitio.</span></li>
+        <li>Al realizar fluorometría PAM, <strong>mida siempre antes de las 08:00 hora local o sombree las colonias objetivo durante 10 minutos antes de la medición</strong>. Si la PAR supera los 50 µmol m⁻² s⁻¹ y no es posible el sombreado, marque la medición como poco confiable e ingrésela con confianza Moderada. <span class="hl">Un conjunto de datos PAM recopilado bajo luz ambiental plena parece un evento de blanqueamiento.</span></li>
+        <li>Al asignar niveles de confianza de imagen, <strong>aplique el esquema de manera conservadora — en caso de duda, asigne el nivel inferior</strong>. La inflación de nivel se compone entre sitios — un convencio de sobre-categorización aplicado sistemáticamente en 100+ sitios durante 20 circuitos es un error sistemático que invalida el instrumento de política. <span class="cr">Una imagen mal categorizada es trivial; una convención de mal etiquetado aplicada consistentemente no lo es.</span></li>
+        <li>Cuando las muestras de química del agua no puedan procesarse dentro de los 30 minutos, <strong>registre el retraso de preservación en minutos junto con la muestra</strong> y aplique una rebaja de confianza. Nunca descarte muestras retrasadas — incluso los datos de baja confianza tienen valor. <span class="hl">La nota "preservada a +47 minutos" es más valiosa científicamente que una entrada faltante.</span></li>
+        <li>Antes de aceptar datos del par de observadores en el circuito 1, <strong>realice un ejercicio de calibración entre observadores en Banco Chinchorro</strong> usando un transecto de prueba estandarizado. Los umbrales aceptables son ±10% en cobertura coralina, ±15% en biomasa de peces. <span class="pu">Un par de observadores sin calibración lleva un sesgo sistemático desconocido que se convierte en una característica permanente de cada registro de circuito al que contribuyen.</span></li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Circuit 3 at a corridor site shows a 12% decline in coral cover compared to circuit 2. The circuit 2 survey was conducted at 2 hours post-low tide; the circuit 3 survey was conducted at high tide due to vessel scheduling constraints. The observer pair is the same and PAM data shows no bleaching stress. What is the most likely explanation for the apparent decline?</div>
+        <div class="mcq-q-es">El circuito 3 muestra un declive del 12% en cobertura coralina vs. circuito 2. El circuito 2 fue en la ventana 2 horas post-marea baja; el circuito 3 fue en marea alta por limitaciones de programación. El par de observadores es el mismo y los datos PAM no muestran estrés. ¿Cuál es la explicación más probable?</div>
+        <ul class="mcq-options">
+          <li>A. Real ecological decline — a 12% change between circuits is within the range of genuine bleaching recovery variability even without PAM stress signals</li>
+          <li>B. Observer fatigue — high-tide surveys produce systematic undercounting due to surge and reduced visibility from wave action</li>
+          <li class="correct">C. Tidal phase confound — high-tide surveys produce lower apparent coral cover due to reduced water clarity, altered fish behavior masking benthic zones, coral polyp retraction under surge, and changed light angles; the 10–15% cover artifact from tidal phase mismatch is large enough to fully account for the apparent 12% decline; the circuit 3 data must be flagged as tidal phase non-compliant and cannot be merged into the longitudinal cover trend without a phase correction factor or a re-survey at the correct tidal window</li>
+          <li>D. Instrument error in the reel — a stretched transect tape in circuit 3 would sample a larger area, reducing observed cover percentage</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">A GRIN image submission tags a series of photos showing coral with slight pale coloration as High confidence for health staging (bleaching severity classification). An experienced reviewer classifies the same images as Moderate confidence. What is the CMIE consequence of the original High-confidence tagging, and why does it matter at corridor scale?</div>
+        <div class="mcq-q-es">Una presentación de imágenes GRIN etiqueta fotos de coral con leve palidez como confianza Alta para estadificación de salud. Un revisor experimentado las clasifica como confianza Moderada. ¿Cuál es la consecuencia en el CMIE de la etiqueta Alta original?</div>
+        <ul class="mcq-options">
+          <li>A. No consequence — the CMIE rounds confidence tiers to binary (acceptable / not acceptable) so a one-tier difference has no effect on the Decision Score</li>
+          <li>B. Minor consequence at one site — tier inflation at a single node shifts that site's DS by a small amount that self-corrects when instrument data arrives in the next circuit</li>
+          <li class="correct">C. The High-confidence tag assigns full analytical weight to the health staging observation in the Decision Score, generating a higher DS than the Moderate-confidence weighting would produce; if this tagging convention is applied consistently across the corridor (as it would be if an observer systematically over-tiers), the aggregate DS portfolio overstates bleaching severity at every affected site; over 20 circuits this compounds into a systematic positive bias in the policy instrument — institutional partners receiving escalating DS outputs over circuits 5–10 would be responding to a measurement artifact, not a real ecological signal; tier calibration is therefore a corridor-level data integrity requirement, not a per-image quality preference</li>
+          <li>D. The consequence is limited to the specific DS calculation for that site and circuit; longitudinal trend analysis is unaffected because CMIE applies trend normalization automatically</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">A MOOP water chemistry sample at a Bay Islands site is preserved 52 minutes after collection due to a dive equipment malfunction. Lab analysis shows N:P = 21:1, above the Redfield baseline of 16:1. What is the correct handling of this data point in the GRIN record and CMIE routing?</div>
+        <div class="mcq-q-es">Una muestra de química del agua se preservó 52 minutos después de la recolección. El análisis de laboratorio muestra N:P = 21:1, por encima de la línea de base de Redfield de 16:1. ¿Cuál es el manejo correcto de este dato en el registro GRIN y enrutamiento CMIE?</div>
+        <ul class="mcq-options">
+          <li>A. Discard the sample — any preservation delay over 30 minutes invalidates the result and it should not appear in the record</li>
+          <li>B. Accept at full High confidence — the N:P deviation is large enough to exceed any bacterial transformation artifact; a 21:1 ratio confirms anthropogenic nitrogen loading regardless of preservation timing</li>
+          <li class="correct">C. Log the sample at Moderate confidence with the preservation delay (+52 min) noted in the metadata; do not use it for definitive Redfield N:P deviation routing in DMAP-CAL™ without corroborating evidence; bacterial transformation at tropical temperatures over 52 minutes can shift N:P by up to 30–50%, meaning the true value could be anywhere from approximately 11:1 to 31:1; flag the site for a re-sample at the next circuit with strict 30-minute preservation; if the deviation persists in a properly preserved sample at circuit 4, it constitutes confirmed anthropogenic nitrogen loading and triggers Tier 2 DMAP-CAL™ routing</li>
+          <li>D. Accept at Moderate confidence and immediately route to Tier 2 DMAP-CAL™ nutrient intervention — a 21:1 ratio is sufficient for action regardless of sample quality</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L08 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">10.23%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
 
