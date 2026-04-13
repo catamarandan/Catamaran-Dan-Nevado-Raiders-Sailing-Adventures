@@ -1,1 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L07 Biological Oceanography — Drivers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --red:        #c0392b;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green  { background: rgba(62,207,142,0.15);   color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .tag-purple { background: rgba(155,127,232,0.15);  color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);   font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);  font-weight: 500; }
+  .lang-block .gr  { color: var(--green);  font-weight: 500; }
+  .lang-block .pu  { color: var(--purple); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .b-red    { background: rgba(192,57,43,0.14);   color: #e07060;           border: 1px solid rgba(192,57,43,0.35); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral);  font-weight: 500; }
+  .app-panel .pu { color: var(--purple); font-weight: 500; }
+  .app-panel .hl { color: var(--gold);   font-weight: 500; }
+  .app-panel .gr { color: var(--green);  font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 10.09%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 07 · Biological Oceanography · Lesson 71 of 704</div>
+        <div class="lesson-title">Drivers</div>
+        <div class="lesson-subtitle">Climate · land-based pollution · overfishing · coastal development · invasive species · tourism — global and local drivers mapped to GROAN's DMAP-CAL™ tier structure</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-coral">Climate · Thermal · OA</span>
+        <span class="tag tag-gold">Land-Based Pollution · LBSP</span>
+        <span class="tag tag-green">Overfishing · Coastal Dev.</span>
+        <span class="tag tag-purple">Invasive Species · Tourism</span>
+        <span class="tag tag-blue">DMAP-CAL™ Tier Mapping</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: Driver convergence diagram — six external driver arrows converging on central reef target, color-coded by global (uncontrollable) vs. local (actionable), with DMAP-CAL™ tier labels -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="drvG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#031e38" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+          <marker id="aRed"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(192,57,43,0.7)"/></marker>
+          <marker id="aYel"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(240,180,41,0.65)"/></marker>
+          <marker id="aGrn"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(62,207,142,0.6)"/></marker>
+          <marker id="aCrl"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(232,96,64,0.6)"/></marker>
+          <marker id="aPrp"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(155,127,232,0.6)"/></marker>
+          <marker id="aCyn"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(26,200,200,0.6)"/></marker>
+        </defs>
+        <rect width="340" height="220" fill="url(#drvG)"/>
+
+        <!-- Central reef target -->
+        <ellipse cx="170" cy="122" rx="32" ry="18" fill="rgba(10,60,50,0.65)"/>
+        <ellipse cx="158" cy="116" rx="11" ry="7"  fill="rgba(232,96,64,0.4)"/>
+        <ellipse cx="172" cy="113" rx="13" ry="8"  fill="rgba(232,96,64,0.44)"/>
+        <ellipse cx="186" cy="117" rx="10" ry="7"  fill="rgba(232,96,64,0.38)"/>
+        <rect x="142" y="128" width="56" height="12" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(26,200,200,0.25)" stroke-width="0.7"/>
+        <text x="170" y="137" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.8)">REEF SYSTEM</text>
+
+        <!-- DRIVER 1: CLIMATE (top — dark red, global/uncontrollable) -->
+        <rect x="118" y="4" width="104" height="26" rx="3" fill="rgba(192,57,43,0.14)" stroke="rgba(192,57,43,0.45)" stroke-width="1"/>
+        <text x="170" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(192,57,43,0.9)">CLIMATE</text>
+        <text x="170" y="23" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(192,57,43,0.6)">SST · OA · SLR · storms</text>
+        <line x1="170" y1="30" x2="170" y2="100" stroke="rgba(192,57,43,0.55)" stroke-width="1.4" marker-end="url(#aRed)"/>
+        <!-- Tier label -->
+        <text x="176" y="68" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(192,57,43,0.55)">Tier 5 (global)</text>
+
+        <!-- DRIVER 2: LAND-BASED POLLUTION (top-right) -->
+        <rect x="258" y="26" width="78" height="28" rx="3" fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.42)" stroke-width="1"/>
+        <text x="297" y="36" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(240,180,41,0.9)">LAND-BASED</text>
+        <text x="297" y="45" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.6)">N·P·sediment·toxins</text>
+        <line x1="258" y1="50" x2="202" y2="108" stroke="rgba(240,180,41,0.5)" stroke-width="1.3" marker-end="url(#aYel)"/>
+        <text x="244" y="80" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.55)">Tier 2–3</text>
+
+        <!-- DRIVER 3: OVERFISHING (right) -->
+        <rect x="282" y="108" width="54" height="28" rx="3" fill="rgba(62,207,142,0.1)" stroke="rgba(62,207,142,0.4)" stroke-width="1"/>
+        <text x="309" y="119" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(62,207,142,0.9)">OVER-</text>
+        <text x="309" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(62,207,142,0.9)">FISHING</text>
+        <line x1="282" y1="122" x2="202" y2="122" stroke="rgba(62,207,142,0.5)" stroke-width="1.3" marker-end="url(#aGrn)"/>
+        <text x="244" y="118" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.55)">Tier 2–3</text>
+
+        <!-- DRIVER 4: COASTAL DEVELOPMENT (bottom-right) -->
+        <rect x="250" y="170" width="86" height="28" rx="3" fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.38)" stroke-width="1"/>
+        <text x="293" y="181" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.9)">COASTAL</text>
+        <text x="293" y="190" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.9)">DEVELOPMENT</text>
+        <line x1="250" y1="178" x2="200" y2="138" stroke="rgba(232,96,64,0.45)" stroke-width="1.2" marker-end="url(#aCrl)"/>
+        <text x="232" y="166" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.5)">Tier 1–2</text>
+
+        <!-- DRIVER 5: INVASIVE SPECIES (bottom-left) -->
+        <rect x="6" y="170" width="86" height="28" rx="3" fill="rgba(155,127,232,0.1)" stroke="rgba(155,127,232,0.38)" stroke-width="1"/>
+        <text x="49" y="181" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(155,127,232,0.9)">INVASIVE</text>
+        <text x="49" y="190" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(155,127,232,0.9)">SPECIES</text>
+        <line x1="92" y1="178" x2="140" y2="138" stroke="rgba(155,127,232,0.45)" stroke-width="1.2" marker-end="url(#aPrp)"/>
+        <text x="100" y="166" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.5)">Tier 2–3</text>
+
+        <!-- DRIVER 6: TOURISM (left) -->
+        <rect x="4" y="108" width="54" height="28" rx="3" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.35)" stroke-width="1"/>
+        <text x="31" y="119" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(26,200,200,0.85)">TOURISM</text>
+        <text x="31" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.5)">physical damage</text>
+        <line x1="58" y1="122" x2="138" y2="122" stroke="rgba(26,200,200,0.45)" stroke-width="1.2" marker-end="url(#aCyn)"/>
+        <text x="76" y="118" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.5)">Tier 1</text>
+
+        <!-- Global vs. Local legend -->
+        <rect x="4" y="4" width="110" height="22" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(26,200,200,0.15)" stroke-width="0.7"/>
+        <line x1="8"  y1="12" x2="22" y2="12" stroke="rgba(192,57,43,0.65)" stroke-width="1.5"/>
+        <text x="26" y="15" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(192,57,43,0.8)">global driver (limited local control)</text>
+        <line x1="8"  y1="22" x2="22" y2="22" stroke="rgba(62,207,142,0.55)" stroke-width="1.5"/>
+        <text x="26" y="25" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.75)">local driver (actionable via DMAP-CAL™)</text>
+
+        <!-- Bioluminescent sparks -->
+        <circle cx="170" cy="90"  r="0.9" fill="rgba(26,200,200,0.7)"/>
+        <circle cx="148" cy="148" r="0.8" fill="rgba(26,200,200,0.55)"/>
+        <circle cx="195" cy="148" r="1.0" fill="rgba(26,200,200,0.6)"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Drivers</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Interactions (L06) describe what happens between species. Drivers describe what forces those interactions into pathways they would not otherwise follow — the external pressures that push reef systems toward or away from phase shift thresholds. <span class="hl">The most important distinction in reef management is not between large and small drivers, but between global drivers that a local management intervention cannot address and local drivers that DMAP-CAL™ can route interventions against.</span> GROAN's Decision Score is explicitly designed around this distinction — the DS weights local actionable drivers more heavily than global drivers not because global drivers matter less, but because local intervention against local drivers is the only lever available to the decision maker at a site scale.</p>
+
+      <p><strong>Climate Drivers</strong> are the global forcing factors operating at scales beyond local management control: <strong>SST warming</strong> (increasing bleaching frequency and severity — the Caribbean is currently experiencing bleaching at return intervals of 3–5 years versus the 25–30 year intervals of the 1980s), <strong>ocean acidification</strong> (declining Ω aragonite discussed in full in Section 02), <strong>sea level rise</strong> (altering light availability on shallow reef flats and increasing turbidity from resuspended sediments), and <strong>intensifying storm frequency and severity</strong> (increasing physical disturbance pulse frequency). <span class="cr">Climate drivers are DMAP-CAL™ Tier 5 — global advocacy and policy engagement — because no local action reduces atmospheric CO₂ or sea surface temperature at the site scale.</span> However, reducing local stressor load directly increases a reef's capacity to survive climate impacts — a 30% reduction in local nutrient loading can measurably raise a reef's thermal bleaching threshold by reducing the baseline metabolic stress that determines symbiont stability.</p>
+
+      <p><strong>Land-Based Sources of Pollution (LBSP)</strong> are the dominant locally-actionable driver class for the MAR corridor. LBSP includes three sub-categories with distinct biological pathways. <strong>Nutrient loading</strong> (nitrogen and phosphorus from agricultural runoff, sewage, and aquaculture) stimulates algae growth, shifts the competitive balance against coral, and degrades water clarity — trackable by MOOP water chemistry as a Redfield N:P deviation. <strong>Sediment loading</strong> (from deforestation, construction, and agricultural bare soil) smothers coral recruits, reduces light penetration, and clogs the feeding structures of filter-feeding benthos — trackable by Secchi disk depth at GRIN nodes. <strong>Chemical contaminants</strong> (pesticides, herbicides, sunscreen compounds — particularly benzophenone-2 and octocrylene) directly inhibit coral larval settlement, damage zooxanthellae photosystems, and disrupt endocrine function in marine invertebrates. <span class="hl">For GROAN: LBSP assessment at each corridor site requires a paired mangrove condition (GMIN) and seagrass condition (GSIN) record — the upstream filter capacity of these systems determines how much of the terrestrial LBSP load actually reaches the reef crest.</span></p>
+
+      <p><strong>Overfishing</strong> operates through three reef-relevant pathways: <strong>direct target species removal</strong> (reducing herbivore biomass, initiating trophic cascades as described in L06), <strong>bycatch and non-selective gear damage</strong> (physically destroying reef framework, removing non-target species from functional groups), and <strong>trophic subsidy effects</strong> (fish aggregating devices and fish feeding for tourism concentrate nutrients and disrupt natural trophic structure around artificial food sources). <span class="cr">Overfishing is DMAP-CAL™ Tier 2–3 (local fisheries regulation and enforcement, MPA establishment) — the most locally actionable of the major driver categories because it responds directly to management interventions that do not require technology or capital investment beyond political will and enforcement capacity.</span></p>
+
+      <p><strong>Coastal Development</strong> drives reef degradation through physical destruction during construction (dredging, landfill, channel blasting), chronic LBSP increases from impervious surface runoff and altered watershed hydrology, and hydrological modification that alters flushing rates and residence time in reef lagoons. The Caribbean coast from Mexico to Panama has seen accelerating development pressure since 2010 — tourism infrastructure, aquaculture, and port expansion are the dominant development vectors. <span class="hl">Each corridor country in the Rim Run™ circuit has a different national development pressure profile that must be tracked in the GMIN land-use change record</span>, because the upstream watershed condition determines the LBSP loading rate that reaches each reef node.</p>
+
+      <p><strong>Invasive Species</strong> in the MAR corridor are currently dominated by two taxa with documented reef impacts: <strong>lionfish</strong> (<em>Pterois volitans/miles</em>), native to the Indo-Pacific and established across the Caribbean since the early 2000s, which are generalist predators targeting the same juvenile reef fish that comprise the herbivore functional group and post-settlement coral recruits; and <strong>invasive algae</strong> species, particularly <em>Caulerpa taxifolia</em> and related taxa that outcompete native reef algae and produce allelopathic compounds more potent than native macroalgae. <span class="cr">Lionfish are particularly problematic for GROAN's trophic cascade monitoring because they mimic the herbivore suppression signal of overfishing — a site with intact fishing regulation but high lionfish density can show the same herbivore functional group depression as a heavily overfished site, requiring species-level resolution in GRIN surveys to distinguish cause and routing.</span></p>
+
+      <p><strong>Tourism and Recreation</strong> is the most spatially concentrated driver class — highly localized at dive sites, snorkel parks, and anchorage zones, but producing documented physical damage including anchor drag on coral framework, diver contact with coral, sunscreen chemical deposition, and vessel groundings. Tourism-adjacent diving sites in heavily visited MAR zones (particularly Bay Islands, Honduras and Belize Barrier Reef) show measurably higher physical damage rates and depressed coral recruitment compared to equivalent non-tourism reef zones. <span class="pu">For GROAN: tourism impact is DMAP-CAL™ Tier 1 (site-level management — mooring buoy installation, diver briefing, no-anchor zones) — the highest-leverage, lowest-cost intervention class available because the damage is concentrated, localized, and directly reducible by simple infrastructure and regulation.</span></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Los impulsores describen las fuerzas externas que empujan a los sistemas arrecifales hacia o lejos de los umbrales de cambio de fase. <span class="hl">La distinción más importante en la gestión arrecifal no es entre impulsores grandes y pequeños, sino entre impulsores globales que una intervención local no puede abordar y impulsores locales contra los que DMAP-CAL™ puede enrutar intervenciones.</span></p>
+
+      <p><strong>Impulsores Climáticos (Nivel 5):</strong> SST, OA, SLR, tormentas — más allá del control local. <span class="cr">Los impulsores climáticos son DMAP-CAL™ Nivel 5 — política global.</span> Sin embargo, reducir la carga de estresores locales en un 30% puede elevar measurablemente el umbral de blanqueamiento térmico de un arrecife al reducir el estrés metabólico basal que determina la estabilidad del simbionte.</p>
+
+      <p><strong>Fuentes de Contaminación Terrestre (LBSP, Nivel 2–3):</strong> Carga de nutrientes (N, P — desviación Redfield detectable por MOOP), carga de sedimentos (profundidad de disco Secchi en nodos GRIN), y contaminantes químicos (pesticidas, filtros solares). <span class="hl">Para GROAN: la evaluación de LBSP requiere un registro pareado de GMIN y GSIN — la capacidad de filtro anterior de estos sistemas determina cuánto de la carga terrestre llega realmente a la cresta arrecifal.</span></p>
+
+      <p><strong>Sobrepesca (Nivel 2–3):</strong> <span class="cr">La sobrepesca es el más localmente accionable de las principales categorías de impulsores</span> porque responde directamente a intervenciones de gestión que no requieren tecnología ni inversión de capital más allá de voluntad política y capacidad de aplicación.</p>
+
+      <p><strong>Desarrollo Costero (Nivel 1–2):</strong> Cada país del corredor en el circuito Rim Run™ tiene un perfil de presión de desarrollo nacional diferente que debe rastrearse en el registro de cambio de uso del suelo de GMIN.</p>
+
+      <p><strong>Especies Invasoras (Nivel 2–3):</strong> <span class="cr">Los peces león son problemáticos para el monitoreo de cascadas tróficas de GROAN porque imitan la señal de supresión de herbívoros de la sobrepesca</span> — un sitio con regulación pesquera intacta pero alta densidad de peces león puede mostrar la misma depresión del grupo funcional de herbívoros que un sitio muy sobrepescado.</p>
+
+      <p><strong>Turismo (Nivel 1):</strong> <span class="pu">El impacto turístico es DMAP-CAL™ Nivel 1 — la clase de intervención de mayor apalancamiento y menor costo disponible</span> porque el daño es concentrado, localizado y directamente reducible por infraestructura simple y regulación.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Driver / Impulsor</th>
+          <th>Mechanism</th>
+          <th>MAR Corridor Status</th>
+          <th>GROAN Detection</th>
+          <th>DMAP-CAL™ Tier</th>
+          <th>Local Actionability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-red">Climate / SST / OA</span></td>
+          <td>Thermal bleaching; Ω depression; physical storm damage</td>
+          <td>Bleaching every 3–5 yrs; Ω declining per SSP2.4</td>
+          <td>GRIN thermal + chemistry sub-indices; MOOP SST</td>
+          <td>Tier 5 — global advocacy</td>
+          <td>None at site scale; reduce local stressors to raise thermal threshold</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">LBSP — Nutrients</span></td>
+          <td>Algae stimulation; Redfield N:P deviation; turbidity</td>
+          <td>Agriculture + sewage loading across all 7 countries</td>
+          <td>MOOP N:P vs. Redfield; Secchi disk depth</td>
+          <td>Tier 2–3 — land-use + wastewater</td>
+          <td>High — watershed management, wastewater treatment</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">LBSP — Sediment</span></td>
+          <td>Smothering recruits; light reduction; filter-feeder damage</td>
+          <td>Accelerating with deforestation and construction</td>
+          <td>Secchi disk; turbidity sensor; GMIN land cover change</td>
+          <td>Tier 2 — land-use change regulation</td>
+          <td>High — mangrove restoration, erosion control</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Overfishing</span></td>
+          <td>Herbivore removal; trophic cascade; bycatch damage</td>
+          <td>Pervasive across MAR; variable enforcement by country</td>
+          <td>GRIN herbivore + apex biomass; trophic cascade index</td>
+          <td>Tier 2–3 — fisheries regulation, MPA</td>
+          <td>High — most actionable local driver</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Coastal Development</span></td>
+          <td>Physical destruction; LBSP amplification; hydrology alteration</td>
+          <td>Tourism + aquaculture + port expansion accelerating</td>
+          <td>GMIN land-use change record; LBSP trend</td>
+          <td>Tier 1–2 — zoning, EIA enforcement</td>
+          <td>Moderate — political/economic resistance</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Invasive Species</span></td>
+          <td>Lionfish predation; invasive algae allelopathy</td>
+          <td>Lionfish established corridor-wide; removal programs patchy</td>
+          <td>GRIN species-level survey — lionfish density + alien algae cover</td>
+          <td>Tier 2–3 — removal programs, bounties</td>
+          <td>Moderate — labor intensive; never fully eliminated</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-cyan">Tourism / Recreation</span></td>
+          <td>Physical contact; anchor drag; sunscreen chemicals; vessel grounding</td>
+          <td>Concentrated at Bay Islands, Belize, Costa Rica sites</td>
+          <td>GRIN physical damage index; mooring buoy availability</td>
+          <td>Tier 1 — mooring buoys, diver management</td>
+          <td>Very high — highest leverage / lowest cost intervention</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — Driver Diagnosis &amp; DMAP-CAL™ Tier Routing</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When the CMIE produces a Decision Score for a corridor site, <strong>decompose the score into its global and local driver components before routing to DMAP-CAL™</strong>. A site with a DS of 7.2 driven 80% by thermal stress (Tier 5 — climate, globally uncontrollable) and 20% by nutrient loading (Tier 2 — locally actionable) requires a different management response than a site with DS 7.2 driven 80% by nutrient loading and 20% by thermal stress. The second site has a far higher return on local intervention investment. <span class="cr">Treating these two sites as equivalent based on their aggregate DS score without decomposing into driver components is one of the most common errors in reef management prioritization.</span></li>
+        <li>When a corridor site shows herbivore functional group depression, <strong>always check lionfish density before attributing the signal to overfishing</strong>. Lionfish produce the same herbivore biomass suppression as overfishing through predation on juvenile herbivorous fish — a site with intact fishing regulation but high lionfish density requires a lionfish removal intervention (Tier 2–3), not a fisheries regulation intervention. The two causes are visually indistinguishable in aggregate biomass data but completely distinguishable by species-level GRIN survey. Routing the wrong intervention because lionfish were not counted wastes resources and produces no herbivore recovery signal.</li>
+        <li>When assessing LBSP loading at a corridor site, <strong>record GMIN mangrove cover and GSIN seagrass cover as the upstream filter capacity metric before estimating reef-face LBSP exposure</strong>. A site with intact upstream mangrove and seagrass systems has substantially lower effective LBSP loading at the reef crest than a site with equivalent watershed nutrient export but degraded or absent filter systems. The DMAP-CAL™ intervention routing for high LBSP with intact filters (fix the watershed source) is different from high LBSP with degraded filters (restore filters first, then address source) — the filter condition determines which intervention produces a measurable reef-face improvement in the shortest timeframe.</li>
+        <li>When a corridor site in a heavily visited tourism zone shows patchy coral damage, physical breakage, and elevated sunscreen compound concentrations (detectable by MOOP water chemistry panel), <strong>enter a Tier 1 tourism impact flag in DMAP-CAL™ as the immediate priority intervention</strong> — before addressing any Tier 2–3 drivers present. Tier 1 tourism interventions (mooring buoy installation, dive briefing requirements, sunscreen-free zone designation) are the fastest-returning interventions in the DMAP-CAL™ portfolio: they produce measurable physical damage rate reduction within one season at minimal cost, buying time and recovery space for the slower-responding Tier 2–3 interventions to take effect. <span class="hl">A site receiving Tier 2 fisheries management without first implementing Tier 1 damage reduction is spending resources on a longer-horizon intervention while the short-horizon damage continues unabated.</span></li>
+        <li>When preparing a Decision Score for institutional presentation to a government partner along the Rim Run™ corridor, <strong>frame the local driver score explicitly against the global driver score and state the intervention return calculation</strong>: "This site's reef condition decline is driven 65% by locally actionable stressors (nutrient loading, overfishing) and 35% by global climate drivers. Addressing the local stressors alone is projected to raise the site's thermal bleaching threshold by approximately 1.2°C — equivalent to delaying the next phase shift event by an estimated 4–7 years under SSP2.4." <span class="pu">This framing converts an abstract DS number into a specific, time-bounded return-on-intervention statement that a government partner can use to justify management expenditure to their domestic constituency — the format in which GROAN's corridor record produces its highest policy value.</span></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Al producir una Puntuación de Decisión para un sitio, <strong>descomponga la puntuación en sus componentes de impulsores globales y locales antes de enrutar a DMAP-CAL™</strong>. <span class="cr">Tratar como equivalentes dos sitios con la misma DS sin descomponer en componentes de impulsores es uno de los errores más comunes en la priorización de la gestión arrecifal.</span></li>
+        <li>Cuando se detecte depresión del grupo funcional de herbívoros, <strong>siempre verifique la densidad de peces león antes de atribuir la señal a la sobrepesca</strong>. Los dos causas son indistinguibles en datos de biomasa agregada pero completamente distinguibles por encuesta GRIN a nivel de especie.</li>
+        <li>Al evaluar la carga de LBSP en un sitio, <strong>registre la cobertura de GMIN y GSIN como métrica de capacidad de filtro anterior</strong> antes de estimar la exposición a LBSP en la cara del arrecife. La condición del filtro determina qué intervención produce una mejora medible en el menor tiempo.</li>
+        <li>Cuando un sitio en una zona turística muy visitada muestre daño físico coralino y concentraciones elevadas de filtros solares, <strong>ingrese una señal de impacto turístico Nivel 1 en DMAP-CAL™ como intervención de prioridad inmediata</strong>. <span class="hl">Un sitio que recibe gestión pesquera de Nivel 2 sin primero implementar la reducción de daños de Nivel 1 gasta recursos en una intervención de horizonte más largo mientras el daño de horizonte corto continúa sin control.</span></li>
+        <li>Al presentar una Puntuación de Decisión a un socio gubernamental, enmarque la puntuación de impulsores locales explícitamente frente a la puntuación de impulsores globales y declare el cálculo de retorno de intervención. <span class="pu">Este encuadre convierte un número DS abstracto en una declaración de retorno de intervención específica y acotada en el tiempo — el formato en que el registro del corredor de GROAN produce su mayor valor de política.</span></li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Two corridor sites each score DS 6.8. Site A: 75% of score driven by SST thermal stress, 25% by nutrient loading. Site B: 25% by SST thermal stress, 75% by nutrient loading. Why does GROAN's DMAP-CAL™ assign a higher local intervention return to Site B, and what does this mean for resource allocation across the corridor?</div>
+        <div class="mcq-q-es">Dos sitios del corredor tienen DS 6,8. Sitio A: 75% por estrés térmico, 25% por carga de nutrientes. Sitio B: 25% por estrés térmico, 75% por carga de nutrientes. ¿Por qué DMAP-CAL™ asigna mayor retorno de intervención local al Sitio B?</div>
+        <ul class="mcq-options">
+          <li>A. Site B receives higher priority because nutrient loading is always more severe than thermal stress regardless of relative contribution</li>
+          <li>B. Both sites should receive equal resource allocation — the aggregate DS score is the correct basis for prioritization; driver decomposition introduces too much analytical complexity</li>
+          <li class="correct">C. Site B's dominant driver (nutrient loading, Tier 2–3) is locally actionable — reducing it produces measurable reef improvement within seasons to years; Site A's dominant driver (SST, Tier 5) is globally uncontrollable at site scale; investing equivalent resources in Site A produces minimal reef improvement because 75% of its stress load cannot be reduced by any local action; driver decomposition is therefore the essential step that converts an aggregate DS into a meaningful resource allocation decision</li>
+          <li>D. Site A receives higher priority because thermal stress is more acute and time-sensitive than chronic nutrient loading</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">A GRIN survey at a Bay Islands site with strong local fisheries regulation records herbivore biomass at 35% of baseline — the same level as a nearby heavily overfished site. Species-level data reveals lionfish density of 28 per 100 m² at the regulated site versus 3 per 100 m² at the overfished site. What is the correct DMAP-CAL™ routing for each site, and why does species-level resolution matter?</div>
+        <div class="mcq-q-es">Un estudio GRIN en un sitio con regulación pesquera sólida registra biomasa de herbívoros al 35% de la línea de base — igual que un sitio sobrepescado cercano. Los datos por especie revelan densidad de peces león de 28 por 100 m² en el sitio regulado vs. 3 por 100 m² en el sobrepescado. ¿Cuál es el enrutamiento DMAP-CAL™ correcto para cada sitio?</div>
+        <ul class="mcq-options">
+          <li>A. Both sites receive the same routing — herbivore biomass at 35% indicates equivalent functional herbivory regardless of cause; intervention is herbivore enhancement for both</li>
+          <li class="correct">B. The regulated site routes to Tier 2–3 lionfish removal program — the herbivore depression is caused by lionfish predation on juvenile herbivorous fish, not by fishing pressure; the overfished site routes to Tier 2–3 fisheries management and MPA consideration; the interventions are completely different despite identical aggregate biomass metrics; species-level resolution is not optional — it is the diagnostic step that determines whether the correct or incorrect intervention is deployed, and routing fisheries regulation to the lionfish-impacted site wastes enforcement resources while producing no herbivore recovery</li>
+          <li>C. The regulated site should receive no intervention — high lionfish density with intact regulation indicates the fisheries management is working correctly; lionfish are a natural feature of established reef ecosystems</li>
+          <li>D. Both sites route to Tier 5 global advocacy — lionfish invasion is a climate-driven species range expansion beyond local management control</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">A corridor site shows high LBSP nutrient loading despite a government-funded watershed management program that has been operating for 3 years. GMIN mangrove cover at the site has declined 60% over the same period and GSIN seagrass cover is at 15% of historical baseline. What is the correct diagnosis and DMAP-CAL™ routing sequence?</div>
+        <div class="mcq-q-es">Un sitio del corredor muestra alta carga de nutrientes LBSP a pesar de un programa de gestión de cuencas que lleva 3 años operando. La cobertura de manglares GMIN ha disminuido un 60% y la cobertura de pastos marinos GSIN está al 15% de la línea de base histórica. ¿Cuál es el diagnóstico correcto y la secuencia de enrutamiento DMAP-CAL™?</div>
+        <ul class="mcq-options">
+          <li>A. The watershed program is failing — escalate to Tier 3 national regulatory enforcement before any coastal filter intervention</li>
+          <li>B. The watershed program is sufficient — LBSP measurements at the reef face will improve once the program reaches full effectiveness in 2–3 additional years; no additional intervention required</li>
+          <li class="correct">C. The watershed program may be functioning correctly but the upstream filter capacity (mangrove + seagrass) has collapsed — even reduced source loading is now reaching the reef crest at near-full concentration because the filters that previously intercepted 60–80% of the nutrient pulse are absent; the correct routing sequence is: (1) immediate GMIN mangrove restoration to rebuild filter capacity, (2) GSIN seagrass restoration in the lagoon zone, (3) continue watershed program in parallel — without restoring the filter layer first, no reduction in source loading will produce a proportional improvement in reef-face LBSP exposure</li>
+          <li>D. Reroute watershed program funding to direct reef intervention — nutrient loading that has already passed the filter layer cannot be addressed by source management</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L07 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">10.09%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
 
