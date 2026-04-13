@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S03-L02 | Biological Oceanography — Core Principles</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>S03·L02 Biological Oceanography — Core Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --ocean-deep: #020f1e;
@@ -18,696 +18,389 @@
     --purple:     #9b7fe8;
     --text-light: #e8f4f8;
     --text-dim:   #8ab8cc;
-    --p-liebig:   #1ac8c8;
-    --p-redfield: #9b7fe8;
-    --p-sverdrup: #f0b429;
-    --p-pump:     #3ecf8e;
-    --p-dvm:      #e86040;
-    --p-niche:    #4ab8f0;
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background: var(--ocean-deep);
-    color: var(--text-light);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding: 24px 16px 40px;
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
   }
-
   .card {
-    max-width: 960px;
-    margin: 0 auto;
-    background: linear-gradient(160deg, #031525 0%, #020f1e 100%);
-    border: 1px solid rgba(26,200,200,0.15);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
   }
-
-  /* ── HEADER ── */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(135deg, var(--ocean-mid) 0%, #052e52 100%);
-    padding: 32px 40px;
-    border-bottom: 1px solid rgba(26,200,200,0.2);
-    gap: 24px;
-  }
-
-  .header-left { flex: 1; }
-
-  .section-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--ocean-cyan);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .lesson-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--text-light);
-    line-height: 1.15;
-    margin-bottom: 6px;
-  }
-
-  .lesson-subtitle {
-    font-size: 14px;
-    color: var(--text-dim);
-    font-weight: 300;
-    letter-spacing: 0.04em;
-  }
-
-  .header-svg { flex-shrink: 0; width: 220px; height: 160px; }
-
-  /* ── PANELS ── */
-  .panel {
-    padding: 36px 40px;
-    border-bottom: 1px solid rgba(26,200,200,0.08);
-  }
-
-  .panel-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ocean-cyan);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(26,200,200,0.15);
-  }
-
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-purple { background: rgba(155,127,232,0.15);  color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
   .lang-block { margin-bottom: 28px; }
-
-  .lang-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .lecture-text {
-    font-size: 14.5px;
-    line-height: 1.75;
-    color: var(--text-light);
-    font-weight: 300;
-  }
-
-  .lecture-text p { margin-bottom: 14px; }
-  .lecture-text p:last-child { margin-bottom: 0; }
-  .lecture-text strong    { color: var(--ocean-cyan); font-weight: 600; }
-  .lecture-text .hl       { color: var(--gold);       font-weight: 500; }
-  .lecture-text .coral    { color: var(--coral);       font-weight: 500; }
-  .lecture-text .green    { color: var(--green);       font-weight: 500; }
-  .lecture-text .purple   { color: var(--purple);      font-weight: 500; }
-  .lecture-text .blue     { color: var(--p-niche);     font-weight: 500; }
-
-  /* ── PRINCIPLE BLOCKS ── */
-  .principles-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin: 20px 0;
-  }
-
-  .pb {
-    border-radius: 6px;
-    padding: 14px 16px;
-    background: rgba(4,41,74,0.3);
-  }
-
-  .pb-liebig   { border-left: 3px solid rgba(26,200,200,0.6);  background: rgba(4,28,40,0.4); }
-  .pb-redfield { border-left: 3px solid rgba(155,127,232,0.6); background: rgba(12,6,22,0.4); }
-  .pb-sverdrup { border-left: 3px solid rgba(240,180,41,0.6);  background: rgba(22,16,2,0.4); }
-  .pb-pump     { border-left: 3px solid rgba(62,207,142,0.6);  background: rgba(4,22,12,0.4); }
-  .pb-dvm      { border-left: 3px solid rgba(232,96,64,0.6);   background: rgba(28,6,2,0.4); }
-  .pb-niche    { border-left: 3px solid rgba(74,184,240,0.6);  background: rgba(4,16,28,0.4); grid-column: 1 / -1; }
-
-  .pb-header {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .pb-liebig   .pb-header { color: var(--p-liebig); }
-  .pb-redfield .pb-header { color: var(--p-redfield); }
-  .pb-sverdrup .pb-header { color: var(--p-sverdrup); }
-  .pb-pump     .pb-header { color: var(--p-pump); }
-  .pb-dvm      .pb-header { color: var(--p-dvm); }
-  .pb-niche    .pb-header { color: var(--p-niche); }
-
-  .pb-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 8px;
-  }
-
-  .chip {
-    font-family: 'DM Mono', monospace;
-    font-size: 9.5px;
-    padding: 2px 7px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  .c-liebig   { background: rgba(26,200,200,0.10);  border: 1px solid rgba(26,200,200,0.25);  color: #b8f0ec; }
-  .c-redfield { background: rgba(155,127,232,0.10); border: 1px solid rgba(155,127,232,0.28); color: #d4c8f8; }
-  .c-sverdrup { background: rgba(240,180,41,0.12);  border: 1px solid rgba(240,180,41,0.28);  color: #f4e08a; }
-  .c-pump     { background: rgba(62,207,142,0.10);  border: 1px solid rgba(62,207,142,0.28);  color: #a8f4d4; }
-  .c-dvm      { background: rgba(232,96,64,0.10);   border: 1px solid rgba(232,96,64,0.28);   color: #f4b8a8; }
-  .c-niche    { background: rgba(74,184,240,0.10);  border: 1px solid rgba(74,184,240,0.28);  color: #a8dcf4; }
-
-  .pb-desc {
-    font-size: 12.5px;
-    line-height: 1.6;
-    color: var(--text-light);
-    font-weight: 300;
-  }
-
-  /* ── FORMULA BOX ── */
-  .formula-block {
-    margin: 20px 0;
-    padding: 18px 22px;
-    background: rgba(4,41,74,0.35);
-    border: 1px solid rgba(155,127,232,0.25);
-    border-radius: 6px;
-    text-align: center;
-  }
-
-  .formula-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--purple);
-    margin-bottom: 12px;
-  }
-
-  .formula {
-    font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--text-light);
-    letter-spacing: 0.06em;
-    margin-bottom: 8px;
-  }
-
-  .formula span.r-c  { color: var(--ocean-cyan); }
-  .formula span.r-n  { color: var(--green); }
-  .formula span.r-p  { color: var(--coral); }
-
-  .formula-note {
-    font-size: 12.5px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  /* ── DATA TABLE ── */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 24px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-  }
-
-  .data-table thead tr { background: rgba(10,110,138,0.3); }
-
-  .data-table th {
-    padding: 10px 11px;
-    text-align: left;
-    color: var(--ocean-cyan);
-    letter-spacing: 0.08em;
-    font-size: 10px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(26,200,200,0.25);
-  }
-
-  .data-table td {
-    padding: 9px 11px;
-    color: var(--text-light);
-    border-bottom: 1px solid rgba(26,200,200,0.06);
-    vertical-align: top;
-    font-size: 11px;
-  }
-
-  .data-table tbody tr:nth-child(odd)  { background: rgba(4,41,74,0.3); }
-  .data-table tbody tr:hover { background: rgba(10,110,138,0.15); }
-
-  .badge {
-    display: inline-block;
-    padding: 2px 7px;
-    border-radius: 3px;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-  }
-
-  .badge-high  { background: rgba(26,200,200,0.15);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
-  .badge-mod   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
-  .badge-low   { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
-  .badge-groan { background: rgba(62,207,142,0.10);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
-  .badge-gap   { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
-
-  /* ── APP LIST ── */
-  .app-list { list-style: none; }
-
-  .app-list li {
-    display: flex;
-    gap: 14px;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(26,200,200,0.06);
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--text-light);
-    font-weight: 300;
-  }
-
-  .app-list li:last-child { border-bottom: none; }
-
-  .app-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--ocean-cyan);
-    flex-shrink: 0;
-    padding-top: 2px;
-    min-width: 22px;
-  }
-
-  /* ── MCQ ── */
-  .mcq-section {
-    padding: 36px 40px 0;
-    border-bottom: 1px solid rgba(26,200,200,0.08);
-  }
-
-  .mcq-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 20px;
-  }
-
-  .mcq-card {
-    background: rgba(4,41,74,0.4);
-    border: 1px solid rgba(26,200,200,0.12);
-    border-radius: 8px;
-    padding: 20px;
-  }
-
-  .mcq-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--ocean-cyan); letter-spacing:.15em; margin-bottom:10px; text-transform:uppercase; }
-  .mcq-q-en { font-size:13px; font-weight:500; color:var(--text-light); line-height:1.5; margin-bottom:6px; }
-  .mcq-q-es { font-size:11.5px; font-style:italic; color:var(--text-dim); line-height:1.45; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(26,200,200,0.1); }
-  .mcq-option { font-size:12px; padding:7px 10px; margin-bottom:5px; border-radius:4px; color:var(--text-dim); border:1px solid transparent; line-height:1.45; }
-  .mcq-option.correct { background:rgba(26,200,200,0.08); border-color:rgba(26,200,200,0.25); color:var(--ocean-foam); }
-  .mcq-option.correct::before { content:'✓ '; color:var(--ocean-cyan); font-weight:700; }
-
-  /* ── FOOTER ── */
-  .footer { padding: 24px 40px; background: rgba(2,15,30,0.6); }
-  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .progress-label, .progress-pct { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; }
-  .progress-label { color: var(--text-dim); }
-  .progress-pct   { color: var(--ocean-cyan); }
-  .progress-track { width: 100%; height: 4px; background: rgba(26,200,200,0.1); border-radius: 2px; overflow: hidden; }
-  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.38%; transition: width 0.6s ease; }
-
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 0 40px; }
-
-  @media (max-width: 720px) {
-    .header { flex-direction: column; padding: 24px; }
-    .header-svg { width: 180px; height: 130px; align-self: center; }
-    .lesson-title { font-size: 24px; }
-    .panel, .mcq-section { padding: 24px; }
-    .principles-grid, .mcq-grid { grid-template-columns: 1fr; }
-    .pb-niche { grid-column: 1; }
-    .footer { padding: 20px 24px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);    font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);   font-weight: 500; }
+  .lang-block .gr  { color: var(--green);   font-weight: 500; }
+  .lang-block .pu  { color: var(--purple);  font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral); font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.38%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-
 <div class="card">
 
-  <!-- ── HEADER ── -->
+  <!-- HEADER -->
   <div class="header">
-    <div class="header-left">
-      <div class="section-tag">Section 03 · Biological Oceanography · L02 / TBD · Lesson 66 of 704</div>
-      <h1 class="lesson-title">Core Principles</h1>
-      <p class="lesson-subtitle">Liebig's Law · Redfield Ratio · Sverdrup Hypothesis · Biological Pump · Diel Vertical Migration · Competitive Exclusion</p>
-    </div>
-
-    <!-- SVG: Biological pump — carbon flux from surface photic zone to deep ocean, with nutrient recycling loop -->
-    <svg class="header-svg" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="220" height="160" fill="rgba(2,12,28,0.5)"/>
-
-      <!-- Zone bands -->
-      <rect x="0" y="0"   width="220" height="40"  fill="rgba(26,200,200,0.06)"/>
-      <rect x="0" y="40"  width="220" height="50"  fill="rgba(4,41,74,0.3)"/>
-      <rect x="0" y="90"  width="220" height="40"  fill="rgba(2,12,28,0.3)"/>
-      <rect x="0" y="130" width="220" height="30"  fill="rgba(2,8,16,0.5)"/>
-
-      <!-- Zone labels -->
-      <text x="8" y="14"  font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.7)" letter-spacing="0.12em">PHOTIC</text>
-      <text x="8" y="60"  font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.4)" letter-spacing="0.12em">MESOPELAGIC</text>
-      <text x="8" y="108" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.3)" letter-spacing="0.12em">BATHYPELAGIC</text>
-      <text x="8" y="148" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.25)" letter-spacing="0.12em">BENTHIC</text>
-
-      <!-- Phytoplankton dots at surface -->
-      <circle cx="80"  cy="10" r="3"   fill="rgba(62,207,142,0.8)"/>
-      <circle cx="100" cy="7"  r="2.5" fill="rgba(62,207,142,0.7)"/>
-      <circle cx="120" cy="12" r="2"   fill="rgba(62,207,142,0.6)"/>
-      <circle cx="140" cy="8"  r="3"   fill="rgba(62,207,142,0.8)"/>
-      <circle cx="160" cy="14" r="2.5" fill="rgba(62,207,142,0.6)"/>
-      <circle cx="180" cy="9"  r="2"   fill="rgba(62,207,142,0.5)"/>
-
-      <!-- CO2 arrows down (photosynthesis fixing carbon) -->
-      <line x1="90"  y1="0"  x2="90"  y2="8"  stroke="rgba(26,200,200,0.5)" stroke-width="1" marker-end="url(#arrowDown)"/>
-      <line x1="150" y1="0"  x2="150" y2="8"  stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
-      <text x="152" y="6" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.6)">CO₂↓</text>
-
-      <!-- Carbon flux arrows (sinking particles) — biological pump -->
-      <line x1="110" y1="22" x2="110" y2="40"  stroke="rgba(240,180,41,0.7)" stroke-width="1.2" stroke-dasharray="2,2"/>
-      <line x1="110" y1="40" x2="110" y2="90"  stroke="rgba(240,180,41,0.5)" stroke-width="1.0" stroke-dasharray="2,2"/>
-      <line x1="110" y1="90" x2="110" y2="130" stroke="rgba(240,180,41,0.3)" stroke-width="0.8" stroke-dasharray="2,2"/>
-
-      <!-- Sinking particle symbols -->
-      <circle cx="110" cy="45"  r="2.5" fill="rgba(240,180,41,0.6)"/>
-      <circle cx="110" cy="70"  r="2"   fill="rgba(240,180,41,0.4)"/>
-      <circle cx="110" cy="100" r="1.5" fill="rgba(240,180,41,0.3)"/>
-      <circle cx="110" cy="133" r="1.5" fill="rgba(240,180,41,0.2)"/>
-
-      <!-- Nutrient recycling arrow (upwelling — left side) -->
-      <path d="M 55 140 Q 40 90 55 40" fill="none" stroke="rgba(62,207,142,0.45)" stroke-width="1.2" stroke-dasharray="3,2"/>
-      <polygon points="53,38 55,30 57,38" fill="rgba(62,207,142,0.6)"/>
-      <text x="22" y="90" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.6)" transform="rotate(-90,22,90)">UPWELLING</text>
-
-      <!-- DVM arrow (right side — organisms migrating up at night) -->
-      <path d="M 175 100 Q 185 65 175 30" fill="none" stroke="rgba(232,96,64,0.45)" stroke-width="1.2" stroke-dasharray="3,2"/>
-      <polygon points="173,28 175,20 177,28" fill="rgba(232,96,64,0.6)"/>
-      <text x="195" y="65" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.6)" transform="rotate(90,195,65)">DVM NIGHT</text>
-
-      <!-- Flux label -->
-      <text x="116" y="50" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.7)">C flux</text>
-      <text x="116" y="58" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.5)">~10%</text>
-
-      <!-- Title tag -->
-      <rect x="62" y="148" width="96" height="10" rx="2" fill="rgba(4,41,74,0.7)" stroke="rgba(240,180,41,0.3)" stroke-width="0.7"/>
-      <text x="110" y="155" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,180,41,0.8)">BIOLOGICAL PUMP</text>
-
-      <!-- Arrow marker -->
-      <defs>
-        <marker id="arrowDown" markerWidth="6" markerHeight="6" refX="3" refY="6" orient="auto">
-          <polygon points="0,0 6,0 3,6" fill="rgba(26,200,200,0.5)"/>
-        </marker>
-      </defs>
-    </svg>
-  </div>
-
-  <!-- ── LECTURE ── -->
-  <div class="panel">
-    <div class="panel-label">Lecture</div>
-
-    <!-- ENGLISH -->
-    <div class="lang-block">
-      <div class="lang-tag">EN — English</div>
-      <div class="lecture-text">
-
-        <p>
-          Six principles govern the behavior of ocean biological systems with the same weight that carbonate equilibria govern ocean chemistry. A reef scientist who understands trophic structure but cannot apply <strong>Liebig's Law of the Minimum</strong>, the <strong>Redfield Ratio</strong>, or the <strong>Sverdrup Critical Depth Hypothesis</strong> cannot diagnose why productivity at a given site is what it is — and therefore cannot predict how it will respond to stressors. These are not academic principles. They are operational diagnostics. GROAN's module architecture encodes all six.
-        </p>
-
-        <div class="principles-grid">
-
-          <!-- Liebig -->
-          <div class="pb pb-liebig">
-            <div class="pb-header">Principle 01 · Liebig's Law of the Minimum</div>
-            <div class="pb-chips">
-              <span class="chip c-liebig">Limiting nutrient</span>
-              <span class="chip c-liebig">Growth ceiling</span>
-              <span class="chip c-liebig">Non-additive stressors</span>
-            </div>
-            <p class="pb-desc">
-              Formulated by Justus von Liebig (1840), the Law of the Minimum states that biological productivity is controlled not by the total resources available but by whichever essential resource is in shortest supply relative to need — the <em>limiting factor</em>. In ocean systems, this is typically a macronutrient (nitrogen, phosphorus, silicate) or micronutrient (iron in HNLC regions). <strong>For GROAN:</strong> when a reef site shows depressed NPP despite adequate light and temperature, the diagnostic entry point is Liebig — identify which nutrient is limiting, and the causal pathway clarifies. The principle is also non-additive: adding any non-limiting nutrient produces zero additional growth. This is critical for DMAP-CAL™ intervention routing — an action targeting the wrong limiting factor wastes resources.
-            </p>
-          </div>
-
-          <!-- Redfield -->
-          <div class="pb pb-redfield">
-            <div class="pb-header">Principle 02 · The Redfield Ratio</div>
-            <div class="pb-chips">
-              <span class="chip c-redfield">C:N:P = 106:16:1</span>
-              <span class="chip c-redfield">Stoichiometric baseline</span>
-              <span class="chip c-redfield">Deviation = stress signal</span>
-            </div>
-            <p class="pb-desc">
-              Alfred Redfield (1934, 1958) observed that the ratio of carbon, nitrogen, and phosphorus in marine phytoplankton biomass — approximately <strong>C:N:P = 106:16:1</strong> — closely matches the ratio of these elements in deep ocean seawater. This convergence implies a co-evolutionary coupling between organism stoichiometry and ocean geochemistry maintained over geological timescales. <strong>For GROAN:</strong> the Redfield Ratio is the stoichiometric baseline against which nutrient water chemistry is interpreted. Seawater deviating significantly from Redfield proportions (elevated N:P = anthropogenic N loading; depressed N:P = N fixation or denitrification pulse) signals a perturbed nutrient regime — an input to both GKIN and GRIN module context. Reef bleaching events frequently alter local N:P ratios through thermal disruption of zooxanthellae N cycling.
-            </p>
-          </div>
-
-          <!-- Sverdrup -->
-          <div class="pb pb-sverdrup">
-            <div class="pb-header">Principle 03 · Sverdrup Critical Depth Hypothesis</div>
-            <div class="pb-chips">
-              <span class="chip c-sverdrup">Mixed layer depth</span>
-              <span class="chip c-sverdrup">Compensation depth</span>
-              <span class="chip c-sverdrup">Spring bloom trigger</span>
-            </div>
-            <p class="pb-desc">
-              Harald Sverdrup (1953) proposed that a phytoplankton bloom initiates when the surface mixed layer becomes shallower than a critical depth — the depth at which depth-integrated photosynthesis equals depth-integrated respiration. Above the critical depth, phytoplankton spend enough time in the photic zone to produce net positive growth. Below it, mixing dilutes cells into darkness faster than they can photosynthesize. <strong>For GROAN:</strong> the Sverdrup Hypothesis explains why the Caribbean spring productivity peak precedes the northern temperate bloom by months — shallow mixed layers driven by warm SST and stratification. It also explains why thermal stratification from SST anomalies suppresses nutrient mixing and reduces NPP — one of the primary mechanisms by which climate warming degrades reef productivity before bleaching temperature thresholds are reached.
-            </p>
-          </div>
-
-          <!-- Biological Pump -->
-          <div class="pb pb-pump">
-            <div class="pb-header">Principle 04 · The Biological Carbon Pump</div>
-            <div class="pb-chips">
-              <span class="chip c-pump">Vertical C export</span>
-              <span class="chip c-pump">Sequestration flux</span>
-              <span class="chip c-pump">Pump efficiency</span>
-            </div>
-            <p class="pb-desc">
-              The biological pump is the ocean's primary mechanism for removing CO₂ from the surface and sequestering it in the deep — driven by the sinking of dead organic matter, fecal pellets, and aggregates (marine snow) from the photic zone. Approximately 5–20% of surface productivity is exported below 100 m; of that, roughly 1% reaches the seafloor. The pump's efficiency determines the ocean's capacity as a long-term carbon sink and directly modulates atmospheric CO₂ concentrations on geological timescales. <strong>For GROAN:</strong> a degraded reef system with reduced calcification and productivity operates a weakened biological pump — with measurable consequences for local Ω aragonite and regional carbon flux. GSIN seagrass meadows within the corridor function as supplementary pump enhancers: their burial efficiency rivals deep-sea sediment traps. Pump degradation is therefore a cross-module CMIE signal, not a single-module measurement.
-            </p>
-          </div>
-
-          <!-- DVM -->
-          <div class="pb pb-dvm">
-            <div class="pb-header">Principle 05 · Diel Vertical Migration</div>
-            <div class="pb-chips">
-              <span class="chip c-dvm">Predator avoidance</span>
-              <span class="chip c-dvm">Active carbon transport</span>
-              <span class="chip c-dvm">Night ascent</span>
-            </div>
-            <p class="pb-desc">
-              Diel vertical migration (DVM) is the largest daily animal movement on Earth — billions of zooplankton, krill, myctophid fish, and squid ascending hundreds of meters to the surface at night to feed, then descending to depth at dawn to avoid visual predators. DVM creates an <em>active biological pump</em> component: organisms feeding at the surface, respiring, and excreting at depth effectively inject dissolved and particulate carbon below the thermocline. Estimated to contribute 15–40% of total biological carbon export at some sites. <strong>For GROAN:</strong> DVM patterns shift with thermal anomalies — warming compresses the vertical range available for migration and alters the mesopelagic oxygen minimum zone depth, with consequences for trophic connectivity between reef systems and open-ocean midwater communities that GKIN's kinetic indices must account for.
-            </p>
-          </div>
-
-          <!-- Competitive Exclusion — full width -->
-          <div class="pb pb-niche">
-            <div class="pb-header">Principle 06 · Gause's Competitive Exclusion Principle and the Paradox of the Plankton</div>
-            <div class="pb-chips">
-              <span class="chip c-niche">One niche · one species</span>
-              <span class="chip c-niche">Paradox of the plankton</span>
-              <span class="chip c-niche">Non-equilibrium coexistence</span>
-              <span class="chip c-niche">Intermediate disturbance</span>
-            </div>
-            <p class="pb-desc">
-              Gause's Competitive Exclusion Principle states that two species competing for identical limiting resources cannot coexist stably — the superior competitor will displace the other. Yet the ocean hosts hundreds of phytoplankton species apparently competing for the same handful of nutrients in the same water column. Hutchinson (1961) named this the <em>Paradox of the Plankton</em>. The resolution lies in non-equilibrium dynamics: physical mixing events, light fluctuations, grazing pressure, and seasonal nutrient pulses continuously reset competitive hierarchies before any single species can exclude others. The <strong>Intermediate Disturbance Hypothesis</strong> formalizes this: maximum species diversity occurs at intermediate disturbance frequencies — neither complete stasis nor constant disruption. <strong>For GROAN:</strong> this principle frames reef health interpretation — a reef with reduced disturbance variability (e.g., a thermally stabilized, stratified system under climate change) may paradoxically lose biodiversity even without acute bleaching events. The CMIE must evaluate disturbance regime as a variable, not merely stressor intensity. GRIN's species richness metrics and GKIN's kinetic indices together operationalize this principle at the corridor level.
-            </p>
-          </div>
-
-        </div>
-
-        <!-- Reference table -->
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Principle</th>
-              <th>Author · Year</th>
-              <th>Core Relationship</th>
-              <th>Reef Application</th>
-              <th>GROAN Module</th>
-              <th>Diagnostic Use</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong style="color:var(--p-liebig)">Liebig's Law</strong></td>
-              <td>von Liebig · 1840</td>
-              <td>Growth ∝ least-available essential resource</td>
-              <td>Diagnose limiting nutrient when NPP is suppressed</td>
-              <td><span class="badge badge-high">DMAP-CAL™ · GKIN</span></td>
-              <td>Intervention targeting — route action to limiting factor</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--p-redfield)">Redfield Ratio</strong></td>
-              <td>Redfield · 1934/1958</td>
-              <td>C:N:P ≈ 106:16:1 in phytoplankton and deep ocean</td>
-              <td>Nutrient regime perturbation signal (N loading, denitrification)</td>
-              <td><span class="badge badge-gap">GKIN · GRIN</span></td>
-              <td>Detect anthropogenic nutrient imbalance at corridor sites</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--p-sverdrup)">Sverdrup Hypothesis</strong></td>
-              <td>Sverdrup · 1953</td>
-              <td>Bloom initiates when mixed layer &lt; critical depth</td>
-              <td>Explains SST-driven NPP suppression before bleaching threshold</td>
-              <td><span class="badge badge-high">GRIN · CMIE</span></td>
-              <td>Pre-bleaching productivity decline detection</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--p-pump)">Biological Pump</strong></td>
-              <td>Volk &amp; Hoffert · 1985</td>
-              <td>Sinking organic matter exports C from surface to deep</td>
-              <td>Reduced reef productivity → weakened pump → local Ω impact</td>
-              <td><span class="badge badge-groan">GSIN · CMIE · GRIN</span></td>
-              <td>Cross-module carbon flux signal — seagrass burial efficiency</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--p-dvm)">Diel Vertical Migration</strong></td>
-              <td>Longhurst · 1976</td>
-              <td>Active C transport by nightly ascending organisms</td>
-              <td>Thermal compression of DVM range → trophic connectivity loss</td>
-              <td><span class="badge badge-gap">GKIN · GRIN</span></td>
-              <td>Thermal anomaly impact on midwater trophic linkage</td>
-            </tr>
-            <tr>
-              <td><strong style="color:var(--p-niche)">Competitive Exclusion</strong></td>
-              <td>Gause · 1934; Hutchinson · 1961</td>
-              <td>Diversity maintained by non-equilibrium disturbance dynamics</td>
-              <td>Reduced disturbance variability → biodiversity loss without acute bleaching</td>
-              <td><span class="badge badge-groan">GRIN · GKIN · CMIE</span></td>
-              <td>Disturbance regime as CMIE variable alongside stressor intensity</td>
-            </tr>
-          </tbody>
-        </table>
-
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 02 · Biological Oceanography · Lesson 66 of 704</div>
+        <div class="lesson-title">Core Principles</div>
+        <div class="lesson-subtitle">Liebig's Law · Redfield Ratio · Sverdrup Hypothesis · Biological Pump · Diel Vertical Migration · Competitive Exclusion</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Liebig · Redfield · Sverdrup</span>
+        <span class="tag tag-gold">Biological Carbon Pump</span>
+        <span class="tag tag-coral">DVM · Competitive Exclusion</span>
+        <span class="tag tag-purple">CMIE Cross-Module Signals</span>
       </div>
     </div>
+    <div class="header-svg">
+      <!-- SVG: Biological pump — carbon flux arrows from photic zone to seafloor; nutrient upwelling return loop; DVM night ascent arc; Redfield ratio annotation -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="pumpG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#04294a" stop-opacity="0.85"/>
+            <stop offset="60%"  stop-color="#031e38" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <rect width="340" height="220" fill="url(#pumpG)"/>
 
-    <!-- SPANISH -->
-    <div class="lang-block" style="margin-bottom:0;">
-      <div class="lang-tag">ES — Español</div>
-      <div class="lecture-text">
-        <p>
-          Seis principios gobiernan el comportamiento de los sistemas biológicos oceánicos con el mismo peso que la equilibria de carbonatos gobierna la química oceánica. Un científico arrecifal que comprende la estructura trófica pero no puede aplicar la <strong>Ley del Mínimo de Liebig</strong>, la <strong>Relación de Redfield</strong> o la <strong>Hipótesis de Profundidad Crítica de Sverdrup</strong> no puede diagnosticar por qué la productividad en un sitio dado es lo que es — y por lo tanto no puede predecir cómo responderá a los factores estresantes.
-        </p>
-        <p>
-          <strong>Ley del Mínimo de Liebig (1840):</strong> La productividad biológica está controlada no por el total de recursos disponibles sino por el recurso esencial que se encuentra en menor suministro relativo a la necesidad — el <em>factor limitante</em>. Para GROAN: cuando un sitio arrecifal muestra NPP deprimida a pesar de luz y temperatura adecuadas, el punto de entrada diagnóstica es Liebig. Una acción que apunta al factor limitante incorrecto desperdicia recursos.
-        </p>
-        <p>
-          <strong>Relación de Redfield (1934/1958):</strong> La relación de carbono, nitrógeno y fósforo en la biomasa fitoplanctónica marina — aproximadamente <strong>C:N:P = 106:16:1</strong> — coincide estrechamente con la relación de estos elementos en el agua marina profunda. Las desviaciones de las proporciones de Redfield señalan un régimen de nutrientes perturbado — una señal de entrada tanto para GKIN como para GRIN.
-        </p>
-        <p>
-          <strong>Hipótesis de Sverdrup (1953):</strong> Un florecimiento fitoplanctónico se inicia cuando la capa de mezcla superficial se vuelve más superficial que una profundidad crítica — donde la fotosíntesis integrada en profundidad iguala la respiración integrada en profundidad. Esto explica por qué la estratificación térmica de las anomalías de TSM suprime la mezcla de nutrientes y reduce la NPP antes de que se alcancen los umbrales de temperatura de blanqueamiento.
-        </p>
-        <p>
-          <strong>Bomba Biológica de Carbono:</strong> La bomba biológica es el mecanismo primario del océano para eliminar el CO₂ de la superficie y secuestrarlo en las profundidades. Los prados de pastos marinos de GSIN dentro del corredor funcionan como mejoradores suplementarios de la bomba: su eficiencia de enterramiento rivaliza con las trampas de sedimentos de aguas profundas.
-        </p>
-        <p>
-          <strong>Migración Vertical Diaria (DVM):</strong> La DVM crea un componente de <em>bomba biológica activa</em>: los organismos que se alimentan en la superficie, respiran y excretan a profundidad inyectan efectivamente carbono disuelto y particulado por debajo de la termoclina. Los patrones de DVM se desplazan con anomalías térmicas.
-        </p>
-        <p>
-          <strong>Exclusión Competitiva y la Paradoja del Plancton:</strong> La <em>Hipótesis de Perturbación Intermedia</em> formaliza que la diversidad máxima de especies ocurre a frecuencias de perturbación intermedias. <span class="coral">Para GROAN: un arrecife con variabilidad de perturbación reducida puede paradójicamente perder biodiversidad incluso sin eventos agudos de blanqueamiento.</span> El CMIE debe evaluar el régimen de perturbación como variable, no solo la intensidad del factor estresante.
-        </p>
-      </div>
+        <!-- Zone bands -->
+        <rect x="0" y="0"   width="340" height="55"  fill="rgba(26,200,200,0.06)"/>
+        <rect x="0" y="55"  width="340" height="60"  fill="rgba(4,41,74,0.25)"/>
+        <rect x="0" y="115" width="340" height="55"  fill="rgba(2,12,24,0.3)"/>
+        <rect x="0" y="170" width="340" height="50"  fill="rgba(2,8,16,0.5)"/>
+
+        <!-- Zone dividers -->
+        <line x1="0" y1="55"  x2="340" y2="55"  stroke="rgba(26,200,200,0.18)" stroke-width="0.6" stroke-dasharray="6,3"/>
+        <line x1="0" y1="115" x2="340" y2="115" stroke="rgba(26,200,200,0.10)" stroke-width="0.6" stroke-dasharray="6,3"/>
+        <line x1="0" y1="170" x2="340" y2="170" stroke="rgba(26,200,200,0.07)" stroke-width="0.6" stroke-dasharray="6,3"/>
+
+        <!-- Zone labels -->
+        <text x="8" y="18"  font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.7)"  letter-spacing="0.1em">PHOTIC</text>
+        <text x="8" y="82"  font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.38)" letter-spacing="0.1em">MESO</text>
+        <text x="8" y="145" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.26)" letter-spacing="0.1em">BATHY</text>
+        <text x="8" y="192" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.2)"  letter-spacing="0.1em">SEDIMENT</text>
+
+        <!-- Phytoplankton at surface (T1 producers) -->
+        <circle cx="100" cy="12" r="3.2" fill="rgba(62,207,142,0.85)"/>
+        <circle cx="124" cy="8"  r="2.5" fill="rgba(62,207,142,0.75)"/>
+        <circle cx="148" cy="16" r="3.0" fill="rgba(62,207,142,0.8)"/>
+        <circle cx="172" cy="9"  r="2.2" fill="rgba(62,207,142,0.7)"/>
+        <circle cx="198" cy="18" r="2.8" fill="rgba(62,207,142,0.75)"/>
+        <circle cx="222" cy="11" r="2.0" fill="rgba(62,207,142,0.65)"/>
+
+        <!-- CO2 input arrows at surface -->
+        <line x1="110" y1="0" x2="110" y2="8" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+        <polygon points="107,8 110,13 113,8" fill="rgba(26,200,200,0.5)"/>
+        <text x="116" y="8" font-family="DM Mono,monospace" font-size="6" fill="rgba(26,200,200,0.6)">CO₂↓</text>
+
+        <!-- BIOLOGICAL PUMP — central sinking flux (gold dashed) -->
+        <line x1="160" y1="28"  x2="160" y2="55"  stroke="rgba(240,180,41,0.7)" stroke-width="1.4" stroke-dasharray="3,2"/>
+        <line x1="160" y1="55"  x2="160" y2="115" stroke="rgba(240,180,41,0.5)" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <line x1="160" y1="115" x2="160" y2="170" stroke="rgba(240,180,41,0.3)" stroke-width="1.0" stroke-dasharray="3,2"/>
+        <line x1="160" y1="170" x2="160" y2="210" stroke="rgba(240,180,41,0.18)" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <!-- Sinking particles -->
+        <circle cx="160" cy="62"  r="3"   fill="rgba(240,180,41,0.65)"/>
+        <circle cx="160" cy="88"  r="2.5" fill="rgba(240,180,41,0.5)"/>
+        <circle cx="160" cy="128" r="2"   fill="rgba(240,180,41,0.35)"/>
+        <circle cx="160" cy="155" r="1.5" fill="rgba(240,180,41,0.25)"/>
+        <circle cx="160" cy="182" r="1.2" fill="rgba(240,180,41,0.18)"/>
+        <!-- Pump label -->
+        <rect x="168" y="82" width="72" height="14" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(240,180,41,0.3)" stroke-width="0.7"/>
+        <text x="204" y="91" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(240,180,41,0.85)">BIOLOGICAL PUMP</text>
+
+        <!-- UPWELLING return arc (left, green) -->
+        <path d="M 62 205 Q 44 130 62 52" fill="none" stroke="rgba(62,207,142,0.45)" stroke-width="1.3" stroke-dasharray="4,2"/>
+        <polygon points="59,50 62,42 65,50" fill="rgba(62,207,142,0.6)"/>
+        <text x="30" y="130" font-family="DM Mono,monospace" font-size="6" fill="rgba(62,207,142,0.6)" transform="rotate(-90,30,130)">UPWELLING · NUTRIENTS</text>
+
+        <!-- DVM arc (right, coral) — organisms ascending at night -->
+        <path d="M 268 148 Q 280 100 268 42" fill="none" stroke="rgba(232,96,64,0.45)" stroke-width="1.3" stroke-dasharray="4,2"/>
+        <polygon points="265,40 268,32 271,40" fill="rgba(232,96,64,0.6)"/>
+        <text x="292" y="100" font-family="DM Mono,monospace" font-size="6" fill="rgba(232,96,64,0.6)" transform="rotate(90,292,100)">DVM · NIGHT ASCENT</text>
+
+        <!-- Sverdrup critical depth marker -->
+        <line x1="78" y1="38" x2="250" y2="38" stroke="rgba(155,127,232,0.4)" stroke-width="0.8" stroke-dasharray="4,3"/>
+        <rect x="78" y="26" width="90" height="11" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(155,127,232,0.3)" stroke-width="0.7"/>
+        <text x="123" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(155,127,232,0.85)">SVERDRUP CRITICAL DEPTH</text>
+
+        <!-- Redfield annotation (top right) -->
+        <rect x="244" y="4" width="90" height="30" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(26,200,200,0.25)" stroke-width="0.7"/>
+        <text x="289" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.8)">REDFIELD RATIO</text>
+        <text x="289" y="23" text-anchor="middle" font-family="DM Mono,monospace" font-size="7"   fill="rgba(240,180,41,0.9)" letter-spacing="0.05em">C:N:P = 106:16:1</text>
+        <text x="289" y="31" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.6)">stoichiometric baseline</text>
+
+        <!-- Liebig limiting factor icon (bottom left) -->
+        <rect x="6" y="176" width="72" height="30" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(232,96,64,0.25)" stroke-width="0.7"/>
+        <text x="42" y="186" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.8)">LIEBIG'S LAW</text>
+        <text x="42" y="195" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.7)">growth = f(limiting</text>
+        <text x="42" y="203" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.7)">resource only)</text>
+
+        <!-- Bioluminescent sparks in deep -->
+        <circle cx="96"  cy="138" r="1.1" fill="rgba(26,200,200,0.75)"/>
+        <circle cx="220" cy="148" r="0.9" fill="rgba(26,200,200,0.6)"/>
+        <circle cx="180" cy="162" r="1.2" fill="rgba(26,200,200,0.65)"/>
+      </svg>
     </div>
-  </div>
+  </div><!-- /header -->
 
-  <div class="divider"></div>
-
-  <!-- ── APPLICATION ── -->
+  <!-- LECTURE PANEL -->
   <div class="panel">
-    <div class="panel-label">Application</div>
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Core Principles</div>
 
+    <!-- EN -->
     <div class="lang-block">
-      <div class="lang-tag">EN — English</div>
-      <ul class="app-list">
-        <li><span class="app-num">01</span><span>When diagnosing suppressed NPP at a corridor reef site, apply Liebig's Law as the first-order filter before attributing the decline to temperature or light: measure N:P:Si ratios against Redfield baseline. If N:P is elevated above 16:1, anthropogenic nitrogen loading is indicated; route to Tier 2 local runoff intervention in DMAP-CAL™. If N:P is depressed, a nitrogen-cycling perturbation (fixation or denitrification pulse) is indicated; flag for GKIN analysis. Never apply nutrient supplementation interventions without confirming which nutrient is limiting — adding the non-limiting nutrient produces zero NPP recovery and wastes intervention resources.</span></li>
-        <li><span class="app-num">02</span><span>When MOOP records a significant SST anomaly (+1°C or greater sustained for &gt;4 weeks), apply the Sverdrup Hypothesis immediately to assess NPP risk before bleaching thresholds are reached. A positive SST anomaly strengthens thermal stratification, shallows the thermocline, suppresses nutrient entrainment from depth, and reduces the critical depth — potentially triggering NPP decline weeks before coral physiological bleaching response. Report this as a pre-bleaching productivity decline signal in the CMIE record: it is an early warning indicator, not a concurrent bleaching observation.</span></li>
-        <li><span class="app-num">03</span><span>When assessing seagrass bed condition through GSIN observations, include a biological pump efficiency estimate: seagrass systems with intact sediment carbon burial (dark sediment, strong rhizome architecture, no bioturbation disturbance) are functioning as active pump enhancers. A GSIN site showing seagrass loss must be flagged in the CMIE record as a carbon flux degradation event — not only a habitat loss event — because the burial efficiency loss has consequences for local Ω aragonite through reduced organic carbon drawdown that extend beyond the meadow boundary.</span></li>
-        <li><span class="app-num">04</span><span>When recording species richness and trophic structure data in GRIN observations, evaluate disturbance regime history alongside acute stressor records: a reef with low thermal stress history but low species richness may be experiencing chronic reduced variability — a Competitive Exclusion / Intermediate Disturbance signal that will not appear in standard bleaching alert products. Enter this as a CMIE disturbance regime flag. Conversely, a reef with moderate thermal stress history and high species richness may have benefited from intermediate disturbance dynamics — its resilience projection is higher than thermal exposure metrics alone would indicate.</span></li>
-        <li><span class="app-num">05</span><span>When integrating GKIN kinetic index data with GRIN trophic structure data across a corridor transect, assess DVM contribution to trophic connectivity: sites with confirmed DVM populations (acoustic backscatter or net tow evidence from MOOP) and compressed vertical temperature gradients (&lt;50 m thermocline depth) should be flagged for reduced active carbon transport and reduced trophic linkage between reef and midwater communities. This is an SST-mediated CMIE signal — thermal stratification → DVM compression → reduced active pump → trophic isolation of reef apex predators from midwater prey — that no single module can detect in isolation.</span></li>
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Six principles govern the behavior of ocean biological systems with the same operational weight that carbonate equilibria governs ocean chemistry. A reef scientist who cannot apply <strong>Liebig's Law</strong>, the <strong>Redfield Ratio</strong>, the <strong>Sverdrup Critical Depth Hypothesis</strong>, the <strong>Biological Carbon Pump</strong>, <strong>Diel Vertical Migration</strong>, and <strong>Competitive Exclusion</strong> cannot diagnose why productivity at a given site is what it is — and cannot predict how it will respond to stressors. These are not academic principles. They are operational diagnostics. GROAN's module architecture encodes all six.</p>
+
+      <p><strong>Liebig's Law of the Minimum</strong> (von Liebig, 1840) states that biological productivity is controlled not by the total resources available but by whichever essential resource is in shortest supply — the <em>limiting factor</em>. In ocean systems this is typically a macronutrient (nitrogen, phosphorus, silicate) or micronutrient (iron in HNLC regions). The principle is non-additive: adding any non-limiting resource produces zero additional productivity. <span class="cr">For GROAN: when a reef site shows depressed NPP despite adequate light and temperature, the diagnostic entry point is Liebig — identify the limiting nutrient before routing to DMAP-CAL™.</span> An intervention targeting the wrong limiting factor wastes resources and produces no recovery signal.</p>
+
+      <p><strong>The Redfield Ratio</strong> (Redfield, 1934/1958) states that marine phytoplankton biomass contains carbon, nitrogen, and phosphorus in approximately the ratio <span class="hl">C:N:P = 106:16:1</span> — a ratio that closely matches the deep ocean seawater it inhabits, implying co-evolutionary coupling between organism stoichiometry and ocean geochemistry. Seawater deviating significantly from Redfield proportions signals a perturbed nutrient regime: elevated N:P (above 16:1) indicates anthropogenic nitrogen loading; depressed N:P indicates a nitrogen-cycling perturbation such as a denitrification pulse. <span class="cr">For GROAN: the Redfield Ratio is the stoichiometric baseline against which all MOOP water chemistry samples are interpreted</span>, feeding both GKIN and GRIN module context.</p>
+
+      <p><strong>The Sverdrup Critical Depth Hypothesis</strong> (Sverdrup, 1953) states that a phytoplankton bloom initiates when the surface mixed layer becomes shallower than the critical depth — the depth at which depth-integrated photosynthesis equals depth-integrated respiration. Above the critical depth, phytoplankton spend enough time in the photic zone to produce net positive growth. <span class="hl">For GROAN: a sustained SST anomaly (+1°C for more than 4 weeks) strengthens thermal stratification, shallows the thermocline, suppresses upward nutrient flux from depth, and may trigger NPP decline weeks before coral bleaching temperature thresholds are reached.</span> This is a pre-bleaching early warning signal that GRIN's thermal sub-index must flag independently of the bleaching alert products.</p>
+
+      <p><strong>The Biological Carbon Pump</strong> (Volk and Hoffert, 1985) is the ocean's primary mechanism for removing CO₂ from the surface and sequestering it in the deep ocean — driven by the sinking of dead organic matter, fecal pellets, and aggregates (marine snow) from the photic zone. Approximately 5–20% of surface productivity is exported below 100 m; roughly 1% reaches the seafloor. <span class="cr">For GROAN: seagrass meadows monitored by GSIN function as supplementary pump enhancers</span> with carbon burial efficiency rivaling deep-sea sediment traps. A GSIN site recording seagrass loss must be flagged in the CMIE record as a carbon flux degradation event — not only a habitat loss event — because the Ω aragonite implications extend beyond the meadow boundary.</p>
+
+      <p><strong>Diel Vertical Migration (DVM)</strong> is the largest daily animal movement on Earth: billions of zooplankton, krill, myctophid fish, and squid ascend hundreds of meters to the surface at night to feed, then descend to depth at dawn to avoid visual predators. DVM creates an active biological pump component — organisms feed at the surface then respire and excrete at depth, injecting carbon below the thermocline. Estimated to contribute 15–40% of total biological carbon export at some sites. <span class="cr">For GROAN: SST warming compresses the vertical range available for DVM, reducing active carbon transport and degrading trophic connectivity between reef apex predators and midwater prey</span> — a thermally-mediated CMIE signal no single module can detect in isolation.</p>
+
+      <p><strong>Gause's Competitive Exclusion Principle</strong> (Gause, 1934) states that two species competing for identical limiting resources cannot coexist stably — yet the ocean hosts hundreds of phytoplankton species apparently competing for the same nutrients. Hutchinson (1961) named this the <em>Paradox of the Plankton</em>, resolved by non-equilibrium dynamics: physical mixing, light fluctuations, grazing pressure, and nutrient pulses continuously reset competitive hierarchies before any species can exclude others. The <strong>Intermediate Disturbance Hypothesis</strong> formalizes this: maximum species diversity occurs at intermediate disturbance frequencies. <span class="hl">For GROAN: a reef with reduced disturbance variability — e.g. a thermally stabilized, stratified system under climate change — may lose biodiversity even without acute bleaching.</span> The CMIE must evaluate disturbance regime as an explicit variable, not merely stressor intensity.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Seis principios gobiernan el comportamiento de los sistemas biológicos oceánicos con el mismo peso operacional que los equilibrios de carbonatos gobiernan la química oceánica. GROAN codifica los seis en su arquitectura de módulos.</p>
+
+      <p><strong>Ley del Mínimo de Liebig (1840):</strong> La productividad biológica está controlada por el recurso esencial en menor suministro — el <em>factor limitante</em>. El principio es no aditivo: agregar cualquier recurso no limitante produce cero productividad adicional. <span class="cr">Para GROAN: cuando un sitio arrecifal muestra NPP deprimida a pesar de luz y temperatura adecuadas, el punto de entrada diagnóstica es Liebig.</span> Una intervención que apunta al factor limitante incorrecto desperdicia recursos y no produce señal de recuperación.</p>
+
+      <p><strong>Relación de Redfield (1934/1958):</strong> La biomasa fitoplanctónica marina contiene C, N y P en la relación aproximada <span class="hl">C:N:P = 106:16:1</span>. Las desviaciones señalan un régimen de nutrientes perturbado: N:P elevado (>16:1) indica carga de nitrógeno antropogénico; N:P deprimido indica una perturbación del ciclo del nitrógeno. <span class="cr">Para GROAN: la Relación de Redfield es la línea de base estequiométrica contra la que se interpretan todas las muestras de química del agua de MOOP.</span></p>
+
+      <p><strong>Hipótesis de Profundidad Crítica de Sverdrup (1953):</strong> Una floración fitoplanctónica se inicia cuando la capa de mezcla superficial se vuelve más superficial que una profundidad crítica. <span class="hl">Para GROAN: una anomalía de TSM sostenida puede desencadenar un declive de NPP semanas antes de que se alcancen los umbrales de temperatura de blanqueamiento</span> — una señal de advertencia temprana que el subíndice térmico de GRIN debe marcar independientemente.</p>
+
+      <p><strong>Bomba Biológica de Carbono:</strong> El mecanismo primario del océano para eliminar CO₂ de la superficie. <span class="cr">Para GROAN: los prados de pastos marinos de GSIN funcionan como mejoradores suplementarios de la bomba</span>. Una pérdida de GSIN debe registrarse en el CMIE como evento de degradación del flujo de carbono con implicaciones para el Ω aragonita local.</p>
+
+      <p><strong>Migración Vertical Diaria (MVD):</strong> El movimiento animal diario más grande de la Tierra crea un componente de bomba activa que contribuye al 15–40% de la exportación total de carbono en algunos sitios. <span class="cr">Para GROAN: el calentamiento de la TSM comprime el rango vertical disponible para la MVD, degradando la conectividad trófica entre los depredadores apicales del arrecife y las presas de aguas medias</span> — una señal CMIE mediada térmicamente.</p>
+
+      <p><strong>Exclusión Competitiva y la Paradoja del Plancton:</strong> La <em>Hipótesis de Perturbación Intermedia</em> establece que la diversidad máxima de especies ocurre en frecuencias de perturbación intermedias. <span class="hl">Para GROAN: un arrecife con variabilidad de perturbación reducida puede perder biodiversidad incluso sin blanqueamiento agudo.</span> El CMIE debe evaluar el régimen de perturbación como una variable explícita.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Principle / Principio</th>
+          <th>Author · Year</th>
+          <th>Core Relationship</th>
+          <th>Reef Diagnostic Use</th>
+          <th>GROAN Module</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-coral">Liebig's Law</span></td>
+          <td>von Liebig · 1840</td>
+          <td>Growth = f(least-available essential resource)</td>
+          <td>Identify limiting nutrient before intervention routing</td>
+          <td>DMAP-CAL™ · GKIN</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-cyan">Redfield Ratio</span></td>
+          <td>Redfield · 1934/1958</td>
+          <td>C:N:P ≈ 106:16:1 in phytoplankton and deep ocean</td>
+          <td>Detect anthropogenic N loading or N-cycle perturbation</td>
+          <td>GKIN · GRIN</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Sverdrup Hypothesis</span></td>
+          <td>Sverdrup · 1953</td>
+          <td>Bloom when mixed layer &lt; critical depth</td>
+          <td>Pre-bleaching NPP decline from SST stratification</td>
+          <td>GRIN · CMIE</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Biological Pump</span></td>
+          <td>Volk &amp; Hoffert · 1985</td>
+          <td>Sinking organic matter exports C from surface to deep</td>
+          <td>Seagrass burial loss → Ω aragonite impact via CMIE</td>
+          <td>GSIN · CMIE · GRIN</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Diel Vertical Migration</span></td>
+          <td>Longhurst · 1976</td>
+          <td>Active C transport by nightly ascending organisms</td>
+          <td>SST warming → DVM compression → trophic isolation</td>
+          <td>GKIN · GRIN · CMIE</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Competitive Exclusion</span></td>
+          <td>Gause · 1934; Hutchinson · 1961</td>
+          <td>Diversity maintained by non-equilibrium disturbance</td>
+          <td>Reduced disturbance variability → biodiversity loss</td>
+          <td>GRIN · GKIN · CMIE</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — GROAN Diagnostic Protocol &amp; CMIE Routing</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When diagnosing suppressed NPP at a corridor reef site, apply <strong>Liebig's Law as the first-order filter</strong> before attributing the decline to temperature or light. Measure N:P:Si ratios against the Redfield baseline. If N:P exceeds 16:1, anthropogenic nitrogen loading is indicated — route to Tier 2 local land-based source intervention in DMAP-CAL™. If N:P is depressed, a nitrogen-cycling perturbation is indicated — flag for GKIN analysis. Never apply nutrient supplementation without confirming the limiting factor; adding the non-limiting nutrient produces zero NPP recovery.</li>
+        <li>When MOOP records a sustained SST anomaly of +1°C or greater for more than 4 weeks, apply the <strong>Sverdrup Hypothesis immediately</strong> to assess NPP risk before bleaching thresholds are reached. A positive SST anomaly strengthens stratification, shallows the thermocline, and suppresses nutrient entrainment from depth — potentially triggering NPP decline and a pre-bleaching early warning signal weeks before coral physiological response. Log this in GRIN as a thermal stratification NPP flag, distinct from a bleaching event, and enter it in the CMIE record as a leading indicator.</li>
+        <li>When assessing seagrass bed condition through GSIN observations, include a <strong>biological pump efficiency estimate</strong>: seagrass systems with intact sediment carbon burial (dark sediment, strong rhizome architecture, no bioturbation disturbance) are functioning as active pump enhancers. A GSIN site recording seagrass loss must be flagged in the CMIE record as a <span class="cr">carbon flux degradation event</span> — not only a habitat loss event — because the burial efficiency loss has consequences for local Ω aragonite through reduced organic carbon drawdown that extend beyond the meadow boundary.</li>
+        <li>When recording species richness and trophic structure data in GRIN observations, evaluate <strong>disturbance regime history</strong> alongside acute stressor records. A reef with low thermal stress history but low species richness may be experiencing chronic reduced disturbance variability — a Competitive Exclusion / Intermediate Disturbance signal that will not appear in standard bleaching alert products. Enter this as a CMIE disturbance regime flag. Conversely, a reef with moderate thermal stress history and high species richness may have benefited from intermediate disturbance dynamics — its resilience projection is higher than thermal exposure metrics alone indicate.</li>
+        <li>When integrating GKIN kinetic index data with GRIN trophic structure data across a corridor transect, assess <strong>DVM contribution to trophic connectivity</strong>: sites with compressed vertical temperature gradients (thermocline shallower than 50 m) should be flagged for reduced active carbon transport and degraded trophic linkage between reef apex predators and midwater prey. <span class="cr">This is an SST-mediated CMIE signal — thermal stratification → DVM compression → reduced active pump → trophic isolation — that no single module can detect in isolation.</span></li>
       </ul>
     </div>
 
-    <div class="lang-block" style="margin-bottom:0;">
-      <div class="lang-tag">ES — Español</div>
-      <ul class="app-list">
-        <li><span class="app-num">01</span><span>Al diagnosticar NPP suprimida en un sitio arrecifal del corredor, aplique la Ley de Liebig como filtro de primer orden antes de atribuir el declive a la temperatura o la luz: mida las relaciones N:P:Si contra la línea de base de Redfield. Nunca aplique intervenciones de suplementación de nutrientes sin confirmar cuál nutriente es limitante — agregar el nutriente no limitante produce cero recuperación de NPP y desperdicia recursos de intervención.</span></li>
-        <li><span class="app-num">02</span><span>Cuando MOOP registre una anomalía significativa de TSM (+1°C o mayor sostenida por &gt;4 semanas), aplique la Hipótesis de Sverdrup inmediatamente para evaluar el riesgo de NPP antes de que se alcancen los umbrales de blanqueamiento. Una anomalía positiva de TSM fortalece la estratificación térmica y puede desencadenar un declive de NPP semanas antes de la respuesta de blanqueamiento fisiológico del coral.</span></li>
-        <li><span class="app-num">03</span><span>Al evaluar la condición del lecho de pastos marinos a través de observaciones GSIN, incluya una estimación de la eficiencia de la bomba biológica. Una pérdida de GSIN debe marcarse en el registro CMIE como un evento de degradación del flujo de carbono — no solo un evento de pérdida de hábitat — porque la pérdida de eficiencia de enterramiento tiene consecuencias para el Ω aragonita local.</span></li>
-        <li><span class="app-num">04</span><span>Al registrar datos de riqueza de especies en observaciones GRIN, evalúe el historial del régimen de perturbación: un arrecife con bajo estrés térmico histórico pero baja riqueza de especies puede estar experimentando una señal de Exclusión Competitiva / Perturbación Intermedia que no aparecerá en los productos estándar de alerta de blanqueamiento.</span></li>
-        <li><span class="app-num">05</span><span>Al integrar datos cinéticos GKIN con datos de estructura trófica GRIN, evalúe la contribución de la DMV a la conectividad trófica: gradientes de temperatura vertical comprimidos indican transporte activo de carbono reducido y aislamiento trófico de los depredadores apicales del arrecife. <span class="coral">Esta es una señal CMIE mediada por TSM que ningún módulo individual puede detectar de forma aislada.</span></span></li>
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Al diagnosticar NPP suprimida en un sitio del corredor, aplique la <strong>Ley de Liebig como filtro de primer orden</strong> antes de atribuir el declive a la temperatura o la luz. Mida las relaciones N:P:Si contra la línea de base de Redfield y enrute en consecuencia en DMAP-CAL™. Nunca aplique intervenciones de nutrientes sin confirmar el factor limitante.</li>
+        <li>Cuando MOOP registre una anomalía de TSM de +1°C sostenida por más de 4 semanas, aplique la <strong>Hipótesis de Sverdrup inmediatamente</strong> para evaluar el riesgo de NPP antes de que se alcancen los umbrales de blanqueamiento. Registre la señal en GRIN como indicador adelantado de alarma temprana pre-blanqueamiento.</li>
+        <li>Al evaluar la condición de prados de pastos marinos a través de GSIN, incluya una estimación de la eficiencia de la bomba biológica. Una pérdida de GSIN debe registrarse en el CMIE como <span class="cr">evento de degradación del flujo de carbono</span> — no solo como evento de pérdida de hábitat — con consecuencias para el Ω aragonita local.</li>
+        <li>Al registrar datos de riqueza de especies en observaciones GRIN, evalúe el <strong>historial del régimen de perturbación</strong> junto con los registros de estresores agudos. Una baja riqueza de especies sin estrés térmico reciente es una señal de Exclusión Competitiva / Perturbación Intermedia que no aparece en los productos de alerta de blanqueamiento. Regístrela como señal de régimen de perturbación en el CMIE.</li>
+        <li>Al integrar datos GKIN con datos de estructura trófica GRIN, evalúe la contribución de la <strong>MVD a la conectividad trófica</strong>. Sitios con gradientes de temperatura vertical comprimidos deben marcarse para transporte de carbono activo reducido y aislamiento trófico de depredadores apicales. <span class="cr">Esta es una señal CMIE mediada por TSM que ningún módulo individual puede detectar de forma aislada.</span></li>
       </ul>
     </div>
-  </div>
+  </div><!-- /app panel -->
 
-  <div class="divider"></div>
-
-  <!-- ── MCQ ── -->
+  <!-- MCQ SECTION -->
   <div class="mcq-section">
-    <div class="panel-label">Assessment — Multiple Choice</div>
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
     <div class="mcq-grid">
 
       <!-- Q1 -->
       <div class="mcq-card">
-        <div class="mcq-num">Question 01</div>
-        <div class="mcq-q-en">A MOOP water chemistry sample from a corridor reef site shows N:P = 28:1 — well above the Redfield baseline of 16:1. What does this deviation most likely indicate, and what is the appropriate DMAP-CAL™ routing?</div>
-        <div class="mcq-q-es">Una muestra de química del agua MOOP de un sitio arrecifal del corredor muestra N:P = 28:1 — muy por encima de la línea de base de Redfield de 16:1. ¿Qué indica esta desviación y cuál es el enrutamiento DMAP-CAL™ apropiado?</div>
-        <div class="mcq-option">A) Nitrogen limitation — phosphorus is the excess nutrient; route to deep-water upwelling intervention / Limitación de nitrógeno — el fósforo es el nutriente en exceso; enrutar a intervención de surgencia</div>
-        <div class="mcq-option correct">B) Anthropogenic nitrogen loading — likely from agricultural runoff or wastewater; route to Tier 2 local land-based source intervention in DMAP-CAL™ / Carga de nitrógeno antropogénica — probablemente de escorrentía agrícola o aguas residuales; enrutar a intervención de fuente terrestre Nivel 2</div>
-        <div class="mcq-option">C) Natural denitrification pulse — nitrogen is being consumed by bacterial activity; no intervention needed / Pulso de desnitrificación natural — ninguna intervención necesaria</div>
-        <div class="mcq-option">D) Instrument error — Redfield deviations of this magnitude do not occur in reef environments / Error de instrumento — las desviaciones de Redfield de esta magnitud no ocurren en ambientes arrecifales</div>
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">A MOOP water chemistry sample from a corridor reef site shows N:P = 28:1 — well above the Redfield baseline of 16:1. What does this deviation most likely indicate, and what is the correct DMAP-CAL™ routing?</div>
+        <div class="mcq-q-es">Una muestra de química del agua MOOP muestra N:P = 28:1 — muy por encima de la línea de base de Redfield de 16:1. ¿Qué indica esta desviación y cuál es el enrutamiento DMAP-CAL™ correcto?</div>
+        <ul class="mcq-options">
+          <li>A. Nitrogen limitation — phosphorus is the excess nutrient; route to deep-water upwelling intervention</li>
+          <li class="correct">B. Anthropogenic nitrogen loading — likely from agricultural runoff or wastewater discharge; route to Tier 2 local land-based source intervention in DMAP-CAL™; adding further nitrogen to address the imbalance would worsen the perturbation</li>
+          <li>C. Natural denitrification pulse — nitrogen is being consumed by bacterial activity; no intervention needed</li>
+          <li>D. Instrument error — Redfield deviations of this magnitude do not occur in reef environments</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
       </div>
 
       <!-- Q2 -->
       <div class="mcq-card">
-        <div class="mcq-num">Question 02</div>
-        <div class="mcq-q-en">The Sverdrup Critical Depth Hypothesis predicts that sustained SST warming (+1.5°C anomaly for 6 weeks) will produce NPP decline at a reef site before coral bleaching temperature thresholds are reached. What is the mechanism?</div>
-        <div class="mcq-q-es">La Hipótesis de Sverdrup predice que el calentamiento sostenido de TSM producirá un declive de NPP en un sitio arrecifal antes de que se alcancen los umbrales de blanqueamiento. ¿Cuál es el mecanismo?</div>
-        <div class="mcq-option">A) Elevated temperature directly inhibits photosynthetic enzymes (RuBisCO) before bleaching expels zooxanthellae / La temperatura elevada inhibe directamente las enzimas fotosintéticas antes del blanqueamiento</div>
-        <div class="mcq-option">B) Warming reduces dissolved oxygen solubility, increasing respiration costs and reducing net NPP / El calentamiento reduce la solubilidad del oxígeno disuelto, aumentando los costos de respiración</div>
-        <div class="mcq-option correct">C) Warming strengthens thermal stratification and shallows the thermocline — suppressing upward nutrient flux from depth, reducing available N and P in the photic zone, and lowering the critical depth so that phytoplankton mixing losses exceed photosynthetic gain / El calentamiento fortalece la estratificación térmica y eleva la termoclina, suprimiendo el flujo de nutrientes hacia arriba y reduciendo N y P disponibles en la zona fótica</div>
-        <div class="mcq-option">D) Warming triggers zooplankton population blooms that graze down phytoplankton before coral bleaching begins / El calentamiento desencadena floraciones de zooplancton que reducen el fitoplancton antes del blanqueamiento</div>
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">The Sverdrup Critical Depth Hypothesis predicts that a sustained +1.5°C SST anomaly will produce NPP decline at a reef site before coral bleaching temperature thresholds are reached. What is the physical mechanism, and how should it be logged in GROAN?</div>
+        <div class="mcq-q-es">La Hipótesis de Sverdrup predice que una anomalía de TSM de +1,5°C producirá un declive de NPP antes de que se alcancen los umbrales de blanqueamiento. ¿Cuál es el mecanismo y cómo debe registrarse en GROAN?</div>
+        <ul class="mcq-options">
+          <li>A. Elevated temperature directly inhibits RuBisCO enzyme activity before bleaching expels zooxanthellae; log as a bleaching precursor in the benthic cover field</li>
+          <li>B. Warming reduces dissolved oxygen solubility, increasing respiration costs and reducing net NPP; log as a dissolved gas anomaly in GKIN</li>
+          <li class="correct">C. Warming strengthens thermal stratification, shallows the thermocline, and suppresses upward nutrient flux — reducing available N and P in the photic zone and triggering NPP decline; log in GRIN as a thermal stratification NPP flag and in the CMIE record as a leading pre-bleaching early warning indicator, distinct from a bleaching event entry</li>
+          <li>D. Warming triggers zooplankton population blooms that graze down phytoplankton; log as a zooplankton anomaly in GKIN</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
       </div>
 
       <!-- Q3 -->
       <div class="mcq-card">
-        <div class="mcq-num">Question 03</div>
-        <div class="mcq-q-en">A GRIN survey records unexpectedly low species richness at a corridor site with no recent bleaching events and moderate thermal stress history. Applying the Competitive Exclusion / Intermediate Disturbance Principle, what is the most likely explanation and how should this be entered in the CMIE record?</div>
-        <div class="mcq-q-es">Un estudio GRIN registra una riqueza de especies inesperadamente baja en un sitio sin eventos recientes de blanqueamiento y un historial de estrés térmico moderado. Aplicando el Principio de Perturbación Intermedia, ¿cuál es la explicación más probable?</div>
-        <div class="mcq-option">A) Data collection error — low richness without acute bleaching events is not ecologically plausible and the survey should be repeated / Error de recolección de datos — la baja riqueza sin blanqueamiento agudo no es plausible ecológicamente</div>
-        <div class="mcq-option">B) Chronic overfishing at the apex predator level has reduced predation pressure, causing competitive exclusion at lower trophic levels — enter as a GRIN trophic flag only / La sobrepesca crónica ha reducido la presión de depredación — registrar solo como señal trófica GRIN</div>
-        <div class="mcq-option">C) Natural low-diversity baseline — some reef zones structurally support fewer species regardless of disturbance regime / Línea de base de baja diversidad natural — algunas zonas arrecifales soportan menos especies independientemente del régimen de perturbación</div>
-        <div class="mcq-option correct">D) Chronic reduced disturbance variability — thermal stabilization has eliminated the intermediate disturbance dynamics that maintain species coexistence; enter as a CMIE disturbance regime flag, distinct from acute bleaching, indicating biodiversity loss driven by chronic regime change rather than acute stress / Variabilidad de perturbación crónica reducida — la estabilización térmica ha eliminado la dinámica de perturbación intermedia; registrar como señal de régimen de perturbación CMIE, indicando pérdida de biodiversidad impulsada por cambio de régimen crónico</div>
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">A GRIN survey records unexpectedly low species richness at a corridor site with no recent bleaching events and moderate historical thermal stress. Applying the Competitive Exclusion / Intermediate Disturbance Principle, what is the most likely explanation and the correct CMIE entry?</div>
+        <div class="mcq-q-es">Un estudio GRIN registra riqueza de especies inesperadamente baja en un sitio sin blanqueamiento reciente y estrés térmico moderado. Aplicando la Hipótesis de Perturbación Intermedia, ¿cuál es la explicación más probable y la entrada correcta del CMIE?</div>
+        <ul class="mcq-options">
+          <li>A. Data collection error — low richness without acute bleaching is not ecologically plausible; repeat the survey</li>
+          <li>B. Chronic overfishing at the apex level has reduced predation pressure, causing competitive exclusion at lower trophic levels; log as a GRIN trophic flag only</li>
+          <li>C. Natural low-diversity baseline — some reef zones structurally support fewer species regardless of disturbance regime</li>
+          <li class="correct">D. Chronic reduced disturbance variability — thermal stabilization has eliminated the intermediate disturbance dynamics that maintain species coexistence; enter as a CMIE disturbance regime flag, distinct from acute bleaching, indicating biodiversity loss driven by chronic regime change rather than acute stress; resilience projection for this site is lower than thermal exposure metrics alone would suggest</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: D · RESPUESTA: D</div>
       </div>
 
     </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L02 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">9.38%</div>
   </div>
 
-  <!-- ── FOOTER ── -->
-  <div class="footer" style="margin-top:24px;">
-    <div class="progress-meta">
-      <span class="progress-label">GROAN Curriculum — Section 03 · L02 of TBD · Lesson 66 of 704</span>
-      <span class="progress-pct">9.38%</span>
-    </div>
-    <div class="progress-track">
-      <div class="progress-fill"></div>
-    </div>
-  </div>
-
-</div>
+</div><!-- /card -->
 </body>
 </html>
+
