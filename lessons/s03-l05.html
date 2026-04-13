@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L05 Biological Oceanography — Dynamics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green  { background: rgba(62,207,142,0.15);   color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .tag-purple { background: rgba(155,127,232,0.15);  color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);   font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);  font-weight: 500; }
+  .lang-block .gr  { color: var(--green);  font-weight: 500; }
+  .lang-block .pu  { color: var(--purple); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral);  font-weight: 500; }
+  .app-panel .pu { color: var(--purple); font-weight: 500; }
+  .app-panel .hl { color: var(--gold);   font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.80%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 05 · Biological Oceanography · Lesson 69 of 704</div>
+        <div class="lesson-title">Dynamics</div>
+        <div class="lesson-subtitle">Population dynamics · phase shifts · resilience &amp; resistance · pulse vs. press disturbance · metapopulation connectivity · non-linear regime change</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-coral">Phase Shifts · Regime Change</span>
+        <span class="tag tag-green">Resilience · Resistance</span>
+        <span class="tag tag-gold">Pulse vs. Press Disturbance</span>
+        <span class="tag tag-purple">Metapopulation · Connectivity</span>
+        <span class="tag tag-blue">CMIE Non-linear Signals</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: Coral–algae phase shift bifurcation diagram — coral state (left basin) and algae state (right basin) separated by tipping threshold, with a ball rolling toward the shift and resilience depth annotations -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="dynG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#031e38" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <rect width="340" height="220" fill="url(#dynG)"/>
+
+        <!-- X-axis: stressor level -->
+        <line x1="20" y1="185" x2="320" y2="185" stroke="rgba(26,200,200,0.25)" stroke-width="0.8"/>
+        <text x="170" y="198" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(138,184,204,0.6)" letter-spacing="0.08em">CUMULATIVE STRESSOR LOAD →</text>
+
+        <!-- Y-axis: coral cover -->
+        <line x1="20" y1="20" x2="20" y2="185" stroke="rgba(26,200,200,0.25)" stroke-width="0.8"/>
+        <text x="8" y="105" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(138,184,204,0.6)" transform="rotate(-90,8,105)">CORAL COVER →</text>
+
+        <!-- Y-axis ticks -->
+        <line x1="18" y1="40"  x2="22" y2="40"  stroke="rgba(26,200,200,0.25)" stroke-width="0.6"/>
+        <line x1="18" y1="105" x2="22" y2="105" stroke="rgba(26,200,200,0.25)" stroke-width="0.6"/>
+        <line x1="18" y1="168" x2="22" y2="168" stroke="rgba(26,200,200,0.25)" stroke-width="0.6"/>
+        <text x="16" y="43"  text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">Hi</text>
+        <text x="16" y="108" text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">Mid</text>
+        <text x="16" y="171" text-anchor="end" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">Lo</text>
+
+        <!-- RESILIENT CORAL STATE — upper fold (solid cyan curve) -->
+        <path d="M 28,42 C 60,42 90,44 115,52 C 130,57 138,65 142,78"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- UNSTABLE BRANCH — middle fold (dashed purple) -->
+        <path d="M 142,78 C 148,92 155,108 162,120 C 166,128 168,136 170,145"
+              fill="none" stroke="rgba(155,127,232,0.5)" stroke-width="1.4" stroke-dasharray="4,3" stroke-linecap="round"/>
+
+        <!-- ALGAE-DOMINATED STATE — lower fold (coral curve) -->
+        <path d="M 170,145 C 172,150 180,158 200,162 C 230,167 265,168 308,168"
+              fill="none" stroke="rgba(232,96,64,0.7)" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Tipping point vertical -->
+        <line x1="155" y1="40" x2="155" y2="185" stroke="rgba(240,180,41,0.3)" stroke-width="0.8" stroke-dasharray="4,3"/>
+        <text x="157" y="36" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,180,41,0.8)">TIPPING</text>
+        <text x="157" y="44" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,180,41,0.7)">THRESHOLD</text>
+
+        <!-- Hysteresis arrows showing return path is harder -->
+        <!-- Forward arrow (easy path to phase shift) -->
+        <path d="M 80,50 Q 118,54 138,72" fill="none" stroke="rgba(232,96,64,0.4)" stroke-width="1" marker-end="url(#aR)"/>
+        <text x="92" y="46" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.6)">degradation</text>
+        <!-- Return arrow (hard recovery path — requires stressor well below tipping) -->
+        <path d="M 100,168 Q 70,155 40,100 Q 30,70 30,50" fill="none" stroke="rgba(62,207,142,0.35)" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#aG)"/>
+        <text x="22" y="145" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.55)" transform="rotate(-75,22,145)">recovery requires</text>
+        <text x="28" y="160" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.5)" transform="rotate(-75,28,160)">much lower load</text>
+
+        <!-- State labels -->
+        <rect x="30" y="52" width="80" height="18" rx="2" fill="rgba(4,41,74,0.8)" stroke="rgba(26,200,200,0.3)" stroke-width="0.7"/>
+        <text x="70" y="59" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(26,200,200,0.85)">CORAL-DOMINATED</text>
+        <text x="70" y="67" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.55)">high resilience</text>
+
+        <rect x="210" y="155" width="86" height="18" rx="2" fill="rgba(28,6,2,0.8)" stroke="rgba(232,96,64,0.3)" stroke-width="0.7"/>
+        <text x="253" y="162" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.85)">ALGAE-DOMINATED</text>
+        <text x="253" y="170" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.55)">alternative stable state</text>
+
+        <!-- Unstable branch label -->
+        <text x="175" y="110" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.7)">unstable</text>
+        <text x="175" y="118" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.6)">branch</text>
+
+        <!-- Resilience depth brace (coral state) -->
+        <line x1="72" y1="42" x2="72" y2="70"  stroke="rgba(62,207,142,0.4)" stroke-width="0.8"/>
+        <line x1="68" y1="42" x2="76" y2="42"  stroke="rgba(62,207,142,0.4)" stroke-width="0.8"/>
+        <line x1="68" y1="70" x2="76" y2="70"  stroke="rgba(62,207,142,0.4)" stroke-width="0.8"/>
+        <text x="78" y="58" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.6)">resilience</text>
+        <text x="78" y="66" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.5)">depth</text>
+
+        <!-- HYSTERESIS label -->
+        <rect x="220" y="60" width="60" height="12" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(155,127,232,0.28)" stroke-width="0.7"/>
+        <text x="250" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(155,127,232,0.75)">HYSTERESIS</text>
+
+        <!-- Arrow markers -->
+        <defs>
+          <marker id="aR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(232,96,64,0.55)"/></marker>
+          <marker id="aG" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(62,207,142,0.5)"/></marker>
+        </defs>
+
+        <!-- Bioluminescent sparks -->
+        <circle cx="195" cy="30"  r="1.0" fill="rgba(26,200,200,0.7)"/>
+        <circle cx="290" cy="140" r="0.8" fill="rgba(26,200,200,0.6)"/>
+        <circle cx="110" cy="140" r="0.9" fill="rgba(26,200,200,0.55)"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Dynamics</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Processes (L04) describe what the reef system does at a given moment. Dynamics describe how the system changes over time — how populations grow, crash, and recover; how communities shift between alternative stable states; how disturbances interact with resilience to determine whether a reef returns to its pre-disturbance condition or locks into a degraded alternative. <span class="hl">Understanding dynamics is what separates a monitoring system that reports what happened from a decision system that predicts what will happen next.</span> GROAN's CMIE is a dynamics engine, not a status dashboard.</p>
+
+      <p><strong>Population Dynamics</strong> describe the change in abundance, age structure, and spatial distribution of a species through time, governed by birth rates, death rates, immigration, and emigration. In reef systems the most consequential population dynamic is the <strong>coral cover trajectory</strong> — the rate of change of live coral cover per unit time, positive (recovery) or negative (degradation). A single coral cover measurement tells you where a reef is; the cover trajectory tells you where it is going. <span class="cr">GROAN's CMIE requires at least two temporally separated GRIN observations at a site before it can produce a trajectory-based Decision Score</span> — a single observation produces a status score only. The Rim Run™ annual circuit is designed precisely to generate the time series that enables trajectory scoring from circuit 2 onward.</p>
+
+      <p><strong>Phase Shifts</strong> are abrupt, non-linear transitions between alternative stable states — the most consequential dynamic in reef science. The canonical reef phase shift is <strong>coral-dominated state → macroalgae-dominated state</strong>, driven by the combination of coral mortality (removing the dominant space-holder) and removal of herbivores (releasing macroalgae from grazing control). Once established, the macroalgae state is self-reinforcing: algae suppress coral recruitment, occupy substrate, and maintain the shift against moderate disturbance. <span class="cr">Phase shifts exhibit hysteresis — the stressor level required to reverse a phase shift is substantially lower than the level that caused it.</span> This asymmetry is the defining challenge of reef management: preventing a phase shift requires far less intervention than reversing one after it has occurred. GROAN's Decision Score weights this asymmetry explicitly — a site approaching the tipping threshold receives a higher urgency score than its current status metrics alone would justify.</p>
+
+      <p><strong>Resilience and Resistance</strong> are two distinct dynamic properties that are frequently conflated. <strong>Resistance</strong> is the ability of a system to avoid being displaced from its current state by a disturbance — measured as the magnitude of disturbance required to cause a state change. <strong>Resilience</strong> is the ability of a system to return to its pre-disturbance state after displacement — measured by the rate and completeness of recovery. <span class="hl">A reef can be resistant but not resilient (survives bleaching without phase shift, but recovers extremely slowly), or resilient but not resistant (shifts to algae state easily, but recovers quickly when stressors are removed).</span> GROAN's CMIE tracks both properties separately: resistance is estimated from the magnitude of bleaching events survived without phase shift; resilience is estimated from the recovery trajectory rate between disturbance events. These two indices produce different DMAP-CAL™ routing decisions.</p>
+
+      <p><strong>Pulse vs. Press Disturbances</strong> are the two fundamental disturbance categories with radically different management implications. A <strong>pulse disturbance</strong> is acute, short-duration, and bounded in time — a bleaching event, a hurricane, a crown-of-thorns outbreak. The system is displaced abruptly and then the disturbance ends, allowing recovery if resilience is sufficient. A <strong>press disturbance</strong> is chronic, continuous, and sustained — elevated nutrient loading, chronic sedimentation, persistent overfishing. Press disturbances erode resilience over time without causing acute state changes, making them invisible to monitoring systems that only detect acute events. <span class="cr">The MAR corridor is under simultaneous pulse (bleaching events) and press (chronic land-based pollution, overfishing) disturbance — a compound disturbance regime that GROAN's cross-module CMIE is uniquely structured to detect.</span> A monitoring system that responds only to pulse events will systematically underestimate the cumulative stressor load at sites where press disturbances are the dominant driver.</p>
+
+      <p><strong>Metapopulation Dynamics and Connectivity</strong> describe reef systems not as isolated populations but as networks of semi-independent local populations connected by larval dispersal. A local reef population can go extinct and be recolonized if a source population within dispersal range persists. <span class="hl">Source reefs — those producing more larvae than they consume — are the nodes that sustain the entire network.</span> Sink reefs — those dependent on external larval supply — can appear healthy while remaining demographically dependent on distant source populations. Identifying source-sink structure across the MAR corridor is one of GROAN's highest-value long-term outputs: a DMAP-CAL™ Decision Score that prioritizes protection of source reefs produces corridor-wide network resilience, while a Decision Score that responds only to local site condition may allow source reefs to degrade while protecting sinks that cannot sustain themselves without that source.</p>
+
+      <p><strong>Non-linear Regime Dynamics and Early Warning Signals</strong> are the frontier of reef dynamics science. As a system approaches a tipping point, it exhibits characteristic mathematical signatures: <strong>critical slowing down</strong> (the system takes longer to return to equilibrium after small perturbations — detectable as increased autocorrelation in time series), <strong>increasing variance</strong> (fluctuations around the stable state grow larger as the attractor weakens), and <strong>flickering</strong> (transient excursions toward the alternative state before the permanent shift). <span class="pu">GROAN's 20-year corridor time series is specifically designed to generate the temporal resolution required to detect critical slowing down at individual reef sites — a capability that requires a minimum of 5–7 annual observations before the statistical signal becomes distinguishable from noise.</span> No single expedition or fixed-station network can produce this signal at corridor scale. The Rim Run™ can.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Los procesos (L04) describen lo que hace el sistema arrecifal en un momento dado. La dinámica describe cómo cambia el sistema con el tiempo. <span class="hl">Comprender la dinámica es lo que separa un sistema de monitoreo que reporta lo que sucedió de un sistema de decisión que predice lo que sucederá a continuación.</span> El CMIE de GROAN es un motor de dinámica, no un tablero de estado.</p>
+
+      <p><strong>Dinámica de Poblaciones:</strong> <span class="cr">El CMIE de GROAN requiere al menos dos observaciones GRIN temporalmente separadas en un sitio antes de poder producir una Puntuación de Decisión basada en trayectoria</span> — una sola observación produce solo una puntuación de estado. El circuito anual del Rim Run™ está diseñado precisamente para generar la serie temporal que permite la puntuación de trayectoria desde el circuito 2 en adelante.</p>
+
+      <p><strong>Cambios de Fase:</strong> El cambio de fase canónico en arrecifes es estado dominado por coral → estado dominado por macroalgas. <span class="cr">Los cambios de fase exhiben histéresis — el nivel de estresor requerido para revertir un cambio de fase es sustancialmente menor que el nivel que lo causó.</span> Prevenir un cambio de fase requiere mucho menos intervención que revertirlo después de que ha ocurrido.</p>
+
+      <p><strong>Resiliencia y Resistencia:</strong> La <strong>resistencia</strong> es la capacidad de evitar el desplazamiento del estado actual; la <strong>resiliencia</strong> es la capacidad de regresar al estado previo a la perturbación. <span class="hl">Un arrecife puede ser resistente pero no resiliente, o resiliente pero no resistente.</span> El CMIE de GROAN rastrea ambas propiedades por separado, produciendo decisiones de enrutamiento de DMAP-CAL™ diferentes.</p>
+
+      <p><strong>Perturbaciones de Pulso vs. Presión:</strong> Una perturbación de <strong>pulso</strong> es aguda y acotada en el tiempo — un evento de blanqueamiento, un huracán. Una perturbación de <strong>presión</strong> es crónica y sostenida — carga elevada de nutrientes, sobrepesca persistente. <span class="cr">El corredor MAR está bajo un régimen de perturbación compuesta simultánea de pulso y presión que el CMIE de GROAN está estructurado de manera única para detectar.</span> Un sistema de monitoreo que solo responde a eventos de pulso subestimará sistemáticamente la carga acumulada de estresores.</p>
+
+      <p><strong>Metapoblación y Conectividad:</strong> Los arrecifes fuente — aquellos que producen más larvas de las que consumen — son los nodos que sostienen toda la red. <span class="hl">Una Puntuación de Decisión de DMAP-CAL™ que prioriza la protección de arrecifes fuente produce resiliencia de red en todo el corredor.</span></p>
+
+      <p><strong>Dinámica de Régimen No Lineal:</strong> <span class="pu">La serie temporal de 20 años del corredor de GROAN está diseñada para generar la resolución temporal necesaria para detectar el <em>critical slowing down</em> en sitios arrecifales individuales</span> — una capacidad que requiere un mínimo de 5–7 observaciones anuales antes de que la señal estadística sea distinguible del ruido.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Dynamic / Dinámica</th>
+          <th>Key Concept</th>
+          <th>GROAN Detection Method</th>
+          <th>CMIE Signal Type</th>
+          <th>DMAP-CAL™ Implication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-cyan">Population Dynamics</span></td>
+          <td>Cover trajectory (dC/dt) more diagnostic than cover level</td>
+          <td>Multi-circuit GRIN belt transect time series</td>
+          <td>Trajectory score — positive or negative rate of change</td>
+          <td>Requires ≥2 circuits; trajectory-based DS from circuit 2+</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Phase Shift</span></td>
+          <td>Non-linear coral→algae transition; hysteresis; self-reinforcing</td>
+          <td>Coral:algae cover ratio trend + herbivore biomass</td>
+          <td>Phase shift proximity flag; tipping threshold distance</td>
+          <td>Urgency score elevated above current status metrics</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Resilience</span></td>
+          <td>Rate and completeness of recovery post-disturbance</td>
+          <td>Recovery trajectory between disturbance events</td>
+          <td>Resilience index — circuit-over-circuit recovery rate</td>
+          <td>Low resilience → Tier 2–3 chronic stressor intervention</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Resistance</span></td>
+          <td>Magnitude of disturbance survived without state change</td>
+          <td>Bleaching severity vs. coral cover loss ratio</td>
+          <td>Resistance index — bleaching survived without phase shift</td>
+          <td>Low resistance → thermal stress priority routing</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Pulse Disturbance</span></td>
+          <td>Acute, bounded, short-duration — bleaching, hurricane</td>
+          <td>GRIN acute event flag + pre/post cover comparison</td>
+          <td>Acute event entry with recovery trajectory initiation</td>
+          <td>Tier 1–3 immediate response; recovery tracking starts</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Press Disturbance</span></td>
+          <td>Chronic, sustained — nutrient loading, overfishing</td>
+          <td>Multi-circuit trend in sub-index values; GMIN/GSIN flags</td>
+          <td>Resilience erosion signal — progressive sub-index decline</td>
+          <td>Tier 2 land-based or fisheries source intervention</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Metapopulation</span></td>
+          <td>Source-sink structure; dispersal connectivity; network resilience</td>
+          <td>Juvenile density comparison across corridor sites</td>
+          <td>Source reef identification; sink dependency flag</td>
+          <td>Source reef protection prioritized in corridor DS</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Critical Slowing Down</span></td>
+          <td>Increased autocorrelation + variance approaching tipping</td>
+          <td>20-year time series; ≥5–7 annual observations required</td>
+          <td>EWS flag — detectable from circuit 5–7 onward</td>
+          <td>Highest-priority intervention trigger in DMAP-CAL™</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — GROAN Dynamics Diagnostics &amp; CMIE Routing</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When recording GRIN belt transect data at a corridor site, always record the current observation against all prior circuit data before assigning a Decision Score category. A site with 25% coral cover is not interpretable without its trajectory: 25% cover trending upward from 18% two circuits ago is a recovering site; 25% cover trending downward from 42% two circuits ago is an accelerating degradation site. <span class="cr">The DMAP-CAL™ intervention routing for these two sites is opposite</span> — the recovering site receives monitoring continuity and recruitment support; the degrading site receives immediate chronic stressor identification and Tier 2–3 intervention targeting. Status-only scoring without trajectory produces systematically wrong routing decisions.</li>
+        <li>When a corridor site shows macroalgae cover exceeding 40% and herbivore biomass below 30% of baseline, evaluate <strong>phase shift proximity</strong> before assigning a standard degradation score. If the coral:algae transition has been progressive over more than two circuits with no acute disturbance event driving the change, the site is exhibiting the approach to a phase shift driven by chronic press disturbances — not a post-pulse recovery scenario. Enter a tipping threshold proximity flag in CMIE with an explicit hysteresis note: <span class="hl">reversing this trajectory will require stressor reduction to a level substantially below the current threshold, not merely stabilization at current levels.</span></li>
+        <li>When comparing two corridor sites with similar current coral cover but different disturbance histories, assess <strong>resistance and resilience separately</strong> before assigning relative priority. Site A with 35% cover that survived a DHW-8 bleaching event two circuits ago without phase shift has demonstrated high resistance — it should receive a higher resilience confidence score than Site B with 35% cover that has never been exposed to significant thermal stress. Site B's untested resilience means its response to the next bleaching event is unknown; Site A's demonstrated resistance means it is a higher-value protection and monitoring investment for the corridor network.</li>
+        <li>When assessing a site that has experienced multiple successive pulse disturbances (two bleaching events within five years, or a bleaching event followed by a hurricane within three years), evaluate whether <strong>compound pulse effects are eroding resilience</strong> toward a press-equivalent dynamic. Successive pulse disturbances with insufficient recovery time between them function dynamically like a press disturbance — the system never returns to full resilience before the next displacement. Enter this in the CMIE record as a compounding disturbance trajectory, not as two independent pulse events, and weight the Decision Score accordingly with a reduced recovery time discount.</li>
+        <li>From circuit 5 onward, include a <strong>critical slowing down assessment</strong> in the CMIE record for each site with a continuous 5+ circuit time series: calculate the lag-1 autocorrelation of coral cover values and the variance of cover values across circuits. An increasing autocorrelation trend (values becoming more similar to the prior circuit than expected) combined with increasing variance (cover fluctuating more widely each circuit) is the statistical signature of critical slowing down — the reef's attractor is weakening and it is approaching a tipping threshold. <span class="pu">This is the highest-confidence early warning signal available in the GROAN data architecture and should trigger an immediate escalation in DMAP-CAL™ Decision Score priority regardless of current cover level.</span></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Al registrar datos de transecto de banda GRIN, compare siempre la observación actual con todos los datos de circuitos previos antes de asignar una categoría de Puntuación de Decisión. <span class="cr">El enrutamiento de intervención de DMAP-CAL™ para un sitio con cobertura en ascenso vs. en descenso es opuesto</span> — la puntuación solo de estado sin trayectoria produce decisiones de enrutamiento sistemáticamente incorrectas.</li>
+        <li>Cuando la cobertura de macroalgas supere el 40% y la biomasa de herbívoros esté por debajo del 30% de la línea base, evalúe la <strong>proximidad al cambio de fase</strong>. Ingrese una señal de proximidad al umbral de inflexión en el CMIE con una nota explícita de histéresis: <span class="hl">revertir esta trayectoria requerirá reducir los estresores a un nivel sustancialmente por debajo del umbral actual, no simplemente estabilizarse en los niveles actuales.</span></li>
+        <li>Al comparar sitios con cobertura coralina similar pero diferentes historiales de perturbación, evalúe <strong>resistencia y resiliencia por separado</strong>. Un sitio que sobrevivió un evento de blanqueamiento intenso sin cambio de fase ha demostrado alta resistencia y representa una inversión de mayor valor para la red del corredor.</li>
+        <li>Cuando un sitio ha experimentado múltiples perturbaciones de pulso sucesivas, evalúe si los <strong>efectos de pulso compuestos están erosionando la resiliencia</strong> hacia una dinámica equivalente a presión. Las perturbaciones de pulso sucesivas con tiempo de recuperación insuficiente funcionan dinámicamente como una perturbación de presión. Regístrelo en el CMIE como trayectoria de perturbación compuesta.</li>
+        <li>A partir del circuito 5, incluya una <strong>evaluación de desaceleración crítica</strong> en el registro CMIE para cada sitio con 5+ circuitos continuos. Un aumento en la autocorrelación con rezago 1 combinado con varianza creciente es la firma estadística de la desaceleración crítica. <span class="pu">Esta es la señal de advertencia temprana de mayor confianza disponible en la arquitectura de datos de GROAN y debe desencadenar una escalada inmediata en la prioridad de la Puntuación de Decisión de DMAP-CAL™.</span></li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">Two corridor sites both record 28% live coral cover in circuit 4. Site A showed 18% cover in circuit 2 and 23% in circuit 3. Site B showed 45% cover in circuit 2 and 36% in circuit 3. Why does the CMIE produce opposite DMAP-CAL™ routing decisions for these sites despite identical current status?</div>
+        <div class="mcq-q-es">Dos sitios del corredor registran 28% de cobertura coralina en el circuito 4. El Sitio A mostró 18% en el circuito 2 y 23% en el circuito 3. El Sitio B mostró 45% en el circuito 2 y 36% en el circuito 3. ¿Por qué el CMIE produce decisiones de enrutamiento DMAP-CAL™ opuestas a pesar del estado actual idéntico?</div>
+        <ul class="mcq-options">
+          <li>A. The sites should receive the same routing — current cover is the only defensible basis for intervention prioritization; trajectory data introduces too much uncertainty</li>
+          <li>B. Site A receives higher priority because lower absolute cover always indicates greater urgency regardless of trend direction</li>
+          <li class="correct">C. Site A is on a positive recovery trajectory (+10 pp over two circuits) and receives monitoring continuity and recruitment support; Site B is on an accelerating negative trajectory (−17 pp over two circuits) and requires immediate chronic stressor identification and Tier 2–3 intervention — the trajectory reverses the apparent status ranking entirely and produces opposite management responses</li>
+          <li>D. Both sites require immediate intervention; trajectory data is only used to prioritize between sites with identical intervention needs, not to change the intervention type</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">A corridor site has experienced bleaching events in circuits 1, 3, and 5 — each recovering partially before the next event. The site has never undergone a phase shift and current coral cover remains at 22%. Why should the CMIE enter this as a compounding disturbance trajectory rather than three independent pulse events, and what does this imply for the Decision Score?</div>
+        <div class="mcq-q-es">Un sitio ha experimentado eventos de blanqueamiento en los circuitos 1, 3 y 5, con recuperación parcial entre cada uno. La cobertura actual es del 22%. ¿Por qué el CMIE debe registrar esto como trayectoria de perturbación compuesta y qué implica para la Puntuación de Decisión?</div>
+        <ul class="mcq-options">
+          <li>A. Three pulse events are always logged independently — compounding effects are theoretical and not yet supported by field evidence in the MAR corridor</li>
+          <li class="correct">B. Successive pulse disturbances with insufficient recovery time between them function dynamically like a press disturbance — the system never returned to full resilience before the next displacement; each event compounds the prior resilience deficit; the CMIE must apply a reduced recovery time discount to the Decision Score, reflecting that the site's resilience baseline is lower than its cover level suggests, and that the next bleaching event will have a higher phase shift probability than a naively status-based DS would indicate</li>
+          <li>C. The site should be reclassified as under press disturbance only — once bleaching events exceed two in five circuits, the pulse classification no longer applies</li>
+          <li>D. 22% cover after three bleaching events indicates higher-than-expected resistance; the DS should reflect a positive resilience assessment, not a compounding disturbance flag</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">From circuit 6, GRIN time series analysis at a corridor site shows lag-1 autocorrelation of coral cover increasing from 0.31 (circuit 2) to 0.68 (circuit 6), and cover variance increasing from 4.2 pp² to 11.8 pp² over the same period. Current coral cover is 38% — within the healthy range for the site. What is the correct CMIE interpretation and DMAP-CAL™ response?</div>
+        <div class="mcq-q-es">Desde el circuito 6, el análisis de series temporales GRIN muestra autocorrelación lag-1 creciendo de 0,31 a 0,68, y varianza de cobertura creciendo de 4,2 pp² a 11,8 pp². La cobertura coralina actual es del 38%. ¿Cuál es la interpretación correcta del CMIE y la respuesta de DMAP-CAL™?</div>
+        <ul class="mcq-options">
+          <li>A. The statistics are within normal range — 38% cover is healthy; no CMIE action required until cover drops below 25%</li>
+          <li>B. Increasing variance indicates pulse disturbance frequency is increasing; log as a compounding pulse event series and re-survey next circuit</li>
+          <li>C. Increasing autocorrelation alone is sufficient to trigger a tipping threshold flag; variance trend is a secondary confirmation metric only</li>
+          <li class="correct">D. The combined signature — increasing lag-1 autocorrelation and increasing variance over five circuits despite currently healthy cover — is critical slowing down: the reef's attractor is weakening and it is approaching a tipping threshold that status metrics alone cannot detect; enter as an EWS flag in CMIE and escalate DMAP-CAL™ Decision Score priority immediately regardless of cover level; this is the highest-confidence early warning signal in the GROAN architecture and the precise output the 20-year time series is designed to produce</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: D · RESPUESTA: D</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L05 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">9.80%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
