@@ -1,1 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L03 Biological Oceanography — Systems Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --tan:        #c8a45a;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green  { background: rgba(62,207,142,0.15);   color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .tag-tan    { background: rgba(200,164,90,0.15);   color: var(--tan);        border: 1px solid rgba(200,164,90,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);   font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);  font-weight: 500; }
+  .lang-block .gr  { color: var(--green);  font-weight: 500; }
+  .lang-block .tn  { color: var(--tan);    font-weight: 500; }
+  .lang-block .pu  { color: var(--purple); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .b-tan    { background: rgba(200,164,90,0.12);  color: var(--tan);        border: 1px solid rgba(200,164,90,0.3); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral);  font-weight: 500; }
+  .app-panel .tn { color: var(--tan);    font-weight: 500; }
+  .app-panel .gr { color: var(--green);  font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.52%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 03 · Biological Oceanography · Lesson 67 of 704</div>
+        <div class="lesson-title">Systems Overview</div>
+        <div class="lesson-subtitle">Pelagic · benthic · coral reef · seagrass · mangrove — ecosystem structure, inter-system coupling, and GROAN module mapping across the MAR corridor</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-coral">Coral Reef System</span>
+        <span class="tag tag-green">Seagrass · GSIN</span>
+        <span class="tag tag-tan">Mangrove · GMIN</span>
+        <span class="tag tag-blue">Pelagic · Benthic</span>
+        <span class="tag tag-gold">CMIE Coupling</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: MAR coastal cross-section — mangrove shore (left) → seagrass lagoon → reef crest → open pelagic (right), with inter-system flux arrows and GROAN module labels -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#020f1e"/>
+            <stop offset="100%" stop-color="#04294a" stop-opacity="0.5"/>
+          </linearGradient>
+          <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#04294a" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Sky -->
+        <rect x="0"   y="0"   width="340" height="62" fill="url(#skyG)"/>
+        <!-- Sea body -->
+        <rect x="0"   y="62"  width="340" height="158" fill="url(#seaG)"/>
+        <!-- Surface line -->
+        <line x1="0" y1="62" x2="340" y2="62" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+
+        <!-- ── MANGROVE ZONE (left 0–52) ── -->
+        <rect x="0" y="62" width="52" height="158" fill="rgba(20,14,2,0.65)"/>
+        <!-- Prop roots -->
+        <line x1="12" y1="62" x2="6"  y2="82" stroke="rgba(200,164,90,0.65)" stroke-width="1.3"/>
+        <line x1="12" y1="62" x2="18" y2="82" stroke="rgba(200,164,90,0.65)" stroke-width="1.3"/>
+        <line x1="26" y1="62" x2="20" y2="80" stroke="rgba(200,164,90,0.55)" stroke-width="1.2"/>
+        <line x1="26" y1="62" x2="32" y2="80" stroke="rgba(200,164,90,0.55)" stroke-width="1.2"/>
+        <line x1="40" y1="62" x2="35" y2="78" stroke="rgba(200,164,90,0.45)" stroke-width="1.1"/>
+        <line x1="40" y1="62" x2="46" y2="78" stroke="rgba(200,164,90,0.45)" stroke-width="1.1"/>
+        <!-- Canopy -->
+        <ellipse cx="12" cy="38" rx="13" ry="16" fill="rgba(50,90,10,0.6)"/>
+        <ellipse cx="28" cy="30" rx="15" ry="20" fill="rgba(40,75,8,0.55)"/>
+        <ellipse cx="44" cy="40" rx="11" ry="14" fill="rgba(55,95,12,0.5)"/>
+        <!-- GMIN label -->
+        <rect x="4" y="194" width="44" height="12" rx="2" fill="rgba(200,164,90,0.15)" stroke="rgba(200,164,90,0.4)" stroke-width="0.7"/>
+        <text x="26" y="203" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(200,164,90,0.9)">GMIN</text>
+
+        <!-- ── SEAGRASS LAGOON (52–132) ── -->
+        <rect x="52" y="130" width="80" height="90" fill="rgba(4,18,8,0.4)"/>
+        <!-- Seagrass blades -->
+        <line x1="62"  y1="130" x2="59"  y2="114" stroke="rgba(62,207,142,0.55)" stroke-width="1.2"/>
+        <line x1="70"  y1="130" x2="68"  y2="112" stroke="rgba(62,207,142,0.5)"  stroke-width="1.2"/>
+        <line x1="80"  y1="130" x2="78"  y2="115" stroke="rgba(62,207,142,0.55)" stroke-width="1.2"/>
+        <line x1="90"  y1="130" x2="88"  y2="113" stroke="rgba(62,207,142,0.5)"  stroke-width="1.2"/>
+        <line x1="100" y1="130" x2="98"  y2="116" stroke="rgba(62,207,142,0.45)" stroke-width="1.2"/>
+        <line x1="112" y1="130" x2="110" y2="114" stroke="rgba(62,207,142,0.5)"  stroke-width="1.2"/>
+        <line x1="122" y1="130" x2="120" y2="115" stroke="rgba(62,207,142,0.45)" stroke-width="1.2"/>
+        <!-- GSIN label -->
+        <rect x="72" y="194" width="40" height="12" rx="2" fill="rgba(62,207,142,0.12)" stroke="rgba(62,207,142,0.4)" stroke-width="0.7"/>
+        <text x="92" y="203" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(62,207,142,0.9)">GSIN</text>
+
+        <!-- ── REEF CREST (132–240) ── -->
+        <!-- Reef substrate mound -->
+        <ellipse cx="188" cy="133" rx="58" ry="18" fill="rgba(10,60,50,0.65)"/>
+        <!-- Coral heads -->
+        <ellipse cx="152" cy="126" rx="10" ry="7"  fill="rgba(232,96,64,0.4)"/>
+        <ellipse cx="170" cy="122" rx="13" ry="8"  fill="rgba(232,96,64,0.45)"/>
+        <ellipse cx="190" cy="120" rx="14" ry="9"  fill="rgba(232,96,64,0.42)"/>
+        <ellipse cx="210" cy="123" rx="12" ry="8"  fill="rgba(232,96,64,0.4)"/>
+        <ellipse cx="228" cy="127" rx="10" ry="7"  fill="rgba(232,96,64,0.36)"/>
+        <!-- Reef fish (gold) -->
+        <ellipse cx="168" cy="100" rx="9"  ry="3.5" fill="rgba(240,180,41,0.45)"/>
+        <polygon points="177,100 185,95 185,105"    fill="rgba(240,180,41,0.4)"/>
+        <ellipse cx="210" cy="94"  rx="11" ry="4"   fill="rgba(240,180,41,0.4)"/>
+        <polygon points="221,94 230,89 230,99"       fill="rgba(240,180,41,0.35)"/>
+        <!-- GRIN label -->
+        <rect x="168" y="194" width="40" height="12" rx="2" fill="rgba(232,96,64,0.12)" stroke="rgba(232,96,64,0.4)" stroke-width="0.7"/>
+        <text x="188" y="203" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(232,96,64,0.9)">GRIN</text>
+
+        <!-- ── OPEN PELAGIC (240–340) ── -->
+        <!-- Plankton dots -->
+        <circle cx="258" cy="74"  r="2.5" fill="rgba(62,207,142,0.75)"/>
+        <circle cx="278" cy="68"  r="2.0" fill="rgba(62,207,142,0.7)"/>
+        <circle cx="300" cy="76"  r="2.8" fill="rgba(62,207,142,0.75)"/>
+        <circle cx="322" cy="70"  r="2.2" fill="rgba(62,207,142,0.65)"/>
+        <!-- Zooplankton -->
+        <ellipse cx="265" cy="92" rx="4.5" ry="1.8" fill="rgba(26,200,200,0.55)" transform="rotate(-15,265,92)"/>
+        <ellipse cx="310" cy="88" rx="4"   ry="1.6" fill="rgba(26,200,200,0.5)"  transform="rotate(18,310,88)"/>
+        <!-- GKIN label -->
+        <rect x="270" y="194" width="40" height="12" rx="2" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.35)" stroke-width="0.7"/>
+        <text x="290" y="203" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.85)">GKIN</text>
+
+        <!-- ── INTER-SYSTEM FLUX ARROWS ── -->
+        <!-- Mangrove → Seagrass: leaf litter / DOC export (tan arrow) -->
+        <line x1="52" y1="100" x2="72" y2="100" stroke="rgba(200,164,90,0.55)" stroke-width="1.1"/>
+        <polygon points="70,97 76,100 70,103" fill="rgba(200,164,90,0.55)"/>
+        <text x="62" y="96" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(200,164,90,0.65)">DOC</text>
+
+        <!-- Seagrass → Reef: juvenile fish nursery export (green arrow) -->
+        <line x1="132" y1="108" x2="150" y2="108" stroke="rgba(62,207,142,0.55)" stroke-width="1.1"/>
+        <polygon points="148,105 154,108 148,111" fill="rgba(62,207,142,0.55)"/>
+        <text x="141" y="104" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.65)">JUVI</text>
+
+        <!-- Reef → Pelagic: spawn / larval export (coral arrow) -->
+        <line x1="240" y1="108" x2="258" y2="108" stroke="rgba(232,96,64,0.5)" stroke-width="1.1"/>
+        <polygon points="256,105 262,108 256,111" fill="rgba(232,96,64,0.5)"/>
+        <text x="249" y="104" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.65)">LARV</text>
+
+        <!-- Pelagic → Reef: nutrient / plankton import (cyan arrow, reverse) -->
+        <line x1="258" y1="118" x2="240" y2="118" stroke="rgba(26,200,200,0.45)" stroke-width="1.0" stroke-dasharray="3,2"/>
+        <polygon points="242,115 236,118 242,121" fill="rgba(26,200,200,0.45)"/>
+        <text x="249" y="132" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.55)">NUTR</text>
+
+        <!-- CMIE coupling label (top centre) -->
+        <rect x="100" y="4" width="140" height="18" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(155,127,232,0.35)" stroke-width="0.8"/>
+        <text x="170" y="11" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(155,127,232,0.85)">CMIE CROSS-SYSTEM COUPLING</text>
+        <text x="170" y="19" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(138,184,204,0.55)">GMIN → GSIN → GRIN → GKIN</text>
+
+        <!-- Depth indicator right margin -->
+        <line x1="336" y1="62"  x2="336" y2="220" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+        <text x="338" y="90"  font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.4)" transform="rotate(90,338,90)">0–40m NERITIC</text>
+
+        <!-- Bioluminescent sparks -->
+        <circle cx="160" cy="172" r="1.0" fill="rgba(26,200,200,0.7)"/>
+        <circle cx="220" cy="165" r="0.8" fill="rgba(26,200,200,0.6)"/>
+        <circle cx="290" cy="155" r="1.1" fill="rgba(26,200,200,0.55)"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Systems Overview</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>The ocean is not a single biological system — it is a set of functionally distinct ecosystems coupled by fluxes of energy, nutrients, larvae, and organic matter. GROAN's module architecture is built on this reality: <strong>GMIN</strong> monitors mangroves, <strong>GSIN</strong> monitors seagrass, <strong>GRIN</strong> monitors coral reefs, and <strong>GKIN</strong> monitors the pelagic kinetic environment. The <strong>CMIE</strong> exists precisely because each of these systems generates signals that propagate into the others — and a decision system that monitors only one ecosystem at a time is structurally blind to the most consequential dynamics in the corridor.</p>
+
+      <p><strong>The Pelagic System</strong> is the open water column above the seafloor, dominated by plankton and nekton. It is the primary carbon reservoir and nutrient cycling engine for all adjacent coastal systems. Pelagic productivity sets the baseline energy available to reef trophic pyramids through larval import, zooplankton advection, and migrating nekton. SST anomalies, thermocline depth, and nutrient upwelling — all pelagic variables — propagate directly into reef condition within days to weeks. <span class="cr">GROAN's GKIN module captures these pelagic kinetic indices</span>, providing the upstream context that makes GRIN observations interpretable across different sites and circuits.</p>
+
+      <p><strong>The Benthic System</strong> encompasses all seafloor-associated communities, from sediment microbial mats to coral framework builders. Benthic productivity is fueled by a combination of in-situ photosynthesis (corals, algae, seagrasses) and organic matter sinking from the pelagic (biological pump delivery). The benthic community both reflects and drives water column chemistry: calcifying organisms consume carbonate ions, raise local pH, and modulate Ω aragonite — feedback loops that connect directly to the chemical oceanography pipeline from Section 02.</p>
+
+      <p><strong>The Coral Reef System</strong> is a benthic ecosystem of extraordinary biological complexity built on the carbonate framework secreted by scleractinian corals in partnership with their zooxanthellae symbionts. Reefs occupy less than 0.1% of the ocean floor yet support an estimated 25% of all marine species. Their defining ecological function is <span class="hl">structural habitat provisioning</span> — the three-dimensional carbonate architecture creates niche space for fish, invertebrates, and cryptic fauna that would not exist on a flat seafloor. <span class="cr">Reef degradation is therefore not simply a loss of coral cover — it is a structural collapse that eliminates the physical substrate on which the entire associated community depends.</span> GRIN monitors this system across 100+ corridor sites.</p>
+
+      <p><strong>The Seagrass System</strong> (GSIN) occupies the shallow lagoon and back-reef zones between mangroves and the reef crest — precisely the area that Shamrocket's 24-inch draft is designed to access. Seagrass meadows perform three functions critical to GROAN's corridor model: they are <span class="gr">nursery habitat</span> for juvenile reef fish (exporting recruits to adult reef populations), <span class="gr">carbon burial engines</span> (sequestering organic carbon in anoxic sediments at rates rivaling terrestrial forests), and <span class="gr">water quality buffers</span> (absorbing excess nutrients and sediment before they reach the reef crest). GSIN loss therefore triggers a three-pathway CMIE cascade: juvenile recruitment decline, local Ω aragonite impact, and increased turbidity stress on adjacent reef.</p>
+
+      <p><strong>The Mangrove System</strong> (GMIN) occupies the intertidal zone at the land-sea interface. Mangroves export dissolved organic carbon (DOC) and leaf litter into adjacent seagrass and reef systems, provide nursery habitat for juvenile fish and shrimp, and act as the first buffer against terrestrial sediment and nutrient loading from land-based sources. <span class="hl">The Caribbean case study proof-of-concept — GMIN(mangrove loss) → GMAIN(juvenile fish decline) → GRIN(reef trophic disruption) — is the canonical CMIE cross-module interaction chain</span> that anchors Chapter 5 of the GROAN thesis. Without GMIN data, the CMIE cannot attribute a GRIN trophic anomaly to its upstream terrestrial source.</p>
+
+      <p>Inter-system coupling in the MAR corridor operates through four primary flux pathways: <strong>larval export</strong> (reef → pelagic → downstream reef, connecting distant sites through oceanographic dispersal), <strong>juvenile fish nursery export</strong> (seagrass → reef, linking GSIN meadow health to GRIN recruitment signals), <strong>nutrient and DOC export</strong> (mangrove → seagrass → reef, transmitting land-based stressor signatures through the full coastal gradient), and <strong>sediment and turbidity loading</strong> (land → mangrove → seagrass → reef, a degradation cascade that GROAN's full module stack is uniquely positioned to track from source to endpoint). <span class="pu">The CMIE quantifies each flux pathway and weights it in the Decision Score — no single module can do this.</span></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>El océano no es un único sistema biológico — es un conjunto de ecosistemas funcionalmente distintos acoplados por flujos de energía, nutrientes, larvas y materia orgánica. La arquitectura de módulos de GROAN está construida sobre esta realidad: <strong>GMIN</strong> monitorea manglares, <strong>GSIN</strong> pastos marinos, <strong>GRIN</strong> arrecifes de coral, y <strong>GKIN</strong> el entorno cinético pelágico. El <strong>CMIE</strong> existe precisamente porque cada uno de estos sistemas genera señales que se propagan hacia los demás.</p>
+
+      <p><strong>Sistema Pelágico:</strong> La columna de agua abierta dominada por plancton y nectón. Las anomalías de TSM, la profundidad de la termoclina y la surgencia de nutrientes — todas variables pelágicas — se propagan directamente hacia la condición arrecifal en días a semanas. <span class="cr">El módulo GKIN de GROAN captura estos índices cinéticos pelágicos</span>, proporcionando el contexto anterior que hace interpretables las observaciones de GRIN.</p>
+
+      <p><strong>Sistema Arrecifal Coralino:</strong> Ecosistema bentónico de extraordinaria complejidad biológica construido sobre el armazón de carbonato secretado por corales escleractíneos. Los arrecifes ocupan menos del 0,1% del fondo oceánico pero sostienen aproximadamente el 25% de todas las especies marinas. <span class="cr">La degradación arrecifal no es simplemente una pérdida de cobertura coralina — es un colapso estructural que elimina el sustrato físico del que depende toda la comunidad asociada.</span></p>
+
+      <p><strong>Sistema de Pastos Marinos (GSIN):</strong> Ocupa las zonas de laguna poco profunda y back-reef entre manglares y la cresta arrecifal — precisamente el área que el calado de 24 pulgadas del Shamrocket está diseñado para acceder. La pérdida de GSIN desencadena una cascada CMIE de tres vías: declive del reclutamiento juvenil, impacto en el Ω aragonita local, y aumento del estrés por turbidez en el arrecife adyacente.</p>
+
+      <p><strong>Sistema de Manglares (GMIN):</strong> El estudio de caso de prueba de concepto del Caribe — <span class="hl">GMIN(pérdida de manglares) → GMAIN(declive de peces juveniles) → GRIN(perturbación trófica arrecifal)</span> — es la cadena canónica de interacción entre módulos del CMIE que ancla el Capítulo 5 del marco GROAN. Sin datos de GMIN, el CMIE no puede atribuir una anomalía trófica en GRIN a su fuente terrestre anterior.</p>
+
+      <p>El acoplamiento entre sistemas en el corredor MAR opera a través de cuatro vías de flujo primarias: exportación larval, exportación de peces juveniles de viveros, exportación de nutrientes y COD, y carga de sedimentos y turbidez. <span class="pu">El CMIE cuantifica cada vía de flujo y la pondera en la Puntuación de Decisión — ningún módulo individual puede hacer esto.</span></p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>System / Sistema</th>
+          <th>Zone</th>
+          <th>Key Biological Function</th>
+          <th>GROAN Module</th>
+          <th>CMIE Coupling Pathway</th>
+          <th>Rim Run™ Access</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-cyan">Pelagic</span></td>
+          <td>Open water column</td>
+          <td>Carbon reservoir; nutrient cycling; larval dispersal highway</td>
+          <td>GKIN</td>
+          <td>SST / thermocline → reef NPP; larval export → downstream recruitment</td>
+          <td>Transit legs between nodes</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-cyan">Benthic (general)</span></td>
+          <td>Seafloor communities</td>
+          <td>Carbonate framework; sediment biogeochemistry; Ω feedback</td>
+          <td>GRIN · GSIN</td>
+          <td>Calcification → local Ω aragonite; sediment chemistry → water column</td>
+          <td>Snorkel / CTD at nodes</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Coral Reef</span></td>
+          <td>Neritic photic zone, 0–40 m</td>
+          <td>Structural habitat; biodiversity concentration; trophic pyramid base</td>
+          <td>GRIN</td>
+          <td>Trophic cascade ↔ GKIN; bleaching → CMIE T1 NPP signal</td>
+          <td>Primary survey target, 100+ sites</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Seagrass</span></td>
+          <td>Lagoon / back-reef, 0–10 m</td>
+          <td>Juvenile nursery; carbon burial; water quality buffer</td>
+          <td>GSIN</td>
+          <td>Meadow loss → juvenile recruitment decline + Ω impact + turbidity increase</td>
+          <td>Shamrocket 24" draft access</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-tan">Mangrove</span></td>
+          <td>Intertidal land-sea interface</td>
+          <td>DOC export; terrestrial sediment buffer; juvenile nursery</td>
+          <td>GMIN</td>
+          <td>Loss → GMAIN juvenile decline → GRIN trophic disruption (Caribbean POC)</td>
+          <td>Shoreline survey, dinghy access</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — MAR Corridor · CMIE Routing · Rim Run™ Protocol</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When a GRIN survey records a trophic anomaly — e.g. unexpectedly low herbivore biomass or compressed predator-prey ratio — do not attribute it to reef-internal dynamics alone before checking the upstream GSIN and GMIN records for that corridor segment. <strong>The Caribbean POC causal chain — GMIN loss → GMAIN juvenile decline → GRIN trophic disruption — is the canonical cross-module interaction</strong> the CMIE is designed to detect. A GRIN trophic anomaly without a corresponding GSIN or GMIN flag is an incomplete diagnostic; a GRIN trophic anomaly with confirmed GSIN seagrass loss and GMIN mangrove retreat is a complete causal attribution that produces a meaningfully different Decision Score.</li>
+        <li>When a GSIN seagrass loss event is confirmed at a corridor site, enter it in the CMIE record as a <strong>three-pathway cascade flag</strong> — not a single habitat loss metric. The three pathways are: (1) juvenile recruitment decline signal for the adjacent GRIN site, (2) carbon burial efficiency degradation affecting local Ω aragonite, and (3) reduced water quality buffering increasing turbidity stress on the reef crest. Each pathway has a different temporal lag: recruitment effects manifest over 1–3 years, Ω effects over months, turbidity effects within weeks of the loss event. Log the expected lag for each pathway in the CMIE record at the time of the GSIN observation.</li>
+        <li>When surveying a corridor site where mangrove coverage has declined since the previous circuit, treat the observation as a <span class="tn">GMIN upstream input</span> to the GRIN Decision Score — not as a standalone habitat metric. Quantify the mangrove loss area in hectares, estimate DOC export reduction using the GMIN standard conversion factor, and flag the downstream GSIN site for increased nutrient loading from unfiltered terrestrial runoff. The mangrove's buffering function is invisible in GRIN data alone but fully visible in a cross-module CMIE record that includes GMIN.</li>
+        <li>When planning the Rim Run™ circuit observation sequence at a new reef node, survey systems in landward-to-seaward order: <strong>mangrove → seagrass → reef crest → pelagic transect</strong>. This sequence ensures that upstream condition data (GMIN, GSIN) is recorded before the GRIN survey so that any trophic or structural anomaly observed on the reef can be evaluated against its full upstream causal context in real time, rather than requiring retrospective correlation across separate observation records.</li>
+        <li>When the CMIE produces a Decision Score for a corridor reef site, verify that all four system inputs are represented — <span class="cr">GKIN pelagic context, GRIN reef condition, GSIN seagrass status, and GMIN mangrove coverage</span>. A Decision Score built on GRIN data alone is structurally incomplete and will systematically underestimate stressor severity at sites where terrestrial source loading is the dominant driver. The Decision Score's defensibility to an institutional partner depends on its cross-module architecture, not on the precision of any single module's measurement.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Cuando un estudio GRIN registre una anomalía trófica, no la atribuya a dinámicas internas del arrecife antes de verificar los registros anteriores de GSIN y GMIN para ese segmento del corredor. <strong>La cadena causal canónica — pérdida de GMIN → declive juvenil de GMAIN → perturbación trófica de GRIN</strong> es la interacción entre módulos que el CMIE está diseñado para detectar.</li>
+        <li>Cuando se confirme un evento de pérdida de GSIN, regístrelo en el CMIE como una <strong>señal de cascada de tres vías</strong>: (1) declive de reclutamiento juvenil para el sitio GRIN adyacente, (2) degradación de la eficiencia de enterramiento de carbono que afecta el Ω aragonita local, y (3) reducción del amortiguamiento de calidad del agua que aumenta el estrés por turbidez en la cresta arrecifal.</li>
+        <li>Cuando el cobertura de manglar haya disminuido desde el circuito anterior, trate la observación como una <span class="tn">entrada anterior de GMIN</span> a la Puntuación de Decisión de GRIN. Cuantifique la pérdida de manglar en hectáreas y marque el sitio GSIN aguas abajo para mayor carga de nutrientes por escorrentía terrestre no filtrada.</li>
+        <li>Al planificar la secuencia de observación en un nuevo nodo arrecifal, encuestar los sistemas en orden tierra-mar: <strong>manglar → pastos marinos → cresta arrecifal → transecto pelágico</strong>. Esta secuencia garantiza que los datos de condición anterior estén disponibles para evaluar cualquier anomalía observada en el arrecife en tiempo real.</li>
+        <li>Al verificar una Puntuación de Decisión del CMIE, confirme que los cuatro insumos del sistema estén representados — <span class="cr">GKIN, GRIN, GSIN y GMIN</span>. Una Puntuación de Decisión construida solo con datos GRIN es estructuralmente incompleta y subestimará sistemáticamente la severidad de los estresores en sitios donde la carga de fuentes terrestres es el impulsor dominante.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">A GRIN survey at a mid-corridor site records unexpectedly low herbivore biomass and compressed predator-prey ratios. The site shows no thermal stress history and Ω aragonite is within normal range. What is the correct CMIE diagnostic sequence?</div>
+        <div class="mcq-q-es">Un estudio GRIN registra biomasa de herbívoros inesperadamente baja y relaciones depredador-presa comprimidas. El sitio no muestra historial de estrés térmico y el Ω aragonita está en rango normal. ¿Cuál es la secuencia diagnóstica CMIE correcta?</div>
+        <ul class="mcq-options">
+          <li>A. Attribute the anomaly to overfishing — low herbivore biomass without thermal stress is always fishing-driven; log a Tier 3 DMAP-CAL™ intervention flag</li>
+          <li>B. Flag for repeat survey — a single anomalous GRIN observation without thermal or chemical confirmation should not trigger a CMIE cross-module analysis</li>
+          <li class="correct">C. Check upstream GSIN and GMIN records for that corridor segment before attributing the anomaly to reef-internal dynamics; the canonical CMIE chain — GMIN loss → GMAIN juvenile decline → GRIN trophic disruption — must be evaluated; a confirmed upstream seagrass or mangrove loss event would constitute a full causal attribution producing a meaningfully different Decision Score than a reef-internal diagnosis alone</li>
+          <li>D. Enter the anomaly in GKIN as a pelagic connectivity disruption — low herbivore biomass indicates failed larval recruitment from upstream pelagic dispersal</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">A GSIN survey confirms significant seagrass loss at a lagoon site adjacent to a surveyed reef node. What are the three CMIE cascade pathways that must be logged, and what are their approximate temporal lags?</div>
+        <div class="mcq-q-es">Un estudio GSIN confirma pérdida significativa de pastos marinos en un sitio de laguna adyacente a un nodo arrecifal. ¿Cuáles son las tres vías de cascada CMIE que deben registrarse y cuáles son sus desfases temporales aproximados?</div>
+        <ul class="mcq-options">
+          <li>A. Single pathway only: turbidity increase affecting reef crest light availability; lag of days to weeks; no other CMIE entries required until turbidity is confirmed instrumentally</li>
+          <li class="correct">B. Three pathways: (1) juvenile recruitment decline for the adjacent GRIN site — lag 1–3 years; (2) carbon burial efficiency degradation affecting local Ω aragonite — lag months; (3) reduced water quality buffering increasing turbidity stress on the reef crest — lag weeks; all three must be entered in the CMIE record at the time of the GSIN observation with their expected lag windows</li>
+          <li>C. Two pathways: juvenile recruitment and carbon burial; turbidity is a physical oceanography variable and belongs in the GKIN record, not the CMIE</li>
+          <li>D. The CMIE entry should wait until all three pathways are instrumentally confirmed — entering projected cascade effects before they manifest produces speculative Decision Scores</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">Why is surveying systems in landward-to-seaward order — mangrove → seagrass → reef → pelagic — the correct Rim Run™ field protocol, and what error does the reverse order produce?</div>
+        <div class="mcq-q-es">¿Por qué el protocolo correcto es encuestar en orden tierra-mar — manglar → pastos → arrecife → pelágico — y qué error produce el orden inverso?</div>
+        <ul class="mcq-options">
+          <li>A. Tidal access — mangroves are only accessible at high tide, which typically precedes the optimal reef survey window; the order is logistical, not analytical</li>
+          <li>B. Equipment sequencing — the CTD profiler must be deployed in shallow water first to calibrate against known depth before reef deployment; protocol is instrument-driven</li>
+          <li class="correct">C. Upstream context must be available before downstream anomalies are interpreted: surveying reef first produces a GRIN anomaly with no upstream causal context, requiring retrospective correlation across separate records; surveying mangrove and seagrass first means any trophic or structural anomaly on the reef can be evaluated against its full upstream causal history in real time, enabling immediate CMIE cross-module attribution rather than deferred analysis</li>
+          <li>D. There is no analytical difference between survey orders — CMIE cross-module attribution is performed in post-processing and is independent of field observation sequence</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L03 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">9.52%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
