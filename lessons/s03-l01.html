@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L01 Biological Oceanography — Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue  { background: rgba(10,110,138,0.35); color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold  { background: rgba(240,180,41,0.15);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral { background: rgba(232,96,64,0.15);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green { background: rgba(62,207,142,0.15);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl { color: var(--gold); font-weight: 500; }
+  .lang-block .cr { color: var(--coral); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-t1 { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-t2 { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-t3 { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-t4 { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-t5 { background: rgba(155,127,232,0.12); color: #9b7fe8;           border: 1px solid rgba(155,127,232,0.3); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral); font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.23%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 01 · Biological Oceanography · Lesson 65 of 704</div>
+        <div class="lesson-title">Foundations</div>
+        <div class="lesson-subtitle">Field definition · ecological categories · trophic structure · primary productivity · photic and neritic zones</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Plankton · Nekton · Benthos</span>
+        <span class="tag tag-gold">Trophic Structure · 10% Rule</span>
+        <span class="tag tag-coral">GRIN · CMIE Cascade</span>
+        <span class="tag tag-green">NPP · Reef Productivity</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: Water column cross-section — three ecological categories across depth zones, trophic energy cascade on right margin, neritic window bracket -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="colG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#04294a" stop-opacity="0.9"/>
+            <stop offset="55%"  stop-color="#031e38" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="ltG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="rgba(26,200,200,0.2)"/>
+            <stop offset="45%"  stop-color="rgba(26,200,200,0.04)"/>
+            <stop offset="100%" stop-color="rgba(26,200,200,0)"/>
+          </linearGradient>
+        </defs>
+        <rect width="340" height="220" fill="url(#colG)"/>
+        <rect width="340" height="220" fill="url(#ltG)"/>
+
+        <!-- Depth zone lines -->
+        <line x1="0" y1="70"  x2="270" y2="70"  stroke="rgba(26,200,200,0.18)" stroke-width="0.6" stroke-dasharray="6,3"/>
+        <line x1="0" y1="130" x2="270" y2="130" stroke="rgba(26,200,200,0.10)" stroke-width="0.6" stroke-dasharray="6,3"/>
+        <line x1="0" y1="175" x2="270" y2="175" stroke="rgba(26,200,200,0.07)" stroke-width="0.6" stroke-dasharray="6,3"/>
+
+        <!-- Zone labels -->
+        <text x="8" y="34"  font-family="DM Mono,monospace" font-size="7"   fill="rgba(26,200,200,0.7)"  letter-spacing="0.12em">PHOTIC</text>
+        <text x="8" y="43"  font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.4)"  letter-spacing="0.08em">0 – 200 m</text>
+        <text x="8" y="102" font-family="DM Mono,monospace" font-size="7"   fill="rgba(26,200,200,0.38)" letter-spacing="0.12em">MESO</text>
+        <text x="8" y="155" font-family="DM Mono,monospace" font-size="7"   fill="rgba(26,200,200,0.26)" letter-spacing="0.12em">BATHY</text>
+        <text x="8" y="196" font-family="DM Mono,monospace" font-size="7"   fill="rgba(26,200,200,0.2)"  letter-spacing="0.12em">BENTHIC</text>
+
+        <!-- PLANKTON — surface -->
+        <circle cx="95"  cy="14" r="3.2" fill="rgba(62,207,142,0.85)"/>
+        <circle cx="118" cy="9"  r="2.5" fill="rgba(62,207,142,0.75)"/>
+        <circle cx="142" cy="18" r="3.0" fill="rgba(62,207,142,0.8)"/>
+        <circle cx="168" cy="8"  r="2.2" fill="rgba(62,207,142,0.7)"/>
+        <circle cx="192" cy="16" r="2.8" fill="rgba(62,207,142,0.75)"/>
+        <circle cx="218" cy="10" r="2.0" fill="rgba(62,207,142,0.65)"/>
+        <!-- zooplankton -->
+        <ellipse cx="106" cy="40" rx="5"   ry="2.2" fill="rgba(26,200,200,0.6)"  transform="rotate(-18,106,40)"/>
+        <ellipse cx="152" cy="34" rx="4.5" ry="1.8" fill="rgba(26,200,200,0.55)" transform="rotate(22,152,34)"/>
+        <ellipse cx="200" cy="44" rx="5"   ry="2.0" fill="rgba(26,200,200,0.5)"  transform="rotate(-12,200,44)"/>
+        <!-- PLANKTON label -->
+        <rect x="80" y="53" width="66" height="13" rx="2" fill="rgba(62,207,142,0.1)" stroke="rgba(62,207,142,0.35)" stroke-width="0.7"/>
+        <text x="113" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(62,207,142,0.9)">PLANKTON</text>
+
+        <!-- NEKTON — mid-column -->
+        <ellipse cx="115" cy="93"  rx="14" ry="5"   fill="rgba(240,180,41,0.42)"/>
+        <polygon points="129,93 142,87 142,99"       fill="rgba(240,180,41,0.38)"/>
+        <ellipse cx="210" cy="106" rx="16" ry="5.5" fill="rgba(240,180,41,0.38)"/>
+        <polygon points="226,106 240,99 240,113"     fill="rgba(240,180,41,0.34)"/>
+        <ellipse cx="72"  cy="116" rx="10" ry="4"   fill="rgba(240,180,41,0.35)"/>
+        <polygon points="82,116 93,111 93,121"       fill="rgba(240,180,41,0.3)"/>
+        <!-- NEKTON label -->
+        <rect x="150" y="119" width="52" height="13" rx="2" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.3)" stroke-width="0.7"/>
+        <text x="176" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(240,180,41,0.9)">NEKTON</text>
+
+        <!-- BENTHOS — bottom -->
+        <rect x="0" y="175" width="270" height="45" fill="rgba(2,8,16,0.65)"/>
+        <ellipse cx="55"  cy="180" rx="28" ry="8"  fill="rgba(10,70,50,0.55)"/>
+        <ellipse cx="148" cy="178" rx="25" ry="7"  fill="rgba(10,70,50,0.5)"/>
+        <ellipse cx="238" cy="181" rx="28" ry="8"  fill="rgba(10,70,50,0.55)"/>
+        <!-- coral heads -->
+        <ellipse cx="44"  cy="174" rx="9"  ry="6"  fill="rgba(232,96,64,0.38)"/>
+        <ellipse cx="63"  cy="172" rx="11" ry="7"  fill="rgba(232,96,64,0.42)"/>
+        <ellipse cx="140" cy="171" rx="10" ry="6"  fill="rgba(232,96,64,0.38)"/>
+        <ellipse cx="158" cy="170" rx="9"  ry="6"  fill="rgba(232,96,64,0.35)"/>
+        <ellipse cx="228" cy="173" rx="10" ry="6"  fill="rgba(232,96,64,0.38)"/>
+        <ellipse cx="246" cy="172" rx="9"  ry="6"  fill="rgba(232,96,64,0.35)"/>
+        <!-- seagrass -->
+        <line x1="105" y1="175" x2="102" y2="162" stroke="rgba(62,207,142,0.45)" stroke-width="1.2"/>
+        <line x1="113" y1="175" x2="111" y2="160" stroke="rgba(62,207,142,0.4)"  stroke-width="1.2"/>
+        <line x1="198" y1="175" x2="196" y2="163" stroke="rgba(62,207,142,0.45)" stroke-width="1.2"/>
+        <line x1="206" y1="175" x2="204" y2="161" stroke="rgba(62,207,142,0.4)"  stroke-width="1.2"/>
+        <!-- BENTHOS label -->
+        <rect x="118" y="197" width="52" height="13" rx="2" fill="rgba(26,200,200,0.07)" stroke="rgba(26,200,200,0.22)" stroke-width="0.7"/>
+        <text x="144" y="206" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.75)">BENTHOS</text>
+
+        <!-- bioluminescent sparks -->
+        <circle cx="52"  cy="150" r="1.1" fill="rgba(26,200,200,0.75)"/>
+        <circle cx="178" cy="158" r="0.9" fill="rgba(26,200,200,0.6)"/>
+        <circle cx="245" cy="146" r="1.2" fill="rgba(26,200,200,0.65)"/>
+
+        <!-- TROPHIC CASCADE (right margin) -->
+        <rect x="282" y="8"   width="52" height="11" rx="1" fill="rgba(62,207,142,0.28)"  stroke="rgba(62,207,142,0.5)"  stroke-width="0.6"/>
+        <text x="308" y="16" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(62,207,142,0.9)">T1 · 100%</text>
+        <line x1="308" y1="19" x2="308" y2="29" stroke="rgba(26,200,200,0.28)" stroke-width="0.8"/>
+        <polygon points="305,29 308,34 311,29" fill="rgba(26,200,200,0.28)"/>
+
+        <rect x="286" y="34"  width="44" height="11" rx="1" fill="rgba(26,200,200,0.22)"  stroke="rgba(26,200,200,0.42)"  stroke-width="0.6"/>
+        <text x="308" y="42" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(26,200,200,0.9)">T2 · 10%</text>
+        <line x1="308" y1="45" x2="308" y2="55" stroke="rgba(26,200,200,0.28)" stroke-width="0.8"/>
+        <polygon points="305,55 308,60 311,55" fill="rgba(26,200,200,0.28)"/>
+
+        <rect x="291" y="60"  width="34" height="11" rx="1" fill="rgba(240,180,41,0.2)"   stroke="rgba(240,180,41,0.38)"  stroke-width="0.6"/>
+        <text x="308" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(240,180,41,0.9)">T3 · 1%</text>
+        <line x1="308" y1="71" x2="308" y2="81" stroke="rgba(26,200,200,0.28)" stroke-width="0.8"/>
+        <polygon points="305,81 308,86 311,81" fill="rgba(26,200,200,0.28)"/>
+
+        <rect x="296" y="86"  width="24" height="11" rx="1" fill="rgba(232,96,64,0.18)"   stroke="rgba(232,96,64,0.36)"   stroke-width="0.6"/>
+        <text x="308" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.9)">T4·0.1%</text>
+        <line x1="308" y1="97" x2="308" y2="107" stroke="rgba(26,200,200,0.28)" stroke-width="0.8"/>
+        <polygon points="305,107 308,112 311,107" fill="rgba(26,200,200,0.28)"/>
+
+        <rect x="301" y="112" width="14" height="11" rx="1" fill="rgba(155,127,232,0.18)" stroke="rgba(155,127,232,0.35)" stroke-width="0.6"/>
+        <text x="308" y="120" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.9)">T5</text>
+
+        <!-- 10% rule label -->
+        <rect x="276" y="132" width="60" height="22" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(240,180,41,0.22)" stroke-width="0.7"/>
+        <text x="306" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(240,180,41,0.8)">10% RULE</text>
+        <text x="306" y="151" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.5)">per trophic step</text>
+
+        <!-- neritic bracket -->
+        <line x1="3" y1="2"  x2="3" y2="52" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+        <line x1="3" y1="2"  x2="7" y2="2"  stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+        <line x1="3" y1="52" x2="7" y2="52" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+        <text x="5" y="68" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.55)" transform="rotate(-90,5,68)">NERITIC 0–40m</text>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Foundations</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p><strong>Biological oceanography</strong> is the study of how living organisms interact with and shape the physical, chemical, and geological properties of the ocean — and how the ocean shapes them in return. It differs fundamentally from <strong>marine biology</strong>, which focuses primarily on the organisms themselves. The marine biologist asks "what lives here?" The biological oceanographer asks: <span class="hl">why does it live here, in these densities, doing these things — and what does that do to the ocean?</span> That question — system function, not organism description — organizes every GROAN module and every field observation protocol aboard Shamrocket.</p>
+
+      <p>Ocean organisms are classified by their relationship to the water column — not by taxonomy but by how they live. <strong>Plankton</strong> (<em>plancton</em>) drift with currents and cannot swim against them. They include <strong>phytoplankton</strong> — photosynthetic, plant-like organisms that fix carbon at the ocean surface and constitute T1 of every reef food web — and <strong>zooplankton</strong> — animal-like grazers at T2 that bridge primary production and higher trophic levels. Together they drive the biological carbon pump and are the foundational input to GROAN's GKIN module. <strong>Nekton</strong> (<em>nectón</em>) are active swimmers — fish, squid, marine mammals, sea turtles — capable of moving independently of currents. They link trophic levels across vast spatial scales and are a primary GRIN observation target. <strong>Benthos</strong> (<em>bentos</em>) live at or near the seafloor — corals, sponges, echinoderms, seagrasses, crustose coralline algae. Benthic communities are the primary observation target of reef science and of GROAN's GRIN and GSIN field modules. Their condition is what the entire GROAN decision chain exists to protect.</p>
+
+      <p>Energy moves through ocean ecosystems in <strong>trophic levels</strong> governed by one foundational constraint: <span class="hl">approximately 10% of energy passes from each trophic level to the next.</span> The remainder is lost to metabolism, respiration, excretion, and decomposition. The consequence is non-linear and severe: a 50% collapse in T1 primary productivity does not produce a 50% decline at T4 — it produces approximately 99.95% energy starvation across three trophic steps. <span class="cr">This non-linearity is precisely the class of cascade signal the CMIE is built to detect across modules.</span> A single-module monitoring system cannot see it. GROAN can.</p>
+
+      <p><strong>Primary productivity</strong> is the rate at which photosynthetic organisms fix carbon from CO₂ into organic matter, measured in mg C m⁻² day⁻¹ or g C m⁻² yr⁻¹. <strong>Gross Primary Production (GPP)</strong> is total carbon fixed before respiration losses. <strong>Net Primary Production (NPP)</strong> is what remains available to the food web after the organism's own metabolic costs — the operationally relevant figure for CMIE inputs and reef condition modeling. Reporting GPP where NPP is required overstates reef productive capacity and inflates Decision Scores.</p>
+
+      <p>Tropical coral reefs are anomalously productive relative to the nutrient-poor "blue desert" ocean surrounding them. The mechanism is <strong>coral-zooxanthellae symbiosis</strong>: dinoflagellate algae (<em>Symbiodinium</em> spp.) living within coral tissue photosynthesize and transfer up to 90% of fixed carbon to their coral host, creating a highly efficient internal recycling loop that bypasses dependence on external nutrient supply. <span class="cr">Bleaching is the physiological decoupling of this unit</span> — not a population decline event but a systemic NPP collapse that must be entered in the CMIE record as a T1 productivity failure with immediate cascade implications for T2–T5 biomass.</p>
+
+      <p>The operationally relevant depth window for all GROAN reef-condition field observations is the <strong>neritic photic zone</strong> — the upper 30–40 m over continental shelves, where light, temperature, and carbonate saturation together produce the conditions reefs require. Data collected below this window belongs to a mesopelagic ecological context with different species assemblages, nutrient dynamics, and light regimes. Including sub-40 m data in reef-condition trend analysis without explicit depth-context flagging corrupts longitudinal comparisons across Rim Run™ circuits.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La <strong>oceanografía biológica</strong> estudia cómo los organismos vivos interactúan con y moldean las propiedades físicas, químicas y geológicas del océano. Difiere fundamentalmente de la biología marina, que se centra en los organismos mismos. La pregunta organizadora es: <span class="hl">¿por qué vive aquí, en estas densidades, haciendo estas cosas — y qué hace eso al océano?</span> Esa pregunta organiza cada módulo de GROAN y cada protocolo de observación de campo a bordo del Shamrocket.</p>
+
+      <p>Las tres categorías ecológicas: el <strong>plancton</strong> deriva con las corrientes e incluye fitoplancton (T1, productores primarios fotosintéticos) y zooplancton (T2, consumidores primarios). El <strong>nectón</strong> nada activamente — peces, calamares, mamíferos marinos. El <strong>bentos</strong> vive en el fondo marino — corales, esponjas, pastos marinos. El bentos es el objetivo principal de observación de los módulos GRIN y GSIN de GROAN.</p>
+
+      <p>La energía se transfiere entre niveles tróficos con una eficiencia de aproximadamente <span class="hl">10% por paso</span>. Una caída del 50% en T1 produce aproximadamente el 99,95% de reducción de energía en T4 — no una caída proporcional del 50%. <span class="cr">Esta no linealidad es precisamente la clase de señal de cascada que el CMIE está construido para detectar entre módulos.</span> Un sistema de monitoreo de módulo único no puede verlo. GROAN sí puede.</p>
+
+      <p>La <strong>NPP</strong> — no la GPP — es la figura operacionalmente relevante para el modelado de condición arrecifal y las entradas del CMIE. La simbiosis coral-zooxantelas crea un bucle de reciclaje interno que hace que los arrecifes sean extraordinariamente productivos a pesar del océano pobre en nutrientes que los rodea. <span class="cr">El blanqueamiento es el desacople fisiológico de esta unidad</span> — un colapso sistémico de NPP que debe registrarse en el CMIE como falla de productividad T1 con implicaciones inmediatas de cascada para la biomasa T2–T5. Todas las observaciones de campo de GROAN se limitan a la <strong>zona fótica nerítica</strong> — los 30–40 m superiores sobre la plataforma continental.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Trophic Level / Nivel Trófico</th>
+          <th>Tier</th>
+          <th>Example Organisms / Ejemplos</th>
+          <th>NPP Transfer</th>
+          <th>Eco. Category</th>
+          <th>GROAN Module</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Primary Producer / Productor Primario</td>
+          <td><span class="badge b-t1">T1</span></td>
+          <td>Phytoplankton, zooxanthellae, seagrass, CCA · Fitoplancton, zooxantelas, pastos</td>
+          <td>100% (baseline)</td>
+          <td>Plankton / Benthos</td>
+          <td>GSIN · GKIN</td>
+        </tr>
+        <tr>
+          <td>Primary Consumer / Consumidor Primario</td>
+          <td><span class="badge b-t2">T2</span></td>
+          <td>Zooplankton, parrotfish, surgeonfish, urchins · Zooplancton, peces loro, erizos</td>
+          <td>~10%</td>
+          <td>Plankton / Nekton / Benthos</td>
+          <td>GRIN · GKIN</td>
+        </tr>
+        <tr>
+          <td>Secondary Consumer / Consumidor Secundario</td>
+          <td><span class="badge b-t3">T3</span></td>
+          <td>Carnivorous invertebrates, wrasse, damselfish · Invertebrados carnívoros, lábridos</td>
+          <td>~1%</td>
+          <td>Nekton / Benthos</td>
+          <td>GRIN</td>
+        </tr>
+        <tr>
+          <td>Tertiary Consumer / Consumidor Terciario</td>
+          <td><span class="badge b-t4">T4</span></td>
+          <td>Grouper, snapper, octopus · Mero, pargo, pulpo</td>
+          <td>~0.1%</td>
+          <td>Nekton / Benthos</td>
+          <td>GRIN · CMIE</td>
+        </tr>
+        <tr>
+          <td>Apex Predator / Depredador Apical</td>
+          <td><span class="badge b-t5">T5</span></td>
+          <td>Sharks, large tuna, bottlenose dolphin · Tiburones, atún, delfín</td>
+          <td>~0.01%</td>
+          <td>Nekton</td>
+          <td>CMIE</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — GROAN Field Protocol &amp; CMIE Routing</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When classifying an ocean organism for GROAN field logging, determine ecological category — plankton, nekton, or benthos — before taxonomic group. Category determines observation protocol, data field selection, and module routing. A parrotfish is nekton at T2; it is logged in GRIN under herbivore trophic function. Its taxonomy is secondary to its functional role in the coral-algae competitive balance — the system-level signal GROAN tracks.</li>
+        <li>Apply the <strong>10% Rule</strong> when evaluating trophic cascade severity at a corridor site. A 50% measured decline in phytoplankton density at T1 produces approximately 99.95% energy reduction at T4. The CMIE must flag T3–T4 biomass collapse as a <span class="cr">leading indicator</span> of the T1 event, not a lagging consequence. Do not wait for fish survey data to confirm cascade effects — the non-linear projection is available the moment the T1 signal is recorded.</li>
+        <li>Use <strong>NPP, not GPP</strong>, in all CMIE inputs and reef productivity discussions. Reporting GPP where NPP is the correct metric overstates reef carrying capacity and inflates Decision Scores. The distinction matters most during bleaching assessment: GPP may remain partially positive while NPP has collapsed, creating a false-positive reading if the wrong metric is logged.</li>
+        <li>Confine all GROAN reef-condition field observations to the <strong>neritic photic zone — upper 30–40 m</strong>. If a deeper observation is scientifically warranted, log it separately with a depth-context flag and do not merge it into the standard reef-condition record. A single sub-40 m data point merged into the trend record creates a methodological fault line that propagates through every subsequent circuit comparison at that site.</li>
+        <li>Treat the <strong>coral-zooxanthellae symbiosis as a single productive unit</strong> in all GROAN modeling. When a bleaching event is detected, enter it in the CMIE record as a systemic T1 NPP collapse signal covering the affected area and immediately initiate cascade projection for T2–T5 biomass implications. Entering it only as a benthic cover metric in GRIN misses the cross-module cascade and produces a Decision Score that does not reflect actual system condition.</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Al clasificar un organismo para el registro de campo de GROAN, determine la categoría ecológica — plancton, nectón o bentos — antes del grupo taxonómico. La categoría determina el protocolo de observación y el enrutamiento del módulo.</li>
+        <li>Aplique la <strong>Regla del 10%</strong> al evaluar la severidad de cascadas tróficas. Una caída del 50% en T1 produce ~99,95% de reducción de energía en T4. El CMIE debe marcar el colapso de biomasa T3–T4 como <span class="cr">indicador adelantado</span> del evento T1 — no como consecuencia rezagada.</li>
+        <li>Use <strong>NPP, no GPP</strong>, en todas las entradas del CMIE. Informar GPP donde NPP es la métrica correcta sobreestima la capacidad productiva del arrecife e infla las Puntuaciones de Decisión.</li>
+        <li>Confine todas las observaciones de condición arrecifal de GROAN a la <strong>zona fótica nerítica — 0–40 m</strong>. Los datos por debajo de esta ventana deben registrarse por separado con una marca de contexto de profundidad y no deben fusionarse con el registro estándar.</li>
+        <li>Trate la <strong>simbiosis coral-zooxantelas como una sola unidad productiva</strong>. Un evento de blanqueamiento se registra en el CMIE como señal de colapso sistémico de NPP en T1 con proyección de cascada inmediata para T2–T5 — no solo como métrica de cobertura bentónica en GRIN.</li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">A researcher studies how a phytoplankton bloom alters dissolved oxygen and carbonate saturation in a reef lagoon. This work is best described as what discipline, and why?</div>
+        <div class="mcq-q-es">Un investigador estudia cómo una floración de fitoplancton altera el oxígeno disuelto y la saturación de carbonatos en una laguna arrecifal. ¿Cómo se describe mejor este trabajo y por qué?</div>
+        <ul class="mcq-options">
+          <li>A. Marine biology — because it involves living organisms in the sea</li>
+          <li>B. Chemical oceanography — because it measures dissolved gases and carbonate chemistry</li>
+          <li class="correct">C. Biological oceanography — because it examines the bidirectional interaction between organisms and ocean system properties: how the bloom alters ocean chemistry and how that chemistry constrains organism function</li>
+          <li>D. Physical oceanography — because lagoon currents distribute the bloom spatially</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">Primary productivity at a corridor reef site collapses 80% due to a bleaching event. Using the 10% trophic transfer rule, what is the approximate energy available at T4 relative to pre-bleaching baseline, and what does this mean for CMIE cascade projection?</div>
+        <div class="mcq-q-es">La productividad primaria colapsa un 80% por blanqueamiento. Usando la regla del 10%, ¿cuál es la energía aproximada en T4 relativa a la línea de base previa, y qué significa esto para la proyección de cascada del CMIE?</div>
+        <ul class="mcq-options">
+          <li>A. ~20% — T4 mirrors the T1 decline proportionally; cascade projection is linear</li>
+          <li class="correct">B. ~0.02% — 80% T1 collapse leaves 20% of baseline; three successive 10% transfer steps yield 0.02% of original energy; the CMIE must immediately project effective T4 ecosystem collapse as a leading indicator, not wait for fish survey confirmation</li>
+          <li>C. ~8% — the 10% rule applies once across the full chain, not at each individual step</li>
+          <li>D. ~50% — apex predators buffer T4 by switching prey; the cascade is dampened above T3</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: B · RESPUESTA: B</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">A MOOP operator detects a significant bleaching event at a corridor site and logs it only as a benthic cover decline in GRIN. What critical error has been made, and what is the correct CMIE entry?</div>
+        <div class="mcq-q-es">Un operador MOOP detecta un blanqueamiento significativo y lo registra solo como declive de cobertura bentónica en GRIN. ¿Qué error crítico se cometió y cuál es la entrada correcta del CMIE?</div>
+        <ul class="mcq-options">
+          <li>A. No error — benthic cover is the correct primary field; CMIE effects are inferred automatically</li>
+          <li>B. Should have logged in GSIN because bleaching affects zooxanthellae</li>
+          <li class="correct">C. Bleaching was treated as a population event rather than a systemic NPP collapse. The correct CMIE entry is a T1 primary productivity collapse signal for the affected area with immediate cascade projection for T2–T5 biomass — not a benthic cover metric alone</li>
+          <li>D. Must wait for fish biomass survey data before entering any CMIE cross-module flag</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L01 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">9.23%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
