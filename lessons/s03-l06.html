@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L06 Biological Oceanography — Interactions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green  { background: rgba(62,207,142,0.15);   color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .tag-purple { background: rgba(155,127,232,0.15);  color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);   font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);  font-weight: 500; }
+  .lang-block .gr  { color: var(--green);  font-weight: 500; }
+  .lang-block .pu  { color: var(--purple); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral);  font-weight: 500; }
+  .app-panel .pu { color: var(--purple); font-weight: 500; }
+  .app-panel .hl { color: var(--gold);   font-weight: 500; }
+  .app-panel .gr { color: var(--green);  font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.94%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 06 · Biological Oceanography · Lesson 70 of 704</div>
+        <div class="lesson-title">Interactions</div>
+        <div class="lesson-subtitle">Competition · predation · mutualism · herbivory · keystone species · trophic cascades · allelopathy · coral disease</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-coral">Competition · Allelopathy</span>
+        <span class="tag tag-green">Herbivory · Top-Down Control</span>
+        <span class="tag tag-gold">Keystone Species · Trophic Cascade</span>
+        <span class="tag tag-purple">Mutualism · Disease</span>
+        <span class="tag tag-blue">CMIE Interaction Signals</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: Trophic interaction web — apex predator (top) → mesopredators → herbivores → coral-algae competition (bottom), with top-down cascade arrows and bottom-up nutrient arrows, keystone species highlighted -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="intG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#031e38" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+          <marker id="aDn" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(232,96,64,0.6)"/></marker>
+          <marker id="aUp" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(62,207,142,0.55)"/></marker>
+          <marker id="aGd" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(240,180,41,0.6)"/></marker>
+          <marker id="aPu" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(155,127,232,0.55)"/></marker>
+        </defs>
+        <rect width="340" height="220" fill="url(#intG)"/>
+
+        <!-- LEVEL 1: APEX PREDATOR (top) -->
+        <circle cx="170" cy="26" r="18" fill="rgba(155,127,232,0.12)" stroke="rgba(155,127,232,0.5)" stroke-width="1.2"/>
+        <text x="170" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(155,127,232,0.9)">APEX</text>
+        <text x="170" y="31" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(155,127,232,0.9)">PREDATOR</text>
+        <text x="170" y="39" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.6)">shark / grouper</text>
+        <!-- Keystone star -->
+        <text x="190" y="14" font-family="DM Mono,monospace" font-size="9" fill="rgba(240,180,41,0.85)">★</text>
+        <text x="196" y="14" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.7)">keystone</text>
+
+        <!-- LEVEL 2: MESOPREDATORS (mid-upper) -->
+        <circle cx="82"  cy="90" r="18" fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.4)" stroke-width="1"/>
+        <text x="82"  y="86" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.85)">MESO-</text>
+        <text x="82"  y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.85)">PREDATORS</text>
+        <text x="82"  y="102" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.55)">snapper · octopus</text>
+
+        <circle cx="258" cy="90" r="18" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <text x="258" y="86" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(26,200,200,0.85)">OMNIVORE</text>
+        <text x="258" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(26,200,200,0.85)">FISH</text>
+        <text x="258" y="102" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.5)">wrasse · damsel</text>
+
+        <!-- LEVEL 3: HERBIVORES — keystone -->
+        <circle cx="170" cy="148" r="22" fill="rgba(62,207,142,0.12)" stroke="rgba(62,207,142,0.55)" stroke-width="1.4"/>
+        <text x="170" y="141" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(62,207,142,0.9)">HERBIVORES</text>
+        <text x="170" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.75)">parrotfish · surgeonfish</text>
+        <text x="170" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.6)">Diadema urchins</text>
+        <!-- Keystone star -->
+        <text x="193" y="138" font-family="DM Mono,monospace" font-size="9" fill="rgba(240,180,41,0.85)">★</text>
+
+        <!-- LEVEL 4: CORAL ↔ ALGAE competition (bottom) -->
+        <rect x="22"  y="188" width="110" height="24" rx="3" fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.35)" stroke-width="0.8"/>
+        <text x="77"  y="198" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(232,96,64,0.85)">CORAL (space-holder)</text>
+        <text x="77"  y="207" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.55)">allelopathy · recruitment</text>
+
+        <rect x="208" y="188" width="110" height="24" rx="3" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.35)" stroke-width="0.8"/>
+        <text x="263" y="198" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(240,180,41,0.85)">MACROALGAE</text>
+        <text x="263" y="207" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.55)">allelopathy · overgrowth</text>
+
+        <!-- Competition double-arrow -->
+        <line x1="132" y1="200" x2="208" y2="200" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3,2"/>
+        <polygon points="205,197 211,200 205,203" fill="rgba(255,255,255,0.25)"/>
+        <polygon points="135,197 129,200 135,203" fill="rgba(255,255,255,0.25)"/>
+        <text x="170" y="196" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(255,255,255,0.4)">COMPETITION</text>
+
+        <!-- TOP-DOWN CASCADE arrows (coral-red, solid) -->
+        <!-- Apex → Mesopredator left -->
+        <line x1="154" y1="42" x2="96"  y2="74" stroke="rgba(232,96,64,0.5)" stroke-width="1.2" marker-end="url(#aDn)"/>
+        <!-- Apex → Mesopredator right -->
+        <line x1="186" y1="42" x2="244" y2="74" stroke="rgba(232,96,64,0.5)" stroke-width="1.2" marker-end="url(#aDn)"/>
+        <!-- Mesopredator left → Herbivores -->
+        <line x1="96"  y1="106" x2="150" y2="130" stroke="rgba(232,96,64,0.4)" stroke-width="1" marker-end="url(#aDn)"/>
+        <!-- Mesopredator right → Herbivores -->
+        <line x1="244" y1="106" x2="190" y2="130" stroke="rgba(232,96,64,0.4)" stroke-width="1" marker-end="url(#aDn)"/>
+        <!-- Herbivores → Algae (grazing control, green) -->
+        <line x1="188" y1="168" x2="230" y2="186" stroke="rgba(62,207,142,0.55)" stroke-width="1.3" marker-end="url(#aUp)"/>
+        <!-- Herbivores → Coral (grazing removes algae, protects coral, green) -->
+        <line x1="152" y1="168" x2="110" y2="186" stroke="rgba(62,207,142,0.55)" stroke-width="1.3" marker-end="url(#aUp)"/>
+
+        <!-- Top-down label -->
+        <rect x="4" y="60" width="52" height="20" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(232,96,64,0.3)" stroke-width="0.7"/>
+        <text x="30" y="69" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.75)">TOP-DOWN</text>
+        <text x="30" y="77" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.6)">CASCADE ↓</text>
+
+        <!-- Herbivory label -->
+        <rect x="284" y="160" width="52" height="20" rx="2" fill="rgba(2,15,30,0.8)" stroke="rgba(62,207,142,0.3)" stroke-width="0.7"/>
+        <text x="310" y="169" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.75)">HERBIVORY</text>
+        <text x="310" y="177" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.6)">CONTROL ↓</text>
+
+        <!-- Mesopredator release annotation (dashed, when apex removed) -->
+        <path d="M 30,26 Q 30,60 64,76" fill="none" stroke="rgba(240,180,41,0.35)" stroke-width="0.9" stroke-dasharray="3,2"/>
+        <text x="4"  y="36" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.6)">remove apex</text>
+        <text x="4"  y="44" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.55)">→ meso release</text>
+
+        <!-- Bioluminescent sparks -->
+        <circle cx="170" cy="118" r="1.0" fill="rgba(26,200,200,0.7)"/>
+        <circle cx="50"  cy="148" r="0.8" fill="rgba(26,200,200,0.55)"/>
+        <circle cx="300" cy="140" r="0.9" fill="rgba(26,200,200,0.6)"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Interactions</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Reef ecosystems are not collections of species — they are networks of interactions. The same coral cover percentage measured at two sites can represent completely different functional states depending on who is eating whom, what is competing for space, and which mutualistic partnerships are intact. <span class="hl">GROAN's CMIE is fundamentally an interaction detector — it is built to see the signals that emerge from species interactions, not just the species themselves.</span> This lesson maps the seven interaction classes that most directly determine reef condition and appear in GROAN's module data streams.</p>
+
+      <p><strong>Competition</strong> is the most consequential interaction at the reef benthic surface — the direct contest between corals and macroalgae for space, light, and substrate. Competition operates through three mechanisms: <strong>physical overgrowth</strong> (algae growing over and smothering adjacent coral tissue), <strong>allelopathy</strong> (chemical exudates released by algae that inhibit coral growth, photosynthesis, and larval settlement within a contact zone of several centimeters), and <strong>shading</strong> (tall algae canopies reducing light availability to underlying coral polyps). <span class="cr">Allelopathy is particularly insidious because it is invisible — a reef can appear to have moderate algae cover while the chemical inhibition zone is suppressing coral recruitment across a far larger area than the visible algae footprint.</span> GRIN surveys must record not only algae cover but algae proximity to coral margins and coral recruitment density in algae-adjacent zones to capture this signal.</p>
+
+      <p><strong>Herbivory</strong> is the critical top-down interaction that maintains the coral-algae competitive balance. <strong>Parrotfish</strong> (<em>Scaridae</em>) and <strong>surgeonfish</strong> (<em>Acanthuridae</em>) graze macroalgae continuously, keeping algae cover below the overgrowth threshold. <strong>Sea urchins</strong> — particularly <em>Diadema antillarum</em> in the Caribbean — are the dominant herbivores in many MAR reef zones, capable of grazing bare rock to the microalgal film that CCA requires. <span class="hl">The 1983–84 Caribbean-wide <em>Diadema</em> die-off, which killed 93–99% of the population in less than a year due to an unidentified waterborne pathogen, triggered the most widespread coral-algae phase shift in recorded reef history</span> — demonstrating that the removal of a single keystone herbivore species can drive an entire regional reef system across a phase shift threshold within months. GROAN's GRIN protocol records both fish herbivore biomass and urchin density as primary indicators.</p>
+
+      <p><strong>Trophic Cascades</strong> are the indirect effects that propagate through the food web when a top predator is removed or added. The canonical Caribbean cascade runs: <strong>apex predator removal</strong> (overfishing of sharks and large grouper) → <strong>mesopredator release</strong> (snapper, smaller grouper populations increase without apex predation pressure) → <strong>herbivore suppression</strong> (mesopredators consume more parrotfish and surgeonfish) → <strong>macroalgae proliferation</strong> (herbivore reduction releases algae from grazing control) → <strong>coral-algae phase shift</strong>. <span class="cr">This cascade spans four trophic levels and produces a reef phase shift that has no visible cause at the benthic level — a GRIN survey that records only algae cover and coral cover will not detect it.</span> The CMIE detects it because GRIN apex predator and herbivore biomass data, combined with the benthic cover trend, produces the multi-level signal that identifies the cascade.</p>
+
+      <p><strong>Keystone Species</strong> are species whose removal produces ecosystem effects disproportionate to their biomass — they hold the system in its current state. In Caribbean reef systems, three species function as keystones: <strong>sharks and large grouper</strong> (apex trophic control — their removal initiates the cascade above), <strong><em>Diadema antillarum</em></strong> (herbivory control — their removal releases macroalgae), and <strong>branching <em>Acropora</em> corals</strong> (structural keystones — their three-dimensional framework creates the physical habitat that the associated reef community depends on; their loss collapses habitat complexity even when total coral cover remains partially intact). <span class="hl">GROAN's GRIN protocol tracks keystone species as a separate index because a reef that retains general coral cover but has lost its <em>Acropora</em> structure or its herbivore functional groups is fundamentally more vulnerable than its aggregate cover metrics suggest.</span></p>
+
+      <p><strong>Mutualism and Symbiosis</strong> are positive interactions in which both partners benefit. The paramount reef mutualism is coral-zooxanthellae (addressed in L01 and L04). A second ecologically critical mutualism is the <strong>cleaning station</strong> — reef sites where specialized cleaner fish (<em>Labroides dimidiatus</em> and related species) and cleaner shrimp remove parasites from client fish. Cleaning stations attract large aggregations of fish including species not normally resident on the reef, generating localized hotspots of trophic activity, nutrient excretion, and organic matter deposition. <span class="cr">Loss of cleaning station function — through removal of cleaner species or physical disturbance of station sites — increases parasite load across the reef fish community, reduces fish condition, and suppresses the local nutrient cycling that cleaning station aggregations generate.</span></p>
+
+      <p><strong>Coral Disease</strong> is a host-pathogen interaction that has emerged as a major direct mortality driver across the western Caribbean, independent of thermal bleaching. <strong>Stony Coral Tissue Loss Disease (SCTLD)</strong>, first documented in Florida in 2014 and confirmed across most of the MAR by 2020, produces rapid tissue loss in over 20 coral species and has caused irreversible mortality at rates exceeding some bleaching events. Unlike bleaching, SCTLD mortality is not temperature-dependent — it persists year-round and continues advancing regardless of thermal conditions. <span class="pu">For GROAN: SCTLD presence at a corridor site must be entered in the CMIE record as a distinct process signal from thermal bleaching, because the combined stressor load — active disease plus thermal stress — is non-additive and produces mortality rates substantially higher than either stressor alone would predict.</span> GRIN disease prevalence surveys are a mandatory component of the Rim Run™ corridor protocol for all circuits from 2026 onward.</p>
+
+      <p><strong>Allelopathy and Chemical Ecology</strong> extend competition beyond physical contact. Corals and algae both produce chemical exudates that influence settlement behavior of larvae, growth rates of competitors, and microbial community composition in the surrounding water. Coral chemical signals attract conspecific larvae to settled coral colonies (positive chemical recruitment cue); macroalgae exudates suppress coral larval settlement and increase microbial activity that degrades coral mucus and surface defenses. <span class="hl">These chemical interactions create interaction zones that extend 5–20 cm beyond visible physical contact</span> — meaning that a belt transect recording physical contact alone underestimates the functional impact of algae proximity on coral health and recruitment by a factor of 2–5×.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>Los ecosistemas arrecifales son redes de interacciones. <span class="hl">El CMIE de GROAN es fundamentalmente un detector de interacciones — está construido para ver las señales que emergen de las interacciones entre especies, no solo las especies mismas.</span></p>
+
+      <p><strong>Competencia y Alelopatía:</strong> La competencia coral-macroalgas opera a través de la superposición física, la alelopatía y el sombreado. <span class="cr">La alelopatía es particularmente insidiosa porque es invisible</span> — un arrecife puede parecer tener cobertura moderada de algas mientras la zona de inhibición química suprime el reclutamiento coralino en un área mucho mayor que la huella visible de las algas.</p>
+
+      <p><strong>Herbivoría:</strong> <span class="hl">La mortandad masiva de <em>Diadema antillarum</em> en el Caribe de 1983–84, que mató al 93–99% de la población, desencadenó el cambio de fase coral-algas más generalizado en la historia arrecifal registrada</span> — demostrando que la eliminación de una sola especie herbívora clave puede impulsar todo un sistema arrecifal regional a través de un umbral de cambio de fase en meses.</p>
+
+      <p><strong>Cascadas Tróficas:</strong> La cascada canónica del Caribe: eliminación de depredadores apicales → liberación de mesodepredadores → supresión de herbívoros → proliferación de macroalgas → cambio de fase. <span class="cr">Esta cascada abarca cuatro niveles tróficos y produce un cambio de fase arrecifal que no tiene causa visible a nivel bentónico.</span> El CMIE lo detecta porque los datos de biomasa de depredadores apicales y herbívoros de GRIN, combinados con la tendencia de cobertura bentónica, producen la señal de múltiples niveles.</p>
+
+      <p><strong>Especies Clave:</strong> En los arrecifes del Caribe, tres especies funcionan como clave: tiburones y mero grandes (control trófico apical), <em>Diadema antillarum</em> (control de herbivoría) y corales ramificados de <em>Acropora</em> (clave estructural). <span class="hl">Un arrecife que retiene cobertura coralina general pero ha perdido su estructura de <em>Acropora</em> o sus grupos funcionales de herbívoros es fundamentalmente más vulnerable de lo que sugieren sus métricas de cobertura agregada.</span></p>
+
+      <p><strong>Enfermedad del Coral — SCTLD:</strong> A diferencia del blanqueamiento, la SCTLD no depende de la temperatura — persiste todo el año. <span class="pu">Para GROAN: la presencia de SCTLD debe registrarse en el CMIE como señal de proceso distinta del blanqueamiento térmico, porque la carga de estresores combinada es no aditiva y produce tasas de mortalidad sustancialmente más altas.</span></p>
+
+      <p><strong>Ecología Química:</strong> Las interacciones químicas crean zonas de interacción que se extienden 5–20 cm más allá del contacto físico visible — lo que significa que un transecto de banda que registra solo el contacto físico subestima el impacto funcional de la proximidad de algas en la salud y el reclutamiento coralino por un factor de 2–5×.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Interaction / Interacción</th>
+          <th>Mechanism</th>
+          <th>Reef Impact</th>
+          <th>GRIN Detection Method</th>
+          <th>CMIE Signal Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-coral">Competition</span></td>
+          <td>Physical overgrowth; allelopathy; shading</td>
+          <td>Coral tissue loss; recruitment suppression</td>
+          <td>Coral:algae contact margins; recruitment density near algae</td>
+          <td>Algae proximity recruitment suppression flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Herbivory</span></td>
+          <td>Grazing of algae by parrotfish, surgeonfish, urchins</td>
+          <td>Maintains coral-algae balance; enables recruitment</td>
+          <td>Herbivore biomass (fish survey); urchin density count</td>
+          <td>Herbivore functional group index — below threshold triggers phase shift proximity flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Trophic Cascade</span></td>
+          <td>Apex removal → meso release → herbivore suppression → algae bloom</td>
+          <td>Phase shift from benthically invisible upstream cause</td>
+          <td>Apex + herbivore biomass + cover trend (multi-level CMIE)</td>
+          <td>4-level cascade signal — no single module detects this</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Keystone Species</span></td>
+          <td>Disproportionate structural/trophic control</td>
+          <td>Loss triggers cascading community restructuring</td>
+          <td>Shark/grouper encounter rate; Acropora structural index; Diadema density</td>
+          <td>Keystone functional group loss flag — elevated DS urgency</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Mutualism / Symbiosis</span></td>
+          <td>Coral-zooxanthellae; cleaning stations</td>
+          <td>Reef NPP; fish community health; nutrient cycling</td>
+          <td>PAM fluorometry; cleaning station presence/activity</td>
+          <td>Symbiosis disruption = T1 NPP signal; cleaning station loss = fish condition flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Coral Disease (SCTLD)</span></td>
+          <td>Host-pathogen tissue loss — temperature-independent</td>
+          <td>Rapid multi-species mortality; year-round progression</td>
+          <td>Disease prevalence survey — mandatory Rim Run™ protocol</td>
+          <td>Distinct CMIE entry from bleaching; non-additive combined stressor load</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Allelopathy</span></td>
+          <td>Chemical exudates inhibiting settlement / growth</td>
+          <td>Recruitment suppression beyond visible contact zone</td>
+          <td>Recruitment density in 20 cm buffer zone around algae patches</td>
+          <td>Chemical inhibition zone — multiplies functional algae impact 2–5×</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — GROAN Interaction Diagnostics &amp; CMIE Routing</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When recording GRIN belt transect data, log <strong>algae-coral contact margin length and recruitment density in the 20 cm buffer zone adjacent to macroalgae patches</strong> — not algae cover alone. A site with 15% macroalgae cover but high contact margin density and zero coral recruits within 20 cm of algae patches is experiencing allelopathic recruitment suppression across a functionally larger area than the cover metric captures. Enter the contact-zone recruitment suppression as a separate CMIE flag. A site with 30% algae cover but low contact margin exposure and active recruitment in open zones may be less functionally impaired than its cover level suggests — the interaction geometry matters as much as the cover percentage.</li>
+        <li>When recording fish community data during a GRIN survey, assess <strong>herbivore functional group completeness</strong> — not total fish biomass. A reef with high total fish biomass dominated by carnivores but depleted parrotfish, surgeonfish, and urchin populations has no functional herbivory regardless of its aggregate biomass metric. Log herbivore functional group status (intact / partially depleted / collapsed) as a separate CMIE input. <span class="cr">A herbivore functional group collapse flag elevates the phase shift proximity score regardless of current algae cover level</span> — the system is structurally positioned for a phase shift when the next pulse disturbance removes the remaining coral cover that herbivores would otherwise have prevented from algae overgrowth.</li>
+        <li>When apex predator encounter rates (shark, large grouper) decline by more than 50% between circuits at a corridor site, enter a <strong>trophic cascade initiation flag</strong> in the CMIE record immediately — before any herbivore decline or algae increase is measurable. The cascade operates with a temporal lag: apex removal precedes mesopredator release by months to years, mesopredator release precedes herbivore suppression by additional months, and herbivore suppression precedes algae bloom by further months. <span class="hl">Entering the cascade flag at the apex level, rather than waiting for the benthic signal, buys the full cascade lag time as a management intervention window.</span></li>
+        <li>When a corridor site has active <strong>SCTLD (Stony Coral Tissue Loss Disease)</strong> confirmed during a GRIN survey, enter it in the CMIE record as a distinct pathogen stressor signal — separate from and in addition to any thermal bleaching entry. Never merge SCTLD mortality into a bleaching event record even if both are present simultaneously. The combined stressor load of active disease plus thermal stress is non-additive: mortality rates under compound exposure exceed the sum of individual stressor projections. <span class="pu">The DMAP-CAL™ Decision Score for a site with both active SCTLD and thermal bleaching must be calculated using the compound stressor interaction weighting, not the linear sum of two independent stressor scores.</span></li>
+        <li>When a corridor reef site shows low juvenile coral density and moderate macroalgae cover but the algae contact margin analysis reveals that most adult corals are spatially isolated from algae patches, investigate <strong>cleaning station presence and functionality</strong> before attributing recruitment failure to allelopathy or herbivore deficiency alone. Absent or disrupted cleaning stations reduce fish community condition, suppress grazing activity, and can produce recruitment failure through a mutualism-disruption pathway that has no direct competitive or herbivory signal in standard belt transect data. <span class="gr">Log cleaning station presence, species composition, and activity level as a GRIN auxiliary observation at every circuit — it is a zero-cost observation that closes a significant diagnostic gap in the CMIE interaction record.</span></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Al registrar datos de transecto de banda GRIN, registre la <strong>longitud del margen de contacto algas-coral y la densidad de reclutamiento en la zona tampón de 20 cm adyacente a parches de macroalgas</strong>. Una supresión de reclutamiento en la zona de contacto se registra como señal CMIE separada — la geometría de la interacción importa tanto como el porcentaje de cobertura.</li>
+        <li>Al registrar datos de la comunidad de peces, evalúe la <strong>integridad del grupo funcional de herbívoros</strong> — no la biomasa total de peces. <span class="cr">Una señal de colapso del grupo funcional de herbívoros eleva la puntuación de proximidad al cambio de fase independientemente del nivel actual de cobertura de algas.</span></li>
+        <li>Cuando las tasas de encuentro con depredadores apicales disminuyan más del 50% entre circuitos, ingrese una <strong>señal de iniciación de cascada trófica</strong> en el CMIE inmediatamente — antes de que sea medible cualquier declive de herbívoros o aumento de algas. <span class="hl">Ingresar la señal de cascada a nivel apical compra el tiempo de retraso completo de la cascada como ventana de intervención de gestión.</span></li>
+        <li>Cuando se confirme <strong>SCTLD activa</strong> en un sitio, regístrela en el CMIE como señal de estresor patógeno distinta del blanqueamiento térmico. La carga de estresores combinada de enfermedad activa más estrés térmico es no aditiva. <span class="pu">La Puntuación de Decisión de DMAP-CAL™ debe calcularse usando la ponderación de interacción de estresores compuestos.</span></li>
+        <li>Registre la presencia, composición de especies y nivel de actividad de las <strong>estaciones de limpieza</strong> como observación auxiliar de GRIN en cada circuito. <span class="gr">Es una observación de costo cero que cierra una brecha diagnóstica significativa en el registro de interacciones del CMIE.</span></li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">A GRIN survey records 18% macroalgae cover and near-zero juvenile coral density. Two interpretations are proposed: (A) allelopathic recruitment suppression, (B) herbivore functional group collapse. What single additional observation most efficiently distinguishes between these two causes, and why?</div>
+        <div class="mcq-q-es">Un estudio GRIN registra 18% de cobertura de macroalgas y densidad de juveniles casi nula. Se proponen dos interpretaciones: (A) supresión de reclutamiento alelopática, (B) colapso del grupo funcional de herbívoros. ¿Cuál observación adicional distingue más eficientemente entre estas dos causas?</div>
+        <ul class="mcq-options">
+          <li>A. Water chemistry — allelopathy elevates dissolved organic carbon detectable by MOOP sensors, while herbivore collapse does not alter water chemistry</li>
+          <li>B. Repeat survey in 90 days — if algae cover increases, herbivore collapse is the cause; if algae cover is stable, allelopathy is the cause</li>
+          <li class="correct">C. Recruitment density in the 20 cm buffer zone adjacent to algae patches versus open substrate away from algae: if recruits are absent only near algae patches but present on open substrate away from them, allelopathy is the primary mechanism; if recruits are absent from both zones equally, herbivore functional group collapse is the primary mechanism — because allelopathy suppresses settlement locally while herbivore absence suppresses the post-settlement survival and substrate preparation globally</li>
+          <li>D. Coral cover percentage — if coral cover exceeds 25%, allelopathy is the cause; if below 25%, herbivore collapse is the cause</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">Shark and large grouper encounter rates at a corridor site decline 70% between circuits 3 and 4. Herbivore biomass and algae cover are unchanged. Why should the CMIE enter a trophic cascade flag now rather than waiting for a measurable benthic signal, and what intervention window does early entry create?</div>
+        <div class="mcq-q-es">Las tasas de encuentro con tiburones y mero grande disminuyen un 70% entre los circuitos 3 y 4. La biomasa de herbívoros y la cobertura de algas no han cambiado. ¿Por qué el CMIE debe registrar una señal de cascada ahora y qué ventana de intervención crea?</div>
+        <ul class="mcq-options">
+          <li>A. The CMIE should not enter a cascade flag without measurable herbivore or algae change — apex predator decline alone is insufficient evidence of cascade initiation given natural variability in encounter rates</li>
+          <li>B. The flag should be entered as a precaution only, with low confidence weighting, and upgraded to confirmed cascade when herbivore data changes</li>
+          <li class="correct">C. The cascade operates with sequential temporal lags — apex removal precedes mesopredator release by months to years, which precedes herbivore suppression, which precedes algae bloom; entering the flag at the apex level rather than waiting for the benthic signal buys the full cascade lag time as a management window; a 70% apex decline is the highest-leverage intervention point in the cascade — fisheries protection or no-take zone establishment at this stage can halt the cascade before it becomes self-reinforcing at the algae-dominated end-state</li>
+          <li>D. The flag should be entered in GKIN as a pelagic predator anomaly rather than in the CMIE, since apex predators are primarily nekton and belong in the kinetic index record</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">A corridor site has active SCTLD confirmed across 8 species and a concurrent DHW-4 thermal bleaching event. A junior analyst proposes summing the projected SCTLD mortality rate and the projected bleaching mortality rate to estimate total coral loss. What is wrong with this approach and what does GROAN's CMIE do instead?</div>
+        <div class="mcq-q-es">Un sitio tiene SCTLD activa confirmada en 8 especies y un evento de blanqueamiento térmico DHW-4 concurrente. Un analista propone sumar las tasas de mortalidad proyectadas de SCTLD y blanqueamiento para estimar la pérdida total de coral. ¿Qué está mal con este enfoque y qué hace el CMIE de GROAN en su lugar?</div>
+        <ul class="mcq-options">
+          <li>A. Nothing is wrong — summing independent stressor projections is the standard approach when two stressors affect different species; the CMIE uses the same method with higher taxonomic resolution</li>
+          <li>B. The approach overestimates mortality because corals cannot die twice — shared affected species must be counted once; the CMIE applies a species overlap correction factor</li>
+          <li class="correct">C. The linear sum underestimates combined mortality because SCTLD and thermal stress interact non-additively — thermal stress degrades coral immune function and tissue integrity, increasing susceptibility to SCTLD progression; bleaching-stressed corals show accelerated SCTLD tissue loss rates compared to unstressed corals; the CMIE enters SCTLD and bleaching as separate signals, then applies a compound stressor interaction weighting that reflects the documented synergistic mortality amplification, producing a combined DS that exceeds the linear sum of the two individual stressor scores</li>
+          <li>D. The approach is correct for SCTLD and bleaching specifically because they operate through independent pathways (pathogen vs. thermal), but would be wrong for two thermal stressors acting on the same mechanism</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L06 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">9.94%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
