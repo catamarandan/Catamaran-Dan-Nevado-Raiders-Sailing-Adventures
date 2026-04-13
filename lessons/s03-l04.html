@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L04 Biological Oceanography — Processes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --green:      #3ecf8e;
+    --purple:     #9b7fe8;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 40px 20px; font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 2px; text-transform: uppercase; }
+  .tag-blue   { background: rgba(10,110,138,0.35);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.25); }
+  .tag-gold   { background: rgba(240,180,41,0.15);   color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .tag-coral  { background: rgba(232,96,64,0.15);    color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .tag-green  { background: rgba(62,207,142,0.15);   color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .tag-purple { background: rgba(155,127,232,0.15);  color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .header-svg { background: linear-gradient(135deg, #04294a 0%, #020f1e 100%); display: flex; align-items: center; justify-content: center; padding: 20px; border-left: 1px solid rgba(26,200,200,0.1); }
+  .panel { padding: 40px; border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; }
+  .lang-block { margin-bottom: 28px; }
+  .flag-label { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; }
+  .flag-label span { font-size: 14px; }
+  .lang-block p { font-size: 14px; line-height: 1.75; color: var(--text-light); opacity: 0.88; margin-bottom: 10px; }
+  .lang-block strong { color: var(--ocean-cyan); font-weight: 500; }
+  .lang-block .hl  { color: var(--gold);   font-weight: 500; }
+  .lang-block .cr  { color: var(--coral);  font-weight: 500; }
+  .lang-block .gr  { color: var(--green);  font-weight: 500; }
+  .lang-block .pu  { color: var(--purple); font-weight: 500; }
+  .divider { border: none; border-top: 1px solid rgba(26,200,200,0.08); margin: 28px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 11px; }
+  .data-table th { background: rgba(10,110,138,0.3); color: var(--ocean-cyan); padding: 8px 12px; text-align: left; font-weight: 500; letter-spacing: 0.08em; border-bottom: 1px solid rgba(26,200,200,0.2); }
+  .data-table td { padding: 8px 12px; color: var(--text-light); border-bottom: 1px solid rgba(26,200,200,0.06); opacity: 0.85; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(26,200,200,0.04); }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 9.5px; font-family: 'DM Mono', monospace; }
+  .b-cyan   { background: rgba(26,200,200,0.12);  color: var(--ocean-cyan); border: 1px solid rgba(26,200,200,0.3); }
+  .b-gold   { background: rgba(240,180,41,0.12);  color: var(--gold);       border: 1px solid rgba(240,180,41,0.3); }
+  .b-green  { background: rgba(62,207,142,0.12);  color: var(--green);      border: 1px solid rgba(62,207,142,0.3); }
+  .b-coral  { background: rgba(232,96,64,0.12);   color: var(--coral);      border: 1px solid rgba(232,96,64,0.3); }
+  .b-purple { background: rgba(155,127,232,0.12); color: var(--purple);     border: 1px solid rgba(155,127,232,0.3); }
+  .app-panel { padding: 40px; background: rgba(4,41,74,0.3); border-bottom: 1px solid rgba(26,200,200,0.1); }
+  .app-panel .panel-label { color: var(--gold); }
+  .app-panel ul { list-style: none; padding: 0; }
+  .app-panel ul li { font-size: 13px; line-height: 1.7; color: var(--text-light); opacity: 0.85; padding: 6px 0 6px 18px; border-bottom: 1px solid rgba(26,200,200,0.05); position: relative; }
+  .app-panel ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; line-height: 1.4; }
+  .app-panel ul li:last-child { border-bottom: none; }
+  .app-panel strong { color: var(--ocean-cyan); font-weight: 500; }
+  .app-panel .cr { color: var(--coral);  font-weight: 500; }
+  .app-panel .gr { color: var(--green);  font-weight: 500; }
+  .app-panel .pu { color: var(--purple); font-weight: 500; }
+  .mcq-section { padding: 40px; background: rgba(2,15,30,0.6); }
+  .mcq-section .panel-label { margin-bottom: 24px; }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .mcq-card { background: rgba(4,41,74,0.4); border: 1px solid rgba(26,200,200,0.12); border-radius: 3px; padding: 20px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--ocean-cyan); letter-spacing: 0.15em; margin-bottom: 10px; opacity: 0.7; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 8px; font-weight: 500; }
+  .mcq-q-es { font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; font-style: italic; }
+  .mcq-options { list-style: none; padding: 0; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: var(--text-light); opacity: 0.75; padding: 3px 0; font-family: 'DM Mono', monospace; line-height: 1.5; }
+  .mcq-options li.correct { color: var(--ocean-cyan); opacity: 1; font-weight: 500; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 0.1em; padding-top: 8px; border-top: 1px solid rgba(26,200,200,0.1); }
+  .footer { padding: 20px 40px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar-wrap { flex: 1; margin: 0 24px; height: 3px; background: rgba(26,200,200,0.1); border-radius: 2px; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ocean-teal), var(--ocean-cyan)); border-radius: 2px; width: 9.66%; }
+  .progress-pct { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ocean-cyan); letter-spacing: 0.1em; }
+  @media(max-width:700px){
+    .header { grid-template-columns: 1fr; }
+    .header-svg { display: none; }
+    .mcq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 04 · Biological Oceanography · Lesson 68 of 704</div>
+        <div class="lesson-title">Processes</div>
+        <div class="lesson-subtitle">Photosynthesis · nutrient cycling · remineralization · calcification · bioerosion · spawning · recruitment · ecological succession</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-green">Photosynthesis · N/P Cycling</span>
+        <span class="tag tag-coral">Calcification · Bioerosion</span>
+        <span class="tag tag-gold">Spawning · Recruitment</span>
+        <span class="tag tag-purple">Succession · Recovery</span>
+        <span class="tag tag-blue">CMIE Process Signals</span>
+      </div>
+    </div>
+    <div class="header-svg">
+      <!-- SVG: Biogeochemical cycle wheel — six process nodes arranged in a loop around a central reef, with directional arrows and element labels -->
+      <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" width="340" height="220">
+        <defs>
+          <linearGradient id="procG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#031e38" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#020810" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <rect width="340" height="220" fill="url(#procG)"/>
+
+        <!-- Central reef mound -->
+        <ellipse cx="170" cy="138" rx="42" ry="16" fill="rgba(10,60,50,0.7)"/>
+        <ellipse cx="155" cy="130" rx="12" ry="8"  fill="rgba(232,96,64,0.38)"/>
+        <ellipse cx="172" cy="127" rx="14" ry="9"  fill="rgba(232,96,64,0.42)"/>
+        <ellipse cx="190" cy="130" rx="11" ry="8"  fill="rgba(232,96,64,0.36)"/>
+        <!-- Central label -->
+        <rect x="146" y="148" width="48" height="12" rx="2" fill="rgba(2,15,30,0.85)" stroke="rgba(26,200,200,0.25)" stroke-width="0.7"/>
+        <text x="170" y="157" text-anchor="middle" font-family="DM Mono,monospace" font-size="6.5" fill="rgba(26,200,200,0.8)">REEF SYSTEM</text>
+
+        <!-- ── SIX PROCESS NODES arranged in arc around reef ── -->
+
+        <!-- NODE 1: PHOTOSYNTHESIS (top-left) -->
+        <circle cx="72" cy="52" r="22" fill="rgba(62,207,142,0.1)" stroke="rgba(62,207,142,0.4)" stroke-width="1"/>
+        <text x="72" y="47" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(62,207,142,0.9)" letter-spacing="0.05em">PHOTO-</text>
+        <text x="72" y="56" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(62,207,142,0.9)" letter-spacing="0.05em">SYNTHESIS</text>
+        <text x="72" y="65" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(62,207,142,0.6)">CO₂ → Corg</text>
+
+        <!-- NODE 2: NUTRIENT CYCLING (top-centre) -->
+        <circle cx="170" cy="32" r="22" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <text x="170" y="27" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(26,200,200,0.9)" letter-spacing="0.05em">NUTRIENT</text>
+        <text x="170" y="36" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(26,200,200,0.9)" letter-spacing="0.05em">CYCLING</text>
+        <text x="170" y="45" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(26,200,200,0.6)">N · P · Si</text>
+
+        <!-- NODE 3: REMINERALIZATION (top-right) -->
+        <circle cx="268" cy="52" r="22" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.4)" stroke-width="1"/>
+        <text x="268" y="47" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(240,180,41,0.9)" letter-spacing="0.05em">REMINE-</text>
+        <text x="268" y="56" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(240,180,41,0.9)" letter-spacing="0.05em">RALIZATION</text>
+        <text x="268" y="65" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.6)">Corg → CO₂</text>
+
+        <!-- NODE 4: CALCIFICATION (bottom-right) -->
+        <circle cx="288" cy="155" r="22" fill="rgba(155,127,232,0.1)" stroke="rgba(155,127,232,0.4)" stroke-width="1"/>
+        <text x="288" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(155,127,232,0.9)" letter-spacing="0.05em">CALCIFI-</text>
+        <text x="288" y="159" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(155,127,232,0.9)" letter-spacing="0.05em">CATION</text>
+        <text x="288" y="168" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(155,127,232,0.6)">Ca²⁺+CO₃²⁻</text>
+
+        <!-- NODE 5: SPAWNING / RECRUITMENT (bottom-centre) -->
+        <circle cx="170" cy="196" r="20" fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.4)" stroke-width="1"/>
+        <text x="170" y="191" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.9)" letter-spacing="0.05em">SPAWN /</text>
+        <text x="170" y="200" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(232,96,64,0.9)" letter-spacing="0.05em">RECRUIT</text>
+        <text x="170" y="209" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.6)">larval flux</text>
+
+        <!-- NODE 6: SUCCESSION (bottom-left) -->
+        <circle cx="52" cy="155" r="22" fill="rgba(240,180,41,0.08)" stroke="rgba(240,180,41,0.35)" stroke-width="1"/>
+        <text x="52" y="150" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(240,180,41,0.85)" letter-spacing="0.05em">ECOL.</text>
+        <text x="52" y="159" text-anchor="middle" font-family="DM Mono,monospace" font-size="6"   fill="rgba(240,180,41,0.85)" letter-spacing="0.05em">SUCCESSION</text>
+        <text x="52" y="168" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(240,180,41,0.55)">pioneer→climax</text>
+
+        <!-- ── CYCLE ARROWS connecting nodes clockwise ── -->
+        <!-- 1→2 Photosynthesis → Nutrient Cycling -->
+        <path d="M 92,42 Q 130,20 148,28" fill="none" stroke="rgba(62,207,142,0.45)" stroke-width="1" marker-end="url(#arrowG)"/>
+        <!-- 2→3 Nutrient Cycling → Remineralization -->
+        <path d="M 192,28 Q 228,18 248,40" fill="none" stroke="rgba(26,200,200,0.4)" stroke-width="1" marker-end="url(#arrowC)"/>
+        <!-- 3→4 Remineralization → Calcification -->
+        <path d="M 282,72 Q 298,108 288,133" fill="none" stroke="rgba(240,180,41,0.4)" stroke-width="1" marker-end="url(#arrowY)"/>
+        <!-- 4→5 Calcification → Spawning -->
+        <path d="M 268,170 Q 240,188 190,194" fill="none" stroke="rgba(155,127,232,0.4)" stroke-width="1" marker-end="url(#arrowP)"/>
+        <!-- 5→6 Spawning → Succession -->
+        <path d="M 150,196 Q 112,200 72,174" fill="none" stroke="rgba(232,96,64,0.4)" stroke-width="1" marker-end="url(#arrowR)"/>
+        <!-- 6→1 Succession → Photosynthesis -->
+        <path d="M 52,133 Q 48,96 58,72" fill="none" stroke="rgba(240,180,41,0.4)" stroke-width="1" marker-end="url(#arrowY2)"/>
+
+        <!-- Arrow markers -->
+        <defs>
+          <marker id="arrowG"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(62,207,142,0.6)"/></marker>
+          <marker id="arrowC"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(26,200,200,0.55)"/></marker>
+          <marker id="arrowY"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(240,180,41,0.55)"/></marker>
+          <marker id="arrowP"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(155,127,232,0.55)"/></marker>
+          <marker id="arrowR"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(232,96,64,0.55)"/></marker>
+          <marker id="arrowY2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="rgba(240,180,41,0.5)"/></marker>
+        </defs>
+
+        <!-- Bioerosion label (inside reef mound) -->
+        <text x="170" y="142" text-anchor="middle" font-family="DM Mono,monospace" font-size="5.5" fill="rgba(232,96,64,0.6)">bioerosion ↔ accretion</text>
+
+        <!-- Bioluminescent sparks -->
+        <circle cx="118" cy="100" r="0.9" fill="rgba(26,200,200,0.7)"/>
+        <circle cx="222" cy="95"  r="0.8" fill="rgba(26,200,200,0.6)"/>
+        <circle cx="170" cy="108" r="1.0" fill="rgba(26,200,200,0.65)"/>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- LECTURE PANEL -->
+  <div class="panel">
+    <div class="panel-label">▸ Lecture — Biological Oceanography: Processes</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+
+      <p>Biological oceanography is ultimately a science of processes — the rates and mechanisms by which living systems transform matter and energy and reshape their physical environment. Understanding reef condition requires understanding the six core processes that run continuously through every corridor site GROAN monitors: <strong>photosynthesis</strong>, <strong>nutrient cycling</strong>, <strong>remineralization</strong>, <strong>calcification and bioerosion</strong>, <strong>spawning and recruitment</strong>, and <strong>ecological succession</strong>. Each process has a measurable rate, a set of environmental controls, and a failure signature that appears in the GROAN data pipeline.</p>
+
+      <p><strong>Photosynthesis</strong> is the foundational process of the photic zone — the conversion of CO₂ and light energy into organic carbon by phytoplankton, zooxanthellae, seagrasses, and macroalgae. In reef systems the dominant photosynthetic pathway is endosymbiotic: zooxanthellae fixed within coral tissue fix carbon that is directly transferred to the coral host. The rate is controlled by light availability, temperature, and nutrient supply — the same three variables tracked by GRIN's physical sub-indices. <span class="cr">Photosynthetic rate suppression precedes visible bleaching by days to weeks</span>: when zooxanthellae photoinhibition begins, carbon transfer to the host drops before the symbiont is expelled. This pre-bleaching photosynthetic depression is the earliest biological process signal available to GROAN and should trigger a CMIE early warning flag before any visual bleaching is recorded.</p>
+
+      <p><strong>Nutrient Cycling</strong> in ocean systems operates through three interlocked elemental cycles — nitrogen (N), phosphorus (P), and silica (Si) — each with distinct biological and geochemical pathways. The <strong>nitrogen cycle</strong> involves fixation (conversion of N₂ gas to bioavailable NH₄⁺ by cyanobacteria), nitrification (NH₄⁺ → NO₃⁻ by nitrifying bacteria), assimilation by phytoplankton, and denitrification (NO₃⁻ → N₂ gas by anaerobic bacteria, removing fixed N from the system). <span class="hl">In reef environments, nitrogen fixation by endolithic cyanobacteria within coral skeletons and in carbonate sediments supplements external nutrient supply</span> — a local nitrogen subsidy that makes reef productivity partially independent of water column N availability. Disruption of this internal cycle by antibiotics, sediment smothering, or thermal stress degrades reef NPP independently of external nutrient loading.</p>
+
+      <p><strong>Remineralization</strong> is the reverse of photosynthesis: bacteria and archaea decompose organic matter back into inorganic nutrients (NH₄⁺, PO₄³⁻, CO₂), making them available for uptake by primary producers again. In the reef environment, remineralization occurs in the water column, in reef sediments, and within the living reef framework — producing a local nutrient recycling loop that partially decouples reef productivity from the oligotrophic water column surrounding it. <span class="cr">The remineralization rate accelerates with temperature</span> — a climate warming signal that increases organic matter decomposition, elevates local CO₂, and depresses local Ω aragonite around reef carbonate surfaces. This is a thermally-mediated Ω feedback that operates independently of and in addition to open-ocean acidification — a CMIE signal requiring both GRIN chemistry data and water temperature records to detect.</p>
+
+      <p><strong>Calcification and Bioerosion</strong> are the opposing processes that determine reef net accretion — whether the carbonate framework is growing or shrinking. <strong>Calcification</strong> is the precipitation of calcium carbonate (CaCO₃) by corals, coralline algae, and other calcifiers, governed by Ω aragonite, temperature, and light. <strong>Bioerosion</strong> is the biological removal of carbonate framework by boring organisms (sponges, bivalves, worms) and grazing organisms (parrotfish, sea urchins). A healthy reef maintains net positive accretion (calcification > bioerosion). <span class="hl">A reef under combined thermal stress and acidification stress can tip to net negative accretion — erosion exceeding growth — at Ω aragonite values below approximately 1.5</span>, the tipping threshold defined in Section 02. GROAN's DMAP-CAL™ uses this threshold as a Decision Score trigger for Tier 4–5 interventions.</p>
+
+      <p><strong>Spawning and Recruitment</strong> are the demographic processes that determine whether reef populations can recover after disturbance. <strong>Mass spawning events</strong> — synchronized release of gametes by large fractions of a coral population, typically triggered by lunar phase and temperature — produce gamete densities sufficient to overcome predation and achieve fertilization. <strong>Larval recruitment</strong> is the settlement of competent larvae on suitable substrate, completing the pelagic larval phase that connects reef sites across the corridor through oceanographic dispersal. <span class="cr">Recruitment failure — insufficient larvae settling or surviving to juvenile stage — is the mechanism by which a reef can remain structurally degraded indefinitely after a bleaching or physical disturbance event.</span> GROAN's Rim Run™ timing in October captures the post-spawning recruitment window in the Caribbean, making juvenile coral density one of the highest-value observations at each corridor site.</p>
+
+      <p><strong>Ecological Succession</strong> is the directional change in community composition over time following disturbance — from pioneer species to climax community. In reef systems, succession follows a predictable trajectory: bare carbonate substrate is colonized first by crustose coralline algae (CCA, the settlement cue for coral larvae), then by pioneer coral species (fast-growing branching Acropora spp.), then by the diverse mixed assemblage of the climax reef community. <span class="hl">Succession rate is the primary metric of reef recovery potential</span> — a site showing active succession is recovering; a site with persistent macroalgae domination or bare substrate after a disturbance event is in succession arrest, a failure mode driven by chronic stressors (excess nutrients, herbivore removal, sedimentation) that prevent early succession stages from proceeding. GROAN's GRIN surveys track successional stage as a recovery index input to DMAP-CAL™.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+
+      <p>La oceanografía biológica es en última instancia una ciencia de procesos. Seis procesos centrales operan continuamente en cada sitio del corredor que monitorea GROAN: <strong>fotosíntesis</strong>, <strong>ciclo de nutrientes</strong>, <strong>remineralización</strong>, <strong>calcificación y bioerosión</strong>, <strong>desove y reclutamiento</strong>, y <strong>sucesión ecológica</strong>.</p>
+
+      <p><strong>Fotosíntesis:</strong> En sistemas arrecifales la vía fotosintética dominante es endosimbiótica — las zooxantelas fijan carbono que se transfiere directamente al huésped coral. <span class="cr">La supresión de la tasa fotosintética precede al blanqueamiento visible en días a semanas</span>: cuando comienza la fotoinhibición de las zooxantelas, la transferencia de carbono al huésped cae antes de que el simbionte sea expulsado. Esta depresión fotosintética pre-blanqueamiento es la primera señal de proceso biológico disponible para GROAN.</p>
+
+      <p><strong>Ciclo de Nutrientes:</strong> Opera a través de tres ciclos elementales entrelazados — nitrógeno (N), fósforo (P) y sílice (Si). <span class="hl">En ambientes arrecifales, la fijación de nitrógeno por cianobacterias endolíticas dentro de los esqueletos coralinos complementa el suministro externo de nutrientes</span> — un subsidio local de nitrógeno que hace que la productividad arrecifal sea parcialmente independiente de la disponibilidad de N en la columna de agua.</p>
+
+      <p><strong>Remineralización:</strong> Las bacterias descomponen la materia orgánica de vuelta a nutrientes inorgánicos. <span class="cr">La tasa de remineralización se acelera con la temperatura</span> — una señal de calentamiento climático que eleva el CO₂ local y deprime el Ω aragonita alrededor de las superficies carbonatadas del arrecife. Este es un retroalimentación de Ω mediada térmicamente que opera independientemente de la acidificación oceánica de mar abierto.</p>
+
+      <p><strong>Calcificación y Bioerosión:</strong> Procesos opuestos que determinan la acreción neta del arrecife. <span class="hl">Un arrecife bajo estrés térmico y de acidificación combinados puede pasar a acreción neta negativa por debajo de aproximadamente Ω aragonita 1,5</span> — el umbral de punto de inflexión definido en la Sección 02.</p>
+
+      <p><strong>Desove y Reclutamiento:</strong> <span class="cr">El fallo de reclutamiento es el mecanismo por el cual un arrecife puede permanecer estructuralmente degradado indefinidamente después de un evento de perturbación.</span> El calendario de octubre del Rim Run™ captura la ventana de reclutamiento post-desove en el Caribe, haciendo que la densidad de juveniles de coral sea una de las observaciones de mayor valor en cada sitio del corredor.</p>
+
+      <p><strong>Sucesión Ecológica:</strong> <span class="hl">La tasa de sucesión es la métrica principal del potencial de recuperación arrecifal.</span> Un sitio con dominancia persistente de macroalgas o sustrato desnudo después de una perturbación está en arresto de sucesión — un modo de fallo impulsado por estresores crónicos que impiden que avancen las etapas tempranas de sucesión. GROAN rastrea la etapa de sucesión como entrada del índice de recuperación en DMAP-CAL™.</p>
+    </div>
+
+    <!-- Reference Table -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Process / Proceso</th>
+          <th>Rate Controls</th>
+          <th>Failure Signal</th>
+          <th>Detection Method</th>
+          <th>GROAN Module</th>
+          <th>CMIE Entry Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-green">Photosynthesis</span></td>
+          <td>Light, temperature, nutrient supply</td>
+          <td>Pre-bleaching NPP depression; PAM fluorometry drop</td>
+          <td>PAM fluorometry; water chemistry O₂/CO₂</td>
+          <td>GRIN · GKIN</td>
+          <td>T1 NPP early warning flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-cyan">Nutrient Cycling</span></td>
+          <td>Redfield stoichiometry; bacterial community; temperature</td>
+          <td>N:P deviation from 16:1; endolithic cycle disruption</td>
+          <td>MOOP water chemistry; N:P ratio vs. Redfield</td>
+          <td>GKIN · GRIN</td>
+          <td>Nutrient regime perturbation flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Remineralization</span></td>
+          <td>Temperature; organic matter supply; microbial community</td>
+          <td>Local CO₂ elevation; Ω depression near reef surface</td>
+          <td>pH / pCO₂ profiling at reef surface vs. water column</td>
+          <td>GRIN · CMIE</td>
+          <td>Thermal Ω feedback — distinct from open-ocean OA</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-purple">Calcification / Bioerosion</span></td>
+          <td>Ω aragonite; temperature; light; herbivore pressure</td>
+          <td>Net negative accretion when Ω &lt; ~1.5</td>
+          <td>Coral extension rate; bioerosion assay; Ω monitoring</td>
+          <td>GRIN · DMAP-CAL™</td>
+          <td>Tier 4–5 intervention trigger at Ω tipping threshold</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-coral">Spawning / Recruitment</span></td>
+          <td>Lunar phase; SST; substrate availability; CCA cover</td>
+          <td>Low juvenile density; absent CCA; macroalgae dominance</td>
+          <td>Juvenile coral density counts; CCA cover estimate</td>
+          <td>GRIN · CMIE</td>
+          <td>Recruitment failure → recovery trajectory flag</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gold">Ecological Succession</span></td>
+          <td>Disturbance regime; nutrient load; herbivory; sedimentation</td>
+          <td>Succession arrest — macroalgae or bare substrate persistence</td>
+          <td>Belt transect: coral vs. algae vs. bare substrate ratio</td>
+          <td>GRIN · DMAP-CAL™</td>
+          <td>Recovery index input — succession stage score</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- /lecture panel -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="app-panel">
+    <div class="panel-label">▸ Application — GROAN Process Diagnostics &amp; CMIE Routing</div>
+
+    <!-- EN -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇺🇸</span> English</div>
+      <ul>
+        <li>When MOOP records elevated SST anomaly at a corridor site, check for <strong>pre-bleaching photosynthetic depression</strong> before the visual bleaching threshold is reached. PAM fluorometry — measuring the quantum yield of photosystem II in coral tissue — will show depression of the Fv/Fm ratio before any visible pale or white coloration appears. Enter this in the CMIE record as a T1 NPP early warning flag with the date of first PAM depression, not the date of first visual bleaching. <span class="cr">The gap between PAM depression and visual bleaching is the intervention window — any thermal mitigation action taken in this gap has the highest probability of preventing full symbiont expulsion and recovery cost.</span></li>
+        <li>When a corridor reef site shows low coral cover but high <strong>crustose coralline algae (CCA) cover and low macroalgae cover</strong>, log it as an active succession site — not a degraded site. CCA dominance on bare substrate signals that the post-disturbance succession trajectory is intact: substrate is being prepared for coral larval settlement. The correct DMAP-CAL™ routing is recruitment support (herbivore protection to maintain low macroalgae, larval enhancement if available) — not a coral restoration intervention, which is appropriate only when substrate is available but larvae are absent.</li>
+        <li>When a corridor site shows persistent macroalgae dominance after a documented bleaching or physical disturbance event more than 24 months prior, log it as <strong>succession arrest</strong> in the CMIE record. Succession arrest is not the same as reef degradation — it is a specific failure mode indicating that chronic stressors (excess nutrients, herbivore removal, or sedimentation) are blocking the early succession stages from proceeding. The DMAP-CAL™ Decision Score for a succession-arrested site must identify and address the blocking stressor, not the macroalgae themselves. Removing macroalgae without addressing the blocking stressor produces temporary clearance followed by immediate recolonization.</li>
+        <li>When recording juvenile coral density during a GRIN belt transect survey, <strong>note the substrate type beneath each juvenile</strong>: juveniles on CCA indicate natural recruitment proceeding normally; juveniles on bare carbonate indicate marginal settlement conditions; absence of juveniles on CCA-covered substrate indicates larval supply failure (pelagic dispersal disruption, upstream spawning population collapse, or thermal inhibition of gamete viability). These three sub-conditions produce the same surface metric — low juvenile density — but require completely different DMAP-CAL™ interventions. The substrate observation resolves the ambiguity.</li>
+        <li>When interpreting GRIN water chemistry data showing <strong>localized Ω aragonite depression near the reef surface that exceeds what open-ocean OA projections predict</strong>, consider thermally-accelerated remineralization as the additional driver before attributing the full signal to acidification. Elevated temperature increases bacterial decomposition of organic matter in the reef framework, releases local CO₂, and depresses surface Ω independently of and in addition to the background open-ocean acidification signal. <span class="pu">Log this as a thermal remineralization Ω feedback in the CMIE record — a separate process signal from the Section 02 OA baseline — so that the Decision Score correctly weights the combined stressor load rather than attributing it all to a single cause.</span></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ES -->
+    <div class="lang-block">
+      <div class="flag-label"><span>🇲🇽</span> Español</div>
+      <ul>
+        <li>Cuando MOOP registre una anomalía de TSM elevada, verifique la <strong>depresión fotosintética pre-blanqueamiento</strong> antes de que se alcance el umbral de blanqueamiento visual. La fluorometría PAM mostrará depresión de la relación Fv/Fm antes de que aparezca coloración visible. <span class="cr">La brecha entre la depresión PAM y el blanqueamiento visual es la ventana de intervención</span> — cualquier acción de mitigación térmica tomada en esta brecha tiene la mayor probabilidad de prevenir la expulsión completa del simbionte.</li>
+        <li>Cuando un sitio arrecifal muestre <strong>alta cobertura de algas coralinas costrosas (CCA) y baja cobertura de macroalgas</strong>, regístrelo como sitio de sucesión activa. La dominancia de CCA señala que la trayectoria de sucesión post-perturbación está intacta. El enrutamiento correcto de DMAP-CAL™ es soporte de reclutamiento, no intervención de restauración coralina.</li>
+        <li>Cuando un sitio muestre dominancia persistente de macroalgas más de 24 meses después de una perturbación documentada, regístrelo como <strong>arresto de sucesión</strong> en el CMIE. La Puntuación de Decisión de DMAP-CAL™ debe identificar y abordar el estresor bloqueante — no las macroalgas en sí. Eliminar macroalgas sin abordar el estresor bloqueante produce una depuración temporal seguida de recolonización inmediata.</li>
+        <li>Al registrar la densidad de juveniles de coral, <strong>anote el tipo de sustrato debajo de cada juvenil</strong>. Juveniles en CCA indican reclutamiento natural normal; ausencia de juveniles en sustrato con CCA indica fallo en el suministro larval. Estas sub-condiciones requieren intervenciones de DMAP-CAL™ completamente diferentes.</li>
+        <li>Cuando los datos de química del agua de GRIN muestren <strong>depresión localizada de Ω aragonita cerca de la superficie del arrecife que excede las proyecciones de OA de mar abierto</strong>, considere la remineralización acelerada térmicamente como impulsor adicional. <span class="pu">Registre esto como retroalimentación de Ω de remineralización térmica en el CMIE — una señal de proceso separada de la línea de base de OA de la Sección 02.</span></li>
+      </ul>
+    </div>
+  </div><!-- /app panel -->
+
+  <!-- MCQ SECTION -->
+  <div class="mcq-section">
+    <div class="panel-label">▸ Assessment — 3 Questions / Evaluación — 3 Preguntas</div>
+    <div class="mcq-grid">
+
+      <!-- Q1 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 01</div>
+        <div class="mcq-q">A MOOP PAM fluorometry reading at a corridor site shows a 35% depression of the Fv/Fm ratio in coral tissue, but no visual bleaching has been recorded. What process is occurring, what does this represent in the CMIE record, and why is timing of intervention critical?</div>
+        <div class="mcq-q-es">Una lectura de fluorometría PAM de MOOP muestra una depresión del 35% de la relación Fv/Fm en tejido coral, pero no se ha registrado blanqueamiento visual. ¿Qué proceso está ocurriendo y por qué es crítico el momento de la intervención?</div>
+        <ul class="mcq-options">
+          <li>A. Photoinhibition from excess light; enter as a physical stress flag in GRIN; no CMIE intervention routing required until visual bleaching is confirmed</li>
+          <li>B. Early nutrient limitation reducing photosynthetic efficiency; enter as a Liebig limiting factor flag; route to DMAP-CAL™ nutrient intervention</li>
+          <li class="correct">C. Pre-bleaching photosynthetic depression — zooxanthellae photoinhibition has begun and carbon transfer to the coral host is dropping before symbiont expulsion; enter in CMIE as a T1 NPP early warning flag dated to the PAM depression event, not to visual bleaching; the interval between PAM depression and visual bleaching is the highest-probability intervention window — thermal mitigation action taken here has the greatest chance of preventing full symbiont expulsion and the associated recovery cost</li>
+          <li>D. Normal seasonal variation in photosynthetic efficiency; no action required; re-survey in 30 days to assess trend</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 02</div>
+        <div class="mcq-q">A GRIN belt transect at a site disturbed 36 months ago records: 12% coral cover, 62% crustose coralline algae (CCA), 8% macroalgae, and near-zero juvenile coral density. What is the correct process diagnosis and DMAP-CAL™ routing?</div>
+        <div class="mcq-q-es">Un transecto de banda GRIN en un sitio perturbado hace 36 meses registra: 12% de cobertura coralina, 62% de algas coralinas costrosas (CCA), 8% de macroalgas y densidad de juveniles de coral casi nula. ¿Cuál es el diagnóstico de proceso correcto y el enrutamiento DMAP-CAL™?</div>
+        <ul class="mcq-options">
+          <li>A. Succession arrest due to macroalgae dominance; route to macroalgae removal intervention</li>
+          <li>B. Active recovery; high CCA and low macroalgae indicate healthy succession; no intervention required; return in 12 months</li>
+          <li class="correct">C. Larval supply failure on a substrate that is ready to receive recruits — high CCA and low macroalgae confirm succession trajectory is intact and substrate is prepared, but near-zero juveniles on available CCA indicates that larvae are not arriving or surviving; route to DMAP-CAL™ larval supply investigation: check upstream spawning population condition, pelagic dispersal pathway integrity, and SST during the last spawning window for thermal inhibition of gamete viability</li>
+          <li>D. Calcification failure — low coral cover after 36 months indicates Ω aragonite is below the net accretion threshold; route to Tier 4 chemical intervention</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: C · RESPUESTA: C</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-card">
+        <div class="mcq-num">QUESTION 03</div>
+        <div class="mcq-q">GRIN water chemistry data at a corridor site shows Ω aragonite of 2.1 near the reef surface — 0.4 units below the open-ocean background value of 2.5 for the same location and season. Global OA projections do not predict this local depression. What process explains the discrepancy, and how should it be entered in CMIE?</div>
+        <div class="mcq-q-es">Los datos de química del agua de GRIN muestran Ω aragonita de 2,1 cerca de la superficie del arrecife — 0,4 unidades por debajo del valor de fondo de mar abierto de 2,5. Las proyecciones globales de OA no predicen esta depresión local. ¿Qué proceso explica la discrepancia y cómo debe registrarse en CMIE?</div>
+        <ul class="mcq-options">
+          <li>A. Instrument calibration error — a 0.4 unit local depression without OA attribution is outside the range of natural variability; flag for re-measurement before CMIE entry</li>
+          <li>B. Upwelling of deep, low-Ω water onto the reef platform; enter as a physical oceanography circulation flag in GKIN</li>
+          <li>C. Calcification drawdown — high coral cover is consuming carbonate ions faster than they are being replenished; enter as a calcification rate anomaly in GRIN</li>
+          <li class="correct">D. Thermally-accelerated remineralization — elevated temperature increases bacterial decomposition of organic matter in the reef framework, releasing local CO₂ and depressing surface Ω independently of and in addition to the open-ocean OA signal; enter in CMIE as a thermal remineralization Ω feedback, distinct from the Section 02 OA baseline, so the Decision Score correctly weights the combined stressor load rather than attributing the full Ω depression to open-ocean acidification alone</li>
+        </ul>
+        <div class="mcq-answer">ANSWER: D · RESPUESTA: D</div>
+      </div>
+
+    </div>
+  </div><!-- /mcq -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="progress-label">S03·L04 of 704</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-pct">9.66%</div>
+  </div>
+
+</div><!-- /card -->
+</body>
+</html>
