@@ -13,15 +13,22 @@
 --midnight:#0d1520;
 --aqua:#29b0d4;
 --gold:#c9a84c;
+--old-gold:#a8833a;
 --parchment:#f0e8d0;
 --fog:#c8cdd8;
 }
 
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*,*::before,*::after{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
 background:var(--deep-ocean);
 color:var(--parchment);
 font-family:'EB Garamond',serif;
+line-height:1.6;
 }
 
 nav{
@@ -32,16 +39,24 @@ display:flex;
 justify-content:center;
 position:sticky;
 top:0;
+z-index:1000;
 }
 
-.nav-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.nav-links{
+display:flex;
+gap:1.5rem;
+flex-wrap:wrap;
+}
+
 nav a{
 color:var(--fog);
 font-family:'Josefin Sans';
 text-transform:uppercase;
 font-size:0.8rem;
 letter-spacing:0.12em;
+text-decoration:none;
 }
+
 nav a.active{color:var(--gold);}
 
 .page-hero{
@@ -62,7 +77,11 @@ font-size:clamp(2.5rem,6vw,4.5rem);
 .hero-h1 em{color:var(--gold);font-style:normal;}
 
 section{padding:5rem 2rem;}
-.container{max-width:1100px;margin:0 auto;}
+
+.container{
+max-width:1100px;
+margin:0 auto;
+}
 
 .section-label{
 font-family:'Josefin Sans';
@@ -79,27 +98,40 @@ background:linear-gradient(90deg,var(--gold),var(--old-gold));
 margin:1rem 0 2rem;
 }
 
-  <div style="margin:1.5rem 0 2.5rem; padding:1.5rem; border:1px solid rgba(201,168,76,0.25); background:rgba(14,77,110,0.10);">
-  <p style="color:var(--parchment); font-size:1rem; line-height:1.7;">
-    These works are currently in the final stage of production and will soon be available as limited-edition apparel, including T-shirts, hoodies, and sweatshirts.
-  </p>
+/* NOTICE BOX FIXED */
+.notice{
+margin:1.5rem 0 2.5rem;
+padding:1.5rem;
+border:1px solid rgba(201,168,76,0.25);
+background:rgba(14,77,110,0.10);
+}
 
-  <p style="margin-top:1rem; color:var(--fog); font-size:0.95rem; line-height:1.7;">
-    All imagery, marks, and associated designs displayed on this page are copyrighted and trademarked intellectual property of Catamaran Dan / Nevado Ranch Camp LLC and may not be reproduced, distributed, or used without express written permission.
-  </p>
-</div>
-  
+.notice p{
+font-size:1rem;
+line-height:1.7;
+color:var(--parchment);
+}
+
+.notice p:last-child{
+margin-top:1rem;
+color:var(--fog);
+font-size:0.95rem;
+}
+
+/* GRID */
 .shop-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:2rem;
 }
 
+/* PRODUCT CARD FIXED */
 .product{
 border:1px solid rgba(201,168,76,0.25);
 background:rgba(14,77,110,0.12);
 padding:1rem;
-transition:0.3s;
+transition:0.3s ease;
+overflow:hidden;
 }
 
 .product:hover{
@@ -111,12 +143,15 @@ border-color:rgba(201,168,76,0.6);
 width:100%;
 height:260px;
 object-fit:cover;
+display:block;
 margin-bottom:1rem;
+border-radius:2px;
 }
 
 .product-title{
 font-family:'Cinzel';
 font-size:1.1rem;
+margin-bottom:0.5rem;
 }
 
 .btn-gold{
@@ -155,32 +190,39 @@ text-decoration:none;
 <div class="section-label">Limited Editions</div>
 <div class="gold-rule"></div>
 
+<!-- NOTICE BOX (FIXED LOCATION) -->
+<div class="notice">
+<p>
+These works are currently in the final stage of production and will soon be available as limited-edition apparel, including T-shirts, hoodies, and sweatshirts.
+</p>
+
+<p>
+All imagery, marks, and associated designs displayed on this page are copyrighted and trademarked intellectual property of Catamaran Dan / Nevado Ranch Camp LLC and may not be reproduced, distributed, or used without express written permission.
+</p>
+</div>
+
 <div class="shop-grid">
 
-<!-- IMAGE 1 -->
 <div class="product">
-<img src="pbwf.png" alt="Print PBWF"/>
+<img src="pbwf.png" alt="PBWF Edition"/>
 <div class="product-title">PBWF Edition</div>
 <a class="btn-gold" href="#">Purchase</a>
 </div>
 
-<!-- IMAGE 2 -->
 <div class="product">
-<img src="pbwm.png" alt="Print PBWM"/>
+<img src="pbwm.png" alt="PBWM Edition"/>
 <div class="product-title">PBWM Edition</div>
 <a class="btn-gold" href="#">Purchase</a>
 </div>
 
-<!-- IMAGE 3 -->
 <div class="product">
-<img src="bullsharks.png" alt="Bull Sharks"/>
+<img src="bullsharks.png" alt="Bull Sharks Edition"/>
 <div class="product-title">Bull Sharks Edition</div>
 <a class="btn-gold" href="#">Purchase</a>
 </div>
 
-<!-- IMAGE 4 -->
 <div class="product">
-<img src="bbtb.png" alt="BBTB"/>
+<img src="bbtb.png" alt="BBTB Edition"/>
 <div class="product-title">BBTB Edition</div>
 <a class="btn-gold" href="#">Purchase</a>
 </div>
