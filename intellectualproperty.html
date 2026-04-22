@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intellectual Property</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shop | Catamaran Dan</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
@@ -28,7 +28,7 @@ body{
 background:var(--deep-ocean);
 color:var(--parchment);
 font-family:'EB Garamond',serif;
-line-height:1.7;
+line-height:1.6;
 }
 
 /* NAV */
@@ -61,51 +61,116 @@ nav a.active{
 color:var(--gold);
 }
 
-/* CONTENT */
-.container{
-max-width:900px;
-margin:auto;
-padding:4rem 2rem;
-}
-
-h1{
-font-family:'Cinzel';
-font-size:2.8rem;
-margin-bottom:1.5rem;
-}
-
-h2{
-font-family:'Cinzel';
-font-size:1.4rem;
-margin-top:2.5rem;
-margin-bottom:0.8rem;
-color:var(--gold);
-}
-
-p{
-margin:0.8rem 0;
-color:var(--fog);
-}
-
-ul{
-margin:1rem 0 1rem 1.5rem;
-color:var(--fog);
-}
-
-/* FOOTER */
-footer{
-margin-top:4rem;
-padding:2rem;
+/* HERO */
+.page-hero{
+min-height:45vh;
+display:flex;
+align-items:center;
+justify-content:center;
 text-align:center;
-font-size:0.85rem;
-background:#080c14;
-border-top:1px solid rgba(201,168,76,0.2);
-color:var(--fog);
-line-height:1.6;
+background:linear-gradient(180deg,#050810 0%,#0a0f1a 100%);
+padding:6rem 2rem;
 }
 
-footer a{
+.hero-h1{
+font-family:'Cinzel';
+font-size:clamp(2.5rem,6vw,4.5rem);
+}
+
+.hero-h1 em{
+color:var(--gold);
+font-style:normal;
+}
+
+/* CONTENT */
+section{
+padding:5rem 2rem;
+}
+
+.container{
+max-width:1100px;
+margin:0 auto;
+}
+
+.section-label{
+font-family:'Josefin Sans';
+text-transform:uppercase;
+letter-spacing:0.3em;
 color:var(--aqua);
+font-size:0.72rem;
+}
+
+.gold-rule{
+width:60px;
+height:2px;
+background:linear-gradient(90deg,var(--gold),var(--old-gold));
+margin:1rem 0 2rem;
+}
+
+/* NOTICE */
+.notice{
+margin:1.5rem 0 2.5rem;
+padding:1.5rem;
+border:1px solid rgba(201,168,76,0.25);
+background:rgba(14,77,110,0.10);
+}
+
+.notice p{
+font-size:1rem;
+line-height:1.7;
+color:var(--parchment);
+}
+
+.notice p:not(:last-child){
+margin-bottom:1rem;
+}
+
+/* GRID */
+.shop-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:2rem;
+}
+
+/* PRODUCT */
+.product{
+border:1px solid rgba(201,168,76,0.25);
+background:rgba(14,77,110,0.12);
+padding:1rem;
+transition:0.3s ease;
+overflow:hidden;
+}
+
+.product:hover{
+transform:translateY(-4px);
+border-color:rgba(201,168,76,0.6);
+}
+
+.product img{
+width:100%;
+height:260px;
+object-fit:cover;
+display:block;
+margin-bottom:1rem;
+border-radius:2px;
+}
+
+.product-title{
+font-family:'Cinzel';
+font-size:1.1rem;
+margin-bottom:0.5rem;
+}
+
+.btn-gold{
+display:inline-block;
+margin-top:0.8rem;
+padding:0.6rem 1.2rem;
+border:1px solid rgba(201,168,76,0.5);
+color:var(--gold);
+font-family:'Josefin Sans';
+text-transform:uppercase;
+letter-spacing:0.2em;
+font-size:0.75rem;
 text-decoration:none;
 }
 </style>
@@ -117,7 +182,7 @@ text-decoration:none;
 <nav id="main-nav">
   <div class="nav-links">
     <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="rimrun.html">Rim Run</a>
     <a href="lionfish.html">Lion Hunter</a>
     <a href="systems.html">Systems</a>
     <a href="science.html">The Science</a>
@@ -127,91 +192,73 @@ text-decoration:none;
     <a href="citizenscience.html">Citizen Science / Ciencia Ciudadana</a>
     <a href="thelivingsaga.html">The Living Saga&#8482;</a>
     <a href="support.html">Support</a>
-    <a href="shop.html">Shop</a>
+    <a href="shop.html" class="active">Shop</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About</a>
-    <a href="intellectualproperty.html" class="active">Intellectual Property</a>
+    <a href="intellectualproperty.html">Intellectual Property</a>
   </div>
 </nav>
 
-<!-- CONTENT -->
+<!-- HERO -->
+<div class="page-hero">
+  <h1 class="hero-h1">The <em>Shop</em></h1>
+</div>
+
+<section>
 <div class="container">
 
-<h1>Intellectual Property</h1>
+<div class="section-label">Limited Editions</div>
+<div class="gold-rule"></div>
 
-<p>© 2025 Nevado Ranch Camp LLC. All rights reserved.</p>
+<!-- FIXED IP NOTICE -->
+<div class="notice">
+  <p>
+    All product designs, images, and visual works displayed on this page are the exclusive
+    intellectual property of Catamaran Dan / Nevado Ranch Camp LLC and are protected under
+    applicable copyright, trademark, and trade secret laws.
+  </p>
 
-<p>
-GROAN™, Rim Run™, DMAP-CAL™, and MOOP™ are trademarks of Nevado Ranch Camp LLC.
-</p>
+  <p>
+    No portion of these works may be reproduced, copied, distributed, modified,
+    reverse engineered, or used for commercial purposes without prior written permission.
+  </p>
 
-<h2>Ownership</h2>
+  <p>
+    These works are currently in the final stage of production and will soon be available
+    as limited-edition apparel, including T-shirts, hoodies, and sweatshirts.
+  </p>
+</div>
 
-<p>
-All content, systems, designs, and materials associated with GROAN™ are the exclusive
-intellectual property of Nevado Ranch Camp LLC.
-</p>
+<div class="shop-grid">
 
-<p>
-This includes, but is not limited to, all proprietary methodologies, data frameworks,
-software systems, visual materials, written content, and operational concepts.
-</p>
+<div class="product">
+<img src="pbwfwo.PNG" alt="PBWF Edition" title="© Nevado Ranch Camp LLC - All Rights Reserved"/>
+<div class="product-title">PBWF Edition</div>
+<a class="btn-gold" href="#">Purchase</a>
+</div>
 
-<h2>Protection</h2>
+<div class="product">
+<img src="pbwmwo.PNG" alt="PBWM Edition" title="© Nevado Ranch Camp LLC - All Rights Reserved"/>
+<div class="product-title">PBWM Edition</div>
+<a class="btn-gold" href="#">Purchase</a>
+</div>
 
-<p>
-These materials are protected under applicable intellectual property laws, including
-copyright, trademark, and trade secret protections.
-</p>
+<div class="product">
+<img src="bullsharkswo.PNG" alt="Bull Sharks Edition" title="© Nevado Ranch Camp LLC - All Rights Reserved"/>
+<div class="product-title">Bull Sharks Edition</div>
+<a class="btn-gold" href="#">Purchase</a>
+</div>
 
-<p>
-No part of this website or any GROAN™-related system may be copied, reproduced,
-distributed, modified, reverse engineered, or used for commercial purposes without
-prior written permission from Nevado Ranch Camp LLC.
-</p>
-
-<h2>Restrictions</h2>
-
-<ul>
-<li>No unauthorized use or reproduction</li>
-<li>No reverse engineering or derivative works</li>
-<li>No redistribution of content or system concepts</li>
-<li>No commercial use without written authorization</li>
-</ul>
-
-<h2>Enforcement</h2>
-
-<p>
-Nevado Ranch Camp LLC reserves all rights and will enforce its intellectual property
-rights to the fullest extent permitted by law.
-</p>
+<div class="product">
+<img src="bbtbwo.PNG" alt="BBTB Edition" title="© Nevado Ranch Camp LLC - All Rights Reserved"/>
+<div class="product-title">BBTB Edition</div>
+<a class="btn-gold" href="#">Purchase</a>
+</div>
 
 </div>
 
-<!-- FOOTER -->
-<footer>
-
-<div>
-Blue Rim 5&#8482; • Catamaran Dan • Nevado Raiders&#8482;
 </div>
-
-<div>
-"As go the seas… so goes humanity."
-</div>
-
-<div style="margin:10px 0;">
-Cell: (928) 250-9763 •
-<a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
-• Base Camp: White Mountains, AZ
-• www.catamarandan.org
-</div>
-
-<div style="margin-top:10px;">
-© 2025 Nevado Ranch Camp LLC. All rights reserved.
-| <a href="intellectualproperty.html">Intellectual Property</a>
-</div>
-
-</footer>
+</section>
 
 </body>
 </html>
