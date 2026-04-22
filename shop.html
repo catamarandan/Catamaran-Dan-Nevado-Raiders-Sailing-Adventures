@@ -1,134 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Shop | Catamaran Dan</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop | Catamaran Dan</title>
 
-<!-- KEEP YOUR EXACT SAME CSS -->
-<style>
-/* USE YOUR EXISTING CSS EXACTLY — DO NOT CHANGE */
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 
-/* (PASTE YOUR FULL CSS BLOCK HERE — unchanged) */
-</style>
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;width:100%;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';width:30px;height:1px;background:var(--aqua);}
+
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+
+.page-hero{
+  min-height:50vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:7rem 2rem 4rem;
+  background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4),transparent 60%),
+  linear-gradient(180deg,#050810 0%,#0a0f1a 100%);
+}
+.hero-h1{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.2rem,6vw,4.5rem);
+  color:var(--parchment);
+}
+.hero-h1 em{color:var(--gold);font-style:normal;}
+
+.shop-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2rem;
+  margin-top:2rem;
+}
+
+.product-card{
+  border:1px solid rgba(201,168,76,0.2);
+  background:linear-gradient(135deg,rgba(14,77,110,0.15),rgba(10,15,26,0.6));
+  padding:1.5rem;
+  transition:transform 0.25s,border-color 0.25s;
+}
+.product-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(201,168,76,0.5);
+}
+
+.product-title{
+  font-family:'Cinzel',serif;
+  color:var(--parchment);
+  margin-bottom:0.5rem;
+}
+
+.product-price{
+  color:var(--gold);
+  font-family:'Josefin Sans',sans-serif;
+  letter-spacing:0.12em;
+  margin-bottom:1rem;
+}
+
+.product-desc{
+  color:var(--fog);
+  font-size:0.95rem;
+}
+
+.btn-gold{
+  display:inline-block;
+  margin-top:1rem;
+  font-family:'Josefin Sans',sans-serif;
+  font-size:0.75rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid rgba(201,168,76,0.5);
+  padding:0.6rem 1.4rem;
+}
+
+footer{
+  background:#0b1e2d;
+  color:#fff;
+  padding:2rem;
+  text-align:center;
+  font-size:14px;
+}
+
+.footer-logo{font-family:'Cinzel',serif;color:var(--parchment);margin-bottom:0.5rem;}
+.footer-tagline{color:var(--gold);font-style:italic;margin-bottom:1rem;}
+.footer-contact{color:var(--fog);font-size:0.85rem;}
+
+@media(max-width:768px){
+  section{padding:4rem 1.5rem;}
+}
+  </style>
 </head>
 
 <body>
 
-<!-- SAME NAV -->
 <nav id="main-nav">
-<button class="nav-toggle" id="nav-toggle" type="button">
-<span></span><span></span><span></span>
-</button>
-<div class="nav-links" id="nav-links">
-<a href="index.html">Home</a>
-<a href="rimrun.html">Rim Run&#8482;</a>
-<a href="lionfish.html">Lion Hunter</a>
-<a href="systems.html">Systems</a>
-<a href="decision-system.html">Field Research Collaboration</a>
-<a href="platform.html">Small Cat Platform</a>
-<a href="learn.html">Learn Along with Me/Aprende Conmigo</a>
-<a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
-<a href="thelivingsaga.html">The Living Saga</a>
-<a href="support.html">Support</a>
-<a href="gallery.html">Gallery</a>
-<a href="shop.html" class="active">Shop</a>
-<a href="about.html">About</a>
-<a href="intellectualproperty.html">Intellectual Property</a>
-</div>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="systems.html">Systems</a>
+    <a href="science.html">The Science</a>
+    <a href="decision-system.html">Field Research Collaboration</a>
+    <a href="platform.html">Small Cat Platform</a>
+    <a href="learn.html">Learn</a>
+    <a href="citizenscience.html">Citizen Science</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="support.html">Support</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="intellectualproperty.html">IP</a>
+  </div>
 </nav>
 
-<!-- HERO -->
 <div class="page-hero">
-  <div class="page-hero-content">
-    <span class="hero-eyebrow">Official Gear &bull; Field-Tested Attitude</span>
+  <div>
     <h1 class="hero-h1">The <em>Shop</em></h1>
-    <p class="hero-sub">
-      Built to fund the journey. Worn by those who live it.  
-      This is not merchandise — this is the uniform of the expedition.
-    </p>
   </div>
 </div>
 
-<!-- PRODUCT STRIP -->
-<div style="background:#06090f;padding:1rem 1rem 0;">
-  <div class="img-trio reveal">
-
-    <div>
-      <img src="bbtb.png" alt="Better Beachy Than Bitchy™"/>
-      <p class="img-caption">Better Beachy Than Bitchy&#8482;</p>
-    </div>
-
-    <div>
-      <img src="pbwm.png" alt="Professional Bull Wrestling Male"/>
-      <p class="img-caption">Professional Bull Wrestling&#8482; — Original</p>
-    </div>
-
-    <div>
-      <img src="pbwf.png" alt="Professional Bull Wrestling Female"/>
-      <p class="img-caption">Professional Bull Wrestling&#8482; — Shield Maiden</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- SECOND ROW -->
-<div style="background:#06090f;padding:0 1rem 2rem;">
-  <div class="container-wide reveal" style="max-width:500px;margin:auto;">
-    <img src="bullsharks.png" alt="Running With the Bull Sharks"/>
-    <p class="img-caption">Running With the Bull Sharks&#8482;</p>
-  </div>
-</div>
-
-<!-- BRAND STORY SECTION -->
-<section class="bg-midnight border-bottom-gold">
+<section>
   <div class="container">
-    <div class="section-label reveal">What This Is</div>
-    <h2 class="serif reveal">Not Merch. <em>Identity.</em></h2>
-    <div class="gold-rule reveal"></div>
+    <div class="section-label">Gear & Field Tools</div>
+    <h2 class="serif">Built for the Rim Run&#8482; environment</h2>
+    <div class="gold-rule"></div>
 
-    <p class="reveal">
-      Every piece you see here exists for one reason — to fund a real-world ocean expedition.
-      No corporate backing. No outside funding. Just wind, water, and forward motion.
-    </p>
+    <p>Field-tested tools, expedition gear, and ocean-ready essentials used aboard Shamrocket and along the reef circuit.</p>
 
-    <p class="reveal">
-      When you wear this, you're not buying a shirt. You're backing the mission.
-      You're part of the story as it unfolds — reef by reef, mile by mile.
-    </p>
+    <div class="shop-grid">
+
+      <div class="product-card">
+        <div class="product-title">Rim Run Field Log</div>
+        <div class="product-price">$—</div>
+        <div class="product-desc">Expedition-grade waterproof field notebook for reef observations and data capture.</div>
+        <a class="btn-gold" href="#">View</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-title">GROAN Data Kit</div>
+        <div class="product-price">$—</div>
+        <div class="product-desc">Standardized reef observation toolkit aligned with GROAN Level 1 field protocols.</div>
+        <a class="btn-gold" href="#">View</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-title">Rim Runner Glassware</div>
+        <div class="product-price">$—</div>
+        <div class="product-desc">Official Rim Runner™ glass set for anchor-down protocol evenings.</div>
+        <a class="btn-gold" href="#">View</a>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="bg-deep border-bottom-gold">
-  <div class="container" style="text-align:center;">
-    <div class="section-label reveal">Next Step</div>
-    <h2 class="serif reveal">Gear Up. <em>Be Part of It.</em></h2>
-    <div class="gold-rule reveal"></div>
-
-    <p class="reveal">
-      Ordering system launching soon. First production run will be limited.
-    </p>
-
-    <a href="#" class="btn-gold reveal">Coming Soon</a>
-  </div>
-</section>
-
-<!-- FOOTER (KEEP YOUR EXACT SAME FOOTER) -->
 <footer>
-  <div class="footer-logo">
-    Blue Rim 5&#8482; &bull; Catamaran Dan
-  </div>
-  <div class="footer-tagline">
-    "As go the seas… so goes humanity."
+  <div class="footer-logo">Catamaran Dan</div>
+  <div class="footer-tagline">“As go the seas… so goes humanity.”</div>
+  <div class="footer-contact">
+    catamarandan.org
   </div>
 </footer>
-
-<!-- SAME JS -->
-<script>
-/* KEEP YOUR SAME NAV + REVEAL SCRIPT */
-</script>
 
 </body>
 </html>
