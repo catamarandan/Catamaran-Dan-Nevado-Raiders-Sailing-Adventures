@@ -823,6 +823,23 @@ els.forEach(function(el){ obs.observe(el); });
 } else {
 els.forEach(function(el){ el.classList.add('visible'); });
 }
+  // Route hover system (robust version)
+const routeInfo = document.getElementById('route-info');
+
+document.querySelectorAll('.route-hover span').forEach(span => {
+  span.addEventListener('mouseenter', function () {
+    const info = this.getAttribute('data-info');
+    if (routeInfo && info) {
+      routeInfo.textContent = info;
+    }
+  });
+
+  span.addEventListener('mouseleave', function () {
+    if (routeInfo) {
+      routeInfo.textContent = "Hover over a location to see reef characteristics.";
+    }
+  });
+});
 });
 </script>
 </body>
