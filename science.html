@@ -856,22 +856,21 @@ els.forEach(function(el){ obs.observe(el); });
 els.forEach(function(el){ el.classList.add('visible'); });
 }
   // Route hover system (robust version)
-const routeInfo = document.getElementById('route-info');
+// Multi-zone route hover support
+document.querySelectorAll('.route-hover').forEach(function(group) {
+  var infoBox = group.nextElementSibling;
 
-document.querySelectorAll('.route-hover span').forEach(span => {
-  span.addEventListener('mouseenter', function () {
-    const info = this.getAttribute('data-info');
-    if (routeInfo && info) {
-      routeInfo.textContent = info;
-    }
-  });
+  group.querySelectorAll('span').forEach(function(span) {
+    span.addEventListener('mouseenter', function() {
+      infoBox.textContent = span.getAttribute('data-info');
+      infoBox.style.opacity = 1;
+    });
 
-  span.addEventListener('mouseleave', function () {
-    if (routeInfo) {
-      routeInfo.textContent = "Hover over a location to see reef characteristics.";
-    }
+    span.addEventListener('mouseleave', function() {
+      infoBox.textContent = "Hover over a location to see reef characteristics.";
+      infoBox.style.opacity = 0.7;
+    });
   });
-});
 });
 </script>
 </body>
