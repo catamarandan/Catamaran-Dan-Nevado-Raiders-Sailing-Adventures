@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rim Run Pac™ | Catamaran Dan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0d1117;
+    --darker: #080c11;
+    --teal: #4ecdc4;
+    --teal-dim: #2a9d8f;
+    --gold: #e9c46a;
+    --pacific: #1a6b8a;
+    --pacific-bright: #38b2d8;
+    --text: #d0d8e0;
+    --text-dim: #8a9ab0;
+    --border: rgba(56,178,216,0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    background: rgba(8,12,17,0.97);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1rem 0.75rem;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--pacific-bright); }
+  nav a.active { color: var(--pacific-bright); }
+
+  /* HERO — Pacific uses deeper blue tone vs Caribbean teal */
+  .hero {
+    background: linear-gradient(170deg, #061828 0%, #0a1420 50%, #04101c 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+  }
+  .hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pacific-bright);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--pacific-bright);
+  }
+  .hero .tagline {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+  }
+  .hero .coming-badge {
+    display: inline-block;
+    background: rgba(56,178,216,0.1);
+    border: 1px solid rgba(56,178,216,0.3);
+    color: var(--pacific-bright);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2px;
+    margin-top: 1rem;
+  }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--darker);
+  }
+  .stat {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-number {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--pacific-bright);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pacific-bright);
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+  h2 em {
+    font-style: italic;
+    color: var(--pacific-bright);
+  }
+  p { margin-bottom: 1.25rem; color: var(--text); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ROUTE TABLE */
+  .route-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+  .route-table th {
+    text-align: left;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--pacific-bright);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .route-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(56,178,216,0.08);
+    vertical-align: top;
+    color: var(--text);
+  }
+  .route-table tr:hover td { background: rgba(56,178,216,0.04); }
+  .route-table td:first-child { font-weight: 600; white-space: nowrap; }
+  .route-table td:nth-child(3) { color: var(--pacific-bright); font-weight: 600; text-align: center; }
+  .route-table .tbd td { opacity: 0.55; font-style: italic; }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(56,178,216,0.06);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--pacific-bright);
+    border-radius: 4px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+  }
+  .callout strong { color: var(--pacific-bright); }
+
+  /* BRIDGE SECTION */
+  .bridge {
+    background: var(--darker);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .bridge-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .bridge-inner h2 { margin-bottom: 1rem; }
+
+  /* PHASE CARDS */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .phase-card {
+    background: rgba(56,178,216,0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+  .phase-card .phase-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pacific-bright);
+    margin-bottom: 0.5rem;
+  }
+  .phase-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+  .phase-card p { font-size: 0.88rem; color: var(--text-dim); margin: 0; }
+
+  /* SPEC TAGS */
+  .vessel-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .spec-tag {
+    background: rgba(56,178,216,0.1);
+    border: 1px solid var(--border);
+    color: var(--pacific-bright);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--darker);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 2;
+  }
+  footer .quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--pacific-bright);
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 680px) {
+    .bridge-inner { grid-template-columns: 1fr; }
+    .phase-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="rimrun.html">Rim Run™</a>
+  <a href="rimrun-caribe.html">Rim Run Caribe™</a>
+  <a href="rimrun-pac.html" class="active">Rim Run Pac™</a>
+  <a href="lionfish.html">Lion Hunter</a>
+  <a href="systems.html">Systems</a>
+  <a href="science.html">The Science</a>
+  <a href="decision-system.html">Field Research Collaboration</a>
+  <a href="platform.html">Small Cat Platform</a>
+  <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
+  <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
+  <a href="thelivingsaga.html">The Living Saga™</a>
+  <a href="support.html">Support</a>
+  <a href="shop.html">Shop</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About</a>
+  <a href="intellectualproperty.html">Intellectual Property</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Pacific Circuit · Following Rim Run Caribe™</p>
+  <h1>Rim Run <em>Pac™</em></h1>
+  <p class="tagline">
+    From the Panama isthmus to the Sea of Cortez — down the Pacific coast of Central and South America 
+    through entirely different ocean systems, reef types, and ecosystems that the Caribbean circuit 
+    can never reach. The second chapter. The longer story.
+  </p>
+  <div class="coming-badge">Circuit Development In Progress</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-number">10+</span>
+    <span class="stat-label">Countries</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">2</span>
+    <span class="stat-label">Ocean Systems</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">5,000+</span>
+    <span class="stat-label">Nautical Miles Est.</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">Sea of<br>Cortez</span>
+    <span class="stat-label">Northern Terminus</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">0</span>
+    <span class="stat-label">Carbon Emissions</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- THE BRIDGE -->
+<div class="bridge">
+  <div class="bridge-inner">
+    <div>
+      <p class="section-label">The Crossing</p>
+      <h2>Panama. <em>The Isthmus Crossing.</em></h2>
+      <p>
+        Rim Run Caribe™ ends in Panama. Rim Run Pac™ begins there. The isthmus crossing — 
+        Shamrocket and trailer hauled overland from the Caribbean side to the Pacific coast — 
+        is the physical hinge between the two circuits. Two oceans. One boat. One operator.
+      </p>
+      <p>
+        The Panama Pensionado residency program anchors the logistics. Pensionado status 
+        provides import duty exemption on the truck and trailer — a meaningful cost reduction 
+        that makes overland transport and extended Panama operations financially viable. 
+        Panama becomes the operational base for the Pacific launch.
+      </p>
+    </div>
+    <div>
+      <p class="section-label">Why the Pacific</p>
+      <h2>A Different <em>Ocean Entirely.</em></h2>
+      <p>
+        The Pacific is not an extension of the Caribbean. It is a fundamentally different 
+        oceanographic system — upwelling-driven, thermally dynamic, with reef systems and 
+        marine biodiversity that bear almost no resemblance to the Mesoamerican barrier reef.
+      </p>
+      <p>
+        The Humboldt Current off Peru and Chile. The Sea of Cortez — one of the most 
+        biodiverse marine environments on earth. Eastern Pacific coral systems under different 
+        thermal stress profiles than their Caribbean counterparts. For GROAN™, the Pacific 
+        circuit isn't more of the same data — it's a completely new dataset.
+      </p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ROUTE -->
+<section>
+  <p class="section-label">The Circuit — Development Phase</p>
+  <h2>Panama South to Chile. <em>Then North to the Sea of Cortez.</em></h2>
+  <p>
+    The Pac circuit runs south from Panama along the Pacific coast of Central and South America — 
+    Colombia's Pacific coast, Ecuador, Peru, and Chile — before the return leg north through 
+    Central America to Mexico's Sea of Cortez. Route details are being refined. What is locked 
+    is the architecture: south first, Sea of Cortez as the northern terminus, Panama residency 
+    as the operational anchor.
+  </p>
+
+  <div class="callout">
+    <strong>Note:</strong> Rim Run Pac™ is in active route development following completion of 
+    the Rim Run Caribe™ circuit architecture. Country-level detail, days-at-anchor estimates, 
+    and stop-by-stop science priorities will be published as the Pacific circuit is built out. 
+    Check back as Caribe launches and the Pacific chapter opens.
+  </div>
+
+  <table class="route-table">
+    <thead>
+      <tr>
+        <th>Country / Region</th>
+        <th>Key Areas</th>
+        <th>Status</th>
+        <th>Science Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🇵🇦 Panama Pacific</td>
+        <td>Gulf of Panama · Pearl Islands · Coiba NP</td>
+        <td>Confirmed</td>
+        <td>Isthmus crossing base · Coiba reef systems — UNESCO World Heritage</td>
+      </tr>
+      <tr>
+        <td>🇨🇴 Colombia Pacific</td>
+        <td>Bahía Solano · Nuquí · Gorgona Island</td>
+        <td>Confirmed</td>
+        <td>Pacific humpback corridor · CORDAP data theater extension</td>
+      </tr>
+      <tr>
+        <td>🇪🇨 Ecuador</td>
+        <td>Galápagos · Machalilla NP · Salango</td>
+        <td>Confirmed</td>
+        <td>Galápagos marine reserve — premier Pacific ecosystem baseline</td>
+      </tr>
+      <tr>
+        <td>🇵🇪 Peru</td>
+        <td>Paracas NP · Reserva Nacional Sistema Islas</td>
+        <td>Confirmed</td>
+        <td>Humboldt Current upwelling system — cold water coral analogs</td>
+      </tr>
+      <tr>
+        <td>🇨🇱 Chile</td>
+        <td>TBD — Southern circuit terminus</td>
+        <td>In Development</td>
+        <td>Southern Pacific reef systems — mesophotic cold water data</td>
+      </tr>
+      <tr class="tbd">
+        <td>🇳🇮 Nicaragua Pacific</td>
+        <td>Return leg — northbound</td>
+        <td>In Development</td>
+        <td>Cross-isthmus reef comparison with Caribe data already collected</td>
+      </tr>
+      <tr class="tbd">
+        <td>🇨🇷 Costa Rica Pacific</td>
+        <td>Cocos Island · Osa Peninsula · Gulf of Nicoya</td>
+        <td>In Development</td>
+        <td>Cocos Island — one of the greatest dive sites on earth</td>
+      </tr>
+      <tr class="tbd">
+        <td>🇬🇹 Guatemala Pacific</td>
+        <td>Return northbound — Pacific coast</td>
+        <td>In Development</td>
+        <td>Pacific-Caribbean cross-comparison with Guatemala Caribe data</td>
+      </tr>
+      <tr class="tbd">
+        <td>🇲🇽 Mexico — Sea of Cortez</td>
+        <td>Baja California Sur · Loreto · La Paz · Cabo</td>
+        <td>Confirmed Terminus</td>
+        <td>Sea of Cortez — world-class biodiversity · northern Pacific circuit anchor</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider">
+
+<!-- WHY PAC MATTERS -->
+<section>
+  <p class="section-label">Science Significance</p>
+  <h2>The Pacific Data. <em>A Completely Different Story.</em></h2>
+  <p>
+    When Rim Run Caribe™ completes its first full circuit, the GROAN™ database will hold a 
+    baseline reef health record across 11 Caribbean countries. When Rim Run Pac™ adds its 
+    Pacific layer, something more significant becomes possible: genuine cross-ocean comparison 
+    under the same methodology, the same operator, the same platform.
+  </p>
+  <p>
+    No institution currently holds that dataset. Not because it isn't valuable — because it has 
+    never been operationally feasible to collect. A 17-foot catamaran with 24 inches of draft, 
+    powered by wind and solar, operated by a single USCG-licensed master captain with nuclear 
+    submarine training, running both circuits back to back — is precisely the platform that 
+    makes it feasible.
+  </p>
+
+  <div class="phase-grid">
+    <div class="phase-card">
+      <p class="phase-num">Pacific Theater 1</p>
+      <h3>Sea of Cortez</h3>
+      <p>One of the most biodiverse marine environments on the planet. Dramatically different 
+      thermal profile from the Caribbean. Northern Pacific terminus for the circuit.</p>
+    </div>
+    <div class="phase-card">
+      <p class="phase-num">Pacific Theater 2</p>
+      <h3>Galápagos System</h3>
+      <p>UNESCO Marine Reserve. Cold and warm current convergence. Species assemblages 
+      found nowhere else on earth. Priority GROAN data collection node.</p>
+    </div>
+    <div class="phase-card">
+      <p class="phase-num">Pacific Theater 3</p>
+      <h3>Humboldt Current</h3>
+      <p>One of the most productive ocean systems on earth. Cold-water coral analogs. 
+      Entirely different chemistry profile from anything collected in the Caribbean.</p>
+    </div>
+    <div class="phase-card">
+      <p class="phase-num">Pacific Theater 4</p>
+      <h3>Cocos Island</h3>
+      <p>Costa Rica's UNESCO island — one of the premier dive destinations in the world. 
+      Hammerhead aggregations, whale sharks, and pristine open-ocean reef systems.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FOOTER -->
+<footer>
+  <p class="quote">"As go the seas… so goes humanity."</p>
+  <p>Cell: (928) 250-9763 &nbsp;•&nbsp; nevadoraiders@gmail.com &nbsp;•&nbsp; Base Camp: White Mountains, AZ &nbsp;•&nbsp; www.catamarandan.org</p>
+  <br>
+  <p>© 2025 Nevado Ranch Camp LLC. All rights reserved.</p>
+  <p style="margin-top:1rem;font-size:0.72rem;color:#556;line-height:1.9;">
+    GROAN™, Rim Run™, Rim Run Caribe™, Rim Run Pac™, DMAP-CAL™, MOOP™, CMIE™, GRIN™,
+    Blue Rim 5™, Nevado Raiders™ and all associated names, marks, and identifiers are 
+    trademarks or proprietary designations of Nevado Ranch Camp LLC.
+  </p>
+</footer>
+
+</body>
+</html>
