@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Learn Along With Me/Aprende Conmigo | Catamaran Dan</title>
   <meta name="description" content="Learn Along With Me — bilingual oceanography and reef science lessons for the Rim Run expedition." />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #081722;
@@ -15,12 +15,15 @@
       --muted: #b8d7e8;
       --accent: #4fc3dc;
       --accent2: #79e3f1;
-      --gold: #ffd166;
+      --gold: #c9a84c;
       --ok: #8fe388;
       --shadow: 0 10px 28px rgba(0,0,0,.28);
       --radius: 18px;
       --max: 1200px;
       --cyan: #1ac8c8;
+      /* Site nav variables */
+      --nav-bg: #080c14;
+      --fog: #c8cdd8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,33 +40,108 @@
 
     a { color: var(--text); text-decoration: none; }
 
-    /* NAV */
-    .nav-wrap {
-      position: sticky; top: 0; z-index: 1000;
-      backdrop-filter: blur(10px);
-      background: rgba(7,19,29,.88);
-      border-bottom: 1px solid rgba(121,227,241,.16);
-    }
-    .nav {
-      max-width: var(--max); margin: 0 auto;
-      padding: 14px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 18px;
-    }
-    .brand { font-weight: 700; letter-spacing: .4px; white-space: nowrap; }
-    .brand span { color: var(--accent2); }
-    .nav-links {
-      display: flex; flex-wrap: wrap;
-      align-items: center; justify-content: flex-end; gap: 1.8rem;
-    }
-    .nav-links a {
-      font-size: .98rem; color: #d9edf7;
-      padding: 6px 0; border-bottom: 2px solid transparent;
-    }
-    .nav-links a:hover, .nav-links a.active {
-      color: #fff; border-bottom-color: var(--accent);
+    /* ── SITE NAV — matching all other pages ─────────────── */
+    nav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 1rem 2rem;
+      display: flex;
+      gap: 1.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      align-items: center;
     }
 
-    /* HERO */
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--fog);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.25s, border-color 0.25s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav a:hover { color: var(--gold); }
+    nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      flex-direction: column;
+      gap: 5px;
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      nav {
+        position: sticky;
+        top: 0;
+        flex-direction: row;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 52px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        border-bottom: 1px solid rgba(201,168,76,0.2);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 1.5rem 1rem;
+        z-index: 999;
+        gap: 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        width: 100%;
+        padding: 0.65rem 0;
+        border-bottom: 1px solid rgba(201,168,76,0.08);
+        font-size: 0.82rem;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
     .hero {
       position: relative; overflow: hidden;
       border-bottom: 1px solid rgba(121,227,241,.14);
@@ -93,7 +171,7 @@
     }
     .hero p { max-width: 850px; color: var(--muted); font-size: 1.06rem; }
 
-    /* STATS BAR */
+    /* ── STATS BAR ───────────────────────────────────────── */
     .stats-bar {
       max-width: var(--max); margin: 0 auto;
       padding: 24px 20px 4px;
@@ -116,10 +194,9 @@
       text-transform: uppercase; letter-spacing: 0.12em;
     }
 
-    /* MAIN */
+    /* ── MAIN ────────────────────────────────────────────── */
     .main { max-width: var(--max); margin: 0 auto; padding: 24px 20px 60px; }
 
-    /* SECTION BLOCK */
     .section-block {
       margin-bottom: 16px;
       background: linear-gradient(180deg, rgba(16,43,61,.94), rgba(10,27,38,.96));
@@ -150,9 +227,7 @@
       font-size: 1.1rem; font-weight: 700;
       color: #fff; flex: 1;
     }
-    .section-progress {
-      display: flex; align-items: center; gap: 10px; flex-shrink: 0;
-    }
+    .section-progress { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .section-progress-bar {
       width: 80px; height: 3px;
       background: rgba(26,200,200,0.12);
@@ -162,17 +237,10 @@
       height: 100%; background: var(--cyan);
       border-radius: 2px; transition: width 0.3s;
     }
-    .section-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; color: var(--muted); opacity: 0.5;
-    }
-    .section-toggle {
-      font-size: 16px; color: var(--cyan); opacity: 0.5;
-      flex-shrink: 0; transition: transform 0.2s;
-    }
+    .section-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); opacity: 0.5; }
+    .section-toggle { font-size: 16px; color: var(--cyan); opacity: 0.5; flex-shrink: 0; transition: transform 0.2s; }
     .section-block.open .section-toggle { transform: rotate(180deg); }
 
-    /* LESSON TABLE */
     .lesson-table { display: none; }
     .section-block.open .lesson-table { display: block; }
 
@@ -188,15 +256,8 @@
     .lesson-row:last-child { border-bottom: none; }
     .lesson-row.live:hover { background: rgba(26,200,200,0.05); }
 
-    .lesson-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; color: var(--cyan); opacity: 0.45;
-      letter-spacing: 0.08em;
-    }
-    .lesson-title-text {
-      font-size: 13px; color: rgba(232,244,248,0.5);
-      line-height: 1.4;
-    }
+    .lesson-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--cyan); opacity: 0.45; letter-spacing: 0.08em; }
+    .lesson-title-text { font-size: 13px; color: rgba(232,244,248,0.5); line-height: 1.4; }
     .lesson-row.live .lesson-title-text { color: rgba(232,244,248,0.88); }
     .lesson-row.live a:hover .lesson-title-text { color: var(--cyan); }
 
@@ -208,27 +269,12 @@
       text-align: center; justify-self: end;
       white-space: nowrap;
     }
-    .badge-live {
-      background: rgba(143,227,136,0.1);
-      border: 1px solid rgba(143,227,136,0.3);
-      color: var(--ok);
-    }
-    .badge-soon {
-      background: transparent;
-      border: 1px solid rgba(26,200,200,0.1);
-      color: rgba(138,184,204,0.3);
-    }
+    .badge-live { background: rgba(143,227,136,0.1); border: 1px solid rgba(143,227,136,0.3); color: var(--ok); }
+    .badge-soon { background: transparent; border: 1px solid rgba(26,200,200,0.1); color: rgba(138,184,204,0.3); }
 
-    /* FOOTER */
-    footer {
-      max-width: var(--max); margin: 0 auto;
-      padding: 28px 20px 46px; color: #9cc5d8; font-size: .94rem;
-    }
-    footer .footer-box {
-      background: linear-gradient(180deg, rgba(20,56,79,.72), rgba(10,27,38,.9));
-      border: 1px solid rgba(121,227,241,.12);
-      border-radius: 18px; padding: 18px;
-    }
+    footer { background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6; }
+    .footer-logo { font-family:'Cinzel',serif; font-size:1.1rem; font-weight:600; color:#f0e8d0; letter-spacing:0.1em; margin-bottom:1rem; }
+    .footer-tagline { font-style:italic; color:var(--gold); font-size:1rem; margin-bottom:1.5rem; }
 
     @media(max-width: 700px) {
       .lesson-row { grid-template-columns: 36px 1fr 76px; padding: 8px 14px; }
@@ -239,226 +285,194 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <div class="nav-wrap">
-    <nav class="nav">
-      <div class="brand">Catamaran <span>Dan</span></div>
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="rimrun.html">Rim Run™</a>
-        <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
-        <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-        <a href="lionfish.html">Lion Hunter</a>
-        <a href="systems.html">Systems</a>
-        <a href="science.html">The Science</a>
-        <a href="decision-system.html">Field Research Collaboration</a>
-        <a href="learn.html" class="active">Learn Along With Me/Aprende Conmigo</a>
-        <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
-        <a href="saga.html">The Living Saga™</a>
-        <a href="support.html">Support</a>
-        <a href="shop.html">Shop</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="about.html">About</a>
-        <a href="intellectualproperty.html">Intellectual Property</a>
-      </div>
-    </nav>
+<nav id="main-nav">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="systems.html">Systems</a>
+    <a href="science.html">The Science</a>
+    <a href="decision-system.html">Field Research Collaboration</a>
+    <a href="platform.html">Small Cat Platform</a>
+    <a href="learn.html" class="active">Learn Along With Me/Aprende Conmigo</a>
+    <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="support.html">Support</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="intellectualproperty.html">Intellectual Property</a>
   </div>
+</nav>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-inner">
-      <div class="hero-kicker">Bilingual Reef Science · EN / ES</div>
-      <h1>Learn Along With Me/Aprende Conmigo</h1>
-      <p>
-       704 bilingual lessons across 22 sections — oceanography, reef science, and real-world coastal observation tied directly to the Mesoamerican Reef and the seven-country Rim Run™ corridor. New lessons are added as the expedition progresses. /704 lecciones bilingües en 22 secciones — oceanografía, ciencias arrecifales y observación costera del mundo real vinculadas directamente al Arrecife Mesoamericano y al corredor Rim Run™ de siete países. Se agregan nuevas lecciones a medida que avanza la expedición.
-      </p>
-    </div>
-  </header>
-
-  <!-- STATS -->
-  <div class="stats-bar">
-    <div class="stat">
-      <div class="stat-num">22</div>
-      <div class="stat-label">Sections</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">704</div>
-      <div class="stat-label">Total Lessons</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num" id="live-count">0</div>
-      <div class="stat-label">Live Now</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">EN · ES</div>
-      <div class="stat-label">Bilingual</div>
-    </div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Bilingual Reef Science &middot; EN / ES</div>
+    <h1>Learn Along With Me/Aprende Conmigo</h1>
+    <p>
+      704 bilingual lessons across 22 sections — oceanography, reef science, and real-world coastal observation tied directly to the Mesoamerican Reef and the eleven-country Rim Run Caribe&#8482; corridor. New lessons are added as the expedition progresses. / 704 lecciones biling&uuml;es en 22 secciones — oceanograf&iacute;a, ciencias arrecifales y observaci&oacute;n costera del mundo real vinculadas directamente al Arrecife Mesoamericano y al corredor Rim Run Caribe&#8482; de once pa&iacute;ses. Se agregan nuevas lecciones a medida que avanza la expedici&oacute;n.
+    </p>
   </div>
+</header>
 
-  <main class="main" id="curriculum"></main>
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">22</div><div class="stat-label">Sections</div></div>
+  <div class="stat"><div class="stat-num">704</div><div class="stat-label">Total Lessons</div></div>
+  <div class="stat"><div class="stat-num" id="live-count">0</div><div class="stat-label">Live Now</div></div>
+  <div class="stat"><div class="stat-num">EN &middot; ES</div><div class="stat-label">Bilingual</div></div>
+</div>
 
-<footer style="background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6;">
+<main class="main" id="curriculum"></main>
 
-  <!-- BRAND -->
-  <div class="footer-logo">
-    Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;
-  </div>
-  <div class="footer-tagline">
-    "As go the seas… so goes humanity."
-  </div>
-
-  <!-- CONTACT -->
-  <div class="footer-contact" style="margin:10px 0;">
+<footer>
+  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+  <div class="footer-tagline">"As go the seas… so goes humanity."</div>
+  <div style="margin:10px 0;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:#9aa0b0;">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff; text-decoration:none;">
-      nevadoraiders@gmail.com
-    </a>
-    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
-    &nbsp;&bull;&nbsp; www.catamarandan.org
+    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff;text-decoration:none;">nevadoraiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
   </div>
-
-  <!-- COPYRIGHT + LINK -->
-  <div style="margin-top:15px; font-weight:bold;">
+  <div style="margin-top:15px;font-weight:bold;">
     &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
-    | <a href="intellectualproperty.html" style="color:#4db8ff; text-decoration:none;">Intellectual Property</a>
+    | <a href="intellectualproperty.html" style="color:#4db8ff;text-decoration:none;">Intellectual Property</a>
   </div>
-
-  <!-- TRADEMARKS -->
   <div style="margin:5px 0;">
-    GROAN&#8482;, Rim Run&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
-    GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;,
-    GEIN&#8482;, GMAIN&#8482;, GPLIN&#8482;, GOPEN&#8482;, GPIN&#8482;, GDSIN&#8482;,
-    Blue Rim 5&#8482;, Nevado Raiders&#8482;,
-    and all associated names, marks, and identifiers are trademarks or proprietary
-    designations of Nevado Ranch Camp LLC.
+    GROAN&#8482;, Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
+    GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;, GEIN&#8482;, GMAIN&#8482;,
+    GPLIN&#8482;, GOPEN&#8482;, GPIN&#8482;, GDSIN&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;,
+    and all associated names, marks, and identifiers are trademarks or proprietary designations of Nevado Ranch Camp LLC.
   </div>
-
-  <!-- FULL IP CLAIM -->
-  <div>
-    All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies,
-    workflows, algorithms, decision-support processes, integration mechanisms, and all
-    associated materials, whether documented or implied, are the exclusive intellectual
-    property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.
-  </div>
-
-  <!-- LEGAL PROTECTION -->
-  <div style="margin-top:8px;">
-    Unauthorized reproduction, use, distribution, modification, reverse engineering,
-    extraction, or creation of derivative works from any portion of these systems or materials
-    is strictly prohibited without prior written permission.
-  </div>
-
-  <!-- NO LICENSE -->
-  <div style="margin-top:5px;">
-    No license, express or implied, is granted by access to this website or its contents.
-  </div>
-
+  <div>All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies, workflows, algorithms, decision-support processes, integration mechanisms, and all associated materials are the exclusive intellectual property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.</div>
+  <div style="margin-top:8px;">Unauthorized reproduction, use, distribution, modification, reverse engineering, extraction, or creation of derivative works is strictly prohibited without prior written permission.</div>
+  <div style="margin-top:5px;">No license, express or implied, is granted by access to this website or its contents.</div>
 </footer>
-  <script>
-    const liveLessons = new Set([
-      "s01-l01","s01-l02","s01-l03","s01-l04","s01-l05",
-      "s01-l06","s01-l07","s01-l08","s01-l09","s01-l10",
-      "s01-l11","s01-l12","s01-l13","s01-l14","s01-l15",
-      "s01-l16","s01-l17","s01-l18","s01-l19","s01-l20",
-      "s01-l21","s01-l22","s01-l23","s01-l24","s01-l25",
-      "s01-l26","s01-l27","s01-l28","s01-l29","s01-l30",
-      "s01-l31","s01-l32","s02-l01","s02-l02","s02-l03",
-      "s02-l04","s02-l05","s02-l06","s02-l07","s02-l08",
-      "s02-l09","s02-l10","s02-l11","s02-l12","s02-l13",
-      "s02-l14","s02-l15","s02-l16","s02-l17","s02-l18",
-      "s02-l19","s02-l20","s02-l21","s02-l22","s02-l23",
-      "s02-l24","s02-l25","s02-l26","s02-l27","s02-l28",
-      "s02-l29","s02-l30","s02-l31","s03-l01","s03-l02",
-      "s03-l03","s03-l04","s03-l05","s03-l06","s03-l07",
-      "s03-l08","s04-l01",
-    ]);
 
-    const lessonTitles = [
-      "Foundations","Core Principles","Systems Overview","Processes",
-      "Dynamics","Interactions","Drivers","Measurements",
-      "Tools","Field Methods","Data Collection","Data Analysis",
-      "Spatial Patterns","Temporal Patterns","Variability","Scaling",
-      "Modeling","Applications","Case Studies","Regional Systems",
-      "MAR Focus","Corridor Integration","Monitoring Methods","Indicators",
-      "Stressors","Human Impacts","Mitigation","Restoration",
-      "Comparative Systems","Advanced Concepts","Expedition Integration","Future Outlook"
-    ];
+<script>
+  // Nav toggle
+  (function(){
+    var toggle=document.getElementById('nav-toggle');
+    var nav=document.getElementById('main-nav');
+    var navLinks=document.getElementById('nav-links');
+    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+    if(toggle&&nav&&navLinks){
+      toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+      window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+    }
+  })();
 
-    const sections = [
-      { num:"01", title:"Physical Oceanography" },
-      { num:"02", title:"Chemical Oceanography" },
-      { num:"03", title:"Biological Oceanography" },
-      { num:"04", title:"Geological Oceanography" },
-      { num:"05", title:"Marine Ecology" },
-      { num:"06", title:"Marine Climatology" },
-      { num:"07", title:"Marine Acoustics" },
-      { num:"08", title:"Marine Geology & Geophysics" },
-      { num:"09", title:"Coastal & Estuarine Science" },
-      { num:"10", title:"Ocean Engineering & Technology" },
-      { num:"11", title:"Marine Vertebrates" },
-      { num:"12", title:"Marine Invertebrates" },
-      { num:"13", title:"Marine Microbiology" },
-      { num:"14", title:"Marine Botany" },
-      { num:"15", title:"Marine Ethology" },
-      { num:"16", title:"Marine Taxonomy" },
-      { num:"17", title:"Coral Health Assessment" },
-      { num:"18", title:"Benthic Surveys" },
-      { num:"19", title:"Fish Population Surveys" },
-      { num:"20", title:"Water Quality Monitoring" },
-      { num:"21", title:"Invasive Species" },
-      { num:"22", title:"Long-Term Change" }
-    ];
+  // Curriculum
+  const liveLessons = new Set([
+    "s01-l01","s01-l02","s01-l03","s01-l04","s01-l05",
+    "s01-l06","s01-l07","s01-l08","s01-l09","s01-l10",
+    "s01-l11","s01-l12","s01-l13","s01-l14","s01-l15",
+    "s01-l16","s01-l17","s01-l18","s01-l19","s01-l20",
+    "s01-l21","s01-l22","s01-l23","s01-l24","s01-l25",
+    "s01-l26","s01-l27","s01-l28","s01-l29","s01-l30",
+    "s01-l31","s01-l32","s02-l01","s02-l02","s02-l03",
+    "s02-l04","s02-l05","s02-l06","s02-l07","s02-l08",
+    "s02-l09","s02-l10","s02-l11","s02-l12","s02-l13",
+    "s02-l14","s02-l15","s02-l16","s02-l17","s02-l18",
+    "s02-l19","s02-l20","s02-l21","s02-l22","s02-l23",
+    "s02-l24","s02-l25","s02-l26","s02-l27","s02-l28",
+    "s02-l29","s02-l30","s02-l31","s03-l01","s03-l02",
+    "s03-l03","s03-l04","s03-l05","s03-l06","s03-l07",
+    "s03-l08","s04-l01",
+  ]);
 
-    const curriculum = document.getElementById('curriculum');
-    let totalLive = 0;
+  const lessonTitles = [
+    "Foundations","Core Principles","Systems Overview","Processes",
+    "Dynamics","Interactions","Drivers","Measurements",
+    "Tools","Field Methods","Data Collection","Data Analysis",
+    "Spatial Patterns","Temporal Patterns","Variability","Scaling",
+    "Modeling","Applications","Case Studies","Regional Systems",
+    "MAR Focus","Corridor Integration","Monitoring Methods","Indicators",
+    "Stressors","Human Impacts","Mitigation","Restoration",
+    "Comparative Systems","Advanced Concepts","Expedition Integration","Future Outlook"
+  ];
 
-    sections.forEach((sec, si) => {
-      let liveCount = 0;
-      for (let l = 1; l <= 32; l++) {
-        if (liveLessons.has(`s${sec.num}-l${String(l).padStart(2,'0')}`)) liveCount++;
-      }
-      totalLive += liveCount;
-      const pct = (liveCount / 32 * 100).toFixed(1);
+  const sections = [
+    { num:"01", title:"Physical Oceanography" },
+    { num:"02", title:"Chemical Oceanography" },
+    { num:"03", title:"Biological Oceanography" },
+    { num:"04", title:"Geological Oceanography" },
+    { num:"05", title:"Marine Ecology" },
+    { num:"06", title:"Marine Climatology" },
+    { num:"07", title:"Marine Acoustics" },
+    { num:"08", title:"Marine Geology & Geophysics" },
+    { num:"09", title:"Coastal & Estuarine Science" },
+    { num:"10", title:"Ocean Engineering & Technology" },
+    { num:"11", title:"Marine Vertebrates" },
+    { num:"12", title:"Marine Invertebrates" },
+    { num:"13", title:"Marine Microbiology" },
+    { num:"14", title:"Marine Botany" },
+    { num:"15", title:"Marine Ethology" },
+    { num:"16", title:"Marine Taxonomy" },
+    { num:"17", title:"Coral Health Assessment" },
+    { num:"18", title:"Benthic Surveys" },
+    { num:"19", title:"Fish Population Surveys" },
+    { num:"20", title:"Water Quality Monitoring" },
+    { num:"21", title:"Invasive Species" },
+    { num:"22", title:"Long-Term Change" }
+  ];
 
-      const block = document.createElement('div');
-      block.className = 'section-block' + (si === 0 ? ' open' : '');
+  const curriculum = document.getElementById('curriculum');
+  let totalLive = 0;
 
-      const rows = Array.from({length:32}, (_,li) => {
-        const lNum  = li + 1;
-        const lPad  = String(lNum).padStart(2,'0');
-        const key   = `s${sec.num}-l${lPad}`;
-        const live  = liveLessons.has(key);
-        const label = `${sec.title} — ${lessonTitles[li]}`;
-        const href  = `lessons/${key}.html`;
-        return `
-          <div class="lesson-row ${live ? 'live' : ''}">
-            <span class="lesson-num">L${lPad}</span>
-            ${live
-              ? `<a href="${href}"><span class="lesson-title-text">${label}</span></a>`
-              : `<span class="lesson-title-text">${label}</span>`}
-            <span class="lesson-badge ${live ? 'badge-live' : 'badge-soon'}">${live ? '● Live' : 'Soon'}</span>
-          </div>`;
-      }).join('');
+  sections.forEach((sec, si) => {
+    let liveCount = 0;
+    for (let l = 1; l <= 32; l++) {
+      if (liveLessons.has(`s${sec.num}-l${String(l).padStart(2,'0')}`)) liveCount++;
+    }
+    totalLive += liveCount;
+    const pct = (liveCount / 32 * 100).toFixed(1);
 
-      block.innerHTML = `
-        <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
-          <span class="section-num">SECTION ${sec.num}</span>
-          <span class="section-title">${sec.title}</span>
-          <div class="section-progress">
-            <div class="section-progress-bar">
-              <div class="section-progress-fill" style="width:${pct}%"></div>
-            </div>
-            <span class="section-meta">${liveCount}/32</span>
+    const block = document.createElement('div');
+    block.className = 'section-block' + (si === 0 ? ' open' : '');
+
+    const rows = Array.from({length:32}, (_,li) => {
+      const lNum  = li + 1;
+      const lPad  = String(lNum).padStart(2,'0');
+      const key   = `s${sec.num}-l${lPad}`;
+      const live  = liveLessons.has(key);
+      const label = `${sec.title} — ${lessonTitles[li]}`;
+      const href  = `lessons/${key}.html`;
+      return `
+        <div class="lesson-row ${live ? 'live' : ''}">
+          <span class="lesson-num">L${lPad}</span>
+          ${live
+            ? `<a href="${href}"><span class="lesson-title-text">${label}</span></a>`
+            : `<span class="lesson-title-text">${label}</span>`}
+          <span class="lesson-badge ${live ? 'badge-live' : 'badge-soon'}">${live ? '&#9679; Live' : 'Soon'}</span>
+        </div>`;
+    }).join('');
+
+    block.innerHTML = `
+      <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="section-num">SECTION ${sec.num}</span>
+        <span class="section-title">${sec.title}</span>
+        <div class="section-progress">
+          <div class="section-progress-bar">
+            <div class="section-progress-fill" style="width:${pct}%"></div>
           </div>
-          <span class="section-toggle">▾</span>
+          <span class="section-meta">${liveCount}/32</span>
         </div>
-        <div class="lesson-table">${rows}</div>`;
+        <span class="section-toggle">&#9662;</span>
+      </div>
+      <div class="lesson-table">${rows}</div>`;
 
-      curriculum.appendChild(block);
-    });
+    curriculum.appendChild(block);
+  });
 
-    document.getElementById('live-count').textContent = totalLive;
-  </script>
+  document.getElementById('live-count').textContent = totalLive;
+</script>
 
 </body>
 </html>
