@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Rim Run 5™ Global Sailing Expedition — a longitudinal coastal sailing, snorkeling, wreck diving and coral reef observation mission from Cancun, Mexico to the southern coast of Brazil, then up to the Eastern Caribbean and Bahamas."/>
+  <meta name="description" content="Rim Run Caribe™ and Rim Run Pac™ — two-circuit coastal sailing and reef observation expedition by Catamaran Dan, from Mexico to Colombia and the ABC Islands, then across the Panama isthmus to the Pacific and the Sea of Cortez."/>
   <title>Catamaran Dan — The Rim Run Expedition</title>
 
   <style>
@@ -60,9 +60,7 @@
       min-height:72px;
     }
 
-    .nav-check {
-      display:none;
-    }
+    .nav-check { display:none; }
 
     .nav-links {
       display:flex;
@@ -434,7 +432,6 @@
       margin-bottom:1.5rem;
     }
 
-    /* ── UPDATED: portrait-pair kept for 2-up use elsewhere; portrait-trio is new ── */
     .portrait-pair {
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -449,7 +446,6 @@
       transition:filter 0.3s;
     }
 
-    /* ── NEW: three-column portrait grid for Dan / Ove / Nevado Raiders ── */
     .portrait-trio {
       display:grid;
       grid-template-columns:1fr 1fr 1fr;
@@ -472,6 +468,79 @@
       text-transform:uppercase;
       color:var(--gold);
       padding:1.8rem 0 0.5rem 0.5rem;
+    }
+
+    /* ── CIRCUIT CARDS — NEW ── */
+    .circuit-pair {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:2rem;
+      margin:3rem 0;
+    }
+
+    .circuit-card {
+      background:linear-gradient(135deg, rgba(14,77,110,0.2), rgba(10,15,26,0.6));
+      border:1px solid rgba(201,168,76,0.2);
+      padding:2.5rem 2.5rem 3rem;
+      text-decoration:none;
+      color:inherit;
+      display:block;
+      transition:border-color 0.3s;
+    }
+
+    .circuit-card:hover { border-color:rgba(201,168,76,0.5); color:inherit; }
+
+    .circuit-card .circuit-tag {
+      font-family:'Josefin Sans', sans-serif;
+      font-size:0.68rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      color:var(--aqua);
+      margin-bottom:0.75rem;
+      display:block;
+    }
+
+    .circuit-card h3 {
+      font-family:'Cinzel', serif;
+      font-size:1.4rem;
+      font-weight:600;
+      color:var(--parchment);
+      margin-bottom:0.75rem;
+    }
+
+    .circuit-card h3 em { color:var(--gold); font-style:normal; }
+
+    .circuit-card p {
+      font-size:0.96rem;
+      color:var(--fog);
+      line-height:1.75;
+      margin-bottom:1.5rem;
+    }
+
+    .circuit-stats {
+      display:flex;
+      gap:2rem;
+      flex-wrap:wrap;
+      margin-top:1.5rem;
+      padding-top:1.5rem;
+      border-top:1px solid rgba(201,168,76,0.15);
+    }
+
+    .cs {
+      font-family:'Josefin Sans', sans-serif;
+      font-size:0.68rem;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      color:var(--text-dim);
+    }
+
+    .cs strong {
+      font-family:'Cinzel', serif;
+      color:var(--gold);
+      display:block;
+      font-size:1.3rem;
+      line-height:1.2;
+      margin-bottom:0.2rem;
     }
 
     .rimrunner-ritual {
@@ -510,10 +579,7 @@
       margin-bottom:0.4rem;
     }
 
-    .recipe-step p {
-      font-size:0.95rem;
-      color:var(--parchment);
-    }
+    .recipe-step p { font-size:0.95rem; color:var(--parchment); }
 
     .toast-code {
       font-family:'Cinzel', serif;
@@ -558,11 +624,7 @@
 
     .card:hover { border-color:rgba(201,168,76,0.35); }
 
-    .card-icon {
-      font-size:1.8rem;
-      margin-bottom:1rem;
-      display:block;
-    }
+    .card-icon { font-size:1.8rem; margin-bottom:1rem; display:block; }
 
     .card h4 {
       font-family:'Josefin Sans', sans-serif;
@@ -573,11 +635,7 @@
       margin-bottom:0.8rem;
     }
 
-    .card p {
-      font-size:0.96rem;
-      color:var(--fog);
-      line-height:1.7;
-    }
+    .card p { font-size:0.96rem; color:var(--fog); line-height:1.7; }
 
     .program-pair {
       display:grid;
@@ -595,12 +653,7 @@
     }
 
     .program-card:hover { border-color:rgba(201,168,76,0.45); }
-
-    .program-card img {
-      width:100%;
-      margin-bottom:1.5rem;
-      display:block;
-    }
+    .program-card img { width:100%; margin-bottom:1.5rem; display:block; }
 
     .program-card h3 {
       font-family:'Cinzel', serif;
@@ -622,11 +675,7 @@
       display:block;
     }
 
-    .program-card p {
-      font-size:0.96rem;
-      color:var(--fog);
-      line-height:1.75;
-    }
+    .program-card p { font-size:0.96rem; color:var(--fog); line-height:1.75; }
 
     .bg-midnight { background:var(--midnight); }
     .bg-deep { background:var(--deep-ocean); }
@@ -684,16 +733,8 @@
     .footer-contact a { color:var(--aqua); }
 
     @media (max-width: 768px) {
-      .nav-inner {
-        justify-content:flex-end;
-        padding:0.8rem 1.5rem;
-        min-height:52px;
-      }
-
-      .nav-toggle {
-        display:flex;
-      }
-
+      .nav-inner { justify-content:flex-end; padding:0.8rem 1.5rem; min-height:52px; }
+      .nav-toggle { display:flex; }
       .nav-links {
         position:absolute;
         top:100%;
@@ -716,37 +757,12 @@
         display:flex;
         z-index:999;
       }
-
-      .nav-check:checked ~ .nav-links {
-        max-height:1000px;
-        opacity:1;
-        visibility:visible;
-        pointer-events:auto;
-        padding:0.5rem 1.5rem 1rem;
-      }
-
-      .nav-check:checked + .nav-toggle span {
-        opacity:0;
-      }
-
-      .nav-check:checked + .nav-toggle::before {
-        transform:translateY(0) rotate(45deg);
-      }
-
-      .nav-check:checked + .nav-toggle::after {
-        transform:translateY(0) rotate(-45deg);
-      }
-
-      .nav-links a {
-        display:block;
-        width:100%;
-        padding:0.65rem 0;
-        border-bottom:1px solid rgba(201,168,76,0.08);
-        font-size:0.82rem;
-      }
-
+      .nav-check:checked ~ .nav-links { max-height:1000px; opacity:1; visibility:visible; pointer-events:auto; padding:0.5rem 1.5rem 1rem; }
+      .nav-check:checked + .nav-toggle span { opacity:0; }
+      .nav-check:checked + .nav-toggle::before { transform:translateY(0) rotate(45deg); }
+      .nav-check:checked + .nav-toggle::after { transform:translateY(0) rotate(-45deg); }
+      .nav-links a { display:block; width:100%; padding:0.65rem 0; border-bottom:1px solid rgba(201,168,76,0.08); font-size:0.82rem; }
       .nav-links a:last-child { border-bottom:none; }
-
       section { padding:4rem 1.5rem; }
       .two-col, .two-col.reverse { grid-template-columns:1fr; direction:ltr; gap:2.5rem; }
       .stat-strip { grid-template-columns:repeat(2, 1fr); }
@@ -754,15 +770,13 @@
       .stat:nth-child(odd) { border-right:1px solid rgba(201,168,76,0.15); }
       .img-trio { grid-template-columns:1fr 1fr; }
       .img-pair img, .img-trio img { height:160px; }
-      .program-pair { grid-template-columns:1fr; }
-      /* ── Mobile: portrait trio stacks to single column ── */
+      .program-pair, .circuit-pair { grid-template-columns:1fr; }
       .portrait-trio { grid-template-columns:1fr; }
     }
 
     @media (max-width: 480px) {
       .img-trio { grid-template-columns:1fr; }
-      .portrait-pair { grid-template-columns:1fr; }
-      .portrait-trio { grid-template-columns:1fr; }
+      .portrait-pair, .portrait-trio { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -778,6 +792,8 @@
       <div class="nav-links" id="nav-links">
         <a href="index.html" class="active">Home</a>
         <a href="rimrun.html">Rim Run&#8482;</a>
+        <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+        <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
         <a href="lionfish.html">Lion Hunter</a>
         <a href="systems.html">Systems</a>
         <a href="science.html">The Science</a>
@@ -803,33 +819,22 @@
       </div>
 
       <p class="hero-eyebrow">
-        A multi-year expedition consisting of the most amazing snorkeling, conventional air & nitrox diving, reef observation, and cultural immersion - all done with the "Shamrocket" - a Hobie Getaway catamaran.
+        A multi-year expedition consisting of the most amazing snorkeling, conventional air &amp; nitrox diving, reef observation, and cultural immersion — all done with the "Shamrocket" — a Hobie Getaway catamaran.
       </p>
 
       <h1>As go the seas… <em>So goes humanity.</em></h1>
-      <section class="hero">
-  <h1>Rim Run Sailing and Reef Observation Expedition</h1>
 
-  <p class="hero-sub" style="color:#1e6fa8; font-weight:500;">
-  Independent, field-based data collection supporting institutional reef research.
-</p>
-
-  <p>
-    <!-- your existing intro line continues here -->
-  </p>
-</section>
-      
       <div class="hero-rule"></div>
 
       <img src="https://catamarandan.org/bluerim5.png" alt="Blue Rim 5&#8482; — Rim Run globe logo" style="width:420px; max-width:88%; margin:1.5rem auto; display:block; opacity:0; animation:fadeIn 1.2s ease 0.9s forwards;"/>
 
       <p class="hero-sub">
-        A 10-year coastal sailing and reef/river systems exploration and monitoring expedition —
+        Two circuits. Two oceans. A multi-year coastal sailing and reef observation expedition —
         structured reef observation by day, extraordinary living by night, and a story for the ages
         being written one memorable day at a time. Wind and solar only. Zero carbon. Zero compromise.
       </p>
 
-      <div class="hero-tagline">From the Mesoamerican Reef off Mexico, along the coral-rich coasts of Colombia and Venezuela, down to the South Atlantic Mesophotic Reef System along Brazil, then back north through the vibrant reefs of the Lesser Antilles and across the Bahamas Banks to the Bahamas, this continuous 10-year coastal sailing journey spans 40 countries and 1000s of islands, blending reef exploration, world-class snorkeling, natural air and nitrox diving, and adrenaline-filled encounters like "running with the bull sharks" into one unforgettable ocean-wide adventure.</div>
+      <div class="hero-tagline">From the Mesoamerican Reef off Mexico south through Central America to Colombia and the ABC Islands on the Caribbean side — then across the Panama isthmus to the Pacific coast, south toward Chile, and north to the Sea of Cortez. Two circuits. Two oceans. "Running with the bull sharks" into one unforgettable ocean-wide adventure.</div>
     </div>
   </section>
 
@@ -844,22 +849,21 @@
   <div style="background:var(--midnight); padding:0 2rem;">
     <div class="container-wide">
       <div class="stat-strip" style="border-left:none; border-right:none;">
-        <div class="stat"><span class="stat-num">700+</span><span class="stat-label">Reef Sites over 5 years</span></div>
-        <div class="stat"><span class="stat-num">25</span><span class="stat-label">Countries/Islands — Mexico, Belize, Guatemala, Honduras, Nicaragua, Costa Rica, Panama, Colombia, Venezuela, Guyana, Suriname, Brazil, Aruba, Bonaire, Curaçao, Trinidad and Tobago, Grenada, Saint Vincent and the Grenadines, Barbados, Saint Lucia, Dominica, Antigua and Barbuda, Saint Kitts and Nevis, Cuba, Jamaica, Dominican Republic, Turks and Caicos, and the Bahamas.</span></div>
+        <div class="stat"><span class="stat-num">700+</span><span class="stat-label">Reef Sites</span></div>
+        <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Countries — Caribe &amp; Pac Circuits</span></div>
         <div class="stat"><span class="stat-num">1,350+</span><span class="stat-label">Days at Anchor</span></div>
-        <div class="stat"><span class="stat-num">11,500</span><span class="stat-label">Nautical Miles</span></div>
+        <div class="stat"><span class="stat-num">7,000+</span><span class="stat-label">Nautical Miles</span></div>
         <div class="stat"><span class="stat-num">0</span><span class="stat-label">Carbon Emissions</span></div>
       </div>
     </div>
   </div>
 
-  <!-- ═══ COMMAND SECTION — UPDATED ═══ -->
+  <!-- ═══ COMMAND SECTION ═══ -->
   <section class="bg-midnight border-bottom-gold">
     <div class="container-wide">
       <div class="two-col">
         <div>
           <div class="section-label reveal">Command &amp; Crew</div>
-          <!-- ── UPDATED heading ── -->
           <h2 class="serif reveal">Catamaran Dan — <em>Ove Ironhand</em><br/><span style="font-size:clamp(1.2rem,2.5vw,1.8rem); color:var(--gold);">Nevado Raiders&#8482;</span></h2>
           <div class="gold-rule reveal"></div>
 
@@ -869,7 +873,6 @@
 
           <p class="reveal">Modern Y-DNA work traces his paternal line through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson. He sails as Ove Ironhand. This combination shapes everything: calm decision-making, conservative risk management, genuine curiosity about the people and cultures of every coastline — and preparation over bravado. The life is extraordinary because the standards are real.</p>
 
-          <!-- ── NEW Nevado Raiders paragraph ── -->
           <p class="reveal">The sailing identity and the mission are carried under the flag of the <strong style="color:var(--gold);">Nevado Raiders&#8482;</strong> — a name that has been in active circulation for more than three years, applied to every vessel, every circuit, and every field operation that carries this standard. Named for Nevado Ranch Camp in the White Mountains of Arizona, the Nevado Raiders&#8482; are the disciplined sailors, scientists, and expedition hands who understand that genuine respect for these coastlines and the people who live on them is the only operating standard that matters. Not visitors. Not tourists. Raiders — people who show up, do the work, and leave every anchorage better than they found it.</p>
 
           <div class="cred-list reveal">
@@ -890,7 +893,6 @@
           <a href="about.html" class="btn-gold reveal">Full Background &rarr;</a>
         </div>
 
-        <!-- ── UPDATED: portrait-trio replacing portrait-pair ── -->
         <div class="reveal">
           <div class="portrait-trio">
             <div>
@@ -911,6 +913,41 @@
     </div>
   </section>
 
+  <!-- ═══ TWO CIRCUITS SECTION — NEW ═══ -->
+  <section class="bg-deep border-bottom-gold">
+    <div class="container">
+      <div class="section-label reveal">The Expedition</div>
+      <h2 class="serif reveal">Rim Run Caribe&#8482; + Rim Run Pac&#8482;. <em>Two Circuits. Two Oceans.</em></h2>
+      <div class="gold-rule reveal"></div>
+      <p class="reveal">The Rim Run&#8482; expedition operates in two distinct circuits — one on each side of the American isthmus. Rim Run Caribe&#8482; covers the Caribbean coast from Mexico south through Central America to Colombia and the ABC Islands. Rim Run Pac&#8482; crosses the Panama isthmus by trailer and runs the Pacific coast from Panama south toward Chile, returning north through Central America to the Sea of Cortez.</p>
+      <p class="reveal">Together they form the most comprehensive two-ocean coastal reef observation program ever executed from a single small-boat platform by a single operator.</p>
+
+      <div class="circuit-pair reveal">
+        <a href="rimrun-caribe.html" class="circuit-card">
+          <span class="circuit-tag">Circuit One &bull; Launching October 2026</span>
+          <h3>Rim Run <em>Caribe&#8482;</em></h3>
+          <p>Caribbean coast from Mexico to Colombia, including Aruba, Bonaire, and Cura&ccedil;ao. The Mesoamerican Barrier Reef, Bay Islands, San Blas, Colombian coral gardens, and world-class shore diving at Bonaire.</p>
+          <div class="circuit-stats">
+            <div class="cs"><strong>11</strong>Countries</div>
+            <div class="cs"><strong>2,000+</strong>Nautical Miles</div>
+            <div class="cs"><strong>Oct 2026</strong>Launch</div>
+          </div>
+        </a>
+        <a href="rimrun-pac.html" class="circuit-card">
+          <span class="circuit-tag">Circuit Two &bull; Following Caribe</span>
+          <h3>Rim Run <em>Pac&#8482;</em></h3>
+          <p>Panama isthmus crossing to the Pacific — south toward Chile via Colombia, Ecuador, and Peru, then north through Central America to the Sea of Cortez. Gal&aacute;pagos, Cocos Island, Humboldt Current.</p>
+          <div class="circuit-stats">
+            <div class="cs"><strong>10+</strong>Countries</div>
+            <div class="cs"><strong>5,000+</strong>NM Estimated</div>
+            <div class="cs"><strong>Sea of Cortez</strong>Terminus</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ONE LOOP SECTION ═══ -->
   <section class="bg-deep border-bottom-gold">
     <div class="container">
       <div class="section-label reveal">The Expedition</div>
@@ -926,11 +963,7 @@
       <div class="img-pair reveal">
         <div>
           <img src="https://catamarandan.org/nice.jpg" alt="Rim Run — coastal sailing and reef exploration" style="height:320px;"/>
-          <p class="img-caption">The Coastline Circuit — From the Mesoamerican Reef, the route slips south along low-lying tropical coasts and scattered cays past Belize and Honduras, then hugs jungle-lined shores through Nicaragua, Costa Rica, and Panama into the reef-dotted waters of Colombia and Venezuela.
-
-Continuing east and south, the coastline opens into wide river-fed margins before reaching the sprawling South Atlantic Reef System along Brazil.
-
-Turning north, the journey becomes true island-hopping—leaping from reef-fringed outposts through the arc of the Lesser Antilles, then across the larger, mountainous islands of the Greater Antilles, and finally onto the shallow turquoise banks and endless cays of the Bahamas.</p>
+          <p class="img-caption">The Coastline Circuit — From the Mesoamerican Reef, the route slips south along low-lying tropical coasts and scattered cays past Belize and Honduras, then hugs jungle-lined shores through Nicaragua, Costa Rica, and Panama into the reef-dotted waters of Colombia and the ABC Islands.</p>
         </div>
         <div>
           <img src="https://catamarandan.org/cultural_exchange.jpg" alt="Cultural exchange ashore" style="height:320px;"/>
@@ -940,13 +973,14 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
     </div>
   </section>
 
+  <!-- ═══ ROUTE SECTION ═══ -->
   <section class="bg-midnight border-bottom-gold">
     <div class="container-wide">
       <div class="container">
-        <div class="section-label reveal">The Route</div>
-        <h2 class="serif reveal">40 Countries • Thousands of Islands • A sailing expedition never before attempted. <em></h2>
+        <div class="section-label reveal">Rim Run Caribe&#8482; — The Route</div>
+        <h2 class="serif reveal">Eleven Countries. <em>One Unbroken Loop.</em></h2>
         <div class="gold-rule reveal"></div>
-        <p class="reveal">From Yucatán Peninsula to Brazil and back through the Caribbean to the Bahamas — ~11,500 nautical miles, multiple reef systems, 40 countries and thousands of islands in one multi-year route. The same route, stretched across five years and refined with every season. No leg is hurried, and no place is passed without respect for the people, the governments, and the coastlines that define each shore.</p>
+        <p class="reveal">From Mexico's Yucat&aacute;n south through Central America to Colombia's Caribbean coast and the ABC Islands — 2,000+ nautical miles, multiple reef systems, and some of the most scientifically significant and least-surveyed waters in the western hemisphere. The same loop every year, refined each season. No leg is hurried, and no place is passed without respect for the people, the governments, and the coastlines that define each shore.</p>
       </div>
 
       <div class="container">
@@ -964,6 +998,10 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
             <tr><td>&#127475;&#127470; Nicaragua</td><td>Big Corn Island &middot; Little Corn Island &middot; Pearl Cays</td><td>~29</td><td>Priority Year 1 — essentially unsurveyed</td></tr>
             <tr><td>&#127464;&#127479; Costa Rica</td><td>Tortuguero &middot; Cahuita NP &middot; Puerto Viejo</td><td>~35</td><td>Southern Caribbean transition zone — reef, river, jungle, and protected coastline</td></tr>
             <tr><td>&#127477;&#127462; Panama</td><td>Bocas del Toro &middot; Escudo de Veraguas &middot; Guna Yala / San Blas</td><td>~70</td><td>Southern hub — long-duration anchorage, biodiversity, and expedition reset point</td></tr>
+            <tr><td>&#127464;&#127476; Colombia</td><td>Cartagena &middot; Islas del Rosario &middot; Santa Marta &middot; Tayrona</td><td>~30</td><td>CORDAP partnership theater — Caribbean coral data &amp; KAUST collaboration</td></tr>
+            <tr><td>&#127462;&#127484; Aruba</td><td>Oranjestad &middot; coastal reefs</td><td>~10</td><td>Dutch territory — stable, distinct coral ecosystem west of the ABC chain</td></tr>
+            <tr><td>&#127463;&#127478; Bonaire</td><td>Kralendijk &middot; Klein Bonaire &middot; shore dive sites</td><td>~14</td><td>Premier shore diving destination on earth — hookah system deployed, lionfish hunting</td></tr>
+            <tr><td>&#127464;&#127484; Cura&ccedil;ao</td><td>Willemstad &middot; Klein Cura&ccedil;ao &middot; coastal reefs</td><td>~10</td><td>UNESCO-recognized harbor — southern Caribbean data anchor</td></tr>
           </tbody>
         </table>
       </div>
@@ -977,12 +1015,13 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
     </div>
   </section>
 
+  <!-- ═══ TWO PERMANENT PROGRAMS ═══ -->
   <section class="bg-deep border-bottom-gold">
     <div class="container">
       <div class="section-label reveal">Two Permanent Programs</div>
       <h2 class="serif reveal">The Expedition is the Platform. <em>The Legacy is Bigger.</em></h2>
       <div class="gold-rule reveal"></div>
-      <p class="reveal">Rim Run 5&#8482; is not just an expedition. It is the field platform for the greatest coastal sailing and reef observation expedition ever attempted.</p>
+      <p class="reveal">Rim Run&#8482; is not just an expedition. It is the field platform for the greatest coastal sailing and reef observation expedition ever attempted.</p>
     </div>
 
     <div class="container-wide">
@@ -991,7 +1030,7 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
           <img src="https://catamarandan.org/citizenscience.jpg" alt="Citizen science and reef observation"/>
           <span class="tag">Regional Science Network</span>
           <h3>Citizen Science — <em>CCRA</em></h3>
-          <p>The Caribbean Coastal Reef Alliance (CCRA) is the long-term citizen science framework connecting reef observers, partner institutions, and aligned coastal stakeholders across the seven Western Caribbean countries.
+          <p>The Caribbean Coastal Reef Alliance (CCRA) is the long-term citizen science framework connecting reef observers, partner institutions, and aligned coastal stakeholders across the Rim Run Caribe&#8482; countries.</p>
         </div>
         <div class="program-card">
           <img src="https://catamarandan.org/livingsaga.jpg" alt="The Living Saga visual archive"/>
@@ -1004,9 +1043,10 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
     </div>
   </section>
 
+  <!-- ═══ FIRST CHAPTERS ═══ -->
   <section class="bg-midnight border-bottom-gold">
     <div class="container">
-      <div class="section-label reveal">Rim Run 5&#8482; — First Chapters</div>
+      <div class="section-label reveal">Rim Run&#8482; — First Chapters</div>
       <h2 class="serif reveal">The Global Sailing Expedition. <em>Beginning in the Caribbean.</em></h2>
       <div class="gold-rule reveal"></div>
       <p class="reveal">The Rim Run&#8482; is the first operating chapter of Blue Rim 5&#8482; — the larger global sailing expedition model that will eventually extend far beyond the western Caribbean. The first years are about proving the platform, establishing credibility, building a regional science network, and generating a repeatable field record where it matters most.</p>
@@ -1026,6 +1066,7 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
     </div>
   </section>
 
+  <!-- ═══ LIFE AT ANCHOR ═══ -->
   <section class="bg-deep border-bottom-gold">
     <div class="container">
       <div class="section-label reveal">Life at Anchor</div>
@@ -1066,6 +1107,7 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
     <p class="img-caption reveal" style="margin-top:1rem;">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
   </div>
 
+  <!-- ═══ GET INVOLVED ═══ -->
   <section class="bg-deep border-top-gold border-bottom-gold">
     <div class="container-wide">
       <div class="container" style="text-align:center;">
@@ -1098,61 +1140,33 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
     </div>
   </section>
 
-<footer style="background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6;">
+  <footer style="background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6;">
+    <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+    <div class="footer-tagline">"As go the seas… so goes humanity."</div>
+    <div class="footer-contact" style="margin:10px 0;">
+      Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
+      <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff; text-decoration:none;">nevadoraiders@gmail.com</a>
+      &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
+    </div>
+    <div style="margin-top:15px; font-weight:bold;">
+      &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
+      | <a href="intellectualproperty.html" style="color:#4db8ff; text-decoration:none;">Intellectual Property</a>
+    </div>
+    <div style="margin:5px 0;">
+      GROAN&#8482;, Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
+      GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;,
+      GEIN&#8482;, GMAIN&#8482;, GPLIN&#8482;, GOPEN&#8482;, GPIN&#8482;, GDSIN&#8482;,
+      Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482;,
+      and all associated names, marks, and identifiers are trademarks or proprietary designations of Nevado Ranch Camp LLC.
+    </div>
+    <div>All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies, workflows, algorithms, decision-support processes, integration mechanisms, and all associated materials, whether documented or implied, are the exclusive intellectual property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.</div>
+    <div style="margin-top:8px;">Unauthorized reproduction, use, distribution, modification, reverse engineering, extraction, or creation of derivative works from any portion of these systems or materials is strictly prohibited without prior written permission.</div>
+    <div style="margin-top:5px;">No license, express or implied, is granted by access to this website or its contents.</div>
+  </footer>
 
-  <div class="footer-logo">
-    Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;
-  </div>
-  <div class="footer-tagline">
-    "As go the seas… so goes humanity."
-  </div>
-
-  <div class="footer-contact" style="margin:10px 0;">
-    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="/cdn-cgi/l/email-protection#5638332037323924373f3233242516313b373f3a7835393b" style="color:#4db8ff; text-decoration:none;">
-      <span class="__cf_email__" data-cfemail="cca2a9baada8a3beada5a8a9bebf8caba1ada5a0e2afa3a1">[email&#160;protected]</span>
-    </a>
-    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
-    &nbsp;&bull;&nbsp; www.catamarandan.org
-  </div>
-
-  <div style="margin-top:15px; font-weight:bold;">
-    &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
-    | <a href="intellectualproperty.html" style="color:#4db8ff; text-decoration:none;">Intellectual Property</a>
-  </div>
-
-  <div style="margin:5px 0;">
-    GROAN&#8482;, Rim Run&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
-    GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;,
-    GEIN&#8482;, GMAIN&#8482;, GPLIN&#8482;, GOPEN&#8482;, GPIN&#8482;, GDSIN&#8482;,
-    Blue Rim 5&#8482;, Nevado Raiders&#8482;,
-    and all associated names, marks, and identifiers are trademarks or proprietary
-    designations of Nevado Ranch Camp LLC.
-  </div>
-
-  <div>
-    All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies,
-    workflows, algorithms, decision-support processes, integration mechanisms, and all
-    associated materials, whether documented or implied, are the exclusive intellectual
-    property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.
-  </div>
-
-  <div style="margin-top:8px;">
-    Unauthorized reproduction, use, distribution, modification, reverse engineering,
-    extraction, or creation of derivative works from any portion of these systems or materials
-    is strictly prohibited without prior written permission.
-  </div>
-
-  <div style="margin-top:5px;">
-    No license, express or implied, is granted by access to this website or its contents.
-  </div>
-
-</footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.body.classList.add('js-ready');
-
       var els = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
         var obs = new IntersectionObserver(function(entries) {
@@ -1162,4 +1176,15 @@ Turning north, the journey becomes true island-hopping—leaping from reef-fring
               obs.unobserve(entry.target);
             }
           });
+        }, { threshold: 0.1 });
+        els.forEach(function(el) { obs.observe(el); });
+      } else {
+        els.forEach(function(el) { el.classList.add('visible'); });
+      }
+    });
+  </script>
+
+</body>
+</html>
+
    
