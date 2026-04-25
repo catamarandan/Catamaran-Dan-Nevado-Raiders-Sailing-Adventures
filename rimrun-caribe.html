@@ -1,528 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rim Run Caribe™ | Catamaran Dan</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --dark: #0d1117;
-    --darker: #080c11;
-    --teal: #4ecdc4;
-    --teal-dim: #2a9d8f;
-    --gold: #e9c46a;
-    --text: #d0d8e0;
-    --text-dim: #8a9ab0;
-    --border: rgba(78,205,196,0.2);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--dark);
-    color: var(--text);
-    font-family: 'Source Sans 3', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  /* NAV */
-  nav {
-    background: rgba(8,12,17,0.97);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  nav a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 1rem 0.75rem;
-    transition: color 0.2s;
-  }
-  nav a:hover, nav a.active { color: var(--teal); }
-
-  /* HERO */
-  .hero {
-    background: linear-gradient(170deg, #0a1628 0%, #0d1117 50%, #061020 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 5rem 2rem 4rem;
-    text-align: center;
-  }
-  .hero .eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--teal);
-  }
-  .hero .tagline {
-    font-size: 1.15rem;
-    color: var(--text-dim);
-    max-width: 680px;
-    margin: 0 auto 3rem;
-    line-height: 1.8;
-  }
-  .hero-images {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .hero-images img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    border-radius: 4px;
-    opacity: 0.85;
-  }
-
-  /* STATS */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--darker);
-  }
-  .stat {
-    padding: 2rem 1.5rem;
-    text-align: center;
-    border-right: 1px solid var(--border);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-number {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: var(--teal);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-top: 0.4rem;
-    display: block;
-  }
-
-  /* SECTIONS */
-  section {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-  }
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 0.75rem;
-  }
-  h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 2rem;
-  }
-  h2 em {
-    font-style: italic;
-    color: var(--teal);
-  }
-  p { margin-bottom: 1.25rem; color: var(--text); }
-
-  /* DIVIDER */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 0;
-  }
-
-  /* ROUTE TABLE */
-  .route-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-  }
-  .route-table th {
-    text-align: left;
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--teal);
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .route-table td {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(78,205,196,0.08);
-    vertical-align: top;
-    color: var(--text);
-  }
-  .route-table tr:hover td { background: rgba(78,205,196,0.04); }
-  .route-table td:first-child { font-weight: 600; white-space: nowrap; }
-  .route-table td:nth-child(3) { color: var(--teal); font-weight: 600; text-align: center; }
-
-  /* CALLOUT */
-  .callout {
-    background: rgba(78,205,196,0.06);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--teal);
-    border-radius: 4px;
-    padding: 1.5rem 2rem;
-    margin: 2rem 0;
-    font-size: 0.95rem;
-    color: var(--text-dim);
-  }
-  .callout strong { color: var(--teal); }
-
-  /* VESSEL */
-  .vessel-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    margin-top: 2rem;
-  }
-  .vessel-grid img {
-    width: 100%;
-    border-radius: 4px;
-    opacity: 0.9;
-  }
-  .vessel-specs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-  }
-  .spec-tag {
-    background: rgba(78,205,196,0.1);
-    border: 1px solid var(--border);
-    color: var(--teal);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.8rem;
-    border-radius: 2px;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--darker);
-    border-top: 1px solid var(--border);
-    padding: 3rem 2rem;
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    line-height: 2;
-  }
-  footer .quote {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--teal);
-    margin-bottom: 1.5rem;
-  }
-
-  @media (max-width: 680px) {
-    .hero-images { grid-template-columns: 1fr; }
-    .vessel-grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .stat { border-bottom: 1px solid var(--border); }
-  }
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rim Run Caribe™ | Catamaran Dan</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
+.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.page-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
+.rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:0.02em;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.3em;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1s forwards;}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);opacity:0;max-width:640px;margin:0 auto 2rem;animation:fadeUp 1s ease 1.1s forwards;}
+.hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.4s forwards;}
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border:1px solid rgba(201,168,76,0.15);}
+.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
+.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
+.route-table{width:100%;border-collapse:collapse;margin:2.5rem 0;font-family:'Josefin Sans',sans-serif;font-size:0.85rem;}
+.route-table th{background:rgba(201,168,76,0.08);color:var(--gold);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 1.2rem;text-align:left;border-bottom:1px solid rgba(201,168,76,0.2);}
+.route-table td{padding:0.85rem 1.2rem;border-bottom:1px solid rgba(201,168,76,0.08);color:var(--fog);vertical-align:top;}
+.route-table tr:hover td{background:rgba(41,176,212,0.04);color:var(--parchment);}
+.route-table td:first-child{color:var(--aqua);font-weight:600;}
+.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.country-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);padding:1.8rem 0 0.5rem 0.5rem;}
+.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin:0;}
+.img-trio img{width:100%;object-fit:cover;height:220px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
+.img-trio img:hover{filter:brightness(0.97) saturate(1.05);}
+.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:2.5rem 0;}
+.img-pair img{width:100%;object-fit:cover;height:300px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
+.img-pair img:hover{filter:brightness(0.97) saturate(1.05);}
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;margin-bottom:1.5rem;}
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.5rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
+.country-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);padding:1.8rem 0 0.5rem 0.5rem;}
+.cred-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.5rem 0;}
+.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aqua);border:1px solid rgba(41,176,212,0.3);padding:0.3rem 0.9rem;white-space:nowrap;}
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
+.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
+.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
+.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
+.footer-contact a{color:var(--aqua);}
+@media(max-width:768px){
+section{padding:4rem 1.5rem;}
+nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+.nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+.nav-links.open{display:flex;}
+.nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+.nav-links a:last-child{border-bottom:none;}
+.nav-toggle{display:flex;}
+.two-col{grid-template-columns:1fr;}
+.stat-strip{grid-template-columns:repeat(2,1fr);}
+.stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
+.stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
+.img-trio{grid-template-columns:1fr 1fr;}
+.img-trio img,.img-pair img{height:160px;}
+.img-pair{grid-template-columns:1fr;}
+}
+@media(max-width:480px){.img-trio{grid-template-columns:1fr;}}
+  </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="rimrun.html">Rim Run™</a>
-  <a href="rimrun-caribe.html" class="active">Rim Run Caribe™</a>
-  <a href="rimrun-pac.html">Rim Run Pac™</a>
-  <a href="lionfish.html">Lion Hunter</a>
-  <a href="systems.html">Systems</a>
-  <a href="science.html">The Science</a>
-  <a href="decision-system.html">Field Research Collaboration</a>
-  <a href="platform.html">Small Cat Platform</a>
-  <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
-  <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
-  <a href="thelivingsaga.html">The Living Saga™</a>
-  <a href="support.html">Support</a>
-  <a href="shop.html">Shop</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
-  <a href="intellectualproperty.html">Intellectual Property</a>
+<nav id="main-nav">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="rimrun-caribe.html" class="active">Rim Run Caribe&#8482;</a>
+    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="systems.html">Systems</a>
+    <a href="science.html">The Science</a>
+    <a href="decision-system.html">Field Research Collaboration</a>
+    <a href="platform.html">Small Cat Platform</a>
+    <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
+    <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="support.html">Support</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="intellectualproperty.html">Intellectual Property</a>
+  </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <p class="eyebrow">Caribbean Circuit · Launching October 2026</p>
-  <h1>Rim Run <em>Caribe™</em></h1>
-  <p class="tagline">
-    Eleven countries. The living Caribbean reef edge from Mexico to Colombia — 
-    plus the ABC Islands. Serious science by day. Extraordinary living by night. 
-    Zero carbon. No excuses.
-  </p>
-  <div class="hero-images">
-    <img src="belizelight2.jpg" alt="Lighthouse Reef, Belize">
-    <img src="nice.jpg" alt="Coastal sailing — Caribbean circuit">
-    <img src="belizeglovers2.jpg" alt="Glover's Reef, Belize">
+<div class="page-hero">
+  <div class="rune-overlay"></div>
+  <div class="page-hero-content">
+    <div class="hero-eyebrow">Caribbean Circuit &bull; Launching October 2026</div>
+    <h1 class="hero-h1">Rim Run <em>Caribe&#8482;</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Eleven countries. The living Caribbean reef edge from Mexico to Colombia — plus the ABC Islands. Serious science by day. Extraordinary living by night. Zero carbon. No excuses.</p>
+    <div class="hero-tagline">Mexico &bull; Belize &bull; Guatemala &bull; Honduras &bull; Nicaragua &bull; Costa Rica &bull; Panama &bull; Colombia &bull; Aruba &bull; Bonaire &bull; Cura&ccedil;ao</div>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <span class="stat-number">11</span>
-    <span class="stat-label">Countries</span>
-  </div>
-  <div class="stat">
-    <span class="stat-number">100+</span>
-    <span class="stat-label">Reef Sites</span>
-  </div>
-  <div class="stat">
-    <span class="stat-number">2,000+</span>
-    <span class="stat-label">Nautical Miles</span>
-  </div>
-  <div class="stat">
-    <span class="stat-number">150+</span>
-    <span class="stat-label">Days at Anchor</span>
-  </div>
-  <div class="stat">
-    <span class="stat-number">0</span>
-    <span class="stat-label">Carbon Emissions</span>
+<div style="background:#06090f;padding:1rem 1rem 0;">
+  <div class="img-trio reveal">
+    <img src="https://catamarandan.org/belizelight2.jpg" alt="Lighthouse Reef, Belize"/>
+    <img src="https://catamarandan.org/nice.jpg" alt="Coastal sailing — Caribbean circuit"/>
+    <img src="https://catamarandan.org/belizeglovers2.jpg" alt="Glover's Reef, Belize"/>
   </div>
 </div>
 
-<hr class="divider">
+<div style="background:var(--midnight);padding:0 2rem;">
+  <div class="container-wide">
+    <div class="stat-strip" style="border-left:none;border-right:none;">
+      <div class="stat"><span class="stat-num">11</span><span class="stat-label">Countries</span></div>
+      <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Reef Sites Annually</span></div>
+      <div class="stat"><span class="stat-num">2,000+</span><span class="stat-label">Nautical Miles</span></div>
+      <div class="stat"><span class="stat-num">150+</span><span class="stat-label">Days at Anchor</span></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Carbon Emissions</span></div>
+    </div>
+  </div>
+</div>
 
-<!-- WHAT IT IS -->
-<section>
-  <p class="section-label">What It Is</p>
-  <h2>The Caribbean Circuit. <em>The First Chapter.</em></h2>
-  <p>
-    Rim Run Caribe™ is the Caribbean arm of the Rim Run™ expedition — an annual coastal circuit from 
-    Mexico's Yucatán south through seven Central American countries, continuing into Colombia, and then 
-    out to the Dutch ABC Islands of Aruba, Bonaire, and Curaçao before the return. Eleven countries. 
-    One unbroken loop. Every reef system counted.
-  </p>
-  <p>
-    This is not a recreational sailing trip with scientific branding bolted on. It is a structured, 
-    GPS-referenced field observation program executed from a small catamaran by someone trained in 
-    submarine nuclear operations — where there is no margin for sloppiness and no one else to call. 
-    Every government fisheries authority is treated as a partner. Every coastal community is entered 
-    as a guest who intends to give back more than they take.
-  </p>
-  <p>
-    The data — water conditions, reef structure, coral health, biological observations, human impact — 
-    goes into GROAN™ (Global Reef & Ocean Analytics Network) and is made available to partner 
-    scientific institutions. Not because this expedition serves academia, but because the data is real, 
-    and real data belongs in the hands of people who can use it.
-  </p>
-
-  <div class="callout">
-    <strong>Weather Rule — Return Leg:</strong> No fixed schedule north of Panama. Stays are extended 
-    freely — including sitting out full hurricane seasons south of 12°N. The circuit never pushes north 
-    of ~13°N between June 1 and November 30. The sea decides the schedule. The expedition respects that.
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">What It Is</div>
+    <h2 class="serif reveal">The Caribbean Circuit. <em>The First Chapter.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Rim Run Caribe&#8482; is the Caribbean arm of the Rim Run&#8482; expedition — an annual coastal circuit from Mexico's Yucat&aacute;n south through seven Central American countries, continuing into Colombia, and then out to the Dutch ABC Islands of Aruba, Bonaire, and Cura&ccedil;ao before the return. Eleven countries. One unbroken loop. Every reef system counted.</p>
+    <p class="reveal">This is not a recreational sailing trip with scientific branding bolted on. It is a structured, GPS-referenced field observation program executed from a small catamaran by someone trained in submarine nuclear operations — where there is no margin for sloppiness and no one else to call. Every government fisheries authority is treated as a partner. Every coastal community is entered as a guest who intends to give back more than they take.</p>
+    <p class="reveal">The data — water conditions, reef structure, coral health, biological observations, human impact — goes into GROAN&#8482; (Global Reef &amp; Ocean Analytics Network) and is made available to partner scientific institutions. Not because this expedition serves academia, but because the data is real, and real data belongs in the hands of people who can use it.</p>
+    <div class="infobox reveal">
+      <div class="infobox-label">Weather Rule — Return Leg</div>
+      No fixed schedule north of Panama. Stays are extended freely — including sitting out full hurricane seasons south of 12&deg;N. The circuit never pushes north of ~13&deg;N between June 1 and November 30. The sea decides the schedule. The expedition respects that.
+    </div>
   </div>
 </section>
 
-<hr class="divider">
-
-<!-- THE ROUTE -->
-<section>
-  <p class="section-label">The Circuit</p>
-  <h2>Eleven Countries. <em>One Unbroken Loop.</em></h2>
-  <p>
-    From Mexico's Yucatán to Colombia's Caribbean coast, then out to the ABC Islands and back — 
-    2,000+ nautical miles, multiple reef systems, and some of the most scientifically significant 
-    and least-surveyed waters in the western hemisphere. The same loop every year, refined each season.
-  </p>
-  <img src="bluerim5.png" alt="Rim Run Caribe™ circuit map" style="width:100%;border-radius:4px;margin:1.5rem 0;opacity:0.85;">
-
-  <table class="route-table">
-    <thead>
-      <tr>
-        <th>Country</th>
-        <th>Key Stops</th>
-        <th>Days</th>
-        <th>Why It Matters</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>🇲🇽 Mexico</td>
-        <td>Puerto Aventuras · Cozumel · Xcalak · Banco Chinchorro</td>
-        <td>~21</td>
-        <td>Northern hub — government coordination, REEF partnership &amp; staging</td>
-      </tr>
-      <tr>
-        <td>🇧🇿 Belize</td>
-        <td>Ambergris · Turneffe · Lighthouse Reef · Blue Hole · Glover's · South Water · Placencia</td>
-        <td>~100</td>
-        <td>World's 2nd largest barrier reef — home waters &amp; citizen science base</td>
-      </tr>
-      <tr>
-        <td>🇬🇹 Guatemala</td>
-        <td>Livingston · Río Dulce · Lake Izabal</td>
-        <td>~35</td>
-        <td>Most extraordinary inland waterway in the Americas — Q'eqchi' Maya oral traditions</td>
-      </tr>
-      <tr>
-        <td>🇭🇳 Honduras</td>
-        <td>Cayos Cochinos · Utila · Roatán · Guanaja</td>
-        <td>~80</td>
-        <td>Bay Islands — whale sharks, 100+ ft visibility &amp; Garífuna maritime knowledge</td>
-      </tr>
-      <tr>
-        <td>🇳🇮 Nicaragua</td>
-        <td>Big Corn Island · Little Corn Island · Pearl Cays</td>
-        <td>~29</td>
-        <td>Priority Year 1 — essentially unsurveyed, Miskito reef knowledge still intact</td>
-      </tr>
-      <tr>
-        <td>🇨🇷 Costa Rica</td>
-        <td>Tortuguero · Cahuita NP · Puerto Viejo · Manzanillo</td>
-        <td>~35</td>
-        <td>Jungle meets reef — Afro-Caribbean oral tradition &amp; dormant Reef Check sites</td>
-      </tr>
-      <tr>
-        <td>🇵🇦 Panama</td>
-        <td>Bocas del Toro · Portobelo · San Blas / Guna Yala</td>
-        <td>~44</td>
-        <td>Southern hub — Reef Check EcoDiver training, Guna autonomy &amp; finest snorkeling on circuit</td>
-      </tr>
-      <tr>
-        <td>🇨🇴 Colombia</td>
-        <td>Cartagena · Islas del Rosario · Santa Marta · Tayrona</td>
-        <td>~30</td>
-        <td>CORDAP partnership theater — Caribbean coral triangle data collection &amp; KAUST collaboration</td>
-      </tr>
-      <tr>
-        <td>🇦🇼 Aruba</td>
-        <td>Oranjestad · coastal reefs</td>
-        <td>~10</td>
-        <td>Dutch territory — stable, safe, distinct coral ecosystem west of the ABC chain</td>
-      </tr>
-      <tr>
-        <td>🇧🇶 Bonaire</td>
-        <td>Kralendijk · Klein Bonaire · shore dive sites</td>
-        <td>~14</td>
-        <td>Premier shore diving destination on earth — hookah system deployed, lionfish hunting permitted</td>
-      </tr>
-      <tr>
-        <td>🇨🇼 Curaçao</td>
-        <td>Willemstad · Klein Curaçao · coastal reefs</td>
-        <td>~10</td>
-        <td>UNESCO-recognized harbor, strong dive infrastructure, southern Caribbean data anchor</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<hr class="divider">
-
-<!-- THE VESSEL -->
-<section>
-  <p class="section-label">The Vessel</p>
-  <h2><em>Shamrocket</em></h2>
-  <div class="vessel-grid">
-    <div>
-      <p>
-        A Hobie Getaway catamaran — 17 feet of shoal-draft, wind-powered reef machine. 
-        Twenty-four inches of draft means Shamrocket goes places no keelboat can follow: 
-        inside the barrier reef, up against the caye, into the mangrove channel, onto the 
-        beach itself. Right up to where the people are.
-      </p>
-      <p>
-        Wind and solar only. Zero diesel. Zero carbon. The vessel is not a compromise — 
-        the vessel is the philosophy made physical. Small boats. Real seamanship. Cultural 
-        access that larger vessels can only admire from a distance.
-      </p>
-      <p>
-        Dive operations run on the Air Line by J Sink E160v2 hookah system — AC-powered 
-        off the EcoFlow aboard Shamrocket. One diver to 60 feet. No gas compressor. No generator. 
-        No fuel logistics. Clean, quiet, and deployable anywhere along the circuit.
-      </p>
-      <div class="vessel-specs">
-        <span class="spec-tag">Hobie Getaway</span>
-        <span class="spec-tag">24" Draft</span>
-        <span class="spec-tag">Wind &amp; Solar Only</span>
-        <span class="spec-tag">0 Carbon</span>
-        <span class="spec-tag">Reef-Inside Capable</span>
-        <span class="spec-tag">Hookah Dive System</span>
+<section class="bg-deep border-bottom-gold">
+  <div class="container-wide">
+    <div class="container" style="margin-bottom:2rem;">
+      <div class="section-label reveal">The Circuit</div>
+      <h2 class="serif reveal">Eleven Countries. <em>One Unbroken Loop.</em></h2>
+      <div class="gold-rule reveal"></div>
+      <p class="reveal">From Mexico's Yucat&aacute;n south through Central America, into Colombia's Caribbean coast, and out to the ABC Islands — 2,000+ nautical miles, multiple reef systems, and some of the most scientifically significant and least-surveyed waters in the western hemisphere. The same loop every year, refined each season. No leg hurried. No government relationship taken for granted. No coastal community passed without a genuine attempt to understand what they know and what the expedition can contribute.</p>
+    </div>
+    <div class="reveal" style="margin:0 0 4px;">
+      <img src="https://catamarandan.org/bluerim5.png" alt="Rim Run Caribe&#8482; circuit" style="max-width:420px;margin:0 auto;opacity:0.88;display:block;"/>
+    </div>
+    <div class="container" style="margin-top:2rem;">
+      <table class="route-table reveal">
+        <thead>
+          <tr><th>Country</th><th>Key Stops</th><th>Days</th><th>Why It Matters</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&#127474;&#127485; Mexico</td><td>Puerto Aventuras &middot; Cozumel &middot; Xcalak &middot; Banco Chinchorro</td><td>~30</td><td>Northern hub — REEF coordination &amp; staging</td></tr>
+          <tr><td>&#127463;&#127487; Belize</td><td>Ambergris &middot; Turneffe &middot; Lighthouse Reef &middot; Blue Hole &middot; Glover's &middot; South Water &middot; Placencia</td><td>~117</td><td>World's 2nd largest barrier reef — home waters &amp; citizen science base</td></tr>
+          <tr><td>&#127468;&#127481; Guatemala</td><td>Livingston &middot; R&iacute;o Dulce &middot; Lake Izabal</td><td>~35</td><td>Most stunning inland waterway in the Americas — Q'eqchi' Maya oral traditions</td></tr>
+          <tr><td>&#127469;&#127475; Honduras</td><td>Cayos Cochinos &middot; Utila &middot; Roat&aacute;n &middot; Guanaja</td><td>~80</td><td>Bay Islands — whale sharks, 100+ ft visibility &amp; Gar&iacute;funa maritime knowledge</td></tr>
+          <tr><td>&#127475;&#127470; Nicaragua</td><td>Big Corn Island &middot; Little Corn Island &middot; Pearl Cays</td><td>~29</td><td>Priority Year 1 — essentially unsurveyed, Miskito reef knowledge still intact</td></tr>
+          <tr><td>&#127464;&#127479; Costa Rica</td><td>Tortuguero &middot; Cahuita NP &middot; Puerto Viejo &middot; Manzanillo</td><td>~35</td><td>Jungle meets reef — Afro-Caribbean oral tradition &amp; dormant Reef Check sites</td></tr>
+          <tr><td>&#127477;&#127462; Panama</td><td>Bocas del Toro &middot; Portobelo &middot; San Blas / Guna Yala</td><td>~44</td><td>Southern hub — Reef Check EcoDiver training, Guna autonomy &amp; finest snorkeling on circuit</td></tr>
+          <tr><td>&#127464;&#127476; Colombia</td><td>Cartagena &middot; Islas del Rosario &middot; Santa Marta &middot; Tayrona</td><td>~30</td><td>CORDAP partnership theater — Caribbean coral data &amp; KAUST collaboration</td></tr>
+          <tr><td>&#127462;&#127484; Aruba</td><td>Oranjestad &middot; coastal reefs</td><td>~10</td><td>Dutch territory — stable, safe, distinct coral ecosystem west of the ABC chain</td></tr>
+          <tr><td>&#127463;&#127478; Bonaire</td><td>Kralendijk &middot; Klein Bonaire &middot; shore dive sites</td><td>~14</td><td>Premier shore diving destination on earth — hookah system deployed, lionfish hunting</td></tr>
+          <tr><td>&#127464;&#127484; Cura&ccedil;ao</td><td>Willemstad &middot; Klein Cura&ccedil;ao &middot; coastal reefs</td><td>~10</td><td>UNESCO-recognized harbor — southern Caribbean data anchor</td></tr>
+        </tbody>
+      </table>
+      <div class="infobox reveal">
+        <div class="infobox-label">Operating Principle</div>
+        The route is a publicity tour and a repeatable marine field platform, designed to generate trust, continuity, and meaningful reef records over many years. No leg hurried, and no place approached without respect for the people, governments, and coastlines that define each shore.
       </div>
     </div>
-    <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway expedition platform">
   </div>
 </section>
 
-<hr class="divider">
+<div style="background:#06090f;padding:2rem 1rem 0;">
+  <div class="container-wide">
 
-<!-- GROAN CONNECTION -->
-<section>
-  <p class="section-label">Science Platform</p>
-  <h2>Every Dive. <em>Every Reef. Every Day.</em></h2>
-  <p>
-    Every observation made aboard Shamrocket during the Rim Run Caribe™ circuit feeds directly 
-    into GROAN™ — the Global Reef & Ocean Analytics Network. Water chemistry, coral health staging, 
-    species presence/absence, human impact indicators — all logged, all referenced, all added to a 
-    permanent baseline record that grows more valuable with every circuit completed.
-  </p>
-  <p>
-    MOOP (Mobile Ocean Observation Platform) protocols govern every data collection event — 
-    standardized, repeatable, and designed to interface with partner institutional databases including 
-    CORDAP at KAUST and the Caribbean Coastal Reef Alliance (CCRA) citizen science network.
-  </p>
-  <p>
-    The Caribe circuit is also the primary operational theater for CD the Lion Hunter — 
-    trident deployed on every dive where local law permits, all lionfish removal events 
-    documented in the GROAN reef health dataset as permanent removal records.
-  </p>
-  <div class="callout">
-    <strong>GROAN™ · MOOP™ · CCRA · CORDAP</strong> — All field data collected under Rim Run Caribe™ 
-    is proprietary to Nevado Ranch Camp LLC and shared with partner institutions under formal 
-    data-sharing agreements. All GROAN IP reserved.
+    <p class="country-label">&#127474;&#127485; Mexico — Yucat&aacute;n &bull; Cozumel &bull; Banco Chinchorro</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/mexico1.jpg" alt="Cozumel reef, Mexico"/>
+      <img src="https://catamarandan.org/mexico2.jpg" alt="Banco Chinchorro, Mexico"/>
+      <img src="https://catamarandan.org/mexico3.jpg" alt="Yucat&aacute;n coast, Mexico"/>
+    </div>
+
+    <p class="country-label">&#127463;&#127487; Belize — Barrier Reef &bull; Blue Hole &bull; Glover's Reef</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/belizelight2.jpg" alt="Lighthouse Reef, Belize"/>
+      <img src="https://catamarandan.org/nice.jpg" alt="Belize coastal sailing"/>
+      <img src="https://catamarandan.org/belizeglovers2.jpg" alt="Glover's Reef, Belize"/>
+    </div>
+
+    <p class="country-label">&#127468;&#127481; Guatemala — R&iacute;o Dulce &bull; Lake Izabal &bull; Livingston</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/guatemala1.jpg" alt="R&iacute;o Dulce, Guatemala"/>
+      <img src="https://catamarandan.org/guatemala2.jpg" alt="Lake Izabal, Guatemala"/>
+      <img src="https://catamarandan.org/guatemala3.jpg" alt="Livingston, Guatemala"/>
+    </div>
+
+    <p class="country-label">&#127469;&#127475; Honduras — Bay Islands &bull; Roat&aacute;n &bull; Cayos Cochinos</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/honduras1.jpg" alt="Roat&aacute;n reef, Honduras"/>
+      <img src="https://catamarandan.org/honduras2.jpg" alt="Bay Islands, Honduras"/>
+      <img src="https://catamarandan.org/honduras3.jpg" alt="Cayos Cochinos, Honduras"/>
+    </div>
+
+    <p class="country-label">&#127475;&#127470; Nicaragua — Corn Islands &bull; Pearl Cays</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/nicaragua1.jpg" alt="Big Corn Island, Nicaragua"/>
+      <img src="https://catamarandan.org/nicaragua2.jpg" alt="Pearl Cays, Nicaragua"/>
+      <img src="https://catamarandan.org/nicaragua3.jpg" alt="Little Corn Island, Nicaragua"/>
+    </div>
+
+    <p class="country-label">&#127464;&#127479; Costa Rica — Tortuguero &bull; Cahuita &bull; Puerto Viejo</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/costarica1.jpg" alt="Tortuguero, Costa Rica"/>
+      <img src="https://catamarandan.org/costarica2.jpg" alt="Cahuita reef, Costa Rica"/>
+      <img src="https://catamarandan.org/costarica3.jpg" alt="Puerto Viejo, Costa Rica"/>
+    </div>
+
+    <p class="country-label">&#127477;&#127462; Panama — Bocas del Toro &bull; San Blas / Guna Yala</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/panama1.jpg" alt="San Blas Islands, Panama"/>
+      <img src="https://catamarandan.org/panama2.jpg" alt="Guna Yala, Panama"/>
+      <img src="https://catamarandan.org/panama3.jpg" alt="Bocas del Toro, Panama"/>
+    </div>
+
+    <p class="country-label">&#127464;&#127476; Colombia — Cartagena &bull; Islas del Rosario &bull; Tayrona</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/colombia1.jpg" alt="Cartagena, Colombia"/>
+      <img src="https://catamarandan.org/colombia2.jpg" alt="Islas del Rosario, Colombia"/>
+      <img src="https://catamarandan.org/colombia3.jpg" alt="Tayrona, Colombia"/>
+    </div>
+
+    <p class="country-label">&#127462;&#127484; Aruba — Oranjestad &bull; Reef Diving &bull; Wrecks</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/aruba1.jpg" alt="Aruba reef diving"/>
+      <img src="https://catamarandan.org/aruba2.jpg" alt="Aruba shipwreck"/>
+      <img src="https://catamarandan.org/aruba3.jpg" alt="Aruba snorkeling"/>
+    </div>
+
+    <p class="country-label">&#127463;&#127478; Bonaire — Klein Bonaire &bull; Shore Diving &bull; Lionfish Operations</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/bonaire1.jpg" alt="Bonaire reef snorkeling"/>
+      <img src="https://catamarandan.org/bonaire2.jpg" alt="Bonaire coral diving"/>
+      <img src="https://catamarandan.org/bonaire3.jpg" alt="Bonaire underwater reef"/>
+    </div>
+
+    <p class="country-label">&#127464;&#127484; Cura&ccedil;ao — Willemstad &bull; Klein Cura&ccedil;ao &bull; Reef Wall</p>
+    <div class="img-trio reveal">
+      <img src="https://catamarandan.org/cura1.jpg" alt="Cura&ccedil;ao reef"/>
+      <img src="https://catamarandan.org/cura2.jpg" alt="Cura&ccedil;ao snorkeling"/>
+      <img src="https://catamarandan.org/cura3.jpg" alt="Cura&ccedil;ao shipwreck"/>
+    </div>
+
+  </div>
+</div>
+
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Vessel</div>
+    <h2 class="serif reveal"><em>Shamrocket</em></h2>
+    <div class="gold-rule reveal"></div>
+    <div class="two-col reveal">
+      <div>
+        <p>A Hobie Getaway catamaran — 17 feet of shoal-draft, wind-powered reef machine. Twenty-four inches of draft means Shamrocket goes places no keelboat can follow: inside the barrier reef, up against the caye, into the mangrove channel, onto the beach itself. Right up to where the people are. Where the stories live. Where the real knowledge is kept.</p>
+        <p>Wind and solar only. Zero diesel. Zero carbon. The vessel is not a compromise — the vessel is the philosophy made physical. Small boats. Real seamanship. Cultural access that larger vessels can only admire from a distance.</p>
+        <p>Dive operations run on the Air Line by J Sink E160v2 hookah system — AC-powered off the EcoFlow aboard Shamrocket. One diver to 60 feet. No gas compressor. No generator. No fuel logistics. Clean, quiet, and deployable at every stop on the circuit.</p>
+        <div class="cred-list">
+          <span class="cred-tag">Hobie Getaway</span>
+          <span class="cred-tag">24" Draft</span>
+          <span class="cred-tag">Wind &amp; Solar Only</span>
+          <span class="cred-tag">0 Carbon</span>
+          <span class="cred-tag">Reef-Inside Capable</span>
+          <span class="cred-tag">Hookah Dive System</span>
+        </div>
+        <a href="systems.html" class="btn-gold">Full Systems &rarr;</a>
+      </div>
+      <div>
+        <img src="https://catamarandan.org/shamrocket.jpg" alt="Shamrocket — Hobie Getaway expedition platform" style="filter:brightness(0.85) saturate(0.9);"/>
+        <p class="img-caption">Shamrocket — Hobie Getaway &middot; 24" draft</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<hr class="divider">
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Science Platform</div>
+    <h2 class="serif reveal">Every Dive. Every Reef. <em>Every Day.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Every observation made aboard Shamrocket during the Rim Run Caribe&#8482; circuit feeds directly into GROAN&#8482; — the Global Reef &amp; Ocean Analytics Network. Water chemistry, coral health staging, species presence/absence, human impact indicators — all logged, all GPS-referenced, all added to a permanent baseline record that grows more valuable with every circuit completed.</p>
+    <p class="reveal">MOOP&#8482; (Mobile Ocean Observation Platform) protocols govern every data collection event — standardized, repeatable, and designed to interface with partner institutional databases including CORDAP at KAUST and the Caribbean Coastal Reef Alliance (CCRA) citizen science network.</p>
+    <p class="reveal">The Caribe circuit is also the primary operational theater for CD the Lion Hunter — trident deployed on every dive where local law permits, all lionfish removal events documented in the GROAN&#8482; reef health dataset as permanent removal records.</p>
+    <div class="infobox reveal">
+      <div class="infobox-label">GROAN&#8482; &middot; MOOP&#8482; &middot; CCRA &middot; CORDAP</div>
+      All field data collected under Rim Run Caribe&#8482; is proprietary to Nevado Ranch Camp LLC and shared with partner institutions under formal data-sharing agreements. All GROAN&#8482; IP reserved.
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="science.html" class="btn-gold reveal">The Science &rarr;</a>
+      &nbsp;&nbsp;
+      <a href="citizenscience.html" class="btn-gold reveal">Citizen Science &rarr;</a>
+    </div>
+  </div>
+</section>
 
-<!-- FOOTER -->
-<footer>
-  <p class="quote">"As go the seas… so goes humanity."</p>
-  <p>Cell: (928) 250-9763 &nbsp;•&nbsp; nevadoraiders@gmail.com &nbsp;•&nbsp; Base Camp: White Mountains, AZ &nbsp;•&nbsp; www.catamarandan.org</p>
-  <br>
-  <p>© 2025 Nevado Ranch Camp LLC. All rights reserved.</p>
-  <p style="margin-top:1rem;font-size:0.72rem;color:#556;line-height:1.9;">
-    GROAN™, Rim Run™, Rim Run Caribe™, Rim Run Pac™, DMAP-CAL™, MOOP™, CMIE™, GRIN™, GKIN™, GSIN™,
-    Blue Rim 5™, Nevado Raiders™, Better Beachy Than Bitchy™ and all associated names, marks, and 
-    identifiers are trademarks or proprietary designations of Nevado Ranch Camp LLC.
-  </p>
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+  <p class="img-caption reveal" style="margin-top:1rem;">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+</div>
+
+<footer style="background-color:#0b1e2d;color:#ffffff;padding:20px;text-align:center;font-size:14px;line-height:1.6;">
+  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+  <div class="footer-tagline">"As go the seas… so goes humanity."</div>
+  <div class="footer-contact" style="margin:10px 0;">
+    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
+    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff;text-decoration:none;">nevadoraiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
+  </div>
+  <div style="margin-top:15px;font-weight:bold;">
+    &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
+    | <a href="intellectualproperty.html" style="color:#4db8ff;text-decoration:none;">Intellectual Property</a>
+  </div>
+  <div style="margin:5px 0;">GROAN&#8482;, Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;, GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482; and all associated names, marks, and identifiers are trademarks or proprietary designations of Nevado Ranch Camp LLC.</div>
+  <div>All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies, workflows, algorithms, decision-support processes, integration mechanisms, and all associated materials are the exclusive intellectual property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.</div>
+  <div style="margin-top:8px;">Unauthorized reproduction, use, distribution, modification, reverse engineering, extraction, or creation of derivative works is strictly prohibited without prior written permission.</div>
+  <div style="margin-top:5px;">No license, express or implied, is granted by access to this website or its contents.</div>
 </footer>
 
+<script>
+document.body.classList.add('js-ready');
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+  function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
+    els.forEach(function(el){obs.observe(el);});
+  }else{els.forEach(function(el){el.classList.add('visible');});}
+})();
+</script>
 </body>
 </html>
+
