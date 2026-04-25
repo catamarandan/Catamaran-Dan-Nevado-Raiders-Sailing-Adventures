@@ -18,11 +18,7 @@
 --fog:#c8cdd8;
 }
 
-*,*::before,*::after{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:var(--deep-ocean);
@@ -31,40 +27,72 @@ font-family:'EB Garamond',serif;
 line-height:1.6;
 }
 
-/* NAVBAR FIXED */
+/* NAV — matching site standard */
 nav{
-  background:#080c14;
-  border-bottom:1px solid rgba(201,168,76,0.2);
-  padding:0.8rem 0;        /* 👈 remove side padding */
-  position:sticky;
-  top:0;
-  z-index:1000;
+background:#080c14;
+border-bottom:1px solid rgba(201,168,76,0.2);
+padding:1rem 2rem;
+display:flex;
+gap:1.8rem;
+justify-content:center;
+flex-wrap:wrap;
+position:sticky;
+top:0;
+z-index:1000;
+backdrop-filter:blur(8px);
+align-items:center;
 }
 
 .nav-links{
-  display:flex;
-  flex-wrap:wrap;          /* 👈 allows multiple rows */
-  justify-content:center;  /* 👈 keeps it clean */
-  gap:1rem 1.5rem;
-  padding:0 1rem;
-}
-
-.nav-links::-webkit-scrollbar{
-display:none;
+display:flex;
+gap:1.8rem;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
 }
 
 nav a{
-flex:0 0 auto;
 color:var(--fog);
-font-family:'Josefin Sans';
+font-family:'Josefin Sans',sans-serif;
 text-transform:uppercase;
-font-size:0.75rem;
+font-size:0.8rem;
 letter-spacing:0.12em;
 text-decoration:none;
+padding:0.2rem 0;
+border-bottom:1px solid transparent;
+transition:color 0.25s,border-color 0.25s;
+white-space:nowrap;
 }
 
-nav a.active{
-color:var(--gold);
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+.nav-toggle{
+display:none;
+background:none;
+border:none;
+cursor:pointer;
+padding:0.4rem;
+flex-direction:column;
+gap:5px;
+position:absolute;
+right:1.5rem;
+top:50%;
+transform:translateY(-50%);
+}
+
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+@media(max-width:768px){
+nav{flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+.nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;padding:0.5rem 1.5rem 1rem;z-index:999;gap:0;}
+.nav-links.open{display:flex;}
+.nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+.nav-links a:last-child{border-bottom:none;}
+.nav-toggle{display:flex;}
 }
 
 /* HERO */
@@ -74,32 +102,19 @@ display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-background:linear-gradient(180deg,#050810 0%,#0a0f1a 100%);
+background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.35) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);
 padding:6rem 2rem;
 }
 
-.hero-h1{
-font-family:'Cinzel';
-font-size:clamp(2.5rem,6vw,4.5rem);
-}
-
-.hero-h1 em{
-color:var(--gold);
-font-style:normal;
-}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,4.5rem);}
+.hero-h1 em{color:var(--gold);font-style:normal;}
 
 /* CONTENT */
-section{
-padding:5rem 2rem;
-}
-
-.container{
-max-width:1100px;
-margin:0 auto;
-}
+section{padding:5rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
 
 .section-label{
-font-family:'Josefin Sans';
+font-family:'Josefin Sans',sans-serif;
 text-transform:uppercase;
 letter-spacing:0.3em;
 color:var(--aqua);
@@ -121,17 +136,8 @@ border:1px solid rgba(201,168,76,0.25);
 background:rgba(14,77,110,0.10);
 }
 
-.notice p{
-font-size:1rem;
-line-height:1.7;
-color:var(--parchment);
-}
-
-.notice p:last-child{
-margin-top:1rem;
-color:var(--fog);
-font-size:0.95rem;
-}
+.notice p{font-size:1rem;line-height:1.7;color:var(--parchment);}
+.notice p:not(:last-child){margin-bottom:1rem;}
 
 /* GRID */
 .shop-grid{
@@ -149,10 +155,7 @@ transition:0.3s ease;
 overflow:hidden;
 }
 
-.product:hover{
-transform:translateY(-4px);
-border-color:rgba(201,168,76,0.6);
-}
+.product:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.6);}
 
 .product img{
 width:100%;
@@ -163,11 +166,7 @@ margin-bottom:1rem;
 border-radius:2px;
 }
 
-.product-title{
-font-family:'Cinzel';
-font-size:1.1rem;
-margin-bottom:0.5rem;
-}
+.product-title{font-family:'Cinzel',serif;font-size:1.1rem;margin-bottom:0.5rem;}
 
 .btn-gold{
 display:inline-block;
@@ -175,22 +174,27 @@ margin-top:0.8rem;
 padding:0.6rem 1.2rem;
 border:1px solid rgba(201,168,76,0.5);
 color:var(--gold);
-font-family:'Josefin Sans';
+font-family:'Josefin Sans',sans-serif;
 text-transform:uppercase;
 letter-spacing:0.2em;
 font-size:0.75rem;
 text-decoration:none;
+transition:all 0.3s;
 }
+
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
 </style>
 </head>
 
 <body>
 
-<!-- SINGLE CLEAN NAV -->
 <nav id="main-nav">
-  <div class="nav-links">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
     <a href="lionfish.html">Lion Hunter</a>
@@ -198,8 +202,8 @@ text-decoration:none;
     <a href="science.html">The Science</a>
     <a href="decision-system.html">Field Research Collaboration</a>
     <a href="platform.html">Small Cat Platform</a>
-    <a href="learn.html">Learn Along With Me / Aprende Conmigo</a>
-    <a href="citizenscience.html">Citizen Science / Ciencia Ciudadana</a>
+    <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
+    <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
     <a href="thelivingsaga.html">The Living Saga&#8482;</a>
     <a href="support.html">Support</a>
     <a href="shop.html" class="active">Shop</a>
@@ -210,55 +214,83 @@ text-decoration:none;
 </nav>
 
 <div class="page-hero">
-<h1 class="hero-h1">The <em>Shop</em></h1>
+  <h1 class="hero-h1">The <em>Shop</em></h1>
 </div>
 
 <section>
 <div class="container">
 
-<div class="section-label">Limited Editions</div>
-<div class="gold-rule"></div>
+  <div class="section-label">Limited Editions</div>
+  <div class="gold-rule"></div>
 
-<div class="notice">
-<p>
-These works are currently in the final stage of production and will soon be available as limited-edition apparel, including T-shirts, hoodies, and sweatshirts.
-</p>
+  <div class="notice">
+    <p>All product designs, images, and visual works displayed on this page are the exclusive intellectual property of Catamaran Dan / Nevado Ranch Camp LLC and are protected under applicable copyright, trademark, and trade secret laws.</p>
+    <p>No portion of these works may be reproduced, copied, distributed, modified, reverse engineered, or used for commercial purposes without prior written permission.</p>
+    <p>These works are currently in the final stage of production and will soon be available as limited-edition apparel, including T-shirts, hoodies, and sweatshirts.</p>
+  </div>
 
-<p>
-All imagery, marks, and associated designs displayed on this page are copyrighted and trademarked intellectual property of Catamaran Dan / Nevado Ranch Camp LLC and may not be reproduced, distributed, or used without express written permission.
-</p>
-</div>
+  <div class="shop-grid">
 
-<div class="shop-grid">
+    <div class="product">
+      <img src="pbwfwo.PNG" alt="PBW Women's Edition — Professional Bull Wrestling Shield Maiden" title="&copy; Nevado Ranch Camp LLC — All Rights Reserved"/>
+      <div class="product-title">PBW Women's Edition</div>
+      <a class="btn-gold" href="#">Coming Soon</a>
+    </div>
 
-<div class="product">
-<img src="pbwfwo.PNG" alt="PBWF Edition"/>
-<div class="product-title">PBWF Edition</div>
-<a class="btn-gold" href="#">Purchase</a>
-</div>
+    <div class="product">
+      <img src="pbwmwo.PNG" alt="PBW Men's Edition — Professional Bull Wrestling" title="&copy; Nevado Ranch Camp LLC — All Rights Reserved"/>
+      <div class="product-title">PBW Men's Edition</div>
+      <a class="btn-gold" href="#">Coming Soon</a>
+    </div>
 
-<div class="product">
-<img src="pbwmwo.PNG" alt="PBWM Edition"/>
-<div class="product-title">PBWM Edition</div>
-<a class="btn-gold" href="#">Purchase</a>
-</div>
+    <div class="product">
+      <img src="bullsharkswo.PNG" alt="Running with the Bull Sharks Edition" title="&copy; Nevado Ranch Camp LLC — All Rights Reserved"/>
+      <div class="product-title">Running with the Bull Sharks</div>
+      <a class="btn-gold" href="#">Coming Soon</a>
+    </div>
 
-<div class="product">
-<img src="bullsharkswo.PNG" alt="Bull Sharks Edition"/>
-<div class="product-title">Bull Sharks Edition</div>
-<a class="btn-gold" href="#">Purchase</a>
-</div>
+    <div class="product">
+      <img src="bbtbwo.PNG" alt="Better Beachy Than Bitchy™ Edition" title="&copy; Nevado Ranch Camp LLC — All Rights Reserved"/>
+      <div class="product-title">Better Beachy Than Bitchy&#8482;</div>
+      <a class="btn-gold" href="#">Purchase &rarr;</a>
+    </div>
 
-<div class="product">
-<img src="bbtbwo.PNG" alt="BBTB Edition"/>
-<div class="product-title">BBTB Edition</div>
-<a class="btn-gold" href="#">Purchase</a>
-</div>
-
-</div>
+  </div>
 
 </div>
 </section>
+
+<footer style="background-color:#0b1e2d;color:#ffffff;padding:20px;text-align:center;font-size:14px;line-height:1.6;">
+  <div style="font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#f0e8d0;letter-spacing:0.1em;margin-bottom:1rem;">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+  <div style="font-style:italic;color:#c9a84c;font-size:1rem;margin-bottom:1.5rem;">"As go the seas… so goes humanity."</div>
+  <div style="margin:10px 0;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:#9aa0b0;">
+    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
+    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff;text-decoration:none;">nevadoraiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
+  </div>
+  <div style="margin-top:15px;font-weight:bold;">
+    &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
+    | <a href="intellectualproperty.html" style="color:#4db8ff;text-decoration:none;">Intellectual Property</a>
+  </div>
+  <div style="margin:5px 0;">GROAN&#8482;, Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Better Beachy Than Bitchy&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482; and all associated names, marks, and identifiers are trademarks or proprietary designations of Nevado Ranch Camp LLC.</div>
+  <div style="margin-top:5px;">No license, express or implied, is granted by access to this website or its contents.</div>
+</footer>
+
+<script>
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+  function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+})();
+</script>
 
 </body>
 </html>
