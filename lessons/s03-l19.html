@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L19 Biological Oceanography — Case Studies</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.2); text-align: left; background: rgba(26,200,200,0.04); }
+  .data-table td { font-size: 11px; color: rgba(232,244,248,0.7); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.07); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 13.35%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 19 · Biological Oceanography</div>
+        <h1 class="lesson-title">Case Studies</h1>
+        <div class="lesson-subtitle">Estudios de Caso en Oceanografía Biológica</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — Three case study timeline panels: 1998 bleaching, sea urchin die-off, lionfish invasion -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="urchinG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#e86040" stop-opacity="0.03"/>
+            <stop offset="100%" stop-color="#e86040" stop-opacity="0.15"/>
+          </linearGradient>
+          <linearGradient id="bleachG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#f0b429" stop-opacity="0.03"/>
+            <stop offset="100%" stop-color="#f0b429" stop-opacity="0.15"/>
+          </linearGradient>
+          <linearGradient id="lionfishG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.03"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.12"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ══ CASE STUDY 1: 1983 Sea Urchin Die-off (left panel) ══ -->
+        <rect x="8" y="14" width="112" height="234" rx="3"
+              fill="url(#urchinG)" stroke="rgba(232,96,64,0.3)" stroke-width="1"/>
+        <text x="64" y="27" font-family="monospace" font-size="6.5"
+              fill="rgba(232,96,64,0.75)" text-anchor="middle" letter-spacing="0.08em">CASE 1 · 1983</text>
+        <text x="64" y="37" font-family="monospace" font-size="6"
+              fill="rgba(232,96,64,0.55)" text-anchor="middle">DIADEMA DIE-OFF</text>
+
+        <!-- Urchin abundance bar (before) -->
+        <text x="20" y="52" font-family="monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">Before:</text>
+        <rect x="20" y="55" width="88" height="8" rx="1"
+              fill="rgba(232,96,64,0.4)" stroke="rgba(232,96,64,0.5)" stroke-width="0.5"/>
+        <text x="20" y="74" font-family="monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">After:</text>
+        <rect x="20" y="77" width="7" height="8" rx="1"
+              fill="rgba(232,96,64,0.2)" stroke="rgba(232,96,64,0.4)" stroke-width="0.5"/>
+        <text x="30" y="84" font-family="monospace" font-size="5"
+              fill="rgba(232,96,64,0.5)">97% mortality</text>
+
+        <!-- Algae consequence -->
+        <text x="64" y="100" font-family="monospace" font-size="6"
+              fill="rgba(60,160,60,0.6)" text-anchor="middle">ALGAE OVERGROWTH</text>
+        <text x="64" y="110" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">grazing collapses →</text>
+        <text x="64" y="119" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">macroalgae covers</text>
+        <text x="64" y="128" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">recruitment substrate</text>
+
+        <!-- Coral cover impact line -->
+        <polyline points="20,148 40,150 60,160 80,175 100,182"
+                  fill="none" stroke="rgba(232,96,64,0.6)" stroke-width="1.5"
+                  stroke-linejoin="round"/>
+        <text x="64" y="198" font-family="monospace" font-size="5.5"
+              fill="rgba(232,96,64,0.5)" text-anchor="middle">coral cover -30%</text>
+        <text x="64" y="207" font-family="monospace" font-size="5.5"
+              fill="rgba(232,96,64,0.5)" text-anchor="middle">in 5 years post-event</text>
+
+        <text x="64" y="225" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">Lesson: single keystone</text>
+        <text x="64" y="233" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">species loss = system shift</text>
+
+        <!-- ══ CASE STUDY 2: 1998 Mass Bleaching (center panel) ══ -->
+        <rect x="128" y="14" width="124" height="234" rx="3"
+              fill="url(#bleachG)" stroke="rgba(240,180,41,0.3)" stroke-width="1"/>
+        <text x="190" y="27" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.75)" text-anchor="middle" letter-spacing="0.08em">CASE 2 · 1998</text>
+        <text x="190" y="37" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.55)" text-anchor="middle">MASS BLEACHING EVENT</text>
+
+        <!-- Temperature anomaly spike -->
+        <text x="140" y="52" font-family="monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">SST anomaly:</text>
+        <polyline points="136,80 148,78 156,65 164,60 172,68 180,80 192,82 204,80 216,82 240,84"
+                  fill="none" stroke="rgba(240,180,41,0.7)" stroke-width="1.5"
+                  stroke-linejoin="round"/>
+        <!-- Threshold line -->
+        <line x1="136" y1="72" x2="244" y2="72"
+              stroke="rgba(232,96,64,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <text x="246" y="74" font-family="monospace" font-size="5"
+              fill="rgba(232,96,64,0.45)">+1°C</text>
+        <text x="190" y="98" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">El Niño 1997–98</text>
+
+        <!-- Global impact stats -->
+        <text x="190" y="116" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.65)" text-anchor="middle">GLOBAL IMPACT</text>
+        <text x="190" y="127" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.45)" text-anchor="middle">16% of world's coral</text>
+        <text x="190" y="136" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.45)" text-anchor="middle">killed in one year</text>
+
+        <!-- Caribbean bar chart: before/after -->
+        <text x="140" y="155" font-family="monospace" font-size="5.5" fill="rgba(138,184,204,0.5)">Caribbean cover:</text>
+        <rect x="140" y="158" width="60" height="7" rx="1"
+              fill="rgba(26,200,200,0.35)" stroke="rgba(26,200,200,0.5)" stroke-width="0.5"/>
+        <text x="205" y="164" font-family="monospace" font-size="5" fill="rgba(26,200,200,0.5)">Pre: 35%</text>
+        <rect x="140" y="170" width="36" height="7" rx="1"
+              fill="rgba(240,180,41,0.3)" stroke="rgba(240,180,41,0.45)" stroke-width="0.5"/>
+        <text x="180" y="176" font-family="monospace" font-size="5" fill="rgba(240,180,41,0.5)">Post: 20%</text>
+
+        <text x="190" y="198" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.5)" text-anchor="middle">recovery: 10–15 years</text>
+        <text x="190" y="207" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.5)" text-anchor="middle">at undisturbed sites</text>
+
+        <text x="190" y="225" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">Lesson: thermal stress</text>
+        <text x="190" y="233" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">is now the primary driver</text>
+
+        <!-- ══ CASE STUDY 3: Lionfish Invasion (right panel) ══ -->
+        <rect x="260" y="14" width="112" height="234" rx="3"
+              fill="url(#lionfishG)" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+        <text x="316" y="27" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.7)" text-anchor="middle" letter-spacing="0.08em">CASE 3 · 2000s</text>
+        <text x="316" y="37" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.5)" text-anchor="middle">LIONFISH INVASION</text>
+
+        <!-- Spread timeline -->
+        <g font-family="monospace" font-size="5.5" fill="rgba(138,184,204,0.45)">
+          <text x="268" y="55">1985:</text>
+          <text x="296" y="55" fill="rgba(26,200,200,0.45)">Florida first record</text>
+          <text x="268" y="67">2004:</text>
+          <text x="296" y="67" fill="rgba(26,200,200,0.45)">Bahamas</text>
+          <text x="268" y="79">2008:</text>
+          <text x="296" y="79" fill="rgba(26,200,200,0.45)">Cuba · Mexico</text>
+          <text x="268" y="91">2010:</text>
+          <text x="296" y="91" fill="rgba(26,200,200,0.45)">Full Caribbean</text>
+          <text x="268" y="103">2014:</text>
+          <text x="296" y="103" fill="rgba(26,200,200,0.45)">MAR corridor</text>
+        </g>
+
+        <!-- Expansion dots on mini-map -->
+        <line x1="268" y1="120" x2="368" y2="120" stroke="rgba(26,200,200,0.15)" stroke-width="0.5"/>
+        <circle cx="290" cy="115" r="2" fill="rgba(232,96,64,0.7)"/>
+        <circle cx="305" cy="113" r="3" fill="rgba(232,96,64,0.6)"/>
+        <circle cx="320" cy="112" r="4" fill="rgba(232,96,64,0.5)"/>
+        <circle cx="340" cy="110" r="6" fill="rgba(232,96,64,0.4)"/>
+        <text x="316" y="132" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">range expansion 1985→2014</text>
+
+        <!-- Impact stats -->
+        <text x="316" y="152" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.6)" text-anchor="middle">REEF IMPACT</text>
+        <text x="316" y="163" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.45)" text-anchor="middle">native fish biomass</text>
+        <text x="316" y="172" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.45)" text-anchor="middle">-65% at invaded sites</text>
+        <text x="316" y="183" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.45)" text-anchor="middle">juvenile fish -79%</text>
+
+        <!-- Response -->
+        <text x="316" y="202" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.55)" text-anchor="middle">RESPONSE</text>
+        <text x="316" y="212" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">targeted culling · eDNA</text>
+        <text x="316" y="221" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">early detection · markets</text>
+
+        <text x="316" y="237" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">Lesson: prevention &gt; control</text>
+
+        <!-- Title badge -->
+        <rect x="0" y="0" width="190" height="16" fill="rgba(2,15,30,0.7)"/>
+        <text x="10" y="11" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.12em">THREE CRITICAL CASE STUDIES</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Three case studies define the modern history of Caribbean reef biology and establish the baseline context for every monitoring program operating in the MAR corridor today. <strong>Case 1 — The 1983 Diadema antillarum die-off:</strong> A waterborne pathogen killed 97% of the long-spined sea urchin population across the Caribbean in less than 13 months — the largest mass mortality of a marine animal ever recorded. Diadema are the primary algae grazers on Caribbean reefs; their removal allowed macroalgae to overgrow coral recruitment substrate across the basin, contributing to a 30% decline in Caribbean coral cover over the following decade. Recovery of Diadema populations has been slow and incomplete 40 years later — an ongoing natural experiment demonstrating that <em>keystone species loss can restructure entire reef ecosystems</em>. <strong>Case 2 — The 1998 global bleaching event:</strong> The strongest El Niño event of the 20th century produced SST anomalies of +1–2°C above seasonal maximums across tropical oceans, killing approximately 16% of the world's coral in a single year. In the Caribbean, coral cover dropped from approximately 35% to 20% at many sites. Recovery required 10–15 years at undisturbed sites — and was not achieved at heavily fished or nutrient-stressed sites, establishing that <em>local stressor reduction is a prerequisite for bleaching recovery</em>. <strong>Case 3 — The lionfish invasion (1985–present):</strong> Red lionfish (<em>Pterois volitans</em>), released from aquaria in Florida in the 1980s, spread across the entire Caribbean by 2014 — one of the fastest marine invasions in recorded history. At invaded sites, native fish biomass declined 65% and juvenile fish abundance dropped 79% within two years. No natural predators, no learned avoidance behavior in native prey species, and no reproductive limit on population growth make lionfish the most ecologically damaging invasive species in Caribbean reef history.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Case Study</th><th>Year</th><th>Key Biological Lesson</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Diadema die-off</td><td>1983</td><td>Keystone species loss restructures entire reef ecosystems</td></tr>
+          <tr><td>Mass bleaching</td><td>1998</td><td>Thermal stress now primary driver; local stressors delay recovery</td></tr>
+          <tr><td>Lionfish invasion</td><td>1985→present</td><td>Prevention far more effective than control once established</td></tr>
+          <tr><td>SCTLD outbreak</td><td>2014→present</td><td>Fastest-spreading coral disease in Atlantic history</td></tr>
+          <tr><td>Hurricane Mitch</td><td>1998</td><td>Physical disturbance resets reef trajectory — fishing pressure determines recovery rate</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Tres estudios de caso definen la historia moderna de la biología arrecifal del Caribe. <strong>Caso 1 — La mortandad de Diadema antillarum de 1983:</strong> Un patógeno acuático mató al 97% de la población de erizo de mar de espina larga en todo el Caribe en menos de 13 meses. La eliminación de este herbívoro clave permitió que las macroalgas cubrieran el sustrato de reclutamiento de coral, contribuyendo a una disminución del 30% en la cobertura de coral del Caribe. <strong>Caso 2 — El evento de blanqueamiento global de 1998:</strong> El fenómeno de El Niño más fuerte del siglo XX produjo anomalías de TSM de +1–2°C, matando aproximadamente el 16% del coral mundial en un solo año. La recuperación requirió 10–15 años en sitios no perturbados. <strong>Caso 3 — La invasión del pez león (1985–presente):</strong> El pez escorpión rojo (<em>Pterois volitans</em>), liberado de acuarios en Florida, se extendió por todo el Caribe para 2014. La biomasa de peces nativos disminuyó un 65% y la abundancia de peces juveniles cayó un 79% en los sitios invadidos en dos años.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Estudio de Caso</th><th>Año</th><th>Lección Biológica Clave</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mortandad de Diadema</td><td>1983</td><td>La pérdida de especie clave reestructura ecosistemas arrecifales completos</td></tr>
+          <tr><td>Blanqueamiento masivo</td><td>1998</td><td>El estrés térmico es ahora el impulsor principal; los estresores locales retrasan la recuperación</td></tr>
+          <tr><td>Invasión pez león</td><td>1985→presente</td><td>La prevención es mucho más efectiva que el control una vez establecido</td></tr>
+          <tr><td>Brote SCTLD</td><td>2014→presente</td><td>La enfermedad de coral de propagación más rápida en la historia del Atlántico</td></tr>
+          <tr><td>Huracán Mitch</td><td>1998</td><td>La perturbación física reinicia la trayectoria; la pesca determina la tasa de recuperación</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Every GROAN monitoring station on the Rim Run Caribe™ circuit carries the legacy of all three case studies simultaneously — Diadema populations have never fully recovered at most MAR sites; 1998 bleaching scars are still visible in the coral community age structure; lionfish are present at nearly every reef in the corridor. Understanding these case studies is not history — it is the baseline context for interpreting every current survey result.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Diadema recovery monitoring — the ongoing experiment:</strong> Diadema antillarum populations at most MAR sites remain at 5–15% of their pre-1983 abundance four decades after the die-off. Where Diadema have recovered — notably at some sites in the Florida Keys, parts of the Cayman Islands, and isolated protected areas in the eastern Caribbean — coral recruitment has increased measurably, demonstrating the direct biological link between urchin grazing and reef recovery potential. CCRA observers conduct Diadema night counts at every GROAN station — a 1 m wide × 25 m long band transect conducted after dark with red-light torches, when urchins emerge to graze. This data feeds the MAR-wide Diadema recovery index that GROAN's GMIN module tracks as a leading indicator of reef recovery capacity.</li>
+        <li><strong>The 1998 bleaching legacy in the MAR coral community:</strong> The 1998 event killed thermally sensitive coral species preferentially — massive Orbicella species bleached but many survived; branching Acropora palmata and A. cervicornis, already depleted by white band disease in the 1980s, were driven to functional extinction at many MAR sites from which they have never recovered. The current MAR coral community is structurally different from the pre-1998 community — it is dominated by more thermally tolerant massive and encrusting forms, with far less of the branching architecture that provided the structural complexity critical for fish habitat. CCRA photoquadrats document this community composition shift by recording the proportional cover of each coral growth form — data that feeds GROAN's reef complexity index.</li>
+        <li><strong>Lionfish on the Rim Run circuit — Lion Hunter protocol:</strong> Lionfish are present at virtually every reef site on the Rim Run Caribe™ circuit. The GROAN lion hunter protocol — a dedicated 30-minute lionfish search survey conducted independently from the standard belt transect — records lionfish abundance, size class, and depth distribution at each station visit. This data feeds the CCRA's corridor-wide lionfish tracking system. The Lion Hunter program trains CCRA observers in the specific search techniques needed to find lionfish in their preferred cryptic habitats (under ledges, in crevices, in rubble) where they are systematically undercounted by standard belt transect methodology. Every lionfish sighted during a Lion Hunter survey is logged, measured, and — where equipment and local regulations allow — removed.</li>
+        <li><strong>SCTLD — the current disease frontier:</strong> Stony Coral Tissue Loss Disease, first recorded in Florida in 2014, has spread through the Caribbean and reached the MAR corridor. Unlike previous coral diseases, SCTLD affects more than 22 coral species including massive corals that survived the 1998 bleaching — making it uniquely destructive. It spreads through the water column (not just physical contact), progresses at 1–2 cm per day on affected colonies, and kills entire colonies within weeks to months. CCRA observers are trained to recognize SCTLD lesion patterns — irregular, white tissue loss margins with no zone of bleached tissue between the lesion and healthy tissue — and to report immediately through the GROAN rapid-response channel. Treatment (application of amoxicillin antibiotic paste to disease fronts) is effective when applied early and is being deployed by trained response teams across the corridor.</li>
+        <li><strong>Hurricane Mitch 1998 — the disturbance-recovery interaction:</strong> Hurricane Mitch struck Honduras and Nicaragua in October 1998 with Category 5 winds — the same year as the mass bleaching event, compounding thermal mortality with catastrophic physical damage at many Honduran and Nicaraguan reef sites. The recovery trajectories at those sites 25 years later reveal a consistent pattern: sites within well-enforced MPAs (Roatán, Cayos Cochinos) show 30–40% coral cover recovery; sites outside MPAs with continuing high fishing pressure show 10–20% cover. The biological lesson is fundamental — physical disturbance determines the setback, but local fishing pressure and herbivore abundance (including Diadema) determine whether the reef recovers or shifts to an algae-dominated state. GROAN stations at Roatán, Utila, and the Pearl Cays are direct monitoring points for this 25-year post-Mitch recovery divergence.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Cada estación de monitoreo GROAN en el circuito Rim Run Caribe™ lleva el legado de los tres estudios de caso simultáneamente — las poblaciones de Diadema nunca se recuperaron completamente en la mayoría de los sitios del SAM; las cicatrices del blanqueamiento de 1998 aún son visibles; el pez león está presente en casi todos los arrecifes del corredor.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Monitoreo de recuperación de Diadema:</strong> Las poblaciones de Diadema antillarum en la mayoría de los sitios del SAM permanecen al 5–15% de su abundancia pre-1983 cuatro décadas después de la mortandad. Los observadores de la CCRA realizan conteos nocturnos de Diadema en cada estación GROAN — un transecto de banda de 1 m × 25 m realizado después de oscurecer con linternas de luz roja, cuando los erizos emergen a pastorear.</li>
+        <li><strong>El legado del blanqueamiento de 1998 en la comunidad de coral del SAM:</strong> El evento de 1998 mató preferentemente a las especies de coral termalmente sensibles. La comunidad de coral actual del SAM es estructuralmente diferente a la de 1998 — dominada por formas masivas e incrustantes más tolerantes al calor, con mucho menos de la arquitectura ramificada que proporcionaba la complejidad estructural crítica para el hábitat de los peces.</li>
+        <li><strong>El pez león en el circuito Rim Run — protocolo Lion Hunter:</strong> El protocolo Lion Hunter de GROAN es un censo de búsqueda de pez león de 30 minutos realizado independientemente del transecto de banda estándar, registrando abundancia, clase de tamaño y distribución por profundidad. El programa Lion Hunter capacita a los observadores de la CCRA en las técnicas de búsqueda específicas necesarias para encontrar peces león en sus hábitats crípticos preferidos.</li>
+        <li><strong>SCTLD — la frontera actual de enfermedades:</strong> La Enfermedad de Pérdida de Tejido de Coral Pétreo, registrada por primera vez en Florida en 2014, ha llegado al corredor del SAM. Afecta a más de 22 especies de coral, progresa a 1–2 cm por día y mata colonias enteras en semanas a meses. El tratamiento con pasta antibiótica de amoxicilina es efectivo cuando se aplica temprano.</li>
+        <li><strong>El huracán Mitch 1998 — la interacción perturbación-recuperación:</strong> Las trayectorias de recuperación 25 años después revelan un patrón consistente: los sitios dentro de AMPs bien aplicadas muestran 30–40% de recuperación de cobertura de coral; los sitios fuera de AMPs con alta presión pesquera muestran 10–20%. La perturbación física determina el retroceso, pero la presión pesquera local y la abundancia de herbívoros determinan si el arrecife se recupera.</li>
+      </ul>
+    </div>
+
+    <!-- MCQ -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A CCRA observer notes that their reef site in Belize has abundant fish, good coral cover (38%), but very few Diadema sea urchins — perhaps 2–3 per 100 m². Based on the 1983 Diadema case study, what future reef risk does this low urchin density represent?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> No significant risk — fish are sufficient herbivores to compensate for low urchin density</li>
+            <li><span class="opt-letter">B.</span> Reduced grazing redundancy — if fish herbivory is disrupted by fishing pressure or disease, the absence of Diadema as a backup grazer leaves the reef vulnerable to algal overgrowth and reduced coral recruitment</li>
+            <li><span class="opt-letter">C.</span> Low urchin density indicates a healthy reef — urchins compete with coral for substrate and their absence benefits coral growth</li>
+            <li><span class="opt-letter">D.</span> The risk depends entirely on water temperature — urchins are only important during bleaching events</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The 1983 case study demonstrates that Diadema provide critical grazing redundancy. A reef with both fish herbivores and Diadema has two grazing pathways maintaining algae control. A reef with fish herbivores only has a single pathway — if that pathway is compromised by overfishing or disease, there is no backup. Low Diadema density on an otherwise healthy reef is a resilience deficit that is invisible until the fish herbivores are also lost.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un observador de la CCRA nota que su sitio arrecifal en Belice tiene peces abundantes, buena cobertura de coral (38%), pero muy pocos erizos de mar Diadema — quizás 2–3 por 100 m². Basándose en el estudio de caso de Diadema de 1983, ¿qué riesgo arrecifal futuro representa esta baja densidad de erizos?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Ningún riesgo significativo — los peces son herbívoros suficientes para compensar la baja densidad de erizos</li>
+            <li><span class="opt-letter">B.</span> Redundancia de pastoreo reducida — si el herbivorismo de los peces se interrumpe por presión pesquera o enfermedad, la ausencia de Diadema como herbívoro de respaldo deja el arrecife vulnerable al crecimiento excesivo de algas</li>
+            <li><span class="opt-letter">C.</span> La baja densidad de erizos indica un arrecife saludable — los erizos compiten con el coral por el sustrato y su ausencia beneficia el crecimiento del coral</li>
+            <li><span class="opt-letter">D.</span> El riesgo depende enteramente de la temperatura del agua — los erizos solo son importantes durante los eventos de blanqueamiento</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El estudio de caso de 1983 demuestra que Diadema proporciona una redundancia de pastoreo crítica. Una baja densidad de Diadema en un arrecife por lo demás saludable es un déficit de resiliencia invisible hasta que los herbívoros peces también se pierden.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Following the 1998 bleaching event, two adjacent MAR reef sites experienced equivalent coral mortality (approximately 40% loss). Site A was inside a fully protected no-take MPA. Site B was outside the MPA with ongoing artisanal fishing. Twenty years later, Site A has recovered to 35% coral cover; Site B remains at 14%. What biological mechanism best explains this divergence?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Site A received more larval supply because MPAs attract larval settlement</li>
+            <li><span class="opt-letter">B.</span> At Site A, intact fish herbivore communities (parrotfish, surgeonfish) maintained algae control after bleaching, preventing macroalgal overgrowth of coral recruitment substrate. At Site B, continued fishing removed herbivores, allowing algae to dominate — locking the reef in a degraded state despite equivalent initial coral mortality</li>
+            <li><span class="opt-letter">C.</span> Site A had higher water quality because MPA designation reduced coastal runoff</li>
+            <li><span class="opt-letter">D.</span> Site B experienced additional bleaching events that Site A was protected from by the MPA boundary</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — This is the defining biological lesson of Caribbean reef recovery science: bleaching creates the setback, but herbivore community integrity determines the recovery trajectory. Intact herbivore communities prevent the macroalgal phase shift that locks bleached reefs in degraded states. This mechanism explains why MPA protection — which protects fish, not coral — is the single most effective tool for improving post-bleaching coral recovery rates.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Tras el evento de blanqueamiento de 1998, dos sitios arrecifales adyacentes del SAM experimentaron mortalidad equivalente de coral. El Sitio A estaba dentro de una AMP de no extracción. El Sitio B estaba fuera de la AMP con pesca artesanal continua. Veinte años después, el Sitio A se recuperó al 35% de cobertura; el Sitio B permanece en 14%. ¿Qué mecanismo biológico explica mejor esta divergencia?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El Sitio A recibió más suministro larvario porque las AMPs atraen el asentamiento larvario</li>
+            <li><span class="opt-letter">B.</span> En el Sitio A, las comunidades intactas de peces herbívoros mantuvieron el control de algas después del blanqueamiento, previniendo el crecimiento de macroalgas sobre el sustrato de reclutamiento de coral. En el Sitio B, la pesca continua eliminó los herbívoros, permitiendo que las algas dominaran</li>
+            <li><span class="opt-letter">C.</span> El Sitio A tuvo mayor calidad del agua porque la designación de AMP redujo la escorrentía costera</li>
+            <li><span class="opt-letter">D.</span> El Sitio B experimentó eventos de blanqueamiento adicionales de los que el Sitio A fue protegido</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Esta es la lección biológica definitiva de la ciencia de recuperación arrecifal del Caribe: el blanqueamiento crea el retroceso, pero la integridad de la comunidad de herbívoros determina la trayectoria de recuperación. Esto explica por qué la protección de AMP — que protege peces, no coral — es la herramienta más efectiva para mejorar las tasas de recuperación post-blanqueamiento.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A CCRA observer in Panama reports zero lionfish sightings during their standard belt transect survey at a deep forereef site (18–22 m). Should this be interpreted as evidence that the site is lionfish-free?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Yes — a thorough belt transect at that depth would detect all lionfish present</li>
+            <li><span class="opt-letter">B.</span> No — lionfish preferentially occupy cryptic microhabitats (under ledges, in crevices, in rubble) that standard belt transects systematically undercount. A dedicated 30-minute Lion Hunter search survey using targeted cryptic habitat search techniques is required to reliably assess lionfish presence at a site</li>
+            <li><span class="opt-letter">C.</span> Yes — at 18–22 m depth, lionfish are rare because they prefer shallow reef zones under 10 m</li>
+            <li><span class="opt-letter">D.</span> No — but eDNA sampling is the only reliable detection method for lionfish at this depth</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Lionfish behavior makes standard belt transects unreliable for their detection. They hold position in cryptic habitats and are easily missed by a diver swimming a standard transect path. The GROAN Lion Hunter protocol uses a targeted search of all cryptic microhabitats within a defined area — a fundamentally different search strategy from a belt transect. Zero lionfish on a belt transect at a MAR site is not evidence of absence; it is a sampling artifact. Only a dedicated Lion Hunter survey can make a meaningful lionfish absence claim.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un observador de la CCRA en Panamá reporta cero avistamientos de pez león durante su censo de transecto de banda estándar en un sitio de arrecife frontal profundo (18–22 m). ¿Debería interpretarse esto como evidencia de que el sitio está libre de pez león?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sí — un transecto de banda exhaustivo a esa profundidad detectaría todos los peces león presentes</li>
+            <li><span class="opt-letter">B.</span> No — los peces león ocupan preferentemente microhábitats crípticos (bajo cornisas, en grietas, en escombros) que los transectos de banda estándar subestiman sistemáticamente. Se requiere un censo de búsqueda Lion Hunter dedicado de 30 minutos para evaluar de manera confiable la presencia de pez león</li>
+            <li><span class="opt-letter">C.</span> Sí — a 18–22 m de profundidad, los peces león son raros porque prefieren zonas arrecifales someras de menos de 10 m</li>
+            <li><span class="opt-letter">D.</span> No — pero el muestreo de ADNe es el único método de detección confiable para peces león a esta profundidad</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El comportamiento del pez león hace que los transectos de banda estándar sean poco confiables para su detección. Cero peces león en un transecto de banda en un sitio del SAM no es evidencia de ausencia; es un artefacto de muestreo. Solo un censo Lion Hunter dedicado puede hacer una afirmación significativa de ausencia de pez león.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 03 · Lesson 19 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S03 · L19 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
