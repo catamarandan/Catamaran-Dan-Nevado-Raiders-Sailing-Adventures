@@ -1,1 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L21 Biological Oceanography — MAR Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.2); text-align: left; background: rgba(26,200,200,0.04); }
+  .data-table td { font-size: 11px; color: rgba(232,244,248,0.7); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.07); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 13.92%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 21 · Biological Oceanography</div>
+        <h1 class="lesson-title">MAR Focus</h1>
+        <div class="lesson-subtitle">Enfoque en el SAM — Sistema Arrecifal Mesoamericano</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Mesoamerican Reef</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — MAR corridor biological profile: 4 countries, reef types, key indicators -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="barG1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="barG2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#f0b429" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#f0b429" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="barG3" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#e86040" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#e86040" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ══ MAR CORRIDOR STRIP — top ══ -->
+        <!-- The 1000km corridor as a horizontal band -->
+        <rect x="14" y="14" width="352" height="22" rx="2"
+              fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+
+        <!-- Country segments along the MAR -->
+        <!-- Mexico -->
+        <rect x="14" y="14" width="88" height="22" rx="2"
+              fill="rgba(26,200,200,0.12)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+        <text x="58" y="22" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.8)" text-anchor="middle" letter-spacing="0.06em">MEXICO</text>
+        <text x="58" y="31" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.5)" text-anchor="middle">~250 km</text>
+
+        <!-- Belize -->
+        <rect x="102" y="14" width="66" height="22" rx="1"
+              fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.35)" stroke-width="0.8"/>
+        <text x="135" y="22" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.75)" text-anchor="middle">BELIZE</text>
+        <text x="135" y="31" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.5)" text-anchor="middle">~300 km</text>
+
+        <!-- Guatemala -->
+        <rect x="168" y="14" width="30" height="22" rx="1"
+              fill="rgba(184,240,236,0.08)" stroke="rgba(184,240,236,0.25)" stroke-width="0.8"/>
+        <text x="183" y="25" font-family="monospace" font-size="5.5"
+              fill="rgba(184,240,236,0.6)" text-anchor="middle">GT</text>
+
+        <!-- Honduras -->
+        <rect x="198" y="14" width="88" height="22" rx="1"
+              fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.3)" stroke-width="0.8"/>
+        <text x="242" y="22" font-family="monospace" font-size="6.5"
+              fill="rgba(232,96,64,0.7)" text-anchor="middle">HONDURAS</text>
+        <text x="242" y="31" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.5)" text-anchor="middle">~350 km</text>
+
+        <!-- Scale label -->
+        <text x="190" y="46" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.45)" text-anchor="middle" letter-spacing="0.1em">
+          ◄——————————— 1,000 km BARRIER REEF ———————————►
+        </text>
+
+        <!-- ══ BIOLOGICAL INDICATOR CHARTS — main area ══ -->
+        <!-- Chart background -->
+        <rect x="14" y="52" width="352" height="150" rx="2"
+              fill="rgba(2,12,24,0.5)" stroke="rgba(26,200,200,0.08)" stroke-width="0.8"/>
+
+        <text x="190" y="64" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.55)" text-anchor="middle" letter-spacing="0.1em">KEY BIOLOGICAL INDICATORS BY COUNTRY SEGMENT</text>
+
+        <!-- Y axis -->
+        <g font-family="monospace" font-size="6" fill="rgba(138,184,204,0.4)" text-anchor="end">
+          <text x="32" y="80">60%</text>
+          <text x="32" y="100">40%</text>
+          <text x="32" y="120">20%</text>
+          <text x="32" y="140">0%</text>
+        </g>
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="34" y1="78" x2="362" y2="78"/>
+          <line x1="34" y1="98" x2="362" y2="98"/>
+          <line x1="34" y1="118" x2="362" y2="118"/>
+          <line x1="34" y1="138" x2="362" y2="138"/>
+        </g>
+
+        <!-- Country groups along X -->
+        <g font-family="monospace" font-size="6.5" fill="rgba(138,184,204,0.45)" text-anchor="middle">
+          <text x="62"  y="148">MX</text>
+          <text x="102" y="148">BZ</text>
+          <text x="142" y="148">GT</text>
+          <text x="182" y="148">HN</text>
+          <text x="222" y="148">NI</text>
+          <text x="262" y="148">CR</text>
+          <text x="302" y="148">PA</text>
+          <text x="342" y="148">CO+ABC</text>
+        </g>
+
+        <!-- CORAL COVER bars (cyan) -->
+        <!-- MX: 35% -->
+        <rect x="46" y="105" width="14" height="33" rx="1" fill="url(#barG1)"/>
+        <!-- BZ: 44% -->
+        <rect x="86" y="97" width="14" height="41" rx="1" fill="url(#barG1)"/>
+        <!-- GT: 22% -->
+        <rect x="126" y="117" width="14" height="21" rx="1" fill="url(#barG1)"/>
+        <!-- HN: 41% -->
+        <rect x="166" y="100" width="14" height="38" rx="1" fill="url(#barG1)"/>
+        <!-- NI: 18% -->
+        <rect x="206" y="120" width="14" height="18" rx="1" fill="url(#barG1)"/>
+        <!-- CR: 26% -->
+        <rect x="246" y="112" width="14" height="26" rx="1" fill="url(#barG1)"/>
+        <!-- PA: 35% -->
+        <rect x="286" y="105" width="14" height="33" rx="1" fill="url(#barG1)"/>
+        <!-- CO+ABC: 42% -->
+        <rect x="326" y="99" width="14" height="39" rx="1" fill="url(#barG1)"/>
+
+        <!-- FISH BIOMASS bars (gold) — relative -->
+        <rect x="62" y="110" width="10" height="28" rx="1" fill="url(#barG2)"/>
+        <rect x="102" y="103" width="10" height="35" rx="1" fill="url(#barG2)"/>
+        <rect x="142" y="122" width="10" height="16" rx="1" fill="url(#barG2)"/>
+        <rect x="182" y="100" width="10" height="38" rx="1" fill="url(#barG2)"/>
+        <rect x="222" y="125" width="10" height="13" rx="1" fill="url(#barG2)"/>
+        <rect x="262" y="115" width="10" height="23" rx="1" fill="url(#barG2)"/>
+        <rect x="302" y="108" width="10" height="30" rx="1" fill="url(#barG2)"/>
+        <rect x="342" y="104" width="10" height="34" rx="1" fill="url(#barG2)"/>
+
+        <!-- Legend -->
+        <rect x="26" y="155" width="10" height="6" rx="1" fill="rgba(26,200,200,0.5)"/>
+        <text x="40" y="161" font-family="monospace" font-size="6" fill="rgba(26,200,200,0.6)">Coral cover</text>
+        <rect x="100" y="155" width="10" height="6" rx="1" fill="rgba(240,180,41,0.5)"/>
+        <text x="114" y="161" font-family="monospace" font-size="6" fill="rgba(240,180,41,0.55)">Fish biomass (relative)</text>
+
+        <!-- ══ REEF TYPE STRIP — bottom ══ -->
+        <rect x="14" y="210" width="352" height="38" rx="2"
+              fill="rgba(2,12,24,0.5)" stroke="rgba(26,200,200,0.08)" stroke-width="0.8"/>
+        <text x="190" y="222" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.5)" text-anchor="middle" letter-spacing="0.08em">DOMINANT REEF TYPES ALONG THE MAR CORRIDOR</text>
+
+        <g font-family="monospace" font-size="5.5" text-anchor="middle">
+          <text x="54"  y="235" fill="rgba(26,200,200,0.55)">Barrier + Atolls</text>
+          <text x="54"  y="243" fill="rgba(138,184,204,0.35)">Mexico</text>
+          <line x1="95" y1="214" x2="95" y2="248" stroke="rgba(26,200,200,0.1)" stroke-width="0.5"/>
+          <text x="135" y="235" fill="rgba(240,180,41,0.55)">World's 2nd largest</text>
+          <text x="135" y="243" fill="rgba(138,184,204,0.35)">barrier + 3 atolls · BZ</text>
+          <line x1="175" y1="214" x2="175" y2="248" stroke="rgba(26,200,200,0.1)" stroke-width="0.5"/>
+          <text x="220" y="235" fill="rgba(232,96,64,0.55)">Bay Islands fringing +</text>
+          <text x="220" y="243" fill="rgba(138,184,204,0.35)">patch reefs · HN/NI</text>
+          <line x1="265" y1="214" x2="265" y2="248" stroke="rgba(26,200,200,0.1)" stroke-width="0.5"/>
+          <text x="316" y="235" fill="rgba(184,240,236,0.55)">Bocas archipelago +</text>
+          <text x="316" y="243" fill="rgba(138,184,204,0.35)">San Blas · PA/CO</text>
+        </g>
+
+        <!-- Title badge -->
+        <rect x="0" y="0" width="190" height="16" fill="rgba(2,15,30,0.7)"/>
+        <text x="10" y="11" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.12em">MAR BIOLOGICAL PROFILE</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          The Mesoamerican Barrier Reef System (MAR or MBRS) is the world's second largest coral reef system — 1,000 kilometers of continuous reef running from Isla Contoy in Mexico south to the Bay Islands of Honduras, encompassing the barrier reef, three offshore atolls (Turneffe, Lighthouse Reef, and Glover's Reef in Belize), and extensive inshore patch reef and seagrass systems. The MAR spans four countries — Mexico, Belize, Guatemala, and Honduras — each of which manages their reef section under different national policies, with radically different conservation outcomes. Biologically, the MAR is structured into three distinct zones: the <strong>northern sector</strong> (Quintana Roo coast and northern Belize) — well-studied, moderate fishing pressure, significant tourist infrastructure; the <strong>central sector</strong> (southern Belize, Guatemala's Caribbean coast, northern Honduras) — the most biologically intact section, anchored by the Belize atolls and the Bay of Honduras; and the <strong>southern sector</strong> (Bay Islands of Honduras) — highest tourist intensity in the system, best-developed MPA network of the four countries, but also highest fishing pressure from regional fleets. The MAR supports an estimated 65 species of stony coral, 350+ fish species, and 1,400+ invertebrate species — and provides food security, coastal protection, and tourism income to more than 2 million people across the four-country corridor.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Country</th><th>Reef Length</th><th>MPA Coverage</th><th>Coral Cover (est.)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mexico (QR)</td><td>~250 km</td><td>~20% protected</td><td>25–40% at protected sites</td></tr>
+          <tr><td>Belize</td><td>~300 km + 3 atolls</td><td>~40% protected</td><td>30–45% at atoll sites</td></tr>
+          <tr><td>Guatemala</td><td>~80 km</td><td>&lt;5% protected</td><td>15–25%</td></tr>
+          <tr><td>Honduras (Bay Is.)</td><td>~350 km</td><td>~15% protected</td><td>25–42% at protected sites</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El Sistema Arrecifal Mesoamericano (SAM o MBRS) es el segundo sistema arrecifal coralino más grande del mundo — 1,000 kilómetros de arrecife continuo desde Isla Contoy en México hasta las Islas de la Bahía de Honduras, abarcando el arrecife de barrera, tres atolones offshore (Turneffe, Lighthouse Reef y Glover's Reef en Belice), y extensos sistemas de arrecifes de parche y pastos marinos en la zona interior. El SAM abarca cuatro países — México, Belice, Guatemala y Honduras — cada uno de los cuales gestiona su sección arrecifal bajo diferentes políticas nacionales. Biológicamente, el SAM está estructurado en tres zonas distintas: el <strong>sector norte</strong> (costa de Quintana Roo y norte de Belice); el <strong>sector central</strong> (sur de Belice, costa caribeña de Guatemala, norte de Honduras) — la sección más intacta biológicamente; y el <strong>sector sur</strong> (Islas de la Bahía de Honduras) — mayor intensidad turística del sistema, mejor red de AMPs de los cuatro países. El SAM sustenta aproximadamente 65 especies de coral pétreo, 350+ especies de peces y 1,400+ especies de invertebrados.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>País</th><th>Long. Arrecife</th><th>Cobertura AMP</th><th>Cobertura Coral (est.)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>México (QR)</td><td>~250 km</td><td>~20% protegido</td><td>25–40% en sitios protegidos</td></tr>
+          <tr><td>Belice</td><td>~300 km + 3 atolones</td><td>~40% protegido</td><td>30–45% en sitios de atolón</td></tr>
+          <tr><td>Guatemala</td><td>~80 km</td><td>&lt;5% protegido</td><td>15–25%</td></tr>
+          <tr><td>Honduras (Is. Bahía)</td><td>~350 km</td><td>~15% protegido</td><td>25–42% en sitios protegidos</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">MAR Application · Aplicación en el SAM</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The MAR is not a uniform reef system — it is four nationally managed sections of a single biological entity, each with a different conservation status, different threat profile, and different monitoring capacity. Understanding these differences is essential for interpreting any cross-corridor dataset — including the GROAN data produced by the Rim Run Caribe™ circuit.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Mexico — Quintana Roo's monitoring legacy:</strong> The Mexican section of the MAR has the longest monitoring record of the four countries — the Puerto Morelos National Reef Park has been systematically surveyed since the 1980s, and CONANP operates monitoring programs at Banco Chinchorro, Sian Ka'an, and Cozumel. The Healthy Reefs Initiative Report Card has documented Mexican MAR reef condition since 2006. Mexico also hosts the MAR's most significant northern atoll (Banco Chinchorro) and the most heavily dived reef system in the Caribbean (Cozumel). The Rim Run circuit provides the first systematic comparison between the tourist-intensive Cozumel system and the near-pristine Contoy and Chinchorro reference sites using identical methodology — a comparison no existing monitoring program makes because no single program surveys all three.</li>
+        <li><strong>Belize — the monitoring gold standard:</strong> Belize has the highest MPA coverage of any MAR country and hosts the Mesoamerican Reef's most iconic biological reference sites: Glover's Reef (highest coral cover in the MAR lagoon system), Hol Chan (longest-running MPA effectiveness dataset), and the Lighthouse Reef Blue Hole (geological reference). The Belize Fisheries Department, WCS Belize, and the Healthy Reefs Initiative collectively maintain the most comprehensive reef monitoring database in the MAR. CCRA partner sites in Belize provide the highest-quality calibration benchmarks for the GROAN circuit — sites where CCRA observer data can be most rigorously cross-validated against existing institutional datasets.</li>
+        <li><strong>Guatemala — the monitoring gap:</strong> Guatemala's Caribbean coast is approximately 80 km long — the shortest MAR coastline of the four countries — and hosts the Río Dulce estuary system, the Amatique Bay, and a small fringing reef system near Livingston. It is the least monitored, least protected, and least studied section of the MAR. Less than 5% of Guatemalan coastal reef area has any form of legal protection. The GROAN station at Livingston represents the first systematic biological monitoring at a permanent station in the Guatemalan MAR — filling a genuine data gap in the corridor record. The Río Dulce estuary is not a reef system but is one of the most ecologically important coastal habitats on the circuit for manatees, tarpon, and juvenile fish habitat.</li>
+        <li><strong>Honduras — the Bay Islands biological benchmark:</strong> The Bay Islands of Honduras (Cayos Cochinos, Utila, Roatán, Guanaja) represent the southern terminus of the MAR and some of the most intensively studied reef systems in the Caribbean. The Cayos Cochinos Biological Reserve provides a near-pristine reference site with restricted access; Roatán and Utila host dense dive tourism infrastructure with decades of local monitoring by NGOs including the Roatán Marine Park and the Healthy Reefs Initiative. The Bay Islands also host the Caribbean's largest whale shark aggregation outside of Mexico — seasonally (March–May) whale sharks aggregate in waters between Utila and Roatán, feeding on snapper spawn. The Rim Run arrives in October, outside the peak aggregation window, but individual animals are documented year-round.</li>
+        <li><strong>The GROAN MAR protocol — four-country coherence:</strong> The GROAN field protocol was designed specifically to produce comparable data across all four MAR countries despite different national monitoring frameworks. Standardized Reef Check EcoDiver methodology, fixed GPS station identification, identical data collection forms, and the CCRA certification system ensure that a coral cover measurement at a Mexican site is directly comparable to one at a Honduran site — something that no existing monitoring program guarantees because each uses slightly different methods. This four-country methodological coherence is GROAN's most important contribution to MAR reef science.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El SAM no es un sistema arrecifal uniforme — es cuatro secciones gestionadas nacionalmente de una sola entidad biológica, cada una con un estado de conservación diferente, un perfil de amenaza diferente y una capacidad de monitoreo diferente.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>México — el legado de monitoreo de Quintana Roo:</strong> La sección mexicana del SAM tiene el registro de monitoreo más largo de los cuatro países. El circuito Rim Run proporciona la primera comparación sistemática entre el sistema de Cozumel, intensivo en turismo, y los sitios de referencia casi prístinos de Contoy y Chinchorro usando metodología idéntica.</li>
+        <li><strong>Belice — el estándar de oro del monitoreo:</strong> Belice tiene la mayor cobertura de AMPs de cualquier país del SAM y alberga los sitios de referencia biológica más icónicos: Glover's Reef (mayor cobertura de coral en el sistema lagunar del SAM), Hol Chan (conjunto de datos de efectividad de AMP más antiguo) y el Agujero Azul de Lighthouse Reef. Los sitios socios CCRA en Belice proporcionan los puntos de referencia de calibración de mayor calidad para el circuito GROAN.</li>
+        <li><strong>Guatemala — la brecha de monitoreo:</strong> La costa caribeña de Guatemala es la más corta del SAM (~80 km) y la menos monitoreada, protegida y estudiada. Menos del 5% del área arrecifal costera guatemalteca tiene alguna forma de protección legal. La estación GROAN en Livingston representa el primer monitoreo biológico sistemático en una estación permanente en el SAM guatemalteco.</li>
+        <li><strong>Honduras — el punto de referencia biológico de las Islas de la Bahía:</strong> Las Islas de la Bahía representan el terminus sur del SAM y algunos de los sistemas arrecifales más intensamente estudiados del Caribe. Los Cayos Cochinos Biological Reserve proporciona un sitio de referencia casi prístino; Roatán y Utila albergan infraestructura de turismo de buceo denso con décadas de monitoreo local.</li>
+        <li><strong>El protocolo GROAN del SAM — coherencia de cuatro países:</strong> El protocolo de campo GROAN fue diseñado específicamente para producir datos comparables en los cuatro países del SAM a pesar de los diferentes marcos de monitoreo nacionales — garantizando que una medición de cobertura de coral en un sitio mexicano sea directamente comparable con una en un sitio hondureño.</li>
+      </ul>
+    </div>
+
+    <!-- MCQ -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Guatemala has the shortest MAR coastline (~80 km) and less than 5% MPA protection. A student asks why the GROAN circuit bothers including a monitoring station there if the data will show poor reef condition anyway. What is the most important scientific reason for including Guatemala in the circuit?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Political completeness — all four MAR countries must be represented for diplomatic reasons</li>
+            <li><span class="opt-letter">B.</span> The Guatemala station fills a genuine data gap — it is the only systematic biological monitoring at a permanent station in the Guatemalan MAR, providing the baseline data needed to detect future change and the degraded-reef reference point that gives the corridor's better-managed sites scientific meaning by contrast</li>
+            <li><span class="opt-letter">C.</span> Guatemala's reefs may be healthier than expected and the survey would correct inaccurate assumptions</li>
+            <li><span class="opt-letter">D.</span> Monitoring Guatemala is required by the MBRS regional management agreement</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — A degraded reef with systematic monitoring data is scientifically more valuable than a healthy reef with no data. The Guatemala station establishes the first permanent baseline in a monitoring gap that covers a full country's coastal reef system. Without a baseline, you cannot detect or quantify future change — improvement or further decline. The contrast between Guatemala and Belize in the same corridor dataset is also one of the most powerful demonstrations of what MPA coverage and enforcement actually achieve.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Guatemala tiene la costa del SAM más corta (~80 km) y menos del 5% de protección de AMPs. Un estudiante pregunta por qué el circuito GROAN incluye una estación de monitoreo allí si los datos mostrarán de todas formas una condición arrecifal deficiente. ¿Cuál es la razón científica más importante para incluir a Guatemala en el circuito?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Completitud política — los cuatro países del SAM deben estar representados por razones diplomáticas</li>
+            <li><span class="opt-letter">B.</span> La estación de Guatemala llena una brecha de datos genuina — es el único monitoreo biológico sistemático en una estación permanente en el SAM guatemalteco, proporcionando los datos de referencia necesarios para detectar cambios futuros</li>
+            <li><span class="opt-letter">C.</span> Los arrecifes de Guatemala pueden ser más saludables de lo esperado y el censo corregiría suposiciones inexactas</li>
+            <li><span class="opt-letter">D.</span> El monitoreo de Guatemala es requerido por el acuerdo de gestión regional del MBRS</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Un arrecife degradado con datos de monitoreo sistemático es científicamente más valioso que un arrecife saludable sin datos. La estación de Guatemala establece la primera referencia permanente en una brecha de monitoreo que cubre el sistema arrecifal costero de todo un país.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 The GROAN protocol requires that the same Reef Check EcoDiver methodology is used at every station across all four MAR countries. A Belizean researcher suggests adapting the method slightly for Belizean atoll conditions to improve local accuracy. What is the scientific tradeoff of doing so?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> No tradeoff — locally adapted methods always produce better data than standardized methods</li>
+            <li><span class="opt-letter">B.</span> Adapting the method for Belize improves within-country accuracy but breaks cross-country comparability — data from adapted Belizean stations can no longer be directly compared to data from Mexican or Honduran stations, destroying the corridor-level dataset that justifies the multi-country survey effort</li>
+            <li><span class="opt-letter">C.</span> The adaptation should be adopted globally — if it works better in Belize, it will work better everywhere</li>
+            <li><span class="opt-letter">D.</span> Reef Check EcoDiver methodology is legally protected and cannot be adapted under any circumstances</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — This is the fundamental tension in multi-site biological monitoring: local optimization vs. cross-site comparability. GROAN's scientific value comes from the corridor-level dataset — the ability to compare Belizean atoll data directly with Mexican barrier reef data and Honduran Bay Islands data. Any methodological adaptation that breaks this comparability destroys the corridor-level analysis, even if it marginally improves local accuracy. The correct response is to document the local ecological condition as metadata and use it to interpret — not to modify — the standardized survey data.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El protocolo GROAN requiere que se utilice la misma metodología Reef Check EcoDiver en todas las estaciones de los cuatro países del SAM. Un investigador beliceño sugiere adaptar el método ligeramente para las condiciones de atolón beliceño para mejorar la precisión local. ¿Cuál es la compensación científica de hacerlo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sin compensación — los métodos adaptados localmente siempre producen mejores datos que los métodos estandarizados</li>
+            <li><span class="opt-letter">B.</span> Adaptar el método para Belice mejora la precisión dentro del país pero rompe la comparabilidad entre países — los datos de las estaciones beliceñas adaptadas ya no pueden compararse directamente con los de México u Honduras, destruyendo el conjunto de datos a nivel de corredor</li>
+            <li><span class="opt-letter">C.</span> La adaptación debería adoptarse globalmente — si funciona mejor en Belice, funcionará mejor en todas partes</li>
+            <li><span class="opt-letter">D.</span> La metodología Reef Check EcoDiver está protegida legalmente y no puede adaptarse bajo ninguna circunstancia</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Esta es la tensión fundamental en el monitoreo biológico de múltiples sitios: optimización local vs. comparabilidad entre sitios. El valor científico de GROAN proviene del conjunto de datos a nivel de corredor. Cualquier adaptación metodológica que rompa esta comparabilidad destruye el análisis a nivel de corredor.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A Honduran fisheries official states: "The Bay Islands have the best MPA network in the MAR — our reefs should be the healthiest in the system." GROAN data shows Belize's Glover's Reef atoll consistently outperforms Bay Islands sites in coral cover. What biological explanation best accounts for this?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The Bay Islands MPAs are too new to show results — MPA effects take at least 50 years to become visible</li>
+            <li><span class="opt-letter">B.</span> MPA network quality alone does not determine reef health — Glover's Reef benefits from its offshore atoll position (lower sediment, lower fishing access, lower thermal stress than nearshore sites), stronger enforcement through limited access, and a longer protection history. Bay Islands MPAs manage nearshore reefs with higher chronic human pressure that MPAs reduce but cannot eliminate</li>
+            <li><span class="opt-letter">C.</span> Belize uses different survey methodology that artificially inflates coral cover estimates</li>
+            <li><span class="opt-letter">D.</span> The Bay Islands experience more hurricane damage due to their more exposed position</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Reef condition is determined by multiple interacting factors — MPA protection addresses fishing pressure but cannot control sediment input, thermal stress, water quality, or physical accessibility. Glover's Reef's offshore atoll position reduces exposure to all of these chronic stressors simultaneously: it is 45 km from the coast (minimal sediment and runoff), access is limited by a full-day boat journey (natural enforcement), and its deeper water moderates thermal stress. The Bay Islands, despite good MPA coverage, sit closer to the coast and major ports, experiencing higher baseline chronic pressure. MPA effectiveness is real but partial — location matters as much as protection status.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un funcionario pesquero hondureño afirma: "Las Islas de la Bahía tienen la mejor red de AMPs del SAM — nuestros arrecifes deberían ser los más saludables del sistema." Los datos GROAN muestran que el atolón Glover's Reef de Belice supera consistentemente a los sitios de las Islas de la Bahía en cobertura de coral. ¿Qué explicación biológica explica mejor esto?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Las AMPs de las Islas de la Bahía son demasiado nuevas para mostrar resultados — los efectos de las AMPs tardan al menos 50 años en hacerse visibles</li>
+            <li><span class="opt-letter">B.</span> La calidad de la red de AMPs por sí sola no determina la salud arrecifal — Glover's Reef se beneficia de su posición de atolón offshore (menor sedimento, menor acceso pesquero, menor estrés térmico que los sitios costeros cercanos), mayor cumplimiento a través del acceso limitado y una historia de protección más larga</li>
+            <li><span class="opt-letter">C.</span> Belice utiliza una metodología de censo diferente que infla artificialmente las estimaciones de cobertura de coral</li>
+            <li><span class="opt-letter">D.</span> Las Islas de la Bahía experimentan más daño por huracanes debido a su posición más expuesta</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La condición arrecifal está determinada por múltiples factores interactuantes. La posición de atolón offshore de Glover's Reef reduce la exposición a todos los estresores crónicos simultáneamente. La efectividad de las AMPs es real pero parcial — la ubicación importa tanto como el estado de protección.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 03 · Lesson 21 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S03 · L21 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
