@@ -1,1 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L20 Biological Oceanography — Regional Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.2); text-align: left; background: rgba(26,200,200,0.04); }
+  .data-table td { font-size: 11px; color: rgba(232,244,248,0.7); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.07); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 13.64%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 20 · Biological Oceanography</div>
+        <h1 class="lesson-title">Regional Systems</h1>
+        <div class="lesson-subtitle">Sistemas Regionales en Oceanografía Biológica</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — Caribbean reef province map with major reef systems marked -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="seaG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0a3a5a" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#020f1e" stop-opacity="0.9"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- Caribbean Sea fill -->
+        <ellipse cx="190" cy="145" rx="175" ry="110" fill="url(#seaG)"/>
+
+        <!-- ══ SIMPLIFIED CARIBBEAN MAP ══ -->
+        <!-- Florida / Gulf -->
+        <path d="M30,40 Q50,35 80,42 Q95,48 100,55 Q90,60 75,58 Q55,55 30,50 Z"
+              fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.2)" stroke-width="0.8"/>
+        <text x="55" y="47" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)">FLORIDA</text>
+
+        <!-- Cuba (large) -->
+        <path d="M95,65 Q140,58 185,62 Q210,65 220,72 Q200,80 160,78 Q120,76 95,72 Z"
+              fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.2)" stroke-width="0.8"/>
+        <text x="155" y="72" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">CUBA</text>
+
+        <!-- Yucatan Peninsula -->
+        <path d="M30,75 Q45,70 58,78 Q65,90 60,108 Q48,115 38,108 Q28,95 30,75 Z"
+              fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.2)" stroke-width="0.8"/>
+        <text x="46" y="95" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">YUC.</text>
+
+        <!-- Jamaica -->
+        <ellipse cx="195" cy="98" rx="12" ry="6"
+                 fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.2)" stroke-width="0.7"/>
+        <text x="195" y="110" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">JAM</text>
+
+        <!-- Hispaniola -->
+        <path d="M220,75 Q248,70 268,78 Q272,86 260,90 Q238,92 220,86 Z"
+              fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.2)" stroke-width="0.7"/>
+        <text x="245" y="82" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">HISP.</text>
+
+        <!-- Puerto Rico -->
+        <ellipse cx="300" cy="82" rx="10" ry="5"
+                 fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.2)" stroke-width="0.7"/>
+        <text x="300" y="94" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">PR</text>
+
+        <!-- Lesser Antilles chain -->
+        <g fill="rgba(60,100,60,0.3)" stroke="rgba(138,184,204,0.15)" stroke-width="0.6">
+          <circle cx="325" cy="100" r="4"/>
+          <circle cx="338" cy="112" r="3.5"/>
+          <circle cx="348" cy="125" r="3"/>
+          <circle cx="355" cy="140" r="3.5"/>
+          <circle cx="358" cy="156" r="3"/>
+          <circle cx="353" cy="170" r="3.5"/>
+          <circle cx="345" cy="183" r="4"/>
+        </g>
+        <text x="363" y="140" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.3)">L.A.</text>
+
+        <!-- Central American coast / MAR -->
+        <path d="M58,110 Q65,120 70,140 Q72,160 68,178 Q62,190 55,195 Q48,190 45,178 Q42,160 44,140 Q46,120 52,110 Z"
+              fill="rgba(60,100,60,0.25)" stroke="rgba(138,184,204,0.15)" stroke-width="0.7"/>
+
+        <!-- MAR CORRIDOR — highlighted reef line -->
+        <path d="M62,108 Q72,118 78,140 Q80,162 76,182 Q72,195 68,200"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- MAR glow -->
+        <path d="M62,108 Q72,118 78,140 Q80,162 76,182 Q72,195 68,200"
+              fill="none" stroke="rgba(26,200,200,0.15)" stroke-width="6"
+              stroke-linecap="round"/>
+
+        <!-- Colombia / Venezuela coast -->
+        <path d="M80,215 Q120,210 160,208 Q200,206 240,210 Q270,214 290,220 L290,240 L80,240 Z"
+              fill="rgba(60,100,60,0.25)" stroke="rgba(138,184,204,0.15)" stroke-width="0.7"/>
+        <text x="170" y="228" font-family="monospace" font-size="5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">COLOMBIA · VENEZUELA</text>
+
+        <!-- ABC Islands -->
+        <g fill="rgba(60,100,60,0.3)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8">
+          <ellipse cx="245" cy="220" rx="7" ry="4"/>
+          <ellipse cx="262" cy="218" rx="5" ry="3"/>
+          <ellipse cx="275" cy="216" rx="5" ry="3"/>
+        </g>
+        <text x="262" y="210" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.5)" text-anchor="middle">ABC</text>
+
+        <!-- ══ REEF SYSTEM LABELS ══ -->
+        <!-- MAR label with arrow -->
+        <line x1="100" y1="148" x2="78" y2="148"
+              stroke="rgba(26,200,200,0.5)" stroke-width="0.8"/>
+        <polygon points="78,148 85,145 85,151" fill="rgba(26,200,200,0.5)"/>
+        <text x="102" y="145" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.75)" letter-spacing="0.06em">MAR</text>
+        <text x="102" y="154" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.5)">1,000 km</text>
+
+        <!-- Florida Keys / Caribbean reef -->
+        <circle cx="58" cy="62" r="4" fill="rgba(26,200,200,0.2)"
+                stroke="rgba(26,200,200,0.45)" stroke-width="0.8"/>
+        <text x="30" y="65" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.5)">FL Keys</text>
+
+        <!-- Belize barrier -->
+        <text x="102" y="130" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.45)">Belize</text>
+        <text x="102" y="138" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.45)">barrier</text>
+
+        <!-- Cayman -->
+        <circle cx="158" cy="105" r="3" fill="rgba(184,240,236,0.2)"
+                stroke="rgba(184,240,236,0.35)" stroke-width="0.7"/>
+        <text x="162" y="107" font-family="monospace" font-size="5"
+              fill="rgba(184,240,236,0.4)">Cayman</text>
+
+        <!-- Bay Islands -->
+        <circle cx="128" cy="168" r="4" fill="rgba(240,180,41,0.2)"
+                stroke="rgba(240,180,41,0.4)" stroke-width="0.8"/>
+        <text x="100" y="165" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.55)">Bay Is.</text>
+
+        <!-- Panama -->
+        <circle cx="92" cy="200" r="3.5" fill="rgba(232,96,64,0.2)"
+                stroke="rgba(232,96,64,0.4)" stroke-width="0.7"/>
+        <text x="95" y="198" font-family="monospace" font-size="5.5"
+              fill="rgba(232,96,64,0.5)">Panama</text>
+
+        <!-- Current arrows — Caribbean gyre -->
+        <path d="M290,165 Q280,140 260,120 Q240,105 210,95"
+              fill="none" stroke="rgba(26,200,200,0.2)" stroke-width="1"
+              stroke-dasharray="4,3"/>
+        <polygon points="210,95 218,100 214,108" fill="rgba(26,200,200,0.2)"/>
+
+        <!-- Title badge -->
+        <rect x="0" y="0" width="220" height="16" fill="rgba(2,15,30,0.7)"/>
+        <text x="10" y="11" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.12em">CARIBBEAN REEF PROVINCE</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          The Caribbean is one of the world's three major coral reef biogeographic provinces — alongside the Indo-Pacific and the Eastern Pacific — and contains approximately 9% of the world's reef area despite occupying a relatively small ocean basin. Caribbean reefs are biologically distinct from Indo-Pacific reefs: they contain roughly 70 coral species versus 700+ in the Indo-Pacific, approximately 500 reef fish species versus 4,000+, and lack the structural diversity of many Indo-Pacific reef types. This lower diversity does not imply lower ecological value — Caribbean reefs support extraordinarily high biomass and productivity within their species complement, and several Caribbean reef systems are among the most structurally complex and ecologically functional reefs remaining on earth. The Caribbean reef province encompasses four major regional sub-systems: the <strong>Florida–Caribbean–Gulf system</strong> (connected by the Florida Current and Gulf Loop Current); the <strong>Mesoamerican Barrier Reef System</strong> (the world's second largest barrier reef, running 1,000 km from Mexico to Honduras along the continental shelf margin); the <strong>Greater and Lesser Antilles chain</strong> (island arc reefs from Cuba through Trinidad, connected by larval transport in the North Equatorial Current); and the <strong>Southern Caribbean</strong> (the ABC Islands, Venezuelan coast, Colombian banks — influenced by South American freshwater discharge and upwelling systems). Each sub-system has a distinct oceanographic character, species composition gradient, and threat profile.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Regional Sub-System</th><th>Key Feature</th><th>Primary Biological Character</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Florida–Caribbean–Gulf</td><td>Florida Current connectivity</td><td>Larval source for much of western Caribbean</td></tr>
+          <tr><td>Mesoamerican Reef (MAR)</td><td>1,000 km barrier reef</td><td>Highest reef structural complexity in Caribbean</td></tr>
+          <tr><td>Greater/Lesser Antilles</td><td>Island arc chain</td><td>High endemism; isolated populations; hurricane exposure</td></tr>
+          <tr><td>Southern Caribbean</td><td>ABC Islands · Venezuelan banks</td><td>Upwelling influence; lower thermal stress; unique community</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El Caribe es una de las tres principales provincias biogeográficas de arrecifes coralinos del mundo — junto con el Indo-Pacífico y el Pacífico Oriental — y contiene aproximadamente el 9% del área arrecifal mundial. Los arrecifes del Caribe son biológicamente distintos de los del Indo-Pacífico: contienen aproximadamente 70 especies de coral frente a 700+ en el Indo-Pacífico. La provincia arrecifal del Caribe abarca cuatro subsistemas regionales principales: el <strong>sistema Florida–Caribe–Golfo</strong> (conectado por la Corriente de Florida y la Corriente del Lazo del Golfo); el <strong>Sistema Arrecifal Mesoamericano (SAM)</strong> (el segundo arrecife de barrera más grande del mundo, que recorre 1,000 km desde México hasta Honduras); la <strong>cadena de las Antillas Mayores y Menores</strong> (arrecifes de arco insular desde Cuba hasta Trinidad); y el <strong>Caribe sur</strong> (las Islas ABC, la costa venezolana, los bancos colombianos — influenciados por la descarga de agua dulce sudamericana y sistemas de surgencia).
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Subsistema Regional</th><th>Característica Clave</th><th>Carácter Biológico Principal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Florida–Caribe–Golfo</td><td>Conectividad Corriente de Florida</td><td>Fuente larvaria para gran parte del Caribe occidental</td></tr>
+          <tr><td>Arrecife Mesoamericano (SAM)</td><td>Arrecife de barrera de 1,000 km</td><td>Mayor complejidad estructural arrecifal del Caribe</td></tr>
+          <tr><td>Antillas Mayores/Menores</td><td>Cadena de arco insular</td><td>Alto endemismo; poblaciones aisladas; exposición a huracanes</td></tr>
+          <tr><td>Caribe sur</td><td>Islas ABC · bancos venezolanos</td><td>Influencia de surgencia; menor estrés térmico; comunidad única</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Rim Run Caribe™ circuit is designed to sample all four Caribbean regional sub-systems in a single expedition — the MAR corridor forms the spine of the circuit, but the ABC Islands extension into the Southern Caribbean and the Panama connection to the Colombian banks bring all four sub-systems within the scope of a single 1.5-year voyage.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>The MAR as the Caribbean's biological spine:</strong> The Mesoamerican Reef runs along the western edge of the Caribbean basin where the North American tectonic plate meets the Caribbean plate — a geological configuration that created the shallow continental shelf on which the reef is built. The reef acts as a biological filter and amplifier for the Caribbean gyre: larvae entering from the Florida Current are captured by the reef system, recruited into MAR communities, and subsequently exported south along the barrier by longshore current. GROAN's larval connectivity data from the Rim Run circuit documents this north-to-south biological flow in real field data for the first time at the circuit scale.</li>
+        <li><strong>The Antilles connection — hurricane seasonality and the weather rule:</strong> The Greater and Lesser Antilles lie in the primary Atlantic hurricane track corridor — the same track that periodically sweeps across the MAR circuit. The Rim Run weather rule (stay south of 13°N June 1–November 30) is calibrated to the regional climatology of Atlantic hurricane tracks, which rarely penetrate below 12–13°N. The biological consequence: reef communities in the northern MAR (Mexico, Belize, Honduras) show periodic hurricane reset events in their coral age structure; reef communities in the southern MAR (Panama) and the Southern Caribbean (ABC Islands) show less frequent storm disturbance and more continuous successional trajectories — a regional biological pattern visible in CCRA community age structure data.</li>
+        <li><strong>The Southern Caribbean — ABC Islands as a distinct biological system:</strong> The ABC Islands (Aruba, Bonaire, Curaçao) sit on the Venezuelan continental shelf just 25–85 km north of Venezuela — outside the hurricane belt, influenced by coastal upwelling from the South American coast, and receiving minimal freshwater runoff. The result is a biologically distinct reef community: clearer, cooler water than the northern MAR; different coral species assemblage (more massive Montastraea and Orbicella, less branching Acropora than the northern MAR); higher fish biomass at some sites due to the productive upwelling-influenced water column. Bonaire in particular has maintained some of the highest coral cover in the entire Caribbean basin — 40–60% at protected sites — making it the most important biological reference point for what the Southern Caribbean reef system can look like with effective management and minimal thermal stress.</li>
+        <li><strong>Regional connectivity — why the Florida Keys matter to Belizean reefs:</strong> Larval dispersal modeling for the Caribbean shows that a significant fraction of coral larvae settling on MAR reefs originate from spawning aggregations in the Florida Keys and Cuban reefs — transported south and west by the North Equatorial Current and the Caribbean gyre. This means that reef degradation in Florida directly reduces larval supply to the MAR, and reef recovery in Florida generates larvae that eventually benefit MAR reef communities. The regional connectivity perspective transforms reef management from a national exercise to a basin-wide responsibility — a political reality that the GROAN/CCRA network is uniquely positioned to document with field data.</li>
+        <li><strong>The Caribbean biogeographic context for citizen scientists:</strong> When a citizen scientist in Guatemala counts parrotfish on a transect, they are sampling one node in a regional biological network that spans from the Florida Keys to Trinidad. Their data point is not just local information — it is a contribution to the regional species abundance dataset that defines Caribbean reef biological baseline. The CCRA network, when fully operational across 11 countries, will produce the most complete regional biological baseline dataset in Caribbean reef history — surpassing what any single research institution could generate with conventional methods.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El circuito Rim Run Caribe™ está diseñado para muestrear los cuatro subsistemas regionales del Caribe en una sola expedición — el corredor del SAM forma la columna vertebral del circuito, pero la extensión a las Islas ABC en el Caribe sur y la conexión de Panamá con los bancos colombianos incorporan los cuatro subsistemas.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>El SAM como columna vertebral biológica del Caribe:</strong> El Arrecife Mesoamericano actúa como filtro biológico y amplificador del giro caribeño: las larvas que entran desde la Corriente de Florida son capturadas por el sistema arrecifal, reclutadas en las comunidades del SAM y exportadas hacia el sur a lo largo de la barrera por la corriente costera longitudinal.</li>
+        <li><strong>La conexión con las Antillas — estacionalidad de huracanes y la regla meteorológica:</strong> Las comunidades arrecifales en el SAM norte muestran eventos periódicos de reinicio por huracanes en su estructura de edad del coral; las comunidades en el SAM sur y el Caribe sur muestran perturbaciones por tormentas menos frecuentes y trayectorias sucesionales más continuas — un patrón biológico regional visible en los datos de estructura de edad de la CCRA.</li>
+        <li><strong>El Caribe sur — las Islas ABC como sistema biológico distinto:</strong> Las Islas ABC tienen una comunidad arrecifal biológicamente distinta: agua más clara y fresca que el SAM norte; diferente ensamblaje de especies de coral; mayor biomasa de peces en algunos sitios. Bonaire en particular ha mantenido una de las coberturas de coral más altas en toda la cuenca del Caribe — 40–60% en sitios protegidos.</li>
+        <li><strong>Conectividad regional — por qué los Cayos de Florida importan para los arrecifes de Belice:</strong> El modelamiento de dispersión larvaria muestra que una fracción significativa de las larvas de coral que se asientan en los arrecifes del SAM se originan en los Cayos de Florida y los arrecifes cubanos. La perspectiva de conectividad regional transforma la gestión arrecifal de un ejercicio nacional a una responsabilidad a escala de cuenca.</li>
+        <li><strong>El contexto biogeográfico del Caribe para los científicos ciudadanos:</strong> Cuando un científico ciudadano en Guatemala cuenta peces loro en un transecto, está muestreando un nodo en una red biológica regional que abarca desde los Cayos de Florida hasta Trinidad. La red CCRA, cuando esté completamente operativa en 11 países, producirá el conjunto de datos de referencia biológica regional más completo en la historia arrecifal del Caribe.</li>
+      </ul>
+    </div>
+
+    <!-- MCQ -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A student asks: "If Caribbean reefs have only 70 coral species compared to 700+ in the Indo-Pacific, doesn't that make them less important scientifically?" What is the most accurate response?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Correct — species richness is the primary measure of reef ecological value and the Caribbean is therefore less significant</li>
+            <li><span class="opt-letter">B.</span> Incorrect — ecological importance is not determined by species count alone. Caribbean reefs support extraordinary biomass, productivity, and ecosystem services within their species complement; serve as the primary coastal protection infrastructure for 35+ million people; and contain irreplaceable endemic species found nowhere else on earth</li>
+            <li><span class="opt-letter">C.</span> Partially correct — Caribbean reefs are less important for biodiversity research but equally important for fisheries</li>
+            <li><span class="opt-letter">D.</span> Incorrect — the comparison is invalid because Indo-Pacific reefs are larger in total area</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Species richness is one metric of biological value, not the only one. Caribbean reefs are among the most studied, most economically valuable, and most threatened reef systems on earth. Their lower species count compared to the Indo-Pacific reflects biogeographic history (the Caribbean has been isolated longer), not ecological inferiority. Many Caribbean species are endemic and represent unique evolutionary lineages with no Indo-Pacific equivalent.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un estudiante pregunta: "Si los arrecifes del Caribe tienen solo 70 especies de coral en comparación con 700+ en el Indo-Pacífico, ¿no los hace eso menos importantes científicamente?" ¿Cuál es la respuesta más precisa?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Correcto — la riqueza de especies es la medida principal del valor ecológico arrecifal y el Caribe es por lo tanto menos significativo</li>
+            <li><span class="opt-letter">B.</span> Incorrecto — la importancia ecológica no está determinada solo por el número de especies. Los arrecifes del Caribe apoyan una biomasa, productividad y servicios ecosistémicos extraordinarios; sirven como infraestructura de protección costera para más de 35 millones de personas; y contienen especies endémicas irremplazables</li>
+            <li><span class="opt-letter">C.</span> Parcialmente correcto — los arrecifes del Caribe son menos importantes para la investigación de biodiversidad pero igualmente importantes para la pesca</li>
+            <li><span class="opt-letter">D.</span> Incorrecto — la comparación es inválida porque los arrecifes del Indo-Pacífico son más grandes en área total</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La riqueza de especies es una métrica del valor biológico, no la única. Los arrecifes del Caribe están entre los sistemas arrecifales más estudiados, más valiosos económicamente y más amenazados de la tierra. Su menor número de especies refleja historia biogeográfica, no inferioridad ecológica.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Bonaire consistently shows 40–60% live coral cover at protected sites — among the highest in the entire Caribbean. Which combination of regional factors best explains this exceptional reef condition?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Bonaire's reefs are younger and therefore haven't experienced the degradation seen at older Caribbean reef sites</li>
+            <li><span class="opt-letter">B.</span> Location outside the main hurricane belt, upwelling-cooled water that reduces thermal bleaching stress, minimal freshwater runoff from the Venezuelan coast, and 40+ years of strict marine park management with high enforcement — a convergence of favorable oceanographic position and sustained protection</li>
+            <li><span class="opt-letter">C.</span> Bonaire has a unique coral species assemblage that is inherently more resistant to bleaching than MAR coral communities</li>
+            <li><span class="opt-letter">D.</span> Bonaire receives less fishing pressure because local fishermen prefer to fish in Venezuelan waters where species are more abundant</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Bonaire's exceptional reef condition results from multiple reinforcing factors: its position south of the main hurricane track reduces storm disturbance; coastal upwelling from Venezuela moderates SST below bleaching thresholds in most years; minimal riverine input produces consistently clear, low-nutrient water; and the Bonaire National Marine Park (designated 1979) has maintained high compliance rates for 45 years. No single factor explains Bonaire — it is the convergence of favorable regional oceanography and sustained local management.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Bonaire muestra consistentemente 40–60% de cobertura de coral vivo en sitios protegidos — entre la más alta en todo el Caribe. ¿Qué combinación de factores regionales explica mejor esta condición arrecifal excepcional?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los arrecifes de Bonaire son más jóvenes y por lo tanto no han experimentado la degradación vista en sitios arrecifales más antiguos</li>
+            <li><span class="opt-letter">B.</span> Ubicación fuera del cinturón principal de huracanes, agua enfriada por surgencia que reduce el estrés térmico de blanqueamiento, escorrentía mínima de la costa venezolana, y 40+ años de gestión estricta del parque marino con alta aplicación</li>
+            <li><span class="opt-letter">C.</span> Bonaire tiene un ensamblaje único de especies de coral que es inherentemente más resistente al blanqueamiento</li>
+            <li><span class="opt-letter">D.</span> Bonaire recibe menos presión pesquera porque los pescadores locales prefieren pescar en aguas venezolanas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La condición arrecifal excepcional de Bonaire resulta de múltiples factores reforzantes: posición al sur de la trayectoria principal de huracanes, surgencia costera que modera la TSM, mínima entrada fluvial, y el Parque Nacional Marino de Bonaire (designado 1979) con altas tasas de cumplimiento durante 45 años.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A Caribbean reef manager argues: "We don't need to coordinate with other countries — our national reef management is what matters for our reefs." What regional biological evidence most directly challenges this position?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> International tourism revenue demonstrates that regional coordination is economically beneficial</li>
+            <li><span class="opt-letter">B.</span> Larval connectivity modeling shows that a significant fraction of coral larvae settling on any given MAR reef site originate from spawning populations in other countries — reef recovery in one nation depends on spawning stock integrity in neighboring nations upstream in the larval supply chain</li>
+            <li><span class="opt-letter">C.</span> Climate change is a global problem that requires international agreements regardless of reef connectivity</li>
+            <li><span class="opt-letter">D.</span> Shared species lists between countries demonstrate biological connectivity sufficient to justify coordination</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Larval connectivity is the biological mechanism that makes Caribbean reef management inherently transboundary. If upstream spawning aggregations (in Mexico or Belize) are overfished to the point of recruitment failure, downstream reef communities (in Honduras or Nicaragua) lose a significant fraction of their larval supply regardless of how well they manage their own local fishing. The reef system does not respect national boundaries — larvae cross them every spawning season. This biological reality is the scientific foundation for the CCRA transboundary monitoring network.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un gestor arrecifal del Caribe argumenta: "No necesitamos coordinarnos con otros países — nuestra gestión arrecifal nacional es lo que importa para nuestros arrecifes." ¿Qué evidencia biológica regional desafía más directamente esta posición?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los ingresos del turismo internacional demuestran que la coordinación regional es económicamente beneficiosa</li>
+            <li><span class="opt-letter">B.</span> El modelamiento de conectividad larvaria muestra que una fracción significativa de las larvas de coral que se asientan en cualquier sitio arrecifal del SAM se originan en poblaciones reproductoras de otros países — la recuperación arrecifal en una nación depende de la integridad del stock reproductor en naciones vecinas corriente arriba</li>
+            <li><span class="opt-letter">C.</span> El cambio climático es un problema global que requiere acuerdos internacionales independientemente de la conectividad arrecifal</li>
+            <li><span class="opt-letter">D.</span> Las listas de especies compartidas entre países demuestran conectividad biológica suficiente para justificar la coordinación</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La conectividad larvaria es el mecanismo biológico que hace que la gestión arrecifal del Caribe sea inherentemente transfronteriza. El sistema arrecifal no respeta fronteras nacionales — las larvas las cruzan cada temporada de desove. Esta realidad biológica es el fundamento científico de la red de monitoreo transfronterizo CCRA.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 03 · Lesson 20 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S03 · L20 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
