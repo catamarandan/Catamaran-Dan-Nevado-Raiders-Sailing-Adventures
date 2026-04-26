@@ -1,1 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L16 Biological Oceanography — Scaling</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ocean-cyan); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.2); text-align: left; background: rgba(26,200,200,0.04); }
+  .data-table td { font-size: 11px; color: rgba(232,244,248,0.7); padding: 5px 8px; border-bottom: 1px solid rgba(26,200,200,0.07); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 12.50%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="card">
 
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 16 · Biological Oceanography</div>
+        <h1 class="lesson-title">Scaling</h1>
+        <div class="lesson-subtitle">Escalamiento en Oceanografía Biológica</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — Nested scale diagram: organism → transect → site → corridor -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ══ NESTED SCALE BOXES — center ══ -->
+
+        <!-- Scale 4: CORRIDOR (outermost) -->
+        <rect x="14" y="14" width="352" height="200" rx="4"
+              fill="rgba(10,110,138,0.06)" stroke="rgba(10,110,138,0.3)" stroke-width="1.2"/>
+        <text x="22" y="27" font-family="monospace" font-size="7"
+              fill="rgba(10,110,138,0.7)" letter-spacing="0.12em">SCALE 4 · CORRIDOR</text>
+        <text x="22" y="37" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)">1,000 km · 11 countries · annual Rim Run circuit</text>
+
+        <!-- Scale 3: REGION / COUNTRY -->
+        <rect x="28" y="46" width="324" height="148" rx="3"
+              fill="rgba(26,200,200,0.06)" stroke="rgba(26,200,200,0.25)" stroke-width="1"/>
+        <text x="36" y="59" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.65)" letter-spacing="0.1em">SCALE 3 · REGION / COUNTRY</text>
+        <text x="36" y="69" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)">10–200 km · national reef system · CCRA partner sites</text>
+
+        <!-- Scale 2: SITE -->
+        <rect x="44" y="78" width="292" height="96" rx="3"
+              fill="rgba(240,180,41,0.06)" stroke="rgba(240,180,41,0.25)" stroke-width="1"/>
+        <text x="52" y="91" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.65)" letter-spacing="0.1em">SCALE 2 · REEF SITE</text>
+        <text x="52" y="101" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)">0.1–2 km · GROAN station · 4 replicate transects</text>
+
+        <!-- Scale 1: TRANSECT -->
+        <rect x="60" y="110" width="260" height="44" rx="2"
+              fill="rgba(232,96,64,0.06)" stroke="rgba(232,96,64,0.25)" stroke-width="1"/>
+        <text x="68" y="124" font-family="monospace" font-size="7"
+              fill="rgba(232,96,64,0.65)" letter-spacing="0.1em">SCALE 1 · TRANSECT</text>
+        <text x="68" y="134" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)">25 m × 4 m · 100 m² · single belt or PIT survey</text>
+
+        <!-- Scale 0: ORGANISM (innermost) -->
+        <rect x="76" y="118" width="228" height="28" rx="2"
+              fill="rgba(184,240,236,0.06)" stroke="rgba(184,240,236,0.2)" stroke-width="0.8"/>
+        <text x="190" y="130" font-family="monospace" font-size="6.5"
+              fill="rgba(184,240,236,0.55)" text-anchor="middle" letter-spacing="0.1em">SCALE 0 · ORGANISM</text>
+        <text x="190" y="140" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.3)" text-anchor="middle">cm–m · individual coral · single fish</text>
+
+        <!-- ══ SCALING ARROW — right side ══ -->
+        <!-- Upscale arrow -->
+        <line x1="356" y1="200" x2="356" y2="30"
+              stroke="rgba(26,200,200,0.3)" stroke-width="1.2"/>
+        <polygon points="356,22 352,32 360,32" fill="rgba(26,200,200,0.4)"/>
+        <text x="370" y="115" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.4)" text-anchor="middle"
+              transform="rotate(90,370,115)">UPSCALING</text>
+
+        <!-- Downscale arrow -->
+        <line x1="8" y1="30" x2="8" y2="200"
+              stroke="rgba(240,180,41,0.3)" stroke-width="1.2"/>
+        <polygon points="8,208 4,198 12,198" fill="rgba(240,180,41,0.4)"/>
+        <text x="-6" y="115" font-family="monospace" font-size="6.5"
+              fill="rgba(240,180,41,0.4)" text-anchor="middle"
+              transform="rotate(-90,-6,115)">DOWNSCALING</text>
+
+        <!-- ══ SCALING CHALLENGE STRIP — bottom ══ -->
+        <rect x="14" y="220" width="352" height="32" rx="2"
+              fill="rgba(2,12,24,0.6)" stroke="rgba(26,200,200,0.1)" stroke-width="0.8"/>
+
+        <!-- Challenge boxes -->
+        <g font-family="monospace" text-anchor="middle">
+          <!-- Spatial -->
+          <text x="72" y="232" font-size="6.5" fill="rgba(26,200,200,0.6)">SPATIAL</text>
+          <text x="72" y="242" font-size="5.5" fill="rgba(138,184,204,0.4)">transect → corridor</text>
+
+          <line x1="128" y1="220" x2="128" y2="252" stroke="rgba(26,200,200,0.1)" stroke-width="0.5"/>
+
+          <!-- Temporal -->
+          <text x="183" y="232" font-size="6.5" fill="rgba(240,180,41,0.6)">TEMPORAL</text>
+          <text x="183" y="242" font-size="5.5" fill="rgba(138,184,204,0.4)">survey → decade</text>
+
+          <line x1="238" y1="220" x2="238" y2="252" stroke="rgba(26,200,200,0.1)" stroke-width="0.5"/>
+
+          <!-- Biological -->
+          <text x="293" y="232" font-size="6.5" fill="rgba(232,96,64,0.6)">BIOLOGICAL</text>
+          <text x="293" y="242" font-size="5.5" fill="rgba(138,184,204,0.4)">organism → ecosystem</text>
+
+          <line x1="348" y1="220" x2="348" y2="252" stroke="rgba(26,200,200,0.1)" stroke-width="0.5"/>
+        </g>
+
+        <!-- Title badge -->
+        <rect x="0" y="0" width="200" height="16" fill="rgba(2,15,30,0.7)"/>
+        <text x="10" y="11" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.12em">BIOLOGICAL SCALING</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Scaling in biological oceanography addresses the fundamental challenge of translating observations made at one spatial or temporal scale into meaningful conclusions at another. Every reef survey is conducted at a specific scale — a 25 m transect samples roughly 100 m² of reef — but management decisions operate at scales of reef sites (hectares), regional systems (hundreds of kilometers), and entire ocean corridors (thousands of kilometers). <strong>Upscaling</strong> extrapolates from small, intensively measured plots to larger areas — requiring assumptions about spatial homogeneity that must be validated through representative sampling design. <strong>Downscaling</strong> applies large-scale patterns (regional SST anomalies, basin-level bleaching alerts) to predict conditions at specific sites. Three dimensions of scaling matter in reef biology: <strong>spatial scaling</strong> (from individual coral polyp to the 1,000-km Mesoamerican corridor); <strong>temporal scaling</strong> (from a single survey observation to a decade-long trend); and <strong>biological scaling</strong> (from the physiology of a single coral colony to the dynamics of the entire reef ecosystem). The critical discipline is matching the <em>scale of observation</em> to the <em>scale of the management question</em> being asked — a transect-level finding cannot directly answer a corridor-level question without appropriate scaling methods, and attempting to do so produces misleading conclusions.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Scale Level</th><th>Spatial Range</th><th>Monitoring Unit</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Organism</td><td>cm – m</td><td>Individual coral colony or fish</td></tr>
+          <tr><td>Transect</td><td>25 m × 4 m (100 m²)</td><td>Belt or PIT survey strip</td></tr>
+          <tr><td>Reef site</td><td>0.1 – 2 km</td><td>GROAN station · 4 replicate transects</td></tr>
+          <tr><td>Region / country</td><td>10 – 200 km</td><td>CCRA partner site network</td></tr>
+          <tr><td>Corridor</td><td>1,000 km · 11 countries</td><td>Annual Rim Run Caribe™ circuit</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El escalamiento en oceanografía biológica aborda el desafío fundamental de traducir observaciones realizadas a una escala espacial o temporal determinada en conclusiones significativas a otra escala. Todo censo arrecifal se realiza a una escala específica — un transecto de 25 m muestrea aproximadamente 100 m² de arrecife — pero las decisiones de gestión operan a escalas de sitios arrecifales (hectáreas), sistemas regionales (cientos de kilómetros) y corredores oceánicos enteros (miles de kilómetros). El <strong>escalamiento ascendente</strong> extrapola desde parcelas pequeñas e intensamente medidas hacia áreas más grandes. El <strong>escalamiento descendente</strong> aplica patrones a gran escala para predecir condiciones en sitios específicos. Tres dimensiones del escalamiento importan en la biología arrecifal: <strong>escalamiento espacial</strong> (desde un pólipo de coral individual hasta el corredor mesoamericano de 1,000 km); <strong>escalamiento temporal</strong> (desde una observación de censo hasta una tendencia de una década); y <strong>escalamiento biológico</strong> (desde la fisiología de una colonia de coral hasta la dinámica del ecosistema arrecifal completo).
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Nivel de Escala</th><th>Rango Espacial</th><th>Unidad de Monitoreo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Organismo</td><td>cm – m</td><td>Colonia de coral o pez individual</td></tr>
+          <tr><td>Transecto</td><td>25 m × 4 m (100 m²)</td><td>Franja de censo de banda o PIT</td></tr>
+          <tr><td>Sitio arrecifal</td><td>0.1 – 2 km</td><td>Estación GROAN · 4 transectos replicados</td></tr>
+          <tr><td>Región / país</td><td>10 – 200 km</td><td>Red de sitios socios CCRA</td></tr>
+          <tr><td>Corredor</td><td>1,000 km · 11 países</td><td>Circuito anual Rim Run Caribe™</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Rim Run Caribe™ circuit is the only monitoring program that samples all five biological scales simultaneously — from individual coral colonies documented in photoquadrats to the 1,000-km corridor-level dataset assembled across 11 countries. This multi-scale architecture is GROAN's core scientific contribution: connecting what a single diver observes on a 25 m transect to what is happening to the entire Mesoamerican Reef.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Upscaling from transect to site:</strong> Four replicate transects at each GROAN station provide a site-level estimate by averaging across the natural spatial variability within the site footprint. The mean and standard deviation across four transects defines the site-level condition — a single transect cannot be upscaled to represent the site because spatial heterogeneity within a reef site is typically 30–50% of the mean value. Four replicates reduce this uncertainty sufficiently for site-level reporting.</li>
+        <li><strong>Upscaling from site to corridor — the GROAN network design:</strong> The 37 GROAN stations across the Rim Run Caribe™ circuit are not randomly placed — they are stratified across reef types (barrier reef, atoll lagoon, fringing reef, patch reef), depth zones (3–6 m, 6–15 m, 15–25 m), and human pressure gradients (inside MPA, outside MPA, near urban center, remote). This stratified design allows corridor-level coral cover estimates that account for the proportional representation of each reef type across the MAR — the statistical foundation for the statement "MAR coral cover is X%" rather than "coral cover at the sites we happened to visit is X%."</li>
+        <li><strong>Temporal scaling — from annual survey to decadal trend:</strong> A single annual survey at a GROAN station is a data point, not a trend. Three years of data establishes the natural variability range. Five years enables Mann-Kendall trend detection. Ten years produces a robust trend estimate with sufficient power to detect a 10% change in coral cover at the 95% confidence level. The Rim Run™ multi-circuit design — the same 37 stations resurveyed every 1.5 years — builds this temporal scaling architecture into the expedition structure.</li>
+        <li><strong>Biological scaling — coral polyp to reef ecosystem:</strong> CCRA citizen science observers work at the organism-to-transect scale — counting fish, recording benthic cover, photographing coral colonies. GROAN's Level 2 (GMIN) and Level 3 (GMAIN) modules upscale these observations to reef-ecosystem dynamics — integrating fish biomass data with benthic cover data, water quality data, and remote sensing imagery to produce ecosystem-level indicators like reef complexity index, herbivory rate, and net calcification potential. A citizen scientist counting parrotfish on a transect in Belize is generating the raw data that feeds the ecosystem-level model. That connection — between the diver on the reef and the model output that informs policy — is what GROAN's scaling architecture makes possible.</li>
+        <li><strong>Scale mismatch — the most common error in reef science communication:</strong> The most frequent scaling error in reef science is presenting transect-level data as if it were corridor-level truth. "We surveyed three sites in Honduras and found 41% coral cover" does not mean "Honduras reefs have 41% coral cover" — the three sites may be in an MPA, atypically healthy, and unrepresentative of the national reef condition. The GROAN reporting standard requires explicit statement of the spatial scale and sampling frame of every data product — a discipline that the Rim Run circuit enforces by design through its stratified, multi-country sampling structure.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El circuito Rim Run Caribe™ es el único programa de monitoreo que muestrea las cinco escalas biológicas simultáneamente — desde colonias de coral individuales documentadas en fotocuadrantes hasta el conjunto de datos a nivel de corredor de 1,000 km ensamblado en 11 países.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Escalamiento ascendente de transecto a sitio:</strong> Cuatro transectos replicados en cada estación GROAN proporcionan una estimación a nivel de sitio promediando la variabilidad espacial natural dentro del área del sitio. Un solo transecto no puede escalarse para representar el sitio porque la heterogeneidad espacial dentro de un sitio arrecifal es típicamente del 30–50% del valor medio.</li>
+        <li><strong>Escalamiento ascendente de sitio a corredor — el diseño de la red GROAN:</strong> Las 37 estaciones GROAN están estratificadas entre tipos de arrecife, zonas de profundidad y gradientes de presión humana. Este diseño estratificado permite estimaciones de cobertura de coral a nivel de corredor que tienen en cuenta la representación proporcional de cada tipo de arrecife en todo el SAM.</li>
+        <li><strong>Escalamiento temporal — de censo anual a tendencia decadal:</strong> Un solo censo anual es un punto de datos, no una tendencia. Tres años de datos establece el rango de variabilidad natural. Cinco años permite la detección de tendencias Mann-Kendall. Diez años produce una estimación de tendencia robusta con potencia suficiente para detectar un cambio del 10% en la cobertura de coral al nivel de confianza del 95%.</li>
+        <li><strong>Escalamiento biológico — pólipo de coral al ecosistema arrecifal:</strong> Los observadores de ciencia ciudadana de la CCRA trabajan a escala organismo-a-transecto. Los módulos de Nivel 2 y 3 de GROAN escalan estas observaciones a la dinámica del ecosistema arrecifal, integrando datos de biomasa de peces, cobertura bentónica, calidad del agua e imágenes de teledetección.</li>
+        <li><strong>Discordancia de escala — el error más común en la comunicación de la ciencia arrecifal:</strong> "Censamos tres sitios en Honduras y encontramos 41% de cobertura de coral" no significa "los arrecifes de Honduras tienen 41% de cobertura de coral". El estándar de informes GROAN requiere una declaración explícita de la escala espacial y el marco de muestreo de cada producto de datos.</li>
+      </ul>
+    </div>
+
+    <!-- MCQ -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A CCRA observer surveys one 25 m transect at a Belize barrier reef site and records 38% coral cover. A journalist reports this as "Belize coral reefs are 38% covered." What scaling error has been made?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> No error — a single transect is an adequate representation of a national reef system</li>
+            <li><span class="opt-letter">B.</span> Scale mismatch — a single 100 m² transect cannot be upscaled to represent a national reef system without stratified multi-site sampling across reef types, depths, and pressure gradients</li>
+            <li><span class="opt-letter">C.</span> Temporal error — the journalist should have compared the result to historical data before reporting</li>
+            <li><span class="opt-letter">D.</span> Observer error — a single observer's transect result requires calibration before any reporting</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — A single 100 m² transect represents approximately 0.001% of Belize's reef area. Upscaling it to a national estimate requires stratified sampling across all major reef types, depths, and human pressure zones. Without this structure, the national claim is unsupported regardless of how accurate the individual transect measurement is.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un observador de la CCRA realiza un transecto de 25 m en un sitio de arrecife de barrera en Belice y registra 38% de cobertura de coral. Un periodista informa esto como "los arrecifes coralinos de Belice tienen 38% de cobertura." ¿Qué error de escalamiento se ha cometido?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Ningún error — un transecto único es una representación adecuada de un sistema arrecifal nacional</li>
+            <li><span class="opt-letter">B.</span> Discordancia de escala — un solo transecto de 100 m² no puede escalarse para representar un sistema arrecifal nacional sin muestreo estratificado en múltiples sitios</li>
+            <li><span class="opt-letter">C.</span> Error temporal — el periodista debería haber comparado el resultado con datos históricos antes de informar</li>
+            <li><span class="opt-letter">D.</span> Error del observador — el resultado de un solo observador requiere calibración antes de cualquier informe</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Un solo transecto de 100 m² representa aproximadamente el 0.001% del área arrecifal de Belice. Escalarlo a una estimación nacional requiere muestreo estratificado en todos los tipos principales de arrecife, profundidades y zonas de presión humana.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 NOAA issues a Coral Bleaching Alert Level 2 for the Western Caribbean basin — a large-scale thermal stress product derived from satellite SST data. A CCRA observer in Honduras wants to know if their specific reef site is actually bleaching. What type of scaling operation is needed, and what direct observation should they make?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Upscaling — average the basin-level alert across all country sites to produce a regional estimate</li>
+            <li><span class="opt-letter">B.</span> Downscaling — translate the basin-level alert to a site-specific prediction, then validate with in-water bleaching prevalence survey and local SST measurement at the site</li>
+            <li><span class="opt-letter">C.</span> No scaling needed — a Level 2 alert means all reefs in the basin are definitively bleaching</li>
+            <li><span class="opt-letter">D.</span> Temporal scaling — compare the current alert to historical bleaching records at the same site</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Basin-level bleaching alerts are large-scale products that do not resolve site-specific conditions. Downscaling applies the regional signal to a local prediction — but the prediction must be validated by direct in-water observation (bleaching prevalence survey) and local SST measurement, because local currents, depth, and microhabitat can produce conditions significantly different from the basin average.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 La NOAA emite una Alerta de Blanqueamiento de Coral Nivel 2 para la cuenca del Caribe occidental. Un observador de la CCRA en Honduras quiere saber si su sitio arrecifal específico está realmente blanqueando. ¿Qué tipo de operación de escalamiento es necesaria?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Escalamiento ascendente — promediar la alerta a nivel de cuenca en todos los sitios del país para producir una estimación regional</li>
+            <li><span class="opt-letter">B.</span> Escalamiento descendente — traducir la alerta a nivel de cuenca a una predicción específica del sitio, luego validar con un censo de prevalencia de blanqueamiento en el agua y medición local de TSM</li>
+            <li><span class="opt-letter">C.</span> No se necesita escalamiento — una alerta de Nivel 2 significa que todos los arrecifes de la cuenca están definitivamente blanqueando</li>
+            <li><span class="opt-letter">D.</span> Escalamiento temporal — comparar la alerta actual con los registros históricos de blanqueamiento en el mismo sitio</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las alertas de blanqueamiento a nivel de cuenca son productos a gran escala que no resuelven las condiciones específicas del sitio. El escalamiento descendente aplica la señal regional a una predicción local — pero debe validarse con observación directa en el agua, porque las corrientes locales y el microhábitat pueden producir condiciones significativamente diferentes del promedio de la cuenca.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 The GROAN system produces a "MAR Corridor Reef Health Index" that combines data from all 37 stations across 11 countries into a single annual score. A citizen scientist in Guatemala asks: "Does this score tell me how my local reef is doing?" What is the honest answer about scale?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Yes — the corridor index is an accurate representation of every reef in the system including local Guatemalan sites</li>
+            <li><span class="opt-letter">B.</span> Not directly — the corridor index represents average conditions across 1,000 km of reef; local reef condition in Guatemala is best assessed by the CCRA partner site data specific to that country, which feeds into but is distinct from the corridor index</li>
+            <li><span class="opt-letter">C.</span> No — corridor indices are always inaccurate because averaging across 11 countries produces meaningless numbers</li>
+            <li><span class="opt-letter">D.</span> Yes, but only if the Guatemalan site is one of the 37 GROAN stations</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Corridor-level indices are scientifically valid at their scale of inference — they tell you about the MAR system as a whole. They do not resolve local site conditions, which can differ dramatically from the corridor average. This is not a flaw — it is the nature of scaling. The GROAN architecture produces outputs at multiple scales precisely so that both questions can be answered: "How is the MAR doing?" (corridor index) and "How is my reef doing?" (CCRA site data).</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El sistema GROAN produce un "Índice de Salud Arrecifal del Corredor SAM" que combina datos de las 37 estaciones en 11 países en una puntuación anual única. Un científico ciudadano en Guatemala pregunta: "¿Esta puntuación me dice cómo está mi arrecife local?" ¿Cuál es la respuesta honesta sobre la escala?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sí — el índice del corredor es una representación precisa de cada arrecife del sistema incluyendo los sitios locales de Guatemala</li>
+            <li><span class="opt-letter">B.</span> No directamente — el índice del corredor representa las condiciones promedio en 1,000 km de arrecife; la condición arrecifal local en Guatemala se evalúa mejor con los datos del sitio socio CCRA específicos de ese país</li>
+            <li><span class="opt-letter">C.</span> No — los índices de corredor siempre son inexactos porque promediar entre 11 países produce números sin sentido</li>
+            <li><span class="opt-letter">D.</span> Sí, pero solo si el sitio guatemalteco es una de las 37 estaciones GROAN</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los índices a nivel de corredor son científicamente válidos a su escala de inferencia. La arquitectura GROAN produce resultados a múltiples escalas precisamente para que ambas preguntas puedan responderse: "¿Cómo está el SAM?" (índice de corredor) y "¿Cómo está mi arrecife?" (datos de sitio CCRA).</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 03 · Lesson 16 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S03 · L16 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
