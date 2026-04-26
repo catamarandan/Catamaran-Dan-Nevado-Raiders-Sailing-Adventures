@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L12 Biological Oceanography — Data Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .progress-bar {
+    width: 200px; height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px; overflow: hidden;
+  }
+  .progress-fill {
+    width: 11.36%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 12 · Biological Oceanography</div>
+        <h1 class="lesson-title">Data Analysis</h1>
+        <div class="lesson-subtitle">Análisis de Datos en Oceanografía Biológica</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — Time-series coral cover trend + species diversity bar chart -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="trendG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.01"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ══ TIME SERIES CHART — left ══ -->
+        <!-- Chart area -->
+        <rect x="20" y="20" width="170" height="130" rx="2"
+              fill="rgba(2,12,24,0.6)" stroke="rgba(26,200,200,0.12)" stroke-width="0.8"/>
+
+        <!-- Y axis labels -->
+        <g font-family="monospace" font-size="6" fill="rgba(138,184,204,0.45)">
+          <text x="16" y="28"  text-anchor="end">60%</text>
+          <text x="16" y="54"  text-anchor="end">45%</text>
+          <text x="16" y="80"  text-anchor="end">30%</text>
+          <text x="16" y="106" text-anchor="end">15%</text>
+          <text x="16" y="148" text-anchor="end">0%</text>
+        </g>
+
+        <!-- Y axis gridlines -->
+        <g stroke="rgba(26,200,200,0.08)" stroke-width="0.5">
+          <line x1="20" y1="26"  x2="190" y2="26"/>
+          <line x1="20" y1="52"  x2="190" y2="52"/>
+          <line x1="20" y1="78"  x2="190" y2="78"/>
+          <line x1="20" y1="104" x2="190" y2="104"/>
+          <line x1="20" y1="148" x2="190" y2="148"/>
+        </g>
+
+        <!-- X axis labels (years) -->
+        <g font-family="monospace" font-size="6" fill="rgba(138,184,204,0.4)" text-anchor="middle">
+          <text x="35"  y="158">2026</text>
+          <text x="63"  y="158">2027</text>
+          <text x="91"  y="158">2028</text>
+          <text x="119" y="158">2029</text>
+          <text x="147" y="158">2030</text>
+          <text x="175" y="158">2031</text>
+        </g>
+
+        <!-- Coral cover area fill -->
+        <path d="M35,104 L63,95 L91,82 L119,68 L147,74 L175,58 L175,148 L35,148 Z"
+              fill="url(#areaG)"/>
+
+        <!-- Coral cover trend line -->
+        <polyline points="35,104 63,95 91,82 119,68 147,74 175,58"
+                  fill="none" stroke="rgba(26,200,200,0.8)" stroke-width="2"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+
+        <!-- Data points -->
+        <g fill="rgba(26,200,200,0.9)" stroke="rgba(2,12,24,0.8)" stroke-width="1">
+          <circle cx="35"  cy="104" r="3"/>
+          <circle cx="63"  cy="95"  r="3"/>
+          <circle cx="91"  cy="82"  r="3"/>
+          <circle cx="119" cy="68"  r="3"/>
+          <circle cx="147" cy="74"  r="3"/>
+          <circle cx="175" cy="58"  r="3"/>
+        </g>
+
+        <!-- Bleaching event annotation -->
+        <line x1="147" y1="26" x2="147" y2="148"
+              stroke="rgba(232,96,64,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <text x="149" y="35" font-family="monospace" font-size="5.5"
+              fill="rgba(232,96,64,0.6)">bleach</text>
+        <text x="149" y="43" font-family="monospace" font-size="5.5"
+              fill="rgba(232,96,64,0.6)">event</text>
+
+        <!-- Trend line label -->
+        <text x="105" y="18" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.65)" text-anchor="middle" letter-spacing="0.08em">CORAL COVER TREND</text>
+        <text x="105" y="168" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">Site RR-BZ-014 · 2026–2031</text>
+
+        <!-- ══ BAR CHART — right ══ -->
+        <!-- Chart area -->
+        <rect x="200" y="20" width="170" height="130" rx="2"
+              fill="rgba(2,12,24,0.6)" stroke="rgba(26,200,200,0.12)" stroke-width="0.8"/>
+
+        <!-- Bar chart title -->
+        <text x="285" y="18" font-family="monospace" font-size="7"
+              fill="rgba(240,180,41,0.65)" text-anchor="middle" letter-spacing="0.08em">SPECIES RICHNESS</text>
+
+        <!-- Bars — fish families per site -->
+        <!-- MX site -->
+        <rect x="218" y="72" width="14" height="76" rx="1"
+              fill="rgba(26,200,200,0.25)" stroke="rgba(26,200,200,0.45)" stroke-width="0.8"/>
+        <text x="225" y="68" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.55)" text-anchor="middle">18</text>
+        <text x="225" y="158" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">MX</text>
+
+        <!-- BZ site -->
+        <rect x="240" y="52" width="14" height="96" rx="1"
+              fill="rgba(26,200,200,0.35)" stroke="rgba(26,200,200,0.55)" stroke-width="0.8"/>
+        <text x="247" y="48" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.65)" text-anchor="middle">24</text>
+        <text x="247" y="158" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">BZ</text>
+
+        <!-- GT site -->
+        <rect x="262" y="100" width="14" height="48" rx="1"
+              fill="rgba(26,200,200,0.18)" stroke="rgba(26,200,200,0.35)" stroke-width="0.8"/>
+        <text x="269" y="96" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.45)" text-anchor="middle">12</text>
+        <text x="269" y="158" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">GT</text>
+
+        <!-- HN site -->
+        <rect x="284" y="44" width="14" height="104" rx="1"
+              fill="rgba(26,200,200,0.45)" stroke="rgba(26,200,200,0.65)" stroke-width="0.8"/>
+        <text x="291" y="40" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.75)" text-anchor="middle">26</text>
+        <text x="291" y="158" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">HN</text>
+
+        <!-- NI site -->
+        <rect x="306" y="80" width="14" height="68" rx="1"
+              fill="rgba(26,200,200,0.22)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+        <text x="313" y="76" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.5)" text-anchor="middle">17</text>
+        <text x="313" y="158" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">NI</text>
+
+        <!-- PA site -->
+        <rect x="328" y="60" width="14" height="88" rx="1"
+              fill="rgba(26,200,200,0.32)" stroke="rgba(26,200,200,0.5)" stroke-width="0.8"/>
+        <text x="335" y="56" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.6)" text-anchor="middle">22</text>
+        <text x="335" y="158" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">PA</text>
+
+        <!-- Y axis label -->
+        <text x="207" y="90" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle"
+              transform="rotate(-90,207,90)"># species</text>
+
+        <!-- ══ ANALYSIS METRICS STRIP — bottom ══ -->
+        <rect x="20" y="175" width="350" height="60" rx="3"
+              fill="rgba(2,12,24,0.5)" stroke="rgba(26,200,200,0.1)" stroke-width="0.8"/>
+
+        <text x="30" y="188" font-family="monospace" font-size="6.5"
+              fill="rgba(26,200,200,0.55)" letter-spacing="0.12em">KEY ANALYSIS METRICS</text>
+
+        <!-- Metric boxes -->
+        <g font-family="monospace">
+          <!-- Mean -->
+          <rect x="28" y="192" width="68" height="34" rx="2"
+                fill="rgba(26,200,200,0.06)" stroke="rgba(26,200,200,0.2)" stroke-width="0.7"/>
+          <text x="62" y="204" font-size="7" fill="rgba(26,200,200,0.5)" text-anchor="middle">MEAN ± SD</text>
+          <text x="62" y="218" font-size="8" fill="rgba(26,200,200,0.75)" text-anchor="middle">x̄ ± σ</text>
+
+          <!-- Trend -->
+          <rect x="104" y="192" width="68" height="34" rx="2"
+                fill="rgba(240,180,41,0.06)" stroke="rgba(240,180,41,0.2)" stroke-width="0.7"/>
+          <text x="138" y="204" font-size="7" fill="rgba(240,180,41,0.5)" text-anchor="middle">TREND TEST</text>
+          <text x="138" y="218" font-size="8" fill="rgba(240,180,41,0.75)" text-anchor="middle">Mann-Kendall</text>
+
+          <!-- Diversity -->
+          <rect x="180" y="192" width="68" height="34" rx="2"
+                fill="rgba(232,96,64,0.06)" stroke="rgba(232,96,64,0.2)" stroke-width="0.7"/>
+          <text x="214" y="204" font-size="7" fill="rgba(232,96,64,0.5)" text-anchor="middle">DIVERSITY</text>
+          <text x="214" y="218" font-size="8" fill="rgba(232,96,64,0.75)" text-anchor="middle">Shannon H'</text>
+
+          <!-- Comparison -->
+          <rect x="256" y="192" width="106" height="34" rx="2"
+                fill="rgba(184,240,236,0.06)" stroke="rgba(184,240,236,0.2)" stroke-width="0.7"/>
+          <text x="309" y="204" font-size="7" fill="rgba(184,240,236,0.5)" text-anchor="middle">SITE COMPARISON</text>
+          <text x="309" y="218" font-size="8" fill="rgba(184,240,236,0.75)" text-anchor="middle">Kruskal-Wallis</text>
+        </g>
+
+        <!-- Title badge -->
+        <rect x="0" y="0" width="260" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="10" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.12em">REEF DATA ANALYSIS · TRENDS &amp; PATTERNS</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Biological data analysis converts field records into interpretable patterns, trends, and comparisons that support reef management decisions. The most fundamental descriptive statistics are the <strong>mean</strong> (average value across replicate transects) and <strong>standard deviation</strong> (measure of variability), which together characterize both the typical condition and the consistency of a site. <strong>Temporal trend analysis</strong> — tracking the same metric at the same site across multiple years — is the most powerful tool for detecting reef change; the <strong>Mann-Kendall test</strong> is widely used for reef time-series data because it detects monotonic trends without assuming normal data distribution. <strong>Species diversity indices</strong> such as the <em>Shannon-Wiener index (H')</em> combine species richness (number of species) and evenness (how equally abundant they are) into a single metric — a reef with 20 fish species all equally represented scores higher than one where a single species dominates, even if total fish counts are identical. For comparing multiple sites simultaneously — a core GROAN requirement across the 11-country Rim Run circuit — the <strong>Kruskal-Wallis test</strong> identifies statistically significant differences in coral cover, fish biomass, or diversity without requiring normally distributed data, which field biological data rarely is. The critical discipline in all analysis is separating <em>biological signal</em> from <em>sampling noise</em> — changes must be large enough, and replicated enough, to exceed the natural variability of the system before they constitute evidence of reef change.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Method</th><th>Use Case</th><th>Output</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mean ± SD</td><td>Site condition summary</td><td>Typical value and variability</td></tr>
+          <tr><td>Mann-Kendall Test</td><td>Long-term trend detection</td><td>Trend direction + significance (p-value)</td></tr>
+          <tr><td>Shannon-Wiener (H')</td><td>Community diversity</td><td>Single diversity score per site</td></tr>
+          <tr><td>Kruskal-Wallis Test</td><td>Multi-site comparison</td><td>Significant differences across groups</td></tr>
+          <tr><td>Signal vs. Noise</td><td>Change detection threshold</td><td>Distinguishes real change from variability</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El análisis de datos biológicos convierte los registros de campo en patrones, tendencias y comparaciones interpretables que respaldan las decisiones de gestión arrecifal. Las estadísticas descriptivas más fundamentales son la <strong>media</strong> (valor promedio entre transectos replicados) y la <strong>desviación estándar</strong> (medida de variabilidad). El <strong>análisis de tendencias temporales</strong> — seguimiento de la misma métrica en el mismo sitio durante múltiples años — es la herramienta más poderosa para detectar cambios arrecifales; la <strong>prueba de Mann-Kendall</strong> es ampliamente utilizada porque detecta tendencias monótonas sin asumir distribución normal. Los <strong>índices de diversidad</strong> como el <em>índice de Shannon-Wiener (H')</em> combinan la riqueza de especies y la equidad en una sola métrica. Para comparar múltiples sitios simultáneamente, la <strong>prueba de Kruskal-Wallis</strong> identifica diferencias estadísticamente significativas en cobertura de coral, biomasa de peces o diversidad sin requerir datos distribuidos normalmente. La disciplina crítica en todo análisis es separar la <em>señal biológica</em> del <em>ruido de muestreo</em>.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Método</th><th>Caso de Uso</th><th>Resultado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Media ± DE</td><td>Resumen de condición del sitio</td><td>Valor típico y variabilidad</td></tr>
+          <tr><td>Prueba de Mann-Kendall</td><td>Detección de tendencias</td><td>Dirección + significancia (valor p)</td></tr>
+          <tr><td>Shannon-Wiener (H')</td><td>Diversidad de comunidades</td><td>Puntuación única de diversidad</td></tr>
+          <tr><td>Prueba de Kruskal-Wallis</td><td>Comparación de múltiples sitios</td><td>Diferencias significativas entre grupos</td></tr>
+          <tr><td>Señal vs. Ruido</td><td>Umbral de detección de cambio</td><td>Distingue cambio real de variabilidad</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The GROAN data architecture is designed so that field records collected by CCRA observers across the 11-country Rim Run Caribe™ circuit feed directly into standardized analysis pipelines — producing annual site condition summaries, multi-year trend reports, and cross-country comparison dashboards that make the full circuit's reef status visible in a single data view.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Annual site condition report — mean ± SD:</strong> Each GROAN field station produces an annual summary: mean coral cover ± SD across the four replicate transects, mean fish species richness ± SD, and mean grouper abundance ± SD. These three metrics — coral, diversity, and apex predator — together capture the full ecological status of a reef site in nine numbers. When the same nine numbers are produced year after year at the same GPS point, the trend becomes visible without requiring statistical testing — a site dropping from 42% ± 4% coral cover to 28% ± 6% over three years is telling a clear story.</li>
+        <li><strong>Mann-Kendall trend test — detecting slow decline:</strong> The most dangerous reef degradation processes in the MAR corridor are slow and chronic — gradual increases in algae cover as water quality declines, slow loss of grouper as fishing pressure accumulates over years, creeping bleaching frequency as thermal stress events become more common. None of these show up dramatically in a single year's data. The Mann-Kendall test applied to 5–10 years of GROAN site records will detect a statistically significant downward trend in coral cover at p < 0.05 even when the year-to-year change is small — providing the early warning that management intervention is needed before the reef crosses a critical threshold.</li>
+        <li><strong>Shannon-Wiener diversity as a fishing pressure indicator:</strong> In heavily fished MAR reef sites, fish community diversity (H') typically decreases not because species disappear entirely but because a few tolerant, low-value species come to dominate the community as commercially valuable species are removed. A site with H' = 2.8 (diverse, even community) versus H' = 1.4 (one or two species dominating) at the same total fish abundance reveals functional degradation that raw count data alone misses. CCRA observers are trained to calculate H' from their belt transect species lists using a simple field formula.</li>
+        <li><strong>Kruskal-Wallis across the 11-country circuit:</strong> Comparing coral cover or fish biomass across Mexico, Belize, Guatemala, Honduras, Nicaragua, Costa Rica, Panama, Colombia, Aruba, Bonaire, and Curaçao simultaneously requires a non-parametric multi-group test because the data distributions differ by country — Belizean atoll lagoon patch reefs are not normally distributed in the same way as Colombian fringing reefs. The Kruskal-Wallis test identifies which country groupings show statistically different reef condition without forcing parametric assumptions on ecologically diverse data. This is the analysis that will eventually let the CCRA say, with statistical backing, which reef systems in the circuit are declining and which are stable or improving.</li>
+        <li><strong>Signal vs. noise — the natural variability problem:</strong> Caribbean reef fish counts have high natural variability — the same site surveyed on two consecutive days can show 30–40% difference in fish abundance simply due to tidal state, time of day, and fish movement. A single survey showing a 35% decline in grouper is not evidence of population decline — it may be noise. The GROAN protocol requires a minimum of three replicate transects per site per visit, and three annual visits before a trend can be reported. This replication structure ensures that reported changes represent real biological signal rather than the natural variability of reef fish communities.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          La arquitectura de datos GROAN está diseñada para que los registros de campo recopilados por los observadores de la CCRA en el circuito de once países alimenten directamente los flujos de análisis estandarizados — produciendo resúmenes anuales de condición del sitio, informes de tendencias plurianuales y paneles de comparación entre países.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Informe anual de condición del sitio:</strong> Cada estación de campo GROAN produce un resumen anual: cobertura media de coral ± DE, riqueza media de especies de peces ± DE, y abundancia media de mero ± DE. Cuando los mismos nueve números se producen año tras año en el mismo punto GPS, la tendencia se vuelve visible sin necesidad de pruebas estadísticas.</li>
+        <li><strong>Prueba de Mann-Kendall — detección de declive lento:</strong> Los procesos de degradación más peligrosos son lentos y crónicos. La prueba de Mann-Kendall aplicada a 5–10 años de registros GROAN detectará una tendencia descendente estadísticamente significativa en la cobertura de coral (p &lt; 0.05) incluso cuando el cambio año a año es pequeño — proporcionando la alerta temprana de que se necesita intervención de gestión.</li>
+        <li><strong>Shannon-Wiener como indicador de presión pesquera:</strong> En sitios arrecifales muy explotados, la diversidad de la comunidad de peces (H') típicamente disminuye porque unas pocas especies tolerantes dominan la comunidad a medida que se eliminan las especies valiosas comercialmente. Un sitio con H' = 2.8 versus H' = 1.4 a la misma abundancia total de peces revela degradación funcional que los datos de conteo bruto por sí solos no detectan.</li>
+        <li><strong>Kruskal-Wallis en el circuito de 11 países:</strong> Comparar la cobertura de coral o la biomasa de peces entre los once países simultáneamente requiere una prueba no paramétrica de múltiples grupos, ya que las distribuciones de datos difieren por país. Esta es el análisis que eventualmente permitirá a la CCRA decir, con respaldo estadístico, qué sistemas arrecifales del circuito están en declive y cuáles son estables.</li>
+        <li><strong>Señal vs. ruido — el problema de la variabilidad natural:</strong> Los conteos de peces en arrecifes del Caribe tienen alta variabilidad natural. El protocolo GROAN requiere un mínimo de tres transectos replicados por sitio por visita, y tres visitas anuales antes de que se pueda informar una tendencia — asegurando que los cambios reportados representen señal biológica real.</li>
+      </ul>
+    </div>
+
+    <!-- MCQ -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A GROAN site shows the following coral cover values across 5 annual surveys: 44%, 41%, 38%, 35%, 32%. A Mann-Kendall test returns p = 0.03. What is the correct interpretation?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> There is no significant trend — the values fluctuate too much to draw conclusions</li>
+            <li><span class="opt-letter">B.</span> There is a statistically significant monotonic declining trend in coral cover (p &lt; 0.05)</li>
+            <li><span class="opt-letter">C.</span> The trend is significant only if a bleaching event is documented in the same period</li>
+            <li><span class="opt-letter">D.</span> A p-value of 0.03 means the data has a 3% chance of being accurate</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — p = 0.03 &lt; 0.05 threshold: the declining trend is statistically significant. The Mann-Kendall test confirms the downward pattern is not random noise. A p-value represents the probability the observed trend occurred by chance, not data accuracy.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un sitio GROAN muestra los siguientes valores de cobertura de coral en 5 censos anuales: 44%, 41%, 38%, 35%, 32%. Una prueba de Mann-Kendall devuelve p = 0.03. ¿Cuál es la interpretación correcta?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> No hay tendencia significativa — los valores fluctúan demasiado para sacar conclusiones</li>
+            <li><span class="opt-letter">B.</span> Hay una tendencia de declive monótona estadísticamente significativa en la cobertura de coral (p &lt; 0.05)</li>
+            <li><span class="opt-letter">C.</span> La tendencia es significativa solo si se documenta un evento de blanqueamiento en el mismo período</li>
+            <li><span class="opt-letter">D.</span> Un valor p de 0.03 significa que los datos tienen un 3% de probabilidad de ser precisos</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — p = 0.03 &lt; umbral 0.05: la tendencia descendente es estadísticamente significativa. Un valor p representa la probabilidad de que la tendencia observada ocurriera por azar, no la precisión de los datos.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Two reef sites have identical total fish counts of 120 individuals per 100 m². Site A has 24 species with roughly equal abundance. Site B has 4 species, with one species accounting for 90 of the 120 individuals. Which site has higher Shannon-Wiener diversity (H'), and what does this indicate ecologically?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Site B — higher abundance of a single dominant species indicates a healthy, productive reef</li>
+            <li><span class="opt-letter">B.</span> Site A — more species with even abundance produces a higher H', indicating a more functionally diverse and ecologically intact reef community</li>
+            <li><span class="opt-letter">C.</span> Both sites are equal — total fish count is the only relevant metric for reef health</li>
+            <li><span class="opt-letter">D.</span> Site A has higher richness but lower diversity if the species are all from the same family</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Shannon-Wiener H' is maximized by both high richness AND high evenness. Site A (24 species, even) will have H' ≈ 3.2; Site B (4 species, one dominant) will have H' ≈ 0.6. The low H' at Site B signals functional degradation consistent with overfishing of diverse species.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Dos sitios arrecifales tienen conteos totales de peces idénticos de 120 individuos por 100 m². El Sitio A tiene 24 especies con abundancia aproximadamente igual. El Sitio B tiene 4 especies, con una especie que representa 90 de los 120 individuos. ¿Qué sitio tiene mayor diversidad Shannon-Wiener (H') y qué indica esto ecológicamente?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sitio B — mayor abundancia de una especie dominante indica un arrecife saludable y productivo</li>
+            <li><span class="opt-letter">B.</span> Sitio A — más especies con abundancia uniforme produce un H' más alto, indicando una comunidad arrecifal más diversa e intacta</li>
+            <li><span class="opt-letter">C.</span> Ambos sitios son iguales — el conteo total de peces es la única métrica relevante</li>
+            <li><span class="opt-letter">D.</span> El Sitio A tiene mayor riqueza pero menor diversidad si las especies son de la misma familia</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El H' de Shannon-Wiener se maximiza con alta riqueza Y alta equidad. Sitio A (24 especies, uniforme): H' ≈ 3.2; Sitio B (4 especies, una dominante): H' ≈ 0.6. El H' bajo en el Sitio B señala degradación funcional consistente con la sobrepesca de especies diversas.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A single belt transect at Site RR-NI-003 records only 2 Nassau grouper per 100 m², compared to a long-term mean of 14 ± 8. Before reporting a population decline, what analytical step is most critical?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Report the decline immediately — a drop from 14 to 2 is ecologically significant regardless of replication</li>
+            <li><span class="opt-letter">B.</span> Check whether the single transect result falls within the natural variability range (mean ± 2SD = 14 ± 16, so 0–30 grouper per 100 m²) and confirm with replicate transects before drawing conclusions</li>
+            <li><span class="opt-letter">C.</span> Compare the result to adjacent sites — if they also show low counts, the decline is confirmed</li>
+            <li><span class="opt-letter">D.</span> Apply the Mann-Kendall test to the single data point to determine statistical significance</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Mean 14 ± SD 8 means ±2SD = 14 ± 16, so values from 0 to 30 grouper per 100 m² are within normal variability. A single count of 2 is within this range and does not constitute evidence of decline. Replicate transects and multi-visit confirmation are required before any trend claim can be made.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un solo transecto de banda en el Sitio RR-NI-003 registra solo 2 meros por 100 m², comparado con una media a largo plazo de 14 ± 8. Antes de informar un declive poblacional, ¿cuál es el paso analítico más crítico?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Informar el declive inmediatamente — una caída de 14 a 2 es ecológicamente significativa independientemente de la replicación</li>
+            <li><span class="opt-letter">B.</span> Verificar si el resultado cae dentro del rango de variabilidad natural (media ± 2DE = 14 ± 16, es decir 0–30 meros por 100 m²) y confirmar con transectos replicados antes de sacar conclusiones</li>
+            <li><span class="opt-letter">C.</span> Comparar con sitios adyacentes — si también muestran conteos bajos, el declive está confirmado</li>
+            <li><span class="opt-letter">D.</span> Aplicar la prueba de Mann-Kendall al único punto de datos para determinar significancia estadística</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Media 14 ± DE 8 significa ±2DE = 14 ± 16, por lo que valores de 0 a 30 meros por 100 m² están dentro de la variabilidad normal. Un conteo único de 2 está dentro de este rango y no constituye evidencia de declive. Se requieren transectos replicados y confirmación en múltiples visitas.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 03 · Lesson 12 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S03 · L12 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
