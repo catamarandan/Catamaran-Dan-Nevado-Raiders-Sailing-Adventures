@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S03·L13 Biological Oceanography — Spatial Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lecture-text strong { color: var(--ocean-foam); font-weight: 500; }
+  .lecture-text em { color: rgba(184,240,236,0.85); }
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+  .data-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.2);
+    text-align: left;
+    background: rgba(26,200,200,0.04);
+  }
+  .data-table td {
+    font-size: 11px;
+    color: rgba(232,244,248,0.7);
+    padding: 5px 8px;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    line-height: 1.4;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ocean-foam); font-weight: 500; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .progress-bar {
+    width: 200px; height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px; overflow: hidden;
+  }
+  .progress-fill {
+    width: 11.65%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 03 · Lesson 13 · Biological Oceanography</div>
+        <h1 class="lesson-title">Spatial Patterns</h1>
+        <div class="lesson-subtitle">Patrones Espaciales en Oceanografía Biológica</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG — Reef zonation cross-section + MAR corridor gradient map -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0a3a5a" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#020f1e" stop-opacity="0.98"/>
+          </linearGradient>
+          <linearGradient id="coralG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65"  x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95"  y1="0" x2="95"  y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ══ REEF ZONATION CROSS-SECTION — upper half ══ -->
+        <!-- Sea surface -->
+        <line x1="10" y1="30" x2="370" y2="30"
+              stroke="rgba(26,200,200,0.3)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="14" y="26" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.4)" letter-spacing="0.1em">SURFACE</text>
+
+        <!-- Water column -->
+        <rect x="10" y="30" width="360" height="105" fill="url(#seaG)"/>
+
+        <!-- ZONE 1: Back reef / lagoon (far left) -->
+        <path d="M10,130 Q30,120 60,118 L60,135 L10,135 Z"
+              fill="rgba(60,160,80,0.3)" stroke="rgba(60,160,80,0.4)" stroke-width="0.8"/>
+        <!-- Seagrass tufts -->
+        <g stroke="rgba(60,160,80,0.5)" stroke-width="0.8" fill="none">
+          <line x1="20" y1="128" x2="20" y2="118"/>
+          <line x1="25" y1="128" x2="23" y2="116"/>
+          <line x1="30" y1="127" x2="30" y2="117"/>
+          <line x1="35" y1="128" x2="33" y2="116"/>
+          <line x1="40" y1="127" x2="40" y2="117"/>
+          <line x1="45" y1="128" x2="43" y2="116"/>
+        </g>
+        <text x="35" y="140" font-family="monospace" font-size="6"
+              fill="rgba(60,160,80,0.65)" text-anchor="middle">BACK REEF</text>
+        <text x="35" y="149" font-family="monospace" font-size="5.5"
+              fill="rgba(60,160,80,0.45)" text-anchor="middle">seagrass · 1–4m</text>
+
+        <!-- ZONE 2: Reef flat / crest -->
+        <path d="M60,118 Q80,105 110,100 Q120,98 130,102 L130,135 L60,135 Z"
+              fill="rgba(240,180,41,0.2)" stroke="rgba(240,180,41,0.4)" stroke-width="0.8"/>
+        <!-- Reef flat coral heads -->
+        <ellipse cx="80"  cy="112" rx="8"  ry="5" fill="rgba(240,180,41,0.25)" stroke="rgba(240,180,41,0.5)" stroke-width="0.7"/>
+        <ellipse cx="100" cy="106" rx="10" ry="6" fill="rgba(240,180,41,0.3)"  stroke="rgba(240,180,41,0.55)" stroke-width="0.7"/>
+        <ellipse cx="120" cy="109" rx="7"  ry="4" fill="rgba(240,180,41,0.2)"  stroke="rgba(240,180,41,0.45)" stroke-width="0.7"/>
+        <text x="95" y="140" font-family="monospace" font-size="6"
+              fill="rgba(240,180,41,0.65)" text-anchor="middle">REEF FLAT / CREST</text>
+        <text x="95" y="149" font-family="monospace" font-size="5.5"
+              fill="rgba(240,180,41,0.45)" text-anchor="middle">high energy · 0–5m</text>
+
+        <!-- ZONE 3: Forereef shallow -->
+        <path d="M130,102 Q160,85 190,78 L190,135 L130,135 Z"
+              fill="rgba(26,200,200,0.18)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+        <!-- Staghorn corals -->
+        <line x1="145" y1="120" x2="145" y2="95"  stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <line x1="145" y1="105" x2="138" y2="93"  stroke="rgba(26,200,200,0.45)" stroke-width="1"/>
+        <line x1="145" y1="105" x2="152" y2="95"  stroke="rgba(26,200,200,0.45)" stroke-width="1"/>
+        <line x1="165" y1="118" x2="165" y2="93"  stroke="rgba(26,200,200,0.5)" stroke-width="1.2"/>
+        <line x1="165" y1="103" x2="158" y2="91"  stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <line x1="165" y1="103" x2="172" y2="93"  stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <text x="160" y="140" font-family="monospace" font-size="6"
+              fill="rgba(26,200,200,0.65)" text-anchor="middle">FOREREEF</text>
+        <text x="160" y="149" font-family="monospace" font-size="5.5"
+              fill="rgba(26,200,200,0.45)" text-anchor="middle">max diversity · 5–20m</text>
+
+        <!-- ZONE 4: Deep forereef / wall -->
+        <path d="M190,78 Q220,65 250,60 L250,135 L190,135 Z"
+              fill="rgba(10,80,120,0.3)" stroke="rgba(10,110,160,0.35)" stroke-width="0.8"/>
+        <!-- Sea fans / gorgonians -->
+        <line x1="210" y1="120" x2="210" y2="72" stroke="rgba(184,240,236,0.3)" stroke-width="1"/>
+        <ellipse cx="210" cy="80" rx="10" ry="18" fill="none" stroke="rgba(184,240,236,0.25)" stroke-width="0.7"/>
+        <line x1="230" y1="118" x2="230" y2="75" stroke="rgba(184,240,236,0.25)" stroke-width="1"/>
+        <ellipse cx="230" cy="85" rx="8" ry="14" fill="none" stroke="rgba(184,240,236,0.2)" stroke-width="0.7"/>
+        <text x="220" y="140" font-family="monospace" font-size="6"
+              fill="rgba(138,184,204,0.6)" text-anchor="middle">DEEP FOREREEF</text>
+        <text x="220" y="149" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.4)" text-anchor="middle">gorgonians · 20–40m</text>
+
+        <!-- ZONE 5: Sand / rubble slope -->
+        <path d="M250,60 Q290,55 330,58 L330,135 L250,135 Z"
+              fill="rgba(245,233,208,0.08)" stroke="rgba(245,233,208,0.2)" stroke-width="0.8"/>
+        <text x="290" y="140" font-family="monospace" font-size="6"
+              fill="rgba(245,233,208,0.45)" text-anchor="middle">SAND SLOPE</text>
+        <text x="290" y="149" font-family="monospace" font-size="5.5"
+              fill="rgba(245,233,208,0.3)" text-anchor="middle">rubble · &gt;40m</text>
+
+        <!-- Open ocean -->
+        <rect x="330" y="30" width="40" height="105" fill="rgba(2,15,40,0.4)"/>
+        <text x="350" y="90" font-family="monospace" font-size="6"
+              fill="rgba(138,184,204,0.3)" text-anchor="middle"
+              transform="rotate(-90,350,90)">OPEN OCEAN</text>
+
+        <!-- Depth arrow -->
+        <line x1="6" y1="30" x2="6" y2="135" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+        <polygon points="6,135 3,127 9,127" fill="rgba(138,184,204,0.3)"/>
+        <text x="4" y="85" font-family="monospace" font-size="6"
+              fill="rgba(138,184,204,0.3)" text-anchor="middle"
+              transform="rotate(-90,4,85)">DEPTH</text>
+
+        <!-- ══ MAR CORRIDOR GRADIENT — bottom half ══ -->
+        <!-- Gradient legend title -->
+        <text x="190" y="165" font-family="monospace" font-size="7"
+              fill="rgba(26,200,200,0.6)" text-anchor="middle" letter-spacing="0.1em">MAR CORRIDOR — CORAL COVER GRADIENT</text>
+
+        <!-- Country gradient bar -->
+        <defs>
+          <linearGradient id="gradBar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#1ac8c8" stop-opacity="0.7"/>
+            <stop offset="30%"  stop-color="#1ac8c8" stop-opacity="0.55"/>
+            <stop offset="50%"  stop-color="#f0b429" stop-opacity="0.5"/>
+            <stop offset="70%"  stop-color="#e86040" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#1ac8c8" stop-opacity="0.65"/>
+          </linearGradient>
+        </defs>
+        <rect x="20" y="172" width="340" height="14" rx="2" fill="url(#gradBar)"/>
+
+        <!-- Country tick marks -->
+        <g font-family="monospace" font-size="6.5" fill="rgba(138,184,204,0.55)" text-anchor="middle">
+          <line x1="36"  y1="186" x2="36"  y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="36"  y="198">MX</text>
+          <line x1="80"  y1="186" x2="80"  y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="80"  y="198">BZ</text>
+          <line x1="124" y1="186" x2="124" y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="124" y="198">GT</text>
+          <line x1="168" y1="186" x2="168" y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="168" y="198">HN</text>
+          <line x1="212" y1="186" x2="212" y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="212" y="198">NI</text>
+          <line x1="256" y1="186" x2="256" y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="256" y="198">CR</text>
+          <line x1="300" y1="186" x2="300" y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="300" y="198">PA</text>
+          <line x1="344" y1="186" x2="344" y2="190" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+          <text x="344" y="198">CO</text>
+        </g>
+
+        <!-- Cover value labels above bar -->
+        <g font-family="monospace" font-size="6" fill="rgba(26,200,200,0.6)" text-anchor="middle">
+          <text x="36"  y="170">38%</text>
+          <text x="80"  y="170">44%</text>
+          <text x="124" y="170">22%</text>
+          <text x="168" y="170">41%</text>
+          <text x="212" y="170">18%</text>
+          <text x="256" y="170">26%</text>
+          <text x="300" y="170">35%</text>
+          <text x="344" y="170">31%</text>
+        </g>
+
+        <!-- Annotation: fishing pressure gradient -->
+        <text x="190" y="212" font-family="monospace" font-size="6"
+              fill="rgba(232,96,64,0.5)" text-anchor="middle" letter-spacing="0.08em">
+          ← HIGH FISHING PRESSURE ——————————— LOW FISHING PRESSURE →
+        </text>
+        <text x="190" y="224" font-family="monospace" font-size="5.5"
+              fill="rgba(138,184,204,0.35)" text-anchor="middle">
+          Spatial pattern driven by distance from urban centers + MPA coverage
+        </text>
+
+        <!-- Zonation title badge -->
+        <rect x="0" y="0" width="260" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="10" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace"
+              font-size="9" letter-spacing="0.12em">REEF ZONATION · SPATIAL GRADIENTS</text>
+
+        <!-- Corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Spatial patterns in reef biology describe how organisms, communities, and ecological conditions are distributed across space — from the meter-scale zonation of a single reef cross-section to the thousand-kilometer gradients of the Mesoamerican corridor. At the reef scale, <strong>zonation</strong> is the most fundamental spatial pattern: distinct biological communities occupy predictable depth and energy zones — seagrass beds in the sheltered back reef, high-energy coral assemblages on the reef flat and crest, maximum diversity on the shallow forereef (5–20 m), gorgonians and sponges on the deep forereef wall, and rubble and sand on the slope below. These zones are structured by light, wave energy, sediment load, and grazing pressure acting together. At the corridor scale, <strong>spatial gradients</strong> in coral cover, fish biomass, and species richness reflect the combined effects of fishing pressure, water quality, proximity to urban centers, and marine protected area (MPA) coverage. <strong>Distance decay</strong> — the observation that ecological similarity decreases as geographic distance increases — is a universal pattern in marine systems; distant reef sites tend to share fewer species and community characteristics than nearby sites because larval connectivity, current patterns, and local stressors diverge with distance. Understanding spatial patterns is essential for designing monitoring networks that capture ecologically representative samples and for identifying the spatial scale at which management interventions will be most effective.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Spatial Pattern</th><th>Scale</th><th>Primary Driver</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reef zonation</td><td>Meters to kilometers</td><td>Depth, wave energy, light, sediment</td></tr>
+          <tr><td>Corridor gradient</td><td>100s of kilometers</td><td>Fishing pressure, water quality, MPAs</td></tr>
+          <tr><td>Distance decay</td><td>Regional to basin</td><td>Larval connectivity, current barriers</td></tr>
+          <tr><td>MPA vs. non-MPA contrast</td><td>Site to seascape</td><td>Protection level, enforcement, age</td></tr>
+          <tr><td>Depth stratification</td><td>Vertical meters</td><td>Light attenuation, temperature, pressure</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los patrones espaciales en la biología arrecifal describen cómo se distribuyen los organismos, las comunidades y las condiciones ecológicas en el espacio — desde la zonación a escala de metros de una sección transversal de arrecife hasta los gradientes de mil kilómetros del corredor mesoamericano. A escala de arrecife, la <strong>zonación</strong> es el patrón espacial más fundamental: comunidades biológicas distintas ocupan zonas predecibles de profundidad y energía. A escala del corredor, los <strong>gradientes espaciales</strong> en cobertura de coral, biomasa de peces y riqueza de especies reflejan los efectos combinados de la presión pesquera, la calidad del agua, la proximidad a centros urbanos y la cobertura de áreas marinas protegidas (AMP). El <strong>decaimiento con la distancia</strong> — la observación de que la similitud ecológica disminuye a medida que aumenta la distancia geográfica — es un patrón universal en sistemas marinos. Comprender los patrones espaciales es esencial para diseñar redes de monitoreo que capturen muestras ecológicamente representativas.
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Patrón Espacial</th><th>Escala</th><th>Impulsor Principal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Zonación arrecifal</td><td>Metros a kilómetros</td><td>Profundidad, energía de olas, luz, sedimento</td></tr>
+          <tr><td>Gradiente del corredor</td><td>Cientos de kilómetros</td><td>Presión pesquera, calidad agua, AMPs</td></tr>
+          <tr><td>Decaimiento con distancia</td><td>Regional a cuenca</td><td>Conectividad larvaria, barreras de corriente</td></tr>
+          <tr><td>Contraste AMP vs. no-AMP</td><td>Sitio a paisaje marino</td><td>Nivel de protección, cumplimiento, edad</td></tr>
+          <tr><td>Estratificación por profundidad</td><td>Metros verticales</td><td>Atenuación de luz, temperatura, presión</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Mesoamerican Reef corridor is a 1,000-kilometer natural laboratory for studying biological spatial patterns across scales. The same reef system — same coral species, same current regime, same geological substrate — runs through eight countries with radically different fishing regulations, population densities, and MPA coverage, producing ecologically distinct reef communities at the landscape scale despite shared regional identity.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Reef zonation along the MAR — the hookah depth window:</strong> The Rim Run™ hookah system (3–18 m operational range) covers exactly the two most ecologically critical reef zones: the reef flat/crest (0–5 m) and the shallow forereef (5–20 m). These zones contain the highest live coral cover, the highest fish species richness, and the greatest ecological sensitivity to bleaching and human disturbance. The hookah system is not a compromise — it is optimally matched to the spatial zones where biological survey data is most needed and most scientifically valuable across the MAR corridor.</li>
+        <li><strong>The fishing pressure gradient — Guatemala and Nicaragua:</strong> The most dramatic spatial contrast in the Rim Run Caribe™ circuit is between Belize (strong MPA network, relatively high coral cover 35–45% at protected sites) and Guatemala and Nicaragua (minimal MPA coverage, heavily fished, coral cover typically 15–25% at comparable depths). This gradient is not primarily driven by physical oceanographic differences — water temperature, current, and light regimes are similar. It is driven by the spatial pattern of human pressure. The GROAN cross-country comparison makes this gradient visible in data that no single-country monitoring program could produce.</li>
+        <li><strong>Bocas del Toro — spatial contrast within a single system:</strong> Within the Bocas del Toro archipelago in Panama, coral cover varies from 5–15% in the enclosed inner bays (high thermal stress, hypoxia events, sedimentation) to 30–45% on exposed outer reef sections facing the open Caribbean. This 20–30 percentage point difference within a 10-kilometer radius is driven by spatial variation in water circulation — a textbook example of fine-scale reef zonation shaped by bathymetry and hydrodynamics rather than fishing or management differences.</li>
+        <li><strong>MPA vs. non-MPA spatial contrast — the Belize evidence:</strong> Hol Chan Marine Reserve (designated 1987) shows consistently higher coral cover, fish biomass, and apex predator density than comparable unprotected reef sections 5 km away — a spatial contrast that has been building for nearly 40 years. The Glover's Reef Marine Reserve shows grouper biomass 4–6x higher than fished sites at equivalent depth on the same atoll. These paired spatial comparisons — protected vs. unprotected at the same depth, same coral community, same physical environment — provide the strongest available evidence for MPA effectiveness and are a primary output of the CCRA monitoring program.</li>
+        <li><strong>Distance decay across the 11-country circuit:</strong> Fish community composition at Banco Chinchorro (Mexico) and San Blas (Panama) — both on the same reef system, 1,500 km apart — share approximately 60% of fish species but differ significantly in relative abundance, community structure, and dominant functional groups. This distance decay pattern reflects the cumulative effect of current barriers, local fishing pressure gradients, and larval supply differences across the length of the circuit. Quantifying this decay across the full Rim Run Caribe™ dataset will produce one of the first empirical distance-decay curves for the full MAR corridor fish community.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin:12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El corredor del Arrecife Mesoamericano es un laboratorio natural de 1,000 kilómetros para estudiar patrones espaciales biológicos a múltiples escalas. El mismo sistema arrecifal atraviesa ocho países con regulaciones pesqueras, densidades de población y coberturas de AMPs radicalmente diferentes, produciendo comunidades arrecifales ecológicamente distintas a escala de paisaje.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Zonación arrecifal — la ventana de profundidad del hookah:</strong> El sistema hookah del Rim Run™ (rango operativo 3–18 m) cubre exactamente las dos zonas arrecifales más críticas ecológicamente: la plataforma/cresta arrecifal (0–5 m) y el arrecife frontal somero (5–20 m). Estas zonas contienen la mayor cobertura de coral vivo, la mayor riqueza de especies de peces y la mayor sensibilidad ecológica al blanqueamiento y la perturbación humana.</li>
+        <li><strong>El gradiente de presión pesquera — Guatemala y Nicaragua:</strong> El contraste espacial más dramático en el circuito es entre Belice (red de AMPs sólida, cobertura de coral 35–45% en sitios protegidos) y Guatemala y Nicaragua (cobertura mínima de AMPs, muy explotados, cobertura de coral típicamente 15–25%). Este gradiente no está impulsado principalmente por diferencias oceanográficas físicas — está impulsado por el patrón espacial de la presión humana.</li>
+        <li><strong>Bocas del Toro — contraste espacial dentro de un solo sistema:</strong> Dentro del archipiélago de Bocas del Toro, la cobertura de coral varía de 5–15% en las bahías interiores cerradas a 30–45% en secciones de arrecife exterior expuestas, una diferencia de 20–30 puntos porcentuales dentro de un radio de 10 kilómetros impulsada por variación espacial en la circulación del agua.</li>
+        <li><strong>Contraste espacial AMP vs. no-AMP — la evidencia de Belice:</strong> La Reserva Marina Hol Chan muestra consistentemente mayor cobertura de coral, biomasa de peces y densidad de depredadores apex que secciones arrecifales no protegidas comparables a 5 km de distancia — un contraste espacial que se ha acumulado durante casi 40 años.</li>
+        <li><strong>Decaimiento con la distancia en el circuito de 11 países:</strong> La comunidad de peces en Banco Chinchorro (México) y San Blas (Panamá) — 1,500 km de distancia — comparten aproximadamente el 60% de las especies de peces pero difieren significativamente en estructura comunitaria. Cuantificar este decaimiento a lo largo del conjunto de datos completo del Rim Run Caribe™ producirá una de las primeras curvas empíricas de decaimiento con la distancia para la comunidad de peces del corredor del SAM.</li>
+      </ul>
+    </div>
+
+    <!-- MCQ -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A CCRA observer surveys three depth zones at the same MAR reef site: 3 m (reef flat), 10 m (shallow forereef), and 25 m (deep forereef). Coral cover is 18%, 44%, and 22% respectively. Which zone shows maximum coral cover and why?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 3 m — shallowest depth receives most light, maximizing coral photosynthesis</li>
+            <li><span class="opt-letter">B.</span> 10 m shallow forereef — optimal balance of light availability, wave energy, and reduced thermal stress compared to the surface zone</li>
+            <li><span class="opt-letter">C.</span> 25 m deep forereef — lower temperature protects coral from bleaching</li>
+            <li><span class="opt-letter">D.</span> All zones should have equal coral cover if surveyed on the same reef</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The shallow forereef (5–20 m) typically shows peak coral cover: sufficient light for zooxanthellae photosynthesis, reduced wave stress compared to the reef crest, and lower thermal variability than the surface. The reef flat at 3 m experiences high wave energy and thermal stress that limits coral settlement and survival.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un observador de la CCRA censó tres zonas de profundidad en el mismo sitio arrecifal: 3 m (plataforma arrecifal), 10 m (arrecife frontal somero) y 25 m (arrecife frontal profundo). La cobertura de coral es 18%, 44% y 22% respectivamente. ¿Qué zona muestra la máxima cobertura de coral y por qué?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 3 m — la profundidad más superficial recibe más luz, maximizando la fotosíntesis del coral</li>
+            <li><span class="opt-letter">B.</span> 10 m arrecife frontal somero — equilibrio óptimo entre disponibilidad de luz, energía de olas y menor estrés térmico en comparación con la zona superficial</li>
+            <li><span class="opt-letter">C.</span> 25 m arrecife frontal profundo — la menor temperatura protege el coral del blanqueamiento</li>
+            <li><span class="opt-letter">D.</span> Todas las zonas deben tener igual cobertura de coral en el mismo arrecife</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El arrecife frontal somero (5–20 m) típicamente muestra la máxima cobertura de coral: luz suficiente para la fotosíntesis, menor estrés de olas que la cresta, y menor variabilidad térmica que la superficie.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 GROAN data from the Rim Run Caribe™ circuit shows coral cover averaging 41% in Honduras Bay Islands versus 18% in Nicaragua's Pearl Cays, at the same depth and reef type. Physical oceanographic conditions (temperature, current, light) are nearly identical. What is the most likely explanation for this spatial contrast?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Honduras has naturally higher coral recruitment rates due to genetic differences in coral populations</li>
+            <li><span class="opt-letter">B.</span> Differential fishing pressure and MPA coverage — Honduras Bay Islands have established marine reserves and dive tourism generating conservation incentives; Nicaragua's Pearl Cays have minimal protection and high artisanal fishing pressure</li>
+            <li><span class="opt-letter">C.</span> Nicaragua receives more hurricane damage due to its more southerly position</li>
+            <li><span class="opt-letter">D.</span> Honduras reefs are younger and therefore have higher coral cover as they have not yet been depleted</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — When physical environment is controlled (same depth, same reef type, similar oceanographic conditions), spatial differences in coral cover are most strongly driven by human pressure gradients — fishing intensity and MPA effectiveness. This is precisely the cross-country spatial comparison that only the full Rim Run circuit dataset can produce.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Los datos GROAN del circuito Rim Run Caribe™ muestran una cobertura de coral promedio de 41% en las Islas de la Bahía de Honduras versus 18% en los Cayos Perlas de Nicaragua, a la misma profundidad y tipo de arrecife. Las condiciones oceanográficas físicas son casi idénticas. ¿Cuál es la explicación más probable?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Honduras tiene tasas de reclutamiento de coral naturalmente más altas debido a diferencias genéticas</li>
+            <li><span class="opt-letter">B.</span> Diferencial de presión pesquera y cobertura de AMPs — las Islas de la Bahía tienen reservas marinas establecidas; los Cayos Perlas tienen protección mínima y alta presión de pesca artesanal</li>
+            <li><span class="opt-letter">C.</span> Nicaragua recibe más daño de huracanes por su posición más al sur</li>
+            <li><span class="opt-letter">D.</span> Los arrecifes de Honduras son más jóvenes y por lo tanto tienen mayor cobertura</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Cuando el ambiente físico está controlado, las diferencias espaciales en cobertura de coral están más fuertemente impulsadas por gradientes de presión humana — intensidad pesquera y efectividad de las AMPs.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A CCRA observer finds that fish community composition at their site in northern Belize shares 85% of species with a site 20 km away, but only 58% with a comparable site in Panama 1,400 km away. This pattern is an example of what ecological concept, and what does it imply for the CCRA monitoring network design?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Reef zonation — different depths between the sites explain the species difference</li>
+            <li><span class="opt-letter">B.</span> Distance decay of community similarity — nearby sites are more ecologically similar than distant ones; the monitoring network must include sites across the full geographic range of the corridor to capture the full biodiversity gradient</li>
+            <li><span class="opt-letter">C.</span> Observer bias — the lower similarity score with Panama reflects inconsistent survey methodology between countries</li>
+            <li><span class="opt-letter">D.</span> Competitive exclusion — species present in Belize actively prevent Panama species from colonizing northern sites</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Distance decay of biological similarity is a fundamental spatial pattern. The implication for CCRA network design is critical: monitoring only the northern MAR (Mexico, Belize) would miss the distinct reef communities of Panama and Colombia. The 11-country circuit is not redundant — it is spatially necessary to capture the full biodiversity gradient of the corridor.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un observador de la CCRA encuentra que la composición de la comunidad de peces en su sitio en el norte de Belice comparte el 85% de las especies con un sitio a 20 km, pero solo el 58% con un sitio comparable en Panamá a 1,400 km. Este patrón es un ejemplo de qué concepto ecológico y qué implica para el diseño de la red de monitoreo de la CCRA?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Zonación arrecifal — diferentes profundidades entre sitios explican la diferencia de especies</li>
+            <li><span class="opt-letter">B.</span> Decaimiento con la distancia de la similitud comunitaria — los sitios cercanos son más similares ecológicamente que los distantes; la red de monitoreo debe incluir sitios en todo el rango geográfico del corredor para capturar el gradiente completo de biodiversidad</li>
+            <li><span class="opt-letter">C.</span> Sesgo del observador — la menor puntuación de similitud con Panamá refleja metodología de censo inconsistente</li>
+            <li><span class="opt-letter">D.</span> Exclusión competitiva — las especies de Belice impiden activamente que las especies de Panamá colonicen sitios del norte</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El decaimiento con la distancia es un patrón espacial fundamental. La implicación para el diseño de la red CCRA es crítica: monitorear solo el SAM norte perdería las comunidades arrecifales distintas de Panamá y Colombia. El circuito de 11 países es espacialmente necesario para capturar el gradiente completo de biodiversidad.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 03 · Lesson 13 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S03 · L13 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
