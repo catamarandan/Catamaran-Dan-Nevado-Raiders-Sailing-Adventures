@@ -52,10 +52,8 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 .card h4{color:var(--gold);margin:0 0 0.5rem;font-family:'Josefin Sans',sans-serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;}
 .card p{margin:0;font-size:0.95rem;}
 
-/* card role label */
 .card-role{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.5rem;}
 
-/* primary card spans full width, gold accent */
 .card.card-primary{border-color:rgba(201,168,76,0.5);border-left:3px solid var(--gold);background:rgba(14,77,110,0.28);grid-column:1 / -1;}
 .card.card-primary .card-role{color:var(--gold);}
 .card.card-primary h4{font-size:1rem;}
@@ -123,6 +121,26 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 .cta-link{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#080c14;background:var(--gold);padding:0.75rem 2rem;text-decoration:none;transition:background 0.2s,color 0.2s;}
 .cta-link:hover{background:var(--aqua);}
 
+/* BEYOND THE MAP — new section styles */
+.gap-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:2rem 0;}
+.gap-col{padding:1.5rem;border:1px solid var(--card-border);background:var(--card-bg);}
+.gap-col-label{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.8rem;}
+.gap-col h4{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--parchment);margin:0 0 0.6rem;}
+.gap-col p{font-size:0.88rem;color:var(--fog);margin:0;}
+.gap-col.gap-groan{border-color:rgba(201,168,76,0.5);border-top:3px solid var(--gold);background:rgba(14,77,110,0.28);}
+.gap-col.gap-groan .gap-col-label{color:var(--gold);}
+.gap-col.gap-groan h4{color:var(--gold);}
+.gap-col.gap-groan p{color:var(--parchment);}
+
+.source-flow{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.5rem 0;align-items:center;}
+.source-chip{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid var(--card-border-aqua);color:var(--aqua);background:rgba(41,176,212,0.08);}
+.source-arrow{color:var(--gold);font-size:1rem;padding:0 0.2rem;}
+.source-chip.chip-output{border-color:rgba(201,168,76,0.5);color:var(--gold);background:rgba(201,168,76,0.1);font-weight:600;}
+
+.cordap-callout{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.4);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin:2rem 0;}
+.cordap-callout .cordap-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.cordap-callout p{margin:0;font-size:0.95rem;}
+
 /* footer */
 .site-footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(201,168,76,0.15);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.15em;color:var(--fog);}
 .site-footer img{display:block;margin:0 auto 1.2rem;opacity:0.7;height:40px;}
@@ -141,6 +159,7 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
   .formula-display{font-size:1rem;}
   .stat-row{grid-template-columns:repeat(3,1fr);}
   .card.card-primary{grid-column:auto;}
+  .gap-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -179,11 +198,11 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
     <div class="section-label">Field Research</div>
     <h1>GROAN&#8482; &mdash; <em>Global Reef &amp; Ocean Analytics Network</em></h1>
     <div class="gold-rule"></div>
-    <div class="research objectives -statement">
+    <div class="thesis-statement">
       This research proves that cross-ecosystem causal intelligence &mdash; produced by the Cross-Module Interaction Engine (CMIE) &mdash; enables decisions about ocean systems that single-ecosystem monitoring frameworks are structurally incapable of generating. GROAN is a decision system. Monitoring is its input process. The engine is the mechanism by which better data becomes better decisions.
     </div>
     <p>
-      GROAN has been in independent development for 18 months &mdash; conceived and built prior to any institutional affiliation, without a supervisor, without funding, and without an academic framework. What began as a recreational pursuit is now developing into a formal field research initiative, with the system architecture still in progress and expanding toward larger scientific goals. 
+      GROAN has been in independent development for 18 months &mdash; conceived and built prior to any institutional affiliation, without a supervisor, without funding, and without an academic framework. What began as a recreational pursuit is now developing into a formal field research initiative, with the system architecture still in progress and expanding toward larger scientific goals.
     </p>
   </div>
 </section>
@@ -211,8 +230,78 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 </section>
 
 
-<!-- FIVE LEVELS -->
+<!-- BEYOND THE MAP — NEW SECTION -->
 <section>
+  <div class="container">
+    <div class="section-label">The Data Gap</div>
+    <h2>Beyond the Map &mdash; <em>Why Existing Tools Are Not Enough</em></h2>
+    <div class="gold-rule"></div>
+    <p>
+      The world already has exceptional reef monitoring tools. The Allen Coral Atlas maps benthic habitat and geomorphic structure across every shallow tropical reef on Earth. NOAA Coral Reef Watch delivers daily thermal stress and bleaching alerts globally. Global Fishing Watch tracks fishing pressure across 70,000 AIS-broadcasting vessels in near real time. Copernicus Marine delivers salinity, currents, and mixed layer depth. NASA Ocean Color quantifies chlorophyll-a concentration at 4km resolution. These are world-class scientific products. GROAN uses all twelve of them.
+    </p>
+    <p>
+      But each of these tools answers a single question about a single variable. None of them answers the question that reef managers, conservation planners, and intervention teams actually need answered: <em>given everything happening across this reef system right now, what is the correct action, and why?</em>
+    </p>
+
+    <div class="gap-grid">
+      <div class="gap-col">
+        <div class="gap-col-label">What Existing Tools Provide</div>
+        <h4>Classification &amp; Monitoring</h4>
+        <p>Allen Coral Atlas tells you what kind of reef structure exists at a site. NOAA CRW tells you how thermally stressed it is. GFW tells you how heavily it is fished. Each tool answers its own question accurately. None of them speaks to the others.</p>
+      </div>
+      <div class="gap-col">
+        <div class="gap-col-label">What Is Missing</div>
+        <h4>Integration &amp; Causation</h4>
+        <p>No existing platform integrates these signals into a single causal picture. A reef crest scoring 10 on structural integrity means nothing if DHW is at 8, herbivore biomass is critically depleted, and upstream mangrove loss is driving the trophic collapse. That compound signal does not exist in any single tool.</p>
+      </div>
+      <div class="gap-col gap-groan">
+        <div class="gap-col-label">What GROAN Produces</div>
+        <h4>Decision Intelligence</h4>
+        <p>GROAN integrates 12 data sources simultaneously &mdash; structural baseline, thermal stress, fishing pressure, water quality, in-water field observations &mdash; into a cross-ecosystem Decision Score with a ranked intervention output. The map is one input. The decision is the output.</p>
+      </div>
+    </div>
+
+    <p>The distinction is architectural, not incremental. A monitoring tool tells you the state of a system. A decision system tells you what to do about it and why. GROAN is the latter &mdash; the integration layer that the monitoring tools were never designed to be.</p>
+
+    <div class="section-label" style="margin-top:2.5rem;">How the 12 Sources Feed One Decision</div>
+    <div class="source-flow">
+      <span class="source-chip">Allen Coral Atlas</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">NOAA CRW</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">Global Fishing Watch</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">Copernicus Marine</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">NASA Chl-a</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">HRI / AGRRA</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">AIMS LTMP</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">eReefs CSIRO</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">KAUST / CORDAP</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">CRW Virtual Stations</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">WaveWatch III</span>
+      <span class="source-arrow">+</span>
+      <span class="source-chip">Field Obs (GRIN)</span>
+      <span class="source-arrow">&rarr;</span>
+      <span class="source-chip chip-output">Decision Score + Intervention</span>
+    </div>
+
+    <div class="cordap-callout">
+      <div class="cordap-label">CORDAP Alignment</div>
+      <p>In 2026, CORDAP &mdash; the G20 Coral Research &amp; Development Accelerator Platform, hosted at KAUST &mdash; launched a USD $1.5 million call for exactly this: an AI-powered Decision Support System capable of integrating scientific data, environmental monitoring, and advanced analytics into practical guidance for reef managers worldwide. GROAN was already built to fill that gap. The call confirmed the gap exists. The system is the answer.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- FIVE LEVELS -->
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
   <div class="container">
     <div class="section-label">System Architecture</div>
     <h2>GROAN &mdash; <em>Five Decision Levels</em></h2>
@@ -222,14 +311,14 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
       <div class="level-item">
         <div class="level-badge">L5</div>
         <div class="level-name">META-LAYER</div>
-        <div class="level-desc">System-of-systems orchestration &mdash; 12 segments governing priority, resource arbitration, temporal and spatial coordination, conflict resolution, and global governance. Compliance function C(D) ∈ {0,1} formalizes decision authority.</div>
+        <div class="level-desc">System-of-systems orchestration &mdash; 12 segments governing priority, resource arbitration, temporal and spatial coordination, conflict resolution, and global governance. Compliance function C(D) &isin; {0,1} formalizes decision authority.</div>
       </div>
       <div class="level-item">
         <div class="level-badge">L4</div>
         <div class="level-name">DMAP-CAL&#8482;</div>
         <div class="level-desc">Decision Modeling, Analysis, and Probabilistic Control &mdash; Adaptive Logic. 22-segment mathematical decision engine: multi-objective Pareto optimization, Hamiltonian optimal control, Bellman dynamic programming, Kalman filtering, reinforcement learning.</div>
       </div>
-      <div class="level-item objective-core">
+      <div class="level-item thesis-core">
         <div class="level-badge">L3</div>
         <div class="level-name">CMIE</div>
         <div class="level-desc">Cross-Module Interaction Engine. Detects causal relationships between ecosystems in real time. Produces the cross-ecosystem intelligence that changes the decision. This is the objective core contribution &mdash; 10 segments, mathematically complete.</div>
@@ -254,7 +343,7 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 
 
 <!-- PROOF OF CONCEPT -->
-<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+<section>
   <div class="container">
     <div class="section-label">Proof of Concept</div>
     <h2>The Same Data. <em>A Different Decision.</em></h2>
@@ -312,7 +401,7 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 
 
 <!-- DECISION SCORE -->
-<section>
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
   <div class="container">
     <div class="section-label">The Mathematics</div>
     <h2>The Decision Score <em>Formula</em></h2>
@@ -343,7 +432,7 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 
 
 <!-- EMPIRICAL PLATFORM -->
-<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+<section>
   <div class="container">
     <div class="section-label">Empirical Foundation</div>
     <h2>A System with <em>a Launch Date</em></h2>
@@ -368,78 +457,73 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
         <div class="status">&#9679; Active engagement &mdash; correspondence established</div>
       </div>
       <div class="engagement-card">
-        <div class="inst">KAUST &mdash; Red Sea Research Center</div>
-        <div class="name">Alexandra Steckbauer</div>
-        <div class="role">Red Sea Research Center &mdash; ocean acidification and coral physiology</div>
-        <div class="status">&#9679; Identified collaboration target</div>
+        <div class="inst">KAUST / CORDAP</div>
+        <div class="name">Dr. Haiwei Luo</div>
+        <div class="role">KAUST Red Sea Research Center &mdash; GSIN Red Sea proof-of-concept operational contact</div>
+        <div class="status">&#9679; Active engagement &mdash; correspondence established</div>
       </div>
       <div class="engagement-card">
-        <div class="inst">CORDAP / KAUST</div>
-        <div class="name">Justo Cebrian</div>
-        <div class="role">Marine science &mdash; King Abdul Aziz Naval Base connection</div>
-        <div class="status">&#9679; Identified collaboration target</div>
+        <div class="inst">NCAR / UCAR</div>
+        <div class="name">Dr. Joanie Kleypas</div>
+        <div class="role">Ocean acidification and coral reef science &mdash; active Costa Rica researchers</div>
+        <div class="status">&#9679; Warm hold &mdash; website update list</div>
       </div>
     </div>
 
     <p style="margin-top:2rem;">
-      The Mesoamerican Reef is GROAN's primary research environment &mdash; where the Rim Run&#8482; generates original field data annually and where the doctoral thesis Caribbean cascade proof-of-concept is grounded. The Red Sea (KAUST), Great Barrier Reef (AIMS), and Coral Triangle (CTI) provide comparative reference data: existing monitored environments that GROAN draws on to demonstrate that cross-ecosystem causal intelligence produces better decisions across different ocean basins, thermal regimes, and governance structures &mdash; not just in the Caribbean.
+      The Mesoamerican Reef is GROAN's primary research environment &mdash; where the Rim Run&#8482; generates original field data annually and where the Caribbean cascade proof-of-concept is grounded. The Red Sea (KAUST), Great Barrier Reef (AIMS), and Coral Triangle (CTI) provide comparative reference data: existing monitored environments that GROAN draws on to demonstrate that cross-ecosystem causal intelligence produces better decisions across different ocean basins, thermal regimes, and governance structures &mdash; not just in the Caribbean.
     </p>
   </div>
 </section>
 
 
 <!-- PRIMARY SITE + COMPARATIVE FRAMEWORK -->
-<section>
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
   <div class="container">
     <div class="section-label">Research Environments</div>
     <h2>One Primary Field Site. <em>Three Comparative Frameworks.</em></h2>
     <div class="gold-rule"></div>
     <p>
-      The Mesoamerican Reef is where the doctoral research happens in the field. The Red Sea, Great Barrier Reef, and Coral Triangle are where the comparative data comes from &mdash; existing monitored environments that GROAN draws on to demonstrate that cross-ecosystem causal intelligence is not specific to one ocean basin, one thermal regime, or one governance structure. Same architecture. Demonstrably better decisions across all four.
+      The Mesoamerican Reef is where the research happens in the field. The Red Sea, Great Barrier Reef, and Coral Triangle are where the comparative data comes from &mdash; existing monitored environments that GROAN draws on to demonstrate that cross-ecosystem causal intelligence is not specific to one ocean basin, one thermal regime, or one governance structure. Same architecture. Demonstrably better decisions across all four.
     </p>
 
     <div class="card-grid">
-
       <div class="card card-primary">
         <div class="card-role">Primary Research Site</div>
         <h4>Caribbean &mdash; Mesoamerican Reef</h4>
-        <p>The doctoral research field environment. The Rim Run&#8482; operates 1,500+ nautical miles of the Mesoamerican Reef system annually &mdash; 7 countries, 100+ reef sites, zero carbon. This is where original field data is generated, where the CORDAP Caribbean cascade proof-of-concept runs (GMIN&rarr;GMAIN&rarr;GRIN), and where GROAN's decision intelligence is validated against real-world reef management outcomes year after year. The Caribbean is not one of GROAN's reference environments. It is the research site.</p>
+        <p>The field research environment. The Rim Run&#8482; operates 1,500+ nautical miles of the Mesoamerican Reef system annually &mdash; 7 countries, 100+ reef sites, zero carbon. This is where original field data is generated, where the CORDAP Caribbean cascade proof-of-concept runs (GMIN&rarr;GMAIN&rarr;GRIN), and where GROAN's decision intelligence is validated against real-world reef management outcomes year after year. The Caribbean is not one of GROAN's reference environments. It is the research site.</p>
       </div>
-
       <div class="card">
         <div class="card-role">Comparative Reference Data</div>
         <h4>Red Sea &mdash; KAUST</h4>
-        <p>KAUST's Red Sea Research Center provides existing sensor networks and multi-ecosystem monitoring data across one of the world's most thermally stressed marine systems. GROAN draws on this data to run the seagrass-bleaching amplification proof-of-concept &mdash; demonstrating that cross-module causal intelligence produces better decisions in a different ocean basin under a different thermal regime. Active institutional engagement: Dr. Maheshwar Gummalla, CORDAP Program Manager.</p>
+        <p>KAUST's Red Sea Research Center provides existing sensor networks and multi-ecosystem monitoring data across one of the world's most thermally stressed marine systems. GROAN draws on this data to run the seagrass-bleaching amplification proof-of-concept &mdash; demonstrating that cross-module causal intelligence produces better decisions in a different ocean basin under a different thermal regime. Active institutional engagement: Dr. Maheshwar Gummalla and Dr. Haiwei Luo, KAUST/CORDAP.</p>
       </div>
-
       <div class="card">
         <div class="card-role">Comparative Reference Data</div>
         <h4>Great Barrier Reef &mdash; AIMS / GBRMPA</h4>
-        <p>The world's most extensively documented reef system. AIMS's Long-Term Monitoring Program provides 35+ years of continuous reef health data &mdash; the largest validated reef dataset in existence. The 2016, 2017, 2020, and 2022 mass bleaching events are fully documented and scientifically published. GROAN uses GBR data for retrospective validation: running the CMIE cascade analysis against known historical outcomes to verify that the causal inference is correct. The GBR doesn't need GROAN to tell it what happened. That's exactly what makes it the right place to prove that GROAN's decisions are.</p>
+        <p>The world's most extensively documented reef system. AIMS's Long-Term Monitoring Program provides 35+ years of continuous reef health data &mdash; the largest validated reef dataset in existence. GROAN uses GBR data for retrospective validation: running the CMIE cascade analysis against known historical outcomes to verify that the causal inference is correct. The GBR doesn't need GROAN to tell it what happened. That's exactly what makes it the right place to prove that GROAN's decisions are.</p>
       </div>
-
       <div class="card">
         <div class="card-role">Comparative Reference Data</div>
         <h4>Coral Triangle &mdash; CTI</h4>
         <p>Indo-Pacific. 76% of all coral species. 6 nations. The most biodiverse marine region on Earth provides the scale validation test: does GROAN's cross-ecosystem causal architecture hold across maximum biodiversity, maximum governance complexity, and a fundamentally different ocean basin? Coral Triangle Initiative identified as third institutional partner target.</p>
       </div>
-
     </div>
   </div>
 </section>
 
 
 <!-- CANDIDATE -->
-<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+<section>
   <div class="container">
-    <div class="section-label">The Candidate</div>
+    <div class="section-label">The Researcher</div>
     <h2>Daniel Roe &mdash; <em>Independent Scholar</em></h2>
     <div class="gold-rule"></div>
     <p>
-      GROAN was not commissioned, funded, or assigned. It was built independently over 18 months by one person &mdash; out of genuine curiosity about whether a unified ocean decision intelligence system was theoretically coherent and practically buildable. No institution. No supervisor. No research grant. Just sustained, self-directed investigation. The decision to formalize this as a PhD came after the framework was already substantially developed.
+      GROAN was not commissioned, funded, or assigned. It was built independently over 18 months by one person &mdash; out of genuine curiosity about whether a unified ocean decision intelligence system was theoretically coherent and practically buildable. No institution. No supervisor. No research grant. Just sustained, self-directed investigation.
     </p>
     <p>
-      This origin has direct academic implications. The thesis has an unusually complete conceptual foundation. Intellectual ownership is unambiguous. The question of independent scholarly contribution is answered by the history of the work. And the institutional partners being approached &mdash; KAUST, CORDAP, CTI &mdash; are being invited into something already coherent, not something speculative.
+      This origin has direct implications for any potential collaboration. The system has an unusually complete conceptual foundation. Intellectual ownership is unambiguous &mdash; all GROAN content, IP, and materials are owned by Nevado Ranch Camp LLC. The institutional partners being approached are being invited into something already coherent, not something speculative.
     </p>
     <div class="cred-row">
       <span class="cred-tag">USCG 200-Ton Master</span>
@@ -453,19 +537,19 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
       <span class="cred-tag">Reef Check EcoDiver (Aug 2026)</span>
     </div>
     <p style="margin-top:2rem;font-size:0.9rem;color:var(--fog);font-style:italic;">
-      Currently seeking a PhD supervisor with expertise in marine systems informatics, computational ocean science, environmental decision systems, or coupled marine ecosystem modeling. Institutional affiliation is open. The system deploys October 2026 regardless.
+      Currently seeking research collaborators, institutional data partners, and field science supporters. The system deploys October 2026 regardless.
     </p>
   </div>
 </section>
 
 
 <!-- CTA -->
-<section>
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
   <div class="container">
     <div class="cta-block">
-      <h3>Supervise or Collaborate</h3>
-      <p>If you are a researcher, supervisor, or institution working in marine systems science, ocean informatics, causal inference in ecology, or related fields &mdash; and you see what GROAN is attempting to prove &mdash; this is an invitation to be part of it from the beginning.</p>
-      <a class="cta-link" href="mailto:nevadoraiders@gmail.com?subject=GROAN%20PhD%20Inquiry">Get in Touch</a>
+      <h3>Collaborate or Partner</h3>
+      <p>If you are a researcher, institution, or conservation organization working in marine systems science, ocean informatics, causal inference in ecology, or related fields &mdash; and you see what GROAN is attempting to prove &mdash; this is an invitation to be part of it from the beginning.</p>
+      <a class="cta-link" href="mailto:nevadoraiders@gmail.com?subject=GROAN%20Collaboration%20Inquiry">Get in Touch</a>
       <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--fog);">
         Daniel Roe &nbsp;&bull;&nbsp; nevadoraiders@gmail.com &nbsp;&bull;&nbsp; (928) 250-9763
       </p>
@@ -475,32 +559,18 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
 
 
 <footer style="background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6;">
-
-  <!-- BRAND -->
-  <div class="footer-logo">
-    Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;
-  </div>
-  <div class="footer-tagline">
-    "As go the seas… so goes humanity."
-  </div>
-
-  <!-- CONTACT -->
+  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
+  <div class="footer-tagline">"As go the seas… so goes humanity."</div>
   <div class="footer-contact" style="margin:10px 0;">
     Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff; text-decoration:none;">
-      nevadoraiders@gmail.com
-    </a>
+    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff; text-decoration:none;">nevadoraiders@gmail.com</a>
     &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ
     &nbsp;&bull;&nbsp; www.catamarandan.org
   </div>
-
-  <!-- COPYRIGHT + LINK -->
   <div style="margin-top:15px; font-weight:bold;">
     &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
     | <a href="intellectualproperty.html" style="color:#4db8ff; text-decoration:none;">Intellectual Property</a>
   </div>
-
-  <!-- TRADEMARKS -->
   <div style="margin:5px 0;">
     GROAN&#8482;, Rim Run&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
     GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;,
@@ -509,27 +579,18 @@ h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
     and all associated names, marks, and identifiers are trademarks or proprietary
     designations of Nevado Ranch Camp LLC.
   </div>
-
-  <!-- FULL IP CLAIM -->
   <div>
     All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies,
     workflows, algorithms, decision-support processes, integration mechanisms, and all
     associated materials, whether documented or implied, are the exclusive intellectual
     property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.
   </div>
-
-  <!-- LEGAL PROTECTION -->
   <div style="margin-top:8px;">
     Unauthorized reproduction, use, distribution, modification, reverse engineering,
     extraction, or creation of derivative works from any portion of these systems or materials
     is strictly prohibited without prior written permission.
   </div>
-
-  <!-- NO LICENSE -->
-  <div style="margin-top:5px;">
-    No license, express or implied, is granted by access to this website or its contents.
-  </div>
-
+  <div style="margin-top:5px;">No license, express or implied, is granted by access to this website or its contents.</div>
 </footer>
 
 <script>
