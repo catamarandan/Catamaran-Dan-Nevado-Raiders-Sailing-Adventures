@@ -713,27 +713,28 @@
 </footer>
 
 <script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.footer-year').forEach(function(el){
+    el.textContent = new Date().getFullYear();
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('js-ready');
+    var els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function(el) { obs.observe(el); });
+    } else {
+      els.forEach(function(el) { el.classList.add('visible'); });
+    }
+  });
 </script>
 
-<!-- ================================================================
-     PAGES TO UPDATE (add footer to each):
-     index.html
-     rimrun.html
-     rimrun-caribe.html
-     rimrun-pac.html
-     lionfish.html
-     shieldmaiden.html
-     systems.html
-     science.html
-     decision-system.html
-     platform.html
-     learn.html
-     citizenscience.html
-     thelivingsaga.html
-     support.html
-     shop.html
-     gallery.html
-     about.html
-     intellectualproperty.html
+</body>
 </html>
