@@ -1227,9 +1227,10 @@
   </script>
 
 </body>
-  <!-- ================================================================
-     FOOTER — Add this block just before </body> on every page.
-     If a footer element already exists, replace it with this.
+ <!-- ================================================================
+     PASTE THIS BLOCK at the bottom of index.html.
+     DELETE everything from the first <!-- FOOTER comment
+     all the way to </html>, then paste this entire block.
      ================================================================ -->
 
 <footer style="
@@ -1248,38 +1249,37 @@
     max-width:800px;
     margin:0 auto;
   ">
-    &copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved.
-    GROAN&#8482;, DMAP-CAL&#8482;, Rim Run Caribe&#8482;, and all associated frameworks are
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved.
+    GROAN, DMAP-CAL, Rim Run Caribe, and all associated frameworks are
     proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753).
     &nbsp;|&nbsp;
-    <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal Notice &amp; Terms of Use</a>
-    &nbsp;|&nbsp;
-    <a href="/intellectualproperty.html" style="color:#c8cdd8;text-decoration:none;">Intellectual Property</a>
+    <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
 </footer>
 
 <script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.footer-year').forEach(function(el){
+    el.textContent = new Date().getFullYear();
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('js-ready');
+    var els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function(el) { obs.observe(el); });
+    } else {
+      els.forEach(function(el) { el.classList.add('visible'); });
+    }
+  });
 </script>
 
-<!-- ================================================================
-     PAGES TO UPDATE (add footer to each):
-     index.html
-     rimrun.html
-     rimrun-caribe.html
-     rimrun-pac.html
-     lionfish.html
-     shieldmaiden.html
-     systems.html
-     science.html
-     decision-system.html
-     platform.html
-     learn.html
-     citizenscience.html
-     thelivingsaga.html
-     support.html
-     shop.html
-     gallery.html
-     about.html
-     intellectualproperty.html
+</body>
 </html>
