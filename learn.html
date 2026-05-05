@@ -8,278 +8,71 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #081722;
-      --panel: #102b3d;
-      --line: #2b6283;
-      --text: #eef7fc;
-      --muted: #b8d7e8;
-      --accent: #4fc3dc;
-      --accent2: #79e3f1;
-      --gold: #c9a84c;
-      --ok: #8fe388;
-      --shadow: 0 10px 28px rgba(0,0,0,.28);
-      --radius: 18px;
-      --max: 1200px;
-      --cyan: #1ac8c8;
-      /* Site nav variables */
-      --nav-bg: #080c14;
-      --fog: #c8cdd8;
+      --bg:#081722;--panel:#102b3d;--line:#2b6283;--text:#eef7fc;--muted:#b8d7e8;
+      --accent:#4fc3dc;--accent2:#79e3f1;--gold:#c9a84c;--ok:#8fe388;
+      --shadow:0 10px 28px rgba(0,0,0,.28);--radius:18px;--max:1200px;--cyan:#1ac8c8;
+      --nav-bg:#080c14;--fog:#c8cdd8;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(79,195,220,.12), transparent 30%),
-        linear-gradient(180deg, #07131d 0%, #081722 35%, #0b1e2d 100%);
-      color: var(--text);
-      line-height: 1.55;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',Arial,sans-serif;background:radial-gradient(circle at top,rgba(79,195,220,.12),transparent 30%),linear-gradient(180deg,#07131d 0%,#081722 35%,#0b1e2d 100%);color:var(--text);line-height:1.55;}
+    a{color:var(--text);text-decoration:none;}
+    nav{background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
+    .nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+    nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;text-decoration:none;white-space:nowrap;}
+    nav a:hover{color:var(--gold);}
+    nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
+    .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+    .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.open span:nth-child(2){opacity:0;}
+    .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    @media(max-width:768px){
+      nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+      .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;padding:0.5rem 1.5rem 1rem;z-index:999;gap:0;}
+      .nav-links.open{display:flex;}
+      .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+      .nav-links a:last-child{border-bottom:none;}
+      .nav-toggle{display:flex;}
     }
-
-    a { color: var(--text); text-decoration: none; }
-
-    /* ── SITE NAV — matching all other pages ─────────────── */
-    nav {
-      background: var(--nav-bg);
-      border-bottom: 1px solid rgba(201,168,76,0.2);
-      padding: 1rem 2rem;
-      display: flex;
-      gap: 1.8rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(8px);
-      align-items: center;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.8rem;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--fog);
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.2rem 0;
-      border-bottom: 1px solid transparent;
-      transition: color 0.25s, border-color 0.25s;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    nav a:hover { color: var(--gold); }
-    nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
-
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.4rem;
-      flex-direction: column;
-      gap: 5px;
-      position: absolute;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--gold);
-      transition: all 0.3s ease;
-    }
-
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    @media (max-width: 768px) {
-      nav {
-        position: sticky;
-        top: 0;
-        flex-direction: row;
-        align-items: center;
-        padding: 0.8rem 1.5rem;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-      }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 52px;
-        left: 0;
-        right: 0;
-        background: var(--nav-bg);
-        border-bottom: 1px solid rgba(201,168,76,0.2);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0.5rem 1.5rem 1rem;
-        z-index: 999;
-        gap: 0;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a {
-        width: 100%;
-        padding: 0.65rem 0;
-        border-bottom: 1px solid rgba(201,168,76,0.08);
-        font-size: 0.82rem;
-      }
-      .nav-links a:last-child { border-bottom: none; }
-      .nav-toggle { display: flex; }
-    }
-
-    /* ── HERO ────────────────────────────────────────────── */
-    .hero {
-      position: relative; overflow: hidden;
-      border-bottom: 1px solid rgba(121,227,241,.14);
-    }
-    .hero::before {
-      content: ""; position: absolute; inset: 0;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.5)),
-        radial-gradient(circle at 20% 15%, rgba(79,195,220,.25), transparent 24%),
-        radial-gradient(circle at 80% 10%, rgba(255,209,102,.18), transparent 18%),
-        linear-gradient(180deg, #13364b 0%, #0d2536 42%, #081722 100%);
-    }
-    .hero-inner {
-      position: relative; max-width: var(--max); margin: 0 auto;
-      padding: 72px 20px 68px;
-    }
-    .hero-kicker {
-      display: inline-block; margin-bottom: 14px; padding: 7px 12px;
-      border: 1px solid rgba(121,227,241,.28); border-radius: 999px;
-      font-size: .84rem; color: var(--accent2); background: rgba(255,255,255,.03);
-    }
-    .hero h1 {
-      margin: 0 0 12px;
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      line-height: 1.1;
-    }
-    .hero p { max-width: 850px; color: var(--muted); font-size: 1.06rem; }
-
-    /* ── STATS BAR ───────────────────────────────────────── */
-    .stats-bar {
-      max-width: var(--max); margin: 0 auto;
-      padding: 24px 20px 4px;
-      display: flex; gap: 16px; flex-wrap: wrap;
-    }
-    .stat {
-      background: linear-gradient(135deg, rgba(20,56,79,.7), rgba(10,27,38,.8));
-      border: 1px solid rgba(26,200,200,0.15);
-      border-radius: 8px;
-      padding: 12px 22px;
-      display: flex; flex-direction: column; gap: 2px;
-    }
-    .stat-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 22px; font-weight: 500;
-      color: var(--cyan);
-    }
-    .stat-label {
-      font-size: 10px; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.12em;
-    }
-
-    /* ── MAIN ────────────────────────────────────────────── */
-    .main { max-width: var(--max); margin: 0 auto; padding: 24px 20px 60px; }
-
-    .section-block {
-      margin-bottom: 16px;
-      background: linear-gradient(180deg, rgba(16,43,61,.94), rgba(10,27,38,.96));
-      border: 1px solid rgba(121,227,241,.14);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .section-head {
-      padding: 16px 24px;
-      background: linear-gradient(90deg, rgba(26,200,200,0.07), rgba(26,200,200,0.02));
-      border-bottom: 1px solid rgba(121,227,241,.10);
-      display: flex; align-items: center; gap: 16px;
-      cursor: pointer; user-select: none;
-      transition: background 0.15s;
-    }
-    .section-head:hover {
-      background: linear-gradient(90deg, rgba(26,200,200,0.13), rgba(26,200,200,0.04));
-    }
-    .section-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px; letter-spacing: 0.2em;
-      color: var(--cyan); opacity: 0.65; flex-shrink: 0;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700;
-      color: #fff; flex: 1;
-    }
-    .section-progress { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .section-progress-bar {
-      width: 80px; height: 3px;
-      background: rgba(26,200,200,0.12);
-      border-radius: 2px; overflow: hidden;
-    }
-    .section-progress-fill {
-      height: 100%; background: var(--cyan);
-      border-radius: 2px; transition: width 0.3s;
-    }
-    .section-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); opacity: 0.5; }
-    .section-toggle { font-size: 16px; color: var(--cyan); opacity: 0.5; flex-shrink: 0; transition: transform 0.2s; }
-    .section-block.open .section-toggle { transform: rotate(180deg); }
-
-    .lesson-table { display: none; }
-    .section-block.open .lesson-table { display: block; }
-
-    .lesson-row {
-      display: grid;
-      grid-template-columns: 48px 1fr 100px;
-      align-items: center;
-      padding: 8px 24px;
-      border-bottom: 1px solid rgba(121,227,241,.04);
-      gap: 14px;
-      transition: background 0.12s;
-    }
-    .lesson-row:last-child { border-bottom: none; }
-    .lesson-row.live:hover { background: rgba(26,200,200,0.05); }
-
-    .lesson-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--cyan); opacity: 0.45; letter-spacing: 0.08em; }
-    .lesson-title-text { font-size: 13px; color: rgba(232,244,248,0.5); line-height: 1.4; }
-    .lesson-row.live .lesson-title-text { color: rgba(232,244,248,0.88); }
-    .lesson-row.live a:hover .lesson-title-text { color: var(--cyan); }
-
-    .lesson-badge {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 8px; border-radius: 2px;
-      text-align: center; justify-self: end;
-      white-space: nowrap;
-    }
-    .badge-live { background: rgba(143,227,136,0.1); border: 1px solid rgba(143,227,136,0.3); color: var(--ok); }
-    .badge-soon { background: transparent; border: 1px solid rgba(26,200,200,0.1); color: rgba(138,184,204,0.3); }
-
-    footer { background-color:#0b1e2d; color:#ffffff; padding:20px; text-align:center; font-size:14px; line-height:1.6; }
-    .footer-logo { font-family:'Cinzel',serif; font-size:1.1rem; font-weight:600; color:#f0e8d0; letter-spacing:0.1em; margin-bottom:1rem; }
-    .footer-tagline { font-style:italic; color:var(--gold); font-size:1rem; margin-bottom:1.5rem; }
-
-    @media(max-width: 700px) {
-      .lesson-row { grid-template-columns: 36px 1fr 76px; padding: 8px 14px; }
-      .section-head { padding: 14px 16px; gap: 10px; }
-      .section-progress-bar { width: 50px; }
+    .hero{position:relative;overflow:hidden;border-bottom:1px solid rgba(121,227,241,.14);}
+    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.5)),radial-gradient(circle at 20% 15%,rgba(79,195,220,.25),transparent 24%),radial-gradient(circle at 80% 10%,rgba(255,209,102,.18),transparent 18%),linear-gradient(180deg,#13364b 0%,#0d2536 42%,#081722 100%);}
+    .hero-inner{position:relative;max-width:var(--max);margin:0 auto;padding:72px 20px 68px;}
+    .hero-kicker{display:inline-block;margin-bottom:14px;padding:7px 12px;border:1px solid rgba(121,227,241,.28);border-radius:999px;font-size:.84rem;color:var(--accent2);background:rgba(255,255,255,.03);}
+    .hero h1{margin:0 0 12px;font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.6rem);line-height:1.1;}
+    .hero p{max-width:850px;color:var(--muted);font-size:1.06rem;}
+    .stats-bar{max-width:var(--max);margin:0 auto;padding:24px 20px 4px;display:flex;gap:16px;flex-wrap:wrap;}
+    .stat{background:linear-gradient(135deg,rgba(20,56,79,.7),rgba(10,27,38,.8));border:1px solid rgba(26,200,200,0.15);border-radius:8px;padding:12px 22px;display:flex;flex-direction:column;gap:2px;}
+    .stat-num{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--cyan);}
+    .stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;}
+    .main{max-width:var(--max);margin:0 auto;padding:24px 20px 60px;}
+    .section-block{margin-bottom:16px;background:linear-gradient(180deg,rgba(16,43,61,.94),rgba(10,27,38,.96));border:1px solid rgba(121,227,241,.14);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);}
+    .section-head{padding:16px 24px;background:linear-gradient(90deg,rgba(26,200,200,0.07),rgba(26,200,200,0.02));border-bottom:1px solid rgba(121,227,241,.10);display:flex;align-items:center;gap:16px;cursor:pointer;user-select:none;transition:background 0.15s;}
+    .section-head:hover{background:linear-gradient(90deg,rgba(26,200,200,0.13),rgba(26,200,200,0.04));}
+    .section-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--cyan);opacity:0.65;flex-shrink:0;}
+    .section-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;flex:1;}
+    .section-progress{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+    .section-progress-bar{width:80px;height:3px;background:rgba(26,200,200,0.12);border-radius:2px;overflow:hidden;}
+    .section-progress-fill{height:100%;background:var(--cyan);border-radius:2px;transition:width 0.3s;}
+    .section-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);opacity:0.5;}
+    .section-toggle{font-size:16px;color:var(--cyan);opacity:0.5;flex-shrink:0;transition:transform 0.2s;}
+    .section-block.open .section-toggle{transform:rotate(180deg);}
+    .lesson-table{display:none;}
+    .section-block.open .lesson-table{display:block;}
+    .lesson-row{display:grid;grid-template-columns:48px 1fr 100px;align-items:center;padding:8px 24px;border-bottom:1px solid rgba(121,227,241,.04);gap:14px;transition:background 0.12s;}
+    .lesson-row:last-child{border-bottom:none;}
+    .lesson-row.live:hover{background:rgba(26,200,200,0.05);}
+    .lesson-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--cyan);opacity:0.45;letter-spacing:0.08em;}
+    .lesson-title-text{font-size:13px;color:rgba(232,244,248,0.5);line-height:1.4;}
+    .lesson-row.live .lesson-title-text{color:rgba(232,244,248,0.88);}
+    .lesson-row.live a:hover .lesson-title-text{color:var(--cyan);}
+    .lesson-badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;text-align:center;justify-self:end;white-space:nowrap;}
+    .badge-live{background:rgba(143,227,136,0.1);border:1px solid rgba(143,227,136,0.3);color:var(--ok);}
+    .badge-soon{background:transparent;border:1px solid rgba(26,200,200,0.1);color:rgba(138,184,204,0.3);}
+    @media(max-width:700px){
+      .lesson-row{grid-template-columns:36px 1fr 76px;padding:8px 14px;}
+      .section-head{padding:14px 16px;gap:10px;}
+      .section-progress-bar{width:50px;}
     }
   </style>
 </head>
@@ -294,7 +87,7 @@
     <a href="rimrun.html">Rim Run&#8482;</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-    <a href="shieldmaiden.html">Sheild Maiden</a>
+    <a href="shieldmaiden.html">Shield Maiden</a>
     <a href="lionfish.html">Lion Hunter</a>
     <a href="systems.html">Systems</a>
     <a href="science.html">The Science</a>
@@ -307,7 +100,7 @@
     <a href="shop.html">Shop</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About</a>
-    <a href="legal.html">Legal</a> 
+    <a href="legal.html">Legal &amp; IP</a>
   </div>
 </nav>
 
@@ -315,9 +108,7 @@
   <div class="hero-inner">
     <div class="hero-kicker">Bilingual Reef Science &middot; EN / ES</div>
     <h1>Learn Along With Me/Aprende Conmigo</h1>
-    <p>
-      704 bilingual lessons across 22 sections — oceanography, reef science, and real-world coastal observation tied directly to the Mesoamerican Reef and the eleven-country Rim Run Caribe&#8482; corridor. New lessons are added as the expedition progresses. / 704 lecciones biling&uuml;es en 22 secciones — oceanograf&iacute;a, ciencias arrecifales y observaci&oacute;n costera del mundo real vinculadas directamente al Arrecife Mesoamericano y al corredor Rim Run Caribe&#8482; de once pa&iacute;ses. Se agregan nuevas lecciones a medida que avanza la expedici&oacute;n.
-    </p>
+    <p>704 bilingual lessons across 22 sections — oceanography, reef science, and real-world coastal observation tied directly to the Mesoamerican Reef and the eleven-country Rim Run Caribe&#8482; corridor. New lessons are added as the expedition progresses. / 704 lecciones biling&uuml;es en 22 secciones — oceanograf&iacute;a, ciencias arrecifales y observaci&oacute;n costera del mundo real vinculadas directamente al Arrecife Mesoamericano y al corredor Rim Run Caribe&#8482; de once pa&iacute;ses. Se agregan nuevas lecciones a medida que avanza la expedici&oacute;n.</p>
   </div>
 </header>
 
@@ -330,31 +121,35 @@
 
 <main class="main" id="curriculum"></main>
 
-<footer>
-  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
-  <div class="footer-tagline">"As go the seas… so goes humanity."</div>
-  <div style="margin:10px 0;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:#9aa0b0;">
-    Cell: (928) 250-9763 &nbsp;&bull;&nbsp;
-    <a href="mailto:nevadoraiders@gmail.com" style="color:#4db8ff;text-decoration:none;">nevadoraiders@gmail.com</a>
-    &nbsp;&bull;&nbsp; Base Camp: White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org
+<footer style="
+  background:#080c14;
+  border-top:1px solid rgba(201,168,76,0.15);
+  padding:2rem 1rem;
+  text-align:center;
+">
+  <div style="
+    font-family:'Josefin Sans',sans-serif;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:#c8cdd8;
+    opacity:0.45;
+    line-height:1.8;
+    max-width:800px;
+    margin:0 auto;
+  ">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved.
+    GROAN, DMAP-CAL, Rim Run Caribe, and all associated frameworks are
+    proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753).
+    &nbsp;|&nbsp;
+    <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
-  <div style="margin-top:15px;font-weight:bold;">
-    &copy; 2025 Nevado Ranch Camp LLC. All rights reserved.
-    | <a href="intellectualproperty.html" style="color:#4db8ff;text-decoration:none;">Intellectual Property</a>
-  </div>
-  <div style="margin:5px 0;">
-    GROAN&#8482;, Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, DMAP-CAL&#8482;, MOOP&#8482;, CMIE&#8482;,
-    GRIN&#8482;, GKIN&#8482;, GSIN&#8482;, GMIN&#8482;, GSMAN&#8482;, GEIN&#8482;, GMAIN&#8482;,
-    GPLIN&#8482;, GOPEN&#8482;, GPIN&#8482;, GDSIN&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;,
-    and all associated names, marks, and identifiers are trademarks or proprietary designations of Nevado Ranch Camp LLC.
-  </div>
-  <div>All GROAN&#8482;-related systems, architectures, frameworks, data structures, methodologies, workflows, algorithms, decision-support processes, integration mechanisms, and all associated materials are the exclusive intellectual property of Nevado Ranch Camp LLC and are protected as proprietary and trade secret information.</div>
-  <div style="margin-top:8px;">Unauthorized reproduction, use, distribution, modification, reverse engineering, extraction, or creation of derivative works is strictly prohibited without prior written permission.</div>
-  <div style="margin-top:5px;">No license, express or implied, is granted by access to this website or its contents.</div>
 </footer>
 
 <script>
-  // Nav toggle
+  document.querySelectorAll('.footer-year').forEach(function(el){
+    el.textContent = new Date().getFullYear();
+  });
+
   (function(){
     var toggle=document.getElementById('nav-toggle');
     var nav=document.getElementById('main-nav');
@@ -369,7 +164,6 @@
     }
   })();
 
-  // Curriculum
   const liveLessons = new Set([
     "s01-l01","s01-l02","s01-l03","s01-l04","s01-l05",
     "s01-l06","s01-l07","s01-l08","s01-l09","s01-l10",
@@ -389,7 +183,7 @@
     "s03-l13","s03-l14","s03-l15","s03-l16","s03-l17",
     "s03-l18","s03-l19","s03-l20","s03-l21","s03-l22",
     "s03-l23","s03-l24","s03-l25","s03-l26","s03-l27",
-    "s03-l28","s03-l29","s03-l30","s03-l31","s03-l32",
+    "s03-l28","s03-l29","s03-l30","s03-l31","s03-l32"
   ]);
 
   const lessonTitles = [
@@ -404,75 +198,67 @@
   ];
 
   const sections = [
-    { num:"01", title:"Physical Oceanography" },
-    { num:"02", title:"Chemical Oceanography" },
-    { num:"03", title:"Biological Oceanography" },
-    { num:"04", title:"Geological Oceanography" },
-    { num:"05", title:"Marine Ecology" },
-    { num:"06", title:"Marine Climatology" },
-    { num:"07", title:"Marine Acoustics" },
-    { num:"08", title:"Marine Geology & Geophysics" },
-    { num:"09", title:"Coastal & Estuarine Science" },
-    { num:"10", title:"Ocean Engineering & Technology" },
-    { num:"11", title:"Marine Vertebrates" },
-    { num:"12", title:"Marine Invertebrates" },
-    { num:"13", title:"Marine Microbiology" },
-    { num:"14", title:"Marine Botany" },
-    { num:"15", title:"Marine Ethology" },
-    { num:"16", title:"Marine Taxonomy" },
-    { num:"17", title:"Coral Health Assessment" },
-    { num:"18", title:"Benthic Surveys" },
-    { num:"19", title:"Fish Population Surveys" },
-    { num:"20", title:"Water Quality Monitoring" },
-    { num:"21", title:"Invasive Species" },
-    { num:"22", title:"Long-Term Change" }
+    {num:"01",title:"Physical Oceanography"},
+    {num:"02",title:"Chemical Oceanography"},
+    {num:"03",title:"Biological Oceanography"},
+    {num:"04",title:"Geological Oceanography"},
+    {num:"05",title:"Marine Ecology"},
+    {num:"06",title:"Marine Climatology"},
+    {num:"07",title:"Marine Acoustics"},
+    {num:"08",title:"Marine Geology & Geophysics"},
+    {num:"09",title:"Coastal & Estuarine Science"},
+    {num:"10",title:"Ocean Engineering & Technology"},
+    {num:"11",title:"Marine Vertebrates"},
+    {num:"12",title:"Marine Invertebrates"},
+    {num:"13",title:"Marine Microbiology"},
+    {num:"14",title:"Marine Botany"},
+    {num:"15",title:"Marine Ethology"},
+    {num:"16",title:"Marine Taxonomy"},
+    {num:"17",title:"Coral Health Assessment"},
+    {num:"18",title:"Benthic Surveys"},
+    {num:"19",title:"Fish Population Surveys"},
+    {num:"20",title:"Water Quality Monitoring"},
+    {num:"21",title:"Invasive Species"},
+    {num:"22",title:"Long-Term Change"}
   ];
 
   const curriculum = document.getElementById('curriculum');
   let totalLive = 0;
 
-  sections.forEach((sec, si) => {
+  sections.forEach((sec,si) => {
     let liveCount = 0;
     for (let l = 1; l <= 32; l++) {
       if (liveLessons.has(`s${sec.num}-l${String(l).padStart(2,'0')}`)) liveCount++;
     }
     totalLive += liveCount;
     const pct = (liveCount / 32 * 100).toFixed(1);
-
     const block = document.createElement('div');
     block.className = 'section-block' + (si === 0 ? ' open' : '');
-
-    const rows = Array.from({length:32}, (_,li) => {
-      const lNum  = li + 1;
-      const lPad  = String(lNum).padStart(2,'0');
-      const key   = `s${sec.num}-l${lPad}`;
-      const live  = liveLessons.has(key);
+    const rows = Array.from({length:32},(_,li) => {
+      const lNum = li + 1;
+      const lPad = String(lNum).padStart(2,'0');
+      const key = `s${sec.num}-l${lPad}`;
+      const live = liveLessons.has(key);
       const label = `${sec.title} — ${lessonTitles[li]}`;
-      const href  = `lessons/${key}.html`;
+      const href = `lessons/${key}.html`;
       return `
         <div class="lesson-row ${live ? 'live' : ''}">
           <span class="lesson-num">L${lPad}</span>
-          ${live
-            ? `<a href="${href}"><span class="lesson-title-text">${label}</span></a>`
-            : `<span class="lesson-title-text">${label}</span>`}
+          ${live ? `<a href="${href}"><span class="lesson-title-text">${label}</span></a>` : `<span class="lesson-title-text">${label}</span>`}
           <span class="lesson-badge ${live ? 'badge-live' : 'badge-soon'}">${live ? '&#9679; Live' : 'Soon'}</span>
         </div>`;
     }).join('');
-
     block.innerHTML = `
       <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
         <span class="section-num">SECTION ${sec.num}</span>
         <span class="section-title">${sec.title}</span>
         <div class="section-progress">
-          <div class="section-progress-bar">
-            <div class="section-progress-fill" style="width:${pct}%"></div>
-          </div>
+          <div class="section-progress-bar"><div class="section-progress-fill" style="width:${pct}%"></div></div>
           <span class="section-meta">${liveCount}/32</span>
         </div>
         <span class="section-toggle">&#9662;</span>
       </div>
       <div class="lesson-table">${rows}</div>`;
-
     curriculum.appendChild(block);
   });
 
@@ -480,60 +266,5 @@
 </script>
 
 </body>
-  <!-- ================================================================
-     FOOTER — Add this block just before </body> on every page.
-     If a footer element already exists, replace it with this.
-     ================================================================ -->
-
-<footer style="
-  background:#080c14;
-  border-top:1px solid rgba(201,168,76,0.15);
-  padding:2rem 1rem;
-  text-align:center;
-">
-  <div style="
-    font-family:'Josefin Sans',sans-serif;
-    font-size:0.68rem;
-    letter-spacing:0.08em;
-    color:#c8cdd8;
-    opacity:0.45;
-    line-height:1.8;
-    max-width:800px;
-    margin:0 auto;
-  ">
-    &copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved.
-    GROAN&#8482;, DMAP-CAL&#8482;, Rim Run Caribe&#8482;, and all associated frameworks are
-    proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753).
-    &nbsp;|&nbsp;
-    <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal Notice &amp; Terms of Use</a>
-    &nbsp;|&nbsp;
-    <a href="/intellectualproperty.html" style="color:#c8cdd8;text-decoration:none;">Intellectual Property</a>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
-</script>
-
-<!-- ================================================================
-     PAGES TO UPDATE (add footer to each):
-     index.html
-     rimrun.html
-     rimrun-caribe.html
-     rimrun-pac.html
-     lionfish.html
-     shieldmaiden.html
-     systems.html
-     science.html
-     decision-system.html
-     platform.html
-     learn.html
-     citizenscience.html
-     thelivingsaga.html
-     support.html
-     shop.html
-     gallery.html
-     about.html
-     intellectualproperty.html
 </html>
 
