@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centro Ecológico Akumal · Field Research Partner · GROAN Node</title>
+  <meta name="description" content="Centro Ecológico Akumal — GROAN's primary Caribbean field research node. 30+ years of coral reef, seagrass, and sea turtle monitoring in Akumal Bay, Quintana Roo."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Josefin+Sans:wght@300;400;600&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--aqua:#29b0d4;
+      --gold:#c9a84c;--gold-light:#e8c060;--parchment:#f0e8d0;--fog:#c8cdd8;
+      --teal:#00a896;--teal-light:#00c4ae;--amber:#e8a020;--coral-warn:#e05c3a;
+      --green:#2ea060;--card-bg:rgba(14,77,110,0.18);--card-border:rgba(201,168,76,0.2);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--deep-ocean);color:var(--parchment);font-family:'EB Garamond',serif;line-height:1.8;min-height:100vh}
+    nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px)}
+    .nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;list-style:none}
+    .nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;text-decoration:none;transition:color 0.3s,border-color 0.3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+    .nav-sep{color:rgba(201,168,76,0.3);font-size:12px}
+    .hero{padding:5rem 2rem 4rem;background:radial-gradient(ellipse at 78% 40%,rgba(0,168,150,0.1) 0%,transparent 55%),radial-gradient(ellipse at 18% 70%,rgba(201,168,76,0.07) 0%,transparent 50%),linear-gradient(180deg,#0a0f1a 0%,#0d1a28 100%);border-bottom:1px solid rgba(201,168,76,0.1);position:relative;overflow:hidden}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent)}
+    .hero-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:50px;align-items:center}
+    .hero-badges{display:flex;align-items:center;gap:10px;margin-bottom:1.4rem;flex-wrap:wrap}
+    .badge{border-radius:3px;padding:4px 12px;font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase}
+    .badge-groan{background:rgba(0,168,150,0.12);border:1px solid rgba(0,196,174,0.3);color:var(--teal-light);display:flex;align-items:center;gap:6px}
+    .badge-partner{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold-light)}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:var(--teal-light);box-shadow:0 0 6px var(--teal-light);animation:pulse 2.2s infinite;flex-shrink:0}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    .section-label{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.5rem}
+    h1{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--parchment);line-height:1.15;margin-bottom:0.3rem}
+    h1 span{color:var(--gold)}
+    .hero-location{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.18em;color:var(--fog);opacity:0.5;margin-bottom:1.4rem;text-transform:uppercase}
+    .hero-desc{font-size:1.08rem;color:rgba(240,232,208,0.72);line-height:1.75;margin-bottom:2rem}
+    .hero-stats{display:flex;gap:2.2rem;flex-wrap:wrap}
+    .hero-stat-num{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);line-height:1}
+    .hero-stat-lbl{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--fog);opacity:0.55;margin-top:3px}
+    .cea-emblem{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#0e3a5a,#081428);border:2px solid var(--gold);flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(201,168,76,0.06),0 0 50px rgba(201,168,76,0.1),0 0 80px rgba(0,168,150,0.08)}
+    .cea-emblem-emoji{font-size:46px;margin-bottom:5px}
+    .cea-emblem-text{font-family:'Cinzel',serif;font-size:9px;color:var(--gold);letter-spacing:1.5px;text-align:center;line-height:1.6}
+    .metric-strip{background:linear-gradient(90deg,rgba(14,77,110,0.25),rgba(0,168,150,0.08),rgba(14,77,110,0.25));border-top:1px solid rgba(201,168,76,0.08);border-bottom:1px solid rgba(201,168,76,0.08);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+    .ms-item{text-align:center;padding:0.4rem 2rem}
+    .ms-val{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--gold)}
+    .ms-lbl{font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--fog);opacity:0.5;margin-top:2px}
+    .ms-div{width:1px;height:36px;background:rgba(201,168,76,0.12)}
+    section{padding:5rem 2rem}
+    .container{max-width:900px;margin:0 auto}
+    section+section{border-top:1px solid rgba(201,168,76,0.07)}
+    h2{font-family:'Cinzel',serif;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--parchment);margin-bottom:0.8rem}
+    h2 span{color:var(--gold)}
+    p{color:rgba(240,232,208,0.68);font-size:1rem;line-height:1.8}
+    .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.5rem}
+    .prog-card{background:var(--card-bg);border:1px solid rgba(201,168,76,0.14);border-top:3px solid var(--pc);border-radius:8px;padding:1.6rem 1.8rem;transition:all 0.3s}
+    .prog-card:hover{background:rgba(14,77,110,0.3);border-color:var(--pc);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+    .prog-icon{font-size:1.9rem;margin-bottom:0.8rem}
+    .prog-name{font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:0.6rem}
+    .prog-name span{color:var(--pc)}
+    .prog-desc{font-size:0.92rem;color:rgba(240,232,208,0.58);line-height:1.72;margin-bottom:1rem}
+    .prog-tags{display:flex;flex-wrap:wrap;gap:5px}
+    .prog-tag{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:2px 8px;font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.8px;color:rgba(200,205,216,0.45);text-transform:uppercase}
+    .groan-box{background:linear-gradient(135deg,rgba(0,55,75,0.45),rgba(0,35,55,0.65));border:1px solid rgba(0,168,150,0.22);border-radius:10px;padding:2.5rem;margin-top:2.5rem}
+    .groan-top-row{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;margin-bottom:2rem}
+    .groan-body-label{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px}
+    .groan-body-text{font-size:0.96rem;color:rgba(240,232,208,0.6);line-height:1.75;margin-bottom:1.4rem}
+    .formula-line{font-family:'Inconsolata',monospace;font-size:0.72rem;color:rgba(255,255,255,0.2);margin-bottom:1rem;letter-spacing:0.5px}
+    .comp-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .comp-lbl{font-family:'Inconsolata',monospace;font-size:0.68rem;color:rgba(255,255,255,0.38);width:130px;flex-shrink:0}
+    .comp-bg{flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+    .comp-fill{height:100%;border-radius:2px}
+    .comp-val{font-family:'Inconsolata',monospace;font-size:0.7rem;width:36px;text-align:right}
+    .ds-block{text-align:center;background:rgba(0,168,150,0.1);border:1px solid rgba(0,196,174,0.2);border-radius:8px;padding:1.5rem 2rem;min-width:148px}
+    .ds-label{font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+    .ds-num{font-family:'Cinzel',serif;font-size:3.2rem;color:var(--teal-light);line-height:1;text-shadow:0 0 30px rgba(0,196,174,0.3)}
+    .ds-denom{font-size:1rem;color:rgba(255,255,255,0.2)}
+    .ds-verdict{font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal-light);margin-top:6px}
+    .module-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:1.2rem}
+    .mod-cell{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:10px 12px;text-align:center}
+    .mod-name{font-family:'Inconsolata',monospace;font-size:0.78rem;font-weight:600;margin-bottom:3px}
+    .mod-score{font-family:'Cinzel',serif;font-size:1.3rem;line-height:1}
+    .mod-bar-bg{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;margin-top:6px;overflow:hidden}
+    .mod-bar{height:100%;border-radius:1px}
+    .dash-section{background:#040d1a}
+    .dash-header{padding:1.5rem 2rem 1.2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.1);max-width:1200px;margin:0 auto}
+    .dash-title{font-family:'Cinzel',serif;font-size:1rem;color:var(--gold)}
+    .dash-sub{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:1.5px;color:rgba(255,255,255,0.28);margin-top:2px}
+    .dash-live{display:flex;align-items:center;gap:7px;background:rgba(0,168,150,0.12);border:1px solid rgba(0,196,174,0.25);border-radius:4px;padding:5px 12px;font-family:'Inconsolata',monospace;font-size:0.68rem;color:var(--teal-light)}
+    .dash-scroll{overflow-x:auto;padding:1.5rem 2rem 2.5rem}
+    .dash-grid{display:grid;grid-template-columns:200px 1fr 1fr 220px;gap:12px;min-width:1000px;max-width:1200px;margin:0 auto}
+    .db{background:rgba(8,18,35,0.92);border:1px solid rgba(0,160,180,0.12);border-radius:7px;overflow:hidden}
+    .db-h{padding:8px 12px;border-bottom:1px solid rgba(0,160,180,0.08);font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.28)}
+    .db-b{padding:11px 12px}
+    .db-mods{display:flex;flex-direction:column;gap:7px;grid-row:1/3}
+    .db-mod{background:rgba(0,40,65,0.5);border-left:3px solid var(--mc);border-radius:0 5px 5px 0;padding:8px 10px}
+    .db-mod-top{display:flex;justify-content:space-between;margin-bottom:2px}
+    .db-mod-n{font-family:'Inconsolata',monospace;font-size:0.75rem;color:#c8dff0}
+    .db-mod-s{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--mc)}
+    .db-mod-d{font-size:0.65rem;color:#4a8aaa;line-height:1.3;font-family:'EB Garamond',serif;font-style:italic}
+    .db-mod-bg{height:2px;background:rgba(255,255,255,0.05);border-radius:1px;margin-top:5px}
+    .db-mod-f{height:100%;border-radius:1px;background:var(--mc)}
+    .db-ds-wrap{display:flex;gap:18px;align-items:center}
+    .db-ds-num{font-family:'Cinzel',serif;font-size:3rem;color:#00e5b0;line-height:1;text-shadow:0 0 25px rgba(0,229,176,0.2)}
+    .db-ds-verdict{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:1.5px;color:#7dd4e8;margin-top:5px;text-transform:uppercase}
+    .db-f-label{font-family:'Inconsolata',monospace;font-size:0.62rem;color:rgba(255,255,255,0.18);margin-bottom:10px}
+    .db-cr{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+    .db-cl{font-family:'Inconsolata',monospace;font-size:0.65rem;color:#4a8aaa;width:110px}
+    .db-cbg{flex:1;height:3px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden}
+    .db-cf{height:100%;border-radius:2px}
+    .db-cv{font-family:'Inconsolata',monospace;font-size:0.65rem;width:30px;text-align:right}
+    .db-map-wrap{background:#020a14;border-radius:5px;overflow:hidden;height:162px}
+    .dti-g{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .dti-c{background:rgba(0,25,45,0.6);border:1px solid rgba(0,140,170,0.1);border-radius:5px;padding:7px 9px}
+    .dti-n{font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:1.2px;text-transform:uppercase;color:#3a7a98;margin-bottom:2px}
+    .dti-v{font-family:'Cinzel',serif;font-size:1rem}
+    .al{border-left:3px solid var(--ac);padding:7px 9px;background:rgba(0,15,35,0.6);border-radius:0 4px 4px 0;margin-bottom:6px}
+    .al-t{font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:2px}
+    .al-b{font-size:0.8rem;color:#8ab8cc;font-family:'EB Garamond',serif;line-height:1.35}
+    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.5rem}
+    .team-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:1.8rem 1.6rem;text-align:center}
+    .team-av{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--reef-blue),#081428);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 1rem}
+    .team-name{font-family:'Cinzel',serif;font-size:0.88rem;color:var(--parchment);margin-bottom:4px}
+    .team-role{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
+    .team-bio{font-size:0.88rem;color:rgba(240,232,208,0.52);line-height:1.65}
+    .cta-wrap{text-align:center;padding:5rem 2rem;background:linear-gradient(180deg,transparent,rgba(0,168,150,0.04))}
+    .cta-wrap h2{margin-bottom:0.8rem}
+    .cta-wrap p{max-width:540px;margin:0 auto 2rem}
+    .btn{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;padding:0.75rem 2.2rem;border-radius:3px;text-decoration:none;transition:all 0.25s;margin:0 6px}
+    .btn-gold{background:var(--gold);color:var(--deep-ocean);font-weight:600}
+    .btn-gold:hover{background:var(--gold-light);box-shadow:0 6px 24px rgba(201,168,76,0.25);transform:translateY(-1px)}
+    .btn-outline{border:1px solid rgba(201,168,76,0.3);color:rgba(240,232,208,0.6)}
+    .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+    footer{background:#060810;border-top:2px solid rgba(201,168,76,0.22);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:1px;color:rgba(200,205,216,0.28)}
+    footer a{color:var(--gold);text-decoration:none}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:780px){.hero-inner,.prog-grid,.team-grid{grid-template-columns:1fr}.cea-emblem{display:none}.groan-top-row{grid-template-columns:1fr}.module-row{grid-template-columns:repeat(3,1fr)}.ms-div{display:none}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><span class="nav-sep">›</span></li>
+    <li><a href="field-research-collaboration.html">Field Research Collaboration</a></li>
+    <li><span class="nav-sep">›</span></li>
+    <li><a href="cea-akumal.html" class="active">Centro Ecológico Akumal</a></li>
+    <li style="margin-left:1rem"></li>
+    <li><a href="the-science.html">The Science</a></li>
+    <li><a href="citizen-science-ciencia-ciudadana.html">Citizen Science</a></li>
+    <li><a href="rim-run-caribe.html">Rim Run Caribe™</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badges">
+        <div class="badge badge-groan"><div class="live-dot"></div>GROAN Node · Caribbean Theater · Active</div>
+        <div class="badge badge-partner">Field Research Partner</div>
+      </div>
+      <div class="section-label">Field Research Collaboration</div>
+      <h1>Centro Ecológico<br/><span>Akumal</span></h1>
+      <div class="hero-location">Akumal Bay · Quintana Roo · México · Est. 1993</div>
+      <p class="hero-desc">One of the Mesoamerican Reef's most dedicated monitoring organizations, CEA has protected Akumal Bay's coral reefs, seagrass meadows, and sea turtle populations for over three decades. As GROAN's primary Caribbean field node, CEA contributes continuous ecological data across four research programs — anchoring the Rim Run Caribe™ science circuit at its first waypoint.</p>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">30+</div><div class="hero-stat-lbl">Years Active</div></div>
+        <div><div class="hero-stat-num">50km</div><div class="hero-stat-lbl">Coastline</div></div>
+        <div><div class="hero-stat-num">92K</div><div class="hero-stat-lbl">Hatchlings 2023</div></div>
+        <div><div class="hero-stat-num">4</div><div class="hero-stat-lbl">Programs</div></div>
+      </div>
+    </div>
+    <div class="cea-emblem">
+      <div class="cea-emblem-emoji">🌊</div>
+      <div class="cea-emblem-text">CENTRO<br/>ECOLÓGICO<br/>AKUMAL</div>
+    </div>
+  </div>
+</section>
+
+<div class="metric-strip">
+  <div class="ms-item"><div class="ms-val">GSIN</div><div class="ms-lbl">Primary Module</div></div>
+  <div class="ms-div"></div>
+  <div class="ms-item"><div class="ms-val">73</div><div class="ms-lbl">DTIs Active</div></div>
+  <div class="ms-div"></div>
+  <div class="ms-item"><div class="ms-val">12</div><div class="ms-lbl">Data Sources</div></div>
+  <div class="ms-div"></div>
+  <div class="ms-item"><div class="ms-val">71.8</div><div class="ms-lbl">Decision Score</div></div>
+  <div class="ms-div"></div>
+  <div class="ms-item"><div class="ms-val">1,472</div><div class="ms-lbl">Nests · 2023</div></div>
+  <div class="ms-div"></div>
+  <div class="ms-item"><div class="ms-val">Hector A. Lizarraga</div><div class="ms-lbl">Director, CEA</div></div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-label reveal">Research Programs</div>
+    <h2 class="reveal">Four Pillars, One <span>Ecosystem</span></h2>
+    <p class="reveal">CEA's four core programs produce the continuous field data that feeds GROAN's cross-ecosystem decision engine — seagrass health, coral structure, sea turtle population dynamics, and the tourism pressure threatening all three.</p>
+    <div class="prog-grid">
+      <div class="prog-card reveal" style="--pc:#00a896">
+        <div class="prog-icon">🪸</div>
+        <div class="prog-name">Coral Reef <span>Communities</span></div>
+        <p class="prog-desc">Permanent monitoring across patch reef, reef crest, and fore reef habitats tracks live coral cover, algae overgrowth, and bleaching incidence. An active nursery propagates <em>Acropora palmata</em> and <em>A. cervicornis</em> — Akumal's primary reef builders — with 847 active fragments currently under cultivation.</p>
+        <div class="prog-tags"><span class="prog-tag">Coral Cover</span><span class="prog-tag">Bleach Index</span><span class="prog-tag">Acropora Nursery</span><span class="prog-tag">GRIN Feed</span></div>
+      </div>
+      <div class="prog-card reveal" style="--pc:#2ea060">
+        <div class="prog-icon">🌿</div>
+        <div class="prog-name">Seagrass <span>Monitoring</span></div>
+        <p class="prog-desc">All three native seagrass species monitored across four transect zones — <em>Thalassia testudinum</em>, <em>Syringodium filiforme</em>, and <em>Halodule wrightii</em>. This data stream directly feeds GROAN's GSIN module, the primary seagrass intelligence layer for the Caribbean theater. Turtle grazing pressure and fragmentation tracked biweekly.</p>
+        <div class="prog-tags"><span class="prog-tag">T. testudinum</span><span class="prog-tag">S. filiforme</span><span class="prog-tag">H. wrightii</span><span class="prog-tag">GSIN Primary</span><span class="prog-tag">Fragmentation</span></div>
+      </div>
+      <div class="prog-card reveal" style="--pc:#e8a020">
+        <div class="prog-icon">🐢</div>
+        <div class="prog-name">Sea Turtle <span>Conservation</span></div>
+        <p class="prog-desc">Since 1995, CEA has protected nesting beaches and foraging grounds across four Akumal beaches. A photo-ID catalog tracks 247 individual turtles — <em>Chelonia mydas</em>, <em>Caretta caretta</em>, and <em>Eretmochelys imbricata</em>. The 2023 season logged 1,472 nests and returned an estimated 92,300 hatchlings to the Caribbean.</p>
+        <div class="prog-tags"><span class="prog-tag">Photo ID</span><span class="prog-tag">Nesting Patrol</span><span class="prog-tag">Behavioral Study</span><span class="prog-tag">GMAIN Feed</span><span class="prog-tag">4 Beaches</span></div>
+      </div>
+      <div class="prog-card reveal" style="--pc:#e05c3a">
+        <div class="prog-icon">👁️</div>
+        <div class="prog-name">Tourism <span>Impact Studies</span></div>
+        <p class="prog-desc">Daily snorkeler counts (08:00–17:00), in-water behavioral observation, geo-referenced turtle feeding zones, water visibility monitoring, and video patrol. Since 2016 coral reef structure has declined over 50% while algae overgrowth has tripled — a direct consequence of unregulated tourism CEA is working to reverse with evidence-based policy.</p>
+        <div class="prog-tags"><span class="prog-tag">Daily Counts</span><span class="prog-tag">5m Rule</span><span class="prog-tag">Water Dynamics</span><span class="prog-tag">Video Patrol</span><span class="prog-tag">Policy Evidence</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:linear-gradient(180deg,rgba(0,30,45,0.4),transparent)">
+  <div class="container">
+    <div class="section-label reveal">GROAN Integration</div>
+    <h2 class="reveal">CEA as a <span>GROAN Node</span></h2>
+    <p class="reveal">CEA's field data streams into GROAN's five-level cross-ecosystem decision architecture. The Decision Score synthesizes reef health, seagrass density, turtle population trends, tourism pressure, and water chemistry into a single actionable output — giving CEA's researchers and policymakers a decision-support layer no single-ecosystem monitoring framework can produce.</p>
+    <div class="groan-box reveal">
+      <div class="groan-top-row">
+        <div>
+          <div class="groan-body-label">Current Decision Score · Akumal Bay</div>
+          <p class="groan-body-text">GROAN integrates CEA's field observations with satellite thermal data (NOAA CRW), global fishing vessel tracking, AIMS long-term monitoring baselines, and Allen Coral Atlas remote sensing to generate cross-ecosystem decisions. The current score of <strong style="color:var(--teal-light)">71.8/100</strong> triggers a Tier B management protocol — recommending a reduction in daily snorkeler capacity and suspension of fore reef access during the active bleaching event.</p>
+          <div class="formula-line">DS = α · E[Benefit] − β · Risk − γ · Cost + δ · Feasibility</div>
+          <div class="comp-row"><span class="comp-lbl">α · E[Benefit]</span><div class="comp-bg"><div class="comp-fill" style="width:78%;background:#00c8a8"></div></div><span class="comp-val" style="color:#00c8a8">+31.2</span></div>
+          <div class="comp-row"><span class="comp-lbl">β · Risk</span><div class="comp-bg"><div class="comp-fill" style="width:42%;background:#ff6040"></div></div><span class="comp-val" style="color:#ff6040">−8.4</span></div>
+          <div class="comp-row"><span class="comp-lbl">γ · Cost</span><div class="comp-bg"><div class="comp-fill" style="width:29%;background:#f0a040"></div></div><span class="comp-val" style="color:#f0a040">−5.8</span></div>
+          <div class="comp-row"><span class="comp-lbl">δ · Feasibility</span><div class="comp-bg"><div class="comp-fill" style="width:84%;background:#4080ff"></div></div><span class="comp-val" style="color:#4080ff">+54.8</span></div>
+        </div>
+        <div class="ds-block">
+          <div class="ds-label">Decision Score · DS</div>
+          <div><span class="ds-num">71.8</span><span class="ds-denom">/100</span></div>
+          <div class="ds-verdict">Tier B · Action Recommended</div>
+        </div>
+      </div>
+      <div style="font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:10px">Active GROAN Modules · Caribbean Theater</div>
+      <div class="module-row" id="mod-row"></div>
+    </div>
+  </div>
+</section>
+
+<div class="dash-section">
+  <div class="dash-header">
+    <div>
+      <div class="dash-title">CEA · Live Field Dashboard</div>
+      <div class="dash-sub">Prototype display · GROAN integration · Caribbean Theater · Akumal Bay</div>
+    </div>
+    <div class="dash-live"><div class="live-dot"></div>GROAN NODE · 08 MAY 2026 · 09:42</div>
+  </div>
+  <div class="dash-scroll">
+    <div class="dash-grid">
+      <div class="db-mods">
+        <div class="db-h" style="background:rgba(8,18,35,0.92);border-radius:7px 7px 0 0;border:1px solid rgba(0,160,180,0.12)">GROAN Modules</div>
+        <div class="db-mod" style="--mc:#2ea060"><div class="db-mod-top"><span class="db-mod-n">GSIN</span><span class="db-mod-s">82</span></div><div class="db-mod-d">Seagrass intel · Akumal primary</div><div class="db-mod-bg"><div class="db-mod-f" style="width:82%"></div></div></div>
+        <div class="db-mod" style="--mc:#00a896"><div class="db-mod-top"><span class="db-mod-n">GMIN</span><span class="db-mod-s">78</span></div><div class="db-mod-d">Coral reef integrity & bleaching risk</div><div class="db-mod-bg"><div class="db-mod-f" style="width:78%"></div></div></div>
+        <div class="db-mod" style="--mc:#e8a020"><div class="db-mod-top"><span class="db-mod-n">GMAIN</span><span class="db-mod-s">61</span></div><div class="db-mod-d">Species diversity & trophic pressure</div><div class="db-mod-bg"><div class="db-mod-f" style="width:61%"></div></div></div>
+        <div class="db-mod" style="--mc:#4080ff"><div class="db-mod-top"><span class="db-mod-n">GRIN</span><span class="db-mod-s">74</span></div><div class="db-mod-d">Cross-module synthesis · L3 output</div><div class="db-mod-bg"><div class="db-mod-f" style="width:74%"></div></div></div>
+        <div class="db-mod" style="--mc:#c060ff"><div class="db-mod-top"><span class="db-mod-n">GCIN</span><span class="db-mod-s">88</span></div><div class="db-mod-d">Aragonite saturation · thermal anomaly</div><div class="db-mod-bg"><div class="db-mod-f" style="width:88%"></div></div></div>
+      </div>
+      <div style="grid-column:2/4;display:flex;flex-direction:column;gap:12px">
+        <div class="db">
+          <div class="db-h">Decision Score · DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility</div>
+          <div class="db-b">
+            <div class="db-ds-wrap">
+              <div>
+                <div style="font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:2px;color:rgba(255,255,255,0.28);margin-bottom:4px">DS · AKUMAL BAY</div>
+                <div class="db-ds-num">71.8<span style="font-size:1.1rem;color:rgba(255,255,255,0.18)">/100</span></div>
+                <div class="db-ds-verdict">✓ Tier B · Reduce snorkeler cap + suspend fore reef access</div>
+              </div>
+              <div style="flex:1">
+                <div class="db-f-label">DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility</div>
+                <div class="db-cr"><span class="db-cl">α · E[Benefit]</span><div class="db-cbg"><div class="db-cf" style="width:78%;background:#00c8a8"></div></div><span class="db-cv" style="color:#00c8a8">+31.2</span></div>
+                <div class="db-cr"><span class="db-cl">β · Risk</span><div class="db-cbg"><div class="db-cf" style="width:42%;background:#ff6040"></div></div><span class="db-cv" style="color:#ff6040">−8.4</span></div>
+                <div class="db-cr"><span class="db-cl">γ · Cost</span><div class="db-cbg"><div class="db-cf" style="width:29%;background:#f0a040"></div></div><span class="db-cv" style="color:#f0a040">−5.8</span></div>
+                <div class="db-cr"><span class="db-cl">δ · Feasibility</span><div class="db-cbg"><div class="db-cf" style="width:84%;background:#4080ff"></div></div><span class="db-cv" style="color:#4080ff">+54.8</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="db" style="flex:1">
+          <div class="db-h">Akumal Bay · Field Map · 20.3945°N 87.3137°W</div>
+          <div class="db-b" style="padding:8px">
+            <div class="db-map-wrap">
+              <svg viewBox="0 0 640 155" style="width:100%;height:100%" xmlns="http://www.w3.org/2000/svg">
+                <rect width="640" height="155" fill="#020a14"/>
+                <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a6090" stop-opacity="0.45"/><stop offset="100%" stop-color="#020a14" stop-opacity="0"/></linearGradient></defs>
+                <rect width="640" height="155" fill="url(#sg)"/>
+                <line x1="0" y1="38" x2="640" y2="38" stroke="#0a2030" stroke-width="0.5"/><line x1="0" y1="77" x2="640" y2="77" stroke="#0a2030" stroke-width="0.5"/><line x1="0" y1="116" x2="640" y2="116" stroke="#0a2030" stroke-width="0.5"/><line x1="128" y1="0" x2="128" y2="155" stroke="#0a2030" stroke-width="0.5"/><line x1="256" y1="0" x2="256" y2="155" stroke="#0a2030" stroke-width="0.5"/><line x1="384" y1="0" x2="384" y2="155" stroke="#0a2030" stroke-width="0.5"/><line x1="512" y1="0" x2="512" y2="155" stroke="#0a2030" stroke-width="0.5"/>
+                <path d="M0 0 L640 0 L640 34 Q560 40 480 46 Q400 52 320 57 Q240 62 160 55 Q80 48 0 41 Z" fill="#1c5226"/>
+                <path d="M0 41 Q80 48 160 55 Q240 62 320 57 Q400 52 480 46 Q560 40 640 34 L640 48 Q560 53 480 60 Q400 66 320 70 Q240 74 160 68 Q80 62 0 55 Z" fill="#c8a060"/>
+                <ellipse cx="320" cy="103" rx="295" ry="40" fill="rgba(0,110,165,0.14)"/>
+                <ellipse cx="218" cy="105" rx="72" ry="20" fill="rgba(55,175,80,0.11)" stroke="rgba(55,175,80,0.28)" stroke-width="1" stroke-dasharray="3,3"/>
+                <ellipse cx="398" cy="110" rx="58" ry="17" fill="rgba(55,175,80,0.09)" stroke="rgba(55,175,80,0.22)" stroke-width="1" stroke-dasharray="3,3"/>
+                <path d="M40 138 Q200 148 320 150 Q440 148 600 143" stroke="rgba(0,196,180,0.42)" stroke-width="2.5" fill="none" stroke-dasharray="7,4"/>
+                <circle cx="138" cy="94" r="5" fill="#ffa030" opacity="0.9"/><text x="138" y="86" fill="#ffa030" font-size="7" font-family="Inconsolata" text-anchor="middle">LT-near</text>
+                <circle cx="268" cy="112" r="5" fill="#60e090" opacity="0.9"/><text x="268" y="104" fill="#60e090" font-size="7" font-family="Inconsolata" text-anchor="middle">SG-T1</text>
+                <circle cx="368" cy="108" r="5" fill="#60e090" opacity="0.9"/><text x="368" y="100" fill="#60e090" font-size="7" font-family="Inconsolata" text-anchor="middle">SG-T2</text>
+                <circle cx="468" cy="98" r="5" fill="#ffa030" opacity="0.9"/><text x="468" y="90" fill="#ffa030" font-size="7" font-family="Inconsolata" text-anchor="middle">LT-far</text>
+                <circle cx="248" cy="100" r="16" fill="none" stroke="#e8a020" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.75"/>
+                <text x="248" y="103" fill="#e8a020" font-size="9" font-family="Inconsolata" text-anchor="middle">🐢</text>
+                <circle cx="385" cy="145" r="20" fill="rgba(255,70,30,0.05)" stroke="rgba(255,70,30,0.28)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="385" y="148" fill="rgba(255,70,30,0.6)" font-size="7" font-family="Inconsolata" text-anchor="middle">⚠ bleach</text>
+                <text x="82" y="22" fill="rgba(255,255,255,0.38)" font-size="7.5" font-family="Inconsolata">HALF MOON BAY</text>
+                <text x="256" y="22" fill="rgba(255,255,255,0.38)" font-size="7.5" font-family="Inconsolata">AKUMAL BAY</text>
+                <text x="438" y="22" fill="rgba(255,255,255,0.38)" font-size="7.5" font-family="Inconsolata">JADE BAY</text>
+                <text x="625" y="150" fill="rgba(255,255,255,0.18)" font-size="7" font-family="Inconsolata">N↑</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="db">
+          <div class="db-h">Key DTIs · Akumal Bay</div>
+          <div class="db-b">
+            <div class="dti-g">
+              <div class="dti-c"><div class="dti-n">SG Density</div><div class="dti-v" style="color:#2ea060">71.2 <span style="font-size:0.65rem;color:#3a7a98">g/m²</span></div></div>
+              <div class="dti-c"><div class="dti-n">Coral Cover</div><div class="dti-v" style="color:#00a896">38.4<span style="font-size:0.65rem;color:#3a7a98">%</span></div></div>
+              <div class="dti-c"><div class="dti-n">DHW</div><div class="dti-v" style="color:#ff6040">4.2 <span style="font-size:0.65rem;color:#3a7a98">°C-wk</span></div></div>
+              <div class="dti-c"><div class="dti-n">ΩArag</div><div class="dti-v" style="color:#c060ff">2.81</div></div>
+              <div class="dti-c"><div class="dti-n">SST Anomaly</div><div class="dti-v" style="color:#ff6040">+1.4<span style="font-size:0.65rem;color:#3a7a98">°C</span></div></div>
+              <div class="dti-c"><div class="dti-n">Snorkelers</div><div class="dti-v" style="color:#e8a020">376</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="db" style="flex:1">
+          <div class="db-h">Intelligence Feed</div>
+          <div class="db-b">
+            <div class="al" style="--ac:#ff6040"><div class="al-t">Thermal Alert</div><div class="al-b">DHW exceeding 4°C-weeks. Bleaching onset threshold breached at Akumal ref station.</div></div>
+            <div class="al" style="--ac:#2ea060"><div class="al-t">GSIN Flag</div><div class="al-b">Seagrass fragmentation elevated in N transect. Turtle grazing nominal.</div></div>
+            <div class="al" style="--ac:#4080ff"><div class="al-t">Decision Trigger</div><div class="al-b">GRIN L3 decision queued: reef protection protocol pending human review.</div></div>
+            <div class="al" style="--ac:#e8a020"><div class="al-t">Tourism</div><div class="al-b">94% daily capacity reached. 3 vessels in exclusion zone flagged by GFW.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-label reveal">Key Personnel</div>
+    <h2 class="reveal">The People Behind <span>The Data</span></h2>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-av">👤</div>
+        <div class="team-name">Hector Antonio Lizarraga Cubedo</div>
+        <div class="team-role">Director · CEA</div>
+        <p class="team-bio">Primary point of contact for the GROAN partnership. Oversees all research, education, and outreach operations across CEA's four program areas and 50km of managed coastline.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-av">👤</div>
+        <div class="team-name">Baruk Figueroa</div>
+        <div class="team-role">Coordinator · Coastal Ecosystems</div>
+        <p class="team-bio">Marine biologist, 600+ dives, 8+ years in Quintana Roo conservation. Leads reef monitoring, seagrass surveys, coral nursery operations, and the sea turtle photo-ID catalog.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-av">👤</div>
+        <div class="team-name">Cristian Aguirre</div>
+        <div class="team-role">Communications · GROAN Liaison</div>
+        <p class="team-bio">Primary communications contact for GROAN node coordination, data sharing protocols, and ongoing research partnership development between CEA and Nevado Ranch Camp LLC.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-wrap">
+  <div class="section-label">Get Involved</div>
+  <h2>Join the <span>CCRA</span></h2>
+  <p>The Caribbean Coastal Reef Alliance — GROAN's citizen science network — is open to researchers, divers, and institutions across the Caribbean theater.</p>
+  <a href="citizen-science-ciencia-ciudadana.html" class="btn btn-gold">Citizen Science Network</a>
+  <a href="field-research-collaboration.html" class="btn btn-outline">All Research Partners</a>
+</div>
+
+<footer>
+  <span>© 2026 Nevado Ranch Camp LLC · All Rights Reserved · Nevado Raiders™</span>
+  <span>CEA Partnership · GROAN Node · Caribbean Theater</span>
+  <a href="legal.html">Legal &amp; IP</a>
+</footer>
+
+<script>
+  const mods=[["GSIN","82","#2ea060"],["GMIN","78","#00a896"],["GMAIN","61","#e8a020"],["GRIN","74","#4080ff"],["GCIN","88","#c060ff"]];
+  document.getElementById('mod-row').innerHTML=mods.map(m=>`<div class="mod-cell"><div class="mod-name" style="color:${m[2]}">${m[0]}</div><div class="mod-score" style="color:${m[2]}">${m[1]}</div><div class="mod-bar-bg"><div class="mod-bar" style="width:${m[1]}%;background:${m[2]}"></div></div></div>`).join('');
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
