@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L01 Invasive Species — Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list { list-style: none; margin-top: 10px; }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 88%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); margin-top: 20px; padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 01 · Marine Ecology</div>
+        <h1 class="lesson-title">Invasive Species —<br>Foundations</h1>
+        <div class="lesson-subtitle">Fundamentos de Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag coral">Lionfish Hunter</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG: Lionfish anatomy + invasion profile stats -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <clipPath id="bClip">
+            <ellipse cx="118" cy="156" rx="60" ry="26"/>
+          </clipPath>
+        </defs>
+
+        <rect width="380" height="260" fill="url(#bgG)"/>
+
+        <!-- Grid -->
+        <g stroke="rgba(26,200,200,0.05)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="195" x2="380" y2="195"/>
+          <line x1="95" y1="0" x2="95" y2="260"/>
+          <line x1="190" y1="0" x2="190" y2="260"/>
+          <line x1="285" y1="0" x2="285" y2="260"/>
+        </g>
+
+        <!-- ═══ LIONFISH ═══ -->
+
+        <!-- TAIL FIN (drawn first, behind body) -->
+        <path d="M178,142 L216,116 L220,156 L216,196 L178,170 Z"
+              fill="rgba(140,30,30,0.72)" stroke="rgba(200,70,70,0.35)" stroke-width="0.8"/>
+        <line x1="178" y1="142" x2="216" y2="116" stroke="rgba(200,70,70,0.45)" stroke-width="0.7"/>
+        <line x1="178" y1="148" x2="218" y2="136" stroke="rgba(200,70,70,0.35)" stroke-width="0.6"/>
+        <line x1="178" y1="156" x2="220" y2="156" stroke="rgba(200,70,70,0.35)" stroke-width="0.6"/>
+        <line x1="178" y1="165" x2="218" y2="176" stroke="rgba(200,70,70,0.35)" stroke-width="0.6"/>
+        <line x1="178" y1="170" x2="216" y2="196" stroke="rgba(200,70,70,0.45)" stroke-width="0.7"/>
+
+        <!-- PECTORAL FIN — Upper fan (from shoulder ~82,148) -->
+        <path d="M82,148 L12,66 L22,56 L36,50 L50,48 L62,52 L74,58 L82,148"
+              fill="rgba(160,40,40,0.18)" stroke="rgba(200,70,70,0.22)" stroke-width="0.6"/>
+        <line x1="82" y1="148" x2="12" y2="66"  stroke="rgba(210,80,80,0.6)"  stroke-width="1.3"/>
+        <line x1="82" y1="148" x2="22" y2="56"  stroke="rgba(210,80,80,0.55)" stroke-width="1.1"/>
+        <line x1="82" y1="148" x2="36" y2="50"  stroke="rgba(210,80,80,0.5)"  stroke-width="1.0"/>
+        <line x1="82" y1="148" x2="50" y2="48"  stroke="rgba(210,80,80,0.5)"  stroke-width="1.0"/>
+        <line x1="82" y1="148" x2="62" y2="52"  stroke="rgba(210,80,80,0.45)" stroke-width="0.9"/>
+        <line x1="82" y1="148" x2="74" y2="58"  stroke="rgba(210,80,80,0.4)"  stroke-width="0.8"/>
+
+        <!-- PECTORAL FIN — Lower fan (from shoulder ~82,164) -->
+        <path d="M82,164 L12,246 L24,249 L38,252 L52,250 L64,246 L74,242 L82,164"
+              fill="rgba(160,40,40,0.18)" stroke="rgba(200,70,70,0.22)" stroke-width="0.6"/>
+        <line x1="82" y1="164" x2="12" y2="246" stroke="rgba(210,80,80,0.6)"  stroke-width="1.3"/>
+        <line x1="82" y1="164" x2="24" y2="249" stroke="rgba(210,80,80,0.5)"  stroke-width="1.0"/>
+        <line x1="82" y1="164" x2="38" y2="252" stroke="rgba(210,80,80,0.45)" stroke-width="0.9"/>
+        <line x1="82" y1="164" x2="52" y2="250" stroke="rgba(210,80,80,0.45)" stroke-width="0.9"/>
+        <line x1="82" y1="164" x2="64" y2="246" stroke="rgba(210,80,80,0.4)"  stroke-width="0.8"/>
+        <line x1="82" y1="164" x2="74" y2="242" stroke="rgba(210,80,80,0.35)" stroke-width="0.7"/>
+
+        <!-- BODY -->
+        <ellipse cx="118" cy="156" rx="60" ry="26" fill="#6b1515" opacity="0.92"/>
+
+        <!-- Body stripes (clipped) -->
+        <g clip-path="url(#bClip)" opacity="0.26">
+          <rect x="72"  y="130" width="8"  height="52" fill="white"/>
+          <rect x="88"  y="130" width="6"  height="52" fill="white"/>
+          <rect x="102" y="130" width="8"  height="52" fill="white"/>
+          <rect x="117" y="130" width="6"  height="52" fill="white"/>
+          <rect x="131" y="130" width="8"  height="52" fill="white"/>
+          <rect x="146" y="130" width="6"  height="52" fill="white"/>
+          <rect x="159" y="130" width="7"  height="52" fill="white"/>
+        </g>
+
+        <!-- HEAD -->
+        <ellipse cx="66" cy="156" rx="25" ry="22" fill="#7a1818" opacity="0.95"/>
+
+        <!-- Eye -->
+        <circle cx="58" cy="150" r="5.5" fill="#1a0808"/>
+        <circle cx="58" cy="150" r="3.0" fill="#0a0404"/>
+        <circle cx="56" cy="148" r="1.5"  fill="rgba(255,200,100,0.55)"/>
+
+        <!-- Mouth -->
+        <path d="M44,162 Q56,169 68,164" stroke="rgba(200,100,100,0.55)" stroke-width="1" fill="none"/>
+
+        <!-- Supra-orbital tentacles (head decoration above eye) -->
+        <line x1="54" y1="134" x2="46" y2="118" stroke="rgba(210,80,80,0.75)" stroke-width="1.2"/>
+        <line x1="62" y1="134" x2="58" y2="116" stroke="rgba(210,80,80,0.75)" stroke-width="1.2"/>
+        <line x1="70" y1="134" x2="70" y2="115" stroke="rgba(210,80,80,0.75)" stroke-width="1.2"/>
+        <circle cx="46" cy="118" r="1.8" fill="rgba(232,96,64,0.7)"/>
+        <circle cx="58" cy="116" r="1.8" fill="rgba(232,96,64,0.7)"/>
+        <circle cx="70" cy="115" r="1.8" fill="rgba(232,96,64,0.7)"/>
+
+        <!-- DORSAL SPINES — 13 venomous -->
+        <line x1="86"  y1="130" x2="80"  y2="98"  stroke="rgba(222,72,72,0.82)" stroke-width="1.3"/>
+        <line x1="94"  y1="130" x2="88"  y2="85"  stroke="rgba(222,72,72,0.82)" stroke-width="1.3"/>
+        <line x1="102" y1="130" x2="97"  y2="75"  stroke="rgba(222,72,72,0.85)" stroke-width="1.35"/>
+        <line x1="110" y1="130" x2="106" y2="66"  stroke="rgba(222,72,72,0.87)" stroke-width="1.4"/>
+        <line x1="118" y1="130" x2="116" y2="60"  stroke="rgba(222,72,72,0.88)" stroke-width="1.4"/>
+        <line x1="126" y1="130" x2="125" y2="56"  stroke="rgba(232,80,64,0.90)" stroke-width="1.5"/>
+        <line x1="134" y1="130" x2="134" y2="53"  stroke="rgba(232,80,64,0.95)" stroke-width="1.6"/><!-- tallest -->
+        <line x1="142" y1="130" x2="143" y2="56"  stroke="rgba(232,80,64,0.90)" stroke-width="1.5"/>
+        <line x1="150" y1="130" x2="152" y2="61"  stroke="rgba(222,72,72,0.87)" stroke-width="1.4"/>
+        <line x1="158" y1="130" x2="161" y2="67"  stroke="rgba(222,72,72,0.85)" stroke-width="1.35"/>
+        <line x1="166" y1="130" x2="170" y2="76"  stroke="rgba(222,72,72,0.82)" stroke-width="1.3"/>
+        <line x1="174" y1="130" x2="179" y2="87"  stroke="rgba(222,72,72,0.80)" stroke-width="1.25"/>
+        <line x1="182" y1="130" x2="188" y2="100" stroke="rgba(222,72,72,0.78)" stroke-width="1.2"/>
+
+        <!-- Spine tips (venom glands) -->
+        <circle cx="80"  cy="98"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="88"  cy="85"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="97"  cy="75"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="106" cy="66"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="116" cy="60"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="125" cy="56"  r="1.8" fill="rgba(240,80,80,0.75)"/>
+        <circle cx="134" cy="53"  r="2.2" fill="rgba(240,96,64,0.85)"/><!-- tallest -->
+        <circle cx="143" cy="56"  r="1.8" fill="rgba(240,80,80,0.75)"/>
+        <circle cx="152" cy="61"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="161" cy="67"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="170" cy="76"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="179" cy="87"  r="1.8" fill="rgba(240,80,80,0.7)"/>
+        <circle cx="188" cy="100" r="1.8" fill="rgba(240,80,80,0.7)"/>
+
+        <!-- Dorsal membrane (soft tissue between spines) -->
+        <path d="M86,130 L80,98 L88,85 L97,75 L106,66 L116,60 L125,56 L134,53 L143,56 L152,61 L161,67 L170,76 L179,87 L188,100 L192,130"
+              fill="rgba(128,28,28,0.22)" stroke="rgba(200,60,60,0.22)" stroke-width="0.6"/>
+
+        <!-- VENOMOUS PELVIC SPINES (below body, 3 spines) -->
+        <line x1="106" y1="182" x2="96"  y2="216" stroke="rgba(210,80,80,0.72)" stroke-width="1.1"/>
+        <line x1="118" y1="182" x2="110" y2="220" stroke="rgba(210,80,80,0.72)" stroke-width="1.1"/>
+        <line x1="130" y1="182" x2="124" y2="218" stroke="rgba(210,80,80,0.72)" stroke-width="1.1"/>
+        <circle cx="96"  cy="216" r="1.6" fill="rgba(232,96,64,0.7)"/>
+        <circle cx="110" cy="220" r="1.6" fill="rgba(232,96,64,0.7)"/>
+        <circle cx="124" cy="218" r="1.6" fill="rgba(232,96,64,0.7)"/>
+
+        <!-- ═══ ANATOMICAL LABELS ═══ -->
+
+        <!-- Label 1: 13 Venomous Dorsal Spines — bracket above spine row -->
+        <line x1="80" y1="46" x2="190" y2="46" stroke="rgba(26,200,200,0.38)" stroke-width="0.8"/>
+        <line x1="80"  y1="46" x2="80"  y2="52" stroke="rgba(26,200,200,0.38)" stroke-width="0.8"/>
+        <line x1="190" y1="46" x2="190" y2="52" stroke="rgba(26,200,200,0.38)" stroke-width="0.8"/>
+        <text x="135" y="43" fill="rgba(26,200,200,0.82)" font-family="monospace" font-size="6.5"
+              text-anchor="middle" letter-spacing="0.06em">13 VENOMOUS DORSAL SPINES</text>
+
+        <!-- Label 2: Fan Pectoral Fins (upper-left area) -->
+        <line x1="36" y1="50" x2="26" y2="78" stroke="rgba(240,180,41,0.45)" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <text x="4"  y="86"  fill="rgba(240,180,41,0.78)" font-family="monospace" font-size="6.2">FAN</text>
+        <text x="4"  y="95"  fill="rgba(240,180,41,0.78)" font-family="monospace" font-size="6.2">PECTORAL</text>
+        <text x="4"  y="104" fill="rgba(240,180,41,0.78)" font-family="monospace" font-size="6.2">FINS</text>
+
+        <!-- Label 3: Camouflage Stripes (below body) -->
+        <line x1="118" y1="183" x2="118" y2="198" stroke="rgba(184,240,236,0.35)" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <text x="118" y="207" fill="rgba(184,240,236,0.6)" font-family="monospace" font-size="6.2"
+              text-anchor="middle">CAMOUFLAGE STRIPES</text>
+
+        <!-- Label 4: Venomous Pelvic Spines -->
+        <line x1="110" y1="220" x2="88" y2="234" stroke="rgba(232,96,64,0.42)" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <text x="2"  y="242" fill="rgba(232,96,64,0.78)" font-family="monospace" font-size="6.2">VENOMOUS</text>
+        <text x="2"  y="251" fill="rgba(232,96,64,0.78)" font-family="monospace" font-size="6.2">PELVIC SPINES</text>
+
+        <!-- ═══ RIGHT PANEL: INVASION PROFILE ═══ -->
+        <rect x="238" y="18" width="138" height="238" rx="2"
+              fill="rgba(2,15,30,0.5)" stroke="rgba(26,200,200,0.12)" stroke-width="0.8"/>
+        <text x="307" y="33" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="7.5"
+              text-anchor="middle" letter-spacing="0.12em">INVASION · PROFILE</text>
+
+        <!-- Box 1: First Record -->
+        <rect x="242" y="38" width="130" height="34" rx="1"
+              fill="rgba(10,110,138,0.15)" stroke="rgba(26,200,200,0.15)" stroke-width="0.5"/>
+        <text x="307" y="50" fill="rgba(232,96,64,0.88)" font-family="monospace" font-size="6.5"
+              text-anchor="middle" letter-spacing="0.08em">FIRST ATLANTIC RECORD</text>
+        <text x="307" y="64" fill="rgba(232,244,248,0.92)" font-family="monospace" font-size="10"
+              text-anchor="middle" font-weight="bold">1985 · FLORIDA</text>
+
+        <!-- Box 2: Eggs -->
+        <rect x="242" y="76" width="130" height="34" rx="1"
+              fill="rgba(10,110,138,0.15)" stroke="rgba(26,200,200,0.15)" stroke-width="0.5"/>
+        <text x="307" y="88" fill="rgba(232,96,64,0.88)" font-family="monospace" font-size="6.5"
+              text-anchor="middle" letter-spacing="0.08em">EGGS PER YEAR (♀)</text>
+        <text x="307" y="102" fill="rgba(232,244,248,0.92)" font-family="monospace" font-size="10"
+              text-anchor="middle" font-weight="bold">~2,000,000</text>
+
+        <!-- Box 3: Prey -->
+        <rect x="242" y="114" width="130" height="34" rx="1"
+              fill="rgba(10,110,138,0.15)" stroke="rgba(26,200,200,0.15)" stroke-width="0.5"/>
+        <text x="307" y="126" fill="rgba(232,96,64,0.88)" font-family="monospace" font-size="6.5"
+              text-anchor="middle" letter-spacing="0.08em">PREY SPECIES CONSUMED</text>
+        <text x="307" y="140" fill="rgba(232,244,248,0.92)" font-family="monospace" font-size="10"
+              text-anchor="middle" font-weight="bold">70+  SPECIES</text>
+
+        <!-- Box 4: Reef impact (danger highlight) -->
+        <rect x="242" y="152" width="130" height="34" rx="1"
+              fill="rgba(232,96,64,0.08)" stroke="rgba(232,96,64,0.32)" stroke-width="0.6"/>
+        <text x="307" y="164" fill="rgba(232,96,64,0.92)" font-family="monospace" font-size="6.5"
+              text-anchor="middle" letter-spacing="0.08em">JUVENILE FISH REDUCTION</text>
+        <text x="307" y="178" fill="rgba(240,80,64,1.0)" font-family="monospace" font-size="11"
+              text-anchor="middle" font-weight="bold">UP TO 90%</text>
+
+        <!-- Box 5: Native range -->
+        <rect x="242" y="190" width="130" height="52" rx="1"
+              fill="rgba(10,110,138,0.12)" stroke="rgba(26,200,200,0.15)" stroke-width="0.5"/>
+        <text x="307" y="202" fill="rgba(232,96,64,0.88)" font-family="monospace" font-size="6.5"
+              text-anchor="middle" letter-spacing="0.08em">NATIVE RANGE</text>
+        <text x="307" y="216" fill="rgba(232,244,248,0.88)" font-family="monospace" font-size="9"
+              text-anchor="middle">Indo-Pacific</text>
+        <text x="307" y="229" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="6.5"
+              text-anchor="middle">→ W. Atlantic + Caribbean</text>
+        <text x="307" y="239" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="6.5"
+              text-anchor="middle">est. millions of individuals</text>
+
+        <!-- TITLE BADGE -->
+        <rect x="0" y="0" width="234" height="14" fill="rgba(2,15,30,0.78)"/>
+        <text x="8" y="10" fill="rgba(232,96,64,0.82)" font-family="monospace" font-size="8"
+              letter-spacing="0.14em">PTEROIS VOLITANS  ·  ANATOMY</text>
+
+        <!-- Decorative corners -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Marine invasive species are organisms introduced — intentionally or accidentally by human activity — into ecosystems outside their native range, where the absence of co-evolved predators, pathogens, and competitors can allow unchecked population growth with severe ecological consequences. Ocean vectors include ballast water discharge, hull biofouling, aquarium releases, and the opening of inter-ocean canals. Not all non-native species become invasive; those that do typically share critical traits: rapid reproduction, broad environmental tolerance, generalist feeding, and some form of competitive defense advantage.
+          <br><br>
+          The lionfish (<em>Pterois volitans</em> and <em>P. miles</em>) stands as the defining case study of marine invasion in the Western Atlantic and Caribbean. Native to the reefs and coastal waters of the Indo-Pacific — from the Red Sea to the South Pacific — lionfish were first detected off Florida in 1985, almost certainly released from home aquariums. By 2001 they were established on the U.S. East Coast; by 2004–2008 the invasion front reached the Bahamas, Cuba, Mexico, and the full Caribbean basin at a rate unprecedented in marine ecology.
+          <br><br>
+          Four biological traits explain the lionfish's catastrophic success: (1) <strong>Venomous deterrence</strong> — 13 dorsal spines, 2 pelvic spines, and 3 anal spines deliver venom through grooved sheaths; no native Atlantic predator has evolved a response to this defense. (2) <strong>Prolific reproduction</strong> — females spawn year-round, releasing up to 30,000 eggs every four days; a single female may produce ~2 million eggs per year. (3) <strong>Generalist predation</strong> — lionfish consume 70+ species of reef fish and invertebrates, including juvenile groupers, snappers, and parrotfish critical to reef function. (4) <strong>Cryptic ambush</strong> — motionless near structure, using pectoral fins to herd prey, striking in as little as 0.016 seconds. Naive Atlantic prey show zero flight response. The ecological result: lionfish reduce juvenile reef fish populations by up to 90% within five weeks of establishing on a new reef patch. Critically, the venom is a heat-labile protein — entirely destroyed by cooking. The flesh is white, mild, and considered excellent eating, making organized culling the primary and most effective management strategy available today.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Las especies marinas invasoras son organismos introducidos fuera de su rango nativo, donde la ausencia de depredadores, patógenos y competidores co-evolucionados puede permitir un crecimiento poblacional descontrolado con graves consecuencias ecológicas. Los vectores oceánicos incluyen la descarga de agua de lastre, el biofouling de cascos y las liberaciones de acuarios.
+          <br><br>
+          El pez león (<em>Pterois volitans</em> y <em>P. miles</em>) es el caso de estudio definitivo de invasión marina en el Atlántico Occidental y el Caribe. Nativo del Indo-Pacífico, fue detectado por primera vez frente a Florida en 1985 — casi con certeza liberado de acuarios domésticos. Para 2004–2008 el frente de invasión había alcanzado las Bahamas, Cuba, México y toda la cuenca del Caribe a una velocidad sin precedentes en la ecología marina.
+          <br><br>
+          Cuatro rasgos biológicos explican el éxito catastrófico del pez león: (1) <strong>Disuasión venenosa</strong> — 13 espinas dorsales, 2 pélvicas y 3 anales inyectan veneno a través de vainas acanaladas; ningún depredador atlántico nativo tiene respuesta evolutiva a esta defensa. (2) <strong>Reproducción prolífica</strong> — las hembras desovan todo el año, produciendo hasta ~2 millones de huevos anuales. (3) <strong>Depredación generalista</strong> — consumen más de 70 especies de peces arrecifales e invertebrados, incluyendo juveniles de mero, pargo y loro críticos para el ecosistema. (4) <strong>Emboscada críptica</strong> — inmóviles junto a estructuras, atacan en ~0.016 segundos. Los resultados ecológicos son severos: el pez león puede reducir las poblaciones de peces juveniles en hasta un 90% en tan solo cinco semanas. El veneno es una proteína termolábil — destruida completamente por cocción — lo que convierte la caza organizada por buceadores en la estrategia de manejo principal y más efectiva disponible hoy.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Western Caribbean — encompassing the Mesoamerican Barrier Reef from Cancún through Belize to Honduras — is among the most heavily invaded lionfish zones on Earth, with population densities at some sites exceeding those recorded in the species' native Indo-Pacific range.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Lionfish were confirmed along the <strong>Riviera Maya reef system</strong> (Puerto Aventuras, Akumal, Tulum, Banco Chinchorro) by 2009–2010, within just 25 years of the initial Atlantic introduction. CEA (Centro Ecológico Akumal) — GROAN's active field partner — conducts lionfish removal as a core component of its reef health monitoring program, coupling culling data with fish census transects to track measurable recovery.</li>
+        <li>The <strong>Belize Barrier Reef</strong> — a UNESCO World Heritage Site and the second-largest barrier reef on Earth — faces acute pressure because its primary dive depth range (5–60 m) falls entirely within the lionfish's preferred habitat. Annual Lionfish Awareness Day tournaments have removed thousands of individuals, but targeted culling at key reef sections remains the essential tool.</li>
+        <li>The <strong>Bay Islands of Honduras</strong> (Roatán, Utila, Guanaja) established some of the Caribbean's earliest lionfish derby programs, creating community-based financial incentives for removal. The Roatán Marine Park now coordinates culling dives that feed standardized removal rate data into regional reef health assessments — a model adopted across the Mesoamerican Reef.</li>
+        <li>For the <strong>Rim Run™ crew</strong>, lionfish hunting is simultaneous ecological service, field data collection, and food security. The crew carries pole spears and Hawaiian slings on all reef survey dives; culled fish are measured (total length, wet weight), photographed, and logged before consumption — data uploaded directly to GROAN's GMAIN module.</li>
+        <li><strong>GROAN's GMAIN</strong> (Global Marine Animal Intelligence Network) module integrates lionfish sighting density, size-class distribution, and removal rates across the Western Caribbean as key indicators of reef health and invasion pressure — feeding the Cross-Module Interaction Engine when correlating fish community structure with coral cover (GRIN) and seagrass condition (GSIN).</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Caribe Occidental — que abarca el Arrecife Mesoamericano desde Cancún hasta Honduras — es una de las zonas con mayor invasión de pez león en el mundo, con densidades poblacionales que en algunos sitios superan las registradas en el rango nativo del Indo-Pacífico.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El pez león fue confirmado en el <strong>sistema arrecifal de la Riviera Maya</strong> (Puerto Aventuras, Akumal, Tulum, Banco Chinchorro) en 2009–2010. CEA (Centro Ecológico Akumal) — socio de campo activo de GROAN — conduce programas de remoción de pez león acoplados a censos de peces para medir la recuperación arrecifal.</li>
+        <li>El <strong>Arrecife Barrera de Belice</strong> — Patrimonio Mundial de la UNESCO — enfrenta presión particular porque su rango de profundidad de buceo (5–60 m) cae completamente dentro del hábitat preferido del pez león. Los torneos anuales de pez león han retirado miles de individuos, pero la caza dirigida sigue siendo la herramienta esencial.</li>
+        <li>Las <strong>Islas de la Bahía de Honduras</strong> (Roatán, Utila, Guanaja) establecieron algunos de los primeros programas de derby de pez león del Caribe. El Parque Marino de Roatán coordina inmersiones de caza que alimentan datos estandarizados de tasas de remoción a evaluaciones de salud arrecifal regional.</li>
+        <li>Para la <strong>tripulación del Rim Run™</strong>, la caza del pez león es servicio ecológico, recolección de datos de campo y seguridad alimentaria simultáneos. Los peces cazados se miden, fotografían y registran antes del consumo — datos subidos directamente al módulo GMAIN de GROAN.</li>
+        <li>El módulo <strong>GMAIN de GROAN</strong> integra densidad de avistamientos de pez león, distribución de clases de tamaño y tasas de remoción como indicadores de salud arrecifal, alimentando el Motor de Interacción Inter-Módulos al correlacionar la estructura de la comunidad de peces con la cobertura coralina (GRIN) y el estado de los pastos marinos (GSIN).</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 A lionfish's venomous spines make the flesh dangerous to eat. True or false, and why?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> True — venom distributes throughout the flesh under stress</li>
+            <li><span class="opt-letter">B.</span> True — spine toxins accumulate in muscle tissue over the fish's lifetime</li>
+            <li><span class="opt-letter">C.</span> False — lionfish venom is a heat-labile protein destroyed by cooking; flesh is entirely safe and edible</li>
+            <li><span class="opt-letter">D.</span> False — lionfish produce no true venom; spines cause only mechanical puncture injury</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Venom is a protein denatured by heat. Cooked lionfish is safe, white-fleshed, and widely considered excellent table fare — making culling both ecologically valuable and culinarily rewarding.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Las espinas venenosas del pez león hacen que su carne sea peligrosa para comer. ¿Verdadero o falso, y por qué?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Verdadero — el veneno se distribuye por la carne bajo estrés</li>
+            <li><span class="opt-letter">B.</span> Verdadero — las toxinas se acumulan en el tejido muscular con el tiempo</li>
+            <li><span class="opt-letter">C.</span> Falso — el veneno del pez león es una proteína termolábil destruida por cocción; la carne es completamente segura y comestible</li>
+            <li><span class="opt-letter">D.</span> Falso — el pez león no produce veneno verdadero; las espinas solo causan heridas de punción mecánica</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El veneno es una proteína desnaturalizada por el calor. El pez león cocido es seguro, de carne blanca y ampliamente considerado excelente para comer — haciendo que la caza sea valiosa tanto ecológica como culinariamente.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Which combination of traits best explains why lionfish became such a devastating invasive species in the Atlantic and Caribbean?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Superior swimming speed and annual trans-Atlantic migration during warm ENSO years</li>
+            <li><span class="opt-letter">B.</span> Preference for deep reef habitat below 80 m where few native Atlantic predators compete</li>
+            <li><span class="opt-letter">C.</span> Year-round reproduction (~2M eggs/year), venomous spine defense unrecognized by native predators, and generalist predation on 70+ species</li>
+            <li><span class="opt-letter">D.</span> Mutualistic relationship with sargassum providing nursery habitat for Atlantic larvae</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The convergence of prolific reproduction, venomous deterrence with no co-evolutionary counterpart in Atlantic predators, and broad dietary flexibility produced an invasion with no natural brake mechanism.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué combinación de rasgos explica mejor por qué el pez león se convirtió en una especie invasora tan devastadora en el Atlántico y el Caribe?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Superior velocidad de nado y migración trans-Atlántica anual durante años ENSO cálidos</li>
+            <li><span class="opt-letter">B.</span> Preferencia por hábitat de arrecife profundo por debajo de 80 m donde pocos depredadores nativos compiten</li>
+            <li><span class="opt-letter">C.</span> Reproducción durante todo el año (~2M huevos/año), defensa de espinas venenosas no reconocida por depredadores nativos, y depredación generalista de 70+ especies</li>
+            <li><span class="opt-letter">D.</span> Relación mutualista con el sargazo que proporciona hábitat de vivero para larvas atlánticas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La convergencia de reproducción prolífica, disuasión venenosa sin contraparte co-evolutiva en depredadores atlánticos, y amplia flexibilidad dietética produjo una invasión sin mecanismo de freno natural.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Within the GROAN system, which module primarily integrates lionfish population data — sighting density, size-class distribution, and removal rates — for cross-ecosystem analysis?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> GRIN — Global Reef Intelligence Network</li>
+            <li><span class="opt-letter">B.</span> GSIN — Global Seagrass Intelligence Network</li>
+            <li><span class="opt-letter">C.</span> GMIN — Global Mangrove Intelligence Network</li>
+            <li><span class="opt-letter">D.</span> GMAIN — Global Marine Animal Intelligence Network</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: D — GMAIN tracks species-level fish community data including invasive species density and removal rates, feeding the Cross-Module Interaction Engine when correlating animal communities with GRIN coral cover and GSIN seagrass metrics.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Dentro del sistema GROAN, ¿qué módulo integra principalmente los datos de población de pez león — densidad de avistamientos, distribución de clases de tamaño y tasas de remoción — para análisis inter-ecosistémico?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> GRIN — Red Global de Inteligencia de Arrecifes</li>
+            <li><span class="opt-letter">B.</span> GSIN — Red Global de Inteligencia de Pastos Marinos</li>
+            <li><span class="opt-letter">C.</span> GMIN — Red Global de Inteligencia de Manglares</li>
+            <li><span class="opt-letter">D.</span> GMAIN — Red Global de Inteligencia Animal Marina</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: D — GMAIN rastrea datos de comunidades de peces a nivel de especies, incluyendo densidad de invasoras y tasas de remoción, alimentando el Motor de Interacción Inter-Módulos al correlacionar comunidades animales con cobertura coralina (GRIN) y métricas de pastos marinos (GSIN).</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 01 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L01 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
