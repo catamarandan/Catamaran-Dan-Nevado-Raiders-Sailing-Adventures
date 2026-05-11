@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L04 — Invasive Species: Processes | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:#0a1628; --teal-bright:#00c8b4; --teal-dim:#007a6e;
+    --amber:#f5a623; --coral-red:#e05a3a; --violet:#9b6dff;
+    --seafoam:#4ab8e0; --gold:#e8c84a;
+    --text-primary:#e8f4f8; --text-secondary:#8fbdd3; --text-muted:#4a7a96;
+    --card-bg:rgba(15,34,64,0.85); --border:rgba(0,200,180,0.18); --tag-bg:rgba(0,200,180,0.12);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--ocean-deep);color:var(--text-primary);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+  .progress-bar-outer{width:100%;height:4px;background:rgba(255,255,255,0.06);position:sticky;top:0;z-index:100;}
+  .progress-bar-inner{height:100%;width:9.23%;background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright));}
+  .lesson-header{background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%);border-bottom:1px solid var(--border);overflow:hidden;}
+  .header-svg-wrap { width:100%; height:240px; overflow:hidden; }
+  .meta-strip{max-width:860px;margin:0 auto;padding:24px 28px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .section-tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--tag-bg);border:1px solid var(--border);color:var(--teal-bright);padding:4px 10px;border-radius:4px;}
+  .lesson-tag-amber{background:rgba(245,166,35,0.12);border-color:rgba(245,166,35,0.3);color:var(--amber);}
+  .lesson-tag-gold{background:rgba(232,200,74,0.10);border-color:rgba(232,200,74,0.3);color:var(--gold);}
+  .lesson-title-block{max-width:860px;margin:0 auto;padding:18px 28px 28px;}
+  .lesson-number{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--teal-bright);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+  h1.lesson-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:6px;}
+  h1.lesson-title em{font-style:italic;color:var(--teal-bright);}
+  .lesson-subtitle{font-size:0.88rem;color:var(--text-secondary);font-style:italic;}
+  .content-wrap{max-width:860px;margin:0 auto;padding:40px 28px 60px;}
+  .lang-tabs{display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--border);}
+  .lang-tab{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:8px 18px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;}
+  .lang-tab.active{color:var(--teal-bright);border-bottom-color:var(--teal-bright);}
+  .lang-panel{display:none;} .lang-panel.active{display:block;}
+  h2.section-head{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--teal-bright);margin:36px 0 12px;border-left:3px solid var(--teal-dim);padding-left:14px;}
+  h3.sub-head{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin:24px 0 8px;}
+  p{margin-bottom:14px;font-size:0.96rem;color:var(--text-primary);}
+  p:last-child{margin-bottom:0;}
+  .callout{border-left:3px solid var(--teal-bright);background:rgba(0,200,180,0.06);border-radius:0 6px 6px 0;padding:14px 18px;margin:20px 0;font-size:0.92rem;color:var(--text-secondary);}
+  .callout strong{color:var(--teal-bright);}
+  .callout-amber{border-left-color:var(--amber);background:rgba(245,166,35,0.06);}
+  .callout-amber strong{color:var(--amber);}
+  .callout-red{border-left-color:var(--coral-red);background:rgba(224,90,58,0.07);}
+  .callout-red strong{color:var(--coral-red);}
+  .callout-violet{border-left-color:var(--violet);background:rgba(155,109,255,0.07);}
+  .callout-violet strong{color:var(--violet);}
+  .callout-gold{border-left-color:var(--gold);background:rgba(232,200,74,0.06);}
+  .callout-gold strong{color:var(--gold);}
+
+  /* trait grid */
+  .trait-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;}
+  @media(max-width:620px){.trait-grid{grid-template-columns:1fr 1fr;}}
+  .trait-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:14px 13px;}
+  .trait-icon{font-size:1.3rem;margin-bottom:6px;line-height:1;}
+  .trait-name{font-family:'DM Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--teal-bright);margin-bottom:6px;}
+  .trait-desc{font-size:0.78rem;color:var(--text-secondary);line-height:1.45;}
+
+  /* repro rows */
+  .repro-rows{display:flex;flex-direction:column;gap:10px;margin:20px 0;}
+  .repro-row{display:grid;grid-template-columns:175px 1fr;gap:14px;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;align-items:start;}
+  @media(max-width:540px){.repro-row{grid-template-columns:1fr;}}
+  .repro-label{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--violet);padding-top:2px;line-height:1.45;}
+  .repro-text{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+
+  /* dispersal */
+  .dispersal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+  @media(max-width:520px){.dispersal-grid{grid-template-columns:1fr;}}
+  .dispersal-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:16px 14px;}
+  .dispersal-label{font-family:'DM Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--seafoam);margin-bottom:8px;}
+  .dispersal-text{font-size:0.84rem;color:var(--text-secondary);line-height:1.5;}
+
+  /* larval table */
+  .larval-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.84rem;}
+  .larval-table th{font-family:'DM Mono',monospace;font-size:0.67rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal-bright);border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;}
+  .larval-table td{padding:10px 12px;border-bottom:1px solid rgba(0,200,180,0.07);color:var(--text-secondary);vertical-align:top;line-height:1.45;}
+  .larval-table tr:last-child td{border-bottom:none;}
+  .larval-table td:first-child{font-family:'DM Mono',monospace;font-size:0.76rem;color:var(--amber);white-space:nowrap;}
+  .larval-table tr:hover td{background:rgba(0,200,180,0.03);}
+
+  /* habitat grid */
+  .habitat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+  @media(max-width:520px){.habitat-grid{grid-template-columns:1fr;}}
+  .habitat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:16px 14px;}
+  .habitat-label{font-family:'DM Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);margin-bottom:8px;}
+  .habitat-text{font-size:0.84rem;color:var(--text-secondary);line-height:1.5;}
+
+  /* application panel */
+  .application-panel{background:linear-gradient(135deg,rgba(15,34,64,0.95),rgba(10,22,40,0.95));border:1px solid rgba(0,200,180,0.25);border-radius:10px;padding:28px;margin:40px 0 32px;}
+  .application-panel h2{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--amber);margin-bottom:4px;}
+  .app-sub{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:18px;}
+  .app-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+  @media(max-width:520px){.app-stat-row{grid-template-columns:1fr 1fr;}}
+  .app-stat{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:6px;padding:12px 10px;text-align:center;}
+  .app-stat-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--teal-bright);line-height:1.1;margin-bottom:4px;}
+  .app-stat-lbl{font-size:0.72rem;color:var(--text-muted);line-height:1.3;}
+
+  /* MCQ */
+  .mcq-section{margin-top:40px;}
+  .mcq-section h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text-primary);margin-bottom:24px;}
+  .mcq-block{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:22px 22px 18px;margin-bottom:16px;}
+  .mcq-q-num{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--teal-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+  .mcq-question{font-size:0.95rem;font-weight:500;color:var(--text-primary);margin-bottom:14px;line-height:1.5;}
+  .mcq-question em{font-style:italic;color:var(--text-secondary);font-size:0.88em;}
+  .mcq-options{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .mcq-options li button{width:100%;text-align:left;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text-secondary);cursor:pointer;transition:background .18s,border-color .18s,color .18s;line-height:1.45;}
+  .mcq-options li button:hover{background:rgba(0,200,180,0.08);border-color:var(--teal-dim);color:var(--text-primary);}
+  .mcq-options li button.correct{background:rgba(0,200,180,0.15);border-color:var(--teal-bright);color:var(--teal-bright);font-weight:500;}
+  .mcq-options li button.wrong{background:rgba(224,90,58,0.12);border-color:var(--coral-red);color:var(--coral-red);}
+  .mcq-options li button:disabled{cursor:default;}
+  .mcq-feedback{margin-top:12px;font-size:0.83rem;line-height:1.5;display:none;}
+  .mcq-feedback.show{display:block;}
+  .mcq-feedback.correct-fb{color:var(--teal-bright);}
+  .mcq-feedback.wrong-fb{color:#e07a5f;}
+
+  /* footer */
+  .lesson-footer{border-top:1px solid var(--border);padding:24px 28px;max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+  .footer-nav a{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);text-decoration:none;transition:color .2s;}
+  .footer-nav a:hover{color:var(--teal-bright);}
+  .footer-progress{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-align:right;}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#04091a"/><stop offset="100%" stop-color="#0a1628"/>
+        </linearGradient>
+        <linearGradient id="expF" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.28"/><stop offset="100%" stop-color="#e05a3a" stop-opacity="0.02"/>
+        </linearGradient>
+        <linearGradient id="krnF" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4ab8e0" stop-opacity="0.22"/><stop offset="100%" stop-color="#4ab8e0" stop-opacity="0.02"/>
+        </linearGradient>
+        <filter id="gl2" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="2.2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <marker id="aT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,200,180,0.7)"/>
+        </marker>
+        <marker id="aA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(245,166,35,0.75)"/>
+        </marker>
+        <clipPath id="lClip"><rect x="0" y="0" width="490" height="270"/></clipPath>
+        <clipPath id="rClip"><rect x="500" y="0" width="400" height="270"/></clipPath>
+      </defs>
+      <rect width="900" height="270" fill="url(#bgG)"/>
+      <g stroke="rgba(0,200,180,0.045)" stroke-width="1">
+        <line x1="0" y1="55" x2="900" y2="55"/><line x1="0" y1="110" x2="900" y2="110"/>
+        <line x1="0" y1="165" x2="900" y2="165"/><line x1="0" y1="220" x2="900" y2="220"/>
+        <line x1="120" y1="0" x2="120" y2="270"/><line x1="240" y1="0" x2="240" y2="270"/>
+        <line x1="360" y1="0" x2="360" y2="270"/><line x1="480" y1="0" x2="480" y2="270"/>
+        <line x1="600" y1="0" x2="600" y2="270"/><line x1="720" y1="0" x2="720" y2="270"/>
+      </g>
+
+      <!-- LEFT: population growth curve -->
+      <line x1="38" y1="30" x2="38" y2="235" stroke="rgba(0,200,180,0.28)" stroke-width="1.2"/>
+      <line x1="38" y1="235" x2="470" y2="235" stroke="rgba(0,200,180,0.28)" stroke-width="1.2"/>
+      <text x="16" y="133" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(0,200,180,0.38)"
+            text-anchor="middle" transform="rotate(-90,16,133)" letter-spacing="0.08em">POPULATION (N)</text>
+      <text x="254" y="255" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(0,200,180,0.32)"
+            text-anchor="middle" letter-spacing="0.08em">TIME</text>
+      <!-- K line -->
+      <line x1="38" y1="52" x2="468" y2="52" stroke="rgba(0,200,180,0.22)" stroke-width="1" stroke-dasharray="6,5"/>
+      <text x="474" y="56" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(0,200,180,0.48)">K</text>
+      <!-- Allee zone -->
+      <rect x="38" y="188" width="430" height="26" fill="rgba(245,166,35,0.07)"/>
+      <line x1="38" y1="188" x2="468" y2="188" stroke="rgba(245,166,35,0.32)" stroke-width="1" stroke-dasharray="4,5"/>
+      <text x="474" y="192" font-family="'DM Mono',monospace" font-size="7" fill="rgba(245,166,35,0.52)">Ac</text>
+      <text x="44" y="203" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.42)" letter-spacing="0.05em">ALLEE ZONE</text>
+      <!-- fill + curve -->
+      <path d="M38,230 Q90,228 130,224 Q170,218 210,208 Q250,192 288,164 Q326,126 364,88 Q400,62 440,52 L440,235 Z"
+            fill="url(#expF)" clip-path="url(#lClip)"/>
+      <path d="M38,230 Q90,228 130,224 Q170,218 210,208 Q250,192 288,164 Q326,126 364,88 Q400,62 440,52"
+            fill="none" stroke="rgba(224,90,58,0.82)" stroke-width="2.2" stroke-linecap="round" filter="url(#gl2)"/>
+      <!-- phase brackets -->
+      <g stroke="rgba(255,255,255,0.18)" stroke-width="1">
+        <line x1="38" y1="246" x2="148" y2="246"/><line x1="38" y1="242" x2="38" y2="250"/><line x1="148" y1="242" x2="148" y2="250"/>
+      </g>
+      <text x="93" y="262" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(255,255,255,0.28)" text-anchor="middle">LAG</text>
+      <g stroke="rgba(224,90,58,0.32)" stroke-width="1">
+        <line x1="148" y1="246" x2="352" y2="246"/><line x1="352" y1="242" x2="352" y2="250"/>
+      </g>
+      <text x="250" y="262" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.38)" text-anchor="middle">EXPONENTIAL</text>
+      <g stroke="rgba(0,200,180,0.22)" stroke-width="1">
+        <line x1="352" y1="246" x2="452" y2="246"/><line x1="452" y1="242" x2="452" y2="250"/>
+      </g>
+      <text x="402" y="262" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.32)" text-anchor="middle">K</text>
+      <!-- Allee annotation -->
+      <text x="64" y="178" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.58)" letter-spacing="0.04em">mate-finding</text>
+      <text x="64" y="168" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.58)" letter-spacing="0.04em">fails below</text>
+      <line x1="88" y1="188" x2="88" y2="206" stroke="rgba(245,166,35,0.48)" stroke-width="1" marker-end="url(#aA)"/>
+      <!-- r label -->
+      <text x="278" y="146" font-family="'DM Mono',monospace" font-size="9" fill="rgba(224,90,58,0.68)">r</text>
+      <line x1="286" y1="146" x2="312" y2="126" stroke="rgba(224,90,58,0.42)" stroke-width="1" marker-end="url(#aT)"/>
+      <text x="254" y="16" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.22)" letter-spacing="0.07em">POPULATION GROWTH MECHANICS</text>
+
+      <!-- divider -->
+      <line x1="490" y1="12" x2="490" y2="258" stroke="rgba(0,200,180,0.09)" stroke-width="1" stroke-dasharray="3,5"/>
+
+      <!-- RIGHT: fat-tailed dispersal kernel — source at Y-axis, peak at short distance, fat tail right -->
+      <line x1="518" y1="30" x2="518" y2="235" stroke="rgba(74,184,224,0.28)" stroke-width="1.2"/>
+      <line x1="518" y1="235" x2="878" y2="235" stroke="rgba(74,184,224,0.28)" stroke-width="1.2"/>
+      <text x="502" y="133" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(74,184,224,0.38)"
+            text-anchor="middle" transform="rotate(-90,502,133)" letter-spacing="0.07em">SETTLEMENT PROB.</text>
+      <text x="697" y="255" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(74,184,224,0.32)"
+            text-anchor="middle" letter-spacing="0.08em">DISTANCE FROM SOURCE</text>
+
+      <!-- Fat tail area fill — between fat-tail curve and baseline -->
+      <path d="M518,235 Q524,220 534,165 Q540,118 548,58
+               Q556,130 568,175 Q590,210 630,222 Q670,229 720,232 Q770,233 830,234 Q860,234.5 875,235 Z"
+            fill="rgba(74,184,224,0.14)" clip-path="url(#rClip)"/>
+
+      <!-- Thin-tail area fill (darker, narrower) -->
+      <path d="M518,235 Q524,220 534,165 Q540,118 548,58
+               Q556,130 562,175 Q572,210 592,226 Q618,233 650,234.5 Q700,235 875,235 Z"
+            fill="rgba(74,184,224,0.07)" clip-path="url(#rClip)"/>
+
+      <!-- Thin-tail reference curve — steep dropoff after peak -->
+      <path d="M518,235 Q524,220 534,165 Q540,118 548,58
+               Q556,130 562,178 Q572,212 592,227 Q618,234 650,234.8 Q720,235 875,235"
+            fill="none" stroke="rgba(74,184,224,0.30)" stroke-width="1.4" stroke-dasharray="5,4" stroke-linecap="round"/>
+
+      <!-- Fat-tail curve — same rise, gentle decline far to right -->
+      <path d="M518,235 Q524,220 534,165 Q540,118 548,58
+               Q556,130 568,176 Q590,210 630,222 Q670,229 720,231 Q770,233 830,234 Q860,234.5 875,235"
+            fill="none" stroke="rgba(74,184,224,0.82)" stroke-width="2.2" stroke-linecap="round" filter="url(#gl2)"/>
+
+      <!-- Difference region shading — fat tail minus thin tail -->
+      <path d="M592,227 Q618,233 650,234.8 Q670,234.8 700,234.5
+               Q720,231 770,233 Q800,233.5 830,234 Q860,234.5 875,235
+               L875,235 Q860,234.5 830,234 Q770,233 720,231 Q670,229 650,234.8 Q618,234 592,227 Z"
+            fill="rgba(245,166,35,0.10)" clip-path="url(#rClip)"/>
+
+      <!-- Peak marker -->
+      <line x1="548" y1="58" x2="548" y2="235" stroke="rgba(74,184,224,0.12)" stroke-width="1" stroke-dasharray="3,4"/>
+      <text x="548" y="46" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7"
+            fill="rgba(74,184,224,0.62)" letter-spacing="0.04em">DIFFUSION</text>
+      <text x="548" y="55" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7"
+            fill="rgba(74,184,224,0.62)" letter-spacing="0.04em">PEAK</text>
+
+      <!-- Jump event satellites — dots above thin-tail in fat-tail zone -->
+      <circle cx="740" cy="221" r="5" fill="rgba(245,166,35,0.0)" stroke="rgba(245,166,35,0.7)" stroke-width="1.5" filter="url(#gl2)"/>
+      <circle cx="740" cy="221" r="3" fill="rgba(245,166,35,0.75)"/>
+      <circle cx="800" cy="225" r="4" fill="rgba(245,166,35,0.0)" stroke="rgba(245,166,35,0.55)" stroke-width="1.5"/>
+      <circle cx="800" cy="225" r="2.5" fill="rgba(245,166,35,0.58)"/>
+      <circle cx="845" cy="228" r="3.5" fill="rgba(245,166,35,0.0)" stroke="rgba(245,166,35,0.42)" stroke-width="1.2"/>
+      <circle cx="845" cy="228" r="2" fill="rgba(245,166,35,0.44)"/>
+      <!-- jump label -->
+      <line x1="740" y1="216" x2="740" y2="198" stroke="rgba(245,166,35,0.45)" stroke-width="1"/>
+      <text x="700" y="194" font-family="'DM Mono',monospace" font-size="7" fill="rgba(245,166,35,0.65)" letter-spacing="0.04em">JUMP EVENTS</text>
+
+      <!-- Thin-tail label -->
+      <text x="820" y="210" font-family="'DM Mono',monospace" font-size="6.5"
+            fill="rgba(74,184,224,0.35)" text-anchor="middle">thin-tail</text>
+      <line x1="820" y1="213" x2="790" y2="223" stroke="rgba(74,184,224,0.25)" stroke-width="0.8"/>
+
+      <!-- "fat tail region" brace -->
+      <text x="765" y="248" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5"
+            fill="rgba(245,166,35,0.42)" letter-spacing="0.05em">FAT TAIL REGION</text>
+      <line x1="655" y1="243" x2="875" y2="243" stroke="rgba(245,166,35,0.25)" stroke-width="0.8"/>
+      <line x1="655" y1="240" x2="655" y2="246" stroke="rgba(245,166,35,0.25)" stroke-width="0.8"/>
+      <line x1="875" y1="240" x2="875" y2="246" stroke="rgba(245,166,35,0.25)" stroke-width="0.8"/>
+
+      <text x="697" y="16" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.22)" letter-spacing="0.07em">FAT-TAILED DISPERSAL KERNEL</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 04</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-gold">Processes</span>
+    <span class="section-tag">GMAIN</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L04</div>
+    <h1 class="lesson-title">Invasive Species — <em>Processes</em></h1>
+    <p class="lesson-subtitle">Procesos de las Especies Invasoras</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ══ ENGLISH ══ -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">From Principles to Processes</h2>
+    <p>L02 established the principles governing invasion success. L03 placed those principles inside the GROAN systems architecture. L04 goes deeper: the <strong>processes</strong> that execute those principles at the level of individual organisms and populations. A process is a specific, mechanistic sequence of biological events — reproduction, larval transport, habitat selection, behavioral response to predator detection — that collectively produce the population-level outcomes we measure and manage. Understanding processes is what allows DMAP-CAL to predict invasion trajectories, not merely observe them.</p>
+
+    <h2 class="section-head">Invasion Success Traits</h2>
+    <p>No single trait guarantees invasive success, but a consistent biological profile emerges across the most ecologically damaging marine invaders. GMAIN uses this trait profile as a prior risk weight when evaluating incoming species reports — a species matching five or six traits is flagged for elevated monitoring priority before population data can confirm the risk.</p>
+
+    <div class="trait-grid">
+      <div class="trait-card">
+        <div class="trait-icon">🥚</div>
+        <div class="trait-name">High Fecundity</div>
+        <div class="trait-desc">Frequent spawning, large clutch sizes, or year-round reproduction. More offspring per unit time means faster population recovery after removal events and higher propagule pressure across the invaded range. Fecundity is the fundamental engine of invasion speed.</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">⏱️</div>
+        <div class="trait-name">Early Maturity</div>
+        <div class="trait-desc">Reaching reproductive age quickly compresses generation time and steepens the population growth curve. A species that spawns in its first year completes multiple generations before co-occurring native competitors with longer juvenile phases finish their first.</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">🍽️</div>
+        <div class="trait-name">Generalist Diet</div>
+        <div class="trait-desc">Dietary breadth means the species is never limited by the absence of any single prey type. A generalist exploits whatever the novel environment offers without needing evolved prey-capture specialization — and can switch prey as community structure changes under its own predation pressure.</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">🌡️</div>
+        <div class="trait-name">Broad Thermal Tolerance</div>
+        <div class="trait-desc">Wide tolerance of temperature variation buffers the species against seasonal extremes and enables range expansion as ocean temperatures shift. A species operating near the middle of its thermal range experiences none of the physiological stress that a native at its thermal limit faces.</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">🔄</div>
+        <div class="trait-name">Phenotypic Plasticity</div>
+        <div class="trait-desc">The ability to alter physiology, behavior, or morphology in response to environmental variation without genetic change. Plastic species occupy a wider range of ecological conditions than genetically fixed specialists — especially valuable during the establishment phase when conditions are novel and unpredictable.</div>
+      </div>
+      <div class="trait-card">
+        <div class="trait-icon">🧬</div>
+        <div class="trait-name">Multi-Habitat Tolerance</div>
+        <div class="trait-desc">The ability to use reef, seagrass, mangrove, sandy bottom, estuarine, and deep-water habitats across different life stages. Multi-habitat tolerance eliminates refuge zones — every habitat type in the invaded ecosystem becomes accessible colonization space.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Lionfish Trait Score — 6/6:</strong> <em>Pterois volitans</em> matches all six. Spawns year-round up to every 4 days, releasing ~30,000 buoyant eggs per event. Reproductive maturity at approximately one year. Documented prey list exceeds 70 Caribbean reef fish species. Thermal range 10–36°C. Behavioral flexibility documented in every Caribbean habitat type. Recorded from &lt;1m intertidal to 300m. This is the biological profile of an ideal invader.
+    </div>
+
+    <h2 class="section-head">Reproductive Processes</h2>
+    <p>Reproduction is the primary process converting individual biology into population-level invasion dynamics. The specifics of <em>how</em> a species reproduces — not just how much — determine the shape of the invasion curve, the response to removal, and the geographic footprint of dispersal.</p>
+
+    <div class="repro-rows">
+      <div class="repro-row">
+        <div class="repro-label">Spawning Mode &amp; Egg Fate</div>
+        <div class="repro-text">Pelagic broadcast spawners release eggs into the water column where fertilization and early development occur in open water. Eggs and larvae enter the pelagic dispersal system immediately — transported by currents before they can be managed at the source site. Lionfish are pelagic spawners: their eggs and larvae are ocean-transported from the moment of spawning, making source-site management insufficient for regional control.</div>
+      </div>
+      <div class="repro-row">
+        <div class="repro-label">Intrinsic Rate of Increase (r)</div>
+        <div class="repro-text">The per capita rate of population change under ideal conditions. Invasive species with high <em>r</em> values grow exponentially: N(t) = N₀·eʳᵗ. The lag phase ends not when growth begins, but when accumulated population size makes exponential growth impossible to ignore. High-<em>r</em> species can transition from invisible to ecologically dominant within a single management planning cycle if detection is delayed.</div>
+      </div>
+      <div class="repro-row">
+        <div class="repro-label">Density-Dependent Regulation</div>
+        <div class="repro-text">At high population density, food competition, territorial exclusion, and disease transmission impose negative feedback that slows growth toward carrying capacity (K). In invaded environments, K is set by the food base and physical space available — not by native predator regulation. The absence of native predator control means the invasive population reaches K faster and maintains it longer than a co-evolved predator would allow.</div>
+      </div>
+      <div class="repro-row">
+        <div class="repro-label">Allee Effects at Low Density</div>
+        <div class="repro-text">Below a critical density threshold, mate-finding failure, reduced cooperative behavior, and stochastic events can cause local extinction even when habitat quality is high. This explains why most single-introduction events fail and why repeated introductions are necessary for establishment. It also explains why sustained removal programs driving a local population below the Allee threshold can trigger self-reinforcing collapse — removing individuals reduces mate-finding frequency below the level needed for population maintenance.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>DMAP-CAL Allee Targeting:</strong> At geographically isolated reef nodes — patch reefs, enclosed lagoons, deep pinnacles — the Allee threshold is the intervention target, not maximum removal per dive. DMAP-CAL models estimated Allee thresholds per node geometry and flags when density estimates approach the target range, enabling suppression-to-collapse rather than indefinite sustained removal.
+    </div>
+
+    <h2 class="section-head">Dispersal Processes</h2>
+    <p>How the invasive species moves across the seascape determines where the next establishment event occurs and how fast the invasion front advances. Two fundamentally different dispersal processes operate simultaneously in most marine invasions, producing the spatial signatures that GMAIN's node-density mapping is designed to detect.</p>
+
+    <div class="dispersal-grid">
+      <div class="dispersal-card">
+        <div class="dispersal-label">Diffusion Spread</div>
+        <div class="dispersal-text">Continuous, short-range expansion of the invasion front driven by normal individual movement — adult foraging range, juvenile settlement near natal reef, neighbor-reef colonization. The front advances roughly radially from each established population center at a predictable rate. Produces a spatially contiguous, gradual spread pattern: high-density core declining to near-zero at the frontier. Amenable to containment barriers because spread is directional and linear.</div>
+      </div>
+      <div class="dispersal-card">
+        <div class="dispersal-label">Jump Dispersal</div>
+        <div class="dispersal-text">Long-distance, discontinuous transport events depositing propagules far beyond the current invasion front — larval transport by current, vessel hull fouling, or human-assisted movement. Creates satellite populations inside containment perimeters, bypasses frontier barriers entirely, and expands locally by diffusion from the new position. The resulting signature — isolated high-density clusters surrounded by low-density zones — is detectable in GMAIN node-cluster density maps as anomalous remote hotspots.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Stratified Dispersal — The Combined Pattern</h3>
+    <p>The simultaneous operation of diffusion and jump dispersal is called <strong>stratified dispersal</strong>. It is the dominant mechanism for successful marine invaders and the reason containment strategies designed for diffusion-only invasions consistently fail. Frontier barriers address diffusion but not jump events; distributed node-level suppression addresses jump-colonized satellites but requires far greater resources than a frontier strategy.</p>
+
+    <div class="callout callout-violet">
+      <strong>GMAIN Spatial Signature Detection:</strong> Stratified dispersal produces a diagnostic density map: high-density nodes at the invasion core, near-zero at intermediate distances, and anomalous high-density satellites at distant nodes with no geographic connection to the advancing front. When DMAP-CAL detects this signature — core density stable or declining, frontier stable, but remote node density rising — it flags the containment strategy as ineffective and escalates to distributed suppression tasking. This signal is only detectable because GMAIN aggregates density data across all nodes simultaneously.
+    </div>
+
+    <h3 class="sub-head">Larval Ecology and Current-Mediated Transport</h3>
+    <p>Invasives with a pelagic larval stage are transported by ocean currents during the larval period. Three parameters determine the geographic footprint of each spawning event:</p>
+
+    <table class="larval-table">
+      <thead><tr><th>Larval Parameter</th><th>What It Controls</th><th>Lionfish Values</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Pelagic Larval Duration (PLD)</td>
+          <td>Maximum possible dispersal distance — how long larvae remain in the water column before competency to settle is reached. Longer PLD = wider potential dispersal footprint.</td>
+          <td>Estimated 25–35 days. At Caribbean Current velocities of 1–2 knots (~45–90 km/day), maximum theoretical dispersal range is 1,100–3,100 km per spawning event from a single source female.</td>
+        </tr>
+        <tr>
+          <td>Larval Swimming Behavior</td>
+          <td>Whether larvae actively position themselves in different current layers modifies actual dispersal distance and direction relative to passive transport predictions.</td>
+          <td>Lionfish larvae are weakly active swimmers — primarily passive during early development, with increasing swimming capacity approaching settlement. Actual dispersal tracks the passive transport model closely.</td>
+        </tr>
+        <tr>
+          <td>Settlement Competency Window</td>
+          <td>The period during which larvae can respond to settlement cues and recruit to reef substrate. Larvae transported past suitable habitat before the window opens, or still drifting after it closes, fail to recruit.</td>
+          <td>Settlement competency aligns with late-stage larval development. Reef acoustic and chemical cues are present throughout the Caribbean, providing abundant settlement opportunity across the full dispersal range.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-red">
+      <strong>Caribbean Dispersal Corridor:</strong> The North Equatorial Current, Caribbean Current, and Florida Current form a connected corridor linking the original Florida source population to every Caribbean reef node within a single larval generation. The chronological first-detection sequence — Florida (1985), Bahamas (2004), Cuba (2007), Jamaica (2008), Belize (2009), Honduras (2009) — tracks this current system with high fidelity. Every Rim Run™ waypoint node lies within current-transport range of multiple source populations. Larval immigration is not a risk to prevent — it is a constant background process to quantify and incorporate into node removal strategy.
+    </div>
+
+    <h2 class="section-head">Habitat Selection Processes</h2>
+    <p>Habitat selection — where individuals choose to settle, establish territory, and forage — determines the local distribution of the invasive population within the invaded landscape. Understanding it allows prediction of which reef zones are colonized first and fastest, and which habitat features correlate with highest local density.</p>
+
+    <div class="habitat-grid">
+      <div class="habitat-card">
+        <div class="habitat-label">Structural Complexity Preference</div>
+        <div class="habitat-text">Lionfish preferentially select high-complexity reef zones — coral head overhangs, cave entrances, ledge undersides, vertical wall features — that provide ambush concealment. Within any reef node, density is highest in the most structurally complex microhabitats and lowest on flat, open substrate. GMAIN dive surveys record structural complexity class alongside density estimates to enable within-node distribution mapping and targeted removal effort allocation.</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">Depth Gradient Occupation</div>
+        <div class="habitat-text">Lionfish occupy a broader depth range than any management program has fully addressed — from intertidal to 300m. Mesophotic populations (30–150m) act as source populations for shallow reef nodes through upward larval transport and adult movement. Removal programs limited to recreational dive depth (&lt;30m) operate in a persistent immigration subsidy environment — the mesophotic refuge continuously re-seeds shallower nodes. GMAIN depth-at-sighting logging captures this distribution signal at each node.</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">Prey Availability Tracking</div>
+        <div class="habitat-text">Individual lionfish exhibit area-restricted search behavior — increasing residency time and reducing movement in areas of high prey density, switching to exploratory movement when prey density falls below a threshold. This concentrates lionfish at the highest-prey-density reef zones, precisely where ecologically critical species are most concentrated. Highest predation pressure occurs at the highest ecological-value microhabitats.</div>
+      </div>
+      <div class="habitat-card">
+        <div class="habitat-label">Ontogenetic Habitat Shifts</div>
+        <div class="habitat-text">Different life stages use different habitats: larvae are pelagic; juveniles recruit to shallow seagrass and mangrove nursery habitats in the early post-settlement period; adults establish reef territories. The juvenile phase creates a cross-ecosystem ontogenetic link — GMAIN juvenile sighting data at mangrove-edge habitat, combined with GSIN seagrass condition and GMIN mangrove integrity data, is a cross-module signal the CMIE uses to assess nursery-phase invasive pressure on adjacent reef nodes.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Behavioral Learning in Habitat Use</h3>
+    <p>Individual lionfish exhibit learned refinement of habitat use over time — progressively learning the highest-prey-density microhabitats within their territory, the timing of prey fish activity cycles, and the approach angles that minimize prey detection. This behavioral learning increases individual foraging efficiency independently of body size, and is one reason why removal of large, long-resident individuals disproportionately reduces local predation pressure relative to their biomass. Biometric age estimation via total length in the GMAIN removal log provides information beyond simple mass-removed tracking.</p>
+
+    <h2 class="section-head">Prey Response Processes</h2>
+    <p>The prey side of the interaction involves its own processes — behavioral responses that unfold on timescales from seconds (flight initiation) to years (population-level selection for anti-predator behavior). Understanding these processes is essential for interpreting GMAIN behavioral dive data and correctly attributing observed prey population trends.</p>
+
+    <h3 class="sub-head">Prey Naivety and the Recognition Deficit</h3>
+    <p>Native prey species that have never co-evolved with the invasive predator lack the genetically encoded or culturally transmitted recognition response that would trigger evasive behavior on first encounter. The recognition deficit produces three observable failure modes: (1) prey approach the invasive predator out of curiosity rather than avoiding it; (2) prey fail to initiate flight at appropriate distance when the predator is detected; (3) prey do not communicate predator presence to conspecifics through alarm behavior. Each failure mode increases per-capita predation mortality above what a co-evolved predator of equivalent size would achieve.</p>
+
+    <h3 class="sub-head">Within-Generation Learned Avoidance</h3>
+    <p>Individual prey fish that survive a lionfish encounter can develop conditioned avoidance — associating the predator's visual appearance, movement pattern, or chemical cues with danger. This within-generation learning operates on a timescale of weeks to months. It is prey-species-specific and experience-dependent: fish that have never encountered a live lionfish will not benefit even if conspecifics in the same reef zone have. GMAIN's flight initiation distance (FID) note field — how far a fish begins evasive behavior from an approaching observer in the presence of lionfish — is a proxy for learned avoidance development across the prey community at a node.</p>
+
+    <h3 class="sub-head">Evolutionary Timescales</h3>
+    <p>Population-level selection for anti-predator behavior — genetic encoding of recognition and avoidance — operates over generations. At Caribbean fish generation times of 1–3 years, meaningful evolutionary response requires decades of sustained predation pressure. The critical management question is whether the rate of adaptive behavioral change is faster or slower than the rate of prey population decline from naive predation. At most heavily invaded Caribbean sites, prey depletion has outpaced behavioral adaptation — which is why active removal management rather than waiting for evolutionary response is the ecologically justified strategy.</p>
+
+    <div class="callout callout-gold">
+      <strong>GMAIN Behavioral Index:</strong> The FID note field, accumulated across multiple dives at a fixed node, builds a behavioral time series parallel to the density time series. A node showing stable or increasing prey biomass alongside increasing mean FID indicates behavioral adaptation is developing — the prey community is becoming harder to capture, compensating for predation pressure through improved avoidance. A node showing declining prey biomass alongside stable or declining FID indicates naive predation is outrunning behavioral response. The two signals together are more informative than either alone, and the combination informs DMAP-CAL intervention urgency scoring independently of density data.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ══ SPANISH ══ -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">De los Principios a los Procesos</h2>
+    <p>L02 estableció los principios que gobiernan el éxito invasor. L03 ubicó esos principios dentro de la arquitectura de sistemas GROAN. L04 va más profundo: los <strong>procesos</strong> que ejecutan esos principios a nivel de organismos individuales y poblaciones. Un proceso es una secuencia mecánica específica de eventos biológicos — reproducción, transporte larvario, selección de hábitat, respuesta conductual a la detección de depredadores — que colectivamente producen los resultados a nivel de población que medimos y gestionamos. Comprender los procesos es lo que permite a DMAP-CAL predecir las trayectorias de invasión, no solo observarlas.</p>
+
+    <h2 class="section-head">Rasgos de Éxito Invasor</h2>
+    <p>Ningún rasgo único garantiza el éxito invasor, pero emerge un perfil biológico consistente en los invasores marinos más dañinos. GMAIN usa este perfil como peso de riesgo previo al evaluar informes de especies entrantes — una especie que coincide con cinco o seis rasgos es señalada para prioridad de monitoreo elevada antes de que los datos de población puedan confirmar el riesgo.</p>
+
+    <div class="trait-grid">
+      <div class="trait-card"><div class="trait-icon">🥚</div><div class="trait-name">Alta Fecundidad</div><div class="trait-desc">Desoves frecuentes, puestas grandes o reproducción durante todo el año. Más crías por unidad de tiempo significa recuperación poblacional más rápida después de eventos de remoción y mayor presión de propágulos en todo el rango invadido.</div></div>
+      <div class="trait-card"><div class="trait-icon">⏱️</div><div class="trait-name">Madurez Temprana</div><div class="trait-desc">Alcanzar la edad reproductiva rápidamente comprime el tiempo generacional y empina la curva de crecimiento poblacional. Una especie que se reproduce en su primer año completa múltiples generaciones antes de que los competidores nativos terminen la primera.</div></div>
+      <div class="trait-card"><div class="trait-icon">🍽️</div><div class="trait-name">Dieta Generalista</div><div class="trait-desc">La amplitud dietética significa que la especie nunca está limitada por la ausencia de ningún tipo de presa. Un generalista explota lo que el nuevo ambiente ofrezca sin necesitar especialización evolutiva y puede cambiar de presas a medida que cambia la estructura de la comunidad.</div></div>
+      <div class="trait-card"><div class="trait-icon">🌡️</div><div class="trait-name">Amplia Tolerancia Térmica</div><div class="trait-desc">La amplia tolerancia a la variación de temperatura amortigua a la especie contra extremos estacionales y permite la expansión del rango a medida que las temperaturas oceánicas cambian.</div></div>
+      <div class="trait-card"><div class="trait-icon">🔄</div><div class="trait-name">Plasticidad Fenotípica</div><div class="trait-desc">La capacidad de alterar la fisiología, el comportamiento o la morfología en respuesta a la variación ambiental sin cambio genético. Las especies plásticas ocupan un rango más amplio de condiciones ecológicas que los especialistas genéticamente fijos.</div></div>
+      <div class="trait-card"><div class="trait-icon">🧬</div><div class="trait-name">Tolerancia Multi-Hábitat</div><div class="trait-desc">La capacidad de usar hábitats de arrecife, pastos marinos, manglar, fondo arenoso, estuarino y aguas profundas a lo largo de diferentes etapas de vida. La tolerancia multi-hábitat elimina las zonas de refugio.</div></div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Puntuación de Rasgos del Pez León — 6/6:</strong> <em>Pterois volitans</em> coincide con los seis. Se reproduce durante todo el año hasta cada 4 días, liberando ~30,000 huevos flotantes por evento. Madurez reproductiva aproximadamente al año. Lista documentada de presas supera 70 especies de peces de arrecife caribeños. Rango térmico 10–36°C. Registrado desde &lt;1m hasta 300m. Este es el perfil biológico de un invasor ideal.
+    </div>
+
+    <h2 class="section-head">Procesos Reproductivos</h2>
+    <p>La reproducción es el proceso primario que convierte la biología individual en dinámica de invasión a nivel de población. Los detalles de <em>cómo</em> se reproduce una especie determinan la forma de la curva de invasión, la respuesta a la remoción y la huella geográfica de la dispersión.</p>
+
+    <div class="repro-rows">
+      <div class="repro-row"><div class="repro-label">Modo de Desove y Destino del Huevo</div><div class="repro-text">Los desovadores pelágicos liberan huevos en la columna de agua. Huevos y larvas entran en el sistema de dispersión pelágica inmediatamente — transportados por corrientes antes de poder ser gestionados en el sitio de origen. El pez León es un desovador pelágico — sus huevos y larvas son transportados por el océano desde el momento del desove, haciendo insuficiente el manejo solo en el sitio fuente.</div></div>
+      <div class="repro-row"><div class="repro-label">Tasa Intrínseca de Crecimiento (r)</div><div class="repro-text">La tasa de cambio poblacional per cápita en condiciones ideales. Las especies invasoras con valores de <em>r</em> elevados crecen exponencialmente: N(t) = N₀·eʳᵗ. La fase de rezago termina no cuando comienza el crecimiento, sino cuando el tamaño poblacional acumulado hace imposible ignorar el crecimiento exponencial. Las especies de alto <em>r</em> pueden transitar de invisible a ecológicamente dominante dentro de un solo ciclo de planificación de manejo si se retrasa la detección.</div></div>
+      <div class="repro-row"><div class="repro-label">Regulación Dependiente de la Densidad</div><div class="repro-text">A alta densidad, la competencia alimentaria y la exclusión territorial imponen retroalimentación negativa que ralentiza el crecimiento hacia la capacidad de carga (K). En ambientes invadidos, K está establecida por la base alimentaria y el espacio físico disponible, no por la regulación de la población nativa. La ausencia de control por depredadores nativos significa que la población invasora alcanza K más rápido de lo que permitiría un depredador co-evolucionado.</div></div>
+      <div class="repro-row"><div class="repro-label">Efectos Allee a Baja Densidad</div><div class="repro-text">Por debajo de un umbral crítico de densidad, el fracaso en el encuentro de parejas y eventos estocásticos pueden causar la extinción local incluso cuando la calidad del hábitat es alta. Explica por qué la mayoría de los eventos de introducción única fallan y por qué los programas de remoción sostenida que llevan una población local por debajo del umbral Allee pueden desencadenar un colapso autorreinforante.</div></div>
+    </div>
+
+    <div class="callout">
+      <strong>Objetivo Allee de DMAP-CAL:</strong> En nodos de arrecife geográficamente aislados — arrecifes de parche, lagunas cerradas, pináculos profundos — el umbral Allee es el objetivo de intervención, no la remoción máxima por buceo. DMAP-CAL modela umbrales Allee estimados por geometría de nodo y señala cuándo las estimaciones de densidad se acercan al rango objetivo.
+    </div>
+
+    <h2 class="section-head">Procesos de Dispersión</h2>
+    <p>Cómo se mueve la especie invasora a través del paisaje marino determina dónde ocurre el próximo evento de establecimiento y qué tan rápido avanza el frente de invasión. Dos procesos fundamentalmente diferentes operan simultáneamente en la mayoría de las invasiones marinas, produciendo las firmas espaciales que el mapeo de densidad de nodos de GMAIN está diseñado para detectar.</p>
+
+    <div class="dispersal-grid">
+      <div class="dispersal-card"><div class="dispersal-label">Dispersión por Difusión</div><div class="dispersal-text">Expansión continua de corto alcance del frente de invasión impulsada por el movimiento normal individual. El frente avanza aproximadamente de manera radial desde cada centro de población establecida a una tasa predecible. Produce un patrón de dispersión espacialmente contiguo y gradual: núcleo de alta densidad declinando hacia el borde del frente. Susceptible de barreras de contención en la frontera.</div></div>
+      <div class="dispersal-card"><div class="dispersal-label">Dispersión por Salto</div><div class="dispersal-text">Eventos de transporte discontinuos de largo alcance que depositan propágulos mucho más allá del frente de invasión actual — transporte larvario por corriente, incrustaciones en cascos de embarcaciones, o movimiento asistido por humanos. Los eventos de salto crean poblaciones satélite que aparecen dentro de los perímetros de contención, eluden completamente las barreras de frontera y se expanden localmente por difusión desde su nueva posición.</div></div>
+    </div>
+
+    <h3 class="sub-head">Dispersión Estratificada — El Patrón Combinado</h3>
+    <p>La operación simultánea de difusión y dispersión por salto se llama <strong>dispersión estratificada</strong>. Es el mecanismo dominante para los invasores marinos exitosos y la razón por la que las estrategias de contención diseñadas para invasiones solo por difusión fallan consistentemente.</p>
+
+    <div class="callout callout-violet">
+      <strong>Detección de Firma Espacial GMAIN:</strong> La dispersión estratificada produce un mapa de densidad diagnóstico: nodos de alta densidad en el núcleo establecido, densidad casi cero a distancias intermedias, y satélites anómalos de alta densidad en nodos distantes sin conexión geográfica con el frente que avanza. Cuando DMAP-CAL detecta esta firma, señala la estrategia de contención como ineficaz y escala a tareas de supresión distribuida.
+    </div>
+
+    <h3 class="sub-head">Ecología Larvaria y Transporte Mediado por Corrientes</h3>
+
+    <table class="larval-table">
+      <thead><tr><th>Parámetro Larvario</th><th>Qué Controla</th><th>Valores del Pez León</th></tr></thead>
+      <tbody>
+        <tr><td>Duración Larvaria Pelágica (DLP)</td><td>Distancia máxima posible de dispersión — cuánto tiempo permanecen las larvas en la columna de agua antes de alcanzar la competencia para asentarse. Mayor DLP = huella de dispersión potencial más amplia.</td><td>Estimado en 25–35 días. A velocidades de la Corriente del Caribe de 1–2 nudos (~45–90 km/día), el rango de dispersión teórico máximo es 1,100–3,100 km por evento de desove desde una sola hembra fuente.</td></tr>
+        <tr><td>Comportamiento de Natación Larvaria</td><td>Si las larvas se posicionan activamente en diferentes capas de corriente modifica la distancia y dirección de dispersión real relativa a las predicciones de transporte pasivo.</td><td>Las larvas del pez León son nadadoras débilmente activas — principalmente pasivas durante el desarrollo temprano. La dispersión real sigue el modelo de transporte pasivo de cerca.</td></tr>
+        <tr><td>Ventana de Competencia de Asentamiento</td><td>El período durante el cual las larvas pueden responder a señales de asentamiento. Las larvas transportadas más allá del hábitat adecuado antes de que la ventana se abra, o aún a la deriva después de que se cierra, no logran reclutar.</td><td>La competencia de asentamiento se alinea con el desarrollo larvario en etapa tardía. Las señales acústicas y químicas del arrecife están presentes en todo el Caribe, proporcionando abundante oportunidad de asentamiento en todo el rango de dispersión.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-red">
+      <strong>Corredor de Dispersión Caribeño:</strong> El sistema de Corriente Nor-Ecuatorial, Corriente del Caribe y Corriente de Florida forma un corredor de dispersión conectado que vincula la población fuente original en Florida con cada nodo de arrecife caribeño dentro de una sola generación larvaria. La secuencia cronológica de primeras detecciones — Florida (1985), Bahamas (2004), Cuba (2007), Jamaica (2008), Belice (2009), Honduras (2009) — rastrea este sistema con alta fidelidad. La inmigración larvaria no es un riesgo a prevenir — es un proceso de fondo constante a cuantificar e incorporar en la estrategia de remoción de nodos.
+    </div>
+
+    <h2 class="section-head">Procesos de Selección de Hábitat</h2>
+
+    <div class="habitat-grid">
+      <div class="habitat-card"><div class="habitat-label">Preferencia por Complejidad Estructural</div><div class="habitat-text">El pez León selecciona preferentemente zonas de arrecife de alta complejidad — salientes de cabeza de coral, entradas de cuevas, bajos de repisas — que proporcionan ocultamiento de emboscada. Dentro de cualquier nodo de arrecife, la densidad es más alta en los microhábitats más estructuralmente complejos. GMAIN registra la clase de complejidad estructural junto con las estimaciones de densidad para permitir el mapeo de distribución dentro del nodo.</div></div>
+      <div class="habitat-card"><div class="habitat-label">Ocupación del Gradiente de Profundidad</div><div class="habitat-text">El pez León ocupa un rango de profundidad más amplio que el que cualquier programa de manejo ha abordado completamente — desde el intermareal hasta los 300m. Las poblaciones mesofóticas (30–150m) actúan como poblaciones fuente para los nodos de arrecife somero. Los programas de remoción limitados a la profundidad de buceo recreativo (&lt;30m) operan en un ambiente de subsidio de inmigración persistente.</div></div>
+      <div class="habitat-card"><div class="habitat-label">Seguimiento de Disponibilidad de Presas</div><div class="habitat-text">Los peces León individuales exhiben comportamiento de búsqueda restringida por área — aumentando el tiempo de residencia en áreas de alta densidad de presas. Este proceso concentra al pez León en las zonas de arrecife de mayor densidad de presas, precisamente donde las especies ecológicamente críticas están más concentradas.</div></div>
+      <div class="habitat-card"><div class="habitat-label">Cambios de Hábitat Ontogenéticos</div><div class="habitat-text">Las diferentes etapas de vida usan diferentes hábitats: las larvas son pelágicas; los juveniles reclutan a pastos marinos someros y hábitats de manglar; los adultos establecen territorios de arrecife. La fase juvenil crea un vínculo ontogenético entre ecosistemas — los datos de avistamiento de juveniles de GMAIN en el borde de manglar, combinados con datos GSIN y GMIN, es una señal inter-módulo que el CMIE usa para evaluar la presión invasora en la fase de vivero.</div></div>
+    </div>
+
+    <h2 class="section-head">Procesos de Respuesta de las Presas</h2>
+
+    <h3 class="sub-head">Inexperiencia de las Presas y el Déficit de Reconocimiento</h3>
+    <p>Las especies de presas nativas que nunca co-evolucionaron con el depredador invasor carecen de la respuesta de reconocimiento que desencadenaría el comportamiento evasivo en el primer encuentro. El déficit de reconocimiento produce tres modos de fallo: (1) las presas se acercan al depredador invasor por curiosidad; (2) no inician el vuelo a una distancia apropiada; (3) no comunican la presencia del depredador a los conespecíficos. Cada modo aumenta la mortalidad por depredación per cápita.</p>
+
+    <h3 class="sub-head">Aprendizaje de Evitación Dentro de la Generación</h3>
+    <p>Los peces presa individuales que sobreviven un encuentro con un pez León pueden desarrollar evitación condicionada — asociando la apariencia visual, el patrón de movimiento o las señales químicas del depredador con el peligro. Este aprendizaje opera en una escala de tiempo de semanas a meses. Es específico de la especie presa y dependiente de la experiencia. El campo de nota de distancia de iniciación de vuelo (DIF) de GMAIN es un proxy para el desarrollo de la evitación aprendida en la comunidad de presas en un nodo.</p>
+
+    <h3 class="sub-head">Escalas de Tiempo Evolutivas</h3>
+    <p>La selección a nivel de población para el comportamiento anti-depredador opera a lo largo de generaciones. En los tiempos de generación de peces del Caribe de 1–3 años, la respuesta evolutiva significativa requiere décadas. En la mayoría de los sitios muy invadidos del Caribe, el agotamiento de presas ha superado la adaptación conductual — razón por la cual el manejo activo de remoción es la estrategia ecológicamente justificada.</p>
+
+    <div class="callout callout-gold">
+      <strong>Índice Conductual GMAIN:</strong> El campo de nota DIF, acumulado en múltiples buceos en un nodo fijo, construye una serie de tiempo conductual paralela a la serie de tiempo de densidad. Un nodo con biomasa de presas estable o creciente junto con DIF promedio creciente indica que la adaptación conductual se está desarrollando. Un nodo con biomasa en declive junto con DIF estable o en declive indica que la depredación inexperta está superando la respuesta conductual. Las dos señales juntas son más informativas que cualquiera de las dos por solas.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">Lionfish Processes at a Rim Run™ Waypoint Node — What Each Dive Engages</p>
+    <div class="app-stat-row">
+      <div class="app-stat"><div class="app-stat-val">~4 days</div><div class="app-stat-lbl">Minimum inter-spawn interval — a resident female completes multiple spawning events between dive visits</div></div>
+      <div class="app-stat"><div class="app-stat-val">25–35 days</div><div class="app-stat-lbl">Pelagic larval duration — larvae from any Caribbean source reach any Rim Run™ waypoint within a single larval generation</div></div>
+      <div class="app-stat"><div class="app-stat-val">300 m</div><div class="app-stat-lbl">Maximum documented depth — mesophotic refuge populations continuously re-seed shallow removal sites</div></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">Every Rim Run™ removal dive engages all four process categories simultaneously. The reproductive process determines how rapidly the local population rebuilds between dives — a female present at the node on dive day and undetected will spawn multiple times before the next visit. The dispersal process determines the immigration rate from the regional metapopulation — larvae from every Caribbean source within 3,000 km are potential settlers at the node within 35 days of any spawning event. The habitat selection process determines where on the reef to look first — high-complexity zones, ledge undersides, channel entrances, at all dive-accessible depths. The prey response process determines what the behavioral note field should record — whether prey fish are showing increasing flight initiation distance or still approaching lionfish carelessly.</p>
+    <p style="font-size:0.9rem;color:var(--text-secondary);">The GMAIN dive log for each Rim Run™ waypoint visit captures all four process signals in a single structured entry: biometric data (reproductive output proxy via total length), depth-at-sighting (mesophotic vs. shallow distribution), structural complexity class (habitat preference), and FID behavioral note (prey response state). Together these four fields build the process-level time series that DMAP-CAL uses to determine whether local management is gaining ground against background immigration pressure — the fundamental question that biomass-alone tracking cannot answer.</p>
+  </div>
+
+  <!-- MCQ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">A Rim Run™ removal program reduces lionfish density at a shallow reef node to near zero over three months. Two months later, density is back to pre-removal levels. Which process is the primary explanation?<br><em>Un programa de remoción del Rim Run™ reduce la densidad del pez León en un nodo de arrecife somero a casi cero en tres meses. Dos meses después, la densidad está de vuelta a los niveles previos. ¿Cuál proceso es la explicación principal?</em></div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Compensatory reproduction increases per-capita output after removal, but a 25–35 day larval duration means local spawning cannot account for full density restoration within two months. Larval immigration from the regional metapopulation is a faster and more volumetrically significant recolonization pathway. / La reproducción compensatoria aumenta la producción per cápita, pero la duración larvaria de 25–35 días significa que el desove local no puede explicar la restauración completa de la densidad en dos meses.')">Compensatory reproduction — surviving females spawned more frequently after density was reduced. / Reproducción compensatoria — las hembras supervivientes se reprodujeron con mayor frecuencia.</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. With a PLD of 25–35 days and Caribbean Current transport of 45–90 km/day, larvae from regional source populations — including mesophotic populations at the same node — settle continuously at any accessible node. Removal creates a density vacuum filled by larval immigration within weeks. Without addressing the mesophotic source population at the node or the regional metapopulation, shallow removal produces a temporary reduction, not sustained suppression. / Correcto. Con una DLP de 25–35 días y transporte de 45–90 km/día, las larvas de las poblaciones fuente regionales — incluidas las mesofóticas en el mismo nodo — se asientan continuamente. La remoción crea un vacío de densidad que se llena por inmigración larvaria en semanas.')">Larval immigration subsidy — removal created a density vacuum continuously refilled by larvae from regional source populations, including the mesophotic population at depth at the same node. / Subsidio de inmigración larvaria — la remoción creó un vacío de densidad rellenado por larvas de poblaciones fuente regionales incluida la población mesofótica en profundidad.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Adult migration from adjacent shallow nodes can contribute, but the primary recolonization mechanism at the timescale of weeks is larval settlement from the regional metapopulation, which operates continuously regardless of removal effort. / La migración de adultos puede contribuir, pero el mecanismo primario en la escala de tiempo de semanas es el asentamiento larvario de la metapoblación regional.')">Adult migration from adjacent unsuppressed reef nodes. / Migración de adultos de nodos de arrecife adyacentes no suprimidos.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Allee effects predict difficulty reaching extinction below the threshold — the scenario describes a population reduced to near zero that rebounded, which is the opposite of what Allee effects predict (continued decline). The mechanism is immigration, not Allee effect failure. / Los efectos Allee predicen dificultad para alcanzar la extinción por debajo del umbral — el escenario describe un rebote, lo opuesto de lo que predicen.')">Allee effects prevented the population from reaching extinction below threshold density. / Los efectos Allee impidieron que la población alcanzara la extinción por debajo de la densidad umbral.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">At a GMAIN reef node, total prey fish biomass is stable over 12 months, but the behavioral note field shows mean flight initiation distance (FID) from lionfish increasing steadily. What does this combination indicate?<br><em>En un nodo de arrecife GMAIN, la biomasa total de peces presa es estable durante 12 meses, pero el campo de nota conductual muestra una distancia media de iniciación de vuelo (DIF) hacia el pez León aumentando constantemente. ¿Qué indica esta combinación?</em></div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'Stable biomass alongside increasing FID is not the signature of a system approaching regime shift — that would show declining prey biomass with stable or declining FID. Increasing FID with stable biomass indicates behavioral resistance is developing and compensating for predation pressure. / La biomasa estable junto con el aumento de DIF no es la firma de un sistema que se acerca al cambio de régimen.')">The node is approaching a regime shift tipping point — stable biomass is a false signal masking underlying decline. / El nodo se está acercando a un punto de inflexión de cambio de régimen — la biomasa estable es una señal falsa.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Eradication would produce stable biomass and declining lionfish density. Increasing FID indicates behavioral adaptation occurring in the context of continued lionfish presence, not absence. / La erradicación produciría biomasa estable y densidad de pez León en declive. El DIF creciente indica adaptación conductual en el contexto de presencia continua del pez León.')">The removal program has achieved local eradication and the ecosystem is fully recovered. / El programa de remoción ha logrado la erradicación local y el ecosistema se ha recuperado completamente.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. Stable prey biomass with increasing FID indicates that behavioral adaptation is actively compensating for invasive predation pressure — the prey community is becoming harder to capture, maintaining population size through improved avoidance rather than reduced predation pressure. This is a positive dynamic: behavioral resistance is developing at this node. However, it does not mean lionfish management can be relaxed — learned avoidance fades without reinforcement if all lionfish are removed. / Correcto. La biomasa de presas estable con DIF creciente indica que la adaptación conductual está compensando activamente la presión de depredación invasora — la comunidad de presas se está volviendo más difícil de capturar, manteniendo el tamaño poblacional a través de una mejor evitación en lugar de menor presión de depredación.')">Behavioral adaptation is developing — the prey community is becoming harder to capture, maintaining stable biomass through improved avoidance rather than reduced predation pressure. / La adaptación conductual se está desarrollando — la comunidad de presas se está volviendo más difícil de capturar, manteniendo biomasa estable a través de una mejor evitación.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Stratified dispersal produces a density map signature at the network level — isolated high-density satellites at remote nodes. Increasing FID with stable prey biomass at a single node is a behavioral process signal, not a spatial dispersal signature. / La dispersión estratificada produce una firma de mapa de densidad a nivel de red. El DIF creciente con biomasa estable en un solo nodo es una señal de proceso conductual, no una firma de dispersión espacial.')">The node is receiving stratified dispersal jump events offset by behavioral prey responses. / El nodo está recibiendo eventos de salto de dispersión estratificada compensados por respuestas conductuales de las presas.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">GMAIN records juvenile lionfish sightings at a mangrove-edge habitat adjacent to a reef node. GSIN reports declining seagrass cover at the same location. Why does DMAP-CAL treat this cross-module signal as elevated intervention priority, even if adult reef density at the node is currently low?<br><em>GMAIN registra avistamientos de pez León juvenil en un hábitat de borde de manglar adyacente a un nodo de arrecife. GSIN reporta cobertura de pastos marinos en declive en la misma ubicación. ¿Por qué DMAP-CAL trata esta señal inter-módulo como prioridad de intervención elevada, incluso si la densidad de adultos en el arrecife es actualmente baja?</em></div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,true,1,'Correct. Juvenile lionfish in seagrass-mangrove habitat are in the ontogenetic nursery phase — these individuals will recruit to the adjacent reef node as adults within months. The seagrass decline (GSIN signal) indicates the nursery habitat is being simultaneously degraded, which DMAP-CAL incorporates into the invasion trajectory model. The primary signal is nursery-phase presence: the juvenile cohort represents the next cohort of adult reef residents. Intervention during the nursery phase — before reef recruitment — is the earliest lifecycle point at which future adult reef density can be reduced without diving the reef itself. / Correcto. Los juveniles de pez León en el hábitat de pastos marinos-manglar están en la fase de vivero ontogenético — estos individuos reclutarán al nodo de arrecife adyacente como adultos en meses. La cohorte juvenil representa la próxima cohorte de residentes adultos del arrecife. La intervención durante la fase de vivero es el punto del ciclo de vida más temprano en el que se puede reducir la densidad adulta futura del arrecife.')">Juvenile lionfish in mangrove-seagrass habitat represent the next adult cohort recruiting to the reef — nursery-phase intervention is the earliest lifecycle point at which future reef adult density can be reduced. / Los peces León juveniles en el hábitat de manglar-pastos marinos representan la próxima cohorte adulta que reclutará al arrecife — la intervención en la fase de vivero es el punto del ciclo de vida más temprano para reducir la densidad adulta futura.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Juvenile lionfish in seagrass do not pose direct predation pressure on reef coral — at juvenile size they prey on small invertebrates and fish larvae, not coral. The signal is about recruitment trajectory, not current reef structure damage. / Los peces León juveniles en pastos marinos no ejercen presión de depredación directa sobre el coral del arrecife.')">Juvenile lionfish directly threaten adjacent reef coral through predation on coral polyps. / Los peces León juveniles amenazan directamente el coral del arrecife adyacente a través de la depredación de pólipos de coral.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Seagrass decline is a GSIN signal that affects nursery habitat quality, but it does not automatically trigger an adult reef removal protocol independently. The cross-module elevated priority is driven by the juvenile presence signal indicating reef recruitment is imminent. / El declive de los pastos marinos es una señal GSIN que afecta la calidad del vivero, pero no activa automáticamente un protocolo de remoción de adultos en el arrecife de forma independiente.')">Declining seagrass is a GSIN-only alert triggering a seagrass restoration protocol independent of lionfish. / El declive de los pastos marinos es una alerta solo de GSIN que activa un protocolo de restauración independiente del pez León.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Seagrass decline signals nursery habitat degradation, not incoming adult immigration through current dispersal. Adult current-dispersal immigration would appear as a density increase at the adult reef node level in GMAIN, not as a GSIN seagrass decline signal. / El declive de pastos marinos señala degradación del hábitat de vivero, no inmigración adulta a través de dispersión por corriente.')">Seagrass decline signals incoming adult immigration from external source populations through current dispersal. / El declive de los pastos marinos señala la inmigración adulta entrante de poblaciones fuente externas a través de la dispersión por corriente.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav"><a href="S21_L03_Invasive_Species_Systems_Overview.html">← S21·L03 Systems Overview</a></div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright);font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 04 of —</div>
+    </div>
+    <div class="footer-nav"><a href="S21_L05_Invasive_Species_Dynamics.html">S21·L05 Dynamics →</a></div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang,btn){
+    document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+lang).classList.add('active');
+  }
+  function handleMCQ(btn,isCorrect,qNum,feedback){
+    const block=btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b=>b.disabled=true);
+    btn.classList.add(isCorrect?'correct':'wrong');
+    const fb=document.getElementById('fb-'+qNum);
+    fb.textContent=feedback;
+    fb.classList.add('show',isCorrect?'correct-fb':'wrong-fb');
+  }
+</script>
+</body>
+</html>
