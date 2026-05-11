@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L09 — Invasive Species: Tools | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:    #0a1628;
+    --teal-bright:   #00c8b4;
+    --teal-dim:      #007a6e;
+    --amber:         #f5a623;
+    --coral-red:     #e05a3a;
+    --violet:        #9b6dff;
+    --seafoam:       #4ab8e0;
+    --mint:          #2edd9e;
+    --steel:         #6a9fc0;
+    --rust:          #c45e28;
+    --text-primary:  #e8f4f8;
+    --text-secondary:#8fbdd3;
+    --text-muted:    #4a7a96;
+    --card-bg:       rgba(15,34,64,0.85);
+    --border:        rgba(0,200,180,0.18);
+    --tag-bg:        rgba(0,200,180,0.12);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ocean-deep); color:var(--text-primary); font-family:'DM Sans',sans-serif; line-height:1.7; min-height:100vh; }
+
+  .progress-bar-outer { width:100%; height:4px; background:rgba(255,255,255,0.06); position:sticky; top:0; z-index:100; }
+  .progress-bar-inner { height:100%; width:9.23%; background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright)); }
+
+  .lesson-header { background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%); border-bottom:1px solid var(--border); overflow:hidden; }
+  .header-svg-wrap { width:100%; height:240px; overflow:hidden; }
+
+  .meta-strip { max-width:860px; margin:0 auto; padding:24px 28px 0; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .section-tag { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; background:var(--tag-bg); border:1px solid var(--border); color:var(--teal-bright); padding:4px 10px; border-radius:4px; }
+  .lesson-tag-amber { background:rgba(245,166,35,0.12); border-color:rgba(245,166,35,0.3); color:var(--amber); }
+  .lesson-tag-rust  { background:rgba(196,94,40,0.12); border-color:rgba(196,94,40,0.3); color:var(--rust); }
+
+  .lesson-title-block { max-width:860px; margin:0 auto; padding:18px 28px 28px; }
+  .lesson-number { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--teal-bright); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
+  h1.lesson-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700; line-height:1.2; margin-bottom:6px; }
+  h1.lesson-title em { font-style:italic; color:var(--teal-bright); }
+  .lesson-subtitle { font-size:0.88rem; color:var(--text-secondary); font-style:italic; }
+
+  .content-wrap { max-width:860px; margin:0 auto; padding:40px 28px 60px; }
+  .lang-tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+  .lang-tab { font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:8px 18px; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .2s,border-color .2s; }
+  .lang-tab.active { color:var(--teal-bright); border-bottom-color:var(--teal-bright); }
+  .lang-panel { display:none; } .lang-panel.active { display:block; }
+
+  h2.section-head { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--teal-bright); margin:36px 0 12px; border-left:3px solid var(--teal-dim); padding-left:14px; }
+  h3.sub-head { font-size:0.95rem; font-weight:600; color:var(--text-primary); margin:24px 0 8px; }
+  p { margin-bottom:14px; font-size:0.96rem; color:var(--text-primary); }
+  p:last-child { margin-bottom:0; }
+
+  .callout { border-left:3px solid var(--teal-bright); background:rgba(0,200,180,0.06); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:0.92rem; color:var(--text-secondary); }
+  .callout strong { color:var(--teal-bright); }
+  .callout-amber { border-left-color:var(--amber); background:rgba(245,166,35,0.06); }
+  .callout-amber strong { color:var(--amber); }
+  .callout-red { border-left-color:var(--coral-red); background:rgba(224,90,58,0.07); }
+  .callout-red strong { color:var(--coral-red); }
+  .callout-violet { border-left-color:var(--violet); background:rgba(155,109,255,0.07); }
+  .callout-violet strong { color:var(--violet); }
+  .callout-mint { border-left-color:var(--mint); background:rgba(46,221,158,0.06); }
+  .callout-mint strong { color:var(--mint); }
+  .callout-steel { border-left-color:var(--steel); background:rgba(106,159,192,0.07); }
+  .callout-steel strong { color:var(--steel); }
+
+  /* tool comparison cards */
+  .tool-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+  @media(max-width:540px){ .tool-grid { grid-template-columns:1fr; } }
+  .tool-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:18px 15px; }
+  .tool-icon { font-size:1.6rem; margin-bottom:8px; line-height:1; }
+  .tool-name { font-family:'DM Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--amber); margin-bottom:6px; }
+  .tool-spec { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--text-muted); margin-bottom:8px; }
+  .tool-text { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+  .tool-verdict { display:inline-block; font-family:'DM Mono',monospace; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.07em; margin-top:8px; padding:3px 8px; border-radius:3px; }
+  .tool-verdict.rimrun { background:rgba(0,200,180,0.12); border:1px solid rgba(0,200,180,0.3); color:var(--teal-bright); }
+  .tool-verdict.supplemental { background:rgba(245,166,35,0.10); border:1px solid rgba(245,166,35,0.25); color:var(--amber); }
+  .tool-verdict.emerging { background:rgba(155,109,255,0.10); border:1px solid rgba(155,109,255,0.25); color:var(--violet); }
+  .tool-verdict.notrecommended { background:rgba(224,90,58,0.08); border:1px solid rgba(224,90,58,0.22); color:var(--coral-red); }
+
+  /* spec comparison table */
+  .spec-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.83rem; }
+  .spec-table th { font-family:'DM Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); border-bottom:1px solid var(--border); padding:9px 12px; text-align:left; }
+  .spec-table td { padding:9px 12px; border-bottom:1px solid rgba(0,200,180,0.07); color:var(--text-secondary); vertical-align:top; line-height:1.4; }
+  .spec-table tr:last-child td { border-bottom:none; }
+  .spec-table td:first-child { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--seafoam); white-space:nowrap; }
+  .spec-table tr:hover td { background:rgba(0,200,180,0.03); }
+  .good { color:var(--mint); font-weight:500; }
+  .mid  { color:var(--amber); }
+  .bad  { color:var(--coral-red); }
+
+  /* sensor reference rows */
+  .sensor-rows { display:flex; flex-direction:column; gap:10px; margin:20px 0; }
+  .sensor-row { display:grid; grid-template-columns:150px 1fr; gap:14px; background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:13px 15px; align-items:start; }
+  @media(max-width:520px){ .sensor-row { grid-template-columns:1fr; } }
+  .sensor-label { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--violet); line-height:1.4; }
+  .sensor-text  { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* hookah spec panel */
+  .hookah-panel { background:rgba(0,200,180,0.04); border:1px solid rgba(0,200,180,0.22); border-radius:10px; padding:20px 18px; margin:20px 0; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:520px){ .hookah-panel { grid-template-columns:1fr; } }
+  .hookah-col-head { font-family:'DM Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.09em; color:var(--teal-bright); margin-bottom:8px; }
+  .hookah-spec-row { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid rgba(0,200,180,0.06); font-size:0.82rem; }
+  .hookah-spec-row:last-child { border-bottom:none; }
+  .hookah-spec-key { color:var(--text-muted); }
+  .hookah-spec-val { font-family:'DM Mono',monospace; font-size:0.78rem; color:var(--teal-bright); }
+
+  /* application panel */
+  .application-panel { background:linear-gradient(135deg,rgba(15,34,64,0.95),rgba(10,22,40,0.95)); border:1px solid rgba(0,200,180,0.25); border-radius:10px; padding:28px; margin:40px 0 32px; }
+  .application-panel h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--amber); margin-bottom:4px; }
+  .app-sub { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .app-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  @media(max-width:520px){ .app-stat-row { grid-template-columns:1fr 1fr; } }
+  .app-stat { background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:6px; padding:12px 10px; text-align:center; }
+  .app-stat-val { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--teal-bright); line-height:1.1; margin-bottom:4px; }
+  .app-stat-lbl { font-size:0.72rem; color:var(--text-muted); line-height:1.3; }
+
+  /* MCQ */
+  .mcq-section { margin-top:40px; }
+  .mcq-section h2 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:24px; }
+  .mcq-block { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:22px 22px 18px; margin-bottom:16px; }
+  .mcq-q-num { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--teal-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+  .mcq-question { font-size:0.95rem; font-weight:500; color:var(--text-primary); margin-bottom:14px; line-height:1.5; }
+  .mcq-question em { font-style:italic; color:var(--text-secondary); font-size:0.88em; }
+  .mcq-options { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .mcq-options li button { width:100%; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--text-secondary); cursor:pointer; transition:background .18s,border-color .18s,color .18s; line-height:1.45; }
+  .mcq-options li button:hover { background:rgba(0,200,180,0.08); border-color:var(--teal-dim); color:var(--text-primary); }
+  .mcq-options li button.correct { background:rgba(0,200,180,0.15); border-color:var(--teal-bright); color:var(--teal-bright); font-weight:500; }
+  .mcq-options li button.wrong { background:rgba(224,90,58,0.12); border-color:var(--coral-red); color:var(--coral-red); }
+  .mcq-options li button:disabled { cursor:default; }
+  .mcq-feedback { margin-top:12px; font-size:0.83rem; line-height:1.5; display:none; }
+  .mcq-feedback.show { display:block; }
+  .mcq-feedback.correct-fb { color:var(--teal-bright); }
+  .mcq-feedback.wrong-fb { color:#e07a5f; }
+
+  .lesson-footer { border-top:1px solid var(--border); padding:24px 28px; max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .footer-nav a { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); text-decoration:none; transition:color .2s; }
+  .footer-nav a:hover { color:var(--teal-bright); }
+  .footer-progress { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--text-muted); text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Pole spear vs Hawaiian sling comparison diagram — side profile of both
+         weapons with annotated parts, effective range arcs, and a lionfish target
+         showing shot placement anatomy -->
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="bgTool" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#050c1c"/><stop offset="100%" stop-color="#0a1628"/>
+        </linearGradient>
+        <radialGradient id="lfBodyGrad" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="#8b2a10" stop-opacity="0.15"/>
+        </radialGradient>
+        <radialGradient id="rangeArcPS" cx="0%" cy="50%" r="100%">
+          <stop offset="0%" stop-color="#00c8b4" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#00c8b4" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="rangeArcHS" cx="0%" cy="50%" r="100%">
+          <stop offset="0%" stop-color="#f5a623" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glT" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect width="900" height="270" fill="url(#bgTool)"/>
+
+      <!-- grid -->
+      <g stroke="rgba(0,200,180,0.04)" stroke-width="1">
+        <line x1="0" y1="67" x2="900" y2="67"/><line x1="0" y1="134" x2="900" y2="134"/>
+        <line x1="0" y1="201" x2="900" y2="201"/>
+        <line x1="150" y1="0" x2="150" y2="270"/><line x1="300" y1="0" x2="300" y2="270"/>
+        <line x1="450" y1="0" x2="450" y2="270"/><line x1="600" y1="0" x2="600" y2="270"/>
+        <line x1="750" y1="0" x2="750" y2="270"/>
+      </g>
+
+      <!-- ── LEFT: Pole Spear ── -->
+      <!-- Range arc -->
+      <path d="M60,110 Q160,70 220,110 Q160,150 60,110 Z" fill="url(#rangeArcPS)"/>
+      <!-- Shaft -->
+      <line x1="30" y1="110" x2="215" y2="110" stroke="rgba(0,200,180,0.65)" stroke-width="4" stroke-linecap="round"/>
+      <!-- Tip / prongs -->
+      <line x1="215" y1="110" x2="240" y2="105" stroke="rgba(0,200,180,0.75)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="215" y1="110" x2="242" y2="110" stroke="rgba(0,200,180,0.75)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="215" y1="110" x2="240" y2="115" stroke="rgba(0,200,180,0.75)" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Sling band at rear -->
+      <ellipse cx="38" cy="110" rx="5" ry="9" fill="none" stroke="rgba(0,200,180,0.5)" stroke-width="1.5"/>
+      <!-- Range annotation -->
+      <line x1="218" y1="90" x2="218" y2="68" stroke="rgba(0,200,180,0.35)" stroke-width="0.8"/>
+      <text x="220" y="66" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.65)">~1.0–1.5m</text>
+      <text x="220" y="75" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.45)">effective range</text>
+      <!-- Label -->
+      <text x="120" y="82" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8"
+            fill="rgba(0,200,180,0.75)" letter-spacing="0.06em">POLE SPEAR</text>
+      <!-- Parts labels -->
+      <text x="30" y="103" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.4)">band</text>
+      <text x="100" y="103" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.4)">fiberglass shaft</text>
+      <text x="222" y="118" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.4)">3-prong tip</text>
+      <!-- Pros -->
+      <text x="30" y="135" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.55)">✓ Silent</text>
+      <text x="30" y="146" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.55)">✓ No moving parts</text>
+      <text x="30" y="157" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.55)">✓ Travel-friendly</text>
+      <text x="30" y="170" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.55)">✗ Short range</text>
+      <text x="30" y="181" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.55)">✗ Manual reset</text>
+
+      <!-- Divider -->
+      <line x1="300" y1="30" x2="300" y2="240" stroke="rgba(0,200,180,0.08)" stroke-width="1" stroke-dasharray="3,5"/>
+
+      <!-- ── CENTER: Hawaiian Sling ── -->
+      <!-- Range arc -->
+      <path d="M320,110 Q450,55 560,110 Q450,165 320,110 Z" fill="url(#rangeArcHS)"/>
+      <!-- Body / handle -->
+      <rect x="325" y="104" width="28" height="12" rx="3"
+            fill="rgba(245,166,35,0.12)" stroke="rgba(245,166,35,0.45)" stroke-width="1.2"/>
+      <!-- Sling bands (twin) -->
+      <line x1="353" y1="107" x2="415" y2="100" stroke="rgba(245,166,35,0.55)" stroke-width="1.5"/>
+      <line x1="353" y1="113" x2="415" y2="120" stroke="rgba(245,166,35,0.55)" stroke-width="1.5"/>
+      <!-- Arrow shaft in sling -->
+      <line x1="340" y1="110" x2="548" y2="110" stroke="rgba(245,166,35,0.72)" stroke-width="3" stroke-linecap="round"/>
+      <!-- Arrow tip -->
+      <line x1="548" y1="110" x2="572" y2="104" stroke="rgba(245,166,35,0.82)" stroke-width="2" stroke-linecap="round"/>
+      <line x1="548" y1="110" x2="574" y2="110" stroke="rgba(245,166,35,0.82)" stroke-width="2" stroke-linecap="round"/>
+      <line x1="548" y1="110" x2="572" y2="116" stroke="rgba(245,166,35,0.82)" stroke-width="2" stroke-linecap="round"/>
+      <!-- Slip tip barb -->
+      <line x1="558" y1="108" x2="568" y2="100" stroke="rgba(245,166,35,0.6)" stroke-width="1.2"/>
+      <!-- Range annotation -->
+      <line x1="560" y1="95" x2="560" y2="72" stroke="rgba(245,166,35,0.35)" stroke-width="0.8"/>
+      <text x="562" y="70" font-family="'DM Mono',monospace" font-size="7" fill="rgba(245,166,35,0.7)">~2–4m</text>
+      <text x="562" y="79" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.5)">effective range</text>
+      <!-- Label -->
+      <text x="447" y="82" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8"
+            fill="rgba(245,166,35,0.8)" letter-spacing="0.06em">HAWAIIAN SLING</text>
+      <!-- Parts labels -->
+      <text x="326" y="130" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.4)">handle</text>
+      <text x="375" y="98" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.4)">bands</text>
+      <text x="570" y="125" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.4)">slip tip</text>
+      <!-- Pros -->
+      <text x="325" y="142" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.55)">✓ Extended range</text>
+      <text x="325" y="153" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.55)">✓ Higher penetration</text>
+      <text x="325" y="164" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.55)">✓ Slip tip retrieval</text>
+      <text x="325" y="177" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.55)">✗ Band maintenance</text>
+      <text x="325" y="188" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.55)">✗ Travel restrictions</text>
+
+      <!-- ── RIGHT: Lionfish anatomy + shot placement ── -->
+      <!-- Divider -->
+      <line x1="620" y1="30" x2="620" y2="240" stroke="rgba(0,200,180,0.08)" stroke-width="1" stroke-dasharray="3,5"/>
+
+      <!-- Lionfish silhouette -->
+      <ellipse cx="760" cy="118" rx="72" ry="36" fill="url(#lfBodyGrad)" stroke="rgba(224,90,58,0.35)" stroke-width="1.2"/>
+      <!-- Head shape -->
+      <path d="M688,110 Q680,118 688,126" fill="rgba(224,90,58,0.15)" stroke="rgba(224,90,58,0.3)" stroke-width="1"/>
+      <!-- Dorsal spines (danger zone — not target) -->
+      <g stroke="rgba(224,90,58,0.55)" stroke-width="1.2" fill="none">
+        <line x1="718" y1="82" x2="718" y2="68"/><line x1="730" y1="80" x2="730" y2="65"/>
+        <line x1="742" y1="79" x2="742" y2="63"/><line x1="754" y1="80" x2="754" y2="64"/>
+        <line x1="766" y1="82" x2="766" y2="66"/><line x1="778" y1="84" x2="778" y2="68"/>
+      </g>
+      <!-- Pectoral fins -->
+      <path d="M710,112 Q695,130 700,148 Q712,140 718,128" fill="rgba(224,90,58,0.12)" stroke="rgba(224,90,58,0.25)" stroke-width="0.8"/>
+      <!-- Tail -->
+      <path d="M830,108 Q848,100 852,118 Q848,136 830,128" fill="rgba(224,90,58,0.1)" stroke="rgba(224,90,58,0.25)" stroke-width="0.8"/>
+      <!-- Eye -->
+      <circle cx="697" cy="115" r="3.5" fill="rgba(224,90,58,0.25)" stroke="rgba(224,90,58,0.6)" stroke-width="0.8"/>
+      <!-- TARGET ZONE — behind head/gill plate, lateral line -->
+      <ellipse cx="734" cy="116" rx="14" ry="16" fill="rgba(0,200,180,0.12)" stroke="rgba(0,200,180,0.7)" stroke-width="1.5" stroke-dasharray="3,2" filter="url(#glT)"/>
+      <text x="734" y="146" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.75)">TARGET</text>
+      <text x="734" y="154" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.6)">ZONE</text>
+      <!-- AVOID ZONE — dorsal spines -->
+      <ellipse cx="750" cy="80" rx="32" ry="10" fill="rgba(224,90,58,0.08)" stroke="rgba(224,90,58,0.35)" stroke-width="1" stroke-dasharray="2,3"/>
+      <text x="750" y="58" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.6)">⚠ AVOID</text>
+      <text x="750" y="67" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.5)">DORSAL SPINES</text>
+
+      <!-- Shot trajectory arrow -->
+      <path d="M665,118 Q700,116 720,116" fill="none"
+            stroke="rgba(0,200,180,0.6)" stroke-width="1.5" marker-end="url(#mTealTool)"/>
+      <defs>
+        <marker id="mTealTool" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,200,180,0.7)"/>
+        </marker>
+      </defs>
+
+      <!-- Right label -->
+      <text x="755" y="200" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.35)" letter-spacing="0.06em">SHOT PLACEMENT</text>
+      <text x="755" y="212" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7"
+            fill="rgba(232,244,248,0.22)">Behind gill plate · Lateral line</text>
+
+      <!-- Title -->
+      <text x="450" y="15" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.22)" letter-spacing="0.07em">LIONFISH REMOVAL TOOLS — COMPARISON &amp; SHOT PLACEMENT ANATOMY</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 09</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-rust">Tools</span>
+    <span class="section-tag">GMAIN · Field</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L09</div>
+    <h1 class="lesson-title">Invasive Species — <em>Tools</em></h1>
+    <p class="lesson-subtitle">Herramientas para Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ══ -->
+<main class="content-wrap">
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">Tools as the Physical Interface of Management</h2>
+    <p>The science of invasive species — the biology, ecology, dynamics, and measurement frameworks of the preceding lessons — ultimately converges on a diver, underwater, making a decision about which tool to use and how to use it. Tools are the physical interface between DMAP-CAL's decision output and the actual reduction of invasive biomass at a reef node. A well-designed tool in a trained hand translates scientific knowledge directly into management outcomes. A poorly chosen tool, misused, degrades both the management outcome and the data record simultaneously.</p>
+    <p>This lesson covers the complete tool set for in-water invasive species management: active removal tools (pole spear, Hawaiian sling), containment tools (Zookeeper float, catch containers), safety tools (venom handling protocol, puncture kit), monitoring tools (dive slate, measuring board, scale, camera), and the emerging tool category of underwater technology (eDNA collection kits, hookah dive systems, acoustic deterrents). Each tool is evaluated on effectiveness, logistical feasibility for the Rim Run™ route, and compatibility with the GMAIN measurement protocol.</p>
+
+    <h2 class="section-head">Active Removal: The Primary Tools</h2>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-icon">🔱</div>
+        <div class="tool-name">Pole Spear</div>
+        <div class="tool-spec">Typical length: 1.2–1.8m | Material: fiberglass or carbon fiber | Tip: 3-prong paralyzer</div>
+        <div class="tool-text">The simplest, most reliable lionfish removal tool. A rigid shaft propelled by a latex or rubber band at the handle end, with a three-pronged paralyzer tip at the front. No moving parts, no mechanism to fail, no special maintenance. The diver stretches the band with one hand, holds the shaft, aims, and releases. Effective at distances of 0.8–1.5m. Because lionfish are ambush predators that hold position, the short effective range is rarely a significant limitation — the fish typically will not flee when a calm, slow-moving diver approaches to within 1m. The three-prong tip is preferred over single-point for lionfish because it maximizes the probability of solid contact without the fish spinning off on a single pin during retrieval.</div>
+        <div class="tool-verdict rimrun">✓ Rim Run™ Primary Tool</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🏹</div>
+        <div class="tool-name">Hawaiian Sling</div>
+        <div class="tool-spec">Typical length: 1.2–1.5m arrow | Handle: 20–30cm | Bands: twin latex | Tip: slip tip preferred</div>
+        <div class="tool-text">A hand-powered underwater crossbow — a handle with twin latex bands draws back a free-floating arrow. Unlike a pole spear where the shaft stays attached, the arrow fires forward and the bands retract to the handle. Effective at 1.5–4m — significantly greater range than a pole spear and higher kinetic energy at contact, useful for fish in ledge positions where close approach is obstructed. A slip tip (a detachable barbed point that stays in the fish while the shaft recoils) is preferred for lionfish because it prevents the fish from sliding back off the tip during the struggle. Requires more practice to master than a pole spear; band condition must be inspected before every dive and replaced on degradation. In many Caribbean jurisdictions, Hawaiian slings are regulated as spearguns — check local regulations before transport.</div>
+        <div class="tool-verdict rimrun">✓ Rim Run™ Secondary Tool</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🔫</div>
+        <div class="tool-name">Speargun (Band-Powered)</div>
+        <div class="tool-spec">Shaft: 6–8mm stainless | Range: up to 5m+ | Mechanism: band or pneumatic</div>
+        <div class="tool-text">A fully mechanical speargun with a trigger mechanism, significantly higher kinetic energy than a Hawaiian sling, and effective range exceeding 5m. Highly effective for large, wary lionfish in high-complexity reef zones. Provides the flexibility to shoot fish at a distance before they retreat under a ledge. Disadvantages for the Rim Run™ context: heavier and bulkier to transport on a 24-inch draft catamaran, many Caribbean jurisdictions have gear restrictions or require permits, and the higher kinetic energy increases the risk of shaft lodging in reef structure or passing through a small fish without adequate stopping. Not recommended as the primary Rim Run™ tool, but appropriate where logistics permit and regulations allow, particularly for large individuals at depth.</div>
+        <div class="tool-verdict supplemental">Supplemental — Jurisdiction-Dependent</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🪤</div>
+        <div class="tool-name">Lionfish Trap (FWRI-Type)</div>
+        <div class="tool-spec">Dimensions: ~60 × 60 × 30cm | Material: PVC-coated wire | Bait: optional</div>
+        <div class="tool-text">A passive removal device — a wire cage with a lionfish-scale entrance that the fish swims into but cannot exit. Designed to be deployed on the reef and retrieved after 24–72 hours. Can operate at depths beyond safe recreational diving limits, capturing the mesophotic population that spear programs cannot reach. Significant practical barriers for Rim Run™: requires a second dive for retrieval, must be secured to reef substrate (potential damage concern), bycatch of non-target species requires a discard protocol, and transporting wire traps aboard a 24-inch draft catamaran adds significant deck clutter. Promising for future deep-node deployment at established waypoints, not currently practical for the single-visit transit model.</div>
+        <div class="tool-verdict supplemental">Supplemental — Future Deployment</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Tool Selection and Shot Placement</h2>
+
+    <h3 class="sub-head">The Case for Both Tools on Every Dive</h3>
+    <p>The Rim Run™ protocol locks pole spear and Hawaiian sling as the standard tool pair for all removal dives. The rationale is not redundancy — it is coverage. Pole spear excels at fish in open positions within 1.5m: the most common daytime lionfish encounter at Caribbean reef nodes. Hawaiian sling excels at fish partially concealed in ledge crevices where close approach is obstructed, and at fish that have already detected the diver and retreated to a position just beyond pole spear range. Carrying both eliminates the dead zone between the tools' effective ranges and ensures no encounter ends without a shot opportunity.</p>
+
+    <h3 class="sub-head">Shot Placement Anatomy</h3>
+    <p>Shot placement determines kill quality, fish handling safety, and data integrity. A well-placed shot produces an immediately incapacitated fish that can be retrieved cleanly, handled safely, and measured accurately. A poorly placed shot produces a wounded fish that escapes into reef structure, cannot be biometrically logged, and represents wasted effort that degrades the GMAIN data record.</p>
+
+    <p>The primary target zone is the lateral line muscle mass immediately behind the gill plate — the thickest cross-section of the fish's body. A shot here passes through solid muscle without contacting the spine column (which could deflect the tip) and does not contact the venomous dorsal, pelvic, or anal spines. The secondary target is the brain case — a smaller target but immediately fatal. Avoid: (1) shots through the dorsal spine region, which risk envenomation from spine contact with the tip during retrieval; (2) tail shots, which produce live, struggling fish with intact venom apparatus; (3) shots into the head at an angle, which contact the skull and deflect.</p>
+
+    <div class="callout callout-amber">
+      <strong>Venom Safety — Non-Negotiable:</strong> Every lionfish removed from Caribbean waters is a venomous animal until its dorsal, pelvic, and anal spines are cut. The venom glands at the base of each spine remain active in dead fish for hours. Standard Rim Run™ handling protocol: (1) keep the fish on the spear tip until it is fully immobile; (2) transfer to the Zookeeper float bag without bare-hand contact; (3) spine removal with wire cutters or scissors at the surface before any other handling; (4) only then handle bare-handed for measurement. If envenomation occurs: immerse the affected area in the hottest water tolerable (not scalding) — heat denatures the protein-based venom rapidly. Do not apply tourniquets, do not cut the wound, do not apply suction.
+    </div>
+
+    <h2 class="section-head">Containment and Fish Handling Tools</h2>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-icon">🧊</div>
+        <div class="tool-name">Zookeeper Float &amp; Bag System</div>
+        <div class="tool-spec">Float: closed-cell foam | Bag: clear PVC mesh | Capacity: 10–15 lionfish</div>
+        <div class="tool-text">The purpose-designed lionfish containment system — a mesh bag suspended from a surface float that the diver tows during the removal dive. Fish are transferred directly from the spear tip into the bag without bare-hand contact, kept submerged and alive (which maintains wet weight accuracy), and surfaced in the bag for processing. The Zookeeper eliminates the need to surface after every shot and allows continuous multi-fish removal dives. Essential for any systematic removal program. Without it, each fish must be surfaced individually — reducing dive efficiency by approximately 60% at typical multi-fish removal dives. The Rim Run™ protocol requires a Zookeeper or equivalent mesh containment system on every removal dive.</div>
+        <div class="tool-verdict rimrun">✓ Rim Run™ Required</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">📏</div>
+        <div class="tool-name">Fish Measuring Board</div>
+        <div class="tool-spec">Dimensions: 50cm minimum | Material: HDPE or marine-grade aluminum | Resolution: 1mm marks</div>
+        <div class="tool-text">A rigid flat board with a perpendicular headstop at zero and millimeter markings along the length. The most accurate method for total length measurement — place the fish flat against the board, snout against the stop, read caudal fin tip position. The Rim Run™ boat kit should include one permanently mounted measuring board on the cockpit, accessible immediately as fish are transferred from the Zookeeper bag. Marine-grade aluminum or HDPE boards are preferred over painted wood (paint chips, wood warps). Tape measures are acceptable for field conditions but introduce ±2–3mm additional error from curvature.</div>
+        <div class="tool-verdict rimrun">✓ Rim Run™ Required</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">⚖️</div>
+        <div class="tool-name">Digital Waterproof Scale</div>
+        <div class="tool-spec">Resolution: 1g minimum (0.1g preferred) | Capacity: 2–5kg | Rating: IP67 or better</div>
+        <div class="tool-text">The wet weight measurement instrument. Requirements: IP67 waterproof minimum (splashing and rain exposure are guaranteed in the field), auto-tare function for subtracting container weight, minimum 2kg capacity (a large Caribbean lionfish can exceed 800g), and 1g resolution. The Tanita KD-200 and similar fish-scale designs with a hanging hook are optimal — fish can be weighed in a small mesh bag and tare subtracted. Keep the scale shaded from direct sun during weighing to prevent thermal drift. Calibrate against a known weight at the start of each field day. A scale with Bluetooth logging capability that pairs with the GMAIN field app is preferred — eliminates transcription errors between paper and digital records.</div>
+        <div class="tool-verdict rimrun">✓ Rim Run™ Required</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">✂️</div>
+        <div class="tool-name">Spine Removal Kit</div>
+        <div class="tool-spec">Contents: heavy scissors or wire cutters, nitrile gloves, first aid kit</div>
+        <div class="tool-text">The spine removal kit is a safety tool, not a luxury. Cutting the 13 venomous spines (18 dorsal, pelvic, and anal) before bare-hand handling is the single most important injury prevention step in the entire Rim Run™ protocol. Heavy-duty kitchen scissors or diagonal-cut wire cutters both work. Nitrile gloves provide a minimal barrier but do not reliably prevent spine puncture — they are useful for gripping the fish during spine removal, not for protection during the cut. A field first aid kit with antihistamine, antiseptic, and the hot-water immersion protocol instruction card is standard Rim Run™ boat equipment.</div>
+        <div class="tool-verdict rimrun">✓ Rim Run™ Required</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">The Hookah Dive System</h2>
+    <p>The Air Line by J Sink E160v2 is the locked primary dive system for the Rim Run™. A hookah system — surface-supplied air from a deck-mounted compressor via a long hose to the diver — transforms the operational profile of every removal dive. Understanding why hookah was chosen over SCUBA for the Rim Run™ context requires understanding both systems' operational constraints against the specific demands of systematic reef removal diving.</p>
+
+    <div class="hookah-panel">
+      <div>
+        <div class="hookah-col-head">Air Line E160v2 — Technical Spec</div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Model</span><span class="hookah-spec-val">E160v2</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Power</span><span class="hookah-spec-val">120V AC · 0.75 HP · 7.5A</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Output</span><span class="hookah-spec-val">6 CFM @ 0 PSI</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Weight</span><span class="hookah-spec-val">27 lbs (~12kg)</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Footprint</span><span class="hookah-spec-val">~12" cube</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Max depth</span><span class="hookah-spec-val">60 ft (18m) — 1 diver</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Power source</span><span class="hookah-spec-val">EcoFlow onboard (no generator)</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Contact</span><span class="hookah-spec-val">airlinebyjsink.com</span></div>
+      </div>
+      <div>
+        <div class="hookah-col-head">Hookah vs SCUBA — Rim Run™ Comparison</div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Bottom time</span><span class="hookah-spec-val">Unlimited (surface air)</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Turnaround</span><span class="hookah-spec-val">No tank fill needed</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Tank transport</span><span class="hookah-spec-val">No pressurized cylinders</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Depth limit</span><span class="hookah-spec-val">18m — covers most Caribbean reef zones</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Hose management</span><span class="hookah-spec-val">Requires tending from Shamrocket</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Emergency</span><span class="hookah-spec-val">Surface rapidly — no decompression obligation at &lt;18m</span></div>
+        <div class="hookah-spec-row"><span class="hookah-spec-key">Power demand</span><span class="hookah-spec-val">7.5A — within EcoFlow continuous output</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-mint">
+      <strong>Why Hookah for Rim Run™:</strong> The 37-stop, 437–686 day Caribbean circuit has no guaranteed access to compressed air fills at every waypoint — particularly in rural Honduras, Nicaragua, and the Bay Islands. SCUBA would require either carrying 8–12 filled tanks (weight and space prohibitive on a Hobie Getaway with 24-inch draft) or locating fills at each stop (unreliable). The hookah solves both constraints: surface air is always available, EcoFlow provides the 7.5A continuous draw without a generator, and the 27-pound unit stows below decks on Shamrocket. The 18m depth limit covers the primary lionfish habitat band at Caribbean reef nodes — deep mesophotic populations above 30m remain a data gap, but the operational practicality of hookah outweighs the depth limitation for the Rim Run™ mission profile.
+    </div>
+
+    <h2 class="section-head">Monitoring and Data Collection Tools</h2>
+
+    <div class="sensor-rows">
+      <div class="sensor-row">
+        <div class="sensor-label">Dive Slate &amp; Pencil</div>
+        <div class="sensor-text">The primary underwater data collection instrument. A rigid white PVC board (20 × 30cm minimum) with a grease pencil or marine pencil allows recording of transect counts, individual fish positions, and behavioral notes during the survey dive. No battery, no screen glare, no waterproofing concern, and functional at any depth within recreational diving limits. GMAIN belt transect protocol uses a standardized slate layout: left column for count tally (hash marks per 10m section), right column for size class, behavioral note trigger (FID category), and structural complexity call. Slate data is transcribed to the GMAIN field app at the surface after the dive.</div>
+      </div>
+      <div class="sensor-row">
+        <div class="sensor-label">Underwater Camera (GoPro / equivalent)</div>
+        <div class="sensor-text">Serves two GMAIN functions. Primary: stationary video deployment at a fixed landmark reef position for the unattended 30–60 minute recording recommended in L08. Secondary: photographic documentation of individual fish before or after removal — photographic ID allows repeat-individual tracking at nodes where mark-recapture might be applied, and provides visual evidence for QA verification of unusual sightings. The GoPro 12 and equivalent consumer action cameras rated to 10m without housing (60m with housing) are appropriate. Time-stamp synchronization with the GMAIN dive log is critical — the camera clock must be set to UTC before each deployment.</div>
+      </div>
+      <div class="sensor-row">
+        <div class="sensor-label">eDNA Water Sampling Kit</div>
+        <div class="sensor-text">Required for new node registration (L08 protocol). Kit contents: 2-liter sterile sample bottle, 0.45µm cellulose nitrate filter membrane, hand pump filtration unit, labeled preservation vials with silica desiccant, chain-of-custody form, cold pack for shipping. Water is collected at 1–2m depth, 5m away from any reef structure to avoid benthic contamination, filtered in situ or immediately aboard, and filter membrane stored in preservation vial for shipment to CCRA partner laboratory within 48 hours. The entire kit packs into a 1-liter dry bag for transport on Shamrocket. Shelf life of unused filter membranes: 12 months at ambient temperature, 24 months refrigerated.</div>
+      </div>
+      <div class="sensor-row">
+        <div class="sensor-label">pH / Temperature Logger (Future Deployment)</div>
+        <div class="sensor-text">The instrumentation gap identified in S02·L32 and S02·L02 — the absence of pH data at Rim Run™ nodes. A HOBO MX2501 or equivalent Bluetooth-enabled temperature/pH datalogger can be zip-tied to a reef structural feature at a registered node, recording at 15-minute intervals for 30–90 day deployment periods. Data download via Bluetooth from the surface on the next visit. Cost: ~$150–200 per unit. Deploying a sensor at the top 10 Rim Run™ waypoints by habitat sensitivity would cost ~$1,500–2,000 in hardware and close the most critical GROAN chemical data gap for under 0.2% of CORDAP proposal budget. This is a near-term priority equipment addition to the Rim Run™ kit.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Emerging and Experimental Tools</h2>
+
+    <h3 class="sub-head">Acoustic Deterrents</h3>
+    <p>Research has explored whether playback of predator vocalizations or prey alarm calls can deter lionfish from reef zones or attract them into traps. Results are mixed — lionfish in the Caribbean do show some response to the sound of spearfishing activity (a learned avoidance described in L04's GMAIN behavioral index discussion), but controlled acoustic deterrence devices have not demonstrated consistent field effectiveness. Not currently part of the Rim Run™ tool set, but worth monitoring in the literature as a potential future non-lethal deterrent for reef zones too structurally complex for efficient spearing.</p>
+
+    <h3 class="sub-head">Autonomous Underwater Vehicles (AUVs)</h3>
+    <p>AUV-based lionfish detection using computer vision has been demonstrated in controlled trials — a camera-equipped AUV surveys a reef transect, and a neural network classifier flags lionfish from video frames in real time. Detection accuracy in current systems reaches 85–90% in clear water above 10m. Operational deployment on the Rim Run™ route is not yet feasible (AUVs require shore-based charging infrastructure, exceed Shamrocket payload capacity, and cost $15,000–50,000 per unit), but AUV-generated survey data is compatible with GMAIN's density DTI format and could be integrated as a data source at fixed nodes with the infrastructure to support it.</p>
+
+    <h3 class="sub-head">Lionfish Collecting Robots</h3>
+    <p>RISE (Robots in Service of the Environment) developed an autonomous robot capable of detecting and electroshocking lionfish at depth — specifically designed to address the mesophotic population that human divers cannot cost-effectively target. In field trials in the Bahamas, the robot achieved removal rates comparable to skilled human divers at 15–40m depth with no human safety risk. Battery life limits deployment to 2–3 hours per charge. Currently in commercial development phase. GROAN's GMAIN architecture is designed to be tool-agnostic — any removal event with GPS, timestamp, TL, and weight data can be logged as a GMAIN biometric record regardless of the removal mechanism.</p>
+
+    <div class="callout callout-steel">
+      <strong>Tool Agnosticism in GMAIN:</strong> DMAP-CAL does not care whether a lionfish was removed by pole spear, Hawaiian sling, pneumatic speargun, robot, or trap. What DMAP-CAL requires is a complete GMAIN log entry: node ID, date/time, depth, individual TL, wet weight, and survey method code. The measurement protocol in L08 is the constant — the tool that delivers the fish to the measuring board is interchangeable. This design choice means GROAN can incorporate new removal technologies as they become available without any architecture change, as long as the tool generates a biometric-quality outcome.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">Las Herramientas como Interfaz Física del Manejo</h2>
+    <p>La ciencia de las especies invasoras — la biología, ecología, dinámica y marcos de medición de las lecciones anteriores — converge en última instancia en un buceador, bajo el agua, tomando una decisión sobre qué herramienta usar y cómo usarla. Las herramientas son la interfaz física entre la salida de decisiones de DMAP-CAL y la reducción real de la biomasa invasora en un nodo de arrecife. Una herramienta bien diseñada en una mano entrenada traduce el conocimiento científico directamente en resultados de manejo.</p>
+    <p>Esta lección cubre el conjunto completo de herramientas para el manejo de especies invasoras en el agua: herramientas de remoción activa (arpón rígido, honda hawaiana), herramientas de contención (flotador Zookeeper, contenedores de captura), herramientas de seguridad (protocolo de manejo de veneno, kit de puntura), herramientas de monitoreo (pizarra de buceo, tabla de medición, báscula, cámara) y la categoría emergente de tecnología subacuática.</p>
+
+    <h2 class="section-head">Remoción Activa: Las Herramientas Primarias</h2>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-icon">🔱</div>
+        <div class="tool-name">Arpón Rígido (Pole Spear)</div>
+        <div class="tool-spec">Longitud típica: 1.2–1.8m | Material: fibra de vidrio o carbono | Punta: 3 dientes paralizadores</div>
+        <div class="tool-text">La herramienta de remoción de pez León más simple y confiable. Un eje rígido propulsado por una banda de látex en el extremo del mango, con una punta paralizadora de tres dientes en el frente. Sin partes móviles, sin mecanismo que falle, sin mantenimiento especial. Efectivo a distancias de 0.8–1.5m. Dado que los peces León son depredadores de emboscada que mantienen su posición, el corto alcance efectivo rara vez es una limitación significativa. La punta de tres dientes se prefiere sobre el punto único para el pez León porque maximiza la probabilidad de contacto sólido.</div>
+        <div class="tool-verdict rimrun">✓ Herramienta Primaria Rim Run™</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🏹</div>
+        <div class="tool-name">Honda Hawaiana (Hawaiian Sling)</div>
+        <div class="tool-spec">Longitud típica: 1.2–1.5m flecha | Mango: 20–30cm | Bandas: látex doble | Punta: punta deslizante preferida</div>
+        <div class="tool-text">Una ballesta subacuática impulsada a mano — un mango con bandas de látex dobles que acciona una flecha de libre flotación. A diferencia de un arpón donde el eje permanece unido, la flecha se dispara hacia adelante y las bandas se retraen al mango. Efectivo a 1.5–4m — significativamente mayor alcance que un arpón rígido. Una punta deslizante (un punto con púas desmontable que permanece en el pez mientras el eje retrocede) se prefiere para el pez León. En muchas jurisdicciones caribeñas, las hondas hawaianas están reguladas como arpones — verifique las regulaciones locales antes del transporte.</div>
+        <div class="tool-verdict rimrun">✓ Herramienta Secundaria Rim Run™</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🔫</div>
+        <div class="tool-name">Fusil de Pesca Submarina</div>
+        <div class="tool-spec">Flecha: acero inoxidable 6–8mm | Alcance: hasta 5m+ | Mecanismo: banda o neumático</div>
+        <div class="tool-text">Un fusil completamente mecánico con mecanismo de gatillo, energía cinética significativamente mayor que una honda hawaiana y alcance efectivo superior a 5m. Muy efectivo para peces León grandes y precavidos en zonas de arrecife de alta complejidad. Desventajas para el contexto Rim Run™: más pesado y voluminoso para transportar en un catamarán con 24 pulgadas de calado, muchas jurisdicciones caribeñas tienen restricciones de equipo o requieren permisos.</div>
+        <div class="tool-verdict supplemental">Suplementario — Dependiente de Jurisdicción</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🪤</div>
+        <div class="tool-name">Trampa para Pez León (Tipo FWRI)</div>
+        <div class="tool-spec">Dimensiones: ~60 × 60 × 30cm | Material: alambre recubierto de PVC | Cebo: opcional</div>
+        <div class="tool-text">Un dispositivo de remoción pasivo — una jaula de alambre con una entrada a escala del pez León en la que el pez entra pero no puede salir. Puede operar a profundidades más allá de los límites del buceo recreativo seguro, capturando la población mesofótica que los programas de arpón no pueden alcanzar. Barreras prácticas significativas para el Rim Run™: requiere un segundo buceo para recuperación, debe asegurarse al sustrato del arrecife, y transportar trampas de alambre a bordo de un catamarán de 24 pulgadas de calado agrega desorden significativo en cubierta.</div>
+        <div class="tool-verdict supplemental">Suplementario — Despliegue Futuro</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Selección de Herramientas y Colocación del Disparo</h2>
+
+    <h3 class="sub-head">El Caso para Ambas Herramientas en Cada Buceo</h3>
+    <p>El protocolo Rim Run™ fija el arpón rígido y la honda hawaiana como el par de herramientas estándar para todos los buceos de remoción. La razón no es redundancia — es cobertura. El arpón rígido sobresale en peces en posiciones abiertas dentro de 1.5m: el encuentro con pez León más común durante el día. La honda hawaiana sobresale en peces parcialmente ocultos en grietas de repisas donde el acercamiento cercano está obstruido, y en peces que ya han detectado al buceador y se han retirado a una posición justo más allá del alcance del arpón. Llevar ambas elimina la zona muerta entre los alcances efectivos de las herramientas.</p>
+
+    <h3 class="sub-head">Anatomía de Colocación del Disparo</h3>
+    <p>La colocación del disparo determina la calidad del disparo, la seguridad en el manejo del pez y la integridad de los datos. La zona objetivo primaria es la masa muscular de la línea lateral inmediatamente detrás de la placa branquial — la sección transversal más gruesa del cuerpo del pez. Evitar: (1) disparos a través de la región de espinas dorsales, que arriesgan envenenamiento; (2) disparos en la cola, que producen peces vivos y agitados con aparato de veneno intacto; (3) disparos en la cabeza en ángulo, que contactan el cráneo y se desvían.</p>
+
+    <div class="callout callout-amber">
+      <strong>Seguridad ante el Veneno — No Negociable:</strong> Cada pez León removido de aguas caribeñas es un animal venenoso hasta que se cortan sus espinas dorsales, pélvicas y anales. Protocolo de manejo estándar Rim Run™: (1) mantener el pez en la punta del arpón hasta que esté completamente inmóvil; (2) transferir a la bolsa del flotador Zookeeper sin contacto con las manos desnudas; (3) eliminación de espinas con cortaalambres o tijeras en la superficie antes de cualquier otro manejo; (4) solo entonces manejar con las manos desnudas para medición. Si ocurre envenenamiento: sumergir el área afectada en el agua más caliente tolerable — el calor desnaturaliza el veneno a base de proteínas rápidamente.
+    </div>
+
+    <h2 class="section-head">Herramientas de Contención y Manejo de Peces</h2>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="tool-icon">🧊</div>
+        <div class="tool-name">Sistema de Flotador y Bolsa Zookeeper</div>
+        <div class="tool-spec">Flotador: espuma de celda cerrada | Bolsa: malla de PVC transparente | Capacidad: 10–15 peces León</div>
+        <div class="tool-text">El sistema de contención de pez León diseñado específicamente — una bolsa de malla suspendida de un flotador de superficie que el buceador arrastra durante el buceo de remoción. Los peces se transfieren directamente desde la punta del arpón a la bolsa sin contacto con las manos desnudas, se mantienen sumergidos y vivos (lo que mantiene la precisión del peso húmedo) y se suben a la superficie en la bolsa para su procesamiento. El Zookeeper elimina la necesidad de subir a la superficie después de cada disparo. El protocolo Rim Run™ requiere un Zookeeper o sistema de contención de malla equivalente en cada buceo de remoción.</div>
+        <div class="tool-verdict rimrun">✓ Requerido Rim Run™</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">📏</div>
+        <div class="tool-name">Tabla de Medición de Peces</div>
+        <div class="tool-spec">Dimensiones: mínimo 50cm | Material: HDPE o aluminio de grado marino | Resolución: marcas de 1mm</div>
+        <div class="tool-text">Una tabla plana rígida con un tope perpendicular en cero y marcas en milímetros a lo largo de la longitud. El método más preciso para la medición de la longitud total. El kit de barco Rim Run™ debe incluir una tabla de medición montada permanentemente en la cabina, accesible inmediatamente cuando los peces se transfieren desde la bolsa Zookeeper. Las tablas de aluminio de grado marino o HDPE se prefieren sobre la madera pintada (la pintura se descascarilla, la madera se deforma).</div>
+        <div class="tool-verdict rimrun">✓ Requerido Rim Run™</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">⚖️</div>
+        <div class="tool-name">Báscula Digital Impermeable</div>
+        <div class="tool-spec">Resolución: mínimo 1g (0.1g preferido) | Capacidad: 2–5kg | Clasificación: IP67 o mejor</div>
+        <div class="tool-text">El instrumento de medición de peso húmedo. Requisitos: mínimo impermeable IP67, función de tara automática para restar el peso del contenedor, capacidad mínima de 2kg, resolución de 1g. Mantener la báscula sombreada de la luz solar directa durante el pesaje para evitar la deriva térmica. Calibrar contra un peso conocido al inicio de cada día de campo. Una báscula con capacidad de registro Bluetooth que se conecta con la aplicación de campo GMAIN es preferida — elimina errores de transcripción entre registros en papel y digitales.</div>
+        <div class="tool-verdict rimrun">✓ Requerido Rim Run™</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">✂️</div>
+        <div class="tool-name">Kit de Remoción de Espinas</div>
+        <div class="tool-spec">Contenido: tijeras pesadas o cortaalambres, guantes de nitrilo, botiquín de primeros auxilios</div>
+        <div class="tool-text">El kit de remoción de espinas es una herramienta de seguridad, no un lujo. Cortar las 13 espinas venenosas antes del manejo con las manos desnudas es el paso de prevención de lesiones más importante en todo el protocolo Rim Run™. Tijeras de cocina resistentes o cortaalambres de corte diagonal funcionan. Los guantes de nitrilo proporcionan una barrera mínima pero no previenen de manera confiable la puntura por espinas. Un botiquín de primeros auxilios de campo con antihistamínico, antiséptico y la tarjeta de instrucciones del protocolo de inmersión en agua caliente es equipo estándar del barco Rim Run™.</div>
+        <div class="tool-verdict rimrun">✓ Requerido Rim Run™</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">El Sistema de Buceo Hookah</h2>
+    <p>El Air Line de J Sink E160v2 es el sistema de buceo primario bloqueado para el Rim Run™. Un sistema hookah — aire suministrado desde la superficie desde un compresor montado en cubierta a través de una manguera larga al buceador — transforma el perfil operativo de cada buceo de remoción. El razonamiento: el circuito de 37 paradas del Caribe no tiene acceso garantizado a rellenos de aire comprimido en cada punto de referencia. El SCUBA requeriría transportar 8–12 tanques llenos (prohibitivo en peso y espacio en una Getaway de 24 pulgadas de calado) o localizar rellenos en cada parada (poco confiable). El hookah resuelve ambas restricciones: el aire superficial siempre está disponible, el EcoFlow proporciona la demanda continua de 7.5A sin generador, y la unidad de 27 libras se guarda bajo cubierta en Shamrocket.</p>
+
+    <h2 class="section-head">Herramientas de Monitoreo y Recopilación de Datos</h2>
+
+    <div class="sensor-rows">
+      <div class="sensor-row">
+        <div class="sensor-label">Pizarra de Buceo y Lápiz</div>
+        <div class="sensor-text">El instrumento principal de recopilación de datos bajo el agua. Una tabla de PVC blanca rígida (mínimo 20 × 30cm) con un lápiz de grasa o lápiz marino permite registrar conteos de transectos, posiciones de peces individuales y notas conductuales durante el buceo de encuesta. Sin batería, sin resplandor de pantalla, sin preocupaciones de impermeabilización. El protocolo de transecto en franja de GMAIN usa un diseño de pizarra estandarizado: columna izquierda para recuento (marcas de hash por sección de 10m), columna derecha para clase de tamaño, nota de DIF y nota de complejidad estructural.</div>
+      </div>
+      <div class="sensor-row">
+        <div class="sensor-label">Cámara Subacuática (GoPro / equivalente)</div>
+        <div class="sensor-text">Sirve dos funciones de GMAIN. Principal: despliegue de video estacionario en una posición fija de referencia del arrecife para la grabación sin supervisión de 30–60 minutos recomendada en L08. Secundaria: documentación fotográfica de peces individuales antes o después de la remoción. La sincronización de marca de tiempo con el registro de buceo de GMAIN es crítica — el reloj de la cámara debe configurarse en UTC antes de cada despliegue.</div>
+      </div>
+      <div class="sensor-row">
+        <div class="sensor-label">Kit de Muestreo de Agua ADNe</div>
+        <div class="sensor-text">Requerido para el registro de nuevos nodos. Contenido del kit: botella de muestra estéril de 2 litros, membrana de filtro de nitrato de celulosa de 0.45µm, unidad de filtración de bomba de mano, viales de preservación etiquetados con desecante de sílice, formulario de cadena de custodia, paquete frío para envío. El agua se recolecta a 1–2m de profundidad, a 5m de cualquier estructura del arrecife para evitar contaminación bentónica, y el kit completo cabe en una bolsa seca de 1 litro para transporte en Shamrocket.</div>
+      </div>
+      <div class="sensor-row">
+        <div class="sensor-label">Registrador de pH / Temperatura (Despliegue Futuro)</div>
+        <div class="sensor-text">La brecha de instrumentación identificada en S02·L32 — la ausencia de datos de pH en los nodos del Rim Run™. Un HOBO MX2501 o registrador de temperatura/pH equivalente habilitado para Bluetooth puede atarse con brida a una característica estructural del arrecife, registrando a intervalos de 15 minutos durante períodos de despliegue de 30–90 días. Descarga de datos vía Bluetooth desde la superficie en la próxima visita. Costo: ~$150–200 por unidad. Desplegar un sensor en los 10 principales puntos de referencia del Rim Run™ por sensibilidad de hábitat cerraría la brecha de datos químicos más crítica de GROAN por aproximadamente $1,500–2,000 en hardware.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-steel">
+      <strong>Agnosticismo de Herramientas en GMAIN:</strong> DMAP-CAL no importa si un pez León fue removido por arpón rígido, honda hawaiana, fusil neumático, robot o trampa. Lo que DMAP-CAL requiere es una entrada completa en el registro GMAIN: ID del nodo, fecha/hora, profundidad, LT individual, peso húmedo y código del método de encuesta. El protocolo de medición en L08 es la constante — la herramienta que entrega el pez a la tabla de medición es intercambiable. Este diseño significa que GROAN puede incorporar nuevas tecnologías de remoción a medida que estén disponibles sin ningún cambio de arquitectura.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">The Rim Run™ Tool Kit — What Lives Aboard Shamrocket</p>
+    <div class="app-stat-row">
+      <div class="app-stat"><div class="app-stat-val">2</div><div class="app-stat-lbl">Removal tools on every dive — pole spear (primary) + Hawaiian sling (secondary) — no dead zones in coverage</div></div>
+      <div class="app-stat"><div class="app-stat-val">27 lbs</div><div class="app-stat-lbl">Air Line E160v2 hookah unit — the entire dive system, no cylinders, no fill infrastructure required at any stop</div></div>
+      <div class="app-stat"><div class="app-stat-val">90 sec</div><div class="app-stat-lbl">Measurement time per removed fish — TL, weight, log entry — the overhead that converts a harvest into a data point</div></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">The Rim Run™ tool kit is not a collection of gear — it is an integrated system designed around three non-negotiable operational constraints: (1) everything must fit and stow aboard a Hobie Getaway with 24-inch draft; (2) no tool can require shore infrastructure that is not reliably available at all 37 waypoints across 11 countries; (3) every tool must produce a GMAIN-compatible data record, or it is recreation, not field science. The hookah resolves the air supply constraint. The Zookeeper resolves the multi-fish containment constraint. The measuring board and scale resolve the biometric accuracy constraint. The eDNA kit resolves the sub-visual detection constraint. Each tool solves one problem in the system — and the system only works when all tools are present and used in protocol.</p>
+    <p style="font-size:0.9rem;color:var(--text-secondary);">The single most important addition to the current Rim Run™ tool kit is the pH/temperature datalogger at priority nodes — described in the sensor rows above. It costs less than the Zookeeper kit, takes up less space, and closes a data gap that no amount of biological observation can substitute for. It is the difference between GROAN knowing what is happening biologically at a node and knowing <em>why</em> — the chemical context that determines whether the observed biological trajectory is addressable by management action or is driven by ocean-scale chemistry that management cannot reverse.</p>
+  </div>
+
+  <!-- MCQ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        The Rim Run™ protocol specifies both a pole spear AND a Hawaiian sling on every removal dive, even though either tool alone is sufficient to remove lionfish. What is the operational rationale?<br>
+        <em>El protocolo Rim Run™ especifica tanto un arpón rígido COMO una honda hawaiana en cada buceo de remoción, aunque cualquiera de las herramientas por sí sola es suficiente para remover peces León. ¿Cuál es la justificación operativa?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Redundancy (backup in case of primary failure) is a valid safety concept, but it is not the primary operational rationale for the dual-tool protocol. The Hawaiian sling is not primarily a backup — it is a tool that fills a range gap that the pole spear cannot cover. / La redundancia es un concepto de seguridad válido, pero no es la justificación operativa primaria del protocolo de dos herramientas. La honda hawaiana no es principalmente un respaldo.')">Redundancy — if the pole spear breaks underwater, the Hawaiian sling provides a backup removal capability. / Redundancia — si el arpón rígido se rompe bajo el agua, la honda hawaiana proporciona una capacidad de remoción de respaldo.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'CPUE maximization is a benefit of the dual-tool protocol but not the stated operational rationale. The core reason is coverage of different encounter scenarios by range, not maximizing numbers removed per hour. / La maximización de CPUE es un beneficio del protocolo de dos herramientas pero no es la justificación operativa declarada.')">CPUE maximization — carrying two tools doubles the number of fish that can be removed per dive-hour. / Maximización de CPUE — llevar dos herramientas duplica el número de peces que se pueden remover por hora de buceo.</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. The two tools cover different encounter scenarios by range and access. The pole spear (0.8–1.5m effective range) handles open-position fish within close approach distance — the majority of daytime Caribbean lionfish encounters. The Hawaiian sling (1.5–4m) handles fish partially concealed in ledge crevices where close approach is obstructed, and fish that have detected the diver and retreated just beyond pole spear range. Carrying both eliminates the dead zone between 1.5m and 4m where neither tool alone would produce a shot, ensuring every encounter has a removal opportunity regardless of the fish\'s position or behavioral state. / Correcto. Las dos herramientas cubren diferentes escenarios de encuentro por alcance y acceso. El arpón rígido (0.8–1.5m de alcance efectivo) maneja peces en posición abierta. La honda hawaiana (1.5–4m) maneja peces parcialmente ocultos en grietas y peces que han detectado al buceador y se han retirado justo más allá del alcance del arpón. Llevar ambas elimina la zona muerta entre 1.5m y 4m.')">Coverage of the full encounter range — pole spear handles open-position fish within 1.5m; Hawaiian sling handles concealed or retreated fish at 1.5–4m; together they eliminate the dead zone between tool ranges. / Cobertura del rango completo de encuentros — el arpón rígido maneja peces en posición abierta dentro de 1.5m; la honda hawaiana maneja peces ocultos o retirados a 1.5–4m; juntos eliminan la zona muerta entre alcances.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Regulatory requirements vary by Caribbean jurisdiction — some regulate Hawaiian slings as spearguns — but this does not explain why the protocol specifies carrying both tools on every dive. Regulation is a constraint on tool selection, not the rationale for dual-tool protocol design. / Los requisitos regulatorios varían según la jurisdicción caribeña, pero esto no explica por qué el protocolo especifica llevar ambas herramientas en cada buceo.')">Regulatory compliance — some Caribbean jurisdictions require carrying both tool types during lionfish removal operations. / Cumplimiento regulatorio — algunas jurisdicciones caribeñas requieren llevar ambos tipos de herramientas durante las operaciones de remoción de pez León.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        A Rim Run™ diver surfaces with 6 lionfish in the Zookeeper bag. Before measuring, what is the correct sequence of steps, and why does the order matter?<br>
+        <em>Un buceador Rim Run™ sube a la superficie con 6 peces León en la bolsa Zookeeper. Antes de medir, ¿cuál es la secuencia correcta de pasos, y por qué importa el orden?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'Measuring before spine removal requires bare-hand contact with a live venomous animal — the most dangerous point in the handling sequence. Weight accuracy is not improved by measuring before spine removal; wet weight is maintained by keeping fish in the bag until immediately before measurement. / Medir antes de la remoción de espinas requiere contacto con las manos desnudas con un animal venenoso vivo.')">Measure TL and weight first (fish still in bag for wet weight accuracy), then remove spines for safe disposal. / Medir LT y peso primero (pez aún en bolsa para precisión del peso húmedo), luego remover espinas para eliminación segura.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Photographing before spine removal is logical for documentation, but it is not the priority step. If the diver proceeds to handle the fish for photography before removing spines, envenomation risk is elevated during what should be a controlled measurement sequence. Spine removal is always the first contact step. / Fotografiar antes de la remoción de espinas es lógico para documentación, pero no es el paso prioritario.')">Photograph each fish for ID records, then measure TL, then remove spines before final disposal. / Fotografiar cada pez para registros de ID, luego medir LT, luego remover espinas antes de la eliminación final.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. The required sequence is: (1) keep fish submerged in Zookeeper bag until immediately ready to process — this maintains wet weight accuracy by preventing evaporative loss; (2) transfer one fish at a time from bag to processing surface without bare-hand contact (use gloves or grip through the bag mesh); (3) SPINE REMOVAL FIRST — cut all 13 venomous spines with scissors or wire cutters before any bare-hand contact; (4) measure TL on the measuring board; (5) weigh immediately on the scale (fish is still wet from bag); (6) log TL and weight on GMAIN field record; (7) photograph if desired; (8) process for consumption or disposal. Order matters because (3) must precede (4-7) — all measurement steps involve bare-hand contact, which is only safe after spine removal. And (1) must be maintained until (3) to preserve wet weight accuracy. / Correcto. La secuencia requerida es: (1) mantener el pez sumergido en la bolsa Zookeeper hasta que esté listo para procesar — esto mantiene la precisión del peso húmedo al prevenir la pérdida por evaporación; (2) transferir un pez a la vez sin contacto con las manos desnudas; (3) REMOCIÓN DE ESPINAS PRIMERO — cortar las 13 espinas venenosas antes de cualquier contacto con las manos desnudas; (4) medir LT en la tabla de medición; (5) pesar inmediatamente en la báscula; (6) registrar LT y peso en el registro de campo GMAIN; (7) fotografiar si se desea; (8) procesar para consumo.')">Keep submerged until processing, then: spine removal first (safety), TL measurement, immediate weighing, GMAIN log entry. Order matters because spine removal must precede all bare-hand contact, and submersion must be maintained until measurement to preserve wet weight accuracy. / Mantener sumergido hasta el procesamiento, luego: remoción de espinas primero (seguridad), medición de LT, pesaje inmediato, entrada en registro GMAIN. El orden importa porque la remoción de espinas debe preceder todo contacto con manos desnudas, y la sumersión debe mantenerse hasta la medición para preservar la precisión del peso húmedo.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Immediate disposal without measurement is the least acceptable outcome — it converts a removal event into a GMAIN data gap. Even a 30-second measurement sequence (TL estimate + weight) is better than no measurement. And spine removal before disposal still requires safe handling — the sequence matters regardless of whether data will be recorded. / La eliminación inmediata sin medición es el resultado menos aceptable — convierte un evento de remoción en una brecha de datos GMAIN.')">Remove spines immediately for safety, then dispose of fish without measurement if conditions do not permit a full protocol sequence. / Remover espinas inmediatamente por seguridad, luego eliminar el pez sin medición si las condiciones no permiten una secuencia de protocolo completa.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        Why was hookah (surface-supplied air) selected as the primary Rim Run™ dive system over SCUBA, given that SCUBA provides greater depth range and diver independence?<br>
+        <em>¿Por qué se seleccionó el hookah (aire suministrado desde la superficie) como el sistema de buceo primario del Rim Run™ sobre el SCUBA, dado que el SCUBA proporciona mayor rango de profundidad e independencia del buceador?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,3,'The hookah does limit depth to 18m, which means mesophotic lionfish populations are not accessible. But this is a limitation of hookah acknowledged in the lesson — it is not the reason hookah was chosen. The choice was made on logistics grounds (fill availability, weight, storage), not because the depth limitation is unimportant. / El hookah limita la profundidad a 18m, pero esta es una limitación reconocida — no es la razón por la que se eligió el hookah.')">SCUBA tanks present a greater entanglement risk in complex reef environments than a hookah hose. / Los tanques SCUBA presentan mayor riesgo de enredo en entornos de arrecife complejo que una manguera de hookah.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Hookah is not cheaper per dive than SCUBA when equipment cost is amortized over the system lifetime. The cost argument does not drive the Rim Run™ hookah choice — the logistics constraints do. / El hookah no es más barato por buceo que el SCUBA cuando el costo del equipo se amortiza durante la vida útil del sistema.')">Hookah is significantly cheaper per dive than SCUBA, reducing the operational cost of the 437–686 day circuit. / El hookah es significativamente más barato por buceo que el SCUBA, reduciendo el costo operativo del circuito de 437–686 días.</button></li>
+        <li><button onclick="handleMCQ(this,true,3,'Correct. Two logistics constraints drove the hookah selection. First, fill availability: the 37-stop Caribbean circuit spans rural Honduras, Nicaragua, and other locations where compressed air fills are unreliable or unavailable — SCUBA would require carrying 8–12 filled cylinders (impossible on a 24-inch draft Hobie Getaway by weight and deck space) or locating fills en route (operationally unreliable). Second, infrastructure independence: the E160v2 draws 7.5A from the EcoFlow onboard power system — no generator required, no shore power required, no tank dependency. The 18m depth limit is a real constraint (mesophotic populations are not accessible) but is acceptable given that Caribbean lionfish primary habitat is 3–30m and the operational logistics trade-off is decisive. / Correcto. Dos restricciones logísticas impulsaron la selección del hookah. Primero, disponibilidad de relleno: el circuito caribeño de 37 paradas abarca ubicaciones rurales donde los rellenos de aire comprimido son poco confiables o no están disponibles — el SCUBA requeriría transportar 8–12 cilindros llenos (imposible en una Hobie Getaway de 24 pulgadas de calado) o localizar rellenos en ruta (operacionalmente poco confiable). Segundo, independencia de infraestructura: el E160v2 consume 7.5A del sistema de energía EcoFlow a bordo — sin generador, sin energía de tierra, sin dependencia de tanques.')">Fill availability and weight/storage constraints aboard Shamrocket — the 37-stop route cannot guarantee compressed air fills at every waypoint, and carrying sufficient SCUBA cylinders is impossible on a 24-inch draft catamaran. The hookah eliminates both dependencies with onboard EcoFlow power. / Disponibilidad de relleno y restricciones de peso/almacenamiento a bordo de Shamrocket — la ruta de 37 paradas no puede garantizar rellenos de aire comprimido en cada punto de referencia, y transportar suficientes cilindros SCUBA es imposible en un catamarán de 24 pulgadas de calado. El hookah elimina ambas dependencias con energía EcoFlow a bordo.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Decompression sickness risk is real at depth with SCUBA, but lionfish removal dives at Caribbean reef nodes are primarily conducted at depths where no-decompression limits are not a practical constraint. This is not the primary reason hookah was selected. / El riesgo de enfermedad de descompresión es real a profundidad con SCUBA, pero los buceos de remoción de pez León se realizan principalmente a profundidades donde los límites de no-descompresión no son una restricción práctica.')">Hookah eliminates decompression sickness risk, which is critical for a solo operator without emergency medical support at remote waypoints. / El hookah elimina el riesgo de enfermedad de descompresión, que es crítico para un operador solitario sin apoyo médico de emergencia en puntos de referencia remotos.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav"><a href="S21_L08_Invasive_Species_Measurements.html">← S21·L08 Measurements</a></div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright);font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 09 of —</div>
+    </div>
+    <div class="footer-nav"><a href="#">S21·L10 →</a></div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang,btn){
+    document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+lang).classList.add('active');
+  }
+  function handleMCQ(btn,isCorrect,qNum,feedback){
+    const block=btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b=>b.disabled=true);
+    btn.classList.add(isCorrect?'correct':'wrong');
+    const fb=document.getElementById('fb-'+qNum);
+    fb.textContent=feedback;
+    fb.classList.add('show',isCorrect?'correct-fb':'wrong-fb');
+  }
+</script>
+</body>
+</html>
