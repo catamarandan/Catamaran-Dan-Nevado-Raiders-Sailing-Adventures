@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L05 — Invasive Species: Dynamics | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:    #0a1628;
+    --ocean-mid:     #0f2240;
+    --teal-bright:   #00c8b4;
+    --teal-dim:      #007a6e;
+    --amber:         #f5a623;
+    --coral-red:     #e05a3a;
+    --violet:        #9b6dff;
+    --seafoam:       #4ab8e0;
+    --mint:          #2edd9e;
+    --text-primary:  #e8f4f8;
+    --text-secondary:#8fbdd3;
+    --text-muted:    #4a7a96;
+    --card-bg:       rgba(15,34,64,0.85);
+    --border:        rgba(0,200,180,0.18);
+    --tag-bg:        rgba(0,200,180,0.12);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ocean-deep); color:var(--text-primary); font-family:'DM Sans',sans-serif; font-weight:400; line-height:1.7; min-height:100vh; }
+
+  .progress-bar-outer { width:100%; height:4px; background:rgba(255,255,255,0.06); position:sticky; top:0; z-index:100; }
+  .progress-bar-inner { height:100%; width:9.23%; background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright)); }
+
+  .lesson-header { background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%); border-bottom:1px solid var(--border); overflow:hidden; }
+  .header-svg-wrap { width:100%; max-height:280px; overflow:hidden; }
+
+  .meta-strip { max-width:860px; margin:0 auto; padding:24px 28px 0; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .section-tag { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; background:var(--tag-bg); border:1px solid var(--border); color:var(--teal-bright); padding:4px 10px; border-radius:4px; }
+  .lesson-tag-amber { background:rgba(245,166,35,0.12); border-color:rgba(245,166,35,0.3); color:var(--amber); }
+  .lesson-tag-mint   { background:rgba(46,221,158,0.10); border-color:rgba(46,221,158,0.3); color:var(--mint); }
+
+  .lesson-title-block { max-width:860px; margin:0 auto; padding:18px 28px 28px; }
+  .lesson-number { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--teal-bright); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
+  h1.lesson-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700; line-height:1.2; color:var(--text-primary); margin-bottom:6px; }
+  h1.lesson-title em { font-style:italic; color:var(--teal-bright); }
+  .lesson-subtitle { font-size:0.88rem; color:var(--text-secondary); font-style:italic; }
+
+  .content-wrap { max-width:860px; margin:0 auto; padding:40px 28px 60px; }
+
+  .lang-tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+  .lang-tab { font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:8px 18px; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .2s,border-color .2s; }
+  .lang-tab.active { color:var(--teal-bright); border-bottom-color:var(--teal-bright); }
+  .lang-panel { display:none; }
+  .lang-panel.active { display:block; }
+
+  h2.section-head { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--teal-bright); margin:36px 0 12px; border-left:3px solid var(--teal-dim); padding-left:14px; }
+  h3.sub-head { font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:600; color:var(--text-primary); margin:24px 0 8px; letter-spacing:0.02em; }
+  p { margin-bottom:14px; font-size:0.96rem; color:var(--text-primary); }
+  p:last-child { margin-bottom:0; }
+
+  .callout { border-left:3px solid var(--teal-bright); background:rgba(0,200,180,0.06); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:0.92rem; color:var(--text-secondary); }
+  .callout strong { color:var(--teal-bright); }
+  .callout-amber { border-left-color:var(--amber); background:rgba(245,166,35,0.06); }
+  .callout-amber strong { color:var(--amber); }
+  .callout-red { border-left-color:var(--coral-red); background:rgba(224,90,58,0.07); }
+  .callout-red strong { color:var(--coral-red); }
+  .callout-violet { border-left-color:var(--violet); background:rgba(155,109,255,0.07); }
+  .callout-violet strong { color:var(--violet); }
+  .callout-mint { border-left-color:var(--mint); background:rgba(46,221,158,0.06); }
+  .callout-mint strong { color:var(--mint); }
+
+  /* ── REGIME SHIFT STATES ── */
+  .state-pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0; }
+  @media(max-width:520px){ .state-pair { grid-template-columns:1fr; } }
+  .state-card { border-radius:10px; padding:18px 16px; }
+  .state-card.stable { background:rgba(0,200,180,0.07); border:1px solid rgba(0,200,180,0.3); }
+  .state-card.degraded { background:rgba(224,90,58,0.07); border:1px solid rgba(224,90,58,0.3); }
+  .state-label { font-family:'DM Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; }
+  .state-card.stable .state-label { color:var(--teal-bright); }
+  .state-card.degraded .state-label { color:var(--coral-red); }
+  .state-title { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; margin-bottom:8px; }
+  .state-card.stable .state-title { color:var(--text-primary); }
+  .state-card.degraded .state-title { color:#e07a5f; }
+  .state-desc { font-size:0.83rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* ── OSCILLATION / BOOM-BUST CARDS ── */
+  .dynamic-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+  @media(max-width:520px){ .dynamic-grid { grid-template-columns:1fr; } }
+  .dynamic-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:16px 14px; }
+  .dynamic-label { font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--violet); margin-bottom:8px; }
+  .dynamic-text { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* ── THRESHOLD TABLE ── */
+  .threshold-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.84rem; }
+  .threshold-table th { font-family:'DM Mono',monospace; font-size:0.67rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); border-bottom:1px solid var(--border); padding:10px 12px; text-align:left; }
+  .threshold-table td { padding:10px 12px; border-bottom:1px solid rgba(0,200,180,0.07); color:var(--text-secondary); vertical-align:top; line-height:1.45; }
+  .threshold-table tr:last-child td { border-bottom:none; }
+  .threshold-table td:first-child { font-family:'DM Mono',monospace; font-size:0.76rem; color:var(--amber); white-space:nowrap; }
+  .threshold-table tr:hover td { background:rgba(0,200,180,0.03); }
+
+  /* ── RECOVERY LADDER ── */
+  .recovery-steps { display:flex; flex-direction:column; gap:0; margin:20px 0; }
+  .recovery-step { display:grid; grid-template-columns:42px 1fr; gap:16px; padding:14px 0; border-bottom:1px solid rgba(0,200,180,0.08); align-items:start; }
+  .recovery-step:last-child { border-bottom:none; }
+  .step-badge { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'DM Mono',monospace; font-size:0.8rem; flex-shrink:0; }
+  .step-badge.fast  { background:rgba(0,200,180,0.12); border:1px solid var(--teal-dim); color:var(--teal-bright); }
+  .step-badge.mid   { background:rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.4); color:var(--amber); }
+  .step-badge.slow  { background:rgba(224,90,58,0.10); border:1px solid rgba(224,90,58,0.3); color:var(--coral-red); }
+  .step-badge.never { background:rgba(155,109,255,0.10); border:1px solid rgba(155,109,255,0.3); color:var(--violet); }
+  .step-title { font-weight:600; font-size:0.92rem; color:var(--text-primary); margin-bottom:4px; }
+  .step-desc  { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+  .step-time  { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
+
+  /* ── APPLICATION PANEL ── */
+  .application-panel { background:linear-gradient(135deg,rgba(15,34,64,0.95) 0%,rgba(10,22,40,0.95) 100%); border:1px solid rgba(0,200,180,0.25); border-radius:10px; padding:28px 28px 24px; margin:40px 0 32px; }
+  .application-panel h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--amber); margin-bottom:4px; }
+  .application-panel .app-sub { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .app-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  @media(max-width:520px){ .app-stat-row { grid-template-columns:1fr 1fr; } }
+  .app-stat { background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:6px; padding:12px 10px; text-align:center; }
+  .app-stat-val { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--teal-bright); line-height:1.1; margin-bottom:4px; }
+  .app-stat-lbl { font-size:0.72rem; color:var(--text-muted); line-height:1.3; }
+
+  /* ── MCQ ── */
+  .mcq-section { margin-top:40px; }
+  .mcq-section h2 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:24px; }
+  .mcq-block { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:22px 22px 18px; margin-bottom:16px; }
+  .mcq-q-num { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--teal-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+  .mcq-question { font-size:0.95rem; font-weight:500; color:var(--text-primary); margin-bottom:14px; line-height:1.5; }
+  .mcq-question em { font-style:italic; color:var(--text-secondary); font-size:0.88em; }
+  .mcq-options { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .mcq-options li button { width:100%; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--text-secondary); cursor:pointer; transition:background .18s,border-color .18s,color .18s; line-height:1.45; }
+  .mcq-options li button:hover { background:rgba(0,200,180,0.08); border-color:var(--teal-dim); color:var(--text-primary); }
+  .mcq-options li button.correct { background:rgba(0,200,180,0.15); border-color:var(--teal-bright); color:var(--teal-bright); font-weight:500; }
+  .mcq-options li button.wrong { background:rgba(224,90,58,0.12); border-color:var(--coral-red); color:var(--coral-red); }
+  .mcq-options li button:disabled { cursor:default; }
+  .mcq-feedback { margin-top:12px; font-size:0.83rem; color:var(--text-muted); line-height:1.5; display:none; }
+  .mcq-feedback.show { display:block; }
+  .mcq-feedback.correct-fb { color:var(--teal-bright); }
+  .mcq-feedback.wrong-fb { color:#e07a5f; }
+
+  .lesson-footer { border-top:1px solid var(--border); padding:24px 28px; max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .footer-nav a { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); text-decoration:none; transition:color .2s; }
+  .footer-nav a:hover { color:var(--teal-bright); }
+  .footer-progress { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--text-muted); text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Regime shift diagram — dual-stable-state ball-in-cup model + population oscillation curves -->
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#04090f"/>
+          <stop offset="100%" stop-color="#0a1628"/>
+        </linearGradient>
+        <linearGradient id="preyCurve" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00c8b4"/>
+          <stop offset="100%" stop-color="#007a6e"/>
+        </linearGradient>
+        <linearGradient id="invCurve" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.3"/>
+          <stop offset="60%" stop-color="#e05a3a"/>
+          <stop offset="100%" stop-color="#f5a623"/>
+        </linearGradient>
+        <linearGradient id="regimeGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00c8b4" stop-opacity="0.15"/>
+          <stop offset="50%" stop-color="#0a1628" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#e05a3a" stop-opacity="0.15"/>
+        </linearGradient>
+        <filter id="glo" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gloSm" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="2.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <marker id="arr1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(245,166,35,0.8)"/>
+        </marker>
+        <marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,200,180,0.6)"/>
+        </marker>
+      </defs>
+
+      <rect width="900" height="270" fill="url(#bgL)"/>
+
+      <!-- Subtle grid -->
+      <g stroke="rgba(0,200,180,0.045)" stroke-width="1">
+        <line x1="0" y1="67" x2="900" y2="67"/>
+        <line x1="0" y1="134" x2="900" y2="134"/>
+        <line x1="0" y1="201" x2="900" y2="201"/>
+        <line x1="150" y1="0" x2="150" y2="270"/>
+        <line x1="300" y1="0" x2="300" y2="270"/>
+        <line x1="450" y1="0" x2="450" y2="270"/>
+        <line x1="600" y1="0" x2="600" y2="270"/>
+        <line x1="750" y1="0" x2="750" y2="270"/>
+      </g>
+
+      <!-- ── LEFT PANEL: Predator-prey oscillation curves (x: 0–420) ── -->
+      <!-- Y-axis label -->
+      <text x="18" y="135" font-family="'DM Mono',monospace" font-size="8" fill="rgba(0,200,180,0.4)"
+            text-anchor="middle" transform="rotate(-90,18,135)" letter-spacing="0.08em">POPULATION</text>
+
+      <!-- Prey sinusoidal curve — teal -->
+      <path d="M40,100 Q80,60 120,100 Q160,140 200,100 Q240,60 280,100 Q320,140 360,100 Q380,80 400,100"
+            fill="none" stroke="url(#preyCurve)" stroke-width="2" stroke-linecap="round" filter="url(#gloSm)"/>
+
+      <!-- Invasive curve — red-amber, phase-shifted, damping prey -->
+      <path d="M40,190 Q70,210 120,175 Q160,145 200,160 Q240,175 280,155 Q320,138 360,148 Q390,155 420,150"
+            fill="none" stroke="url(#invCurve)" stroke-width="2" stroke-linecap="round" filter="url(#gloSm)"/>
+
+      <!-- Invasive area fill -->
+      <path d="M40,190 Q70,210 120,175 Q160,145 200,160 Q240,175 280,155 Q320,138 360,148 Q390,155 420,150 L420,240 L40,240 Z"
+            fill="rgba(224,90,58,0.06)"/>
+
+      <!-- Prey area fill -->
+      <path d="M40,100 Q80,60 120,100 Q160,140 200,100 Q240,60 280,100 Q320,140 360,100 Q380,80 400,100 L400,240 L40,240 Z"
+            fill="rgba(0,200,180,0.04)"/>
+
+      <!-- Prey trend arrow — declining -->
+      <line x1="60" y1="80" x2="390" y2="130" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arr2)"/>
+
+      <!-- Legend left -->
+      <line x1="45" y1="22" x2="72" y2="22" stroke="rgba(0,200,180,0.7)" stroke-width="1.5"/>
+      <text x="78" y="26" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(0,200,180,0.55)" letter-spacing="0.05em">NATIVE PREY</text>
+      <line x1="45" y1="36" x2="72" y2="36" stroke="rgba(224,90,58,0.7)" stroke-width="1.5"/>
+      <text x="78" y="40" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(224,90,58,0.55)" letter-spacing="0.05em">INVASIVE PREDATOR</text>
+
+      <!-- Left panel title -->
+      <text x="220" y="258" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.25)" letter-spacing="0.07em">PREDATOR–PREY DYNAMICS</text>
+
+      <!-- Divider -->
+      <line x1="440" y1="10" x2="440" y2="258" stroke="rgba(0,200,180,0.1)" stroke-width="1" stroke-dasharray="3,5"/>
+
+      <!-- ── RIGHT PANEL: Ball-in-cup regime shift (x: 460–900) ── -->
+      <!-- Healthy reef basin -->
+      <path d="M470,80 Q530,170 590,120 Q620,95 640,80"
+            fill="none" stroke="rgba(0,200,180,0.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M470,80 Q530,170 590,120 Q620,95 640,80 L640,270 L470,270 Z"
+            fill="rgba(0,200,180,0.05)"/>
+
+      <!-- Degraded reef basin -->
+      <path d="M640,80 Q670,100 720,190 Q770,250 820,160 Q855,100 880,80"
+            fill="none" stroke="rgba(224,90,58,0.4)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M640,80 Q670,100 720,190 Q770,250 820,160 Q855,100 880,80 L880,270 L640,270 Z"
+            fill="rgba(224,90,58,0.05)"/>
+
+      <!-- Threshold ridge -->
+      <circle cx="640" cy="80" r="4" fill="rgba(245,166,35,0.8)" filter="url(#gloSm)"/>
+      <text x="640" y="68" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7"
+            fill="rgba(245,166,35,0.8)" letter-spacing="0.06em">THRESHOLD</text>
+
+      <!-- Ball — healthy state -->
+      <circle cx="530" cy="135" r="10" fill="rgba(0,200,180,0.2)" stroke="rgba(0,200,180,0.8)" stroke-width="1.5" filter="url(#glo)"/>
+      <text x="530" y="139" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="#00c8b4">REEF</text>
+
+      <!-- Transition arrow over ridge -->
+      <path d="M550,120 Q600,52 628,74" fill="none" stroke="rgba(224,90,58,0.6)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr1)"/>
+      <text x="580" y="46" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7"
+            fill="rgba(224,90,58,0.6)" letter-spacing="0.05em">invasion push</text>
+
+      <!-- Ball — degraded state (ghost) -->
+      <circle cx="750" cy="175" r="10" fill="rgba(224,90,58,0.12)" stroke="rgba(224,90,58,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="750" y="179" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.6)">ALGAE</text>
+
+      <!-- Hysteresis arrow — harder to go back -->
+      <path d="M660,105 Q612,130 560,148" fill="none" stroke="rgba(0,200,180,0.3)" stroke-width="1" stroke-dasharray="2,4" marker-end="url(#arr2)"/>
+      <text x="605" y="148" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5"
+            fill="rgba(0,200,180,0.4)" letter-spacing="0.04em">hysteresis</text>
+
+      <!-- Basin labels -->
+      <text x="530" y="196" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(0,200,180,0.5)" letter-spacing="0.07em">CORAL STATE</text>
+      <text x="760" y="220" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(224,90,58,0.5)" letter-spacing="0.07em">ALGAL STATE</text>
+
+      <!-- Right panel title -->
+      <text x="670" y="258" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.25)" letter-spacing="0.07em">REGIME SHIFT — ALTERNATIVE STABLE STATES</text>
+
+      <!-- Main header label -->
+      <text x="220" y="14" text-anchor="middle" font-family="'Playfair Display',serif" font-size="10"
+            fill="rgba(232,244,248,0.22)" letter-spacing="0.05em">POPULATION DYNAMICS &amp; REGIME SHIFT THEORY</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 05</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-mint">Dynamics</span>
+    <span class="section-tag">GMAIN · CMIE</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L05</div>
+    <h1 class="lesson-title">Invasive Species — <em>Dynamics</em></h1>
+    <p class="lesson-subtitle">Dinámica de las Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ═════════════════════════════════════════════════════════ -->
+<main class="content-wrap">
+
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">From Processes to Dynamics</h2>
+    <p>L04 examined the processes operating within an invasion — the mechanisms of dispersal, population growth, prey naivety, and removal ecology. L05 examines what those processes produce over time: the <strong>dynamics</strong> of an invaded ecosystem. Dynamics are the time-varying trajectories of species abundances, ecosystem states, and ecological relationships. They are what you see when you run a long-term monitoring time series — not a snapshot, but a moving picture of change.</p>
+    <p>Understanding invasion dynamics is necessary to distinguish between a system that is stable, a system that is recovering, a system that is approaching a tipping point, and a system that has already crossed one. Each of these states calls for a different management response. Confusing them — misreading the dynamic — leads to interventions that are too late, misdirected, or applied to a system that has already reorganized into a new state.</p>
+
+    <h2 class="section-head">Predator–Prey Dynamics in Invaded Systems</h2>
+    <p>Classical Lotka-Volterra predator-prey theory predicts cyclical oscillations: prey increases → predator population grows → prey is depleted → predator population crashes → prey recovers. This feedback loop produces the characteristic coupled oscillations observed in many native predator-prey systems over time.</p>
+    <p>Invasive predators disrupt this dynamic in two ways. First, the prey population has no behavioral or evolutionary defenses calibrated to the invader, so prey depletion is faster and deeper than the Lotka-Volterra model predicts for co-evolved systems. Second, the invader is not regulated by native predators — there is no top-down force that crashes the invader population when prey becomes scarce. The negative feedback that would normally restore prey is absent or severely weakened.</p>
+
+    <h3 class="sub-head">Dampened vs. Amplified Oscillations</h3>
+    <p>In a healthy co-evolved system, predator-prey oscillations are self-correcting — the amplitude of each cycle tends toward a stable equilibrium. In an invaded system with weakened prey defenses and absent predator regulation, oscillations can be <em>amplified</em>: each prey depletion event drives the prey population lower than the previous trough, and the recovery ceiling drops with each cycle. This is a trajectory toward collapse rather than equilibrium — the system is not oscillating around a stable point, it is spiraling toward a new, lower-productivity state.</p>
+
+    <div class="callout callout-amber">
+      <strong>GMAIN Time-Series Signal:</strong> A declining prey abundance trend underlying the oscillation — a downward-sloping envelope around the prey cycle — is the early dynamic signature of a spiraling system. When the time series of native fish biomass at a GMAIN node shows this pattern (oscillation amplitude stable or increasing, but the mean declining across cycles), the CMIE flags a trajectory toward regime shift rather than a stable high-predation equilibrium.
+    </div>
+
+    <h2 class="section-head">Boom-Bust and Boom-Stabilize Dynamics</h2>
+
+    <div class="dynamic-grid">
+      <div class="dynamic-card">
+        <div class="dynamic-label">Boom-Bust Pattern</div>
+        <div class="dynamic-text">The invasive population grows exponentially until it depletes its prey base — at which point food limitation causes a population crash. The crash may be dramatic (population drops 60–80% within one to two years). Prey recovery may follow, and a second invasion cycle begins at lower amplitude. Each boom-bust cycle leaves the ecosystem more impoverished. Observed in some island invasions with no immigration subsidy maintaining the invasive population after prey collapse.</div>
+      </div>
+      <div class="dynamic-card">
+        <div class="dynamic-label">Boom-Stabilize Pattern</div>
+        <div class="dynamic-text">The invasive population grows rapidly but stabilizes at an intermediate density before prey collapse — held in partial check by food limitation, partial predator learning, or low-level native predation. This produces a new, persistent high-predation equilibrium in which both invasive predator and depleted native prey coexist at reduced abundances. More common in open marine systems with immigration subsidy. The stable state looks like management success but is ecologically degraded. Lionfish at most heavily invaded Caribbean sites follow this pattern.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Distinguishing the Patterns:</strong> Boom-bust and boom-stabilize produce similar early dynamics — rapid invasive population growth and prey decline. The divergence occurs at the inflection point. Sustained monitoring at GMAIN nodes through the inflection point is the only way to determine which pattern is operating — and therefore which management response is appropriate. A boom-bust system may self-correct partially; a boom-stabilize system will not recover without active intervention.
+    </div>
+
+    <h2 class="section-head">Regime Shifts and Alternative Stable States</h2>
+    <p>The most consequential dynamic outcome of a biological invasion is a <strong>regime shift</strong> — a rapid, non-linear transition from one ecological state to another, driven by the accumulated pressure of the invasion pushing the system past a tipping point. Regime shifts are characterized by three features that distinguish them from ordinary ecological change:</p>
+
+    <div class="state-pair">
+      <div class="state-card stable">
+        <div class="state-label">State A — Coral-Dominated</div>
+        <div class="state-title">Healthy Reef Regime</div>
+        <div class="state-desc">High coral cover (40–80%). Abundant herbivorous fish maintaining low algal cover. Diverse native fish community. High recruitment success. Trophically balanced. Resilient to moderate disturbance. Self-reinforcing: coral structure provides reef fish habitat which maintains herbivory which keeps substrate open for coral recruitment.</div>
+      </div>
+      <div class="state-card degraded">
+        <div class="state-label">State B — Algae-Dominated</div>
+        <div class="state-title">Degraded Reef Regime</div>
+        <div class="state-desc">Low coral cover (&lt;10%). Algal overgrowth dominating available substrate. Depleted herbivore community. Near-zero coral recruitment. Simplified food web. Low resilience. Also self-reinforcing: algal dominance prevents coral larval settlement, which prevents herbivore habitat recovery, which maintains algal dominance. Invasive pressure is one pathway that pushes systems from A to B.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Hysteresis: Why Recovery Is Not the Reverse of Degradation</h3>
+    <p>The critical property of alternative stable states is <strong>hysteresis</strong>: the path from State A to State B is not the reverse of the path from B back to A. The transition to the degraded state occurs when accumulated stressors push the system past the tipping point. But once in the degraded state, the system is held there by its own internal feedbacks. Removing the invasive species alone does not automatically return the reef to the coral-dominated state, because the self-reinforcing feedbacks of algal dominance have replaced the self-reinforcing feedbacks of coral dominance.</p>
+    <p>Recovery from a regime-shifted reef requires more than invasive removal — it requires active restoration of the feedback processes (coral transplantation, herbivore population rebuilding, substrate clearing) that were maintaining State A. And even then, recovery may require the stressor level to drop below the original tipping point by a substantial margin — not just back to it.</p>
+
+    <div class="callout callout-red">
+      <strong>Irreversibility Risk:</strong> If a reef has crossed the tipping point into State B and the algal-dominance feedback has fully established, there may be no feasible restoration pathway at the reef's current stressor load — particularly if climate-driven bleaching stress is simultaneously active. DMAP-CAL's regime shift risk score integrates: coral cover trend, herbivore biomass trend, invasive predator density, SST anomaly, and time since last bleaching event. A high regime shift risk score triggers intervention escalation independent of invasive density alone.
+    </div>
+
+    <h2 class="section-head">Tipping Points and Early Warning Signals</h2>
+    <p>A tipping point is the threshold at which small additional stressors cause disproportionately large state changes. Before a system reaches its tipping point, it often exhibits measurable early warning signals — dynamical properties that reflect a loss of resilience even while the observable state (coral cover, fish abundance) appears stable.</p>
+
+    <table class="threshold-table">
+      <thead>
+        <tr>
+          <th>Early Warning Signal</th>
+          <th>What It Measures</th>
+          <th>GROAN Detection Layer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Critical Slowing Down</td>
+          <td>Recovery time from small disturbances increases as the system approaches the tipping point — the system loses its ability to self-correct quickly. Detectable as increasing temporal autocorrelation in abundance time series.</td>
+          <td>GRIN time-series variance analysis; requires high temporal resolution dive survey data at GMAIN node</td>
+        </tr>
+        <tr>
+          <td>Increasing Variance</td>
+          <td>Fluctuations in population abundance or ecosystem state increase in amplitude before the transition. The system begins exploring a wider range of states as internal regulation weakens.</td>
+          <td>GMAIN abundance data rolling variance; GRIN coral cover change rate flag</td>
+        </tr>
+        <tr>
+          <td>Spatial Coherence Loss</td>
+          <td>In spatially extended systems, patches near the tipping point become less correlated with their neighbors — local dynamics decouple from system-wide trends, producing irregular patchiness.</td>
+          <td>GSIN / GRIN spatial coverage data; satellite-derived Allen Coral Atlas time series at node cluster level</td>
+        </tr>
+        <tr>
+          <td>Flickering</td>
+          <td>The system alternates between the two alternative states before committing to the transition — brief excursions into the degraded state that self-correct, increasing in frequency and duration. The final transition is a flicker that does not return.</td>
+          <td>Repeated survey data at a node showing alternating high and low coral cover / herbivore abundance readings</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-violet">
+      <strong>GROAN Early Warning Architecture:</strong> Early warning signals require sustained, high-frequency monitoring at fixed nodes — which is the structural function of the CCRA citizen science network and the Rim Run™ waypoint dive log. Each registered GMAIN reef node accumulates a time series of sighting density, prey biomass proxy, and substrate condition notes across dive events. DMAP-CAL applies rolling variance and autocorrelation tests to this time series to generate a regime shift risk flag. The signal is only detectable because monitoring is continuous, not episodic.
+    </div>
+
+    <h2 class="section-head">Post-Removal Recovery Dynamics</h2>
+    <p>When invasive species pressure is removed or significantly reduced, ecosystem recovery is not instantaneous — it follows a sequenced trajectory determined by the biological rates of each recovering component. Understanding this sequence is essential for setting realistic management expectations and correctly interpreting monitoring data after intervention begins.</p>
+
+    <div class="recovery-steps">
+      <div class="recovery-step">
+        <div class="step-badge fast">W</div>
+        <div>
+          <div class="step-title">Behavioral Recovery — Weeks</div>
+          <div class="step-desc">Native prey fish return to normal foraging behavior, emerge from refuge habitats, and begin using previously abandoned reef zones. Flight initiation distance normalizes. This is the first measurable signal that invasive pressure has been reduced, appearing within days to weeks of sustained removal effort.</div>
+          <div class="step-time">Timescale: Days to weeks · Detectable by: Behavioral dive surveys</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge fast">M</div>
+        <div>
+          <div class="step-title">Prey Biomass Recovery — Months</div>
+          <div class="step-desc">Herbivore and small reef fish populations begin increasing as mortality from invasive predation drops and recruits from adjacent areas settle. Measurable increases in fish counts and biomass at previously depressed nodes. Recovery rate depends on distance from source populations and local reproductive rates.</div>
+          <div class="step-time">Timescale: 3–18 months · Detectable by: Fish count dive surveys, GRIN biomass tracking</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge mid">Y</div>
+        <div>
+          <div class="step-title">Herbivory Process Recovery — 1–3 Years</div>
+          <div class="step-desc">Rebuilt herbivore populations resume effective grazing. Algal cover begins declining. Substrate opens for potential coral recruitment. This is the ecological process recovery — not just species abundance, but the return of functional reef maintenance. The trophic cascade begins to reverse.</div>
+          <div class="step-time">Timescale: 1–3 years · Detectable by: Algal cover transects, GSIN functional metrics</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge slow">D</div>
+        <div>
+          <div class="step-title">Coral Recruitment Recovery — Decades</div>
+          <div class="step-desc">Even with open substrate and recovering herbivory, coral recruitment requires available coral larvae (dependent on nearby spawning adults), suitable substrate chemistry, and sustained low thermal stress. Full structural recovery of a coral reef from a degraded state is measured in decades under the best conditions — and may not occur at all under chronic climate stress.</div>
+          <div class="step-time">Timescale: 10–50+ years · Detectable by: Coral cover monitoring, photo-transect analysis</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge never">∞</div>
+        <div>
+          <div class="step-title">Structural Complexity Recovery — Generational</div>
+          <div class="step-desc">Three-dimensional reef structural complexity — the architecture that supports maximum biodiversity — is built by coral growth over decades to centuries. Even where coral returns, structural complexity recovery lags far behind. Reefs that lost structural complexity to bleaching, mechanical damage, or bioerosion during the degraded state may never fully recover this dimensionality within management-relevant timescales.</div>
+          <div class="step-time">Timescale: 50–200+ years · Not recoverable within a management planning horizon</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-mint">
+      <strong>Management Implication:</strong> The recovery sequence means that early monitoring success — behavioral normalization, prey biomass rebound — does not mean the job is done. DMAP-CAL tracks all five recovery indicators simultaneously at each node and maintains invasive suppression tasking until the herbivory process recovery stage is confirmed. Premature withdrawal of removal effort — triggered by misreading behavioral or biomass recovery as full ecosystem recovery — allows invasive population rebound before the trophic cascade has fully reversed.
+    </div>
+
+    <h2 class="section-head">Metapopulation Dynamics and Node Connectivity</h2>
+    <p>A metapopulation is a set of spatially separated local populations connected by dispersal. Caribbean reef fish communities, and the invasive lionfish populations that interact with them, are not isolated site populations — they are nodes in a regional metapopulation network connected by larval dispersal and adult movement.</p>
+    <p>Metapopulation dynamics determine whether local management actions have regional consequences. A reef node from which lionfish have been successfully suppressed will be recolonized from adjacent unsuppressed nodes through immigration — the speed of recolonization is a function of immigration rate, which is determined by distance to the nearest source population and current-mediated larval connectivity. GMAIN's node-level density tracking, when aggregated across the node network, produces the metapopulation-level signal needed to evaluate whether regional invasion pressure is rising, stable, or declining — information unavailable from any single-site assessment.</p>
+
+    <div class="callout callout-red">
+      <strong>CMIE Metapopulation Signal:</strong> If invasive density is declining at managed nodes but stable or rising at unmanaged nodes in the same current-connectivity cluster, the regional metapopulation is not being suppressed — it is being redistributed. DMAP-CAL's node-cluster analysis detects this redistribution pattern and escalates from single-node tasking to cluster-level coordinated suppression — a management decision that requires the cross-node data architecture of GMAIN to detect, and the CMIE to flag.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">De los Procesos a la Dinámica</h2>
+    <p>L04 examinó los procesos que operan dentro de una invasión — los mecanismos de dispersión, crecimiento poblacional, inexperiencia de presas y ecología de la remoción. L05 examina lo que estos procesos producen con el tiempo: la <strong>dinámica</strong> de un ecosistema invadido. La dinámica son las trayectorias que varían en el tiempo de las abundancias de especies, los estados del ecosistema y las relaciones ecológicas. Es lo que se observa cuando se ejecuta una serie de tiempo de monitoreo a largo plazo — no una instantánea, sino una imagen en movimiento del cambio.</p>
+    <p>Comprender la dinámica de la invasión es necesario para distinguir entre un sistema estable, un sistema en recuperación, un sistema que se acerca a un punto de inflexión y un sistema que ya ha cruzado uno. Cada uno de estos estados exige una respuesta de manejo diferente. Confundirlos — malinterpretar la dinámica — lleva a intervenciones que son demasiado tardías, mal dirigidas o aplicadas a un sistema que ya se ha reorganizado en un nuevo estado.</p>
+
+    <h2 class="section-head">Dinámica Depredador-Presa en Sistemas Invadidos</h2>
+    <p>La teoría clásica de depredador-presa de Lotka-Volterra predice oscilaciones cíclicas: la presa aumenta → la población de depredadores crece → la presa se agota → la población de depredadores colapsa → la presa se recupera. Este ciclo de retroalimentación produce las características oscilaciones acopladas observadas en muchos sistemas nativos de depredador-presa a lo largo del tiempo.</p>
+    <p>Los depredadores invasores interrumpen esta dinámica de dos maneras. Primero, la población de presas no tiene defensas conductuales o evolutivas calibradas para el invasor, por lo que el agotamiento de presas es más rápido y profundo de lo que el modelo predice para sistemas co-evolucionados. Segundo, el invasor no está regulado por depredadores nativos — no hay fuerza de arriba hacia abajo que colapse la población invasora cuando las presas escasean.</p>
+
+    <h3 class="sub-head">Oscilaciones Amortiguadas vs. Amplificadas</h3>
+    <p>En un sistema co-evolucionado saludable, las oscilaciones depredador-presa se autocorrigen — la amplitud de cada ciclo tiende hacia un equilibrio estable. En un sistema invadido con defensas debilitadas de las presas y regulación de depredadores ausente, las oscilaciones pueden ser <em>amplificadas</em>: cada evento de agotamiento de presas lleva la población de presas más bajo que el valle anterior, y el techo de recuperación desciende con cada ciclo. Esta es una trayectoria hacia el colapso en lugar del equilibrio.</p>
+
+    <div class="callout callout-amber">
+      <strong>Señal de Serie de Tiempo GMAIN:</strong> Una tendencia decreciente de abundancia de presas subyacente a la oscilación — una envolvente de pendiente descendente alrededor del ciclo de presas — es la firma dinámica temprana de un sistema en espiral. Cuando la serie de tiempo de biomasa de peces nativos en un nodo GMAIN muestra este patrón (amplitud de oscilación estable o creciente, pero la media declinando a lo largo de los ciclos), el CMIE señala una trayectoria hacia un cambio de régimen en lugar de un equilibrio de alta depredación estable.
+    </div>
+
+    <h2 class="section-head">Dinámicas Auge-Colapso y Auge-Estabilización</h2>
+
+    <div class="dynamic-grid">
+      <div class="dynamic-card">
+        <div class="dynamic-label">Patrón Auge-Colapso</div>
+        <div class="dynamic-text">La población invasora crece exponencialmente hasta que agota su base de presas — momento en el que la limitación alimentaria causa un colapso poblacional. El colapso puede ser dramático (la población cae 60–80% en uno a dos años). La recuperación de las presas puede seguir, y comienza un segundo ciclo de invasión a menor amplitud. Cada ciclo auge-colapso deja el ecosistema más empobrecido. Observado en algunas invasiones en islas sin subsidio de inmigración que mantenga la población invasora después del colapso de presas.</div>
+      </div>
+      <div class="dynamic-card">
+        <div class="dynamic-label">Patrón Auge-Estabilización</div>
+        <div class="dynamic-text">La población invasora crece rápidamente pero se estabiliza a una densidad intermedia antes del colapso de presas — mantenida parcialmente en control por limitación alimentaria, aprendizaje parcial de depredadores o baja depredación nativa. Esto produce un nuevo equilibrio persistente de alta depredación. Más común en sistemas marinos abiertos con subsidio de inmigración. El estado estable parece un éxito de manejo pero está ecológicamente degradado. El pez león en la mayoría de los sitios del Caribe muy invadidos sigue este patrón.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Distinguiendo los Patrones:</strong> El auge-colapso y el auge-estabilización producen dinámicas tempranas similares — crecimiento rápido de la población invasora y declive de presas. La divergencia ocurre en el punto de inflexión. El monitoreo sostenido en los nodos GMAIN a través del punto de inflexión es la única forma de determinar qué patrón está operando — y por lo tanto qué respuesta de manejo es apropiada.
+    </div>
+
+    <h2 class="section-head">Cambios de Régimen y Estados Estables Alternativos</h2>
+    <p>El resultado dinámico más consecuente de una invasión biológica es un <strong>cambio de régimen</strong> — una transición rápida y no lineal de un estado ecológico a otro, impulsada por la presión acumulada de la invasión que empuja al sistema más allá de un punto de inflexión. Los cambios de régimen se caracterizan por tres características que los distinguen del cambio ecológico ordinario:</p>
+
+    <div class="state-pair">
+      <div class="state-card stable">
+        <div class="state-label">Estado A — Dominado por Coral</div>
+        <div class="state-title">Régimen de Arrecife Saludable</div>
+        <div class="state-desc">Alta cobertura de coral (40–80%). Abundantes peces herbívoros manteniendo baja cobertura algal. Comunidad de peces nativos diversa. Alto éxito de reclutamiento. Equilibrio trófico. Resiliente a perturbaciones moderadas. Se auto-refuerza: la estructura coralina proporciona hábitat para peces del arrecife que mantienen la herbivoría que mantiene el sustrato abierto para el reclutamiento de coral.</div>
+      </div>
+      <div class="state-card degraded">
+        <div class="state-label">Estado B — Dominado por Algas</div>
+        <div class="state-title">Régimen de Arrecife Degradado</div>
+        <div class="state-desc">Baja cobertura de coral (&lt;10%). Sobrecrecimiento algal dominando el sustrato disponible. Comunidad de herbívoros agotada. Reclutamiento de coral casi nulo. Red alimentaria simplificada. Baja resiliencia. También se auto-refuerza: la dominancia algal impide el asentamiento larvario de coral, lo que impide la recuperación del hábitat de herbívoros, lo que mantiene la dominancia algal.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Histéresis: Por qué la Recuperación no es el Reverso de la Degradación</h3>
+    <p>La propiedad crítica de los estados estables alternativos es la <strong>histéresis</strong>: el camino del Estado A al Estado B no es el reverso del camino de B de regreso a A. La transición al estado degradado ocurre cuando los factores estresantes acumulados empujan al sistema más allá del punto de inflexión. Pero una vez en el estado degradado, el sistema se mantiene allí por sus propias retroalimentaciones internas. Eliminar la especie invasora sola no devuelve automáticamente el arrecife al estado dominado por coral, porque las retroalimentaciones autorreinforantes de la dominancia algal han reemplazado a las de la dominancia coralina.</p>
+
+    <div class="callout callout-red">
+      <strong>Riesgo de Irreversibilidad:</strong> Si un arrecife ha cruzado el punto de inflexión hacia el Estado B y la retroalimentación de dominancia algal se ha establecido completamente, puede no haber una vía de restauración factible bajo la carga de estrés actual del arrecife — particularmente si el estrés de blanqueamiento impulsado por el clima está activo simultáneamente. La puntuación de riesgo de cambio de régimen de DMAP-CAL integra: tendencia de cobertura de coral, tendencia de biomasa de herbívoros, densidad de depredadores invasores, anomalía de TSM y tiempo desde el último evento de blanqueamiento.
+    </div>
+
+    <h2 class="section-head">Puntos de Inflexión y Señales de Advertencia Temprana</h2>
+    <p>Un punto de inflexión es el umbral en el que pequeños factores estresantes adicionales causan cambios de estado desproporcionadamente grandes. Antes de que un sistema alcance su punto de inflexión, a menudo exhibe señales de advertencia temprana medibles — propiedades dinámicas que reflejan una pérdida de resiliencia incluso mientras el estado observable (cobertura de coral, abundancia de peces) parece estable.</p>
+
+    <table class="threshold-table">
+      <thead>
+        <tr>
+          <th>Señal de Advertencia Temprana</th>
+          <th>Qué Mide</th>
+          <th>Capa de Detección GROAN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ralentización Crítica</td>
+          <td>El tiempo de recuperación de pequeñas perturbaciones aumenta a medida que el sistema se acerca al punto de inflexión — el sistema pierde su capacidad de autocorrección rápida. Detectable como aumento de la autocorrelación temporal en series de tiempo de abundancia.</td>
+          <td>Análisis de varianza de serie de tiempo GRIN; requiere datos de encuesta de buceo de alta resolución temporal en el nodo GMAIN</td>
+        </tr>
+        <tr>
+          <td>Varianza Creciente</td>
+          <td>Las fluctuaciones en la abundancia de la población o el estado del ecosistema aumentan en amplitud antes de la transición. El sistema comienza a explorar un rango más amplio de estados a medida que la regulación interna se debilita.</td>
+          <td>Varianza rodante de datos de abundancia GMAIN; señal de tasa de cambio de cobertura de coral GRIN</td>
+        </tr>
+        <tr>
+          <td>Pérdida de Coherencia Espacial</td>
+          <td>En sistemas espacialmente extendidos, los parches cerca del punto de inflexión se vuelven menos correlacionados con sus vecinos — la dinámica local se desacopla de las tendencias de todo el sistema, produciendo un parche irregular.</td>
+          <td>Datos de cobertura espacial GSIN/GRIN; series de tiempo del Allen Coral Atlas derivadas de satélite a nivel de clúster de nodos</td>
+        </tr>
+        <tr>
+          <td>Parpadeo</td>
+          <td>El sistema alterna entre los dos estados alternativos antes de comprometerse con la transición — breves excursiones al estado degradado que se autocorrigen, aumentando en frecuencia y duración. La transición final es un parpadeo que no regresa.</td>
+          <td>Datos de encuestas repetidas en un nodo que muestran lecturas alternantes de alta y baja cobertura de coral / abundancia de herbívoros</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-violet">
+      <strong>Arquitectura de Advertencia Temprana GROAN:</strong> Las señales de advertencia temprana requieren monitoreo sostenido y de alta frecuencia en nodos fijos — que es la función estructural de la red de ciencia ciudadana CCRA y el registro de buceo en puntos de referencia del Rim Run™. Cada nodo de arrecife GMAIN registrado acumula una serie de tiempo de densidad de avistamientos, proxy de biomasa de presas y notas de condición de sustrato a lo largo de los eventos de buceo. DMAP-CAL aplica pruebas de varianza rodante y autocorrelación a esta serie de tiempo para generar una señal de riesgo de cambio de régimen.
+    </div>
+
+    <h2 class="section-head">Dinámica de Recuperación Post-Remoción</h2>
+    <p>Cuando la presión de especies invasoras se elimina o reduce significativamente, la recuperación del ecosistema no es instantánea — sigue una trayectoria secuenciada determinada por las tasas biológicas de cada componente en recuperación. Comprender esta secuencia es esencial para establecer expectativas de manejo realistas e interpretar correctamente los datos de monitoreo después de que comienza la intervención.</p>
+
+    <div class="recovery-steps">
+      <div class="recovery-step">
+        <div class="step-badge fast">S</div>
+        <div>
+          <div class="step-title">Recuperación Conductual — Semanas</div>
+          <div class="step-desc">Los peces presa nativos regresan al comportamiento normal de forrajeo, emergen de los hábitats refugio y comienzan a usar zonas del arrecife previamente abandonadas. La distancia de iniciación de vuelo se normaliza. Esta es la primera señal medible de que la presión invasora se ha reducido, apareciendo dentro de días a semanas de esfuerzo de remoción sostenido.</div>
+          <div class="step-time">Escala temporal: Días a semanas · Detectable por: Encuestas de buceo conductual</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge fast">M</div>
+        <div>
+          <div class="step-title">Recuperación de Biomasa de Presas — Meses</div>
+          <div class="step-desc">Las poblaciones de herbívoros y peces pequeños de arrecife comienzan a aumentar a medida que la mortalidad por depredación invasora cae y los reclutas de áreas adyacentes se asientan. Aumentos medibles en conteos y biomasa de peces en nodos previamente deprimidos. La tasa de recuperación depende de la distancia a las poblaciones fuente y las tasas de reproducción locales.</div>
+          <div class="step-time">Escala temporal: 3–18 meses · Detectable por: Encuestas de conteo de peces, seguimiento de biomasa GRIN</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge mid">A</div>
+        <div>
+          <div class="step-title">Recuperación del Proceso de Herbivoría — 1–3 Años</div>
+          <div class="step-desc">Las poblaciones de herbívoros reconstruidas reanudan el ramoneo efectivo. La cobertura algal comienza a disminuir. El sustrato se abre para el potencial reclutamiento de coral. Esta es la recuperación del proceso ecológico — no solo la abundancia de especies, sino el retorno del mantenimiento funcional del arrecife. La cascada trófica comienza a revertirse.</div>
+          <div class="step-time">Escala temporal: 1–3 años · Detectable por: Transectos de cobertura algal, métricas funcionales GSIN</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge slow">D</div>
+        <div>
+          <div class="step-title">Recuperación del Reclutamiento de Coral — Décadas</div>
+          <div class="step-desc">Incluso con sustrato abierto y herbivoría en recuperación, el reclutamiento de coral requiere larvas de coral disponibles, química de sustrato adecuada y estrés térmico sostenidamente bajo. La recuperación estructural completa de un arrecife de coral desde un estado degradado se mide en décadas bajo las mejores condiciones — y puede no ocurrir en absoluto bajo estrés climático crónico.</div>
+          <div class="step-time">Escala temporal: 10–50+ años · Detectable por: Monitoreo de cobertura de coral, análisis de foto-transectos</div>
+        </div>
+      </div>
+      <div class="recovery-step">
+        <div class="step-badge never">∞</div>
+        <div>
+          <div class="step-title">Recuperación de la Complejidad Estructural — Generacional</div>
+          <div class="step-desc">La complejidad estructural tridimensional del arrecife — la arquitectura que soporta la máxima biodiversidad — es construida por el crecimiento coralino a lo largo de décadas a siglos. Incluso donde el coral regresa, la recuperación de la complejidad estructural se queda muy por detrás. Los arrecifes que perdieron complejidad estructural durante el estado degradado pueden nunca recuperar completamente esta dimensionalidad dentro de escalas temporales relevantes para el manejo.</div>
+          <div class="step-time">Escala temporal: 50–200+ años · No recuperable dentro de un horizonte de planificación de manejo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-mint">
+      <strong>Implicación para el Manejo:</strong> La secuencia de recuperación significa que el éxito temprano del monitoreo — normalización conductual, recuperación de biomasa de presas — no significa que el trabajo esté hecho. DMAP-CAL rastrea los cinco indicadores de recuperación simultáneamente en cada nodo y mantiene las tareas de supresión invasora hasta que se confirme la etapa de recuperación del proceso de herbivoría. El retiro prematuro del esfuerzo de remoción permite el rebote de la población invasora antes de que la cascada trófica se haya revertido completamente.
+    </div>
+
+    <h2 class="section-head">Dinámica de Metapoblaciones y Conectividad de Nodos</h2>
+    <p>Una metapoblación es un conjunto de poblaciones locales separadas espacialmente y conectadas por dispersión. Las comunidades de peces de arrecife del Caribe, y las poblaciones invasoras de pez león que interactúan con ellas, no son poblaciones de sitios aislados — son nodos en una red de metapoblación regional conectada por dispersión larvaria y movimiento adulto.</p>
+    <p>La dinámica de metapoblaciones determina si las acciones de manejo locales tienen consecuencias regionales. Un nodo de arrecife desde el que el pez león ha sido suprimido exitosamente será recolonizado desde nodos adyacentes no suprimidos a través de la inmigración. El seguimiento de densidad a nivel de nodo de GMAIN, cuando se agrega en toda la red de nodos, produce la señal a nivel de metapoblación necesaria para evaluar si la presión de invasión regional está aumentando, estable o disminuyendo.</p>
+
+    <div class="callout callout-red">
+      <strong>Señal de Metapoblación CMIE:</strong> Si la densidad invasora está disminuyendo en los nodos gestionados pero estable o aumentando en los nodos no gestionados del mismo clúster de conectividad de corriente, la metapoblación regional no está siendo suprimida — está siendo redistribuida. El análisis de clúster de nodos de DMAP-CAL detecta este patrón de redistribución y escala desde la asignación de tareas de nodo único a la supresión coordinada a nivel de clúster — una decisión de manejo que requiere la arquitectura de datos entre nodos de GMAIN para detectar, y el CMIE para señalar.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- ══ APPLICATION PANEL ══════════════════════════════════════════════ -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">Caribbean Reef Regime Dynamics — Lionfish as a Tipping Point Driver</p>
+
+    <div class="app-stat-row">
+      <div class="app-stat">
+        <div class="app-stat-val">&lt;10%</div>
+        <div class="app-stat-lbl">Coral cover threshold below which Caribbean reefs are considered to have shifted to the algal-dominated alternative stable state</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">3–5 yr</div>
+        <div class="app-stat-lbl">Estimated time from high-density lionfish establishment to detectable herbivore depletion in unmanaged reef sites</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">5</div>
+        <div class="app-stat-lbl">Recovery sequence stages DMAP-CAL monitors before reducing node removal tasking priority</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:12px;">The five-stage recovery sequence defines the Rim Run™ monitoring commitment at each waypoint node. Behavioral recovery — the first signal — is detectable within weeks of sustained spearing effort, and it is the one that misleads. Lionfish being absent from daytime shallows and prey fish emerging from refuge are encouraging dive-by-dive observations. But DMAP-CAL will not reduce node removal priority until herbivory process recovery is confirmed (algal cover transect data trending down, herbivore biomass estimates trending up) — because behavioral normalization without herbivory recovery means the trophic cascade has not reversed, and invasive recolonization from adjacent nodes will rapidly restore the pre-intervention state.</p>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary);">Metapopulation connectivity within the Rim Run™ route means that no waypoint node is independent. Every removal event at a node is competing against larval immigration from the broader Caribbean metapopulation — spawned at nodes not yet reached by the route, transported by the Caribbean Current system at 1–2 knots across hundreds of kilometers. GMAIN's node-cluster density aggregation is the tool that makes this competition visible: not whether a single node is improving, but whether the cluster is improving — and at what rate relative to estimated immigration pressure.</p>
+  </div>
+
+  <!-- ══ MCQ ════════════════════════════════════════════════════════════ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <!-- Q1 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        What property of alternative stable states makes reef recovery from the algal-dominated state require more than just removing the invasive species?<br>
+        <em>¿Qué propiedad de los estados estables alternativos hace que la recuperación del arrecife del estado dominado por algas requiera más que solo eliminar la especie invasora?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Toxin persistence is not the mechanism — regime shift hysteresis is a dynamical property of self-reinforcing ecological feedbacks, not a chemical residue effect. / La persistencia de toxinas no es el mecanismo — la histéresis de cambio de régimen es una propiedad dinámica de las retroalimentaciones ecológicas autorreinforantes, no un efecto de residuo químico.')">Invasive species toxins persist in the substrate after removal, inhibiting coral larval settlement. / Las toxinas de las especies invasoras persisten en el sustrato después de la remoción, inhibiendo el asentamiento larvario de coral.</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. Hysteresis means the degraded state is maintained by self-reinforcing feedbacks internal to that state — algal dominance suppresses coral recruitment which prevents herbivore habitat recovery which maintains algal dominance. Removing the invasion pressure that caused the transition does not automatically reverse these internal feedbacks. Restoring State A requires actively rebuilding the feedbacks that maintained it. / Correcto. La histéresis significa que el estado degradado se mantiene por retroalimentaciones autorreinforantes internas a ese estado — la dominancia algal suprime el reclutamiento de coral, lo que impide la recuperación del hábitat de herbívoros, lo que mantiene la dominancia algal. Eliminar la presión de invasión que causó la transición no revierte automáticamente estas retroalimentaciones internas. Restaurar el Estado A requiere reconstruir activamente las retroalimentaciones que lo mantenían.')">Hysteresis: the degraded state is maintained by its own self-reinforcing feedbacks, which persist after the invasion pressure is removed. / Histéresis: el estado degradado se mantiene por sus propias retroalimentaciones autorreinforantes, que persisten después de que se elimina la presión de invasión.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Genetic adaptation in coral populations can occur but is not the mechanism explaining why removing invasives is insufficient — the immediate issue is ecological feedbacks, not evolutionary genetics. / La adaptación genética en las poblaciones de coral puede ocurrir, pero no es el mecanismo que explica por qué eliminar los invasores es insuficiente — el problema inmediato son las retroalimentaciones ecológicas, no la genética evolutiva.')">Invasive species cause genetic changes in coral populations that prevent recovery. / Las especies invasoras causan cambios genéticos en las poblaciones de coral que impiden la recuperación.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Native predator absence extends the invasion cycle but it is not the reason that post-shift reef recovery requires more than invasive removal — the regime shift hysteresis is the correct explanation. / La ausencia de depredadores nativos extiende el ciclo de invasión, pero no es la razón por la que la recuperación del arrecife post-cambio requiere más que la remoción de invasores — la histéresis del cambio de régimen es la explicación correcta.')">Without native predators, the invasive species returns immediately after removal. / Sin depredadores nativos, la especie invasora regresa inmediatamente después de la remoción.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        A GMAIN node time series shows stable invasive density, stable prey oscillation amplitude, but a declining mean prey abundance across successive cycles. What dynamic does this indicate?<br>
+        <em>Una serie de tiempo de un nodo GMAIN muestra densidad invasora estable, amplitud de oscilación de presas estable, pero una media de abundancia de presas decreciente a lo largo de ciclos sucesivos. ¿Qué dinámica indica esto?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'A boom-bust pattern would show explosive invasive population growth followed by a crash — not stable invasive density with a declining prey mean. / Un patrón de auge-colapso mostraría un crecimiento explosivo de la población invasora seguido de un colapso — no una densidad invasora estable con una media de presas decreciente.')">A boom-bust dynamic approaching the invasive population crash phase. / Una dinámica de auge-colapso que se acerca a la fase de colapso de la población invasora.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Full ecosystem recovery would show increasing prey abundance, not a declining mean — this pattern is movement toward degradation, not recovery. / La recuperación completa del ecosistema mostraría una abundancia de presas creciente, no una media decreciente — este patrón es movimiento hacia la degradación, no la recuperación.')">Successful post-removal ecosystem recovery with prey population rebuilding. / Recuperación exitosa del ecosistema post-remoción con reconstrucción de la población de presas.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. This is the signature of amplified oscillations — a spiraling system in which each prey depletion cycle reaches a lower trough and a lower recovery ceiling. The stable amplitude but declining mean indicates that the system is not oscillating around a fixed equilibrium; it is moving toward a new, lower-prey-abundance state. The CMIE flags this as a trajectory toward regime shift. / Correcto. Esta es la firma de las oscilaciones amplificadas — un sistema en espiral en el que cada ciclo de agotamiento de presas alcanza un valle más bajo y un techo de recuperación más bajo. La amplitud estable pero la media decreciente indica que el sistema no está oscilando alrededor de un equilibrio fijo; está moviéndose hacia un nuevo estado de menor abundancia de presas. El CMIE señala esto como una trayectoria hacia un cambio de régimen.')">Amplified oscillations — the system is spiraling toward a lower-productivity state, not oscillating around a stable equilibrium. / Oscilaciones amplificadas — el sistema está en espiral hacia un estado de menor productividad, no oscilando alrededor de un equilibrio estable.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Normal Lotka-Volterra oscillations maintain a stable mean abundance — they do not produce a declining mean across cycles. This pattern indicates system deterioration, not normal predator-prey cycling. / Las oscilaciones normales de Lotka-Volterra mantienen una abundancia media estable — no producen una media decreciente a lo largo de los ciclos. Este patrón indica deterioro del sistema, no ciclismo normal depredador-presa.')">Normal Lotka-Volterra predator-prey cycling with seasonal variation. / Ciclismo normal depredador-presa de Lotka-Volterra con variación estacional.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        Why does DMAP-CAL maintain removal tasking at a GMAIN node even after behavioral recovery and prey biomass rebound are confirmed?<br>
+        <em>¿Por qué DMAP-CAL mantiene las tareas de remoción en un nodo GMAIN incluso después de confirmar la recuperación conductual y el rebote de la biomasa de presas?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,3,'Immigration subsidy is managed at the node level through sustained removal — but the reason tasking continues is the recovery sequence logic, not immigration alone. / El subsidio de inmigración se gestiona a nivel de nodo a través de remoción sostenida — pero la razón por la que continúan las tareas es la lógica de la secuencia de recuperación, no la inmigración sola.')">Immigration from adjacent nodes will always restock the invasive population regardless of recovery stage. / La inmigración de nodos adyacentes siempre reabastecerá la población invasora independientemente de la etapa de recuperación.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Allee effects are relevant to extinction probability at low densities — but the reason for maintaining tasking through the recovery sequence is that behavioral and biomass recovery precede trophic cascade reversal, not Allee thresholds. / Los efectos Allee son relevantes para la probabilidad de extinción a bajas densidades — pero la razón para mantener las tareas a través de la secuencia de recuperación es que la recuperación conductual y de biomasa precede a la reversión de la cascada trófica, no los umbrales Allee.')">The Allee threshold has not been reached and reproductive suppression is incomplete. / El umbral Allee no ha sido alcanzado y la supresión reproductiva está incompleta.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Regime shift risk score is one input to DMAP-CAL tasking decisions, but the specific reason for continuing removal after behavioral and biomass recovery is the recovery sequence — herbivory process recovery has not yet been confirmed. / La puntuación de riesgo de cambio de régimen es una entrada para las decisiones de tareas de DMAP-CAL, pero la razón específica para continuar la remoción después de la recuperación conductual y de biomasa es la secuencia de recuperación — la recuperación del proceso de herbivoría aún no ha sido confirmada.')">The regime shift risk score remains elevated due to ongoing climate stress. / La puntuación de riesgo de cambio de régimen permanece elevada debido al estrés climático continuo.</button></li>
+        <li><button onclick="handleMCQ(this,true,3,'Correct. Behavioral recovery (weeks) and prey biomass rebound (months) are the first two stages of a five-stage recovery sequence. Herbivory process recovery — the return of effective algal grazing that opens substrate for coral recruitment — occurs in years 1–3. Without confirming this stage, the trophic cascade has not reversed, and the reef remains vulnerable to rapid invasive recolonization from the regional metapopulation that would restore pre-intervention conditions within a single spawning season. / Correcto. La recuperación conductual (semanas) y el rebote de la biomasa de presas (meses) son las dos primeras etapas de una secuencia de recuperación de cinco etapas. La recuperación del proceso de herbivoría — el retorno del ramoneo efectivo de algas que abre el sustrato para el reclutamiento de coral — ocurre en los años 1–3. Sin confirmar esta etapa, la cascada trófica no se ha revertido, y el arrecife permanece vulnerable a la rápida recolonización invasora de la metapoblación regional.')">Behavioral and biomass recovery are only stages 1–2 of five — herbivory process recovery (years 1–3) must be confirmed before the trophic cascade is considered reversed. / La recuperación conductual y de biomasa son solo las etapas 1–2 de cinco — la recuperación del proceso de herbivoría (años 1–3) debe confirmarse antes de que la cascada trófica se considere revertida.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav">
+      <a href="S21_L04_Invasive_Species_Processes.html">← S21·L04 Processes</a>
+    </div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright); font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 05 of —</div>
+    </div>
+    <div class="footer-nav">
+      <a href="#">S21·L06 →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang,btn){
+    document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+lang).classList.add('active');
+  }
+  function handleMCQ(btn,isCorrect,qNum,feedback){
+    const block=btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b=>b.disabled=true);
+    btn.classList.add(isCorrect?'correct':'wrong');
+    const fb=document.getElementById('fb-'+qNum);
+    fb.textContent=feedback;
+    fb.classList.add('show',isCorrect?'correct-fb':'wrong-fb');
+  }
+</script>
+</body>
+</html>
