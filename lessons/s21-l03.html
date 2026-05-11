@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L03 — Invasive Species: Systems Overview | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:    #0a1628;
+    --ocean-mid:     #0f2240;
+    --ocean-surface: #1a3a5c;
+    --teal-bright:   #00c8b4;
+    --teal-dim:      #007a6e;
+    --amber:         #f5a623;
+    --coral-red:     #e05a3a;
+    --violet:        #9b6dff;
+    --text-primary:  #e8f4f8;
+    --text-secondary:#8fbdd3;
+    --text-muted:    #4a7a96;
+    --card-bg:       rgba(15,34,64,0.85);
+    --border:        rgba(0,200,180,0.18);
+    --tag-bg:        rgba(0,200,180,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-outer { width:100%; height:4px; background:rgba(255,255,255,0.06); position:sticky; top:0; z-index:100; }
+  .progress-bar-inner { height:100%; width:9.23%; background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright)); }
+
+  /* ── HEADER ── */
+  .lesson-header { background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%); border-bottom:1px solid var(--border); overflow:hidden; }
+  .header-svg-wrap { width:100%; max-height:280px; overflow:hidden; }
+
+  /* ── META STRIP ── */
+  .meta-strip { max-width:860px; margin:0 auto; padding:24px 28px 0; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .section-tag { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; background:var(--tag-bg); border:1px solid var(--border); color:var(--teal-bright); padding:4px 10px; border-radius:4px; }
+  .lesson-tag-amber { background:rgba(245,166,35,0.12); border-color:rgba(245,166,35,0.3); color:var(--amber); }
+  .lesson-tag-violet { background:rgba(155,109,255,0.12); border-color:rgba(155,109,255,0.3); color:var(--violet); }
+
+  /* ── TITLE BLOCK ── */
+  .lesson-title-block { max-width:860px; margin:0 auto; padding:18px 28px 28px; }
+  .lesson-number { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--teal-bright); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
+  h1.lesson-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700; line-height:1.2; color:var(--text-primary); margin-bottom:6px; }
+  h1.lesson-title em { font-style:italic; color:var(--teal-bright); }
+  .lesson-subtitle { font-size:0.88rem; color:var(--text-secondary); font-style:italic; }
+
+  /* ── CONTENT WRAP ── */
+  .content-wrap { max-width:860px; margin:0 auto; padding:40px 28px 60px; }
+
+  /* ── LANG TABS ── */
+  .lang-tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+  .lang-tab { font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:8px 18px; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .2s,border-color .2s; }
+  .lang-tab.active { color:var(--teal-bright); border-bottom-color:var(--teal-bright); }
+  .lang-panel { display:none; }
+  .lang-panel.active { display:block; }
+
+  /* ── TYPOGRAPHY ── */
+  h2.section-head { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--teal-bright); margin:36px 0 12px; border-left:3px solid var(--teal-dim); padding-left:14px; }
+  h3.sub-head { font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:600; color:var(--text-primary); margin:24px 0 8px; letter-spacing:0.02em; }
+  p { margin-bottom:14px; font-size:0.96rem; color:var(--text-primary); }
+  p:last-child { margin-bottom:0; }
+
+  /* ── CALLOUTS ── */
+  .callout { border-left:3px solid var(--teal-bright); background:rgba(0,200,180,0.06); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:0.92rem; color:var(--text-secondary); }
+  .callout strong { color:var(--teal-bright); }
+  .callout-amber { border-left-color:var(--amber); background:rgba(245,166,35,0.06); }
+  .callout-amber strong { color:var(--amber); }
+  .callout-red { border-left-color:var(--coral-red); background:rgba(224,90,58,0.07); }
+  .callout-red strong { color:var(--coral-red); }
+  .callout-violet { border-left-color:var(--violet); background:rgba(155,109,255,0.07); }
+  .callout-violet strong { color:var(--violet); }
+
+  /* ── PATHWAY GRID ── */
+  .pathway-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0; }
+  @media(max-width:600px){ .pathway-grid { grid-template-columns:1fr 1fr; } }
+  .pathway-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:14px 12px; }
+  .pathway-icon { font-size:1.4rem; margin-bottom:6px; }
+  .pathway-name { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); margin-bottom:6px; }
+  .pathway-desc { font-size:0.78rem; color:var(--text-secondary); line-height:1.45; }
+
+  /* ── MODULE SIGNAL TABLE ── */
+  .signal-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.85rem; }
+  .signal-table th { font-family:'DM Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); border-bottom:1px solid var(--border); padding:10px 12px; text-align:left; }
+  .signal-table td { padding:10px 12px; border-bottom:1px solid rgba(0,200,180,0.07); color:var(--text-secondary); vertical-align:top; line-height:1.45; }
+  .signal-table tr:last-child td { border-bottom:none; }
+  .signal-table td:first-child { font-family:'DM Mono',monospace; font-size:0.78rem; color:var(--teal-bright); white-space:nowrap; }
+  .signal-table tr:hover td { background:rgba(0,200,180,0.03); }
+
+  /* ── CLIMATE INTERACTION GRID ── */
+  .climate-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+  @media(max-width:520px){ .climate-grid { grid-template-columns:1fr; } }
+  .climate-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:16px 14px; }
+  .climate-label { font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--amber); margin-bottom:8px; }
+  .climate-text { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* ── MANAGEMENT LADDER ── */
+  .mgmt-ladder { display:flex; flex-direction:column; gap:0; margin:20px 0; }
+  .mgmt-rung { display:grid; grid-template-columns:36px 1fr; gap:16px; align-items:start; padding:14px 0; border-bottom:1px solid rgba(0,200,180,0.08); }
+  .mgmt-rung:last-child { border-bottom:none; }
+  .rung-num { width:36px; height:36px; border-radius:50%; background:rgba(0,200,180,0.12); border:1px solid var(--teal-dim); display:flex; align-items:center; justify-content:center; font-family:'DM Mono',monospace; font-size:0.8rem; color:var(--teal-bright); flex-shrink:0; }
+  .rung-body {}
+  .rung-title { font-weight:600; font-size:0.92rem; color:var(--text-primary); margin-bottom:4px; }
+  .rung-desc { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+  .rung-cost { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--coral-red); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
+
+  /* ── APPLICATION PANEL ── */
+  .application-panel { background:linear-gradient(135deg,rgba(15,34,64,0.95) 0%,rgba(10,22,40,0.95) 100%); border:1px solid rgba(0,200,180,0.25); border-radius:10px; padding:28px 28px 24px; margin:40px 0 32px; }
+  .application-panel h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--amber); margin-bottom:4px; }
+  .application-panel .app-sub { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .app-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  @media(max-width:520px){ .app-stat-row { grid-template-columns:1fr 1fr; } }
+  .app-stat { background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:6px; padding:12px 10px; text-align:center; }
+  .app-stat-val { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--teal-bright); line-height:1.1; margin-bottom:4px; }
+  .app-stat-lbl { font-size:0.72rem; color:var(--text-muted); line-height:1.3; }
+
+  /* ── MCQ ── */
+  .mcq-section { margin-top:40px; }
+  .mcq-section h2 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:24px; }
+  .mcq-block { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:22px 22px 18px; margin-bottom:16px; }
+  .mcq-q-num { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--teal-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+  .mcq-question { font-size:0.95rem; font-weight:500; color:var(--text-primary); margin-bottom:14px; line-height:1.5; }
+  .mcq-question em { font-style:italic; color:var(--text-secondary); font-size:0.88em; }
+  .mcq-options { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .mcq-options li button { width:100%; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--text-secondary); cursor:pointer; transition:background .18s,border-color .18s,color .18s; line-height:1.45; }
+  .mcq-options li button:hover { background:rgba(0,200,180,0.08); border-color:var(--teal-dim); color:var(--text-primary); }
+  .mcq-options li button.correct { background:rgba(0,200,180,0.15); border-color:var(--teal-bright); color:var(--teal-bright); font-weight:500; }
+  .mcq-options li button.wrong { background:rgba(224,90,58,0.12); border-color:var(--coral-red); color:var(--coral-red); }
+  .mcq-options li button:disabled { cursor:default; }
+  .mcq-feedback { margin-top:12px; font-size:0.83rem; color:var(--text-muted); line-height:1.5; display:none; }
+  .mcq-feedback.show { display:block; }
+  .mcq-feedback.correct-fb { color:var(--teal-bright); }
+  .mcq-feedback.wrong-fb { color:#e07a5f; }
+
+  /* ── FOOTER ── */
+  .lesson-footer { border-top:1px solid var(--border); padding:24px 28px; max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .footer-nav a { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); text-decoration:none; transition:color .2s; }
+  .footer-nav a:hover { color:var(--teal-bright); }
+  .footer-progress { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--text-muted); text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Network/systems diagram — nodes representing ecosystems with invasion cascade arrows -->
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="bgGrad" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#0d1f3c"/>
+          <stop offset="100%" stop-color="#050c18"/>
+        </radialGradient>
+        <radialGradient id="nodeGRIN" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00c8b4" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#00c8b4" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nodeGSIN" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#9b6dff" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#9b6dff" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nodeGMIN" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5a623" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nodeGMAIN" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#e05a3a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="nodeGKIN" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#4ab8e0" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#4ab8e0" stop-opacity="0"/>
+        </radialGradient>
+        <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(224,90,58,0.7)"/>
+        </marker>
+        <marker id="arrowTeal" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,200,180,0.5)"/>
+        </marker>
+        <filter id="glow2" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softglow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="8" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect width="900" height="270" fill="url(#bgGrad)"/>
+
+      <!-- Background grid -->
+      <g stroke="rgba(0,200,180,0.05)" stroke-width="1">
+        <line x1="0" y1="67" x2="900" y2="67"/>
+        <line x1="0" y1="134" x2="900" y2="134"/>
+        <line x1="0" y1="201" x2="900" y2="201"/>
+        <line x1="180" y1="0" x2="180" y2="270"/>
+        <line x1="360" y1="0" x2="360" y2="270"/>
+        <line x1="540" y1="0" x2="540" y2="270"/>
+        <line x1="720" y1="0" x2="720" y2="270"/>
+      </g>
+
+      <!-- Invasion source node (central, red) -->
+      <circle cx="450" cy="135" r="60" fill="url(#nodeGMAIN)"/>
+      <circle cx="450" cy="135" r="28" fill="rgba(224,90,58,0.12)" stroke="rgba(224,90,58,0.5)" stroke-width="1.5" filter="url(#glow2)"/>
+      <circle cx="450" cy="135" r="14" fill="rgba(224,90,58,0.25)" stroke="rgba(224,90,58,0.8)" stroke-width="1.5"/>
+      <text x="450" y="139" text-anchor="middle" font-family="'DM Mono',monospace" font-size="8" fill="#e05a3a" letter-spacing="0.04em" font-weight="500">INVASIVE</text>
+      <text x="450" y="172" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="rgba(224,90,58,0.55)" letter-spacing="0.08em">GMAIN</text>
+
+      <!-- GRIN node — top left -->
+      <circle cx="190" cy="72" r="50" fill="url(#nodeGRIN)"/>
+      <circle cx="190" cy="72" r="24" fill="rgba(0,200,180,0.08)" stroke="rgba(0,200,180,0.4)" stroke-width="1.5" filter="url(#glow2)"/>
+      <circle cx="190" cy="72" r="12" fill="rgba(0,200,180,0.2)" stroke="rgba(0,200,180,0.7)" stroke-width="1.5"/>
+      <text x="190" y="76" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="#00c8b4" letter-spacing="0.04em">GRIN</text>
+      <text x="190" y="106" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.45)" letter-spacing="0.06em">Reef</text>
+
+      <!-- GSIN node — top right -->
+      <circle cx="710" cy="72" r="50" fill="url(#nodeGSIN)"/>
+      <circle cx="710" cy="72" r="24" fill="rgba(155,109,255,0.08)" stroke="rgba(155,109,255,0.4)" stroke-width="1.5" filter="url(#glow2)"/>
+      <circle cx="710" cy="72" r="12" fill="rgba(155,109,255,0.2)" stroke="rgba(155,109,255,0.7)" stroke-width="1.5"/>
+      <text x="710" y="76" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="#9b6dff" letter-spacing="0.04em">GSIN</text>
+      <text x="710" y="106" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(155,109,255,0.45)" letter-spacing="0.06em">Seagrass</text>
+
+      <!-- GMIN node — bottom left -->
+      <circle cx="190" cy="198" r="50" fill="url(#nodeGMIN)"/>
+      <circle cx="190" cy="198" r="24" fill="rgba(245,166,35,0.08)" stroke="rgba(245,166,35,0.4)" stroke-width="1.5" filter="url(#glow2)"/>
+      <circle cx="190" cy="198" r="12" fill="rgba(245,166,35,0.2)" stroke="rgba(245,166,35,0.7)" stroke-width="1.5"/>
+      <text x="190" y="202" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="#f5a623" letter-spacing="0.04em">GMIN</text>
+      <text x="190" y="232" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.45)" letter-spacing="0.06em">Mangrove</text>
+
+      <!-- GKIN node — bottom right -->
+      <circle cx="710" cy="198" r="50" fill="url(#nodeGKIN)"/>
+      <circle cx="710" cy="198" r="24" fill="rgba(74,184,224,0.08)" stroke="rgba(74,184,224,0.4)" stroke-width="1.5" filter="url(#glow2)"/>
+      <circle cx="710" cy="198" r="12" fill="rgba(74,184,224,0.2)" stroke="rgba(74,184,224,0.7)" stroke-width="1.5"/>
+      <text x="710" y="202" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5" fill="#4ab8e0" letter-spacing="0.04em">GKIN</text>
+      <text x="710" y="232" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(74,184,224,0.45)" letter-spacing="0.06em">Kelp</text>
+
+      <!-- CMIE center ring -->
+      <circle cx="450" cy="135" r="75" fill="none" stroke="rgba(0,200,180,0.1)" stroke-width="1" stroke-dasharray="4,6"/>
+      <text x="530" y="100" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.35)" letter-spacing="0.06em">CMIE</text>
+
+      <!-- Cascade arrows: GMAIN → all modules (invasion pressure) -->
+      <!-- → GRIN -->
+      <line x1="424" y1="115" x2="213" y2="85" stroke="rgba(224,90,58,0.55)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+      <!-- → GSIN -->
+      <line x1="476" y1="115" x2="687" y2="85" stroke="rgba(224,90,58,0.55)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+      <!-- → GMIN -->
+      <line x1="424" y1="155" x2="213" y2="185" stroke="rgba(224,90,58,0.45)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+      <!-- → GKIN -->
+      <line x1="476" y1="155" x2="687" y2="185" stroke="rgba(224,90,58,0.45)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+
+      <!-- Return arrows: modules → CMIE (feedback) -->
+      <line x1="208" y1="80" x2="428" y2="120" stroke="rgba(0,200,180,0.25)" stroke-width="1" marker-end="url(#arrowTeal)"/>
+      <line x1="692" y1="80" x2="472" y2="120" stroke="rgba(0,200,180,0.25)" stroke-width="1" marker-end="url(#arrowTeal)"/>
+      <line x1="208" y1="192" x2="428" y2="148" stroke="rgba(0,200,180,0.2)" stroke-width="1" marker-end="url(#arrowTeal)"/>
+      <line x1="692" y1="192" x2="472" y2="148" stroke="rgba(0,200,180,0.2)" stroke-width="1" marker-end="url(#arrowTeal)"/>
+
+      <!-- Cross-module links (secondary cascades) -->
+      <line x1="190" y1="96" x2="190" y2="174" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="2,4"/>
+      <line x1="710" y1="96" x2="710" y2="174" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="2,4"/>
+      <line x1="214" y1="72" x2="686" y2="72" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2,4"/>
+      <line x1="214" y1="198" x2="686" y2="198" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2,4"/>
+
+      <!-- Legend -->
+      <g transform="translate(20,240)">
+        <line x1="0" y1="5" x2="22" y2="5" stroke="rgba(224,90,58,0.6)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <circle cx="26" cy="5" r="2" fill="rgba(224,90,58,0.7)"/>
+        <text x="32" y="9" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.55)" letter-spacing="0.05em">INVASION PRESSURE</text>
+        <line x1="160" y1="5" x2="182" y2="5" stroke="rgba(0,200,180,0.4)" stroke-width="1"/>
+        <circle cx="186" cy="5" r="2" fill="rgba(0,200,180,0.5)"/>
+        <text x="192" y="9" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.45)" letter-spacing="0.05em">CMIE FEEDBACK</text>
+      </g>
+
+      <!-- Title label -->
+      <text x="450" y="24" text-anchor="middle" font-family="'Playfair Display',serif" font-size="11" fill="rgba(232,244,248,0.3)" letter-spacing="0.06em">GROAN CROSS-MODULE INVASION SIGNAL NETWORK</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 03</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-violet">Systems</span>
+    <span class="section-tag">GMAIN · CMIE</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L03</div>
+    <h1 class="lesson-title">Invasive Species — <em>Systems Overview</em></h1>
+    <p class="lesson-subtitle">Visión Sistémica de las Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ═════════════════════════════════════════════════════════ -->
+<main class="content-wrap">
+
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">Invasions as System Disturbances</h2>
+    <p>A biological invasion is not a species-level event — it is a system-level disturbance. When an invasive species establishes and spreads, it does not simply add one more organism to an existing community. It restructures the ecological network: altering energy flows, shifting competitive hierarchies, creating new predator-prey dynamics, and modifying the physical habitat itself. The system that existed before the invasion is not restored when the invasive species is removed — the cascade effects persist in altered species abundances, changed substrate conditions, and learned behavioral modifications across the food web.</p>
+    <p>Systems ecology treats an ecosystem as a network of interacting components — species, physical variables, chemical gradients, energy flows — where a change in any node propagates to connected nodes. Invasions are a high-magnitude node insertion. The invasive species does not simply occupy an existing node; it creates new linkages, severs others, and modifies the weighting of all connections it touches.</p>
+
+    <div class="callout">
+      <strong>Key Principle:</strong> The impact of an invasive species cannot be assessed by studying that species in isolation. It must be assessed through the changes it induces across the entire network — which is precisely why single-ecosystem monitoring frameworks are structurally incapable of capturing invasion impact in full, and why cross-module intelligence is required.
+    </div>
+
+    <h2 class="section-head">Global Introduction Pathways</h2>
+    <p>Marine invasions reach new environments through a small number of high-volume pathways. Understanding pathways is the foundation of prevention — each pathway has distinct management leverage points.</p>
+
+    <div class="pathway-grid">
+      <div class="pathway-card">
+        <div class="pathway-icon">🚢</div>
+        <div class="pathway-name">Ballast Water</div>
+        <div class="pathway-desc">Vessels take on ballast water in one port and discharge it in another, transporting larvae, juveniles, plankton, and pathogens across ocean basins. Estimated 3–5 billion tonnes of ballast water transferred globally per year.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">⚓</div>
+        <div class="pathway-name">Hull Fouling</div>
+        <div class="pathway-desc">Organisms colonize ship hulls and are transported between ports. Slower vessels accumulate more fouling community. A single vessel hull can carry hundreds of non-native species.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🐟</div>
+        <div class="pathway-name">Aquarium Trade</div>
+        <div class="pathway-desc">Deliberate or accidental release of aquarium species into local water bodies. Lionfish in the Caribbean is the most ecologically costly marine example of this pathway to date.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🌊</div>
+        <div class="pathway-name">Canals &amp; Waterways</div>
+        <div class="pathway-desc">Artificial connections between previously isolated basins — Suez, Panama, Erie — create unobstructed invasion corridors. Lessepsian migration through the Suez Canal has introduced 400+ species into the Mediterranean.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🦪</div>
+        <div class="pathway-name">Aquaculture</div>
+        <div class="pathway-desc">Intentional introduction of non-native species for cultivation, with associated escape events and accidental co-introduction of hitchhiker organisms and pathogens.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🔬</div>
+        <div class="pathway-name">Research &amp; Bait</div>
+        <div class="pathway-desc">Live bait releases, research specimen escapes, and scientific collection by-catch transfer species across biogeographic boundaries outside commercial pathways.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Ecosystem Engineering by Invasives</h2>
+    <p>Some invasive species are <strong>ecosystem engineers</strong> — organisms that physically modify the habitat in ways that alter resource availability for other species. Engineering effects are often more persistent than direct predation or competition effects, because they change the structural template of the ecosystem rather than just its occupants.</p>
+
+    <h3 class="sub-head">Physical Habitat Modification</h3>
+    <p>Invasive species can add structure (reef-building mussels colonizing novel substrates), remove structure (urchin barrens created by invasive sea urchin population explosions), or alter sediment dynamics (invasive filter feeders changing turbidity, light penetration, and seagrass light budgets). Each of these engineering effects cascades through the module network: a change in light penetration is a GSIN variable; a change in sediment load is a Feature Layer variable affecting both GSIN and GRIN simultaneously.</p>
+
+    <h3 class="sub-head">Chemical Habitat Modification</h3>
+    <p>Invasive algae species can alter local chemistry through allelopathic compounds — chemical signals that suppress the growth of native competitors. The <em>Caulerpa taxifolia</em> invasion of the Mediterranean produced allelopathic suppression of native seagrass communities, reducing the habitat available to native fish larvae across an area exceeding 30,000 hectares. The chemical signal propagated through the system independently of direct competition.</p>
+
+    <div class="callout callout-amber">
+      <strong>Engineering vs. Competition:</strong> A species that outcompetes native organisms for food is recoverable when removed — native species can rebound. A species that has physically restructured the habitat may leave a legacy that persists for decades after removal. This distinction is critical for intervention prioritization in DMAP-CAL: the decision score must weight engineering effects differently from competitive effects because the reversibility timescales differ by an order of magnitude.
+    </div>
+
+    <h2 class="section-head">Climate Change × Invasion Interactions</h2>
+    <p>Climate change and biological invasion are not independent stressors — they interact and amplify each other through multiple mechanisms. This interaction is one of the most significant threat multipliers in marine conservation.</p>
+
+    <div class="climate-grid">
+      <div class="climate-card">
+        <div class="climate-label">Range Expansion</div>
+        <div class="climate-text">As ocean temperatures warm, species that were previously excluded from higher-latitude environments by thermal barriers can now establish there. Invasives pre-adapted to warm tropical waters are expanding poleward — Caribbean reef fish species are now recorded in the Gulf of Mexico and western Atlantic at latitudes where they were historically absent.</div>
+      </div>
+      <div class="climate-card">
+        <div class="climate-label">Thermal Optima Shift</div>
+        <div class="climate-text">Native species adapted to a historical temperature range may be pushed toward their thermal limits by warming, reducing their competitive capacity. Invasive species from warmer native ranges may be operating closer to their thermal optimum — widening the competitive gap precisely when native resilience is weakest.</div>
+      </div>
+      <div class="climate-card">
+        <div class="climate-label">Phenological Mismatch</div>
+        <div class="climate-text">Climate change alters the timing of biological events — reproduction, recruitment, prey availability. If native species and their prey fall out of synchrony while invasive species prove more phenologically flexible, the competitive landscape shifts further in favor of the invader during critical early life-stage windows.</div>
+      </div>
+      <div class="climate-card">
+        <div class="climate-label">Disturbance Amplification</div>
+        <div class="climate-text">Climate-driven bleaching events, storm surges, and hypoxic zones reduce the biotic resistance of native communities — the same mechanism identified in L02. A degraded post-bleaching reef community offers reduced resistance to an invasive species that might have been held in check by an intact system. Climate stress and invasion stress compound non-linearly.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-violet">
+      <strong>GROAN Feature Layer Integration:</strong> Sea surface temperature anomaly, marine heatwave index, and thermal stress indicators are Feature Layer variables computed once and routed to all modules via the Semantic Dispatch Layer. A climate-driven warming event that pushes GRIN into Alert Level 2 simultaneously creates the biotic resistance conditions that facilitate invasive establishment — a signal GMAIN and the CMIE must evaluate in tandem, not separately.
+    </div>
+
+    <h2 class="section-head">The Management Hierarchy</h2>
+    <p>Effective invasion management follows a strict priority order. Interventions at higher levels of the hierarchy prevent the need for interventions at lower levels. Cost and difficulty increase exponentially at each step downward. GROAN's decision architecture maps directly onto this hierarchy — DMAP-CAL intervention targeting and the MOOP tasking protocol are calibrated to intervene at the earliest detectable phase.</p>
+
+    <div class="mgmt-ladder">
+      <div class="mgmt-rung">
+        <div class="rung-num">1</div>
+        <div class="rung-body">
+          <div class="rung-title">Prevention</div>
+          <div class="rung-desc">Stopping introduction before it occurs. Biosecurity screening, ballast water treatment regulations, pathway management, trade controls. Acts before any ecological interaction begins. No ecological cost. This is the only intervention tier with a reliable ROI in the thousands-to-one range.</div>
+          <div class="rung-cost">Cost: Low · Effectiveness: Highest</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">2</div>
+        <div class="rung-body">
+          <div class="rung-title">Early Detection &amp; Rapid Response</div>
+          <div class="rung-desc">Detecting the invasion during the introduction or early establishment phase and acting before the population reaches exponential growth. Citizen science networks, targeted monitoring, environmental DNA (eDNA) surveillance. GROAN's GMAIN sighting density tracking and CCRA observer network are designed to close this detection window.</div>
+          <div class="rung-cost">Cost: Low-Moderate · Effectiveness: High — window-dependent</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">3</div>
+        <div class="rung-body">
+          <div class="rung-title">Eradication</div>
+          <div class="rung-desc">Complete removal of the invasive species from a defined area. Only feasible during early establishment in geographically bounded systems (islands, isolated bays). Requires sustained effort and verification of zero remaining individuals. Failure to achieve 100% removal restarts the invasion clock from a smaller but surviving population.</div>
+          <div class="rung-cost">Cost: Moderate-High · Effectiveness: Location-dependent</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">4</div>
+        <div class="rung-body">
+          <div class="rung-title">Containment</div>
+          <div class="rung-desc">Preventing further geographic spread when eradication is no longer feasible. Establishing removal corridors, buffer zones, and high-effort no-spread perimeters around ecologically critical areas. The goal shifts from elimination to slowing advance. Rim Run™ removal protocol operates in this tier for the current Caribbean lionfish situation.</div>
+          <div class="rung-cost">Cost: High · Effectiveness: Partial</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">5</div>
+        <div class="rung-body">
+          <div class="rung-title">Long-Term Population Suppression</div>
+          <div class="rung-desc">Ongoing effort to reduce invasive species abundance below ecologically damaging thresholds — not elimination, but management of impact. Requires sustained resource commitment with no endpoint. Biological control (introducing a native-range predator or pathogen) is an active research area but carries its own invasion risk. The current global lionfish management framework operates primarily in this tier.</div>
+          <div class="rung-cost">Cost: Highest · Effectiveness: Impact reduction only</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-head">GROAN Cross-Module Signal Architecture</h2>
+    <p>From GROAN's systems perspective, an invasive species event is a multi-module signal that the Cross-Module Interaction Engine must resolve into a unified decision. GMAIN detects the invasive species and logs sighting density. The signal propagates to adjacent modules based on the invasive species' known ecological interactions:</p>
+
+    <table class="signal-table">
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Source Module</th>
+          <th>Receiving Module(s)</th>
+          <th>Decision Implication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Invasive sighting density ↑</td>
+          <td>GMAIN</td>
+          <td>GRIN, GSIN, GMIN</td>
+          <td>DMAP-CAL increases intervention urgency score; MOOP tasking priority raised</td>
+        </tr>
+        <tr>
+          <td>Native prey biomass ↓</td>
+          <td>GRIN / GMAIN</td>
+          <td>CMIE</td>
+          <td>Trophic cascade alert; CMIE flags reef health trajectory degradation risk</td>
+        </tr>
+        <tr>
+          <td>Seagrass nursery integrity ↓</td>
+          <td>GSIN</td>
+          <td>GMAIN, GRIN</td>
+          <td>Juvenile fish recruitment signal feeds back; reef recovery capacity downgraded</td>
+        </tr>
+        <tr>
+          <td>Mangrove structural loss</td>
+          <td>GMIN</td>
+          <td>GMAIN, GRIN</td>
+          <td>Juvenile fish habitat reduction amplifies prey depletion from invasive predation</td>
+        </tr>
+        <tr>
+          <td>Thermal stress event</td>
+          <td>Feature Layer</td>
+          <td>All modules + GMAIN</td>
+          <td>Biotic resistance reduction — CMIE flags elevated invasion establishment probability</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-red">
+      <strong>CMIE Core Function — Applied:</strong> The signals above cannot be assessed in isolation. A single-module GRIN assessment of native prey depletion would recommend a trophic management response. A single-module GSIN assessment of nursery degradation would recommend a seagrass restoration response. The CMIE evaluates all five signals simultaneously and identifies the correct causal pathway: the invasive species in GMAIN is the upstream driver. The intervention — removal, not restoration alone — follows from the causal chain, not from any individual module output. This is the proof-of-concept in action.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">Las Invasiones como Perturbaciones del Sistema</h2>
+    <p>Una invasión biológica no es un evento a nivel de especie — es una perturbación a nivel de sistema. Cuando una especie invasora se establece y dispersa, no simplemente añade un organismo más a una comunidad existente. Reestructura la red ecológica: alterando los flujos de energía, desplazando las jerarquías competitivas, creando nuevas dinámicas depredador-presa y modificando el hábitat físico mismo. El sistema que existía antes de la invasión no se restaura cuando se elimina la especie invasora — los efectos en cascada persisten en abundancias de especies alteradas, condiciones de sustrato modificadas y adaptaciones conductuales aprendidas a lo largo de la red trófica.</p>
+    <p>La ecología de sistemas trata un ecosistema como una red de componentes interactuantes — especies, variables físicas, gradientes químicos, flujos de energía — donde un cambio en cualquier nodo se propaga a los nodos conectados. Las invasiones son una inserción de nodo de alta magnitud. La especie invasora no simplemente ocupa un nodo existente; crea nuevos vínculos, corta otros y modifica la ponderación de todas las conexiones que toca.</p>
+
+    <div class="callout">
+      <strong>Principio Clave:</strong> El impacto de una especie invasora no puede evaluarse estudiando esa especie de forma aislada. Debe evaluarse a través de los cambios que induce en toda la red — que es precisamente por qué los marcos de monitoreo de un solo ecosistema son estructuralmente incapaces de capturar el impacto de la invasión en su totalidad, y por qué se requiere inteligencia entre módulos.
+    </div>
+
+    <h2 class="section-head">Rutas de Introducción Globales</h2>
+    <p>Las invasiones marinas llegan a nuevos ambientes a través de un pequeño número de rutas de alto volumen. Comprender las rutas es la base de la prevención — cada ruta tiene puntos de aprovechamiento de manejo distintos.</p>
+
+    <div class="pathway-grid">
+      <div class="pathway-card">
+        <div class="pathway-icon">🚢</div>
+        <div class="pathway-name">Agua de Lastre</div>
+        <div class="pathway-desc">Los buques toman agua de lastre en un puerto y la descargan en otro, transportando larvas, juveniles, plancton y patógenos a través de cuencas oceánicas. Se estima que 3–5 mil millones de toneladas de agua de lastre son transferidas globalmente por año.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">⚓</div>
+        <div class="pathway-name">Incrustaciones en Cascos</div>
+        <div class="pathway-desc">Los organismos colonizan los cascos de los barcos y son transportados entre puertos. Los buques más lentos acumulan más comunidad de incrustaciones. Un solo casco puede transportar cientos de especies no nativas.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🐟</div>
+        <div class="pathway-name">Comercio de Acuarios</div>
+        <div class="pathway-desc">Liberación deliberada o accidental de especies de acuario en cuerpos de agua locales. El pez león en el Caribe es el ejemplo marino más costoso ecológicamente de esta ruta hasta la fecha.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🌊</div>
+        <div class="pathway-name">Canales y Vías Fluviales</div>
+        <div class="pathway-desc">Las conexiones artificiales entre cuencas previamente aisladas — Suez, Panamá, Erie — crean corredores de invasión sin obstáculos. La migración lessepsiana a través del Canal de Suez ha introducido más de 400 especies al Mediterráneo.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🦪</div>
+        <div class="pathway-name">Acuicultura</div>
+        <div class="pathway-desc">Introducción intencional de especies no nativas para cultivo, con eventos de escape asociados e introducción accidental de organismos autopolizadores y patógenos.</div>
+      </div>
+      <div class="pathway-card">
+        <div class="pathway-icon">🔬</div>
+        <div class="pathway-name">Investigación y Carnada</div>
+        <div class="pathway-desc">Liberaciones de carnada viva, escapes de especímenes de investigación y captura incidental de recolección científica que transfieren especies a través de límites biogeográficos fuera de las rutas comerciales.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Ingeniería del Ecosistema por Invasoras</h2>
+    <p>Algunas especies invasoras son <strong>ingenieras del ecosistema</strong> — organismos que modifican físicamente el hábitat de maneras que alteran la disponibilidad de recursos para otras especies. Los efectos de ingeniería son a menudo más persistentes que los efectos de depredación o competencia directa, porque cambian la plantilla estructural del ecosistema en lugar de solo sus ocupantes.</p>
+
+    <h3 class="sub-head">Modificación del Hábitat Físico</h3>
+    <p>Las especies invasoras pueden añadir estructura (mejillones constructores de arrecifes colonizando sustratos novedosos), eliminar estructura (eriales de erizos creados por explosiones de población de erizos de mar invasores), o alterar la dinámica de sedimentos (filtradores invasores que cambian la turbidez, la penetración de luz y el presupuesto de luz de los pastos marinos). Cada uno de estos efectos de ingeniería se propaga en cascada a través de la red de módulos: un cambio en la penetración de luz es una variable GSIN; un cambio en la carga de sedimentos es una variable de la Capa de Características que afecta tanto a GSIN como a GRIN simultáneamente.</p>
+
+    <h3 class="sub-head">Modificación del Hábitat Químico</h3>
+    <p>Las especies de algas invasoras pueden alterar la química local a través de compuestos alelopáticos — señales químicas que suprimen el crecimiento de competidores nativos. La invasión de <em>Caulerpa taxifolia</em> en el Mediterráneo produjo supresión alelopática de las comunidades de pastos marinos nativos, reduciendo el hábitat disponible para larvas de peces nativos en un área que supera las 30,000 hectáreas. La señal química se propagó a través del sistema independientemente de la competencia directa.</p>
+
+    <div class="callout callout-amber">
+      <strong>Ingeniería vs. Competencia:</strong> Una especie que supera en competencia a organismos nativos por alimento es recuperable cuando se elimina — las especies nativas pueden recuperarse. Una especie que ha reestructurado físicamente el hábitat puede dejar un legado que persiste décadas después de su eliminación. Esta distinción es crítica para la priorización de intervenciones en DMAP-CAL: la puntuación de decisión debe ponderar los efectos de ingeniería de manera diferente a los efectos competitivos porque las escalas de tiempo de reversibilidad difieren en un orden de magnitud.
+    </div>
+
+    <h2 class="section-head">Interacciones Cambio Climático × Invasión</h2>
+    <p>El cambio climático y la invasión biológica no son factores estresantes independientes — interactúan y se amplifican mutuamente a través de múltiples mecanismos. Esta interacción es uno de los multiplicadores de amenazas más significativos en la conservación marina.</p>
+
+    <div class="climate-grid">
+      <div class="climate-card">
+        <div class="climate-label">Expansión de Rango</div>
+        <div class="climate-text">A medida que las temperaturas del océano aumentan, las especies que antes estaban excluidas de ambientes de mayor latitud por barreras térmicas ahora pueden establecerse allí. Las invasoras pre-adaptadas a aguas tropicales cálidas se están expandiendo hacia los polos — especies de peces de arrecife del Caribe ahora se registran en el Golfo de México y el Atlántico occidental en latitudes donde históricamente estaban ausentes.</div>
+      </div>
+      <div class="climate-card">
+        <div class="climate-label">Desplazamiento del Óptimo Térmico</div>
+        <div class="climate-text">Las especies nativas adaptadas a un rango de temperatura histórico pueden ser empujadas hacia sus límites térmicos por el calentamiento, reduciendo su capacidad competitiva. Las especies invasoras de rangos nativos más cálidos pueden estar operando más cerca de su óptimo térmico — ampliando la brecha competitiva precisamente cuando la resiliencia nativa es más débil.</div>
+      </div>
+      <div class="climate-card">
+        <div class="climate-label">Desajuste Fenológico</div>
+        <div class="climate-text">El cambio climático altera el momento de los eventos biológicos — reproducción, reclutamiento, disponibilidad de presas. Si las especies nativas y sus presas pierden sincronía mientras las especies invasoras resultan más flexibles fenológicamente, el panorama competitivo se desplaza aún más a favor del invasor durante ventanas críticas de las etapas de vida temprana.</div>
+      </div>
+      <div class="climate-card">
+        <div class="climate-label">Amplificación de Perturbaciones</div>
+        <div class="climate-text">Los eventos de blanqueamiento impulsados por el clima, las marejadas y las zonas hipóxicas reducen la resistencia biótica de las comunidades nativas — el mismo mecanismo identificado en L02. Una comunidad de arrecife degradada post-blanqueamiento ofrece menor resistencia a una especie invasora que podría haber sido controlada por un sistema intacto. El estrés climático y el estrés de invasión se componen de forma no lineal.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-violet">
+      <strong>Integración de la Capa de Características GROAN:</strong> La anomalía de temperatura superficial del mar, el índice de ola de calor marina y los indicadores de estrés térmico son variables de la Capa de Características calculadas una vez y enrutadas a todos los módulos a través de la Capa de Despacho Semántico. Un evento de calentamiento impulsado por el clima que lleva a GRIN al Nivel de Alerta 2 crea simultáneamente las condiciones de resistencia biótica que facilitan el establecimiento invasor — una señal que GMAIN y el CMIE deben evaluar en conjunto, no por separado.
+    </div>
+
+    <h2 class="section-head">La Jerarquía de Manejo</h2>
+    <p>El manejo efectivo de invasiones sigue un estricto orden de prioridades. Las intervenciones en niveles más altos de la jerarquía previenen la necesidad de intervenciones en niveles más bajos. El costo y la dificultad aumentan exponencialmente en cada paso hacia abajo. La arquitectura de decisiones de GROAN mapea directamente sobre esta jerarquía — el objetivo de intervención de DMAP-CAL y el protocolo de asignación de tareas de MOOP están calibrados para intervenir en la fase más temprana detectable.</p>
+
+    <div class="mgmt-ladder">
+      <div class="mgmt-rung">
+        <div class="rung-num">1</div>
+        <div class="rung-body">
+          <div class="rung-title">Prevención</div>
+          <div class="rung-desc">Detener la introducción antes de que ocurra. Controles de bioseguridad, regulaciones de tratamiento de agua de lastre, manejo de rutas, controles de comercio. Actúa antes de cualquier interacción ecológica. Sin costo ecológico. Este es el único nivel de intervención con un ROI confiable en el rango de miles a uno.</div>
+          <div class="rung-cost">Costo: Bajo · Efectividad: Más Alta</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">2</div>
+        <div class="rung-body">
+          <div class="rung-title">Detección Temprana y Respuesta Rápida</div>
+          <div class="rung-desc">Detectar la invasión durante la fase de introducción o establecimiento temprano y actuar antes de que la población alcance el crecimiento exponencial. Redes de ciencia ciudadana, monitoreo dirigido, vigilancia de ADN ambiental (ADNe). El seguimiento de densidad de avistamientos de GMAIN de GROAN y la red de observadores de CCRA están diseñados para cerrar esta ventana de detección.</div>
+          <div class="rung-cost">Costo: Bajo-Moderado · Efectividad: Alta — dependiente de la ventana</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">3</div>
+        <div class="rung-body">
+          <div class="rung-title">Erradicación</div>
+          <div class="rung-desc">Eliminación completa de la especie invasora de un área definida. Solo factible durante el establecimiento temprano en sistemas geográficamente delimitados. Requiere esfuerzo sostenido y verificación de cero individuos restantes. No lograr el 100% de eliminación reinicia el reloj de invasión desde una población más pequeña pero sobreviviente.</div>
+          <div class="rung-cost">Costo: Moderado-Alto · Efectividad: Dependiente de la ubicación</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">4</div>
+        <div class="rung-body">
+          <div class="rung-title">Contención</div>
+          <div class="rung-desc">Prevenir una mayor dispersión geográfica cuando la erradicación ya no es factible. Establecer corredores de remoción, zonas de amortiguamiento y perímetros de alto esfuerzo de no dispersión alrededor de áreas ecológicamente críticas. El objetivo cambia de la eliminación a desacelerar el avance. El protocolo de remoción del Rim Run™ opera en este nivel para la situación actual del pez león en el Caribe.</div>
+          <div class="rung-cost">Costo: Alto · Efectividad: Parcial</div>
+        </div>
+      </div>
+      <div class="mgmt-rung">
+        <div class="rung-num">5</div>
+        <div class="rung-body">
+          <div class="rung-title">Supresión Poblacional a Largo Plazo</div>
+          <div class="rung-desc">Esfuerzo continuo para reducir la abundancia de especies invasoras por debajo de umbrales de daño ecológico — no eliminación, sino manejo del impacto. Requiere compromiso sostenido de recursos sin punto final. El control biológico es un área de investigación activa pero conlleva su propio riesgo de invasión. El marco global actual de manejo del pez león opera principalmente en este nivel.</div>
+          <div class="rung-cost">Costo: Más Alto · Efectividad: Solo reducción del impacto</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Arquitectura de Señales Inter-Módulo GROAN</h2>
+    <p>Desde la perspectiva de sistemas de GROAN, un evento de especie invasora es una señal multi-módulo que el Motor de Interacción Inter-Módulo debe resolver en una decisión unificada. GMAIN detecta la especie invasora y registra la densidad de avistamientos. La señal se propaga a los módulos adyacentes según las interacciones ecológicas conocidas de la especie invasora.</p>
+
+    <table class="signal-table">
+      <thead>
+        <tr>
+          <th>Señal</th>
+          <th>Módulo Origen</th>
+          <th>Módulo(s) Receptor(es)</th>
+          <th>Implicación para la Decisión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Densidad avistamientos invasora ↑</td>
+          <td>GMAIN</td>
+          <td>GRIN, GSIN, GMIN</td>
+          <td>DMAP-CAL aumenta puntuación de urgencia de intervención; prioridad de tareas MOOP aumentada</td>
+        </tr>
+        <tr>
+          <td>Biomasa de presas nativas ↓</td>
+          <td>GRIN / GMAIN</td>
+          <td>CMIE</td>
+          <td>Alerta de cascada trófica; CMIE señala riesgo de degradación de trayectoria de salud del arrecife</td>
+        </tr>
+        <tr>
+          <td>Integridad del vivero de pastos marinos ↓</td>
+          <td>GSIN</td>
+          <td>GMAIN, GRIN</td>
+          <td>La señal de reclutamiento de peces juveniles retroalimenta; capacidad de recuperación del arrecife degradada</td>
+        </tr>
+        <tr>
+          <td>Pérdida estructural de manglares</td>
+          <td>GMIN</td>
+          <td>GMAIN, GRIN</td>
+          <td>La reducción del hábitat de peces juveniles amplifica la depleción de presas por depredación invasora</td>
+        </tr>
+        <tr>
+          <td>Evento de estrés térmico</td>
+          <td>Capa de Características</td>
+          <td>Todos los módulos + GMAIN</td>
+          <td>Reducción de resistencia biótica — CMIE señala probabilidad elevada de establecimiento invasor</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-red">
+      <strong>Función Central del CMIE — Aplicada:</strong> Las señales anteriores no pueden evaluarse de forma aislada. Una evaluación de GRIN de módulo único sobre la depleción de presas nativas recomendaría una respuesta de manejo trófico. Una evaluación de GSIN de módulo único sobre la degradación del vivero recomendaría una respuesta de restauración de pastos marinos. El CMIE evalúa las cinco señales simultáneamente e identifica la vía causal correcta: la especie invasora en GMAIN es el motor upstream. La intervención — remoción, no solo restauración — se desprende de la cadena causal, no de ningún resultado de módulo individual. Esto es la prueba de concepto en acción.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- ══ APPLICATION PANEL ══════════════════════════════════════════════ -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">Lionfish as a Systems-Level Event — Caribbean Network Cascade</p>
+
+    <div class="app-stat-row">
+      <div class="app-stat">
+        <div class="app-stat-val">65%</div>
+        <div class="app-stat-lbl">Reduction in native reef fish biomass recorded at heavily invaded Caribbean sites</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">5</div>
+        <div class="app-stat-lbl">GROAN modules receiving cross-module cascade signal from a single high-density lionfish event</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">Tier 4</div>
+        <div class="app-stat-lbl">Current Caribbean lionfish management tier — containment, not eradication</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:12px;">The Caribbean lionfish invasion exemplifies all five signal pathways in the GROAN cross-module table. A high-density sighting event at a registered GMAIN reef node triggers: (1) DMAP-CAL intervention urgency increase, (2) GRIN native prey biomass trajectory downgrade, (3) GSIN nursery integrity check if seagrass beds are in the same node cluster, (4) GMIN juvenile fish habitat assessment, and (5) Feature Layer thermal stress check for biotic resistance context. The CMIE evaluates all five in parallel and routes the intervention recommendation — pole spear removal priority tasking to MOOP — on the basis of the causal chain, not any single module signal alone.</p>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary);">Rim Run™ field protocol is calibrated for Tier 4 management: every dive is a removal event; every removal is logged with GPS, timestamp, total length, wet weight; every log entry feeds GMAIN density tracking in real time. The cumulative removal dataset is the evidence base for evaluating whether containment is holding, or whether a node cluster is moving toward Tier 5.</p>
+  </div>
+
+  <!-- ══ MCQ ════════════════════════════════════════════════════════════ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <!-- Q1 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        Why are ecosystem engineering effects by invasive species considered more ecologically persistent than direct competitive effects?<br>
+        <em>¿Por qué los efectos de ingeniería del ecosistema por especies invasoras se consideran más persistentes ecológicamente que los efectos competitivos directos?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Ecosystem engineers are not necessarily more metabolically active than competitors. / Los ingenieros del ecosistema no son necesariamente más metabólicamente activos que los competidores.')">They are more metabolically active and thus harder to suppress with removal effort. / Son más metabólicamente activos y por lo tanto más difíciles de suprimir con esfuerzo de remoción.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Engineering effects are not defined by trophic position — they are defined by physical or chemical habitat modification. / Los efectos de ingeniería no se definen por la posición trófica — se definen por la modificación física o química del hábitat.')">Engineering effects operate at higher trophic levels and are therefore more energy-intensive. / Los efectos de ingeniería operan en niveles tróficos más altos y por lo tanto son más intensivos en energía.</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. Ecosystem engineers physically modify habitat structure — altering substrate, sediment, light penetration, or chemical composition. These structural changes persist after the engineer is removed, unlike competitive pressure which ceases when the competitor is gone. / Correcto. Los ingenieros del ecosistema modifican físicamente la estructura del hábitat — alterando el sustrato, sedimentos, penetración de luz o composición química. Estos cambios estructurales persisten después de que se elimina el ingeniero, a diferencia de la presión competitiva que cesa cuando desaparece el competidor.')">They modify the physical or chemical habitat structure, which persists after the invasive species is removed. / Modifican la estructura del hábitat físico o químico, que persiste después de que la especie invasora es eliminada.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Reproductive rate determines population recovery speed, not ecological persistence of impact type. / La tasa reproductiva determina la velocidad de recuperación de la población, no la persistencia ecológica del tipo de impacto.')">They reproduce faster than competitors, making population recovery more difficult. / Se reproducen más rápido que los competidores, haciendo más difícil la recuperación de la población.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        Which marine introduction pathway has introduced the greatest number of non-native species to the Mediterranean Sea?<br>
+        <em>¿Qué ruta de introducción marina ha introducido el mayor número de especies no nativas al Mar Mediterráneo?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'Ballast water is a globally dominant pathway, but the Suez Canal has been the dominant pathway specifically for the Mediterranean. / El agua de lastre es una ruta globalmente dominante, pero el Canal de Suez ha sido la ruta dominante específicamente para el Mediterráneo.')">Ballast water discharge from commercial shipping. / Descarga de agua de lastre del transporte marítimo comercial.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. Lessepsian migration through the Suez Canal — opened 1869, widened repeatedly — has introduced 400+ non-native species into the Mediterranean, making it the most species-rich invasion corridor in the world for that basin. / Correcto. La migración lessepsiana a través del Canal de Suez — abierto en 1869, ampliado repetidamente — ha introducido más de 400 especies no nativas al Mediterráneo, convirtiéndolo en el corredor de invasión más rico en especies del mundo para esa cuenca.')">The Suez Canal, through Lessepsian migration. / El Canal de Suez, a través de la migración lessepsiana.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Aquaculture is a significant pathway but not the dominant one for Mediterranean invasion numbers. / La acuicultura es una ruta significativa pero no la dominante para los números de invasión mediterránea.')">Aquaculture escapes and deliberate introductions. / Escapes de acuicultura e introducciones deliberadas.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Hull fouling is significant globally but has not produced the concentrated species influx that the Suez Canal corridor generates for the Mediterranean. / Las incrustaciones en cascos son significativas globalmente pero no han producido el aflujo concentrado de especies que el corredor del Canal de Suez genera para el Mediterráneo.')">Hull fouling from vessel traffic. / Incrustaciones en cascos del tráfico de buques.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        In the GROAN management hierarchy, why does intervention cost increase exponentially at each tier?<br>
+        <em>En la jerarquía de manejo de GROAN, ¿por qué el costo de intervención aumenta exponencialmente en cada nivel?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,3,'Regulatory complexity increases but this is not the primary driver of exponential cost scaling. / La complejidad regulatoria aumenta pero esto no es el motor principal del escalamiento exponencial de costos.')">Regulatory requirements become more complex at each management tier. / Los requisitos regulatorios se vuelven más complejos en cada nivel de manejo.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Species toxicity does not determine management cost scaling — lionfish venom increases diver handling risk but does not explain exponential cost increase across the hierarchy. / La toxicidad de la especie no determina el escalamiento del costo de manejo — el veneno del pez león aumenta el riesgo de manejo del buceador pero no explica el aumento exponencial del costo en la jerarquía.')">Invasive species become more toxic as their populations grow. / Las especies invasoras se vuelven más tóxicas a medida que sus poblaciones crecen.</button></li>
+        <li><button onclick="handleMCQ(this,true,3,'Correct. At each successive tier, the invasive population is larger, more geographically dispersed, and more integrated into the ecosystem network. Eradicating or suppressing a system-integrated population requires proportionally more effort per individual removed, and the area of operation expands. Prevention cost is fixed and small; long-term suppression cost is indefinite and spatially unbounded. / Correcto. En cada nivel sucesivo, la población invasora es más grande, más dispersa geográficamente y más integrada en la red del ecosistema. Erradicar o suprimir una población integrada al sistema requiere proporcionalmente más esfuerzo por individuo removido, y el área de operación se expande. El costo de prevención es fijo y pequeño; el costo de supresión a largo plazo es indefinido y espacialmente ilimitado.')">Each tier involves a larger, more dispersed population integrated deeper into the ecosystem — requiring more effort per individual removed and over a larger geographic area. / Cada nivel involucra una población más grande, más dispersa y más integrada en el ecosistema — requiriendo más esfuerzo por individuo removido y sobre un área geográfica más grande.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Technology and equipment costs do not scale with invasion phase — they are roughly constant inputs. / Los costos de tecnología y equipos no escalan con la fase de invasión — son insumos aproximadamente constantes.')">Field equipment and technology requirements increase at each tier. / Los requerimientos de equipos de campo y tecnología aumentan en cada nivel.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav">
+      <a href="S21_L02_Invasive_Species_Core_Principles.html">← S21·L02 Core Principles</a>
+    </div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright); font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 03 of —</div>
+    </div>
+    <div class="footer-nav">
+      <a href="#">S21·L04 →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang, btn) {
+    document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + lang).classList.add('active');
+  }
+  function handleMCQ(btn, isCorrect, qNum, feedback) {
+    const block = btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b => b.disabled = true);
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    const fb = document.getElementById('fb-' + qNum);
+    fb.textContent = feedback;
+    fb.classList.add('show', isCorrect ? 'correct-fb' : 'wrong-fb');
+  }
+</script>
+</body>
+</html>
