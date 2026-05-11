@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L06 — Invasive Species: Interactions | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:    #0a1628;
+    --ocean-mid:     #0f2240;
+    --teal-bright:   #00c8b4;
+    --teal-dim:      #007a6e;
+    --amber:         #f5a623;
+    --coral-red:     #e05a3a;
+    --violet:        #9b6dff;
+    --seafoam:       #4ab8e0;
+    --mint:          #2edd9e;
+    --rose:          #e06aa0;
+    --text-primary:  #e8f4f8;
+    --text-secondary:#8fbdd3;
+    --text-muted:    #4a7a96;
+    --card-bg:       rgba(15,34,64,0.85);
+    --border:        rgba(0,200,180,0.18);
+    --tag-bg:        rgba(0,200,180,0.12);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ocean-deep); color:var(--text-primary); font-family:'DM Sans',sans-serif; font-weight:400; line-height:1.7; min-height:100vh; }
+
+  .progress-bar-outer { width:100%; height:4px; background:rgba(255,255,255,0.06); position:sticky; top:0; z-index:100; }
+  .progress-bar-inner { height:100%; width:9.23%; background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright)); }
+
+  .lesson-header { background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%); border-bottom:1px solid var(--border); overflow:hidden; }
+  .header-svg-wrap { width:100%; max-height:280px; overflow:hidden; }
+
+  .meta-strip { max-width:860px; margin:0 auto; padding:24px 28px 0; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .section-tag { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; background:var(--tag-bg); border:1px solid var(--border); color:var(--teal-bright); padding:4px 10px; border-radius:4px; }
+  .lesson-tag-amber { background:rgba(245,166,35,0.12); border-color:rgba(245,166,35,0.3); color:var(--amber); }
+  .lesson-tag-rose   { background:rgba(224,106,160,0.10); border-color:rgba(224,106,160,0.3); color:var(--rose); }
+
+  .lesson-title-block { max-width:860px; margin:0 auto; padding:18px 28px 28px; }
+  .lesson-number { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--teal-bright); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
+  h1.lesson-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700; line-height:1.2; color:var(--text-primary); margin-bottom:6px; }
+  h1.lesson-title em { font-style:italic; color:var(--teal-bright); }
+  .lesson-subtitle { font-size:0.88rem; color:var(--text-secondary); font-style:italic; }
+
+  .content-wrap { max-width:860px; margin:0 auto; padding:40px 28px 60px; }
+
+  .lang-tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+  .lang-tab { font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:8px 18px; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .2s,border-color .2s; }
+  .lang-tab.active { color:var(--teal-bright); border-bottom-color:var(--teal-bright); }
+  .lang-panel { display:none; }
+  .lang-panel.active { display:block; }
+
+  h2.section-head { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--teal-bright); margin:36px 0 12px; border-left:3px solid var(--teal-dim); padding-left:14px; }
+  h3.sub-head { font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:600; color:var(--text-primary); margin:24px 0 8px; letter-spacing:0.02em; }
+  p { margin-bottom:14px; font-size:0.96rem; color:var(--text-primary); }
+  p:last-child { margin-bottom:0; }
+
+  .callout { border-left:3px solid var(--teal-bright); background:rgba(0,200,180,0.06); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:0.92rem; color:var(--text-secondary); }
+  .callout strong { color:var(--teal-bright); }
+  .callout-amber { border-left-color:var(--amber); background:rgba(245,166,35,0.06); }
+  .callout-amber strong { color:var(--amber); }
+  .callout-red { border-left-color:var(--coral-red); background:rgba(224,90,58,0.07); }
+  .callout-red strong { color:var(--coral-red); }
+  .callout-violet { border-left-color:var(--violet); background:rgba(155,109,255,0.07); }
+  .callout-violet strong { color:var(--violet); }
+  .callout-rose { border-left-color:var(--rose); background:rgba(224,106,160,0.07); }
+  .callout-rose strong { color:var(--rose); }
+  .callout-seafoam { border-left-color:var(--seafoam); background:rgba(74,184,224,0.07); }
+  .callout-seafoam strong { color:var(--seafoam); }
+
+  /* ── INTERACTION TYPE MATRIX ── */
+  .interaction-matrix { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.84rem; }
+  .interaction-matrix th { font-family:'DM Mono',monospace; font-size:0.67rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); border-bottom:1px solid var(--border); padding:10px 12px; text-align:left; }
+  .interaction-matrix td { padding:10px 12px; border-bottom:1px solid rgba(0,200,180,0.07); color:var(--text-secondary); vertical-align:top; line-height:1.45; }
+  .interaction-matrix tr:last-child td { border-bottom:none; }
+  .interaction-matrix td:first-child { font-family:'DM Mono',monospace; font-size:0.76rem; color:var(--amber); white-space:nowrap; font-weight:500; }
+  .interaction-matrix td:nth-child(2) { font-family:'DM Mono',monospace; font-size:0.8rem; }
+  .interaction-matrix tr:hover td { background:rgba(0,200,180,0.03); }
+  .sign-pos { color:var(--teal-bright); font-weight:600; }
+  .sign-neg { color:var(--coral-red); font-weight:600; }
+  .sign-neu { color:var(--text-muted); font-weight:600; }
+
+  /* ── INDIRECT INTERACTION CARDS ── */
+  .indirect-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+  @media(max-width:540px){ .indirect-grid { grid-template-columns:1fr; } }
+  .indirect-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:16px 14px; }
+  .indirect-label { font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--violet); margin-bottom:8px; }
+  .indirect-chain { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--teal-bright); margin-bottom:10px; letter-spacing:0.04em; line-height:1.6; }
+  .indirect-text { font-size:0.83rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* ── MUTUALISM DISRUPTION CARDS ── */
+  .mutualism-pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+  @media(max-width:540px){ .mutualism-pair { grid-template-columns:1fr; } }
+  .mutualism-card { border-radius:8px; padding:16px 14px; }
+  .mutualism-card.intact { background:rgba(0,200,180,0.06); border:1px solid rgba(0,200,180,0.28); }
+  .mutualism-card.disrupted { background:rgba(224,90,58,0.06); border:1px solid rgba(224,90,58,0.28); }
+  .mutualism-label { font-family:'DM Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.09em; margin-bottom:8px; }
+  .mutualism-card.intact .mutualism-label { color:var(--teal-bright); }
+  .mutualism-card.disrupted .mutualism-label { color:var(--coral-red); }
+  .mutualism-title { font-weight:600; font-size:0.9rem; margin-bottom:7px; color:var(--text-primary); }
+  .mutualism-desc { font-size:0.82rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* ── COMPETITION SPECTRUM ── */
+  .comp-rows { display:flex; flex-direction:column; gap:10px; margin:20px 0; }
+  .comp-row { display:grid; grid-template-columns:160px 1fr; gap:14px; background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:14px 16px; align-items:start; }
+  @media(max-width:520px){ .comp-row { grid-template-columns:1fr; } }
+  .comp-type { font-family:'DM Mono',monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--seafoam); padding-top:2px; }
+  .comp-desc { font-size:0.85rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* ── FACILITATION TABLE ── */
+  .facilitation-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.84rem; }
+  .facilitation-table th { font-family:'DM Mono',monospace; font-size:0.67rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); border-bottom:1px solid var(--border); padding:10px 12px; text-align:left; }
+  .facilitation-table td { padding:10px 12px; border-bottom:1px solid rgba(0,200,180,0.07); color:var(--text-secondary); vertical-align:top; line-height:1.45; }
+  .facilitation-table tr:last-child td { border-bottom:none; }
+  .facilitation-table td:first-child { font-family:'DM Mono',monospace; font-size:0.76rem; color:var(--mint); white-space:nowrap; }
+  .facilitation-table tr:hover td { background:rgba(0,200,180,0.03); }
+
+  /* ── APPLICATION PANEL ── */
+  .application-panel { background:linear-gradient(135deg,rgba(15,34,64,0.95) 0%,rgba(10,22,40,0.95) 100%); border:1px solid rgba(0,200,180,0.25); border-radius:10px; padding:28px 28px 24px; margin:40px 0 32px; }
+  .application-panel h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--amber); margin-bottom:4px; }
+  .application-panel .app-sub { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .app-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  @media(max-width:520px){ .app-stat-row { grid-template-columns:1fr 1fr; } }
+  .app-stat { background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:6px; padding:12px 10px; text-align:center; }
+  .app-stat-val { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--teal-bright); line-height:1.1; margin-bottom:4px; }
+  .app-stat-lbl { font-size:0.72rem; color:var(--text-muted); line-height:1.3; }
+
+  /* ── MCQ ── */
+  .mcq-section { margin-top:40px; }
+  .mcq-section h2 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:24px; }
+  .mcq-block { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:22px 22px 18px; margin-bottom:16px; }
+  .mcq-q-num { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--teal-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+  .mcq-question { font-size:0.95rem; font-weight:500; color:var(--text-primary); margin-bottom:14px; line-height:1.5; }
+  .mcq-question em { font-style:italic; color:var(--text-secondary); font-size:0.88em; }
+  .mcq-options { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .mcq-options li button { width:100%; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--text-secondary); cursor:pointer; transition:background .18s,border-color .18s,color .18s; line-height:1.45; }
+  .mcq-options li button:hover { background:rgba(0,200,180,0.08); border-color:var(--teal-dim); color:var(--text-primary); }
+  .mcq-options li button.correct { background:rgba(0,200,180,0.15); border-color:var(--teal-bright); color:var(--teal-bright); font-weight:500; }
+  .mcq-options li button.wrong { background:rgba(224,90,58,0.12); border-color:var(--coral-red); color:var(--coral-red); }
+  .mcq-options li button:disabled { cursor:default; }
+  .mcq-feedback { margin-top:12px; font-size:0.83rem; color:var(--text-muted); line-height:1.5; display:none; }
+  .mcq-feedback.show { display:block; }
+  .mcq-feedback.correct-fb { color:var(--teal-bright); }
+  .mcq-feedback.wrong-fb { color:#e07a5f; }
+
+  .lesson-footer { border-top:1px solid var(--border); padding:24px 28px; max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .footer-nav a { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); text-decoration:none; transition:color .2s; }
+  .footer-nav a:hover { color:var(--teal-bright); }
+  .footer-progress { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--text-muted); text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Interaction web — species nodes connected by typed interaction arrows -->
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="bgRG" cx="50%" cy="40%" r="75%">
+          <stop offset="0%" stop-color="#0d1e36"/>
+          <stop offset="100%" stop-color="#050c18"/>
+        </radialGradient>
+        <!-- Node gradients -->
+        <radialGradient id="ngLF"  cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e05a3a" stop-opacity="0.45"/><stop offset="100%" stop-color="#e05a3a" stop-opacity="0"/></radialGradient>
+        <radialGradient id="ngH"   cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00c8b4" stop-opacity="0.35"/><stop offset="100%" stop-color="#00c8b4" stop-opacity="0"/></radialGradient>
+        <radialGradient id="ngP"   cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9b6dff" stop-opacity="0.35"/><stop offset="100%" stop-color="#9b6dff" stop-opacity="0"/></radialGradient>
+        <radialGradient id="ngC"   cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5a623" stop-opacity="0.35"/><stop offset="100%" stop-color="#f5a623" stop-opacity="0"/></radialGradient>
+        <radialGradient id="ngA"   cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4ab8e0" stop-opacity="0.3"/><stop offset="100%" stop-color="#4ab8e0" stop-opacity="0"/></radialGradient>
+        <radialGradient id="ngNP"  cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2edd9e" stop-opacity="0.3"/><stop offset="100%" stop-color="#2edd9e" stop-opacity="0"/></radialGradient>
+        <!-- Arrow markers -->
+        <marker id="mPred" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(224,90,58,0.85)"/></marker>
+        <marker id="mComp" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(74,184,224,0.8)"/></marker>
+        <marker id="mFac"  markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(46,221,158,0.75)"/></marker>
+        <marker id="mAC"   markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="rgba(155,109,255,0.8)"/></marker>
+        <filter id="gn" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="gs" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+
+      <rect width="900" height="270" fill="url(#bgRG)"/>
+      <!-- subtle grid -->
+      <g stroke="rgba(0,200,180,0.042)" stroke-width="1">
+        <line x1="0" y1="67" x2="900" y2="67"/><line x1="0" y1="134" x2="900" y2="134"/><line x1="0" y1="201" x2="900" y2="201"/>
+        <line x1="180" y1="0" x2="180" y2="270"/><line x1="360" y1="0" x2="360" y2="270"/><line x1="540" y1="0" x2="540" y2="270"/><line x1="720" y1="0" x2="720" y2="270"/>
+      </g>
+
+      <!-- ── NODES ── -->
+      <!-- Lionfish — center-right, dominant -->
+      <circle cx="520" cy="135" r="70" fill="url(#ngLF)"/>
+      <circle cx="520" cy="135" r="26" fill="rgba(224,90,58,0.12)" stroke="rgba(224,90,58,0.55)" stroke-width="1.8" filter="url(#gn)"/>
+      <circle cx="520" cy="135" r="13" fill="rgba(224,90,58,0.28)" stroke="rgba(224,90,58,0.9)" stroke-width="1.5"/>
+      <text x="520" y="138" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="#e05a3a" letter-spacing="0.03em">LIONFISH</text>
+      <text x="520" y="175" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.45)" letter-spacing="0.06em">Invasive predator</text>
+
+      <!-- Herbivores — left center -->
+      <circle cx="240" cy="100" r="52" fill="url(#ngH)"/>
+      <circle cx="240" cy="100" r="20" fill="rgba(0,200,180,0.09)" stroke="rgba(0,200,180,0.45)" stroke-width="1.5" filter="url(#gs)"/>
+      <circle cx="240" cy="100" r="10" fill="rgba(0,200,180,0.22)" stroke="rgba(0,200,180,0.75)" stroke-width="1.5"/>
+      <text x="240" y="103" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="#00c8b4">HERBIVORES</text>
+      <text x="240" y="132" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.4)">Parrotfish · Surgeonfish</text>
+
+      <!-- Native Predators — top right -->
+      <circle cx="720" cy="72" r="48" fill="url(#ngNP)"/>
+      <circle cx="720" cy="72" r="19" fill="rgba(46,221,158,0.08)" stroke="rgba(46,221,158,0.4)" stroke-width="1.5" filter="url(#gs)"/>
+      <circle cx="720" cy="72" r="10" fill="rgba(46,221,158,0.2)" stroke="rgba(46,221,158,0.7)" stroke-width="1.5"/>
+      <text x="720" y="75" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="#2edd9e">NAT. PRED.</text>
+      <text x="720" y="103" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(46,221,158,0.4)">Grouper · Shark</text>
+
+      <!-- Prey fish — bottom left -->
+      <circle cx="240" cy="200" r="50" fill="url(#ngP)"/>
+      <circle cx="240" cy="200" r="19" fill="rgba(155,109,255,0.08)" stroke="rgba(155,109,255,0.4)" stroke-width="1.5" filter="url(#gs)"/>
+      <circle cx="240" cy="200" r="10" fill="rgba(155,109,255,0.2)" stroke="rgba(155,109,255,0.7)" stroke-width="1.5"/>
+      <text x="240" y="203" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="#9b6dff">PREY FISH</text>
+      <text x="240" y="232" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(155,109,255,0.4)">Juvenile snapper · Wrasse</text>
+
+      <!-- Coral — top left -->
+      <circle cx="110" cy="72" r="44" fill="url(#ngC)"/>
+      <circle cx="110" cy="72" r="17" fill="rgba(245,166,35,0.08)" stroke="rgba(245,166,35,0.4)" stroke-width="1.5" filter="url(#gs)"/>
+      <circle cx="110" cy="72" r="8.5" fill="rgba(245,166,35,0.2)" stroke="rgba(245,166,35,0.7)" stroke-width="1.5"/>
+      <text x="110" y="75" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="#f5a623">CORAL</text>
+      <text x="110" y="103" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.4)">Structural base</text>
+
+      <!-- Algae — bottom right -->
+      <circle cx="720" cy="205" r="46" fill="url(#ngA)"/>
+      <circle cx="720" cy="205" r="18" fill="rgba(74,184,224,0.08)" stroke="rgba(74,184,224,0.4)" stroke-width="1.5" filter="url(#gs)"/>
+      <circle cx="720" cy="205" r="9" fill="rgba(74,184,224,0.2)" stroke="rgba(74,184,224,0.7)" stroke-width="1.5"/>
+      <text x="720" y="208" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="#4ab8e0">ALGAE</text>
+      <text x="720" y="236" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(74,184,224,0.4)">Competitor for substrate</text>
+
+      <!-- ── INTERACTION ARROWS ── -->
+      <!-- Lionfish → Herbivores (predation) -->
+      <line x1="494" y1="120" x2="264" y2="108" stroke="rgba(224,90,58,0.7)" stroke-width="1.8" marker-end="url(#mPred)"/>
+      <!-- Lionfish → Prey Fish (predation) -->
+      <line x1="496" y1="150" x2="263" y2="193" stroke="rgba(224,90,58,0.65)" stroke-width="1.8" marker-end="url(#mPred)"/>
+      <!-- Native Pred → Lionfish (weak predation — dashed) -->
+      <line x1="701" y1="89" x2="543" y2="122" stroke="rgba(46,221,158,0.35)" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#mFac)"/>
+      <!-- Herbivores → Algae (competition/consumption) -->
+      <path d="M255,118 Q430,150 700,200" fill="none" stroke="rgba(0,200,180,0.45)" stroke-width="1.4" marker-end="url(#mComp)"/>
+      <!-- Herbivores → Coral (facilitation — keep substrate open) -->
+      <line x1="222" y1="82" x2="129" y2="76" stroke="rgba(46,221,158,0.5)" stroke-width="1.3" marker-end="url(#mFac)"/>
+      <!-- Apparent competition: LF → Herbivores → Coral (indirect) -->
+      <path d="M500,115 Q360,40 135,68" fill="none" stroke="rgba(155,109,255,0.45)" stroke-width="1.2" stroke-dasharray="3,4" marker-end="url(#mAC)"/>
+      <!-- Lionfish vs Native Pred (exploitation competition) -->
+      <path d="M537,115 Q640,80 700,80" fill="none" stroke="rgba(74,184,224,0.45)" stroke-width="1.2" stroke-dasharray="3,4" marker-end="url(#mComp)"/>
+      <!-- Algae → Coral (competition) -->
+      <path d="M702,192 Q420,180 130,85" fill="none" stroke="rgba(74,184,224,0.3)" stroke-width="1" stroke-dasharray="2,5" marker-end="url(#mComp)"/>
+
+      <!-- Legend — bottom center -->
+      <g transform="translate(310,248)">
+        <line x1="0" y1="5" x2="18" y2="5" stroke="rgba(224,90,58,0.75)" stroke-width="1.8"/>
+        <circle cx="22" cy="5" r="2" fill="rgba(224,90,58,0.8)"/>
+        <text x="28" y="9" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.55)">PREDATION</text>
+
+        <line x1="100" y1="5" x2="118" y2="5" stroke="rgba(74,184,224,0.75)" stroke-width="1.4" stroke-dasharray="3,3"/>
+        <circle cx="122" cy="5" r="2" fill="rgba(74,184,224,0.7)"/>
+        <text x="128" y="9" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(74,184,224,0.55)">COMPETITION</text>
+
+        <line x1="210" y1="5" x2="228" y2="5" stroke="rgba(46,221,158,0.65)" stroke-width="1.3"/>
+        <circle cx="232" cy="5" r="2" fill="rgba(46,221,158,0.6)"/>
+        <text x="238" y="9" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(46,221,158,0.55)">FACILITATION</text>
+
+        <line x1="320" y1="5" x2="338" y2="5" stroke="rgba(155,109,255,0.7)" stroke-width="1.2" stroke-dasharray="3,4"/>
+        <circle cx="342" cy="5" r="2" fill="rgba(155,109,255,0.65)"/>
+        <text x="348" y="9" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(155,109,255,0.55)">INDIRECT</text>
+      </g>
+
+      <text x="450" y="18" text-anchor="middle" font-family="'Playfair Display',serif" font-size="10" fill="rgba(232,244,248,0.22)" letter-spacing="0.05em">SPECIES INTERACTION WEB — INVADED CARIBBEAN REEF</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 06</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-rose">Interactions</span>
+    <span class="section-tag">GMAIN · CMIE</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L06</div>
+    <h1 class="lesson-title">Invasive Species — <em>Interactions</em></h1>
+    <p class="lesson-subtitle">Interacciones de las Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ═════════════════════════════════════════════════════════ -->
+<main class="content-wrap">
+
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">The Interaction Web</h2>
+    <p>Every species in an ecosystem is embedded in a web of interactions with other species — predation, competition, mutualism, commensalism, and facilitation. When an invasive species inserts itself into this web, it does not arrive in a vacuum and interact with only one partner. It immediately engages the full interaction network: preying on some species, competing with others, disrupting mutualisms it was never part of, and sometimes facilitating additional invasions. Understanding invasion impacts requires reading the full interaction web, not just the most obvious bilateral relationship.</p>
+    <p>This lesson catalogs the interaction types that matter most in invaded marine ecosystems and maps each to the GROAN module and CMIE signal architecture where the interaction signature is detectable.</p>
+
+    <h2 class="section-head">Interaction Type Reference</h2>
+
+    <table class="interaction-matrix">
+      <thead>
+        <tr>
+          <th>Interaction</th>
+          <th>Effect on A · B</th>
+          <th>Invasion Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Predation</td>
+          <td><span class="sign-pos">+ </span><span class="sign-neg">−</span></td>
+          <td>Invasive predator benefits (+); native prey harmed (−). Most direct and visible interaction. Drives population decline, behavioral change, and trophic cascade initiation. Primary GMAIN signal.</td>
+        </tr>
+        <tr>
+          <td>Exploitation Competition</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Both species consume the same resource; each reduces availability for the other. Invasive generalist competitors reduce food resources for native species with overlapping diets. Detectable as correlated native abundance decline with invasive abundance increase.</td>
+        </tr>
+        <tr>
+          <td>Interference Competition</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Direct behavioral exclusion from resources or territory — aggression, chemical deterrence, space pre-emption. Invasive species may physically displace native species from preferred microhabitats even without direct predation.</td>
+        </tr>
+        <tr>
+          <td>Apparent Competition</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Two prey species harmed indirectly through a shared predator. Invasive predator depresses Prey A; elevated predator population then exerts additional pressure on Prey B even if the predator originally showed no preference for B. An indirect −/− interaction mediated by the invasive.</td>
+        </tr>
+        <tr>
+          <td>Mutualism Disruption</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Invasive species removes one partner in a native mutualism, degrading the service provided to the remaining partner. The invasive does not need to interact directly with both mutualists — removing one partner is sufficient. High ecological multiplier effect.</td>
+        </tr>
+        <tr>
+          <td>Facilitation</td>
+          <td><span class="sign-pos">+ </span><span class="sign-neu">0</span></td>
+          <td>One species benefits the other without cost. Native reef structure facilitates lionfish by providing ambush cover. Invasive engineers facilitate secondary invaders by degrading native resistance. Facilitation cascades amplify total invasion impact beyond single-species assessment.</td>
+        </tr>
+        <tr>
+          <td>Commensalism</td>
+          <td><span class="sign-pos">+ </span><span class="sign-neu">0</span></td>
+          <td>One species benefits; the other is unaffected. Rare in pure form — most interactions carry some cost or benefit to both parties. Relevant when invasive species use native infrastructure (reef structure, burrow systems) without apparent cost to the native host.</td>
+        </tr>
+        <tr>
+          <td>Amensalism</td>
+          <td><span class="sign-neu">0 </span><span class="sign-neg">−</span></td>
+          <td>One species is harmed; the other is unaffected. Invasive allelopathic algae suppressing native seagrass growth without benefiting from the suppression directly. Relevant to GSIN when invasive algae alter substrate chemistry.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-head">Direct Interactions: Predation</h2>
+    <p>Predation is the most studied invasive interaction because it is the most immediately measurable: invasive predator presence correlates with native prey decline at timescales of months to years, observable in repeated dive surveys. But the ecological significance of invasive predation extends beyond the bilateral predator-prey relationship through three mechanisms that operate simultaneously.</p>
+
+    <h3 class="sub-head">Selective Predation and Community Restructuring</h3>
+    <p>Invasive predators rarely consume all species with equal frequency. Lionfish show documented size-based selectivity — targeting fish under 65% of body length — and some evidence of functional group preference toward slow-moving, boldly colored species that lack evolved evasion behaviors. This selectivity restructures the prey community non-randomly: functionally important species (herbivores, cleaners, juvenile fish of commercially important stocks) may be depleted faster than their abundance share would predict, generating ecological impact disproportionate to the predator's total biomass intake.</p>
+
+    <h3 class="sub-head">Trait-Mediated Indirect Interactions (TMIIs)</h3>
+    <p>Even prey species that are not eaten by the invasive predator are affected through trait-mediated indirect interactions. A prey fish that detects lionfish in the area changes its behavior — spending more time in refuge, foraging less actively, using shallower or more sheltered areas. This behavioral shift reduces that fish's foraging efficiency, growth rate, and reproductive output even if it is never captured. The invasive predator imposes a fitness cost on prey species across its entire detection range, not just within its capture range. TMIIs are structurally invisible to abundance-based monitoring alone — they require behavioral observation data.</p>
+
+    <div class="callout callout-amber">
+      <strong>GMAIN Behavioral Log:</strong> The qualitative behavioral note field in the GMAIN dive log protocol — recording prey fish refuge use, foraging activity level, and aggregation behavior relative to invasive presence — captures TMII signatures that biomass counts cannot. A reef node where native fish biomass appears stable but behavioral indicators show chronic refuge-seeking and reduced foraging is exhibiting TMII suppression. This is an ecologically significant impact state that biomass-only monitoring would classify as unaffected.
+    </div>
+
+    <h2 class="section-head">Competition: Exploitation and Interference</h2>
+
+    <div class="comp-rows">
+      <div class="comp-row">
+        <div class="comp-type">Exploitation Competition</div>
+        <div class="comp-desc">Both invasive and native species consume shared prey, reducing availability for each other. This is the competitive dynamic between lionfish and native piscivores (grouper, moray, trumpetfish) — all competing for the same small reef fish prey pool. The invasive's superior foraging efficiency (ambush success rate, year-round reproductive energy investment without predator avoidance cost) gives it a competitive advantage that native piscivores, already depleted by overfishing, cannot match at the current stressor load.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-type">Interference Competition</div>
+        <div class="comp-desc">Direct displacement from resources or space through behavioral interaction. Lionfish claim high-quality ambush positions — coral head overhangs, ledges, channel entrances — and hold them through venomous spine deterrence. Native fish approaching the same ambush site are excluded without physical combat. The interference interaction operates at the microhabitat scale and is detectable only through structured site-specific observation protocols, not transect counts.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-type">Asymmetric Competition</div>
+        <div class="comp-desc">Competition between invasive and native species is rarely symmetric — the invasive typically holds structural advantages (enemy release, ecological fitting) that the native cannot counter with evolved strategies. The asymmetry means competitive exclusion can occur even when native species appear numerically stable — they are being held in check, not in equilibrium. Asymmetric competitive pressure is one of the mechanisms sustaining the boom-stabilize dynamic at heavily invaded nodes.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Apparent Competition</h2>
+    <p>Apparent competition is one of the most ecologically significant and least intuitively visible interaction types. Two prey species — call them A and B — do not interact directly and do not compete for resources. But both are preyed upon by the same invasive predator. When the invasive arrives and begins depressing Species A, the predator population increases. The elevated predator population now exerts additional pressure on Species B — even if the predator originally preferred Species A and rarely targeted Species B. Species A and B are connected through the shared predator in a negative-negative relationship that has no direct interaction between them.</p>
+
+    <div class="indirect-grid">
+      <div class="indirect-card">
+        <div class="indirect-label">Example — Caribbean Apparent Competition</div>
+        <div class="indirect-chain">Lionfish ↑ → Herbivore prey ↓<br>Lionfish pop. sustained ↑<br>→ Additional pressure on juvenile snapper ↓<br>(even at low initial predation rate)</div>
+        <div class="indirect-text">Juvenile snapper and herbivorous fish are not competitors — they occupy different trophic positions and exploit different food resources. But both are prey to lionfish. Lionfish population growth driven by herbivore depletion then creates additional predation pressure on juvenile snapper that persists and intensifies as herbivore depletion deepens — a negative effect on snapper mediated entirely through the shared predator.</div>
+      </div>
+      <div class="indirect-card">
+        <div class="indirect-label">GROAN / CMIE Detection</div>
+        <div class="indirect-chain">GMAIN: LF density ↑<br>GRIN: Herbivore biomass ↓<br>GRIN: Snapper juvenile count ↓<br>CMIE: Apparent competition flag</div>
+        <div class="indirect-text">The apparent competition signal requires simultaneous tracking of invasive density, herbivore prey abundance, and a secondary prey group with no direct competitive relationship. No single-module framework can detect this — GRIN alone would correlate herbivore decline with invasive presence, but would miss the snapper impact because snapper and herbivores appear unrelated. CMIE resolves the shared-predator pathway and identifies the correct causal structure.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Mutualism Disruption</h2>
+    <p>Marine reef ecosystems are maintained by a dense network of mutualistic relationships — interactions where both parties benefit. Invasive species rarely target these mutualisms directly, but by removing one partner, they degrade or collapse the ecological service the mutualism provides. The effect propagates through the network far beyond the direct predation event.</p>
+
+    <div class="mutualism-pair">
+      <div class="mutualism-card intact">
+        <div class="mutualism-label">Intact — Cleaning Mutualism</div>
+        <div class="mutualism-title">Cleaner Wrasse × Client Fish</div>
+        <div class="mutualism-desc">Cleaner wrasse establish cleaning stations on the reef where client fish queue for parasite removal. The wrasse receives nutrition; the client gains reduced parasite load, improved immune function, and wound cleaning. The cleaning station functions as a social hub — larger predators pause predatory behavior at the station, creating a behavioral refuge that smaller fish exploit. Both parties benefit; the station serves the wider community.</div>
+      </div>
+      <div class="mutualism-card disrupted">
+        <div class="mutualism-label">Disrupted — Invasive Impact</div>
+        <div class="mutualism-title">Cleaner Wrasse Depleted by Lionfish</div>
+        <div class="mutualism-desc">Cleaner wrasse are small, slow-moving, conspicuously colored, and spend time at fixed, predictable locations — traits that make them highly vulnerable to lionfish ambush predation. As cleaner wrasse populations decline, cleaning station density falls. Client fish carry higher parasite loads, experience reduced immune function, and lose the behavioral refuge the station provided. The disruption harms the entire client fish community through a service failure, not through direct predation on any client species.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Pollination and Seed Dispersal Analogues in Marine Systems</h3>
+    <p>Marine reef ecosystems contain functional analogues to pollination mutualisms — interactions between fish and coral or algae that serve reproductive or dispersal functions. Parrotfish that consume and pass coral fragments facilitate coral fragment dispersal and settlement on new substrate. Herbivorous fish that graze algae from coral surfaces facilitate coral larval settlement — a form of facilitated recruitment. When lionfish deplete parrotfish and surgeonfish populations, these cryptic facilitation services are simultaneously degraded. The disrupted mutualism is invisible unless specifically monitored — it does not appear in a species count or a biomass estimate.</p>
+
+    <div class="callout callout-rose">
+      <strong>Functional Group Monitoring:</strong> This is why GMAIN's dive survey protocol records functional group composition — not just total fish abundance, but the presence and approximate abundance of cleaners, grazers, corallivores, and piscivores as distinct categories. A reef that maintains total fish biomass but loses its cleaner wrasse and herbivore functional groups is ecologically impaired at the interaction level even if the abundance metric appears stable. Functional group tracking is the tool that detects mutualism disruption before it propagates into visible decline.
+    </div>
+
+    <h2 class="section-head">Facilitation Cascades</h2>
+    <p>Facilitation — one species benefiting another — operates in both directions in invaded systems. Native reef structure facilitates the invasive; and the invasive, by degrading the native community, facilitates secondary invasions.</p>
+
+    <table class="facilitation-table">
+      <thead>
+        <tr>
+          <th>Facilitation Type</th>
+          <th>Mechanism</th>
+          <th>Example in Caribbean Reef Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Habitat Facilitation</td>
+          <td>Native ecosystem structure provides resources or shelter that the invasive exploits — without the native having evolved defenses against this use.</td>
+          <td>Lionfish use coral head overhangs and crevices as ambush sites. The coral architecture was built for native community structure; lionfish exploit it without the reef community having evolved countermeasures. Higher structural complexity = more ambush opportunities = higher lionfish foraging efficiency.</td>
+        </tr>
+        <tr>
+          <td>Biotic Resistance Erosion</td>
+          <td>The invasive species degrades the native community, reducing the biotic resistance available to resist secondary invaders.</td>
+          <td>Lionfish depletion of herbivores allows algal overgrowth. Algae-dominated substrate offers reduced structural complexity and lower native species diversity — both conditions that lower biotic resistance and facilitate the establishment of secondary invasive algae species that would have failed on an intact coral reef.</td>
+        </tr>
+        <tr>
+          <td>Trophic Subsidy Facilitation</td>
+          <td>One invasive species increases food availability for a second invasive, enabling its population to grow beyond what the native prey base would support alone.</td>
+          <td>In Atlantic reef systems where multiple invasive species co-occur, the prey depletion driven by one invasive can alter predator-prey ratios in ways that benefit a second invasive occupying a different trophic position — the first invasion creates the prey depletion that shifts community structure to favor the second.</td>
+        </tr>
+        <tr>
+          <td>Invasional Meltdown</td>
+          <td>Multiple facilitation cascades interact — invasive A facilitates invasive B, B facilitates C, C amplifies A — producing compound impact exceeding the sum of individual invasions.</td>
+          <td>Lionfish (piscivore) + invasive urchin (grazer, triggered by herbivore depletion) + invasive algae (opportunist on bare substrate) form a compound cascade: fish depletion → urchin population explosion → overgrazing → bare substrate → invasive algae establishment → reduced coral recruitment → reduced structural complexity → higher lionfish ambush efficiency. Each species amplifies the others.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-violet">
+      <strong>CMIE Facilitation Cascade Detection:</strong> Invasional meltdown is only detectable at the cross-module level. Lionfish density in GMAIN, urchin density in GRIN, algal cover in GRIN Feature Layer, and coral recruitment in GRIN structural data must all be evaluated simultaneously — the compound cascade signature is not present in any single data stream. When DMAP-CAL detects correlated unfavorable trend signals across three or more of these indicators at the same node cluster, the intervention priority escalates from single-species removal to multi-stressor coordinated management — a qualitatively different management response triggered only by CMIE cross-module synthesis.
+    </div>
+
+    <h2 class="section-head">Keystone Species Displacement</h2>
+    <p>A <strong>keystone species</strong> exerts ecological influence disproportionate to its abundance — removing it causes cascading changes across the community that far exceed what its biomass share would predict. When an invasive species preferentially targets or displaces a keystone species, the ecological consequences are amplified by the keystone's community-wide role.</p>
+
+    <h3 class="sub-head">Parrotfish as Reef Keystones</h3>
+    <p>Parrotfish are the primary bioeroders and substrate preparers on Caribbean reefs — biting carbonate substrate, processing it through their digestive systems, and producing the sand that maintains reef sediment dynamics. They are also the dominant grazers preventing algal overgrowth on coral surfaces. A reef without functional parrotfish populations loses both its substrate maintenance service and its primary algae-control mechanism simultaneously. Lionfish predation on parrotfish, compounded by direct fishing pressure on parrotfish populations, has removed keystone function from large areas of Caribbean reef — the interaction between the two anthropogenic stressors produces an impact that neither alone would generate at the same magnitude.</p>
+
+    <div class="callout callout-red">
+      <strong>Compound Stressor Architecture in DMAP-CAL:</strong> The parrotfish case illustrates why DMAP-CAL's Decision Score must integrate stressor co-occurrence, not just individual stressor intensity. At a node where parrotfish are simultaneously subject to invasive predation (GMAIN signal) and direct fishing pressure (GQIN or external data input), the combined threat to keystone function is not additive — it is multiplicative, because the parrotfish population cannot recover from fishing pressure while also under elevated invasive predation. DMAP-CAL applies a stressor interaction multiplier when two or more independent stressors target the same functional group simultaneously.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">La Red de Interacciones</h2>
+    <p>Cada especie en un ecosistema está integrada en una red de interacciones con otras especies — depredación, competencia, mutualismo, comensalismo y facilitación. Cuando una especie invasora se inserta en esta red, no llega al vacío e interactúa con un solo socio. Inmediatamente se involucra con la red de interacciones completa: depredando algunas especies, compitiendo con otras, perturbando mutualismos de los que nunca fue parte y a veces facilitando invasiones adicionales. Comprender los impactos de la invasión requiere leer la red de interacciones completa, no solo la relación bilateral más obvia.</p>
+
+    <h2 class="section-head">Referencia de Tipos de Interacción</h2>
+
+    <table class="interaction-matrix">
+      <thead>
+        <tr>
+          <th>Interacción</th>
+          <th>Efecto en A · B</th>
+          <th>Relevancia para Invasión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Depredación</td>
+          <td><span class="sign-pos">+ </span><span class="sign-neg">−</span></td>
+          <td>El depredador invasor se beneficia (+); la presa nativa es dañada (−). Interacción más directa y visible. Impulsa el declive poblacional, el cambio conductual y el inicio de la cascada trófica. Señal primaria de GMAIN.</td>
+        </tr>
+        <tr>
+          <td>Competencia por Explotación</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Ambas especies consumen el mismo recurso; cada una reduce la disponibilidad para la otra. Los competidores generalistas invasores reducen los recursos alimentarios para las especies nativas con dietas superpuestas.</td>
+        </tr>
+        <tr>
+          <td>Competencia por Interferencia</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Exclusión conductual directa de recursos o territorio — agresión, disuasión química, pre-emption de espacio. Las especies invasoras pueden desplazar físicamente a las nativas de microhábitats preferidos sin depredación directa.</td>
+        </tr>
+        <tr>
+          <td>Competencia Aparente</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>Dos especies presa son dañadas indirectamente a través de un depredador compartido. El depredador invasor deprime a la Presa A; la población elevada de depredadores luego ejerce presión adicional sobre la Presa B aunque no hubiera preferencia inicial por B.</td>
+        </tr>
+        <tr>
+          <td>Ruptura de Mutualismo</td>
+          <td><span class="sign-neg">− </span><span class="sign-neg">−</span></td>
+          <td>La especie invasora elimina un socio en un mutualismo nativo, degradando el servicio proporcionado al socio restante. Alto efecto multiplicador ecológico.</td>
+        </tr>
+        <tr>
+          <td>Facilitación</td>
+          <td><span class="sign-pos">+ </span><span class="sign-neu">0</span></td>
+          <td>Una especie beneficia a la otra sin costo. La estructura del arrecife nativo facilita al pez león. Los ingenieros invasores facilitan a los invasores secundarios degradando la resistencia nativa.</td>
+        </tr>
+        <tr>
+          <td>Comensalismo</td>
+          <td><span class="sign-pos">+ </span><span class="sign-neu">0</span></td>
+          <td>Una especie se beneficia; la otra no se ve afectada. Relevante cuando las especies invasoras usan infraestructura nativa (estructura del arrecife, sistemas de madrigueras) sin costo aparente para el huésped nativo.</td>
+        </tr>
+        <tr>
+          <td>Amenalismo</td>
+          <td><span class="sign-neu">0 </span><span class="sign-neg">−</span></td>
+          <td>Una especie es dañada; la otra no se ve afectada. Las algas invasoras alelopáticas que suprimen el crecimiento de pastos marinos nativos sin beneficiarse directamente de la supresión. Relevante para GSIN.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-head">Interacciones Directas: Depredación</h2>
+    <p>La depredación es la interacción invasora más estudiada porque es la más inmediatamente medible: la presencia del depredador invasor se correlaciona con el declive de las presas nativas en escalas de tiempo de meses a años, observable en encuestas de buceo repetidas. Pero la significancia ecológica de la depredación invasora se extiende más allá de la relación bilateral depredador-presa a través de tres mecanismos que operan simultáneamente.</p>
+
+    <h3 class="sub-head">Depredación Selectiva y Reestructuración de la Comunidad</h3>
+    <p>Los depredadores invasores raramente consumen todas las especies con igual frecuencia. El pez león muestra selectividad documentada basada en tamaño — apuntando a peces menores al 65% de su longitud corporal — y alguna evidencia de preferencia por grupos funcionales hacia especies de movimiento lento y colores llamativos que carecen de comportamientos de evasión evolucionados. Esta selectividad reestructura la comunidad de presas de forma no aleatoria: las especies funcionalmente importantes (herbívoros, limpiadores, peces juveniles de stocks comercialmente importantes) pueden agotarse más rápido de lo que predice su parte de abundancia.</p>
+
+    <h3 class="sub-head">Interacciones Indirectas Mediadas por Rasgos (IIMR)</h3>
+    <p>Incluso las especies presa que no son consumidas por el depredador invasor se ven afectadas a través de interacciones indirectas mediadas por rasgos. Un pez presa que detecta pez león en el área cambia su comportamiento — pasando más tiempo en refugio, forrajeando menos activamente. Este cambio conductual reduce la eficiencia de forrajeo de ese pez, su tasa de crecimiento y su producción reproductiva incluso si nunca es capturado. Las IIMR son estructuralmente invisibles para el monitoreo basado únicamente en abundancia — requieren datos de observación conductual.</p>
+
+    <div class="callout callout-amber">
+      <strong>Registro Conductual GMAIN:</strong> El campo de nota conductual cualitativa en el protocolo de registro de buceo de GMAIN — registrando el uso de refugio de peces presa, el nivel de actividad de forrajeo y el comportamiento de agregación en relación con la presencia invasora — captura firmas de IIMR que los conteos de biomasa no pueden. Un nodo de arrecife donde la biomasa de peces nativos parece estable pero los indicadores conductuales muestran búsqueda crónica de refugio y forrajeo reducido está exhibiendo supresión por IIMR.
+    </div>
+
+    <h2 class="section-head">Competencia: Explotación e Interferencia</h2>
+
+    <div class="comp-rows">
+      <div class="comp-row">
+        <div class="comp-type">Competencia por Explotación</div>
+        <div class="comp-desc">Tanto la especie invasora como las nativas consumen presas compartidas, reduciendo la disponibilidad para cada una. Esta es la dinámica competitiva entre el pez león y los piscívoros nativos (mero, morena, trompetero) — todos compitiendo por el mismo grupo de presas pequeñas de arrecife. La ventaja competitiva superior del invasor (tasa de éxito de emboscada, inversión de energía reproductiva sin costo de evitación de depredadores) le da una ventaja que los piscívoros nativos, ya agotados por la sobrepesca, no pueden igualar.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-type">Competencia por Interferencia</div>
+        <div class="comp-desc">Desplazamiento directo de recursos o espacio a través de interacción conductual. El pez león reclama posiciones de emboscada de alta calidad — salientes de cabeza de coral, repisas, entradas de canales — y las mantiene a través de la disuasión por espinas venenosas. Los peces nativos que se acercan al mismo sitio de emboscada son excluidos sin combate físico. La interacción de interferencia opera a escala de microhábitat y es detectable solo a través de protocolos de observación específicos del sitio.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-type">Competencia Asimétrica</div>
+        <div class="comp-desc">La competencia entre las especies invasoras y las nativas rara vez es simétrica — el invasor típicamente tiene ventajas estructurales (liberación de enemigos, ajuste ecológico) que las nativas no pueden contrarrestar con estrategias evolucionadas. La asimetría significa que la exclusión competitiva puede ocurrir incluso cuando las especies nativas parecen numéricamente estables — están siendo contenidas, no en equilibrio.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Competencia Aparente</h2>
+    <p>La competencia aparente es uno de los tipos de interacción ecológicamente más significativos y menos intuitivamente visibles. Dos especies presa — llamémoslas A y B — no interactúan directamente y no compiten por recursos. Pero ambas son depredadas por el mismo depredador invasor. Cuando el invasor llega y comienza a deprimir a la Especie A, la población de depredadores aumenta. La población elevada de depredadores ahora ejerce presión adicional sobre la Especie B — incluso si el depredador originalmente prefería la Especie A y raramente apuntaba a la Especie B.</p>
+
+    <div class="indirect-grid">
+      <div class="indirect-card">
+        <div class="indirect-label">Ejemplo — Competencia Aparente en el Caribe</div>
+        <div class="indirect-chain">Pez León ↑ → Herbívoros presa ↓<br>Pob. Pez León se mantiene ↑<br>→ Presión adicional en pargo juvenil ↓<br>(incluso con tasa de depredación inicial baja)</div>
+        <div class="indirect-text">El pargo juvenil y los peces herbívoros no son competidores — ocupan posiciones tróficas diferentes y explotan diferentes recursos alimentarios. Pero ambos son presas del pez león. El crecimiento poblacional del pez León impulsado por el agotamiento de herbívoros crea presión de depredación adicional sobre el pargo juvenil que persiste e intensifica a medida que el agotamiento de herbívoros se profundiza.</div>
+      </div>
+      <div class="indirect-card">
+        <div class="indirect-label">Detección GROAN / CMIE</div>
+        <div class="indirect-chain">GMAIN: Densidad PL ↑<br>GRIN: Biomasa Herbívoros ↓<br>GRIN: Conteo juvenil pargo ↓<br>CMIE: Señal competencia aparente</div>
+        <div class="indirect-text">La señal de competencia aparente requiere seguimiento simultáneo de densidad invasora, abundancia de presas herbívoras y un grupo de presas secundario sin relación competitiva directa. Ningún marco de módulo único puede detectar esto — GRIN solo correlacionaría el declive de herbívoros con la presencia invasora, pero perdería el impacto en el pargo porque el pargo y los herbívoros parecen no relacionados. El CMIE resuelve la vía del depredador compartido.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Ruptura de Mutualismos</h2>
+    <p>Los ecosistemas de arrecifes marinos son mantenidos por una densa red de relaciones mutualistas. Las especies invasoras raramente apuntan a estos mutualismos directamente, pero al eliminar a un socio, degradan o colapsan el servicio ecológico que proporciona el mutualismo.</p>
+
+    <div class="mutualism-pair">
+      <div class="mutualism-card intact">
+        <div class="mutualism-label">Intacto — Mutualismo de Limpieza</div>
+        <div class="mutualism-title">Pez Limpiador × Peces Cliente</div>
+        <div class="mutualism-desc">Los peces limpiadores establecen estaciones de limpieza en el arrecife donde los peces cliente hacen cola para la eliminación de parásitos. El limpiador recibe nutrición; el cliente gana carga parasitaria reducida, mejor función inmune y limpieza de heridas. La estación funciona como un centro social — los depredadores más grandes pausan el comportamiento depredador en la estación, creando un refugio conductual que los peces más pequeños explotan.</div>
+      </div>
+      <div class="mutualism-card disrupted">
+        <div class="mutualism-label">Perturbado — Impacto Invasor</div>
+        <div class="mutualism-title">Pez Limpiador Agotado por Pez León</div>
+        <div class="mutualism-desc">Los peces limpiadores son pequeños, de movimiento lento, de colores llamativos y pasan tiempo en ubicaciones fijas y predecibles — rasgos que los hacen muy vulnerables a la depredación de emboscada del pez León. A medida que las poblaciones de peces limpiadores disminuyen, la densidad de las estaciones de limpieza cae. Los peces cliente llevan cargas parasitarias más altas, experimentan función inmune reducida y pierden el refugio conductual que proporcionaba la estación.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-rose">
+      <strong>Monitoreo de Grupos Funcionales:</strong> Por eso el protocolo de encuesta de buceo de GMAIN registra la composición de grupos funcionales — no solo la abundancia total de peces, sino la presencia y abundancia aproximada de limpiadores, pastadores, coralívoros y piscívoros como categorías distintas. Un arrecife que mantiene la biomasa total de peces pero pierde sus grupos funcionales de limpiadores y herbívoros está ecológicamente deteriorado a nivel de interacción incluso si la métrica de abundancia parece estable.
+    </div>
+
+    <h2 class="section-head">Cascadas de Facilitación</h2>
+
+    <table class="facilitation-table">
+      <thead>
+        <tr>
+          <th>Tipo de Facilitación</th>
+          <th>Mecanismo</th>
+          <th>Ejemplo en Contexto de Arrecife Caribeño</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Facilitación de Hábitat</td>
+          <td>La estructura del ecosistema nativo proporciona recursos o refugio que el invasor explota sin que los nativos hayan evolucionado defensas contra este uso.</td>
+          <td>El pez León usa salientes de cabeza de coral y grietas como sitios de emboscada. La arquitectura coralina fue construida para la estructura de la comunidad nativa; el pez León la explota sin que la comunidad del arrecife haya evolucionado contramedidas. Mayor complejidad estructural = más oportunidades de emboscada = mayor eficiencia de forrajeo del pez León.</td>
+        </tr>
+        <tr>
+          <td>Erosión de la Resistencia Biótica</td>
+          <td>La especie invasora degrada la comunidad nativa, reduciendo la resistencia biótica disponible para resistir a los invasores secundarios.</td>
+          <td>El agotamiento de herbívoros por el pez León permite el sobrecrecimiento algal. El sustrato dominado por algas ofrece menor complejidad estructural y menor diversidad de especies nativas — ambas condiciones que reducen la resistencia biótica y facilitan el establecimiento de especies de algas invasoras secundarias.</td>
+        </tr>
+        <tr>
+          <td>Facilitación por Subsidio Trófico</td>
+          <td>Una especie invasora aumenta la disponibilidad de alimentos para una segunda invasora, permitiendo que su población crezca más allá de lo que la base de presas nativas soportaría sola.</td>
+          <td>En sistemas de arrecifes atlánticos donde co-ocurren múltiples especies invasoras, el agotamiento de presas impulsado por una invasora puede alterar las proporciones depredador-presa de maneras que beneficien a una segunda invasora ocupando una posición trófica diferente.</td>
+        </tr>
+        <tr>
+          <td>Fusión Invasional</td>
+          <td>Múltiples cascadas de facilitación interactúan — el invasor A facilita al B, B facilita a C, C amplifica a A — produciendo impacto compuesto que excede la suma de invasiones individuales.</td>
+          <td>Pez León (piscívoro) + erizo invasor (pastador, desencadenado por agotamiento de herbívoros) + algas invasoras (oportunista en sustrato desnudo) forman una cascada compuesta: cada especie amplifica a las demás.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-violet">
+      <strong>Detección de Cascada de Facilitación CMIE:</strong> La fusión invasional solo es detectable a nivel inter-módulo. La densidad de pez León en GMAIN, la densidad de erizos en GRIN, la cobertura algal en la Capa de Características de GRIN y el reclutamiento de coral en los datos estructurales de GRIN deben evaluarse simultáneamente. Cuando DMAP-CAL detecta señales de tendencia desfavorable correlacionadas en tres o más de estos indicadores en el mismo clúster de nodos, la prioridad de intervención escala de remoción de una sola especie a manejo coordinado de múltiples factores estresantes.
+    </div>
+
+    <h2 class="section-head">Desplazamiento de Especies Clave</h2>
+    <p>Una <strong>especie clave</strong> ejerce influencia ecológica desproporcionada a su abundancia — eliminarla causa cambios en cascada en toda la comunidad que superan ampliamente lo que predice su parte de biomasa. Cuando una especie invasora apunta o desplaza preferentemente a una especie clave, las consecuencias ecológicas son amplificadas por el papel de la especie clave en toda la comunidad.</p>
+
+    <h3 class="sub-head">Peces Loro como Especies Clave del Arrecife</h3>
+    <p>Los peces loro son los principales bioerocionadores y preparadores de sustrato en los arrecifes del Caribe — mordiendo el sustrato carbonatado, procesándolo a través de sus sistemas digestivos y produciendo la arena que mantiene la dinámica de sedimentos del arrecife. También son los principales pastadores que previenen el sobrecrecimiento algal en las superficies de coral. Un arrecife sin poblaciones funcionales de peces loro pierde simultáneamente tanto su servicio de mantenimiento del sustrato como su mecanismo principal de control de algas. La depredación del pez León sobre los peces loro, combinada con la presión de pesca directa, ha eliminado la función clave de grandes áreas del arrecife caribeño.</p>
+
+    <div class="callout callout-red">
+      <strong>Arquitectura de Factores Estresantes Compuestos en DMAP-CAL:</strong> El caso de los peces loro ilustra por qué la Puntuación de Decisión de DMAP-CAL debe integrar la co-ocurrencia de factores estresantes, no solo la intensidad individual. En un nodo donde los peces loro están simultáneamente sujetos a depredación invasora (señal GMAIN) y presión de pesca directa (GQIN o entrada de datos externos), la amenaza combinada a la función clave no es aditiva — es multiplicativa. DMAP-CAL aplica un multiplicador de interacción de factores estresantes cuando dos o más factores estresantes independientes apuntan al mismo grupo funcional simultáneamente.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- ══ APPLICATION PANEL ══════════════════════════════════════════════ -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">Interaction Web Mapping at a Rim Run™ Waypoint Node</p>
+
+    <div class="app-stat-row">
+      <div class="app-stat">
+        <div class="app-stat-val">8</div>
+        <div class="app-stat-lbl">Interaction types cataloged in this lesson — all potentially active at a single heavily invaded reef node</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">70+</div>
+        <div class="app-stat-lbl">Caribbean reef fish species documented as lionfish prey — spanning herbivore, cleaner, piscivore, and juvenile commercial stocks</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">×2–4</div>
+        <div class="app-stat-lbl">Estimated compound stressor multiplier when fishing pressure and invasive predation simultaneously target the same functional group</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:12px;">At any Rim Run™ waypoint dive, the interaction web described in this lesson is operating in full. The pole spear removal event engages all eight interaction types simultaneously: predation pressure on herbivores and prey fish is reduced (direct); exploitation competition with grouper is reduced (competition); apparent competition on snapper juvenile cohorts is eased (indirect); cleaning mutualism disruption is partially reversed if cleaner wrasse populations begin recovering (mutualism); habitat facilitation advantage is reduced as lionfish density falls below the threshold at which all high-quality ambush sites are occupied (facilitation); and the probability of secondary invasive establishment is marginally reduced at the node level as biotic resistance begins recovering (cascade).</p>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary);">GMAIN's functional group field — recorded at each dive alongside the standard biometric log — is the instrument that makes interaction-level monitoring tractable in the field. Presence or absence of cleaner wrasse, parrotfish, surgeonfish, and juvenile snapper, noted per dive as categorical observations, builds the functional group time series from which DMAP-CAL infers interaction web recovery state. The full interaction web cannot be directly observed on a single dive — but its state can be inferred from functional group composition trends accumulated across multiple dives at the same node.</p>
+  </div>
+
+  <!-- ══ MCQ ════════════════════════════════════════════════════════════ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <!-- Q1 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        A reef fish species is declining at a node even though lionfish have never been observed consuming it. Lionfish do heavily prey on a second species that shares the same reef zone. Which interaction type best explains the decline?<br>
+        <em>Una especie de pez de arrecife está en declive en un nodo aunque el pez León nunca ha sido observado consumiéndola. El pez León sí deprede intensamente a una segunda especie que comparte la misma zona del arrecife. ¿Qué tipo de interacción explica mejor el declive?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Interference competition involves direct behavioral exclusion from resources or territory — the declining species is not being excluded from space; it is experiencing population decline through an indirect pathway. / La competencia por interferencia implica exclusión conductual directa de recursos o territorio — la especie en declive no está siendo excluida del espacio; está experimentando declive poblacional a través de una vía indirecta.')">Interference competition — lionfish are excluding the declining species from preferred microhabitats. / Competencia por interferencia — el pez León está excluyendo a la especie en declive de microhábitats preferidos.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Trait-mediated indirect interaction (TMII) explains behavioral suppression in prey that are not eaten — reduced foraging activity, refuge-seeking — but not population-level decline without any predation. The question describes a population declining through a shared predator pathway, not a behavioral effect. / La interacción indirecta mediada por rasgos (IIMR) explica la supresión conductual en presas que no son comidas, pero no el declive poblacional sin ninguna depredación.')">Trait-mediated indirect interaction — the declining species is changing behavior in response to lionfish presence. / Interacción indirecta mediada por rasgos — la especie en declive está cambiando su comportamiento en respuesta a la presencia del pez León.</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. Apparent competition: the two species do not interact directly, but both are preyed upon by lionfish. Heavy predation on Species A sustains or elevates the lionfish population, which then exerts additional predation pressure on Species B — the declining species — even at low initial preference. The negative effect on Species B is mediated entirely through the shared invasive predator, not through any direct A-B interaction. / Correcto. Competencia aparente: las dos especies no interactúan directamente, pero ambas son depredadas por el pez León. La depredación intensa sobre la Especie A sostiene o eleva la población del pez León, que luego ejerce presión de depredación adicional sobre la Especie B — la especie en declive — incluso con baja preferencia inicial. El efecto negativo sobre la Especie B está mediado completamente a través del depredador invasor compartido.')">Apparent competition — both species share lionfish as a predator; depletion of Species A sustains the predator population that then increases pressure on the declining species. / Competencia aparente — ambas especies comparten al pez León como depredador; el agotamiento de la Especie A sostiene la población de depredadores que luego aumenta la presión sobre la especie en declive.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Exploitation competition involves two species consuming the same resource — food or space. The declining species does not compete with lionfish for food; it is being affected through a shared predator pathway, not a shared resource. / La competencia por explotación implica dos especies consumiendo el mismo recurso. La especie en declive no compite con el pez León por alimento; se ve afectada a través de una vía de depredador compartido, no de recurso compartido.')">Exploitation competition — lionfish and the declining species are consuming the same food resources. / Competencia por explotación — el pez León y la especie en declive están consumiendo los mismos recursos alimentarios.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        Why does GMAIN's dive log protocol record functional group composition rather than only total fish abundance?<br>
+        <em>¿Por qué el protocolo de registro de buceo de GMAIN registra la composición de grupos funcionales en lugar de solo la abundancia total de peces?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'Regulatory requirements do not determine GMAIN\'s survey design — the design is driven by the ecological interaction signals that total abundance alone cannot capture. / Los requisitos regulatorios no determinan el diseño de la encuesta de GMAIN — el diseño está impulsado por las señales de interacción ecológica que la abundancia total sola no puede capturar.')">Regulatory compliance requires species-level reporting for marine protected area management. / El cumplimiento regulatorio requiere informes a nivel de especie para el manejo de áreas marinas protegidas.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Functional groups are not easier to identify than total fish counts — in fact, functional group assignment requires more ecological training than simple abundance counting. / Los grupos funcionales no son más fáciles de identificar que los conteos totales de peces — de hecho, la asignación de grupos funcionales requiere más entrenamiento ecológico que el simple conteo de abundancia.')">Functional groups are easier to identify in the field than individual species counts. / Los grupos funcionales son más fáciles de identificar en el campo que los conteos de especies individuales.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. A reef can maintain stable total fish biomass while losing critical functional groups — cleaners, herbivores, keystone bioeroders — that maintain the ecological interactions sustaining reef health. Mutualism disruption, apparent competition effects, and keystone species displacement are all invisible to a total abundance metric. Functional group composition reveals the interaction web state that total biomass cannot: whether the processes maintaining the reef are intact, degraded, or absent. / Correcto. Un arrecife puede mantener una biomasa total de peces estable mientras pierde grupos funcionales críticos — limpiadores, herbívoros, bioerocionadores clave — que mantienen las interacciones ecológicas que sustentan la salud del arrecife. La ruptura de mutualismos, los efectos de competencia aparente y el desplazamiento de especies clave son todos invisibles para una métrica de abundancia total. La composición de grupos funcionales revela el estado de la red de interacciones que la biomasa total no puede: si los procesos que mantienen el arrecife están intactos, degradados o ausentes.')">Total fish biomass can remain stable while critical functional groups (cleaners, herbivores, keystones) are lost — functional composition reveals the interaction web state that abundance alone cannot. / La biomasa total de peces puede permanecer estable mientras se pierden grupos funcionales críticos (limpiadores, herbívoros, especies clave) — la composición funcional revela el estado de la red de interacciones que la abundancia sola no puede.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Invasive species identification is part of the GMAIN log, but functional group recording serves a different purpose — detecting interaction web integrity loss that total abundance metrics miss. / La identificación de especies invasoras es parte del registro GMAIN, pero el registro de grupos funcionales sirve a un propósito diferente — detectar la pérdida de integridad de la red de interacciones que las métricas de abundancia total omiten.')">Functional group data is required to distinguish invasive species from native species in field surveys. / Los datos de grupos funcionales son necesarios para distinguir especies invasoras de nativas en las encuestas de campo.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        When DMAP-CAL detects correlated unfavorable trends across lionfish density (GMAIN), urchin density (GRIN), algal cover (GRIN Feature Layer), and coral recruitment (GRIN structural data) at the same node cluster, what does this pattern indicate and what response does it trigger?<br>
+        <em>Cuando DMAP-CAL detecta tendencias desfavorables correlacionadas en densidad de pez León (GMAIN), densidad de erizos (GRIN), cobertura algal (Capa de Características de GRIN) y reclutamiento de coral (datos estructurales de GRIN) en el mismo clúster de nodos, ¿qué indica este patrón y qué respuesta desencadena?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,3,'A single bleaching event would appear primarily in the thermal stress Feature Layer and coral cover data, not as a correlated multi-species pattern spanning predator density, urchin density, algal cover, and recruitment simultaneously. The described pattern is characteristic of a facilitation cascade, not an acute thermal event. / Un solo evento de blanqueamiento aparecería principalmente en la capa de características de estrés térmico y datos de cobertura de coral, no como un patrón multi-especie correlacionado que abarca densidad de depredadores, densidad de erizos, cobertura algal y reclutamiento simultáneamente.')">A single acute thermal bleaching event requiring emergency coral restoration. / Un solo evento de blanqueamiento térmico agudo que requiere restauración de coral de emergencia.</button></li>
+        <li><button onclick="handleMCQ(this,true,3,'Correct. This four-indicator correlation is the CMIE signature of invasional meltdown — a facilitation cascade in which lionfish depletion of herbivores enables urchin population release, urchin overgrazing produces bare substrate, and algae colonize it faster than coral can recruit. No single module captures this compound signal. The CMIE cross-module synthesis identifies the cascading facilitation structure, and DMAP-CAL escalates from single-species removal tasking to multi-stressor coordinated management — a qualitatively different intervention requiring simultaneous lionfish suppression, urchin density management, substrate clearing, and potentially coral transplantation. / Correcto. Esta correlación de cuatro indicadores es la firma CMIE de la fusión invasional — una cascada de facilitación en la que el agotamiento de herbívoros por el pez León permite la liberación de la población de erizos, el sobrepastoreo de erizos produce sustrato desnudo, y las algas lo colonizan más rápido de lo que el coral puede reclutar. Ningún módulo único captura esta señal compuesta. La síntesis inter-módulo del CMIE identifica la estructura de facilitación en cascada, y DMAP-CAL escala de tareas de remoción de una sola especie a manejo coordinado de múltiples factores estresantes.')">Invasional meltdown — a facilitation cascade spanning multiple species; DMAP-CAL escalates from single-species removal to multi-stressor coordinated management. / Fusión invasional — una cascada de facilitación que abarca múltiples especies; DMAP-CAL escala de remoción de una sola especie a manejo coordinado de múltiples factores estresantes.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Normal seasonal variation would not produce correlated unfavorable trends simultaneously across four different biological indicators spanning predator density, grazer density, algal cover, and coral recruitment — the co-occurrence across all four indicators at once is the diagnostic signature of a compound facilitation cascade. / La variación estacional normal no produciría tendencias desfavorables correlacionadas simultáneamente en cuatro indicadores biológicos diferentes que abarcan densidad de depredadores, densidad de pastadores, cobertura algal y reclutamiento de coral.')">Normal seasonal variation requiring no management intervention. / Variación estacional normal que no requiere intervención de manejo.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Data quality failure would not produce correlated unfavorable trends across four independent indicators from different monitoring streams — random error or sensor failure would be uncorrelated. Correlated trends across multiple indicators are a biological signal, not a data artifact. / El fallo de calidad de datos no produciría tendencias desfavorables correlacionadas en cuatro indicadores independientes de diferentes flujos de monitoreo — el error aleatorio o el fallo del sensor no estaría correlacionado.')">Data quality failure across multiple monitoring streams requiring sensor recalibration. / Fallo de calidad de datos en múltiples flujos de monitoreo que requiere recalibración de sensores.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav">
+      <a href="S21_L05_Invasive_Species_Dynamics.html">← S21·L05 Dynamics</a>
+    </div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright); font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 06 of —</div>
+    </div>
+    <div class="footer-nav">
+      <a href="#">S21·L07 →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang,btn){
+    document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+lang).classList.add('active');
+  }
+  function handleMCQ(btn,isCorrect,qNum,feedback){
+    const block=btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b=>b.disabled=true);
+    btn.classList.add(isCorrect?'correct':'wrong');
+    const fb=document.getElementById('fb-'+qNum);
+    fb.textContent=feedback;
+    fb.classList.add('show',isCorrect?'correct-fb':'wrong-fb');
+  }
+</script>
+</body>
+</html>
