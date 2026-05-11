@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L02 — Invasive Species: Core Principles | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:    #0a1628;
+    --ocean-mid:     #0f2240;
+    --ocean-surface: #1a3a5c;
+    --teal-bright:   #00c8b4;
+    --teal-dim:      #007a6e;
+    --amber:         #f5a623;
+    --coral-red:     #e05a3a;
+    --text-primary:  #e8f4f8;
+    --text-secondary:#8fbdd3;
+    --text-muted:    #4a7a96;
+    --card-bg:       rgba(15,34,64,0.85);
+    --border:        rgba(0,200,180,0.18);
+    --tag-bg:        rgba(0,200,180,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-outer {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    width: 9.23%; /* 65/704 — lesson count unchanged, S21·L02 is standalone */
+    background: linear-gradient(90deg, var(--teal-dim), var(--teal-bright));
+  }
+
+  /* ── HEADER / SVG ── */
+  .lesson-header {
+    background: linear-gradient(180deg, #060e1e 0%, var(--ocean-deep) 100%);
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .header-svg-wrap {
+    width: 100%;
+    max-height: 280px;
+    overflow: hidden;
+  }
+
+  /* ── META STRIP ── */
+  .meta-strip {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 28px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--teal-bright);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .lesson-tag-amber {
+    background: rgba(245,166,35,0.12);
+    border-color: rgba(245,166,35,0.3);
+    color: var(--amber);
+  }
+
+  /* ── LESSON TITLE ── */
+  .lesson-title-block {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 18px 28px 28px;
+  }
+  .lesson-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--teal-bright);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h1.lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  h1.lesson-title em {
+    font-style: italic;
+    color: var(--teal-bright);
+  }
+  .lesson-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .content-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 28px 60px;
+  }
+
+  /* ── LANGUAGE TABS ── */
+  .lang-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+  .lang-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .lang-tab.active {
+    color: var(--teal-bright);
+    border-bottom-color: var(--teal-bright);
+  }
+  .lang-panel { display: none; }
+  .lang-panel.active { display: block; }
+
+  /* ── TYPOGRAPHY ── */
+  h2.section-head {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--teal-bright);
+    margin: 36px 0 12px;
+    border-left: 3px solid var(--teal-dim);
+    padding-left: 14px;
+  }
+  h3.sub-head {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 24px 0 8px;
+    letter-spacing: 0.02em;
+  }
+  p { margin-bottom: 14px; font-size: 0.96rem; color: var(--text-primary); }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 3px solid var(--teal-bright);
+    background: rgba(0,200,180,0.06);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+  .callout strong { color: var(--teal-bright); }
+  .callout-amber {
+    border-left-color: var(--amber);
+    background: rgba(245,166,35,0.06);
+  }
+  .callout-amber strong { color: var(--amber); }
+  .callout-red {
+    border-left-color: var(--coral-red);
+    background: rgba(224,90,58,0.07);
+  }
+  .callout-red strong { color: var(--coral-red); }
+
+  /* ── INVASION CURVE ── */
+  .curve-stages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+  }
+  @media(max-width:600px){ .curve-stages { grid-template-columns: 1fr 1fr; } }
+  .stage-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .stage-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--teal-bright);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stage-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .stage-desc {
+    font-size: 0.77rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* ── MECHANISMS TABLE ── */
+  .mechanism-grid {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .mechanism-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    align-items: start;
+  }
+  @media(max-width:560px){ .mechanism-row { grid-template-columns: 1fr; } }
+  .mechanism-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--teal-bright);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    padding-top: 2px;
+  }
+  .mechanism-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ── APPLICATION PANEL ── */
+  .application-panel {
+    background: linear-gradient(135deg, rgba(15,34,64,0.95) 0%, rgba(10,22,40,0.95) 100%);
+    border: 1px solid rgba(0,200,180,0.25);
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    margin: 40px 0 32px;
+  }
+  .application-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--amber);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .application-panel .app-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .app-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media(max-width:520px){ .app-stat-row { grid-template-columns: 1fr 1fr; } }
+  .app-stat {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .app-stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--teal-bright);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .app-stat-lbl {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section { margin-top: 40px; }
+  .mcq-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+  }
+  .mcq-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 22px 18px;
+    margin-bottom: 16px;
+  }
+  .mcq-q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--teal-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .mcq-question {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .mcq-question em { font-style: italic; color: var(--text-secondary); font-size: 0.88em; }
+  .mcq-options { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .mcq-options li button {
+    width: 100%;
+    text-align: left;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    line-height: 1.45;
+  }
+  .mcq-options li button:hover { background: rgba(0,200,180,0.08); border-color: var(--teal-dim); color: var(--text-primary); }
+  .mcq-options li button.correct { background: rgba(0,200,180,0.15); border-color: var(--teal-bright); color: var(--teal-bright); font-weight: 500; }
+  .mcq-options li button.wrong { background: rgba(224,90,58,0.12); border-color: var(--coral-red); color: var(--coral-red); }
+  .mcq-options li button:disabled { cursor: default; }
+  .mcq-feedback {
+    margin-top: 12px;
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: none;
+  }
+  .mcq-feedback.show { display: block; }
+  .mcq-feedback.correct-fb { color: var(--teal-bright); }
+  .mcq-feedback.wrong-fb { color: #e07a5f; }
+
+  /* ── FOOTER ── */
+  .lesson-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 28px;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-nav a:hover { color: var(--teal-bright); }
+  .footer-progress {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar-outer">
+  <div class="progress-bar-inner"></div>
+</div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Invasion curve as a stylized wave breaking over a reef silhouette -->
+    <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#03080f"/>
+          <stop offset="100%" stop-color="#0a1628"/>
+        </linearGradient>
+        <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#007a6e" stop-opacity="0.25"/>
+          <stop offset="50%" stop-color="#00c8b4" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#e05a3a" stop-opacity="0.4"/>
+        </linearGradient>
+        <linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#007a6e"/>
+          <stop offset="60%" stop-color="#00c8b4"/>
+          <stop offset="100%" stop-color="#e05a3a"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <clipPath id="clip"><rect width="900" height="260"/></clipPath>
+      </defs>
+      <rect width="900" height="260" fill="url(#skyGrad)"/>
+
+      <!-- Grid lines (invasion ecology graph aesthetic) -->
+      <g stroke="rgba(0,200,180,0.07)" stroke-width="1">
+        <line x1="0" y1="65" x2="900" y2="65"/>
+        <line x1="0" y1="130" x2="900" y2="130"/>
+        <line x1="0" y1="195" x2="900" y2="195"/>
+        <line x1="225" y1="0" x2="225" y2="260"/>
+        <line x1="450" y1="0" x2="450" y2="260"/>
+        <line x1="675" y1="0" x2="675" y2="260"/>
+      </g>
+
+      <!-- Reef silhouette bottom -->
+      <path d="M0,220 Q30,200 60,215 Q90,200 110,210 Q135,195 160,208 Q195,188 230,205 Q265,190 300,210 Q340,195 380,208 Q420,193 460,207 Q510,185 560,205 Q610,188 660,210 Q720,195 780,205 Q840,188 900,205 L900,260 L0,260 Z"
+            fill="rgba(6,16,32,0.7)"/>
+
+      <!-- Coral formations -->
+      <g fill="none" stroke="rgba(0,200,180,0.3)" stroke-width="1.2">
+        <path d="M80,220 L80,198 L72,185 M80,198 L90,183 M80,205 L68,195"/>
+        <path d="M200,215 L200,194 L192,178 M200,194 L211,180 M200,200 L189,191"/>
+        <path d="M420,212 L420,190 L412,176 M420,190 L432,175 M420,197 L408,188"/>
+        <path d="M620,210 L620,188 L611,174 M620,188 L631,172 M620,195 L608,185"/>
+        <path d="M820,208 L820,186 L811,171 M820,186 L832,170 M820,193 L808,183"/>
+      </g>
+
+      <!-- Invasion curve: S-shaped / exponential -->
+      <!-- Shaded area under curve -->
+      <path d="M40,215 Q120,212 200,210 Q280,208 360,200 Q420,194 470,175 Q530,148 590,110 Q660,68 740,42 Q800,24 860,18 L860,230 L40,230 Z"
+            fill="url(#waveGrad)" clip-path="url(#clip)"/>
+
+      <!-- Main curve line -->
+      <path d="M40,215 Q120,212 200,210 Q280,208 360,200 Q420,194 470,175 Q530,148 590,110 Q660,68 740,42 Q800,24 860,18"
+            fill="none" stroke="url(#curveGrad)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+
+      <!-- Phase markers -->
+      <g font-family="'DM Mono', monospace" fill="rgba(0,200,180,0.55)" font-size="9" letter-spacing="0.08em">
+        <text x="70" y="255" text-anchor="middle">INTRODUCTION</text>
+        <text x="280" y="255" text-anchor="middle">ESTABLISHMENT</text>
+        <text x="520" y="255" text-anchor="middle">SPREAD</text>
+        <text x="760" y="255" text-anchor="middle">IMPACT</text>
+      </g>
+
+      <!-- Phase dividers -->
+      <g stroke="rgba(0,200,180,0.18)" stroke-width="1" stroke-dasharray="3,4">
+        <line x1="175" y1="0" x2="175" y2="240"/>
+        <line x1="390" y1="0" x2="390" y2="240"/>
+        <line x1="640" y1="0" x2="640" y2="240"/>
+      </g>
+
+      <!-- Y-axis label -->
+      <text x="16" y="130" font-family="'DM Mono', monospace" font-size="8" fill="rgba(0,200,180,0.4)"
+            text-anchor="middle" transform="rotate(-90,16,130)" letter-spacing="0.1em">POPULATION SIZE</text>
+
+      <!-- Lag phase label -->
+      <text x="260" y="45" font-family="'DM Mono', monospace" font-size="8.5"
+            fill="rgba(245,166,35,0.7)" letter-spacing="0.06em">LAG PHASE</text>
+      <line x1="175" y1="50" x2="390" y2="50" stroke="rgba(245,166,35,0.4)" stroke-width="1" stroke-dasharray="2,3"/>
+      <circle cx="283" cy="50" r="2" fill="rgba(245,166,35,0.6)"/>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 02</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag">GMAIN</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L02</div>
+    <h1 class="lesson-title">Invasive Species — <em>Core Principles</em></h1>
+    <p class="lesson-subtitle">Principios Fundamentales de Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ═════════════════════════════════════════════════════════ -->
+<main class="content-wrap">
+
+  <!-- Language Tabs -->
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en', this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es', this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH PANEL ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">What Makes a Species Invasive?</h2>
+    <p>Not every non-native species is invasive. The terminology matters: a species is <strong>introduced</strong> when transported beyond its native range by human activity. It is <strong>naturalized</strong> if it establishes a self-sustaining population. It becomes <strong>invasive</strong> only when it spreads widely and causes measurable harm to native biodiversity, ecosystem function, or human welfare.</p>
+    <p>The vast majority of introduced species fail to establish — this is sometimes called the "tens rule": roughly 10% of introduced species establish, and 10% of those become invasive. The few that break through, however, can rewrite ecosystem dynamics at a scale that takes centuries to reverse.</p>
+
+    <div class="callout">
+      <strong>Definition (IUCN):</strong> An invasive alien species is one whose introduction and/or spread threatens biological diversity, ecosystem services, or human livelihoods. The ecological harm — not simply the origin — is what defines invasiveness.
+    </div>
+
+    <h2 class="section-head">The Invasion Curve: Four Phases</h2>
+    <p>Biological invasions follow a broadly predictable trajectory from first arrival to ecosystem dominance. Understanding this curve is critical for management — different interventions are effective at different phases, and intervention cost rises exponentially with phase advancement.</p>
+
+    <div class="curve-stages">
+      <div class="stage-card">
+        <div class="stage-num">01</div>
+        <div class="stage-name">Introduction</div>
+        <div class="stage-desc">Species arrives in new environment. Population is small, localized, often undetected. Highest probability of eradication if detected.</div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-num">02</div>
+        <div class="stage-name">Establishment</div>
+        <div class="stage-desc">Self-sustaining reproduction begins. Lag phase: population grows slowly as the species acclimates. Eradication still feasible but window closing.</div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-num">03</div>
+        <div class="stage-name">Spread</div>
+        <div class="stage-desc">Exponential population growth. Geographic range expansion begins. Eradication no longer realistic — management focus shifts to containment.</div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-num">04</div>
+        <div class="stage-name">Impact</div>
+        <div class="stage-desc">Invasive species fully integrated as ecological driver. Trophic cascades, prey population collapse, native species displacement — system-level change.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>The Lag Phase:</strong> Between establishment and spread, many invasive species display a deceptive period of apparent stability — sometimes lasting decades. Population is growing, but below detection thresholds. Lionfish entered Caribbean waters in the 1980s. Their exponential spread didn't begin until the mid-2000s. The lag is not absence of danger — it is danger accumulating below the surface.
+    </div>
+
+    <h2 class="section-head">Core Ecological Mechanisms</h2>
+    <p>Four mechanisms explain why some introduced species succeed where most fail. These are not mutually exclusive — in the most ecologically disruptive invasions, all four operate simultaneously.</p>
+
+    <div class="mechanism-grid">
+      <div class="mechanism-row">
+        <div class="mechanism-label">Enemy Release Hypothesis (ERH)</div>
+        <div class="mechanism-text">Invasive species leave behind the predators, parasites, and pathogens that controlled their population in their native range. In the new environment, these regulatory pressures are absent or minimal. Energy that would otherwise be devoted to predator avoidance and immune defense is redirected into reproduction and growth. <em>Lionfish: no Caribbean predator has evolved to hunt them; venom glands deter naïve attackers.</em></div>
+      </div>
+      <div class="mechanism-row">
+        <div class="mechanism-label">Propagule Pressure</div>
+        <div class="mechanism-text">The probability of successful establishment scales with the number of introduction events and the number of individuals introduced per event. A single release may fail due to Allee effects (insufficient mate-finding, genetic bottlenecks). Repeated introductions — or large simultaneous releases — dramatically increase success probability. <em>Lionfish: multiple aquarium releases across the Florida coast in the 1980s–90s are the probable origin.</em></div>
+      </div>
+      <div class="mechanism-row">
+        <div class="mechanism-label">Biotic Resistance</div>
+        <div class="mechanism-text">Native communities resist invasion to varying degrees. High species diversity, intact food webs, and functional redundancy increase resistance — an invader finds every niche occupied. Degraded ecosystems with reduced biodiversity offer lower resistance. <em>Caribbean reefs already under chronic stress from bleaching, overfishing, and coastal runoff had weakened resistance when lionfish arrived.</em></div>
+      </div>
+      <div class="mechanism-row">
+        <div class="mechanism-label">Ecological Fitting</div>
+        <div class="mechanism-text">Some species possess traits — behavioral flexibility, broad thermal tolerance, generalist diet — that pre-adapt them to novel environments without requiring evolutionary change. They "fit" the new ecological space without needing to evolve into it. <em>Lionfish: ambush predator consuming any fish under 65% of their body length; not specialized for any prey species.</em></div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Impact Categories</h2>
+
+    <h3 class="sub-head">Trophic Cascades</h3>
+    <p>When an invasive predator removes key prey species, or an invasive herbivore reduces plant biomass, the effects propagate up and down the food web. Removing abundant prey fish from a reef reduces the food available to larger native predators. Reduced predator populations allow other prey to increase unchecked. Cascades rarely run in one direction — they destabilize the entire trophic structure.</p>
+
+    <h3 class="sub-head">Competition and Displacement</h3>
+    <p>Invasive species may outcompete native species for resources — food, space, light, nesting sites — without the native species having any evolved counter-strategy. Native species that have co-evolved in a balanced competitive landscape can be rapidly displaced when a superior competitor arrives.</p>
+
+    <h3 class="sub-head">Invasional Meltdown</h3>
+    <p>When multiple invasive species interact in ways that amplify each other's ecological success, the system enters invasional meltdown. Species A degrades habitat structure, reducing biotic resistance and enabling Species B to establish. B then alters prey availability in ways that favor A. The combined impact exceeds the sum of individual impacts.</p>
+
+    <h3 class="sub-head">Disease Transmission</h3>
+    <p>Invasive species may introduce novel pathogens to which native species have no immunity, or act as reservoir hosts for diseases that were previously present at subclinical levels. In the reverse direction, introduced species may be devastated by local pathogens — which is why most introductions fail at the establishment phase.</p>
+
+    <div class="callout callout-red">
+      <strong>GROAN / GMAIN Integration:</strong> GMAIN tracks invasive species sighting density, removal rates, and invasive species flags at registered reef nodes. Every GROAN-logged removal enters the GMAIN database with GPS, timestamp, size, and biomass data. GMAIN feeds these signals to the CMIE — invasive pressure is a cross-module variable that affects GRIN reef health scoring, GSIN seagrass nursery function, and GMIN coastal system integrity simultaneously.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH PANEL ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">¿Qué Hace a una Especie Invasora?</h2>
+    <p>No toda especie no nativa es invasora. La terminología es importante: una especie está <strong>introducida</strong> cuando es transportada más allá de su rango nativo por actividad humana. Está <strong>naturalizada</strong> si establece una población autosustentable. Se vuelve <strong>invasora</strong> solo cuando se dispersa ampliamente y causa daño medible a la biodiversidad nativa, la función del ecosistema o el bienestar humano.</p>
+    <p>La gran mayoría de las especies introducidas no logra establecerse — esto se conoce a veces como la "regla de los dieces": aproximadamente el 10% de las especies introducidas se establecen, y el 10% de esas se vuelven invasoras. Las pocas que lo logran, sin embargo, pueden reescribir la dinámica del ecosistema a una escala que tarda siglos en revertirse.</p>
+
+    <div class="callout">
+      <strong>Definición (UICN):</strong> Una especie exótica invasora es aquella cuya introducción y/o dispersión amenaza la diversidad biológica, los servicios ecosistémicos o los medios de vida humanos. El daño ecológico — no simplemente el origen — es lo que define la invasividad.
+    </div>
+
+    <h2 class="section-head">La Curva de Invasión: Cuatro Fases</h2>
+    <p>Las invasiones biológicas siguen una trayectoria ampliamente predecible desde la primera llegada hasta la dominancia del ecosistema. Comprender esta curva es fundamental para el manejo — diferentes intervenciones son efectivas en diferentes fases, y el costo de intervención aumenta exponencialmente con el avance de la fase.</p>
+
+    <div class="curve-stages">
+      <div class="stage-card">
+        <div class="stage-num">01</div>
+        <div class="stage-name">Introducción</div>
+        <div class="stage-desc">La especie llega al nuevo ambiente. La población es pequeña, localizada, a menudo sin detectar. Mayor probabilidad de erradicación si se detecta.</div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-num">02</div>
+        <div class="stage-name">Establecimiento</div>
+        <div class="stage-desc">Comienza la reproducción autosustentable. Fase de rezago: la población crece lentamente. La erradicación aún es factible, pero la ventana se cierra.</div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-num">03</div>
+        <div class="stage-name">Dispersión</div>
+        <div class="stage-desc">Crecimiento poblacional exponencial. Comienza la expansión geográfica. La erradicación ya no es realista — el enfoque de manejo cambia a contención.</div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-num">04</div>
+        <div class="stage-name">Impacto</div>
+        <div class="stage-desc">La especie invasora es ya un motor ecológico plenamente integrado. Cascadas tróficas, colapso de presas, desplazamiento de especies nativas — cambio sistémico.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>La Fase de Rezago:</strong> Entre el establecimiento y la dispersión, muchas especies invasoras muestran un período engañoso de aparente estabilidad — a veces durando décadas. La población crece, pero por debajo del umbral de detección. El pez león llegó al Caribe en los años 80. Su dispersión exponencial no comenzó hasta mediados de los 2000. El rezago no es ausencia de peligro — es peligro acumulándose bajo la superficie.
+    </div>
+
+    <h2 class="section-head">Mecanismos Ecológicos Fundamentales</h2>
+    <p>Cuatro mecanismos explican por qué algunas especies introducidas tienen éxito donde la mayoría falla. Estos no son mutuamente excluyentes — en las invasiones más ecológicamente disruptivas, los cuatro operan simultáneamente.</p>
+
+    <div class="mechanism-grid">
+      <div class="mechanism-row">
+        <div class="mechanism-label">Hipótesis de Liberación de Enemigos (HLE)</div>
+        <div class="mechanism-text">Las especies invasoras dejan atrás a los depredadores, parásitos y patógenos que controlaban su población en su rango nativo. En el nuevo ambiente, estas presiones reguladoras están ausentes o son mínimas. La energía que se destinaría a evitar depredadores se redirige a la reproducción y el crecimiento. <em>Pez león: ningún depredador caribeño ha evolucionado para cazarlo; las glándulas venenosas disuaden a atacantes sin experiencia.</em></div>
+      </div>
+      <div class="mechanism-row">
+        <div class="mechanism-label">Presión de Propágulos</div>
+        <div class="mechanism-text">La probabilidad de establecimiento exitoso escala con el número de eventos de introducción y el número de individuos por evento. Una liberación única puede fallar por efectos Allee. Introducciones repetidas — o grandes liberaciones simultáneas — aumentan dramáticamente la probabilidad de éxito. <em>Pez león: múltiples liberaciones de acuario en la costa de Florida en los años 80–90 son el probable origen.</em></div>
+      </div>
+      <div class="mechanism-row">
+        <div class="mechanism-label">Resistencia Biótica</div>
+        <div class="mechanism-text">Las comunidades nativas resisten la invasión en distintos grados. Alta diversidad de especies, redes tróficas intactas y redundancia funcional aumentan la resistencia. Los ecosistemas degradados con menor biodiversidad ofrecen menor resistencia. <em>Los arrecifes caribeños, ya bajo estrés crónico por blanqueamiento, sobrepesca y escorrentía costera, tenían resistencia debilitada cuando llegó el pez león.</em></div>
+      </div>
+      <div class="mechanism-row">
+        <div class="mechanism-label">Ajuste Ecológico</div>
+        <div class="mechanism-text">Algunas especies poseen rasgos — flexibilidad conductual, amplia tolerancia térmica, dieta generalista — que las pre-adaptan a ambientes novedosos sin requerir cambio evolutivo. "Encajan" en el nuevo espacio ecológico sin necesitar evolucionar. <em>Pez león: depredador de emboscada que consume cualquier pez menor al 65% de su longitud corporal; no especializado en ninguna presa.</em></div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Categorías de Impacto</h2>
+
+    <h3 class="sub-head">Cascadas Tróficas</h3>
+    <p>Cuando un depredador invasor elimina especies presa clave, o un herbívoro invasor reduce la biomasa vegetal, los efectos se propagan hacia arriba y hacia abajo en la red alimentaria. La eliminación de peces presa abundantes de un arrecife reduce el alimento disponible para depredadores nativos más grandes. La reducción de estas poblaciones permite que otras presas aumenten sin control. Las cascadas rara vez corren en una sola dirección — desestabilizan toda la estructura trófica.</p>
+
+    <h3 class="sub-head">Competencia y Desplazamiento</h3>
+    <p>Las especies invasoras pueden superar en competencia a las nativas por recursos — alimento, espacio, luz, sitios de anidación — sin que las nativas tengan ninguna estrategia contraria evolucionada. Las especies nativas que co-evolucionaron en un paisaje competitivo equilibrado pueden ser desplazadas rápidamente cuando llega un competidor superior.</p>
+
+    <h3 class="sub-head">Fusión Invasional</h3>
+    <p>Cuando múltiples especies invasoras interactúan de maneras que amplían mutuamente su éxito ecológico, el sistema entra en fusión invasional. La Especie A degrada la estructura del hábitat, reduciendo la resistencia biótica y permitiendo que la Especie B se establezca. B altera la disponibilidad de presas de maneras que favorecen a A. El impacto combinado supera la suma de los impactos individuales.</p>
+
+    <h3 class="sub-head">Transmisión de Enfermedades</h3>
+    <p>Las especies invasoras pueden introducir patógenos novedosos para los cuales las especies nativas no tienen inmunidad, o actuar como huéspedes reservorio de enfermedades que estaban presentes anteriormente a niveles subclínicos. En dirección contraria, las especies introducidas pueden ser devastadas por patógenos locales — razón por la que la mayoría de las introducciones fallan en la fase de establecimiento.</p>
+
+    <div class="callout callout-red">
+      <strong>Integración GROAN / GMAIN:</strong> GMAIN rastrea la densidad de avistamientos de especies invasoras, tasas de remoción y señales de alerta en nodos de arrecife registrados. Cada remoción registrada en GROAN ingresa a la base de datos GMAIN con GPS, marca de tiempo, talla y datos de biomasa. GMAIN alimenta estas señales al CMIE — la presión invasora es una variable inter-módulo que afecta simultáneamente la puntuación de salud del arrecife en GRIN, la función de vivero de pastos marinos en GSIN y la integridad del sistema costero en GMIN.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- ══ APPLICATION PANEL ══════════════════════════════════════════════ -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">Caribbean Lionfish Invasion — All Four Mechanisms in Action</p>
+
+    <div class="app-stat-row">
+      <div class="app-stat">
+        <div class="app-stat-val">~1980s</div>
+        <div class="app-stat-lbl">First documented Caribbean introductions (aquarium releases, Florida coast)</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">~20 yr</div>
+        <div class="app-stat-lbl">Lag phase before exponential spread began (~2004–2009)</div>
+      </div>
+      <div class="app-stat">
+        <div class="app-stat-val">1,000 +</div>
+        <div class="app-stat-lbl">Estimated eggs per spawning event; spawning year-round in Caribbean waters</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:12px;">The Caribbean lionfish invasion is the textbook application of all four core mechanisms operating in concert. <strong style="color:var(--text-primary)">Enemy Release:</strong> no native Caribbean predator evolved venom-handling behavior — grouper, shark, and moray eel interactions with lionfish are cautious and infrequent, not predatory. <strong style="color:var(--text-primary)">Propagule Pressure:</strong> aquarium trade releases in the late 1980s and early 1990s provided the seed population across multiple Florida sites — multiple events, not a single release. <strong style="color:var(--text-primary)">Biotic Resistance:</strong> chronically stressed Caribbean reefs — already degraded by thermal bleaching, coastal runoff, and decades of overfishing — offered minimal resistance. <strong style="color:var(--text-primary)">Ecological Fitting:</strong> lionfish are ambush hunters with no prey specialization, consuming any fish from blennies to juvenile snapper under 65% of their body length.</p>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary);">The Rim Run™ field protocol engages all four dimensions directly: pole spear and Hawaiian sling removals reduce local population density (countering enemy release deficiency), biometric logging feeds propagule pressure models, and GMAIN density mapping tracks biotic resistance recovery at individual reef nodes.</p>
+  </div>
+
+  <!-- ══ MCQ SECTION ════════════════════════════════════════════════════ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <!-- Q1 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        Which phase of the invasion curve represents the greatest opportunity for successful eradication?<br>
+        <em>¿Qué fase de la curva de invasión representa la mayor oportunidad de erradicación exitosa?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this, false, 1, 'Spread is the exponential growth phase — eradication is no longer realistic at this stage. / La dispersión es la fase de crecimiento exponencial — la erradicación ya no es realista en esta etapa.')">Spread / Dispersión</button></li>
+        <li><button onclick="handleMCQ(this, true, 1, 'Correct. At the introduction phase, populations are small, localized, and below their reproductive momentum — intervention cost is lowest and eradication probability is highest. / Correcto. En la fase de introducción, las poblaciones son pequeñas, localizadas y por debajo de su impulso reproductivo — el costo de intervención es el menor y la probabilidad de erradicación es la mayor.')">Introduction / Introducción</button></li>
+        <li><button onclick="handleMCQ(this, false, 1, 'At the impact phase, the species is fully integrated as an ecological driver — eradication is not feasible. / En la fase de impacto, la especie está plenamente integrada como motor ecológico — la erradicación no es factible.')">Impact / Impacto</button></li>
+        <li><button onclick="handleMCQ(this, false, 1, 'Establishment marks the beginning of self-sustaining reproduction. Eradication is still possible but the window is already closing. / El establecimiento marca el inicio de la reproducción autosustentable. La erradicación aún es posible, pero la ventana ya se está cerrando.')">Establishment / Establecimiento</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        The Enemy Release Hypothesis predicts that invasive species succeed in part because:<br>
+        <em>La Hipótesis de Liberación de Enemigos predice que las especies invasoras tienen éxito en parte porque:</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this, false, 2, 'This describes ecological fitting, not enemy release. / Esto describe el ajuste ecológico, no la liberación de enemigos.')">They evolve rapidly to exploit available prey. / Evolucionan rápidamente para explotar las presas disponibles.</button></li>
+        <li><button onclick="handleMCQ(this, false, 2, 'High propagule pressure relates to the number of introduction events, not predation pressure. / La alta presión de propágulos se relaciona con el número de eventos de introducción, no con la presión de depredación.')">They arrive in large enough numbers to resist native predators. / Llegan en número suficiente para resistir a los depredadores nativos.</button></li>
+        <li><button onclick="handleMCQ(this, true, 2, 'Correct. The ERH holds that invasive species are freed from the predators, parasites, and pathogens that regulated their populations at home — redirecting that energy into growth and reproduction. / Correcto. La HLE sostiene que las especies invasoras se liberan de los depredadores, parásitos y patógenos que regulaban sus poblaciones en su rango nativo, redirigiendo esa energía al crecimiento y la reproducción.')">Their natural predators, parasites, and pathogens are absent in the new range. / Sus depredadores, parásitos y patógenos naturales están ausentes en el nuevo rango.</button></li>
+        <li><button onclick="handleMCQ(this, false, 2, 'Native prey naivety contributes to invasive predator success, but this is a consequence of enemy release, not the mechanism itself. / La ingenuidad de las presas nativas contribuye al éxito de los depredadores invasores, pero esto es una consecuencia de la liberación de enemigos, no el mecanismo en sí.')">Native prey species are naive and lack anti-predator behaviors. / Las especies presa nativas son inexpertas y carecen de comportamientos anti-depredador.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        A reef with high species diversity and an intact food web is predicted to have:<br>
+        <em>Se predice que un arrecife con alta diversidad de especies y una red alimentaria intacta tendrá:</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this, false, 3, 'The opposite is true — a degraded, low-diversity system offers less resistance to invasion. / Lo contrario es verdad — un sistema degradado y de baja diversidad ofrece menor resistencia a la invasión.')">Lower biotic resistance because more competition exists for invasive niches. / Menor resistencia biótica porque existe más competencia por nichos invasores.</button></li>
+        <li><button onclick="handleMCQ(this, true, 3, 'Correct. Biotic resistance theory predicts that high species diversity, functional redundancy, and intact trophic structure make it harder for an invader to find an unoccupied niche or outcompete resident species. / Correcto. La teoría de la resistencia biótica predice que la alta diversidad de especies, la redundancia funcional y la estructura trófica intacta dificultan que un invasor encuentre un nicho desocupado o supere en competencia a las especies residentes.')">Higher biotic resistance because more niches are occupied. / Mayor resistencia biótica porque más nichos están ocupados.</button></li>
+        <li><button onclick="handleMCQ(this, false, 3, 'Species diversity does not directly affect propagule pressure, which is determined by introduction events rather than ecosystem condition. / La diversidad de especies no afecta directamente la presión de propágulos, que está determinada por eventos de introducción y no por la condición del ecosistema.')">Equivalent biotic resistance but reduced propagule pressure. / Resistencia biótica equivalente pero menor presión de propágulos.</button></li>
+        <li><button onclick="handleMCQ(this, false, 3, 'The ERH applies to the invader\'s native range, not the characteristics of the receiving ecosystem. / La HLE se aplica al rango nativo del invasor, no a las características del ecosistema receptor.')">Higher vulnerability due to the Enemy Release Hypothesis. / Mayor vulnerabilidad debido a la Hipótesis de Liberación de Enemigos.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div><!-- /mcq-section -->
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav">
+      <a href="S21_L01_Invasive_Species_Foundations.html">← S21·L01 Foundations</a>
+    </div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright); font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 02 of —</div>
+    </div>
+    <div class="footer-nav">
+      <a href="#">S21·L03 →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang, btn) {
+    document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + lang).classList.add('active');
+  }
+
+  function handleMCQ(btn, isCorrect, qNum, feedback) {
+    const block = btn.closest('.mcq-block');
+    const allBtns = block.querySelectorAll('button');
+    allBtns.forEach(b => b.disabled = true);
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    const fb = document.getElementById('fb-' + qNum);
+    fb.textContent = feedback;
+    fb.classList.add('show', isCorrect ? 'correct-fb' : 'wrong-fb');
+  }
+</script>
+</body>
+</html>
