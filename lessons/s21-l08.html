@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L08 — Invasive Species: Measurements | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:    #0a1628;
+    --teal-bright:   #00c8b4;
+    --teal-dim:      #007a6e;
+    --amber:         #f5a623;
+    --coral-red:     #e05a3a;
+    --violet:        #9b6dff;
+    --seafoam:       #4ab8e0;
+    --mint:          #2edd9e;
+    --gold:          #e8c84a;
+    --text-primary:  #e8f4f8;
+    --text-secondary:#8fbdd3;
+    --text-muted:    #4a7a96;
+    --card-bg:       rgba(15,34,64,0.85);
+    --border:        rgba(0,200,180,0.18);
+    --tag-bg:        rgba(0,200,180,0.12);
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ocean-deep); color:var(--text-primary); font-family:'DM Sans',sans-serif; line-height:1.7; min-height:100vh; }
+
+  .progress-bar-outer { width:100%; height:4px; background:rgba(255,255,255,0.06); position:sticky; top:0; z-index:100; }
+  .progress-bar-inner { height:100%; width:9.23%; background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright)); }
+
+  .lesson-header { background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%); border-bottom:1px solid var(--border); overflow:hidden; }
+  .header-svg-wrap { width:100%; height:240px; overflow:hidden; }
+
+  .meta-strip { max-width:860px; margin:0 auto; padding:24px 28px 0; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .section-tag { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; background:var(--tag-bg); border:1px solid var(--border); color:var(--teal-bright); padding:4px 10px; border-radius:4px; }
+  .lesson-tag-amber { background:rgba(245,166,35,0.12); border-color:rgba(245,166,35,0.3); color:var(--amber); }
+  .lesson-tag-gold  { background:rgba(232,200,74,0.10); border-color:rgba(232,200,74,0.30); color:var(--gold); }
+
+  .lesson-title-block { max-width:860px; margin:0 auto; padding:18px 28px 28px; }
+  .lesson-number { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--teal-bright); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px; }
+  h1.lesson-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700; line-height:1.2; margin-bottom:6px; }
+  h1.lesson-title em { font-style:italic; color:var(--teal-bright); }
+  .lesson-subtitle { font-size:0.88rem; color:var(--text-secondary); font-style:italic; }
+
+  .content-wrap { max-width:860px; margin:0 auto; padding:40px 28px 60px; }
+
+  .lang-tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+  .lang-tab { font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:8px 18px; border:none; background:transparent; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .2s,border-color .2s; }
+  .lang-tab.active { color:var(--teal-bright); border-bottom-color:var(--teal-bright); }
+  .lang-panel { display:none; } .lang-panel.active { display:block; }
+
+  h2.section-head { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--teal-bright); margin:36px 0 12px; border-left:3px solid var(--teal-dim); padding-left:14px; }
+  h3.sub-head { font-size:0.95rem; font-weight:600; color:var(--text-primary); margin:24px 0 8px; }
+  p { margin-bottom:14px; font-size:0.96rem; color:var(--text-primary); }
+  p:last-child { margin-bottom:0; }
+
+  .callout { border-left:3px solid var(--teal-bright); background:rgba(0,200,180,0.06); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:0.92rem; color:var(--text-secondary); }
+  .callout strong { color:var(--teal-bright); }
+  .callout-amber { border-left-color:var(--amber); background:rgba(245,166,35,0.06); }
+  .callout-amber strong { color:var(--amber); }
+  .callout-red { border-left-color:var(--coral-red); background:rgba(224,90,58,0.07); }
+  .callout-red strong { color:var(--coral-red); }
+  .callout-violet { border-left-color:var(--violet); background:rgba(155,109,255,0.07); }
+  .callout-violet strong { color:var(--violet); }
+  .callout-gold { border-left-color:var(--gold); background:rgba(232,200,74,0.06); }
+  .callout-gold strong { color:var(--gold); }
+
+  /* method comparison grid */
+  .method-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px 0; }
+  @media(max-width:540px){ .method-grid { grid-template-columns:1fr; } }
+  .method-card { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:16px 14px; }
+  .method-label { font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--seafoam); margin-bottom:8px; }
+  .method-text { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* GMAIN log field table */
+  .log-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.84rem; }
+  .log-table th { font-family:'DM Mono',monospace; font-size:0.67rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal-bright); border-bottom:1px solid var(--border); padding:10px 12px; text-align:left; }
+  .log-table td { padding:10px 12px; border-bottom:1px solid rgba(0,200,180,0.07); color:var(--text-secondary); vertical-align:top; line-height:1.45; }
+  .log-table tr:last-child td { border-bottom:none; }
+  .log-table td:first-child { font-family:'DM Mono',monospace; font-size:0.76rem; color:var(--amber); white-space:nowrap; }
+  .log-table tr:hover td { background:rgba(0,200,180,0.03); }
+  .req { color:var(--coral-red); font-size:0.7rem; font-family:'DM Mono',monospace; }
+  .opt { color:var(--teal-dim); font-size:0.7rem; font-family:'DM Mono',monospace; }
+
+  /* length-weight rows */
+  .lw-rows { display:flex; flex-direction:column; gap:10px; margin:20px 0; }
+  .lw-row { display:grid; grid-template-columns:160px 1fr; gap:14px; background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:14px 16px; align-items:start; }
+  @media(max-width:520px){ .lw-row { grid-template-columns:1fr; } }
+  .lw-label { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--violet); padding-top:2px; }
+  .lw-text { font-size:0.84rem; color:var(--text-secondary); line-height:1.5; }
+
+  /* bias sources */
+  .bias-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0; }
+  @media(max-width:600px){ .bias-grid { grid-template-columns:1fr 1fr; } }
+  .bias-card { background:var(--card-bg); border:1px solid rgba(224,90,58,0.25); border-radius:8px; padding:14px 12px; }
+  .bias-name { font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--coral-red); margin-bottom:6px; }
+  .bias-desc { font-size:0.78rem; color:var(--text-secondary); line-height:1.45; }
+
+  /* application panel */
+  .application-panel { background:linear-gradient(135deg,rgba(15,34,64,0.95),rgba(10,22,40,0.95)); border:1px solid rgba(0,200,180,0.25); border-radius:10px; padding:28px; margin:40px 0 32px; }
+  .application-panel h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--amber); margin-bottom:4px; }
+  .app-sub { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .app-stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  @media(max-width:520px){ .app-stat-row { grid-template-columns:1fr 1fr; } }
+  .app-stat { background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:6px; padding:12px 10px; text-align:center; }
+  .app-stat-val { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--teal-bright); line-height:1.1; margin-bottom:4px; }
+  .app-stat-lbl { font-size:0.72rem; color:var(--text-muted); line-height:1.3; }
+
+  /* MCQ */
+  .mcq-section { margin-top:40px; }
+  .mcq-section h2 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:24px; }
+  .mcq-block { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:22px 22px 18px; margin-bottom:16px; }
+  .mcq-q-num { font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--teal-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+  .mcq-question { font-size:0.95rem; font-weight:500; color:var(--text-primary); margin-bottom:14px; line-height:1.5; }
+  .mcq-question em { font-style:italic; color:var(--text-secondary); font-size:0.88em; }
+  .mcq-options { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .mcq-options li button { width:100%; text-align:left; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--text-secondary); cursor:pointer; transition:background .18s,border-color .18s,color .18s; line-height:1.45; }
+  .mcq-options li button:hover { background:rgba(0,200,180,0.08); border-color:var(--teal-dim); color:var(--text-primary); }
+  .mcq-options li button.correct { background:rgba(0,200,180,0.15); border-color:var(--teal-bright); color:var(--teal-bright); font-weight:500; }
+  .mcq-options li button.wrong { background:rgba(224,90,58,0.12); border-color:var(--coral-red); color:var(--coral-red); }
+  .mcq-options li button:disabled { cursor:default; }
+  .mcq-feedback { margin-top:12px; font-size:0.83rem; line-height:1.5; display:none; }
+  .mcq-feedback.show { display:block; }
+  .mcq-feedback.correct-fb { color:var(--teal-bright); }
+  .mcq-feedback.wrong-fb { color:#e07a5f; }
+
+  .lesson-footer { border-top:1px solid var(--border); padding:24px 28px; max-width:860px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .footer-nav a { font-family:'DM Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); text-decoration:none; transition:color .2s; }
+  .footer-nav a:hover { color:var(--teal-bright); }
+  .footer-progress { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--text-muted); text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Standardized belt transect diagram — top-down reef survey view
+         showing diver path, belt width markers, measurement notation,
+         lionfish position markers with TL/weight callouts, depth gradient -->
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="bgM" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#040b18"/>
+          <stop offset="100%" stop-color="#0a1628"/>
+        </linearGradient>
+        <linearGradient id="reefGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0d2040" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#060f20" stop-opacity="0.9"/>
+        </linearGradient>
+        <radialGradient id="diverGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00c8b4" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#00c8b4" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="lfGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#e05a3a" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="gm2" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gm4" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="3.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect width="900" height="270" fill="url(#bgM)"/>
+
+      <!-- Reef substrate — stylized top-down view -->
+      <ellipse cx="450" cy="155" rx="400" ry="95" fill="url(#reefGrad)" stroke="rgba(0,200,180,0.08)" stroke-width="1"/>
+
+      <!-- Coral structures (top-down circles/blobs) -->
+      <g fill="rgba(245,166,35,0.12)" stroke="rgba(245,166,35,0.18)" stroke-width="0.8">
+        <circle cx="160" cy="140" r="22"/><circle cx="210" cy="168" r="14"/>
+        <circle cx="300" cy="130" r="18"/><circle cx="340" cy="160" r="12"/>
+        <circle cx="420" cy="145" r="20"/><circle cx="480" cy="170" r="16"/>
+        <circle cx="560" cy="138" r="19"/><circle cx="620" cy="162" r="13"/>
+        <circle cx="690" cy="148" r="17"/><circle cx="730" cy="172" r="11"/>
+      </g>
+
+      <!-- Belt transect — the survey corridor -->
+      <!-- Transect centerline (diver path) -->
+      <line x1="60" y1="148" x2="840" y2="148"
+            stroke="rgba(0,200,180,0.65)" stroke-width="1.8" stroke-dasharray="10,4"/>
+
+      <!-- Belt edges — 2m each side = 4m wide belt -->
+      <line x1="60"  y1="118" x2="840" y2="118"
+            stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4,6"/>
+      <line x1="60"  y1="178" x2="840" y2="178"
+            stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4,6"/>
+
+      <!-- Belt fill -->
+      <rect x="60" y="118" width="780" height="60" fill="rgba(0,200,180,0.04)" rx="0"/>
+
+      <!-- Width callout markers -->
+      <line x1="48" y1="118" x2="48" y2="178" stroke="rgba(0,200,180,0.4)" stroke-width="1"/>
+      <line x1="44" y1="118" x2="52" y2="118" stroke="rgba(0,200,180,0.4)" stroke-width="1"/>
+      <line x1="44" y1="178" x2="52" y2="178" stroke="rgba(0,200,180,0.4)" stroke-width="1"/>
+      <text x="38" y="152" font-family="'DM Mono',monospace" font-size="7"
+            fill="rgba(0,200,180,0.65)" text-anchor="middle" transform="rotate(-90,38,152)" letter-spacing="0.06em">4 m BELT</text>
+
+      <!-- Distance markers along transect (every 10m = ~78px) -->
+      <g font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.4)" text-anchor="middle">
+        <line x1="60"  y1="183" x2="60"  y2="192" stroke="rgba(0,200,180,0.35)" stroke-width="0.8"/>
+        <text x="60"  y="200">0m</text>
+        <line x1="138" y1="183" x2="138" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="138" y="200">10m</text>
+        <line x1="216" y1="183" x2="216" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="216" y="200">20m</text>
+        <line x1="294" y1="183" x2="294" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="294" y="200">30m</text>
+        <line x1="372" y1="183" x2="372" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="372" y="200">40m</text>
+        <line x1="450" y1="183" x2="450" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="450" y="200">50m</text>
+        <line x1="528" y1="183" x2="528" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="528" y="200">60m</text>
+        <line x1="606" y1="183" x2="606" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="606" y="200">70m</text>
+        <line x1="684" y1="183" x2="684" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="684" y="200">80m</text>
+        <line x1="762" y1="183" x2="762" y2="192" stroke="rgba(0,200,180,0.3)" stroke-width="0.8"/>
+        <text x="762" y="200">90m</text>
+        <line x1="840" y1="183" x2="840" y2="192" stroke="rgba(0,200,180,0.35)" stroke-width="0.8"/>
+        <text x="840" y="200">100m</text>
+      </g>
+
+      <!-- DIVER position -->
+      <circle cx="200" cy="148" r="28" fill="url(#diverGlow)"/>
+      <circle cx="200" cy="148" r="8"  fill="rgba(0,200,180,0.2)" stroke="rgba(0,200,180,0.8)" stroke-width="1.5" filter="url(#gm2)"/>
+      <!-- diver icon lines -->
+      <line x1="197" y1="144" x2="203" y2="144" stroke="rgba(0,200,180,0.8)" stroke-width="1.2"/>
+      <line x1="200" y1="144" x2="200" y2="152" stroke="rgba(0,200,180,0.8)" stroke-width="1.2"/>
+      <line x1="197" y1="149" x2="203" y2="149" stroke="rgba(0,200,180,0.7)" stroke-width="1"/>
+      <text x="200" y="165" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(0,200,180,0.65)">OBSERVER</text>
+
+      <!-- LIONFISH positions within belt — with measurement callouts -->
+      <!-- LF-01 at ~25m -->
+      <circle cx="258" cy="132" r="24" fill="url(#lfGlow)"/>
+      <circle cx="258" cy="132" r="7"  fill="rgba(224,90,58,0.22)" stroke="rgba(224,90,58,0.75)" stroke-width="1.5" filter="url(#gm2)"/>
+      <!-- TL measurement callout -->
+      <line x1="258" y1="124" x2="258" y2="110" stroke="rgba(245,166,35,0.5)" stroke-width="0.8"/>
+      <rect x="235" y="98" width="46" height="24" rx="3" fill="rgba(0,0,0,0.4)" stroke="rgba(245,166,35,0.4)" stroke-width="0.8"/>
+      <text x="258" y="108" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.85)">TL: 28.4cm</text>
+      <text x="258" y="117" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.7)">Wt: 148g</text>
+
+      <!-- LF-02 at ~55m -->
+      <circle cx="489" cy="162" r="22" fill="url(#lfGlow)"/>
+      <circle cx="489" cy="162" r="7"  fill="rgba(224,90,58,0.22)" stroke="rgba(224,90,58,0.75)" stroke-width="1.5" filter="url(#gm2)"/>
+      <line x1="489" y1="170" x2="489" y2="182" stroke="rgba(245,166,35,0.5)" stroke-width="0.8"/>
+      <rect x="466" y="182" width="46" height="24" rx="3" fill="rgba(0,0,0,0.4)" stroke="rgba(245,166,35,0.4)" stroke-width="0.8"/>
+      <text x="489" y="192" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.85)">TL: 34.1cm</text>
+      <text x="489" y="201" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.7)">Wt: 224g</text>
+
+      <!-- LF-03 at ~78m -->
+      <circle cx="664" cy="138" r="20" fill="url(#lfGlow)"/>
+      <circle cx="664" cy="138" r="7"  fill="rgba(224,90,58,0.22)" stroke="rgba(224,90,58,0.75)" stroke-width="1.5" filter="url(#gm2)"/>
+      <line x1="664" y1="130" x2="664" y2="116" stroke="rgba(245,166,35,0.5)" stroke-width="0.8"/>
+      <rect x="641" y="104" width="46" height="24" rx="3" fill="rgba(0,0,0,0.4)" stroke="rgba(245,166,35,0.4)" stroke-width="0.8"/>
+      <text x="664" y="114" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.85)">TL: 19.8cm</text>
+      <text x="664" y="123" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(245,166,35,0.7)">Wt:  58g</text>
+
+      <!-- LF count badge -->
+      <rect x="820" y="130" width="56" height="36" rx="4" fill="rgba(224,90,58,0.12)" stroke="rgba(224,90,58,0.4)" stroke-width="1"/>
+      <text x="848" y="144" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.75)" letter-spacing="0.04em">n = 3</text>
+      <text x="848" y="154" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(224,90,58,0.55)">0.03/m²</text>
+      <text x="848" y="163" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6">DENSITY</text>
+
+      <!-- Depth indicator (side annotation) -->
+      <rect x="6" y="100" width="28" height="90" rx="3" fill="rgba(74,184,224,0.06)" stroke="rgba(74,184,224,0.2)" stroke-width="0.8"/>
+      <line x1="20" y1="108" x2="20" y2="182" stroke="rgba(74,184,224,0.4)" stroke-width="1"/>
+      <line x1="16" y1="108" x2="24" y2="108" stroke="rgba(74,184,224,0.4)" stroke-width="1"/>
+      <line x1="16" y1="182" x2="24" y2="182" stroke="rgba(74,184,224,0.4)" stroke-width="1"/>
+      <text x="12" y="150" font-family="'DM Mono',monospace" font-size="6.5" fill="rgba(74,184,224,0.6)"
+            text-anchor="middle" transform="rotate(-90,12,150)" letter-spacing="0.05em">8.5m</text>
+
+      <!-- Legend bottom -->
+      <g transform="translate(60,220)">
+        <line x1="0" y1="5" x2="22" y2="5" stroke="rgba(0,200,180,0.65)" stroke-width="1.5" stroke-dasharray="8,3"/>
+        <text x="28" y="9" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.5)" letter-spacing="0.05em">TRANSECT CENTER</text>
+
+        <line x1="150" y1="5" x2="172" y2="5" stroke="rgba(0,200,180,0.28)" stroke-width="1" stroke-dasharray="4,5"/>
+        <text x="178" y="9" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.45)" letter-spacing="0.05em">BELT EDGE (±2m)</text>
+
+        <circle cx="320" cy="5" r="4" fill="rgba(224,90,58,0.22)" stroke="rgba(224,90,58,0.75)" stroke-width="1"/>
+        <text x="330" y="9" font-family="'DM Mono',monospace" font-size="7" fill="rgba(224,90,58,0.55)" letter-spacing="0.05em">LIONFISH (TL + Wt)</text>
+
+        <circle cx="470" cy="5" r="4" fill="rgba(0,200,180,0.2)" stroke="rgba(0,200,180,0.8)" stroke-width="1"/>
+        <text x="480" y="9" font-family="'DM Mono',monospace" font-size="7" fill="rgba(0,200,180,0.5)" letter-spacing="0.05em">OBSERVER POSITION</text>
+      </g>
+
+      <text x="450" y="15" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(232,244,248,0.22)" letter-spacing="0.07em">GMAIN STANDARD BELT TRANSECT — 100m × 4m · TOP-DOWN VIEW</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 08</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-gold">Measurements</span>
+    <span class="section-tag">GMAIN · DMAP-CAL</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L08</div>
+    <h1 class="lesson-title">Invasive Species — <em>Measurements</em></h1>
+    <p class="lesson-subtitle">Mediciones de Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ══ -->
+<main class="content-wrap">
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">Why Measurement Design Determines Management Quality</h2>
+    <p>The previous lessons in Section 21 established the biological, ecological, and systemic framework for understanding invasive species. This lesson addresses the operational bridge between that knowledge and actionable management: <strong>measurement</strong>. DMAP-CAL's Decision Score is only as reliable as the data that flows into it. Every intervention priority, every regime shift risk flag, every immigration rate estimate depends on whether field measurements are accurate, consistent, and comparable across nodes, observers, and time.</p>
+    <p>Poor measurement design does not produce noisy data — it produces data that is systematically wrong in ways that look plausible. A removal program that counts fish too optimistically will appear more effective than it is. A density survey that misses cryptic individuals will underestimate population size. A biometric protocol that mismeasures total length will corrupt the length-weight relationship used to estimate biomass. These are not minor inaccuracies — they are structural errors that cause DMAP-CAL to misallocate intervention effort.</p>
+
+    <div class="callout">
+      <strong>Measurement Hierarchy:</strong> GMAIN uses a four-level data quality hierarchy. Level 1 — direct biometric measurement (TL with ruler, wet weight on scale) — is the highest quality. Level 2 — estimated biometric from calibrated visual size class. Level 3 — presence/absence with behavioral notes. Level 4 — unverified sighting report. DMAP-CAL's density and biomass calculations use Level 1 and 2 data only; Level 3 and 4 feed the early warning detection layer. Know which level you are recording, and record it honestly.
+    </div>
+
+    <h2 class="section-head">Survey Methods: Strengths and Limits</h2>
+    <p>No single survey method captures all the information needed for a complete assessment of invasive species density, distribution, and impact. GMAIN's protocol is designed to combine methods across dive visits to build a multi-dimensional node profile over time.</p>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-label">Belt Transect</div>
+        <div class="method-text">A diver swims a defined linear path while counting all individuals within a fixed perpendicular distance on each side. GMAIN standard: 100m × 4m belt (2m each side of centerline). Produces the density estimate (individuals per m²) that is the primary DMAP-CAL population input. Strengths: standardized area, directly comparable across nodes and observers. Limits: misses cryptic individuals under ledges; disturbs shy fish ahead of observer; requires accurate distance estimation. All GMAIN node density estimates are expressed per 100m² (one standard transect area) for comparability.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Roving Diver Survey (RDS)</div>
+        <div class="method-text">Diver swims a non-standardized route for a fixed time period, recording all individuals encountered. No fixed area — produces encounter rate (individuals per dive-hour) rather than density. Strengths: covers more habitat types per dive, more effective for detecting rare individuals, excellent for structural complexity and microhabitat use documentation. Limits: not directly comparable between observers with different search efficiency; cannot produce density estimates. GMAIN uses RDS for behavioral observations and habitat use notes, not for the primary density DTI.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Point Count</div>
+        <div class="method-text">Diver remains stationary at a fixed point for a defined period (typically 5 minutes) and records all fish within a defined radius (typically 7.5m or 15m cylinder). Multiple point counts across a site are averaged. Strengths: highly reproducible; less observer disturbance than moving survey; well-suited for associated prey fish community assessment alongside invasive presence. Limits: small area per station; misses large-range individuals; requires multiple stations for representative coverage. GMAIN uses point counts for functional group composition supplementary data.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Stationary Video</div>
+        <div class="method-text">A GoPro or similar camera is deployed on the reef structure facing a defined field of view and left recording for 30–60 minutes unattended. Fish that would avoid a diver observer approach the camera, producing a more representative sample of cryptic and shy species. Particularly valuable for detecting lionfish in undisturbed microhabitat positions. Limits: limited field of view; post-processing time; no biometric data without later analysis. GMAIN recommends stationary video at one landmark position per node visit to supplement the belt transect.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Environmental DNA (eDNA)</div>
+        <div class="method-text">DNA shed by organisms into the water column (from skin cells, mucus, feces, eggs) can be captured by filtering a water sample and analyzed by quantitative PCR. For invasive species detection, eDNA is primarily a presence/absence tool during the introduction and early establishment phases — when densities are too low for visual surveys to detect. A single water sample can confirm the presence of a species that no diver would see. Limits: does not provide density or biomass data; signal degrades rapidly in warm, UV-exposed water; false negatives possible at very low densities. GMAIN early detection protocol includes eDNA sampling at new node registrations.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Mark-Recapture</div>
+        <div class="method-text">A subset of individuals is marked (fin clipping, external tag, or photographic ID from unique spine patterns) and released. On subsequent dives, the ratio of marked to unmarked individuals in the recaptured sample estimates total population size using the Lincoln-Petersen estimator: N = (M × C) / R, where M = initially marked, C = total recaptured, R = recaptured marked. Provides absolute population estimate rather than density index. Rarely used in large open reef systems due to high immigration rates and emigration that violate the closed-population assumption. More applicable in isolated reef patches.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Biometric Measurements: Total Length and Wet Weight</h2>
+    <p>GMAIN's primary biometric protocol for every removed individual is two measurements: total length (TL) and wet weight. These are not recorded merely as biological notes — they are the raw data for multiple downstream calculations that determine how DMAP-CAL interprets the node's invasive pressure status.</p>
+
+    <div class="lw-rows">
+      <div class="lw-row">
+        <div class="lw-label">Total Length (TL) Protocol</div>
+        <div class="lw-text">Measured from the tip of the snout to the end of the tail (caudal fin) with the fish held straight. Use a rigid fish measuring board or a flexible tape measure pulled taut — never estimate from visual impression. Record to the nearest millimeter (e.g., 284 mm, not "~28 cm"). Lionfish TL in the Caribbean ranges from ~30 mm (newly settled recruits) to ~450 mm (large adult). Size at first maturity is approximately 100–120 mm TL. All individuals below 100 mm TL are logged separately as juveniles — this cohort is structurally important for estimating recent recruitment pressure.</div>
+      </div>
+      <div class="lw-row">
+        <div class="lw-label">Wet Weight Protocol</div>
+        <div class="lw-text">Weighed immediately after removal, before evaporative water loss begins. Blot excess surface water — do not dry completely, but remove drips. Use a digital scale with 1g resolution minimum; 0.1g resolution preferred for fish &lt;100g. Remove spines before weighing if scale placement is affected (note in log if spines removed before weighing). Record in grams. The combined TL + wet weight per individual provides the data point for the length-weight regression W = a·TLᵇ, which GMAIN uses to back-calculate weight from visual size estimates when direct weighing is not possible.</div>
+      </div>
+      <div class="lw-row">
+        <div class="lw-label">Length-Weight Relationship</div>
+        <div class="lw-text">The empirical relationship between TL and wet weight follows a power function: W = a·TLᵇ, where <em>b</em> is typically 3.0–3.2 for lionfish (near-isometric growth) and <em>a</em> is the condition factor. For <em>P. volitans</em> in the Caribbean, published values cluster around a = 0.000013 and b = 3.14 (TL in mm, W in grams). GMAIN accumulates TL + weight data per node over time to maintain a locally-calibrated regression — Caribbean lionfish may differ in condition factor from Indo-Pacific populations and from node to node depending on prey availability. A local regression is always more accurate than a published generic value.</div>
+      </div>
+      <div class="lw-row">
+        <div class="lw-label">Biomass Density and DMAP-CAL</div>
+        <div class="lw-text">Node biomass density (g/m²) is computed by DMAP-CAL from the density estimate (individuals/m²) and the mean individual weight from the most recent biometric sample. Biomass density is a more ecologically meaningful metric than count density because it captures the size structure of the population — a node with 10 large adults has higher predation pressure than a node with 10 juveniles at the same count density. DMAP-CAL's prey depletion risk score weights the biomass density, not the count density, when estimating trophic impact.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">The GMAIN Standardized Dive Log</h2>
+    <p>Every Rim Run™ waypoint dive generates a GMAIN dive log entry. The structure is fixed — the same fields, in the same sequence, every dive — because comparability across dives, observers, and years is the data product DMAP-CAL consumes. A dive log that varies its fields based on what seemed important that day is not a time series — it is a collection of incompatible snapshots.</p>
+
+    <table class="log-table">
+      <thead>
+        <tr><th>Field</th><th>Format</th><th>Required / Optional</th><th>Why It Matters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Node ID</td>
+          <td>RRCXX-NNN code</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Links observation to registered node in GMAIN database. Without this, the record cannot be aggregated into node density time series.</td>
+        </tr>
+        <tr>
+          <td>Date &amp; Time (UTC)</td>
+          <td>ISO 8601: YYYY-MM-DDTHH:MM</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Enables temporal analysis — diel patterns, seasonal trends, year-over-year comparisons. UTC standardizes across time zones.</td>
+        </tr>
+        <tr>
+          <td>Depth (m)</td>
+          <td>Mean survey depth ± range</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Captures depth distribution data essential for mesophotic vs. shallow population analysis. Density at 5m and 25m are not interchangeable.</td>
+        </tr>
+        <tr>
+          <td>Visibility (m)</td>
+          <td>Estimated horizontal visibility</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Modifies detection probability. Low visibility reduces effective belt width — DMAP-CAL applies a visibility correction factor to density estimates when visibility &lt;5m.</td>
+        </tr>
+        <tr>
+          <td>Survey method</td>
+          <td>BT / RDS / PC / VIDEO</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Determines which analysis pipeline processes the record. Belt transect data and roving diver data produce different density metrics that cannot be averaged.</td>
+        </tr>
+        <tr>
+          <td>LF count (belt)</td>
+          <td>Integer, within belt only</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Primary density input. Must exclude individuals observed outside the belt boundaries — even if they are clearly visible.</td>
+        </tr>
+        <tr>
+          <td>TL per individual (mm)</td>
+          <td>Measured value for each removed individual</td>
+          <td><span class="req">REQUIRED</span> for removed</td>
+          <td>Biomass calculation; size structure; reproductive output proxy; length-weight regression calibration.</td>
+        </tr>
+        <tr>
+          <td>Wet weight per individual (g)</td>
+          <td>Measured value for each removed individual</td>
+          <td><span class="req">REQUIRED</span> for removed</td>
+          <td>Direct biomass; length-weight regression calibration; harvest yield data for market argument.</td>
+        </tr>
+        <tr>
+          <td>Structural complexity class</td>
+          <td>1 (low) – 5 (high)</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Habitat preference analysis; within-node microhabitat variation; DMAP-CAL habitat modifier.</td>
+        </tr>
+        <tr>
+          <td>Prey fish FID estimate</td>
+          <td>Categorical: &lt;0.5m / 0.5–1m / &gt;1m</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Behavioral adaptation index. Compared across node visits over time to detect learned avoidance development.</td>
+        </tr>
+        <tr>
+          <td>Functional groups present</td>
+          <td>Multi-select: HERB / CLEAN / PISC / JUV</td>
+          <td><span class="req">REQUIRED</span></td>
+          <td>Interaction web integrity signal. DMAP-CAL flags absence of cleaner or herbivore groups as mutualism disruption indicator.</td>
+        </tr>
+        <tr>
+          <td>Behavioral notes (free text)</td>
+          <td>Free text, max 200 char</td>
+          <td><span class="opt">OPTIONAL</span></td>
+          <td>Qualitative observations that structured fields cannot capture: unusual aggregation behavior, spawning activity, disease signs, substrate condition changes.</td>
+        </tr>
+        <tr>
+          <td>GPS coordinates</td>
+          <td>Decimal degrees ±0.0001°</td>
+          <td><span class="opt">OPTIONAL</span> (if node registered)</td>
+          <td>Within-node spatial mapping for repeat-visit positioning and microhabitat analysis. Required for new node registration.</td>
+        </tr>
+        <tr>
+          <td>Photo/video reference</td>
+          <td>File name or URL</td>
+          <td><span class="opt">OPTIONAL</span></td>
+          <td>Links observational record to visual evidence; enables post-hoc QA; supports species confirmation for ambiguous sightings.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-head">Measurement Bias: Sources and Corrections</h2>
+    <p>Systematic measurement error — bias — is more dangerous than random error. Random error averages out across large samples. Bias does not. It compounds. A density survey that consistently underestimates by 15% will produce a time series that looks like a declining population even when the population is stable, triggering false intervention signals in DMAP-CAL. Every GMAIN observer must understand the major bias sources in reef fish survey methodology.</p>
+
+    <div class="bias-grid">
+      <div class="bias-card">
+        <div class="bias-name">Observer Disturbance</div>
+        <div class="bias-desc">Lionfish and prey fish alter behavior in response to approaching divers. Lionfish may retreat under ledges (undercounting) or remain stationary outside the belt (missed). Prey fish may flee ahead of the diver (undercounting prey, affecting FID estimates). Correction: establish standard approach protocol — neutral buoyancy, slow fin movement, no direct approach to subjects before recording position.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Visibility Truncation</div>
+        <div class="bias-desc">Effective belt width shrinks in low visibility. A nominal 2m belt becomes effectively 1.2m when visibility is 4m — reducing the area surveyed without changing the denominator. DMAP-CAL applies a visibility correction: effective belt width = min(2m, visibility/2). Observers must estimate visibility honestly, not optimistically. Density estimates in &lt;5m visibility carry elevated uncertainty flags in GMAIN.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Cryptic Individual Undercount</div>
+        <div class="bias-desc">Lionfish in high-complexity reef zones use ledge overhangs and crevices during daytime surveys. Studies suggest visual belt transects detect only 40–70% of actual lionfish density in complex habitat. GMAIN records structural complexity class partly to allow DMAP-CAL to apply a habitat-dependent detection correction: density estimates at complexity class 4–5 receive a 1.5× correction multiplier to account for expected cryptic undercount.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Length Estimation Error</div>
+        <div class="bias-desc">Visual length estimation of fish in water without a reference scale has documented mean error of ±25–35% in untrained observers, and ±15% even in trained observers. This matters because length estimation is used when direct measurement is not possible (non-removed individuals). GMAIN requires observers to use a size-class system (S: &lt;15cm, M: 15–25cm, L: 25–35cm, XL: &gt;35cm) for non-removed individuals rather than free-form length estimates — categorical classes have lower inter-observer variability than continuous estimates.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Double-Counting</div>
+        <div class="bias-desc">Mobile individuals can re-enter the transect belt ahead of the observer and be counted twice. More common with faster-swimming species but occurs with lionfish that move to new ambush positions. Correction: mark position of all observed individuals mentally or with a dive slate hash system — do not count an individual already logged. On return transects, do not count individuals that cannot be distinguished from those already recorded on the forward pass.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Wet Weight Loss</div>
+        <div class="bias-desc">Fish weight decreases measurably within minutes of removal from water due to evaporative moisture loss from scales and mucus. A 200g lionfish can lose 3–5g within 5 minutes in tropical air temperatures. Correction: weigh immediately after removal and surface, before any significant air exposure. If a scale is not available at the surface, store fish in a sealed mesh bag in the water and weigh at the boat or shore within 15 minutes of exit. Do not record weights from fish that have been air-dried or sun-exposed.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Inter-Observer Calibration:</strong> The most common source of systematic bias across a citizen science network is not equipment error — it is observer-to-observer variation in estimation habits. An observer who consistently estimates fish length at the high end of each size class will produce systematically higher biomass estimates than an observer who estimates at the low end. GMAIN inter-observer calibration protocol: before a new observer contributes data to a registered node, they complete one joint calibration dive with an experienced observer. Both independently record all sightings. Discrepancies &gt;1 size class on &gt;20% of individuals indicate the new observer needs additional calibration before their solo data enters the GMAIN database.
+    </div>
+
+    <h2 class="section-head">CPUE as a Removal Effectiveness Metric</h2>
+    <p>Catch per unit effort (CPUE) — the number of individuals removed per diver-hour — is the standard metric for evaluating removal program efficiency and detecting population trends at the management timescale. Unlike density estimates from transects, CPUE is an automatic byproduct of every removal dive: total fish removed ÷ total diver-hours invested.</p>
+    <p>CPUE has one critical interpretive subtlety: it can be a declining function of both decreasing population density (the management goal) and increasing fisher skill (a confound). A CPUE decline at a node should be attributed to population suppression only when observer effort and skill are stable — or when other density evidence (transect counts, behavioral FID) supports the population decline interpretation. DMAP-CAL tracks CPUE trends alongside transect density trends and flags divergences between the two as a data quality alert requiring investigation.</p>
+
+    <div class="callout callout-red">
+      <strong>CPUE Trap at High Density:</strong> When lionfish density is very high, CPUE remains elevated regardless of actual population trend — there are always fish to catch. CPUE is most sensitive to population change at the low-to-moderate density range where depletion effects begin to show. At high-density nodes, the transect count and biomass density from GMAIN biometrics are more reliable trend indicators than CPUE alone. DMAP-CAL uses CPUE primarily as a Feasibility term modifier (δ in the DS formula) rather than as a primary population status indicator.
+    </div>
+
+    <h2 class="section-head">Early Detection: eDNA and the Sub-Visual Window</h2>
+    <p>The most consequential application of measurement design for invasive species management is early detection — identifying a new establishment event before the population reaches the Allee threshold escape point described in L04. Every visual survey method described above has a minimum detection density below which the probability of encountering an individual during a standard survey drops below 50%. For lionfish, that threshold is approximately 0.01 individuals/m² — a density at which a single 100m² transect has roughly a 10% probability of producing a sighting even though the population exists at the site.</p>
+    <p>Environmental DNA bridges this sub-visual window. A 2-liter water sample filtered through a 0.45µm membrane and extracted for <em>P. volitans</em>-specific mitochondrial DNA can detect lionfish presence at densities 10–100× lower than visual detection thresholds. The Rim Run™ node registration protocol requires eDNA sampling before the first visual survey at any new waypoint — establishing a presence/absence baseline that precedes the ability of visual methods to confirm or deny the population.</p>
+
+    <div class="callout callout-violet">
+      <strong>GMAIN Early Detection Architecture:</strong> New node registration triggers a two-step detection protocol: (1) eDNA water sampling during the pre-survey dive — filter, label, and ship to the CCRA partner laboratory within 48 hours; (2) standard belt transect immediately following. If eDNA is positive but visual transect detects zero individuals, the node is assigned early-establishment status in GMAIN — DMAP-CAL flags for high-frequency resurvey and elevated intervention priority even with zero visual density data. This is the only management scenario in which a density of zero in GMAIN does not mean low priority.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">Por qué el Diseño de Medición Determina la Calidad del Manejo</h2>
+    <p>Las lecciones anteriores de la Sección 21 establecieron el marco biológico, ecológico y sistémico para comprender las especies invasoras. Esta lección aborda el puente operativo entre ese conocimiento y el manejo accionable: la <strong>medición</strong>. La Puntuación de Decisión de DMAP-CAL es tan confiable como los datos que fluyen hacia ella. Cada prioridad de intervención, cada señal de riesgo de cambio de régimen, cada estimación de tasa de inmigración depende de si las mediciones de campo son precisas, consistentes y comparables entre nodos, observadores y tiempo.</p>
+    <p>Un diseño de medición deficiente no produce datos ruidosos — produce datos que son sistemáticamente incorrectos de maneras que parecen plausibles. Un programa de remoción que cuenta peces demasiado optimistamente parecerá más efectivo de lo que es. Una encuesta de densidad que pierde individuos crípticos subestimará el tamaño de la población.</p>
+
+    <div class="callout">
+      <strong>Jerarquía de Medición:</strong> GMAIN usa una jerarquía de cuatro niveles de calidad de datos. Nivel 1 — medición biométrica directa (LT con regla, peso húmedo en balanza) — es la más alta calidad. Nivel 2 — biométrica estimada de clase de tamaño visual calibrada. Nivel 3 — presencia/ausencia con notas conductuales. Nivel 4 — informe de avistamiento no verificado. Los cálculos de densidad y biomasa de DMAP-CAL usan solo datos de Niveles 1 y 2.
+    </div>
+
+    <h2 class="section-head">Métodos de Encuesta: Fortalezas y Límites</h2>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-label">Transecto en Franja</div>
+        <div class="method-text">Un buceador nada por una trayectoria lineal definida mientras cuenta todos los individuos dentro de una distancia perpendicular fija en cada lado. Estándar GMAIN: franja de 100m × 4m (2m a cada lado de la línea central). Produce la estimación de densidad (individuos por m²) que es la entrada principal de población de DMAP-CAL. Fortalezas: área estandarizada, directamente comparable entre nodos y observadores. Límites: pierde individuos crípticos bajo repisas; perturba peces tímidos frente al observador.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Encuesta de Buceador Itinerante (EBI)</div>
+        <div class="method-text">El buceador nada una ruta no estandarizada durante un período de tiempo fijo, registrando todos los individuos encontrados. Sin área fija — produce tasa de encuentro (individuos por hora de buceo) en lugar de densidad. Fortalezas: cubre más tipos de hábitat por buceo, más efectivo para detectar individuos raros. Límites: no directamente comparable entre observadores; no puede producir estimaciones de densidad. GMAIN usa EBI para observaciones conductuales y notas de uso de hábitat.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Conteo por Puntos</div>
+        <div class="method-text">El buceador permanece estacionario en un punto fijo durante un período definido y registra todos los peces dentro de un radio definido. Múltiples conteos por puntos en un sitio se promedian. Fortalezas: altamente reproducible; menos perturbación del observador; adecuado para evaluar la comunidad de peces presa junto con la presencia invasora. GMAIN usa conteos por puntos para datos suplementarios de composición de grupos funcionales.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Video Estacionario</div>
+        <div class="method-text">Una cámara GoPro o similar se despliega en la estructura del arrecife frente a un campo de visión definido y se deja grabando durante 30–60 minutos sin supervisión. Los peces que evitarían a un buceador observador se acercan a la cámara. Particularmente valioso para detectar pez León en posiciones de microhábitat no perturbadas. GMAIN recomienda video estacionario en una posición de referencia por visita de nodo.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">ADN Ambiental (ADNe)</div>
+        <div class="method-text">El ADN liberado por los organismos en la columna de agua puede capturarse filtrando una muestra de agua y analizarse por PCR cuantitativa. Para la detección de especies invasoras, el ADNe es principalmente una herramienta de presencia/ausencia durante las fases de introducción y establecimiento temprano — cuando las densidades son demasiado bajas para que las encuestas visuales las detecten. El protocolo de detección temprana de GMAIN incluye muestreo de ADNe en nuevos registros de nodos.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-label">Marca-Recaptura</div>
+        <div class="method-text">Un subconjunto de individuos se marca y libera. En buceos posteriores, la proporción de marcados a no marcados en la muestra recapturada estima el tamaño total de la población usando el estimador de Lincoln-Petersen: N = (M × C) / R. Proporciona una estimación absoluta de la población en lugar de un índice de densidad. Raramente usado en sistemas de arrecife abierto grandes debido a las altas tasas de inmigración que violan el supuesto de población cerrada.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Mediciones Biométricas: Longitud Total y Peso Húmedo</h2>
+
+    <div class="lw-rows">
+      <div class="lw-row">
+        <div class="lw-label">Protocolo de Longitud Total (LT)</div>
+        <div class="lw-text">Medida desde la punta del hocico hasta el extremo de la cola (aleta caudal) con el pez sostenido recto. Use una tabla de medición rígida para peces o una cinta métrica flexible estirada firmemente — nunca estime a partir de la impresión visual. Registre al milímetro más cercano. La LT del pez León en el Caribe varía de ~30 mm (reclutas recién asentados) a ~450 mm (adultos grandes). La talla en la primera madurez es aproximadamente 100–120 mm LT.</div>
+      </div>
+      <div class="lw-row">
+        <div class="lw-label">Protocolo de Peso Húmedo</div>
+        <div class="lw-text">Pesado inmediatamente después de la remoción, antes de que comience la pérdida de agua por evaporación. Seque con suavidad el exceso de agua superficial — no seque completamente. Use una báscula digital con resolución mínima de 1g. Registre en gramos. El peso húmedo combinado con la LT proporciona el punto de datos para la regresión longitud-peso W = a·LTᵇ, que GMAIN usa para calcular peso de vuelta a partir de estimaciones visuales de tamaño cuando el pesaje directo no es posible.</div>
+      </div>
+      <div class="lw-row">
+        <div class="lw-label">Relación Longitud-Peso</div>
+        <div class="lw-text">La relación empírica entre LT y peso húmedo sigue una función de potencia: W = a·LTᵇ. Para <em>P. volitans</em> en el Caribe, los valores publicados se agrupan alrededor de a = 0.000013 y b = 3.14 (LT en mm, W en gramos). GMAIN acumula datos de LT + peso por nodo con el tiempo para mantener una regresión calibrada localmente — el pez León del Caribe puede diferir en el factor de condición del pez León del Indo-Pacífico y de nodo a nodo dependiendo de la disponibilidad de presas.</div>
+      </div>
+      <div class="lw-row">
+        <div class="lw-label">Densidad de Biomasa y DMAP-CAL</div>
+        <div class="lw-text">La densidad de biomasa del nodo (g/m²) es calculada por DMAP-CAL a partir de la estimación de densidad (individuos/m²) y el peso individual promedio de la muestra biométrica más reciente. La densidad de biomasa es una métrica más ecológicamente significativa que la densidad de conteo porque captura la estructura de tamaño de la población. La puntuación de riesgo de depredación de presas de DMAP-CAL pondera la densidad de biomasa, no la densidad de conteo, al estimar el impacto trófico.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">El Registro de Buceo Estandarizado de GMAIN</h2>
+    <p>Cada buceo en el punto de referencia del Rim Run™ genera una entrada en el registro de buceo de GMAIN. La estructura es fija — los mismos campos, en la misma secuencia, en cada buceo — porque la comparabilidad entre buceos, observadores y años es el producto de datos que DMAP-CAL consume.</p>
+
+    <table class="log-table">
+      <thead>
+        <tr><th>Campo</th><th>Formato</th><th>Requerido / Opcional</th><th>Por qué Importa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ID del Nodo</td><td>Código RRCXX-NNN</td><td><span class="req">REQUERIDO</span></td><td>Vincula la observación al nodo registrado en la base de datos GMAIN. Sin esto, el registro no puede agregarse en la serie de tiempo de densidad del nodo.</td></tr>
+        <tr><td>Fecha y Hora (UTC)</td><td>ISO 8601: YYYY-MM-DDTHH:MM</td><td><span class="req">REQUERIDO</span></td><td>Permite análisis temporal — patrones diurnos, tendencias estacionales, comparaciones año a año.</td></tr>
+        <tr><td>Profundidad (m)</td><td>Profundidad media ± rango</td><td><span class="req">REQUERIDO</span></td><td>Captura datos de distribución de profundidad esenciales para el análisis de población mesofótica vs. somera.</td></tr>
+        <tr><td>Visibilidad (m)</td><td>Visibilidad horizontal estimada</td><td><span class="req">REQUERIDO</span></td><td>Modifica la probabilidad de detección. DMAP-CAL aplica un factor de corrección de visibilidad cuando la visibilidad &lt;5m.</td></tr>
+        <tr><td>Método de encuesta</td><td>TF / EBI / CP / VIDEO</td><td><span class="req">REQUERIDO</span></td><td>Determina qué pipeline de análisis procesa el registro.</td></tr>
+        <tr><td>Conteo PL (franja)</td><td>Entero, solo dentro de la franja</td><td><span class="req">REQUERIDO</span></td><td>Entrada principal de densidad. Debe excluir individuos observados fuera de los límites de la franja.</td></tr>
+        <tr><td>LT por individuo (mm)</td><td>Valor medido para cada individuo removido</td><td><span class="req">REQUERIDO</span> para removidos</td><td>Cálculo de biomasa; estructura de tamaño; proxy de producción reproductiva; calibración de regresión longitud-peso.</td></tr>
+        <tr><td>Peso húmedo por individuo (g)</td><td>Valor medido para cada individuo removido</td><td><span class="req">REQUERIDO</span> para removidos</td><td>Biomasa directa; calibración de regresión longitud-peso; datos de rendimiento de cosecha para argumento de mercado.</td></tr>
+        <tr><td>Clase de complejidad estructural</td><td>1 (baja) – 5 (alta)</td><td><span class="req">REQUERIDO</span></td><td>Análisis de preferencia de hábitat; modificador de hábitat de DMAP-CAL.</td></tr>
+        <tr><td>Estimación de DIF de presas</td><td>Categórico: &lt;0.5m / 0.5–1m / &gt;1m</td><td><span class="req">REQUERIDO</span></td><td>Índice de adaptación conductual. Comparado entre visitas al nodo con el tiempo para detectar el desarrollo de evitación aprendida.</td></tr>
+        <tr><td>Grupos funcionales presentes</td><td>Multi-selección: HERB / LIMP / PISC / JUV</td><td><span class="req">REQUERIDO</span></td><td>Señal de integridad de la red de interacciones. DMAP-CAL señala la ausencia de grupos limpiadores o herbívoros.</td></tr>
+        <tr><td>Notas conductuales (texto libre)</td><td>Texto libre, máx. 200 car.</td><td><span class="opt">OPCIONAL</span></td><td>Observaciones cualitativas que los campos estructurados no pueden capturar.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-head">Sesgo de Medición: Fuentes y Correcciones</h2>
+
+    <div class="bias-grid">
+      <div class="bias-card">
+        <div class="bias-name">Perturbación del Observador</div>
+        <div class="bias-desc">El pez León y las presas alteran su comportamiento en respuesta a los buceadores que se aproximan. El pez León puede retroceder bajo repisas (subconteo) o permanecer estacionario fuera de la franja. Corrección: establecer protocolo de aproximación estándar — flotabilidad neutra, movimiento lento de aletas, sin aproximación directa a los sujetos antes de registrar la posición.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Truncamiento por Visibilidad</div>
+        <div class="bias-desc">El ancho efectivo de la franja se reduce con baja visibilidad. Una franja nominal de 2m se convierte efectivamente en 1.2m cuando la visibilidad es de 4m. DMAP-CAL aplica una corrección de visibilidad: ancho efectivo de franja = min(2m, visibilidad/2). Los observadores deben estimar la visibilidad honestamente, no optimistamente.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Subconteo de Individuos Crípticos</div>
+        <div class="bias-desc">Los estudios sugieren que los transectos visuales en franja detectan solo el 40–70% de la densidad real del pez León en hábitat complejo. Los estimados de densidad en clase de complejidad 4–5 reciben un multiplicador de corrección de 1.5× en DMAP-CAL para contabilizar el subconteo críptico esperado.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Error de Estimación de Longitud</div>
+        <div class="bias-desc">La estimación visual de la longitud de los peces en el agua sin una escala de referencia tiene un error medio documentado de ±25–35% en observadores no entrenados, y ±15% incluso en observadores entrenados. GMAIN requiere que los observadores usen un sistema de clases de tamaño para individuos no removidos: P: &lt;15cm, M: 15–25cm, G: 25–35cm, EG: &gt;35cm.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Doble Conteo</div>
+        <div class="bias-desc">Los individuos móviles pueden volver a entrar en la franja del transecto frente al observador y ser contados dos veces. Corrección: marque mentalmente la posición de todos los individuos observados en una pizarra de buceo — no cuente un individuo ya registrado.</div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-name">Pérdida de Peso Húmedo</div>
+        <div class="bias-desc">El peso de los peces disminuye measurablemente dentro de los minutos posteriores a la remoción del agua. Un pez León de 200g puede perder 3–5g en 5 minutos en temperaturas tropicales del aire. Corrección: pese inmediatamente después de la remoción y la superficie, antes de cualquier exposición significativa al aire.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Calibración entre Observadores:</strong> La fuente más común de sesgo sistemático en una red de ciencia ciudadana es la variación entre observadores en los hábitos de estimación. El protocolo de calibración de GMAIN: antes de que un nuevo observador contribuya datos a un nodo registrado, complete un buceo de calibración conjunto con un observador experimentado. Ambos registran independientemente todos los avistamientos. Las discrepancias &gt;1 clase de tamaño en &gt;20% de los individuos indican que el nuevo observador necesita calibración adicional.
+    </div>
+
+    <h2 class="section-head">CPUE como Métrica de Efectividad de Remoción</h2>
+    <p>La captura por unidad de esfuerzo (CPUE) — el número de individuos removidos por hora-buceador — es la métrica estándar para evaluar la eficiencia del programa de remoción y detectar tendencias de población en la escala temporal de manejo. CPUE es un subproducto automático de cada buceo de remoción: total de peces removidos ÷ total de horas-buceador invertidas.</p>
+    <p>La CPUE tiene una sutileza interpretativa crítica: puede ser una función decreciente tanto de la densidad poblacional decreciente (el objetivo de manejo) como de la habilidad creciente del pescador (un factor de confusión). DMAP-CAL rastrea las tendencias de CPUE junto con las tendencias de densidad del transecto y señala las divergencias entre los dos como una alerta de calidad de datos que requiere investigación.</p>
+
+    <h2 class="section-head">Detección Temprana: ADNe y la Ventana Sub-Visual</h2>
+    <p>La aplicación más consecuente del diseño de medición para el manejo de especies invasoras es la detección temprana. Cada método de encuesta visual tiene una densidad mínima de detección por debajo de la cual la probabilidad de encontrar un individuo durante una encuesta estándar cae por debajo del 50%. Para el pez León, ese umbral es aproximadamente 0.01 individuos/m².</p>
+    <p>El ADN ambiental cierra esta ventana sub-visual. Una muestra de agua de 2 litros filtrada a través de una membrana de 0.45µm y extraída para ADN mitocondrial específico de <em>P. volitans</em> puede detectar presencia del pez León a densidades 10–100 veces más bajas que los umbrales de detección visual. El protocolo de registro de nodos del Rim Run™ requiere muestreo de ADNe antes de la primera encuesta visual en cualquier nuevo punto de referencia.</p>
+
+    <div class="callout callout-violet">
+      <strong>Arquitectura de Detección Temprana GMAIN:</strong> El registro de nuevos nodos activa un protocolo de detección en dos pasos: (1) muestreo de agua ADNe durante el buceo pre-encuesta — filtrar, etiquetar y enviar al laboratorio socio de la CCRA dentro de 48 horas; (2) transecto en franja estándar inmediatamente después. Si el ADNe es positivo pero el transecto visual detecta cero individuos, el nodo recibe estado de establecimiento temprano en GMAIN — DMAP-CAL señala para reencuesta de alta frecuencia y prioridad de intervención elevada incluso con datos de densidad visual en cero.
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">The Rim Run™ Measurement Protocol — Every Dive as a Data Event</p>
+    <div class="app-stat-row">
+      <div class="app-stat"><div class="app-stat-val">14</div><div class="app-stat-lbl">Required GMAIN log fields per dive visit — the minimum structured record that makes a dive scientifically reusable</div></div>
+      <div class="app-stat"><div class="app-stat-val">100m²</div><div class="app-stat-lbl">Standard belt transect area — the fundamental density unit for all GMAIN cross-node comparisons</div></div>
+      <div class="app-stat"><div class="app-stat-val">±15%</div><div class="app-stat-lbl">Mean length estimation error even in trained observers — why GMAIN uses size classes, not free-form estimates, for non-removed individuals</div></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">The Rim Run™ pole spear protocol is not a collection of fish — it is a measurement event that produces a density time series, a biomass time series, a size structure record, a behavioral adaptation index, and a functional group integrity log simultaneously at each waypoint node. The biometric measurements (TL in millimeters, wet weight in grams) taken immediately after each removal are the raw data that DMAP-CAL uses to calculate node biomass density, apply the length-weight regression, estimate reproductive output, and set the intervention urgency score for the next visit. A removal dive with missing weights or estimated lengths instead of measured lengths degrades DMAP-CAL's calculations in ways that compound across the time series.</p>
+    <p style="font-size:0.9rem;color:var(--text-secondary);">The gear investment is minimal: a fish measuring board secured to the boat, a waterproof digital scale (±1g), a slate or underwater notebook for the belt transect tally, and a mesh bag for live fish transport to the surface before processing. The time cost per fish is approximately 90 seconds of post-removal measurement — TL, weight, photo (optional), log entry. At a typical Caribbean lionfish removal density of 3–8 fish per 100m transect, the total measurement overhead per dive is under 15 minutes. That 15 minutes is the difference between a harvest event and a scientific data point.</p>
+  </div>
+
+  <!-- MCQ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        A GMAIN observer records a lionfish density of 0.08 individuals/m² in a 100m belt transect at a node with structural complexity class 5 and horizontal visibility of 3m. DMAP-CAL applies two correction factors before using this density estimate. What are they and in which direction does each adjust the raw count?<br>
+        <em>Un observador GMAIN registra una densidad de pez León de 0.08 individuos/m² en un transecto en franja de 100m en un nodo con clase de complejidad estructural 5 y visibilidad horizontal de 3m. DMAP-CAL aplica dos factores de corrección antes de usar esta estimación de densidad. ¿Cuáles son y en qué dirección ajusta cada uno el conteo bruto?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Observer disturbance correction would reduce the count (fish avoided the diver), but GMAIN\'s protocol does not apply a standardized disturbance correction — it addresses disturbance through protocol design (approach behavior) rather than a numerical correction factor. The two documented corrections are visibility truncation and structural complexity cryptic undercount. / La corrección por perturbación del observador reduciría el conteo, pero el protocolo de GMAIN no aplica una corrección de perturbación estandarizada — aborda la perturbación a través del diseño del protocolo.')">Observer disturbance (reduces count) and time-of-day lighting (adjusts for reduced detection in dim conditions). / Perturbación del observador (reduce el conteo) y iluminación según hora del día (ajusta por detección reducida en condiciones de poca luz).</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. Visibility correction: at 3m visibility, effective belt width = min(2m, 3m/2) = 1.5m rather than 2m — the surveyed area is 100m × 3m = 300m² rather than 400m². The raw count was divided by 400m², but the effective area was only 300m², so DMAP-CAL multiplies density by 400/300 = 1.33× (upward correction — the true density is higher than the raw calculation suggests). Structural complexity correction: at complexity class 5, cryptic undercount is expected — DMAP-CAL applies a 1.5× upward multiplier. Combined: 0.08 × 1.33 × 1.5 = approximately 0.16 individuals/m² — twice the raw estimate. / Correcto. Corrección de visibilidad: a 3m de visibilidad, el ancho efectivo de la franja = min(2m, 3m/2) = 1.5m — el área encuestada es 100m × 3m = 300m² en lugar de 400m². La corrección de complejidad estructural: en clase 5, el subconteo críptico es esperado — DMAP-CAL aplica un multiplicador ascendente de 1.5×. Combinados: 0.08 × 1.33 × 1.5 ≈ 0.16 individuos/m².')">Visibility correction (upward — effective belt narrower than nominal, so true density is higher than raw) and structural complexity correction (upward — cryptic undercount expected at class 5). / Corrección de visibilidad (ascendente — franja efectiva más estrecha que la nominal, por lo que la densidad real es más alta que la bruta) y corrección de complejidad estructural (ascendente — subconteo críptico esperado en clase 5).</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Double-counting correction would reduce the density estimate (subtract duplicates), but GMAIN handles double-counting through protocol design (hash tracking on slate) rather than a post-hoc correction factor. eDNA confirmation adjusts presence/absence status, not density magnitude. / La corrección de doble conteo reduciría la estimación de densidad, pero GMAIN maneja el doble conteo a través del diseño del protocolo.')">Double-counting correction (downward) and eDNA confirmation factor (adjusts density toward confirmed presence). / Corrección de doble conteo (descendente) y factor de confirmación de ADNe (ajusta la densidad hacia la presencia confirmada).</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Current correction would only apply if the survey was conducted in a current-affected zone where fish were observed drifting through the belt. It is not a standard GMAIN correction applied to all surveys. The standard corrections are visibility truncation and structural complexity cryptic undercount. / La corrección de corriente solo se aplicaría si la encuesta se realizó en una zona afectada por corriente. No es una corrección estándar de GMAIN aplicada a todas las encuestas.')">Current-speed correction (downward — fish moved through belt faster) and depth correction (adjusts for pressure effects on visual acuity). / Corrección de velocidad de corriente (descendente — peces se movieron más rápido por la franja) y corrección de profundidad (ajusta por efectos de presión en la agudeza visual).</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        A Rim Run™ observer removes 8 lionfish in a 90-minute dive (CPUE = 5.3 fish/hour). On the next visit six weeks later, only 3 fish are removed in 90 minutes (CPUE = 2.0 fish/hour). The observer interprets this as evidence of successful population suppression. The belt transect count, however, is unchanged at 6 individuals per 100m². What is the most likely explanation, and what should the observer conclude?<br>
+        <em>Un observador del Rim Run™ remueve 8 peces León en un buceo de 90 minutos (CPUE = 5.3 peces/hora). En la siguiente visita seis semanas después, solo se remueven 3 peces en 90 minutos (CPUE = 2.0 peces/hora). El observador interpreta esto como evidencia de supresión exitosa de la población. Sin embargo, el conteo del transecto en franja no ha cambiado: 6 individuos por 100m². ¿Cuál es la explicación más probable y qué debe concluir el observador?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'Immigration subsidy explains rapid density recovery between visits, but it does not explain the CPUE decline when the transect count is unchanged. If immigration had refilled the node between visits, we would expect both CPUE and transect count to be similar to the first visit — not a CPUE decline with stable transect count. / El subsidio de inmigración explica la recuperación rápida de densidad entre visitas, pero no explica el declive de CPUE cuando el conteo del transecto no ha cambiado.')">Immigration from adjacent nodes refilled the population between visits, but the new individuals are less catchable than the original residents. / La inmigración de nodos adyacentes rellenó la población entre visitas, pero los nuevos individuos son menos capturable que los residentes originales.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. Stable transect count (6 individuals/100m²) confirms that the population has not changed. The CPUE decline from 5.3 to 2.0 fish/hour, with unchanged density, must reflect a change in catchability rather than population size. The most likely explanation is behavioral learning — the fish removed on the first visit were naive to spear fishing; the remaining individuals (and any newly settled fish that observed the first visit) have developed catch-avoidance behavior, making them less catchable by the same technique. This is the "CPUE trap" — CPUE is a function of both density AND catchability. DMAP-CAL correctly uses the transect density as the primary population indicator and flags the CPUE-density divergence as a behavioral adaptation signal rather than a suppression success signal. / Correcto. El conteo estable del transecto (6 individuos/100m²) confirma que la población no ha cambiado. El declive de CPUE con densidad sin cambios debe reflejar un cambio en la captabilidad en lugar del tamaño de la población. La explicación más probable es el aprendizaje conductual — los peces removidos en la primera visita eran ingenuos a la pesca con arpón; los individuos restantes han desarrollado comportamiento de evitación de captura. DMAP-CAL usa correctamente la densidad del transecto como indicador principal de la población y señala la divergencia CPUE-densidad como una señal de adaptación conductual.')">Unchanged transect count confirms the population has not declined — the CPUE drop reflects increased catchability avoidance by the remaining individuals, a behavioral learning signal, not population suppression. / El conteo estable del transecto confirma que la población no ha disminuido — el declive de CPUE refleja mayor evasión de captura por los individuos restantes, una señal de aprendizaje conductual, no supresión de la población.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Observer fatigue might reduce catch rate slightly, but it cannot explain a 62% CPUE decline in a trained observer between two visits. Observer fatigue is also not a systematic, interpretable signal — it is random variation that should be averaged out across multiple dives. / La fatiga del observador podría reducir ligeramente la tasa de captura, pero no puede explicar un declive de CPUE del 62% en un observador entrenado entre dos visitas.')">Observer fatigue on the second dive reduced search efficiency, producing a lower CPUE that does not reflect population change. / La fatiga del observador en el segundo buceo redujo la eficiencia de búsqueda, produciendo una CPUE más baja que no refleja un cambio en la población.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Seasonal migration would produce a lower transect count as well as lower CPUE — not a stable transect count with declining CPUE. If individuals had seasonally relocated, the belt transect would also show fewer individuals. The combination of stable density + declining CPUE points specifically to catchability change, not abundance change. / La migración estacional produciría un conteo de transecto más bajo además de una CPUE más baja — no un conteo de transecto estable con CPUE declinante.')">Seasonal migration reduced the catchable portion of the population while others moved to deeper water, maintaining transect count at the shallower survey depth. / La migración estacional redujo la porción capturable de la población mientras otros se movieron a aguas más profundas, manteniendo el conteo del transecto a la profundidad de encuesta más somera.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        A new Rim Run™ waypoint node is registered at a previously unsurveyed reef. The eDNA sample returns a positive result for <em>Pterois volitans</em>. The simultaneous belt transect records zero lionfish. DMAP-CAL assigns this node high intervention priority. Why is a density of zero not evidence of low invasive pressure at this node, and what is the correct management response?<br>
+        <em>Un nuevo nodo de punto de referencia del Rim Run™ se registra en un arrecife previamente no encuestado. La muestra de ADNe devuelve un resultado positivo para <em>Pterois volitans</em>. El transecto en franja simultáneo registra cero peces León. DMAP-CAL asigna a este nodo alta prioridad de intervención. ¿Por qué una densidad de cero no es evidencia de baja presión invasora en este nodo, y cuál es la respuesta de manejo correcta?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,3,'eDNA false positives are possible (contamination, nearby source population drift) but they are not the standard interpretation when a positive eDNA result is returned for a species with a documented invasion history in the region. DMAP-CAL\'s response to eDNA-positive + visual-zero is high-frequency resurvey, not eDNA retest as first action. / Los falsos positivos de ADNe son posibles, pero no son la interpretación estándar cuando se obtiene un resultado positivo para una especie con historial documentado de invasión en la región.')">The eDNA result is likely a false positive from drift contamination — resurvey with a new eDNA sample before committing resources. / El resultado de ADNe es probablemente un falso positivo de contaminación por deriva — reencuestar con una nueva muestra de ADNe antes de comprometer recursos.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Maximum removal effort is appropriate if visual density is confirmed — but the current situation is a sub-visual detection (eDNA positive, visual zero). Deploying maximum removal before confirming visual presence would be misallocating effort. The correct response is high-frequency resurvey to catch the population when it becomes detectable. / El esfuerzo máximo de remoción es apropiado si se confirma la densidad visual — pero la situación actual es una detección sub-visual.')">Maximum removal effort — deploy a team to exhaustively remove all individuals before the population can establish. / Esfuerzo máximo de remoción — desplegar un equipo para remover exhaustivamente todos los individuos antes de que la población pueda establecerse.</button></li>
+        <li><button onclick="handleMCQ(this,true,3,'Correct. eDNA detects DNA shed by organisms into the water column at densities 10–100× below visual detection thresholds. A positive eDNA result + visual zero means the species is present but at a density below the minimum detectable by a 100m belt transect (~0.01 individuals/m²). This is the introduction or early establishment phase — the most favorable window for eradication. A density of zero in a visual survey does not mean zero individuals exist; it means fewer than approximately 1 individual per 100m² is present. DMAP-CAL's correct response is: (1) flag the node as early-establishment status; (2) schedule high-frequency resurveys (every 2–3 weeks rather than standard interval); (3) priority intervention at the first visual confirmation to act while the population is still below Allee threshold escape point. Waiting for a comfortable visual density before responding concedes the most valuable intervention window. / Correcto. El ADNe detecta ADN a densidades 10–100× por debajo de los umbrales de detección visual. Un resultado positivo de ADNe + visual cero significa que la especie está presente pero a una densidad por debajo del mínimo detectable por un transecto en franja de 100m. Esta es la fase de introducción o establecimiento temprano — la ventana más favorable para la erradicación. DMAP-CAL: (1) señalar el nodo como estado de establecimiento temprano; (2) programar reencuestas de alta frecuencia; (3) intervención prioritaria en la primera confirmación visual.')">eDNA detects presence below visual detection threshold — zero visual count means sub-detection density, not absence. The node is in early establishment phase, the optimal eradication window, and requires high-frequency resurvey with priority intervention at first visual confirmation. / El ADNe detecta presencia por debajo del umbral de detección visual — conteo visual cero significa densidad sub-detección, no ausencia. El nodo está en la fase de establecimiento temprano, la ventana óptima de erradicación, y requiere reencuesta de alta frecuencia con intervención prioritaria en la primera confirmación visual.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Waiting for a positive visual transect before acting is exactly the management error that early detection systems are designed to prevent. By the time a visual transect produces a positive result, the population has already cleared the Allee threshold and the eradication window is closing or closed. / Esperar un transecto visual positivo antes de actuar es exactamente el error de manejo que los sistemas de detección temprana están diseñados para prevenir.')">Wait for the next scheduled survey — a positive visual transect is required before management resources can be justified. / Esperar la próxima encuesta programada — se requiere un transecto visual positivo antes de que se puedan justificar los recursos de manejo.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav"><a href="S21_L07_Invasive_Species_Drivers.html">← S21·L07 Drivers</a></div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright);font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 08 of —</div>
+    </div>
+    <div class="footer-nav"><a href="#">S21·L09 →</a></div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang,btn){
+    document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+lang).classList.add('active');
+  }
+  function handleMCQ(btn,isCorrect,qNum,feedback){
+    const block=btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b=>b.disabled=true);
+    btn.classList.add(isCorrect?'correct':'wrong');
+    const fb=document.getElementById('fb-'+qNum);
+    fb.textContent=feedback;
+    fb.classList.add('show',isCorrect?'correct-fb':'wrong-fb');
+  }
+</script>
+</body>
+</html>
