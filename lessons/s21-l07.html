@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L07 — Invasive Species: Drivers | GROAN Curriculum</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep:#0a1628; --teal-bright:#00c8b4; --teal-dim:#007a6e;
+    --amber:#f5a623; --coral-red:#e05a3a; --violet:#9b6dff;
+    --seafoam:#4ab8e0; --mint:#2edd9e; --rose:#e06aa0; --steel:#6a9fc0;
+    --text-primary:#e8f4f8; --text-secondary:#8fbdd3; --text-muted:#4a7a96;
+    --card-bg:rgba(15,34,64,0.85); --border:rgba(0,200,180,0.18); --tag-bg:rgba(0,200,180,0.12);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--ocean-deep);color:var(--text-primary);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+  .progress-bar-outer{width:100%;height:4px;background:rgba(255,255,255,0.06);position:sticky;top:0;z-index:100;}
+  .progress-bar-inner{height:100%;width:9.23%;background:linear-gradient(90deg,var(--teal-dim),var(--teal-bright));}
+  .lesson-header{background:linear-gradient(180deg,#060e1e 0%,var(--ocean-deep) 100%);border-bottom:1px solid var(--border);overflow:hidden;}
+  .header-svg-wrap{width:100%;max-height:280px;overflow:hidden;}
+  .meta-strip{max-width:860px;margin:0 auto;padding:24px 28px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .section-tag{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--tag-bg);border:1px solid var(--border);color:var(--teal-bright);padding:4px 10px;border-radius:4px;}
+  .lesson-tag-amber{background:rgba(245,166,35,0.12);border-color:rgba(245,166,35,0.3);color:var(--amber);}
+  .lesson-tag-steel{background:rgba(106,159,192,0.12);border-color:rgba(106,159,192,0.3);color:var(--steel);}
+  .lesson-title-block{max-width:860px;margin:0 auto;padding:18px 28px 28px;}
+  .lesson-number{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--teal-bright);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+  h1.lesson-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:6px;}
+  h1.lesson-title em{font-style:italic;color:var(--teal-bright);}
+  .lesson-subtitle{font-size:0.88rem;color:var(--text-secondary);font-style:italic;}
+  .content-wrap{max-width:860px;margin:0 auto;padding:40px 28px 60px;}
+  .lang-tabs{display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--border);}
+  .lang-tab{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:8px 18px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;}
+  .lang-tab.active{color:var(--teal-bright);border-bottom-color:var(--teal-bright);}
+  .lang-panel{display:none;} .lang-panel.active{display:block;}
+  h2.section-head{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--teal-bright);margin:36px 0 12px;border-left:3px solid var(--teal-dim);padding-left:14px;}
+  h3.sub-head{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin:24px 0 8px;letter-spacing:0.02em;}
+  p{margin-bottom:14px;font-size:0.96rem;color:var(--text-primary);}
+  p:last-child{margin-bottom:0;}
+  .callout{border-left:3px solid var(--teal-bright);background:rgba(0,200,180,0.06);border-radius:0 6px 6px 0;padding:14px 18px;margin:20px 0;font-size:0.92rem;color:var(--text-secondary);}
+  .callout strong{color:var(--teal-bright);}
+  .callout-amber{border-left-color:var(--amber);background:rgba(245,166,35,0.06);}
+  .callout-amber strong{color:var(--amber);}
+  .callout-red{border-left-color:var(--coral-red);background:rgba(224,90,58,0.07);}
+  .callout-red strong{color:var(--coral-red);}
+  .callout-violet{border-left-color:var(--violet);background:rgba(155,109,255,0.07);}
+  .callout-violet strong{color:var(--violet);}
+  .callout-steel{border-left-color:var(--steel);background:rgba(106,159,192,0.07);}
+  .callout-steel strong{color:var(--steel);}
+  .callout-mint{border-left-color:var(--mint);background:rgba(46,221,158,0.06);}
+  .callout-mint strong{color:var(--mint);}
+
+  /* driver tier grid */
+  .driver-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;}
+  @media(max-width:640px){.driver-tiers{grid-template-columns:1fr;}}
+  .tier-col{display:flex;flex-direction:column;gap:10px;}
+  .tier-header{font-family:'DM Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;padding:6px 12px;border-radius:4px;text-align:center;margin-bottom:2px;}
+  .tier-header.human{background:rgba(224,90,58,0.12);color:var(--coral-red);border:1px solid rgba(224,90,58,0.25);}
+  .tier-header.environ{background:rgba(245,166,35,0.12);color:var(--amber);border:1px solid rgba(245,166,35,0.25);}
+  .tier-header.govern{background:rgba(155,109,255,0.10);color:var(--violet);border:1px solid rgba(155,109,255,0.22);}
+  .driver-chip{background:var(--card-bg);border-radius:6px;padding:10px 12px;font-size:0.8rem;color:var(--text-secondary);line-height:1.4;}
+  .driver-chip.human{border-left:3px solid rgba(224,90,58,0.5);}
+  .driver-chip.environ{border-left:3px solid rgba(245,166,35,0.5);}
+  .driver-chip.govern{border-left:3px solid rgba(155,109,255,0.45);}
+  .driver-chip strong{display:block;font-size:0.76rem;font-weight:600;margin-bottom:3px;}
+  .driver-chip.human strong{color:var(--coral-red);}
+  .driver-chip.environ strong{color:var(--amber);}
+  .driver-chip.govern strong{color:var(--violet);}
+
+  /* climate driver visual */
+  .climate-cascade{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;gap:0;align-items:center;margin:20px 0;}
+  @media(max-width:560px){.climate-cascade{grid-template-columns:1fr;gap:8px;}}
+  .climate-cascade .arrow{text-align:center;font-size:1rem;color:var(--text-muted);}
+  @media(max-width:560px){.climate-cascade .arrow{display:none;}}
+  .cascade-box{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:14px 13px;text-align:center;}
+  .cascade-label{font-family:'DM Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;}
+  .cascade-text{font-size:0.8rem;color:var(--text-secondary);line-height:1.4;}
+
+  /* overfishing pathway */
+  .pathway-steps{display:flex;flex-direction:column;gap:0;margin:20px 0;}
+  .pathway-step{display:grid;grid-template-columns:32px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid rgba(0,200,180,0.07);align-items:start;}
+  .pathway-step:last-child{border-bottom:none;}
+  .step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:0.76rem;flex-shrink:0;}
+  .step-num.red{background:rgba(224,90,58,0.12);border:1px solid rgba(224,90,58,0.35);color:var(--coral-red);}
+  .step-num.amber{background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.35);color:var(--amber);}
+  .step-num.teal{background:rgba(0,200,180,0.10);border:1px solid var(--teal-dim);color:var(--teal-bright);}
+  .step-body .step-title{font-weight:600;font-size:0.9rem;color:var(--text-primary);margin-bottom:3px;}
+  .step-body .step-desc{font-size:0.83rem;color:var(--text-secondary);line-height:1.5;}
+
+  /* governance table */
+  .gov-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.84rem;}
+  .gov-table th{font-family:'DM Mono',monospace;font-size:0.67rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal-bright);border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;}
+  .gov-table td{padding:10px 12px;border-bottom:1px solid rgba(0,200,180,0.07);color:var(--text-secondary);vertical-align:top;line-height:1.45;}
+  .gov-table tr:last-child td{border-bottom:none;}
+  .gov-table td:first-child{font-family:'DM Mono',monospace;font-size:0.76rem;color:var(--violet);white-space:nowrap;}
+  .gov-table tr:hover td{background:rgba(0,200,180,0.03);}
+
+  /* DS formula */
+  .ds-formula{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin:20px 0;text-align:center;}
+  .ds-formula .formula-text{font-family:'DM Mono',monospace;font-size:1rem;color:var(--text-primary);letter-spacing:0.04em;margin-bottom:12px;}
+  .ds-terms{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;}
+  @media(max-width:520px){.ds-terms{grid-template-columns:1fr 1fr;}}
+  .ds-term{background:rgba(255,255,255,0.04);border-radius:6px;padding:10px 8px;text-align:center;}
+  .ds-term-sym{font-family:'DM Mono',monospace;font-size:0.88rem;color:var(--teal-bright);margin-bottom:4px;}
+  .ds-term-lbl{font-size:0.72rem;color:var(--text-muted);line-height:1.3;}
+  .ds-term-driver{font-size:0.68rem;color:var(--amber);margin-top:4px;font-style:italic;}
+
+  /* application panel */
+  .application-panel{background:linear-gradient(135deg,rgba(15,34,64,0.95),rgba(10,22,40,0.95));border:1px solid rgba(0,200,180,0.25);border-radius:10px;padding:28px;margin:40px 0 32px;}
+  .application-panel h2{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--amber);margin-bottom:4px;}
+  .app-sub{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:18px;}
+  .app-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+  @media(max-width:520px){.app-stat-row{grid-template-columns:1fr 1fr;}}
+  .app-stat{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:6px;padding:12px 10px;text-align:center;}
+  .app-stat-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--teal-bright);line-height:1.1;margin-bottom:4px;}
+  .app-stat-lbl{font-size:0.72rem;color:var(--text-muted);line-height:1.3;}
+
+  /* MCQ */
+  .mcq-section{margin-top:40px;}
+  .mcq-section h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text-primary);margin-bottom:24px;}
+  .mcq-block{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:22px 22px 18px;margin-bottom:16px;}
+  .mcq-q-num{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--teal-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+  .mcq-question{font-size:0.95rem;font-weight:500;color:var(--text-primary);margin-bottom:14px;line-height:1.5;}
+  .mcq-question em{font-style:italic;color:var(--text-secondary);font-size:0.88em;}
+  .mcq-options{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .mcq-options li button{width:100%;text-align:left;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text-secondary);cursor:pointer;transition:background .18s,border-color .18s,color .18s;line-height:1.45;}
+  .mcq-options li button:hover{background:rgba(0,200,180,0.08);border-color:var(--teal-dim);color:var(--text-primary);}
+  .mcq-options li button.correct{background:rgba(0,200,180,0.15);border-color:var(--teal-bright);color:var(--teal-bright);font-weight:500;}
+  .mcq-options li button.wrong{background:rgba(224,90,58,0.12);border-color:var(--coral-red);color:var(--coral-red);}
+  .mcq-options li button:disabled{cursor:default;}
+  .mcq-feedback{margin-top:12px;font-size:0.83rem;line-height:1.5;display:none;}
+  .mcq-feedback.show{display:block;}
+  .mcq-feedback.correct-fb{color:var(--teal-bright);}
+  .mcq-feedback.wrong-fb{color:#e07a5f;}
+
+  .lesson-footer{border-top:1px solid var(--border);padding:24px 28px;max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+  .footer-nav a{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);text-decoration:none;transition:color .2s;}
+  .footer-nav a:hover{color:var(--teal-bright);}
+  .footer-progress{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-align:right;}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="lesson-header">
+  <div class="header-svg-wrap">
+    <!-- SVG: Three-tier driver cascade diagram — Human Systems | Environmental Conditions | Governance/Market
+         flowing downward into Invasion Vulnerability node, then outward to ecosystem outcomes -->
+    <svg viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="bgRD" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#0c1e38"/><stop offset="100%" stop-color="#050c18"/>
+        </radialGradient>
+        <radialGradient id="vulnGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#e05a3a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="humGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e05a3a" stop-opacity="0.3"/><stop offset="100%" stop-color="#e05a3a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="envGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5a623" stop-opacity="0.3"/><stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="govGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#9b6dff" stop-opacity="0.3"/><stop offset="100%" stop-color="#9b6dff" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="outGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00c8b4" stop-opacity="0.25"/><stop offset="100%" stop-color="#00c8b4" stop-opacity="0"/>
+        </radialGradient>
+        <marker id="mRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(224,90,58,0.7)"/>
+        </marker>
+        <marker id="mAmb" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(245,166,35,0.7)"/>
+        </marker>
+        <marker id="mVio" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(155,109,255,0.7)"/>
+        </marker>
+        <marker id="mTeal" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,200,180,0.6)"/>
+        </marker>
+        <filter id="gn4" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gn2" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect width="900" height="270" fill="url(#bgRD)"/>
+      <g stroke="rgba(0,200,180,0.04)" stroke-width="1">
+        <line x1="0" y1="67" x2="900" y2="67"/><line x1="0" y1="134" x2="900" y2="134"/>
+        <line x1="0" y1="201" x2="900" y2="201"/>
+        <line x1="180" y1="0" x2="180" y2="270"/><line x1="360" y1="0" x2="360" y2="270"/>
+        <line x1="540" y1="0" x2="540" y2="270"/><line x1="720" y1="0" x2="720" y2="270"/>
+      </g>
+
+      <!-- ── TIER 1 DRIVER NODES (top row) ── -->
+
+      <!-- Human Systems — left -->
+      <circle cx="130" cy="58" r="42" fill="url(#humGrad)"/>
+      <rect x="78" y="38" width="104" height="38" rx="5"
+            fill="rgba(224,90,58,0.10)" stroke="rgba(224,90,58,0.4)" stroke-width="1.2"/>
+      <text x="130" y="53" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(224,90,58,0.9)" letter-spacing="0.06em">HUMAN</text>
+      <text x="130" y="65" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(224,90,58,0.9)" letter-spacing="0.06em">SYSTEMS</text>
+      <!-- sub-labels -->
+      <text x="130" y="92" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6"
+            fill="rgba(224,90,58,0.45)">Trade · Transport · Fishing</text>
+
+      <!-- Environmental Conditions — center -->
+      <circle cx="450" cy="58" r="42" fill="url(#envGrad)"/>
+      <rect x="390" y="38" width="120" height="38" rx="5"
+            fill="rgba(245,166,35,0.10)" stroke="rgba(245,166,35,0.4)" stroke-width="1.2"/>
+      <text x="450" y="53" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(245,166,35,0.9)" letter-spacing="0.06em">ENVIRONMENTAL</text>
+      <text x="450" y="65" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(245,166,35,0.9)" letter-spacing="0.06em">CONDITIONS</text>
+      <text x="450" y="92" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6"
+            fill="rgba(245,166,35,0.45)">Climate · Nutrients · Disturbance</text>
+
+      <!-- Governance / Market — right -->
+      <circle cx="770" cy="58" r="42" fill="url(#govGrad)"/>
+      <rect x="706" y="38" width="128" height="38" rx="5"
+            fill="rgba(155,109,255,0.10)" stroke="rgba(155,109,255,0.35)" stroke-width="1.2"/>
+      <text x="770" y="53" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(155,109,255,0.9)" letter-spacing="0.06em">GOVERNANCE</text>
+      <text x="770" y="65" text-anchor="middle" font-family="'DM Mono',monospace" font-size="7.5"
+            fill="rgba(155,109,255,0.9)" letter-spacing="0.06em">&amp; MARKETS</text>
+      <text x="770" y="92" text-anchor="middle" font-family="'DM Mono',monospace" font-size="6"
+            fill="rgba(155,109,255,0.45)">Regulation · Enforcement · Incentives</text>
+
+      <!-- ── CENTRAL: INVASION VULNERABILITY NODE ── -->
+      <circle cx="450" cy="175" r="58" fill="url(#vulnGrad)"/>
+      <circle cx="450" cy="175" r="30" fill="rgba(224,90,58,0.10)"
+              stroke="rgba(224,90,58,0.5)" stroke-width="1.5" filter="url(#gn4)"/>
+      <circle cx="450" cy="175" r="15" fill="rgba(224,90,58,0.22)"
+              stroke="rgba(224,90,58,0.8)" stroke-width="1.5"/>
+      <text x="450" y="169" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="#e05a3a" letter-spacing="0.04em">INVASION</text>
+      <text x="450" y="180" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="#e05a3a" letter-spacing="0.04em">VULNERABILITY</text>
+
+      <!-- ── ARROWS: DRIVER TIERS → VULNERABILITY ── -->
+      <!-- Human → Vulnerability -->
+      <path d="M182,76 Q280,120 422,162"
+            fill="none" stroke="rgba(224,90,58,0.55)" stroke-width="1.6" marker-end="url(#mRed)"/>
+      <!-- Environmental → Vulnerability -->
+      <line x1="450" y1="96" x2="450" y2="146"
+            stroke="rgba(245,166,35,0.6)" stroke-width="1.8" marker-end="url(#mAmb)"/>
+      <!-- Governance → Vulnerability -->
+      <path d="M718,76 Q620,120 478,162"
+            fill="none" stroke="rgba(155,109,255,0.55)" stroke-width="1.6" marker-end="url(#mVio)"/>
+
+      <!-- ── OUTCOME NODES (bottom row) ── -->
+
+      <!-- Ecosystem degradation — left outcome -->
+      <circle cx="160" cy="222" r="36" fill="url(#outGrad)"/>
+      <rect x="108" y="208" width="104" height="28" rx="4"
+            fill="rgba(0,200,180,0.06)" stroke="rgba(0,200,180,0.28)" stroke-width="1"/>
+      <text x="160" y="220" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.6)" letter-spacing="0.05em">HABITAT</text>
+      <text x="160" y="230" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.6)" letter-spacing="0.05em">DEGRADATION</text>
+
+      <!-- Biodiversity loss — center-left -->
+      <circle cx="320" cy="240" r="30" fill="url(#outGrad)"/>
+      <rect x="272" y="228" width="96" height="24" rx="4"
+            fill="rgba(0,200,180,0.06)" stroke="rgba(0,200,180,0.22)" stroke-width="1"/>
+      <text x="320" y="237" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.5)" letter-spacing="0.05em">BIODIVERSITY</text>
+      <text x="320" y="247" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.5)" letter-spacing="0.05em">LOSS</text>
+
+      <!-- Trophic disruption — center-right -->
+      <circle cx="580" cy="240" r="30" fill="url(#outGrad)"/>
+      <rect x="530" y="228" width="100" height="24" rx="4"
+            fill="rgba(0,200,180,0.06)" stroke="rgba(0,200,180,0.22)" stroke-width="1"/>
+      <text x="580" y="237" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.5)" letter-spacing="0.05em">TROPHIC</text>
+      <text x="580" y="247" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.5)" letter-spacing="0.05em">DISRUPTION</text>
+
+      <!-- Regime shift — right outcome -->
+      <circle cx="740" cy="222" r="36" fill="url(#outGrad)"/>
+      <rect x="686" y="208" width="108" height="28" rx="4"
+            fill="rgba(0,200,180,0.06)" stroke="rgba(0,200,180,0.28)" stroke-width="1"/>
+      <text x="740" y="220" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.6)" letter-spacing="0.05em">REGIME</text>
+      <text x="740" y="230" text-anchor="middle" font-family="'DM Mono',monospace"
+            font-size="6.5" fill="rgba(0,200,180,0.6)" letter-spacing="0.05em">SHIFT RISK</text>
+
+      <!-- Vulnerability → outcomes -->
+      <path d="M422,192 Q310,210 196,216" fill="none" stroke="rgba(0,200,180,0.35)" stroke-width="1.2" marker-end="url(#mTeal)"/>
+      <path d="M434,200 Q390,220 356,232" fill="none" stroke="rgba(0,200,180,0.30)" stroke-width="1.2" marker-end="url(#mTeal)"/>
+      <path d="M466,200 Q510,220 544,232" fill="none" stroke="rgba(0,200,180,0.30)" stroke-width="1.2" marker-end="url(#mTeal)"/>
+      <path d="M478,192 Q590,210 704,216" fill="none" stroke="rgba(0,200,180,0.35)" stroke-width="1.2" marker-end="url(#mTeal)"/>
+
+      <!-- Human-Governance interaction arrow (horizontal) -->
+      <path d="M210,57 Q340,30 390,50" fill="none" stroke="rgba(224,90,58,0.18)" stroke-width="1" stroke-dasharray="3,4"/>
+      <path d="M690,57 Q560,30 510,50" fill="none" stroke="rgba(155,109,255,0.18)" stroke-width="1" stroke-dasharray="3,4"/>
+
+      <text x="450" y="15" text-anchor="middle" font-family="'Playfair Display',serif"
+            font-size="10" fill="rgba(232,244,248,0.22)" letter-spacing="0.05em">INVASION DRIVER CASCADE — VULNERABILITY TO ECOSYSTEM OUTCOME</text>
+    </svg>
+  </div>
+
+  <div class="meta-strip">
+    <span class="section-tag">Section 21</span>
+    <span class="section-tag">Lesson 07</span>
+    <span class="section-tag lesson-tag-amber">🦁 Lionfish Hunter</span>
+    <span class="section-tag lesson-tag-steel">Drivers</span>
+    <span class="section-tag">GMAIN · DMAP-CAL</span>
+  </div>
+  <div class="lesson-title-block">
+    <div class="lesson-number">S21 · L07</div>
+    <h1 class="lesson-title">Invasive Species — <em>Drivers</em></h1>
+    <p class="lesson-subtitle">Impulsores de las Especies Invasoras</p>
+  </div>
+</header>
+
+<!-- ══ CONTENT ══ -->
+<main class="content-wrap">
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('en',this)">English</button>
+    <button class="lang-tab" onclick="switchLang('es',this)">Español</button>
+  </div>
+
+  <!-- ── ENGLISH ── -->
+  <div id="panel-en" class="lang-panel active">
+
+    <h2 class="section-head">Drivers, Mechanisms, and Pathways</h2>
+    <p>The S21 arc has established three distinct but related concepts. <strong>Pathways</strong> (L03) are how species move geographically — ballast water, hull fouling, aquarium trade. <strong>Mechanisms</strong> (L02) are the ecological filters that determine whether an arriving species succeeds — enemy release, propagule pressure, biotic resistance, ecological fitting. <strong>Drivers</strong> are the underlying forces that operate the pathways and weaken the mechanisms. Drivers are not species-level or ecosystem-level phenomena — they are human system, environmental, and governance-level forces that create the conditions under which pathways proliferate and mechanisms fail.</p>
+    <p>Understanding drivers is what allows DMAP-CAL to generate a forward-looking invasion risk assessment rather than simply responding to current observed density. If the drivers are worsening — shipping volume increasing, reef habitats degrading, enforcement capacity declining — invasion pressure is increasing even where current density data appear stable. Driver state is the leading indicator; density data is the lagging indicator.</p>
+
+    <div class="callout">
+      <strong>Three Tiers:</strong> Invasion drivers operate across three nested tiers. Human systems drivers (trade volume, fishing pressure, coastal development) directly introduce propagules and degrade native communities. Environmental condition drivers (climate change, eutrophication, disturbance regimes) weaken the ecological resistance that would otherwise constrain invasion success. Governance and market drivers (regulation gaps, enforcement capacity, economic incentives) determine whether human system and environmental drivers are addressed or left to compound.
+    </div>
+
+    <h2 class="section-head">Tier 1 — Human Systems Drivers</h2>
+
+    <div class="driver-tiers">
+      <div class="tier-col">
+        <div class="tier-header human">Human Systems</div>
+        <div class="driver-chip human">
+          <strong>Global Trade Volume</strong>
+          Maritime shipping tonnage is the primary multiplier of ballast water introduction pressure. Every percentage point increase in global shipping volume increases the rate of novel species introductions across ocean basins. The Caribbean handles over 80 million TEU container movements annually — each vessel a potential propagule vector.
+        </div>
+        <div class="driver-chip human">
+          <strong>Aquarium &amp; Live Trade</strong>
+          The global ornamental fish trade moves 1.5–2 billion live specimens annually across international borders, primarily without species-level biosecurity screening. The Caribbean lionfish invasion traces directly to aquarium releases — a driver that remains structurally unchanged: the live trade continues to grow, screening remains minimal, and multiple new potential invaders are in trade now.
+        </div>
+        <div class="driver-chip human">
+          <strong>Overfishing</strong>
+          The removal of large predatory fish by commercial and recreational fishing is the single most consequential human-system driver that enabled the Caribbean lionfish invasion specifically. Depleted grouper and shark populations eliminated the top-down predator pressure that would have partially regulated lionfish in a co-evolved system — and degraded the biotic resistance of the reef community simultaneously.
+        </div>
+      </div>
+
+      <div class="tier-col">
+        <div class="tier-header environ">Environmental Conditions</div>
+        <div class="driver-chip environ">
+          <strong>Climate Change</strong>
+          The master environmental driver. Warming oceans expand the geographic range available to warm-adapted invasives while simultaneously generating thermal stress events that crash the biotic resistance of native communities. The same SST anomaly that bleaches corals also reduces the competitive capacity of the native community to resist invaders — a double amplification with no historical precedent in the invasion ecology record.
+        </div>
+        <div class="driver-chip environ">
+          <strong>Nutrient Enrichment</strong>
+          Agricultural and urban runoff delivers elevated nitrogen and phosphorus to coastal waters, promoting algal growth and turbidity. Nutrient-enriched systems favor fast-growing generalist species over slow-growing K-selected specialists — shifting competitive dynamics toward invader traits. Chronic eutrophication also drives hypoxic events that selectively eliminate sensitive native species, opening ecological space.
+        </div>
+        <div class="driver-chip environ">
+          <strong>Physical Disturbance</strong>
+          Hurricanes, storm surge, and anthropogenic coastal modification (dredging, marina construction, shoreline hardening) create physical disturbance events that reset local community structure, reduce structural complexity, and open colonization space. Post-disturbance reefs have lower biotic resistance and higher settlement surface availability — both conditions that accelerate invasive establishment.
+        </div>
+      </div>
+
+      <div class="tier-col">
+        <div class="tier-header govern">Governance &amp; Markets</div>
+        <div class="driver-chip govern">
+          <strong>Biosecurity Gaps</strong>
+          Maritime biosecurity — ballast water treatment, hull inspection, live organism screening — is inconsistently applied across the Caribbean's 13+ national jurisdictions. A species screened at one port enters freely through an adjacent one. The Caribbean lacks a unified biosecurity framework equivalent to those operating in Australia or New Zealand, despite facing a comparable invasion risk profile from major shipping lanes.
+        </div>
+        <div class="driver-chip govern">
+          <strong>Enforcement Capacity</strong>
+          Removing an established invasive from reef ecosystems requires sustained, coordinated enforcement of removal programs across national boundaries. In the Caribbean, enforcement capacity for marine resource management is heterogeneous — ranging from well-funded MPA systems with active ranger programs to near-zero capacity in many jurisdictions. Enforcement gaps create source-population reservoirs that continuously re-seed managed areas.
+        </div>
+        <div class="driver-chip govern">
+          <strong>Market Incentives</strong>
+          Economic incentives can either accelerate or constrain invasion impact. Where lionfish have been successfully marketed as a food fish (Belize, Cayman Islands, parts of Mexico), commercial harvest has created a sustained removal pressure that volunteer programs alone cannot generate. Where market infrastructure is absent, removal depends entirely on ecological motivation. Market development for invasive species is an underutilized governance lever with direct management implications.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Climate Change as the Master Driver</h2>
+    <p>Climate change occupies a unique position in the invasion driver hierarchy: it simultaneously amplifies all other driver categories and introduces new invasion risk pathways that did not exist under historical climate conditions. No other single driver operates across all three tiers simultaneously.</p>
+
+    <div class="climate-cascade">
+      <div class="cascade-box">
+        <div class="cascade-label" style="color:var(--amber)">Range Expansion</div>
+        <div class="cascade-text">Thermal barriers that previously excluded warm-water invasives from higher latitudes are shifting poleward. Species established in the Caribbean are now recorded in the Gulf of Mexico and southern Atlantic at latitudes where water temperature previously prevented year-round survival.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="cascade-box">
+        <div class="cascade-label" style="color:var(--coral-red)">Biotic Resistance Collapse</div>
+        <div class="cascade-text">Marine heatwave events bleach coral and deplete fish communities. A post-bleaching reef with 20% coral cover and a depleted herbivore community has significantly lower biotic resistance than the same reef pre-bleaching — the window for invasive establishment widens precisely when native community recovery is slowest.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="cascade-box">
+        <div class="cascade-label" style="color:var(--coral-red)">Compound Vulnerability</div>
+        <div class="cascade-text">A reef simultaneously stressed by thermal bleaching, elevated lionfish predation, overfishing, and nutrient runoff faces compound drivers whose interactions are multiplicative, not additive. DMAP-CAL's regime shift risk score is highest when the Feature Layer registers multiple concurrent driver flags at the same node cluster.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Feature Layer Integration:</strong> Sea surface temperature anomaly (SST-A), marine heatwave duration index (MHW-D), and degree heating weeks (DHW) are Feature Layer variables computed once per cycle and routed to all modules via the Semantic Dispatch Layer. When DHW exceeds the bleaching threshold at a node, DMAP-CAL automatically elevates the invasion vulnerability modifier for that node — because elevated thermal stress is a driver-state flag indicating reduced biotic resistance, independent of any observed invasive density change.
+    </div>
+
+    <h2 class="section-head">Overfishing as a Compounding Human Driver</h2>
+    <p>Among all human systems drivers, chronic overfishing of Caribbean reef fish deserves distinct treatment because of the specificity and magnitude of its contribution to lionfish invasion success. The pathway is direct and well-documented:</p>
+
+    <div class="pathway-steps">
+      <div class="pathway-step">
+        <div class="step-num red">1</div>
+        <div class="step-body">
+          <div class="step-title">Apex Predator Depletion</div>
+          <div class="step-desc">Commercial and recreational fishing removed Nassau grouper (<em>Epinephelus striatus</em>), large snapper, and reef sharks from Caribbean reef systems beginning in the 1970s–1980s. These species were the functional equivalents of the predators that would regulate a novel mesopredator in a co-evolved system. Their removal created the top-down vacancy that lionfish occupied.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num red">2</div>
+        <div class="step-body">
+          <div class="step-title">Herbivore Harvest and Decline</div>
+          <div class="step-desc">Parrotfish and surgeonfish — the primary reef herbivores — have been targeted by both commercial and artisanal fisheries in many Caribbean jurisdictions. Reduced herbivore biomass means reduced grazing pressure, which allows algal coverage to increase. This degradation of the herbivory process simultaneously reduces reef structural integrity and weakens biotic resistance against invasive establishment.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num amber">3</div>
+        <div class="step-body">
+          <div class="step-title">Community Simplification</div>
+          <div class="step-desc">Decades of size-selective, species-selective fishing progressively simplify the reef fish community — removing large-bodied, slow-reproducing species first and leaving the smaller, faster-reproducing species that co-incidentally constitute the primary prey base for lionfish. The fished reef community is structurally pre-adapted to be easily exploited by a generalist ambush predator.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num amber">4</div>
+        <div class="step-body">
+          <div class="step-title">Lionfish Arrival into a Prepared System</div>
+          <div class="step-desc">When lionfish arrived in the late 1980s–early 2000s, they encountered a Caribbean reef system that overfishing had already degraded: depleted native piscivores (no predation competition), simplified prey community (abundant naive prey), reduced herbivory (lowered biotic resistance), and structurally compromised reef (reduced competitor diversity). The invasion did not create the degraded state — it exploited one that fishing had already produced.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num teal">5</div>
+        <div class="step-body">
+          <div class="step-title">GROAN / GQIN Integration</div>
+          <div class="step-desc">Fishing pressure is tracked via GQIN (Global Quality Intelligence Network) as a cross-module stressor input. When GQIN reports elevated fishing pressure on parrotfish or grouper at a node cluster simultaneously with GMAIN reporting elevated lionfish density, DMAP-CAL applies the compound stressor multiplier — recognizing that the two stressors are not independent but are jointly driving herbivore functional group depletion through different mechanisms.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Governance Drivers: The Caribbean Coordination Deficit</h2>
+    <p>Marine invasive species management in the Caribbean faces a structural governance challenge that no amount of local management effort can overcome in isolation: the ecosystem is shared across more than 28 jurisdictions, but effective management requires coordinated action across all of them simultaneously. An invasive population suppressed to near-zero in one nation's waters recolonizes from unsuppressed populations in adjacent national waters within a single larval dispersal window.</p>
+
+    <table class="gov-table">
+      <thead>
+        <tr><th>Governance Gap</th><th>Mechanism of Invasion Amplification</th><th>GROAN-Relevant Signal</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Fragmented Jurisdiction</td>
+          <td>Invasion management perimeters cannot be maintained across national boundaries without bilateral or regional agreements. A removal program effective within one nation's EEZ is continuously re-seeded by populations in adjacent waters where no removal occurs.</td>
+          <td>GMAIN node-cluster analysis detects cross-boundary immigration when managed nodes decline but unmanaged adjacent-cluster nodes remain high. CMIE flags the governance gap as a management effectiveness constraint.</td>
+        </tr>
+        <tr>
+          <td>Inconsistent Monitoring Standards</td>
+          <td>Without standardized survey protocols across jurisdictions, invasion density data cannot be aggregated to produce a regional population estimate. Management decisions are made on local data that misrepresent the regional metapopulation state.</td>
+          <td>GROAN's CCRA standardized dive log protocol is designed to be jurisdiction-neutral and scalable across the Caribbean basin — enabling regional aggregation from national node data without requiring government-to-government data sharing agreements.</td>
+        </tr>
+        <tr>
+          <td>Market Access Asymmetry</td>
+          <td>In jurisdictions where lionfish cannot be legally sold, the removal incentive is purely ecological — limiting participation to motivated volunteers. In jurisdictions with legal markets and restaurant demand, removal rates are dramatically higher because economic incentive scales the effort. The uneven market access creates differential removal rates that produce the same cross-boundary immigration problem as fragmented jurisdiction.</td>
+          <td>DMAP-CAL's feasibility term (δ·Feasibility) is modified by jurisdiction-level market access data. A removal tasking recommendation for a node in a high-market jurisdiction receives higher feasibility weighting than the same node in a no-market jurisdiction.</td>
+        </tr>
+        <tr>
+          <td>Enforcement Heterogeneity</td>
+          <td>Protected areas that cannot be enforced function as de facto open-access zones. A formally designated MPA with no enforcement capacity provides zero additional biotic resistance benefit over unprotected reef — but creates false confidence in management coverage data.</td>
+          <td>GROAN tracks the distinction between designated protection status and effective enforcement status as separate node attributes. DMAP-CAL applies a reduced biotic resistance coefficient to nodes in formally protected areas with low documented enforcement activity.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-head">Socioeconomic Drivers and the Market Lever</h2>
+    <p>Socioeconomic drivers operate at the interface between human systems and governance. They determine the availability and sustainability of the human effort required to address invasive species at the scale the problem demands. The Caribbean lionfish case is one of the most extensively studied examples of socioeconomic driver analysis in marine invasion management.</p>
+
+    <h3 class="sub-head">The Lionfish-as-Food Experiment</h3>
+    <p>Beginning around 2010, a coordinated effort by NGOs, chefs, and tourism operators attempted to create a consumer market for lionfish as a food fish — reframing the invasive from a problem to a harvestable resource. The results illustrate both the promise and the limits of the market driver lever. In Belize and the Cayman Islands, where the campaign was most successful, restaurant demand drove commercial lionfish diving operations that produced removal rates per unit effort three to five times higher than volunteer tournaments. In Haiti and parts of Cuba, where market infrastructure was absent, removal remained minimal.</p>
+
+    <h3 class="sub-head">Tourism as a Driver — Both Directions</h3>
+    <p>The Caribbean tourism industry interacts with the invasion driver in two opposing directions simultaneously. Scuba diving tourism creates the observer network and the motivated diver base that citizen science removal programs depend on — every recreational diver is a potential CCRA observer. But dive tourism also generates the coastal development pressure, anchor damage, and runoff loading that degrades reef biotic resistance — and historically drove the aquarium collection industry that produced the original lionfish release events. The same economic activity that motivates removal is partially responsible for the conditions that enabled establishment.</p>
+
+    <div class="callout callout-steel">
+      <strong>DMAP-CAL Decision Score — Driver State Modifiers:</strong> The GROAN Decision Score formula integrates driver state as context that modifies intervention effectiveness estimates, not as a separate score. A removal intervention at a node with active thermal stress, high fishing pressure, and low governance capacity has a fundamentally different effectiveness profile than the same intervention at a node with low environmental stress and high enforcement capacity — even if current lionfish density is identical. Driver state modifies the β (risk) and δ (feasibility) terms of the DS formula.
+    </div>
+
+    <div class="ds-formula">
+      <div class="formula-text">DS = α·E[Benefit] − β·Risk − γ·Cost + δ·Feasibility</div>
+      <div class="ds-terms">
+        <div class="ds-term">
+          <div class="ds-term-sym">α·E[B]</div>
+          <div class="ds-term-lbl">Expected ecological benefit of intervention</div>
+          <div class="ds-term-driver">Modified by: current density, prey biomass trend, recovery stage</div>
+        </div>
+        <div class="ds-term">
+          <div class="ds-term-sym">β·Risk</div>
+          <div class="ds-term-lbl">Risk the intervention fails or causes harm</div>
+          <div class="ds-term-driver">↑ Elevated by: thermal stress, regime shift proximity, immigration rate</div>
+        </div>
+        <div class="ds-term">
+          <div class="ds-term-sym">γ·Cost</div>
+          <div class="ds-term-lbl">Resource cost of intervention</div>
+          <div class="ds-term-driver">Modified by: node depth, dive logistics, removal infrastructure</div>
+        </div>
+        <div class="ds-term">
+          <div class="ds-term-sym">δ·Feas.</div>
+          <div class="ds-term-lbl">Probability intervention achieves intended outcome</div>
+          <div class="ds-term-driver">↑ Elevated by: market access, enforcement capacity, coordinator presence</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-red">
+      <strong>Driver State as Risk Multiplier:</strong> A node where SST anomaly, post-bleaching status, elevated fishing pressure, and low enforcement capacity all co-occur simultaneously is a node where β·Risk is maximized — every intervention is less likely to produce sustained benefit because background stressors will continue to drive degradation independent of the removal effort. DMAP-CAL's driver-state composite score identifies these nodes and recommends multi-stressor coordinated management rather than removal-only interventions, which would produce temporary density reduction without addressing the underlying drivers maintaining the vulnerability state.
+    </div>
+
+  </div><!-- /panel-en -->
+
+  <!-- ── SPANISH ── -->
+  <div id="panel-es" class="lang-panel">
+
+    <h2 class="section-head">Impulsores, Mecanismos y Rutas</h2>
+    <p>El arco S21 ha establecido tres conceptos distintos pero relacionados. Las <strong>rutas</strong> (L03) son cómo se mueven las especies geográficamente — agua de lastre, incrustaciones en cascos, comercio de acuario. Los <strong>mecanismos</strong> (L02) son los filtros ecológicos que determinan si una especie que llega tiene éxito — liberación de enemigos, presión de propágulos, resistencia biótica, ajuste ecológico. Los <strong>impulsores</strong> son las fuerzas subyacentes que operan las rutas y debilitan los mecanismos. Los impulsores no son fenómenos a nivel de especie o ecosistema — son fuerzas de los sistemas humanos, del entorno y de la gobernanza que crean las condiciones bajo las cuales las rutas proliferan y los mecanismos fallan.</p>
+    <p>Comprender los impulsores es lo que permite a DMAP-CAL generar una evaluación de riesgo de invasión prospectiva en lugar de simplemente responder a la densidad observada actual. Si los impulsores están empeorando — el volumen de envíos aumentando, los hábitats de arrecife degradándose, la capacidad de aplicación disminuyendo — la presión de invasión está aumentando incluso donde los datos de densidad actuales parecen estables.</p>
+
+    <div class="callout">
+      <strong>Tres Niveles:</strong> Los impulsores de invasión operan en tres niveles anidados. Los impulsores de sistemas humanos (volumen de comercio, presión pesquera, desarrollo costero) introducen directamente propágulos y degradan las comunidades nativas. Los impulsores de condiciones ambientales (cambio climático, eutrofización, regímenes de perturbación) debilitan la resistencia ecológica. Los impulsores de gobernanza y mercado (brechas regulatorias, capacidad de aplicación, incentivos económicos) determinan si los impulsores de los sistemas humanos y ambientales se abordan o se dejan acumular.
+    </div>
+
+    <h2 class="section-head">Nivel 1 — Impulsores de Sistemas Humanos</h2>
+
+    <div class="driver-tiers">
+      <div class="tier-col">
+        <div class="tier-header human">Sistemas Humanos</div>
+        <div class="driver-chip human">
+          <strong>Volumen de Comercio Global</strong>
+          El tonelaje del transporte marítimo es el multiplicador primario de la presión de introducción por agua de lastre. El Caribe maneja más de 80 millones de TEU de movimientos de contenedores anualmente — cada embarcación es un potencial vector de propágulos.
+        </div>
+        <div class="driver-chip human">
+          <strong>Comercio de Acuario y Organismos Vivos</strong>
+          El comercio mundial de peces ornamentales mueve 1,500–2,000 millones de especímenes vivos anuales a través de fronteras internacionales, principalmente sin control de bioseguridad a nivel de especie. La invasión del pez León en el Caribe se remonta directamente a liberaciones de acuario — un impulsor que permanece estructuralmente sin cambios.
+        </div>
+        <div class="driver-chip human">
+          <strong>Sobrepesca</strong>
+          La remoción de grandes peces depredadores por la pesca comercial y recreativa es el impulsor de sistemas humanos más consecuente que habilitó la invasión del pez León en el Caribe. Las poblaciones agotadas de mero y tiburón eliminaron la presión de depredadores de arriba hacia abajo que habría regulado parcialmente al pez León en un sistema co-evolucionado.
+        </div>
+      </div>
+
+      <div class="tier-col">
+        <div class="tier-header environ">Condiciones Ambientales</div>
+        <div class="driver-chip environ">
+          <strong>Cambio Climático</strong>
+          El impulsor ambiental maestro. El calentamiento de los océanos expande el rango geográfico disponible para los invasores adaptados al calor mientras genera simultáneamente eventos de estrés térmico que colapsan la resistencia biótica de las comunidades nativas — una doble amplificación sin precedente histórico en el registro de ecología de invasiones.
+        </div>
+        <div class="driver-chip environ">
+          <strong>Enriquecimiento de Nutrientes</strong>
+          La escorrentía agrícola y urbana suministra nitrógeno y fósforo elevados a las aguas costeras, promoviendo el crecimiento algal y la turbidez. Los sistemas enriquecidos con nutrientes favorecen a las especies generalistas de crecimiento rápido sobre los especialistas de selección K — desplazando la dinámica competitiva hacia los rasgos del invasor.
+        </div>
+        <div class="driver-chip environ">
+          <strong>Perturbación Física</strong>
+          Huracanes, marejadas y modificación costera antropogénica crean eventos de perturbación que reinician la estructura de la comunidad local, reducen la complejidad estructural y abren espacio de colonización. Los arrecifes post-perturbación tienen menor resistencia biótica y mayor disponibilidad de superficie de asentamiento — ambas condiciones que aceleran el establecimiento invasor.
+        </div>
+      </div>
+
+      <div class="tier-col">
+        <div class="tier-header govern">Gobernanza y Mercados</div>
+        <div class="driver-chip govern">
+          <strong>Brechas de Bioseguridad</strong>
+          La bioseguridad marítima — tratamiento de agua de lastre, inspección de cascos, control de organismos vivos — se aplica de forma inconsistente en las 13+ jurisdicciones nacionales del Caribe. Al Caribe le falta un marco de bioseguridad unificado equivalente al que opera en Australia o Nueva Zelanda, a pesar de enfrentar un perfil de riesgo de invasión comparable.
+        </div>
+        <div class="driver-chip govern">
+          <strong>Capacidad de Aplicación</strong>
+          Eliminar un invasor establecido de los ecosistemas de arrecife requiere aplicación sostenida y coordinada de programas de remoción a través de fronteras nacionales. En el Caribe, la capacidad de aplicación para el manejo de recursos marinos es heterogénea — desde sistemas de AMPs bien financiados hasta capacidad casi nula en muchas jurisdicciones.
+        </div>
+        <div class="driver-chip govern">
+          <strong>Incentivos de Mercado</strong>
+          Los incentivos económicos pueden acelerar o limitar el impacto de la invasión. Donde el pez León se ha comercializado exitosamente como pez comestible (Belice, Islas Caimán, partes de México), la cosecha comercial ha creado una presión de remoción sostenida que los programas de voluntarios solos no pueden generar. El desarrollo de mercado para especies invasoras es una palanca de gobernanza infrautilizada.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-head">El Cambio Climático como Impulsor Maestro</h2>
+    <p>El cambio climático ocupa una posición única en la jerarquía de impulsores de invasión: amplifica simultáneamente todas las demás categorías de impulsores e introduce nuevas vías de riesgo de invasión que no existían bajo las condiciones climáticas históricas. Ningún otro impulsor único opera en los tres niveles simultáneamente.</p>
+
+    <div class="climate-cascade">
+      <div class="cascade-box">
+        <div class="cascade-label" style="color:var(--amber)">Expansión de Rango</div>
+        <div class="cascade-text">Las barreras térmicas que previamente excluían a los invasores de aguas cálidas de latitudes más altas se están desplazando hacia los polos. Especies establecidas en el Caribe ahora se registran en el Golfo de México y el Atlántico sur en latitudes donde la temperatura del agua previamente impedía la supervivencia anual.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="cascade-box">
+        <div class="cascade-label" style="color:var(--coral-red)">Colapso de Resistencia Biótica</div>
+        <div class="cascade-text">Los eventos de ola de calor marino blanquean el coral y agotan las comunidades de peces. Un arrecife post-blanqueamiento con 20% de cobertura de coral y comunidad de herbívoros agotada tiene significativamente menor resistencia biótica que el mismo arrecife pre-blanqueamiento — la ventana para el establecimiento invasor se amplía precisamente cuando la recuperación de la comunidad nativa es más lenta.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="cascade-box">
+        <div class="cascade-label" style="color:var(--coral-red)">Vulnerabilidad Compuesta</div>
+        <div class="cascade-text">Un arrecife simultáneamente estresado por blanqueamiento térmico, depredación elevada por pez León, sobrepesca y escorrentía de nutrientes enfrenta impulsores compuestos cuyas interacciones son multiplicativas, no aditivas. La puntuación de riesgo de cambio de régimen de DMAP-CAL es más alta cuando la Capa de Características registra múltiples señales de impulsores concurrentes en el mismo clúster de nodos.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Integración de la Capa de Características:</strong> La anomalía de temperatura superficial del mar (TSM-A), el índice de duración de ola de calor marino (OCA-D) y las semanas de calor grados (SCG) son variables de la Capa de Características calculadas una vez por ciclo y enrutadas a todos los módulos. Cuando SCG supera el umbral de blanqueamiento en un nodo, DMAP-CAL eleva automáticamente el modificador de vulnerabilidad de invasión para ese nodo.
+    </div>
+
+    <h2 class="section-head">La Sobrepesca como Impulsor Humano Compuesto</h2>
+    <p>Entre todos los impulsores de sistemas humanos, la sobrepesca crónica de peces de arrecife caribeños merece un tratamiento distinto debido a la especificidad y magnitud de su contribución al éxito de la invasión del pez León. La vía es directa y bien documentada:</p>
+
+    <div class="pathway-steps">
+      <div class="pathway-step">
+        <div class="step-num red">1</div>
+        <div class="step-body">
+          <div class="step-title">Agotamiento de Depredadores Ápice</div>
+          <div class="step-desc">La pesca comercial y recreativa eliminó al mero nassau (<em>Epinephelus striatus</em>), grandes pargos y tiburones de arrecife de los sistemas de arrecifes caribeños a partir de los años 70–80. Estas especies eran los equivalentes funcionales de los depredadores que regularían a un nuevo mesodepredador en un sistema co-evolucionado. Su remoción creó la vacante de arriba hacia abajo que ocupó el pez León.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num red">2</div>
+        <div class="step-body">
+          <div class="step-title">Cosecha y Declive de Herbívoros</div>
+          <div class="step-desc">Los peces loro y cirujanos — los principales herbívoros del arrecife — han sido objetivo de pesquerías comerciales y artesanales en muchas jurisdicciones caribeñas. La biomasa de herbívoros reducida significa menor presión de ramoneo, lo que permite que la cobertura algal aumente. Esta degradación del proceso de herbivoría simultáneamente reduce la integridad estructural del arrecife y debilita la resistencia biótica.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num amber">3</div>
+        <div class="step-body">
+          <div class="step-title">Simplificación de la Comunidad</div>
+          <div class="step-desc">Décadas de pesca selectiva por tamaño y especie simplifican progresivamente la comunidad de peces del arrecife — eliminando primero las especies de cuerpo grande y reproducción lenta y dejando las especies más pequeñas y de reproducción más rápida que coincidentemente constituyen la base de presas primaria para el pez León.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num amber">4</div>
+        <div class="step-body">
+          <div class="step-title">Llegada del Pez León a un Sistema Preparado</div>
+          <div class="step-desc">Cuando el pez León llegó a finales de los años 80 y principios de los 2000, encontró un sistema de arrecife caribeño que la sobrepesca ya había degradado: piscívoros nativos agotados (sin competencia de depredación), comunidad de presas simplificada (presas inexpertas abundantes), herbivoría reducida (resistencia biótica disminuida) y arrecife estructuralmente comprometido. La invasión no creó el estado degradado — explotó uno que la pesca ya había producido.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num teal">5</div>
+        <div class="step-body">
+          <div class="step-title">Integración GROAN / GQIN</div>
+          <div class="step-desc">La presión pesquera se rastrea a través de GQIN como entrada de factor estresante inter-módulo. Cuando GQIN reporta presión pesquera elevada sobre peces loro o meros en un clúster de nodos simultáneamente con GMAIN reportando densidad elevada de pez León, DMAP-CAL aplica el multiplicador de factor estresante compuesto — reconociendo que los dos factores estresantes están impulsando conjuntamente el agotamiento del grupo funcional de herbívoros.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-head">Impulsores de Gobernanza: El Déficit de Coordinación del Caribe</h2>
+    <p>El manejo de especies invasoras marinas en el Caribe enfrenta un desafío de gobernanza estructural que ninguna cantidad de esfuerzo de manejo local puede superar de forma aislada: el ecosistema se comparte entre más de 28 jurisdicciones, pero el manejo efectivo requiere acción coordinada en todas ellas simultáneamente.</p>
+
+    <table class="gov-table">
+      <thead>
+        <tr><th>Brecha de Gobernanza</th><th>Mecanismo de Amplificación de Invasión</th><th>Señal Relevante GROAN</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Jurisdicción Fragmentada</td>
+          <td>Los perímetros de manejo de invasión no se pueden mantener a través de fronteras nacionales sin acuerdos bilaterales o regionales. Un programa de remoción efectivo dentro de la ZEE de un país es continuamente re-sembrado por poblaciones en aguas adyacentes donde no ocurre remoción.</td>
+          <td>El análisis de clúster de nodos de GMAIN detecta la inmigración transfronteriza cuando los nodos gestionados disminuyen pero los nodos de clústeres adyacentes no gestionados permanecen altos. El CMIE señala la brecha de gobernanza como una restricción de efectividad de manejo.</td>
+        </tr>
+        <tr>
+          <td>Acceso Asimétrico al Mercado</td>
+          <td>En jurisdicciones donde el pez León no se puede vender legalmente, el incentivo de remoción es puramente ecológico — limitando la participación a voluntarios motivados. En jurisdicciones con mercados legales y demanda de restaurantes, las tasas de remoción son dramáticamente más altas porque el incentivo económico escala el esfuerzo.</td>
+          <td>El término de factibilidad (δ·Factibilidad) de DMAP-CAL es modificado por los datos de acceso al mercado a nivel de jurisdicción. Una recomendación de tareas de remoción para un nodo en una jurisdicción de alto mercado recibe mayor ponderación de factibilidad.</td>
+        </tr>
+        <tr>
+          <td>Heterogeneidad de Aplicación</td>
+          <td>Las áreas protegidas que no pueden hacerse cumplir funcionan como zonas de acceso abierto de facto. Un AMP formalmente designada sin capacidad de aplicación no proporciona ningún beneficio adicional de resistencia biótica sobre el arrecife no protegido — pero crea falsa confianza en los datos de cobertura de manejo.</td>
+          <td>GROAN rastrea la distinción entre el estado de protección designado y el estado de aplicación efectivo como atributos de nodo separados. DMAP-CAL aplica un coeficiente de resistencia biótica reducido a los nodos en áreas formalmente protegidas con baja actividad de aplicación documentada.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-head">Impulsores Socioeconómicos y la Palanca del Mercado</h2>
+
+    <h3 class="sub-head">El Experimento del Pez León como Alimento</h3>
+    <p>A partir de 2010, un esfuerzo coordinado de ONGs, chefs y operadores turísticos intentó crear un mercado de consumidores para el pez León como pez comestible — reencuadrando al invasor de un problema a un recurso cosechable. En Belice y las Islas Caimán, donde la campaña fue más exitosa, la demanda de restaurantes impulsó operaciones comerciales de buceo de pez León que produjeron tasas de remoción por unidad de esfuerzo tres a cinco veces mayores que los torneos de voluntarios. En Haití y partes de Cuba, donde la infraestructura de mercado estaba ausente, la remoción permaneció mínima.</p>
+
+    <h3 class="sub-head">El Turismo como Impulsor — Ambas Direcciones</h3>
+    <p>La industria del turismo del Caribe interactúa con el impulsor de invasión en dos direcciones opuestas simultáneamente. El turismo de buceo crea la red de observadores y la base de buzos motivados de la que dependen los programas de ciencia ciudadana. Pero el turismo de buceo también genera la presión de desarrollo costero, el daño por anclas y la carga de escorrentía que degrada la resistencia biótica del arrecife — y históricamente impulsó la industria de colección de acuario que produjo los eventos originales de liberación del pez León.</p>
+
+    <div class="callout callout-steel">
+      <strong>Puntuación de Decisión DMAP-CAL — Modificadores del Estado de Impulsores:</strong> La fórmula de Puntuación de Decisión de GROAN integra el estado de los impulsores como contexto que modifica las estimaciones de efectividad de la intervención. Una intervención de remoción en un nodo con estrés térmico activo, alta presión pesquera y baja capacidad de gobernanza tiene un perfil de efectividad fundamentalmente diferente al de la misma intervención en un nodo con bajo estrés ambiental y alta capacidad de aplicación, incluso si la densidad actual del pez León es idéntica.
+    </div>
+
+    <div class="ds-formula">
+      <div class="formula-text">DS = α·E[Beneficio] − β·Riesgo − γ·Costo + δ·Factibilidad</div>
+      <div class="ds-terms">
+        <div class="ds-term">
+          <div class="ds-term-sym">α·E[B]</div>
+          <div class="ds-term-lbl">Beneficio ecológico esperado de la intervención</div>
+          <div class="ds-term-driver">Modificado por: densidad actual, tendencia de biomasa de presas, etapa de recuperación</div>
+        </div>
+        <div class="ds-term">
+          <div class="ds-term-sym">β·Riesgo</div>
+          <div class="ds-term-lbl">Riesgo de que la intervención falle o cause daño</div>
+          <div class="ds-term-driver">↑ Elevado por: estrés térmico, proximidad al cambio de régimen, tasa de inmigración</div>
+        </div>
+        <div class="ds-term">
+          <div class="ds-term-sym">γ·Costo</div>
+          <div class="ds-term-lbl">Costo de recursos de la intervención</div>
+          <div class="ds-term-driver">Modificado por: profundidad del nodo, logística de buceo, infraestructura de remoción</div>
+        </div>
+        <div class="ds-term">
+          <div class="ds-term-sym">δ·Fact.</div>
+          <div class="ds-term-lbl">Probabilidad de que la intervención logre el resultado previsto</div>
+          <div class="ds-term-driver">↑ Elevado por: acceso al mercado, capacidad de aplicación, presencia de coordinador</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panel-es -->
+
+  <!-- APPLICATION PANEL -->
+  <div class="application-panel">
+    <h2>Field Application</h2>
+    <p class="app-sub">Caribbean Lionfish — The Convergence of All Three Driver Tiers</p>
+    <div class="app-stat-row">
+      <div class="app-stat"><div class="app-stat-val">28+</div><div class="app-stat-lbl">Caribbean jurisdictions sharing the invaded ecosystem — the primary governance coordination challenge</div></div>
+      <div class="app-stat"><div class="app-stat-val">~50%</div><div class="app-stat-lbl">Estimated decline in Caribbean reef fish biomass from overfishing prior to lionfish arrival — the pre-prepared system</div></div>
+      <div class="app-stat"><div class="app-stat-val">3–5×</div><div class="app-stat-lbl">Higher removal rate per unit effort achieved in jurisdictions with legal lionfish food markets vs. volunteer-only programs</div></div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">The Caribbean lionfish invasion is the convergence of all three driver tiers operating simultaneously at maximum intensity. Human systems drivers produced the invasion: the aquarium trade introduced the species, overfishing stripped the native predator community that would have provided partial regulatory control, and coastal development degraded reef structural integrity. Environmental condition drivers amplified it: thermal bleaching cycles have reduced native community biotic resistance at precisely the moments when invasive establishment is most likely. Governance drivers sustain it: fragmented jurisdiction prevents coordinated regional management, inconsistent market access produces heterogeneous removal rates, and enforcement capacity gaps maintain source population reservoirs in unmanaged areas.</p>
+    <p style="font-size:0.9rem;color:var(--text-secondary);">The Rim Run™ field protocol engages the market driver directly: every lionfish removed is logged, measured, and eaten — creating the data record that supports market development arguments in jurisdictions where legal sale is still pending, and demonstrating the harvestable biomass available per dive-hour that commercial operations require to evaluate economic feasibility. GMAIN's accumulating per-node removal dataset is not just an ecological time series — it is the market feasibility evidence base for governance-level policy arguments in the jurisdictions the Rim Run™ route passes through.</p>
+  </div>
+
+  <!-- MCQ -->
+  <div class="mcq-section">
+    <h2>Check Your Understanding · Comprensión</h2>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 1 · Pregunta 1</div>
+      <div class="mcq-question">
+        Among human systems drivers, which specific activity most directly created the conditions that enabled Caribbean lionfish to establish and spread at ecologically damaging densities, and through what mechanism?<br>
+        <em>Entre los impulsores de sistemas humanos, ¿qué actividad específica creó más directamente las condiciones que permitieron al pez León caribeño establecerse y dispersarse a densidades ecológicamente dañinas, y a través de qué mecanismo?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,1,'Maritime shipping is a major driver of ballast water introductions globally, but it is not the primary driver of the Caribbean lionfish invasion specifically — the invasion traces to aquarium trade releases, not ballast water. The pre-conditions for its ecological success were created by overfishing, not shipping. / El transporte marítimo es un importante impulsor de las introducciones de agua de lastre a nivel mundial, pero no es el principal impulsor de la invasión del pez León en el Caribe específicamente.')">Maritime shipping — ballast water introduced lionfish larvae from Indo-Pacific source populations. / Transporte marítimo — el agua de lastre introdujo larvas de pez León de poblaciones fuente del Indo-Pacífico.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'Coastal development is a contributing driver through habitat degradation and runoff, but it is not the primary mechanism through which conditions were created for lionfish ecological success. The functional community preparation was driven primarily by overfishing, not coastal construction. / El desarrollo costero es un impulsor contribuyente a través de la degradación del hábitat, pero no es el mecanismo principal.')">Coastal development — construction runoff degraded water quality and coral cover before lionfish arrived. / Desarrollo costero — la escorrentía de la construcción degradó la calidad del agua y la cobertura de coral antes de que llegara el pez León.</button></li>
+        <li><button onclick="handleMCQ(this,true,1,'Correct. Chronic overfishing of Caribbean reef fish — particularly apex predators (Nassau grouper, large snapper, sharks) and herbivores (parrotfish, surgeonfish) — prior to lionfish arrival created the specific conditions that enabled invasion success: no native piscivore competitors, simplified naive prey community, degraded herbivory process, and reduced reef structural integrity. Lionfish arrived into a system that overfishing had prepared. The aquarium trade introduced the species; overfishing created the ecological conditions in which it succeeded. / Correcto. La sobrepesca crónica de los peces de arrecife caribeños — particularmente los depredadores ápice y los herbívoros — creó las condiciones específicas que permitieron el éxito de la invasión: sin competidores piscívoros nativos, comunidad de presas ingenua simplificada, proceso de herbivoría degradado e integridad estructural del arrecife reducida. El pez León llegó a un sistema que la sobrepesca había preparado.')">Chronic overfishing — by depleting native apex predators and herbivores prior to lionfish arrival, it eliminated competitive pressure and reduced biotic resistance, creating the ecological vacancy the invasion occupied. / Sobrepesca crónica — al agotar a los depredadores ápice nativos y los herbívoros antes de la llegada del pez León, eliminó la presión competitiva y redujo la resistencia biótica, creando la vacancia ecológica que ocupó la invasión.</button></li>
+        <li><button onclick="handleMCQ(this,false,1,'The aquarium trade was the introduction pathway — it explains how lionfish arrived. But the question asks what created the conditions for ecological success at damaging densities, which is the overfishing driver, not the introduction pathway. / El comercio de acuario fue la ruta de introducción — explica cómo llegó el pez León. Pero la pregunta pregunta qué creó las condiciones para el éxito ecológico, que es el impulsor de sobrepesca.')">Aquarium trade releases — the direct introduction of lionfish into Florida coastal waters initiated the invasion. / Liberaciones del comercio de acuario — la introducción directa del pez León en las aguas costeras de Florida inició la invasión.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-1"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 2 · Pregunta 2</div>
+      <div class="mcq-question">
+        Why does climate change function as a "master driver" of biological invasion rather than simply one stressor among many?<br>
+        <em>¿Por qué el cambio climático funciona como un "impulsor maestro" de la invasión biológica en lugar de simplemente un factor estresante más entre muchos?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,2,'Climate change does affect ocean chemistry through acidification, but this is not the mechanism that makes it a master driver. The master driver designation comes from the simultaneous amplification of both invasive species range expansion AND native community biotic resistance reduction — operating across all three driver tiers. / El cambio climático afecta la química del océano a través de la acidificación, pero esto no es el mecanismo que lo convierte en un impulsor maestro.')">It acidifies ocean water, which directly kills native coral and opens space for invasive colonization. / Acidifica el agua del océano, lo que directamente mata el coral nativo y abre espacio para la colonización invasora.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Intensifying storm systems is one mechanism through which climate change creates physical disturbance, but this alone does not explain the master driver designation. The key is the simultaneous amplification across range expansion AND biotic resistance reduction AND governance pressure — not any single mechanism. / Intensificar los sistemas de tormentas es un mecanismo, pero esto solo no explica la designación de impulsor maestro.')">It intensifies hurricane systems, producing more frequent physical disturbance events on Caribbean reefs. / Intensifica los sistemas de huracanes, produciendo eventos de perturbación física más frecuentes en los arrecifes caribeños.</button></li>
+        <li><button onclick="handleMCQ(this,true,2,'Correct. Climate change is the master driver because it simultaneously operates across all three driver tiers: it expands the geographic range available to warm-adapted invasives (amplifying Human Systems driver outcomes), it generates thermal stress events that crash the biotic resistance of native communities at exactly the moments when invasive establishment is most likely (amplifying Environmental Conditions driver outcomes), and it creates governance emergency conditions that redirect enforcement and management capacity away from invasion prevention (amplifying Governance driver failures). No other single driver operates across all three tiers simultaneously. / Correcto. El cambio climático es el impulsor maestro porque opera simultáneamente en los tres niveles: expande el rango geográfico disponible para los invasores adaptados al calor, genera eventos de estrés térmico que colapsan la resistencia biótica de las comunidades nativas exactamente cuando el establecimiento invasor es más probable, y crea condiciones de emergencia de gobernanza que redirigen la capacidad de aplicación lejos de la prevención de invasiones.')">It simultaneously expands invasive species ranges, crashes native community biotic resistance through thermal stress events, and creates governance emergencies that redirect management capacity — operating across all three driver tiers at once. / Simultáneamente expande los rangos de especies invasoras, colapsa la resistencia biótica de las comunidades nativas a través de eventos de estrés térmico y crea emergencias de gobernanza que redirigen la capacidad de manejo — operando en los tres niveles de impulsores a la vez.</button></li>
+        <li><button onclick="handleMCQ(this,false,2,'Increasing sea level is a long-term threat to coastal habitats but is not the mechanism by which climate change functions as a master invasion driver. The thermal stress and range expansion mechanisms operate on timescales directly relevant to invasion management cycles. / El aumento del nivel del mar es una amenaza a largo plazo para los hábitats costeros, pero no es el mecanismo por el que el cambio climático funciona como un impulsor maestro de invasión.')">It raises sea levels, flooding coastal habitats and creating new aquatic colonization zones for marine invasives. / Eleva los niveles del mar, inundando hábitats costeros y creando nuevas zonas de colonización acuática para invasores marinos.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-2"></div>
+    </div>
+
+    <div class="mcq-block">
+      <div class="mcq-q-num">Question 3 · Pregunta 3</div>
+      <div class="mcq-question">
+        DMAP-CAL evaluates two identical reef nodes — same lionfish density, same prey biomass. Node A: SST anomaly elevated, recent bleaching recorded, high fishing pressure on herbivores, no legal lionfish market. Node B: SST normal, no recent bleaching, low fishing pressure, active lionfish food market. How does driver state change DMAP-CAL's Decision Score for a removal intervention at each node?<br>
+        <em>DMAP-CAL evalúa dos nodos de arrecife idénticos — misma densidad de pez León, misma biomasa de presas. Nodo A: anomalía de TSM elevada, blanqueamiento reciente, alta presión pesquera sobre herbívoros, sin mercado legal de pez León. Nodo B: TSM normal, sin blanqueamiento reciente, baja presión pesquera, mercado activo de pez León. ¿Cómo cambia el estado de los impulsores la Puntuación de Decisión de DMAP-CAL para una intervención de remoción en cada nodo?</em>
+      </div>
+      <ul class="mcq-options">
+        <li><button onclick="handleMCQ(this,false,3,'Identical density data do not produce identical Decision Scores when driver state differs. The DS formula explicitly incorporates β·Risk (elevated by thermal stress and regime shift proximity) and δ·Feasibility (elevated by market access and enforcement capacity) as driver-state-dependent terms. Identical density → different DS is exactly what the driver-state integration is designed to produce. / Los datos de densidad idénticos no producen Puntuaciones de Decisión idénticas cuando el estado de los impulsores difiere.')">Decision Scores are identical because lionfish density and prey biomass are the primary inputs and both nodes are the same. / Las Puntuaciones de Decisión son idénticas porque la densidad del pez León y la biomasa de presas son las entradas primarias y ambos nodos son iguales.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'Node A receives a higher priority signal because density data are identical — but the reason is not density, it is that the driver state at Node A indicates higher risk of cascade failure if intervention is delayed, not that removal is likely to succeed there. In fact, the driver-state analysis recommends different intervention types, not just different priorities. / El Nodo A recibe una señal de mayor prioridad porque los datos de densidad son idénticos — pero la razón no es la densidad.')">Node A receives higher removal priority because elevated stress increases ecological urgency regardless of feasibility. / El Nodo A recibe mayor prioridad de remoción porque el estrés elevado aumenta la urgencia ecológica independientemente de la factibilidad.</button></li>
+        <li><button onclick="handleMCQ(this,false,3,'The DS formula is not reduced to binary feasibility — it modulates all four terms. Node A has high β·Risk and low δ·Feasibility, but α·E[Benefit] and γ·Cost also change under driver state conditions. The outcome is not simply "do nothing at A" but rather "intervention type and scale at A must be redesigned to address drivers, not just density." / La fórmula DS no se reduce a factibilidad binaria — modula los cuatro términos.')">Node B gets higher removal priority; Node A should receive no intervention until environmental stressors resolve. / El Nodo B obtiene mayor prioridad de remoción; el Nodo A no debe recibir ninguna intervención hasta que se resuelvan los factores estresantes ambientales.</button></li>
+        <li><button onclick="handleMCQ(this,true,3,'Correct. For Node A: β·Risk is elevated (thermal stress raises regime shift probability; removal without addressing fishing pressure on herbivores leaves the trophic cascade reversal incomplete) and δ·Feasibility is low (no market access means lower removal rates; no legal incentive to sustain effort). DS is lower for removal-only intervention — DMAP-CAL recommends multi-stressor management including fishing pressure reduction and thermal stress monitoring alongside removal. For Node B: β·Risk is lower (stable thermal conditions, intact herbivore community reduces regime shift risk) and δ·Feasibility is high (legal market drives commercial removal rates). DS is high — removal-only is the indicated intervention and likely to produce sustained benefit. Same density, fundamentally different optimal management response. / Correcto. Para el Nodo A: β·Riesgo está elevado (el estrés térmico aumenta la probabilidad de cambio de régimen; la remoción sin abordar la presión pesquera sobre los herbívoros deja la reversión de la cascada trófica incompleta) y δ·Factibilidad es baja. DS es más bajo para la intervención de solo remoción — DMAP-CAL recomienda manejo de múltiples factores estresantes. Para el Nodo B: β·Riesgo es menor y δ·Factibilidad es alta. DS es alto — la remoción sola es la intervención indicada y probablemente produzca beneficio sostenido. Misma densidad, respuesta de manejo óptima fundamentalmente diferente.')">Node A: lower DS for removal-only — high β·Risk from thermal stress and low δ·Feasibility from absent market → multi-stressor management indicated. Node B: higher DS — low β·Risk, high δ·Feasibility from active market → removal-only intervention indicated. Same density, different optimal response. / Nodo A: DS más bajo para solo remoción — alto β·Riesgo por estrés térmico y baja δ·Factibilidad por mercado ausente → manejo de múltiples factores indicado. Nodo B: DS más alto — bajo β·Riesgo, alta δ·Factibilidad → intervención de solo remoción indicada. Misma densidad, respuesta óptima diferente.</button></li>
+      </ul>
+      <div class="mcq-feedback" id="fb-3"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="lesson-footer">
+    <div class="footer-nav"><a href="S21_L06_Invasive_Species_Interactions.html">← S21·L06 Interactions</a></div>
+    <div class="footer-progress">
+      <div style="color:var(--teal-bright);font-size:0.75rem;">65 / 704 lessons complete</div>
+      <div>Section 21 · Lesson 07 of —</div>
+    </div>
+    <div class="footer-nav"><a href="#">S21·L08 →</a></div>
+  </div>
+</footer>
+
+<script>
+  function switchLang(lang,btn){
+    document.querySelectorAll('.lang-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.lang-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+lang).classList.add('active');
+  }
+  function handleMCQ(btn,isCorrect,qNum,feedback){
+    const block=btn.closest('.mcq-block');
+    block.querySelectorAll('button').forEach(b=>b.disabled=true);
+    btn.classList.add(isCorrect?'correct':'wrong');
+    const fb=document.getElementById('fb-'+qNum);
+    fb.textContent=feedback;
+    fb.classList.add('show',isCorrect?'correct-fb':'wrong-fb');
+  }
+</script>
+</body>
+</html>
