@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -373,13 +374,6 @@ p+p{margin-top:1.3rem;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-/* FOOTER */
-footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
-.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
-.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
-.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
-.footer-contact a{color:var(--aqua);}
-
 /* RESPONSIVE */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;min-height:auto;}
@@ -415,6 +409,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <a href="rimrun.html">Rim Run&#8482;</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+    <a href="shieldmaiden.html" class="active">Shield Maiden</a>
     <a href="lionfish.html">Lion Hunter</a>
     <a href="systems.html">Systems</a>
     <a href="science.html">The Science</a>
@@ -427,7 +422,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <a href="shop.html">Shop</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About</a>
-    <a href="legal.html">Legal</a> 
+    <a href="legal.html">Legal &amp; IP</a>
   </div>
 </nav>
 
@@ -586,7 +581,28 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <p class="reveal" style="margin-top:2.5rem;font-size:0.85rem;color:var(--text-dim);font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">October 2026 (Tentative) &bull; Caribe: Mexico MAR &rarr; ABC Islands &bull; Pac: Chile &rarr; Sea of Cortez, MX &bull; (928) 250-9763</p>
 </div>
 
-
+<footer style="
+  background:#080c14;
+  border-top:1px solid rgba(201,168,76,0.15);
+  padding:2rem 1rem;
+  text-align:center;
+">
+  <div style="
+    font-family:'Josefin Sans',sans-serif;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:#c8cdd8;
+    opacity:0.45;
+    line-height:1.8;
+    max-width:800px;
+    margin:0 auto;
+  ">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved.
+    GROAN, DMAP-CAL, Rim Run Caribe, and all associated frameworks are
+    proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753).
+    &nbsp;|&nbsp;
+    <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+  </div>
 </footer>
 
 <script>
@@ -594,23 +610,25 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     el.textContent = new Date().getFullYear();
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.classList.add('js-ready');
-    var els = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      els.forEach(function(el) { obs.observe(el); });
-    } else {
-      els.forEach(function(el) { el.classList.add('visible'); });
+  document.body.classList.add('js-ready');
+  (function(){
+    var toggle=document.getElementById('nav-toggle');
+    var nav=document.getElementById('main-nav');
+    var navLinks=document.getElementById('nav-links');
+    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+    if(toggle&&nav&&navLinks){
+      toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+      window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
     }
-  });
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
+      els.forEach(function(el){obs.observe(el);});
+    }else{els.forEach(function(el){el.classList.add('visible');});}
+  })();
 </script>
 
 </body>
