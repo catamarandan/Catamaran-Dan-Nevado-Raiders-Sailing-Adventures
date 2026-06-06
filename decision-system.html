@@ -3,406 +3,347 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>The Science | GROAN Field Platform | Catamaran Dan</title>
-<meta name="description" content="The Rim Run™ expedition is GROAN Level 1 — the field intelligence platform for the Global Reef & Ocean Analytics Network, a five-level ocean decision system and high-level research foundation. 40 countries, 700+ reef sites, zero carbon."/>
+<title>Field Research Collaboration — GROAN | Catamaran Dan</title>
+<meta name="description" content="GROAN: Global Reef & Ocean Analytics Network — field research by Daniel Roe. A five-level ocean decision intelligence system proving that cross-ecosystem causal intelligence enables decisions single-ecosystem monitoring frameworks cannot produce."/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
-:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
-img{max-width:100%;display:block;}
-a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
-a:hover{color:var(--gold);}
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--aqua:#29b0d4;--gold:#c9a84c;--parchment:#f0e8d0;--fog:#c8cdd8;--card-bg:rgba(14,77,110,0.18);--card-border:rgba(201,168,76,0.2);--card-border-aqua:rgba(41,176,212,0.25);}
+*{box-sizing:border-box;}
+body{background:var(--deep-ocean);color:var(--parchment);font-family:'EB Garamond',serif;line-height:1.8;margin:0;}
 nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
 .nav-links{display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;width:100%;}
-nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;text-decoration:none;transition:color 0.25s,border-color 0.25s;}
 nav a:hover{color:var(--gold);}
 nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;pointer-events:auto;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-section{position:relative;padding:6rem 2rem;}
-.container{max-width:860px;margin:0 auto;}
-.container-wide{max-width:1100px;margin:0 auto;}
-.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
-.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
-h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
-h2.serif em{color:var(--gold);font-style:normal;}
-h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;color:var(--parchment);margin-bottom:0.8rem;}
-.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
-p+p{margin-top:1.2rem;}
-.pull-quote{font-size:clamp(1.1rem,2.2vw,1.5rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
-.cred-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.5rem 0;}
-.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aqua);border:1px solid rgba(41,176,212,0.3);padding:0.3rem 0.9rem;white-space:nowrap;}
-.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));}
-.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
-.stat:last-child{border-right:none;}
-.stat-num{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
-.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
-.route-table{width:100%;border-collapse:collapse;margin:2.5rem 0;font-family:'Josefin Sans',sans-serif;font-size:0.85rem;}
-.route-table th{background:rgba(201,168,76,0.08);color:var(--gold);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 1.2rem;text-align:left;border-bottom:1px solid rgba(201,168,76,0.2);}
-.route-table td{padding:0.85rem 1.2rem;border-bottom:1px solid rgba(201,168,76,0.08);color:var(--fog);vertical-align:top;}
-.route-table tr:hover td{background:rgba(41,176,212,0.04);color:var(--parchment);}
-.route-table td:first-child{color:var(--aqua);font-weight:600;}
-.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
-.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin:0;}
-.img-trio img{width:100%;object-fit:cover;height:220px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
-.img-trio img:hover{filter:brightness(0.97) saturate(1.05);}
-.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:2.5rem 0;}
-.img-pair img{width:100%;object-fit:cover;height:300px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:3rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
-.four-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;}
-.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
-.card:hover{background:rgba(14,77,110,0.18);}
-.card-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
-.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
-.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
-.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
-.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
-.bg-midnight{background:var(--midnight);}
-.bg-deep{background:var(--deep-ocean);}
-.border-top-gold{border-top:1px solid rgba(201,168,76,0.12);}
-.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
-.page-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
-.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
-.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
-.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
-.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
-.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
-.reveal{opacity:1;transform:none;}
-.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
-.js-ready .reveal.visible{opacity:1;transform:none;}
-.route-hover{display:flex;flex-wrap:wrap;gap:0.6rem 1.2rem;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.08em;color:var(--aqua);cursor:default;}
-.route-hover span{position:relative;padding-bottom:2px;border-bottom:1px solid transparent;transition:all 0.25s ease;}
-.route-hover span:hover{color:var(--gold);border-bottom:1px solid var(--gold);}
-.route-info{margin-top:1.2rem;font-family:'EB Garamond',serif;font-size:0.95rem;color:var(--fog);min-height:2.5rem;transition:opacity 0.25s ease;}
-.infobox.groan-box{border-color:rgba(41,176,212,0.3);background:linear-gradient(135deg,rgba(14,77,110,0.28),rgba(10,15,26,0.7));}
-.infobox.groan-box .infobox-label{color:var(--aqua);}
-.level-inline{display:flex;flex-wrap:wrap;gap:0.4rem;margin:1rem 0 1.2rem;align-items:center;}
-.level-pill{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.65rem;border:1px solid rgba(41,176,212,0.35);color:var(--fog);white-space:nowrap;}
-.level-pill.active{background:rgba(41,176,212,0.15);border-color:var(--aqua);color:var(--aqua);}
-.level-pill.strategy{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.5);color:var(--gold);}
-.level-arrow{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;color:var(--text-dim);}
-.card.card-active{border-left:2px solid rgba(41,176,212,0.5);background:rgba(14,77,110,0.12);}
-.card.card-active h4{color:var(--aqua);}
-.card-status{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-top:0.8rem;}
+section{padding:5rem 2rem;}
+.container{max-width:880px;margin:auto;}
+h1,h2,h3{font-family:'Cinzel',serif;}
+h2{font-size:1.7rem;margin-bottom:0.5rem;}
+h3{font-size:1.2rem;color:var(--aqua);margin-bottom:0.4rem;}
+.section-label{font-family:'Josefin Sans',sans-serif;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);font-size:0.7rem;margin-bottom:1rem;}
+.gold-rule{width:60px;height:2px;background:var(--gold);margin:1.5rem 0;}
+.pull-quote{font-style:italic;border-left:3px solid var(--gold);padding-left:1.5rem;margin:2rem 0;font-size:1.1rem;color:var(--parchment);}
+.thesis-statement{background:rgba(14,77,110,0.25);border:1px solid rgba(201,168,76,0.35);border-left:4px solid var(--gold);padding:1.8rem 2rem;margin:2rem 0;font-size:1.05rem;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:2rem;}
+.card{background:var(--card-bg);padding:1.8rem;border:1px solid var(--card-border);}
+.card h4{color:var(--gold);margin:0 0 0.5rem;font-family:'Josefin Sans',sans-serif;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;}
+.card p{margin:0;font-size:0.95rem;}
+.card-role{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.5rem;}
+.card.card-primary{border-color:rgba(201,168,76,0.5);border-left:3px solid var(--gold);background:rgba(14,77,110,0.28);grid-column:1 / -1;}
+.card.card-primary .card-role{color:var(--gold);}
+.card.card-primary h4{font-size:1rem;}
+.level-stack{display:flex;flex-direction:column;gap:0.5rem;margin:2rem 0;}
+.level-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.4rem;border:1px solid var(--card-border);background:var(--card-bg);transition:border-color 0.2s;}
+.level-item:hover{border-color:rgba(201,168,76,0.45);}
+.level-item.thesis-core{border-color:rgba(201,168,76,0.6);background:rgba(14,77,110,0.35);}
+.level-badge{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.1em;color:#080c14;background:var(--aqua);padding:0.25rem 0.55rem;min-width:36px;text-align:center;flex-shrink:0;}
+.level-item.thesis-core .level-badge{background:var(--gold);}
+.level-name{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--parchment);flex:1;}
+.level-desc{font-family:'EB Garamond',serif;font-size:0.88rem;color:var(--fog);flex:2;}
+.thesis-tag{font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:#080c14;background:var(--gold);padding:0.2rem 0.5rem;flex-shrink:0;}
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;}
+.proof-card{border:1px solid var(--card-border);background:var(--card-bg);overflow:hidden;}
+.proof-header{background:rgba(14,77,110,0.4);padding:1rem 1.4rem;border-bottom:1px solid var(--card-border);}
+.proof-header .region{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.3rem;}
+.proof-header .title{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--parchment);margin:0;}
+.proof-header .data-source{font-size:0.8rem;color:var(--fog);margin:0.3rem 0 0;font-style:italic;}
+.cascade{padding:1rem 1.4rem;border-bottom:1px solid var(--card-border);font-size:0.85rem;font-family:'Josefin Sans',sans-serif;letter-spacing:0.05em;color:var(--aqua);}
+.decision-compare{display:grid;grid-template-columns:1fr 1fr;}
+.decision-col{padding:1rem 1.2rem;}
+.decision-col:first-child{border-right:1px solid var(--card-border);}
+.decision-col-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.6rem;color:var(--fog);}
+.decision-col.groan .decision-col-label{color:var(--gold);}
+.decision-col-action{font-family:'EB Garamond',serif;font-size:0.9rem;color:var(--parchment);margin-bottom:0.4rem;font-style:italic;}
+.decision-col-why{font-size:0.82rem;color:var(--fog);}
+.decision-col.groan .decision-col-action{color:var(--gold);}
+.formula-block{background:rgba(14,77,110,0.25);border:1px solid var(--card-border-aqua);padding:2rem 2.5rem;margin:2rem 0;text-align:center;}
+.formula-display{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--parchment);letter-spacing:0.05em;margin-bottom:1rem;}
+.formula-display .fv{color:var(--gold);}
+.formula-display .fm{color:var(--aqua);}
+.formula-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:1.2rem;font-size:0.85rem;color:var(--fog);font-style:italic;}
+.formula-legend span{white-space:nowrap;}
+.formula-legend .fv{color:var(--gold);font-style:normal;}
+.formula-caption{margin-top:1.2rem;font-size:0.9rem;color:var(--fog);font-style:italic;}
+.engagement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:2rem;}
+.engagement-card{border:1px solid var(--card-border-aqua);background:var(--card-bg);padding:1.5rem;}
+.engagement-card .inst{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.5rem;}
+.engagement-card .name{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--parchment);margin-bottom:0.3rem;}
+.engagement-card .role{font-size:0.85rem;color:var(--fog);font-style:italic;}
+.engagement-card .status{margin-top:0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.cred-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem;}
+.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(201,168,76,0.4);color:var(--fog);padding:0.3rem 0.7rem;}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-top:2rem;}
+.stat-item{text-align:center;padding:1.2rem 0.8rem;border:1px solid var(--card-border);}
+.stat-num{font-family:'Cinzel',serif;font-size:1.8rem;color:var(--gold);display:block;}
+.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--fog);margin-top:0.3rem;}
+.cta-block{background:rgba(14,77,110,0.2);border:1px solid var(--card-border);border-top:3px solid var(--gold);padding:2.5rem 2rem;text-align:center;margin-top:3rem;}
+.cta-block h3{font-family:'Cinzel',serif;color:var(--gold);margin-bottom:0.8rem;}
+.cta-block p{margin-bottom:1.5rem;max-width:580px;margin-left:auto;margin-right:auto;}
+.cta-link{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:#080c14;background:var(--gold);padding:0.75rem 2rem;text-decoration:none;transition:background 0.2s,color 0.2s;}
+.cta-link:hover{background:var(--aqua);}
+.gap-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:2rem 0;}
+.gap-col{padding:1.5rem;border:1px solid var(--card-border);background:var(--card-bg);}
+.gap-col-label{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.8rem;}
+.gap-col h4{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--parchment);margin:0 0 0.6rem;}
+.gap-col p{font-size:0.88rem;color:var(--fog);margin:0;}
+.gap-col.gap-groan{border-color:rgba(201,168,76,0.5);border-top:3px solid var(--gold);background:rgba(14,77,110,0.28);}
+.gap-col.gap-groan .gap-col-label{color:var(--gold);}
+.gap-col.gap-groan h4{color:var(--gold);}
+.gap-col.gap-groan p{color:var(--parchment);}
+.source-flow{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1.5rem 0;align-items:center;}
+.source-chip{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid var(--card-border-aqua);color:var(--aqua);background:rgba(41,176,212,0.08);}
+.source-arrow{color:var(--gold);font-size:1rem;padding:0 0.2rem;}
+.source-chip.chip-output{border-color:rgba(201,168,76,0.5);color:var(--gold);background:rgba(201,168,76,0.1);font-weight:600;}
+.cordap-callout{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.4);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin:2rem 0;}
+.cordap-callout .cordap-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.cordap-callout p{margin:0;font-size:0.95rem;}
 @media(max-width:768px){
-  section{padding:4rem 1.5rem;}
   nav{position:sticky;top:0;padding:0.8rem 1.5rem;justify-content:flex-end;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:1001;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:1001;}
   .nav-links.open{display:flex;}
   .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
   .nav-links a:last-child{border-bottom:none;}
   .nav-toggle{display:flex;}
-  .two-col,.two-col.reverse{grid-template-columns:1fr;direction:ltr;gap:2.5rem;}
-  .stat-strip{grid-template-columns:repeat(2,1fr);}
-  .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
-  .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
-  .img-trio{grid-template-columns:1fr 1fr;}
-  .img-pair img,.img-trio img{height:160px;}
-  .level-inline{gap:0.3rem;}
+  .proof-grid{grid-template-columns:1fr;}
+  .decision-compare{grid-template-columns:1fr;}
+  .decision-col:first-child{border-right:none;border-bottom:1px solid var(--card-border);}
+  .level-desc{display:none;}
+  .formula-display{font-size:1rem;}
+  .stat-row{grid-template-columns:repeat(3,1fr);}
+  .card.card-primary{grid-column:auto;}
+  .gap-grid{grid-template-columns:1fr;}
 }
-@media(max-width:480px){.img-trio{grid-template-columns:1fr;}}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
-<style>
-.groan-capabilities{background:#080f14;color:#c8dce8;font-family:'DM Sans',sans-serif;padding:80px 40px;max-width:960px;margin:0 auto;}
-.groan-capabilities .section-eyebrow{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#4ab8c8;margin-bottom:16px;}
-.groan-capabilities h2{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:#eef6fa;line-height:1.2;margin-bottom:24px;}
-.groan-capabilities h2 em{font-style:italic;color:#4ab8c8;}
-.groan-capabilities .lead{font-size:1.12rem;font-weight:300;line-height:1.85;color:#a8ccd8;margin-bottom:48px;border-left:3px solid #4ab8c8;padding-left:24px;}
-.groan-capabilities .capability-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:48px;}
-.groan-capabilities .cap-block{background:#0d1c26;padding:32px 28px;border-top:2px solid transparent;transition:border-color 0.25s,background 0.25s;}
-.groan-capabilities .cap-block:hover{border-top-color:#4ab8c8;background:#111f2a;}
-.groan-capabilities .cap-number{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.18em;color:#4ab8c8;margin-bottom:10px;}
-.groan-capabilities .cap-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:#eef6fa;margin-bottom:12px;}
-.groan-capabilities .cap-text{font-size:0.9rem;line-height:1.75;color:#8aaab8;font-weight:300;}
-.groan-capabilities .score-bar{display:flex;align-items:center;gap:16px;background:#0d1c26;padding:28px;margin-bottom:2px;}
-.groan-capabilities .score-label{font-family:'DM Mono',monospace;font-size:0.78rem;color:#4ab8c8;min-width:60px;}
-.groan-capabilities .score-track{flex:1;height:6px;background:#1a3040;border-radius:3px;overflow:hidden;}
-.groan-capabilities .score-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#1a7a5a,#4ab8c8);}
-.groan-capabilities .score-desc{font-size:0.82rem;color:#8aaab8;min-width:220px;text-align:right;}
-.groan-capabilities .closing{margin-top:48px;padding:36px;background:linear-gradient(135deg,#0d1c26,#091420);border:1px solid #1a3040;font-size:1.02rem;line-height:1.85;color:#a8ccd8;font-weight:300;}
-.groan-capabilities .closing strong{color:#eef6fa;font-weight:500;}
-@media(max-width:700px){.groan-capabilities .capability-grid{grid-template-columns:1fr;}.groan-capabilities h2{font-size:1.8rem;}.groan-capabilities .score-desc{display:none;}}
 </style>
 </head>
 <body>
 
 <nav id="main-nav">
-<button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
-<span></span><span></span><span></span>
-</button>
-<div class="nav-links" id="nav-links">
-  <a href="index.html">Home</a>
-  <a href="rimrun.html">Rim Run&#8482;</a>
-  <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
-  <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+  <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
     <a href="expedition.html">Expedition</a>
-  <a href="shieldmaiden.html">Shield Maiden</a>
-  <a href="lionfish.html">Lion Hunter</a>
-  <a href="systems.html">Systems</a>
-  <a href="science.html" class="active">The Science</a>
-  <a href="decision-system.html">Field Research Collaboration</a>
-  <a href="platform.html">Small Cat Platform</a>
-  <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
-  <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
-  <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-  <a href="support.html">Support</a>
-  <a href="shop.html">Shop</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
-  <a href="legal.html">Legal &amp; IP</a>
-</div>
+    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="systems.html">Systems</a>
+    <a href="science.html">The Science</a>
+    <a href="decision-system.html" class="active">Field Research Collaboration</a>
+    <a href="platform.html">Small Cat Platform</a>
+    <a href="learn.html">Learn Along With Me/Aprende Conmigo</a>
+    <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="support.html">Support</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="legal.html">Legal &amp; IP</a>
+  </div>
 </nav>
-<!-- science.html body content preserved from source -->
 
-<div class="page-hero">
-<div class="page-hero-content">
-<span class="hero-eyebrow">GROAN Level 1 Field Platform &bull; Caribbean &bull; Mesophotic South Atlantic &bull; Red Sea &bull; GBR &bull; Coral Triangle</span>
-<h1 class="hero-h1">The Data <em>the Reef Needs.</em></h1>
-<p class="hero-sub">The field intelligence platform for GROAN &mdash; Global Reef &amp; Ocean Analytics Network &mdash; and the empirical foundation for high-level research in cross-ecosystem ocean decision intelligence.</p>
-</div>
-</div>
-
-<div style="background:#06090f;padding:1rem 1rem 0;">
-<div class="img-trio reveal">
-<img src="https://catamarandan.org/belizelight1.jpg" alt="Lighthouse Reef coral"/>
-<img src="https://catamarandan.org/panama2.jpg" alt="Bocas del Toro reef"/>
-<img src="https://catamarandan.org/hondroa2.jpg" alt="Roatan reef"/>
-</div>
-</div>
-
-<section class="bg-deep border-top-gold border-bottom-gold">
-<div class="container">
-<div class="section-label reveal">Scientific Methodology</div>
-<h2 class="serif reveal">Scientific Foundation. <em>Proven Systems.</em></h2>
-<div class="gold-rule reveal"></div>
-
-<p class="reveal">The Rim Run&#8482; is GROAN Level 1 &mdash; the field intelligence layer of the Global Reef &amp; Ocean Analytics Network, a five-level ocean decision system developed independently over 18 months as the foundation for the expedition's research. The Mobile Ocean Observation Platform (MOOP) &mdash; Shamrocket, a purpose-built Hobie Getaway catamaran with a 24-inch shallow draft &mdash; is GROAN's physical decision arm: every deployment is a decision-driven data acquisition act, tasked by the system's intelligence layers to collect field observations that feed directly into cross-ecosystem causal analysis.</p>
-
-<p class="reveal">All survey work is conducted using established, scientifically recognized processes and protocols drawn from the <a href="https://reeflifesurvey.com/methods/" target="_blank" rel="noopener noreferrer">Reef Life Survey (RLS) methodology framework</a>, the <a href="https://www.reef.org/reef-surveyor-toolbox" target="_blank" rel="noopener noreferrer">REEF survey and species identification resources</a>, and the <a href="https://www.reefcheck.org/tropical-program/tropical-monitoring-instruction/" target="_blank" rel="noopener noreferrer">Reef Check tropical monitoring protocols</a>.</p>
-
-<p class="reveal">The purpose of this initiative is to build a long-duration, forty-country reef observation system using the Rim Run&#8482; expedition as a consistent field platform.</p>
-
-<p class="reveal" style="color:#e3c86b;border-left:2px solid rgba(201,168,76,0.7);padding-left:1rem;font-style:italic;margin:1.4rem 0 0.5rem 0;text-shadow:0 0 6px rgba(201,168,76,0.25),0 0 12px rgba(201,168,76,0.15);">This field platform is the empirical foundation for high-level research on GROAN &mdash; Global Reef &amp; Ocean Analytics Network. The intent is to prove that cross-ecosystem causal intelligence, produced by GROAN's Cross-Module Interaction Engine, enables decisions about ocean systems that single-ecosystem monitoring frameworks are structurally incapable of generating. <a href="decision-system.html" style="color:var(--gold);text-decoration:underline;text-underline-offset:3px;">Full research overview &rarr;</a></p>
-
-<div class="infobox groan-box reveal">
-  <div class="infobox-label">GROAN &mdash; Global Reef &amp; Ocean Analytics Network</div>
-  <p style="color:var(--fog);margin-bottom:0.8rem;">This field platform feeds a five-level ocean decision intelligence system. The Rim Run&#8482; is Level 1. Everything above it converts field observations into decisions that single-ecosystem monitoring cannot produce.</p>
-  <div class="level-inline">
-    <span class="level-pill">L5 &mdash; META-LAYER</span>
-    <span class="level-arrow">&larr;</span>
-    <span class="level-pill">L4 &mdash; DMAP-CAL&#8482;</span>
-    <span class="level-arrow">&larr;</span>
-    <span class="level-pill strategy">L3 &mdash; CMIE &mdash; Research Core</span>
-    <span class="level-arrow">&larr;</span>
-    <span class="level-pill">L2 &mdash; 11 Modules</span>
-    <span class="level-arrow">&larr;</span>
-    <span class="level-pill active">L1 &mdash; MOOP &mdash; This Expedition</span>
-  </div>
-  <p style="color:var(--fog);font-size:0.92rem;">GROAN is not a monitoring system. Monitoring is its input process. The system exists to produce decisions &mdash; and to prove that cross-ecosystem intelligence produces better ones.</p>
-  <a href="decision-system.html" class="btn-gold" style="margin-top:1.2rem;">Reef Research &mdash; Full System Overview &rarr;</a>
-</div>
-
-<p class="reveal">The goal is to establish an operational baseline data framework, collecting structured observations, and building a cross-ecosystem baseline record of reef conditions across a broad set of often undermonitored regions.</p>
-
-<p class="reveal">This work is being developed within DMAP-CAL&#8482; (Decision Modeling, Analysis, and Probabilistic Control &mdash; Adaptive Logic) &mdash; GROAN's formal 22-segment mathematical decision engine. These combined resources provide a disciplined, structured foundation for data collection, helping ensure that observations are consistent, repeatable, and scientifically defensible across locations and over time.</p>
-
-<h3 class="serif reveal">Mission Direction &amp; Intended Outcome</h3>
-<p class="reveal">At its core, this program is designed to unite field science, operational discipline, and long-range systems thinking. It is intended to produce a high quality monitoring architecture, a growing regional data record, a disciplined citizen science support structure, and a future research platform capable of contributing to both practical reef stewardship and formal academic inquiry.</p>
-
-<h3 class="serif reveal">Survey Execution &amp; Data Integrity</h3>
-<p class="reveal">All field operations are executed using disciplined, repeatable survey procedures derived from established reef monitoring systems. Standardized transect methods form the backbone of data collection, with consistent survey geometry, defined observation zones, and controlled swim patterns to ensure comparability across sites and conditions.</p>
-<p class="reveal">Data is recorded in real time using standardized logging formats and is subject to continuous internal validation through repetition, cross-checking, and consistent application of methodology.</p>
-
-<section class="groan-capabilities">
-  <p class="section-eyebrow">Platform Intelligence</p>
-  <h2>When GROAN is completely operational....<br><em>Here is what it delivers.</em></h2>
-  <p class="lead">The Global Reef &amp; Ocean Analytics Network ingests continuous multi-source environmental data across four reef theaters — the Mesoamerican Reef, the Great Barrier Reef, the Red Sea, and the Coral Triangle — resolves source conflicts, computes causal relationships between ecosystems, and delivers a single defensible output: the Decision Score.</p>
-  <div class="score-bar"><span class="score-label">DS 8–10</span><div class="score-track"><div class="score-fill" style="width:100%"></div></div><span class="score-desc">Healthy — low thermal and chemical stress</span></div>
-  <div class="score-bar"><span class="score-label">DS 5–7</span><div class="score-track"><div class="score-fill" style="width:70%;background:linear-gradient(90deg,#7a7a1a,#c8b840)"></div></div><span class="score-desc">Elevated priority — stress accumulating</span></div>
-  <div class="score-bar"><span class="score-label">DS 3–4</span><div class="score-track"><div class="score-fill" style="width:40%;background:linear-gradient(90deg,#7a3a1a,#c87040)"></div></div><span class="score-desc">Significant concern — bleaching possible</span></div>
-  <div class="score-bar" style="margin-bottom:48px"><span class="score-label">DS 0–2</span><div class="score-track"><div class="score-fill" style="width:15%;background:linear-gradient(90deg,#7a1a1a,#c84040)"></div></div><span class="score-desc">Crisis — active mortality risk</span></div>
-  <div class="capability-grid">
-    <div class="cap-block"><p class="cap-number">01 — BLEACHING PREDICTION</p><p class="cap-title">Early Warning 4–12 Weeks Out</p><p class="cap-text">GROAN generates bleaching probability forecasts using Degree Heating Week accumulation curves, SST anomaly trajectories, and theater-calibrated historical patterns. Alert tiers — Watch, Warning, Alert Level 1, Alert Level 2 — are issued at site, zone, and theater level.</p></div>
-    <div class="cap-block"><p class="cap-number">02 — CAUSAL ATTRIBUTION</p><p class="cap-title">Why Is the Reef Stressed?</p><p class="cap-text">When a site scores poorly, GROAN isolates the dominant stressor and traces it to its origin. Compound event detection identifies simultaneous stressors that interact multiplicatively.</p></div>
-    <div class="cap-block"><p class="cap-number">03 — FIELD EXPEDITION INTELLIGENCE</p><p class="cap-title">Built for At-Sea Operations</p><p class="cap-text">Real-time Decision Score and 7-day forecast for any waypoint. Optimal dive window synthesis. Survey prioritization ranks candidate sites by intelligence value.</p></div>
-    <div class="cap-block"><p class="cap-number">04 — IMAGE INTELLIGENCE (GSIN)</p><p class="cap-title">Field Photos → Platform Data in 15 Minutes</p><p class="cap-text">Underwater images submitted from the field are processed through the Global Sensor &amp; Image Network, assigned a confidence tier, health-classified, and ingested into the decision architecture within 5–15 minutes.</p></div>
-    <div class="cap-block"><p class="cap-number">05 — CITIZEN SCIENCE BACKBONE</p><p class="cap-title">Caribbean Coastal Reef Alliance Integration</p><p class="cap-text">GROAN is the processing backbone for the CCRA. Volunteer-submitted observations are QC'd against GROAN's confidence tier schema and incorporated into the Decision Score.</p></div>
-    <div class="cap-block"><p class="cap-number">06 — RESEARCH-GRADE DATA OUTPUT</p><p class="cap-title">Publication-Ready for Institutional Partners</p><p class="cap-text">Normalized multi-source datasets, time-series trend exports, anomaly event archives, and theater-level health reports — all available to credentialed partners via the GROAN API.</p></div>
-    <div class="cap-block"><p class="cap-number">07 — AUTOMATED ALERT SYSTEM</p><p class="cap-title">Continuous Threshold Monitoring</p><p class="cap-text">GROAN monitors all active theater locations continuously — bleaching alerts, runoff and pollution pulse detection, fishing pressure anomalies, and cascade risk alerts.</p></div>
-    <div class="cap-block"><p class="cap-number">08 — POLICY &amp; MANAGEMENT SUPPORT</p><p class="cap-title">Intelligence at the Institutional Level</p><p class="cap-text">MPA effectiveness assessment, restoration site prioritization, climate scenario modeling under IPCC SSP pathways, and fishing pressure data mapped to regulatory boundaries.</p></div>
-  </div>
-  <div class="closing"><strong>GROAN is not a data dashboard.</strong> Every system that monitors reefs today does so within a single ecosystem. GROAN operates across four simultaneously — computing the causal relationships between them that single-theater platforms are structurally incapable of detecting.</div>
-</section>
-
-<h3 class="serif reveal">Field Methodology</h3>
-<h3 class="serif reveal">Measurement Parameters</h3>
-<p class="reveal"><em>Priority is consistency over complexity &mdash; repeatable data has more long-term value than isolated precision measurements.</em></p>
-
-<div class="card-grid reveal" style="margin-top:2rem;">
-<div class="card"><span class="card-icon">🌡</span><h4>Water Conditions</h4><p>Surface air temperature, subsurface temperature, visibility (Secchi depth), salinity, pH, and ORP — measured at every site using standardized instruments.</p></div>
-<div class="card"><span class="card-icon">🪸</span><h4>Reef Structure</h4><p>Reef type classification, substrate composition, and structural complexity — documenting the physical character and integrity of each site.</p></div>
-<div class="card"><span class="card-icon">🔬</span><h4>Coral Health</h4><p>Live coral cover, bleaching extent, algae presence, disease indicators, and visible physical damage. Condition recorded across practical field categories.</p></div>
-<div class="card"><span class="card-icon">🐠</span><h4>Biological Observations</h4><p>Indicator fish species, key invertebrates, and invasive species — recorded as repeatable field estimates of abundance and diversity within the observation zone.</p></div>
-<div class="card"><span class="card-icon">⚓</span><h4>Human Impact</h4><p>Fishing activity, anchor damage, debris, and vessel traffic — documenting anthropogenic pressures present at each site.</p></div>
-<div class="card"><span class="card-icon">📹</span><h4>Visual Documentation</h4><p>Standardized wide-angle, close-up, and transect-style video and photography at every site, preserving a visual record for annual comparison.</p></div>
-</div>
-
-<h3 class="serif reveal">Standard Observation Routine</h3>
-<table class="route-table reveal">
-<thead><tr><th>Step</th><th>Action</th><th>Purpose</th></tr></thead>
-<tbody>
-<tr><td>1</td><td>Anchor and stabilize vessel position</td><td>Establish repeatable site reference</td></tr>
-<tr><td>2</td><td>Record GPS location and site identity</td><td>Preserve precise location reference</td></tr>
-<tr><td>3</td><td>Enter water and establish observation depth</td><td>Create consistent physical survey context</td></tr>
-<tr><td>4</td><td>Record surface air temp, subsurface temp, pH, salinity, ORP, and Secchi visibility</td><td>Capture full baseline environmental context</td></tr>
-<tr><td>5</td><td>Conduct structured visual scan</td><td>Assess coral condition, fish activity, substrate</td></tr>
-<tr><td>6</td><td>Capture photo and video documentation</td><td>Preserve visual record for comparison</td></tr>
-<tr><td>7</td><td>Exit water and complete written log</td><td>Lock in observations while details are fresh</td></tr>
-</tbody>
-</table>
-
-<h3 class="serif reveal">SCUBA &amp; Dive-Based Observation</h3>
-<p class="reveal">Snorkel-based observation is the operational baseline. SCUBA capability adds a fundamentally different dimension: reef walls, deeper coral structure, fish communities at depth, and benthic composition not accessible from the surface.</p>
-
-<div class="infobox reveal">
-<div class="infobox-label">What SCUBA Adds to the Record</div>
-<p style="color:var(--fog);"><strong style="color:var(--parchment);">Reef wall documentation</strong> &mdash; vertical reef structure and deep coral colonies invisible from the surface.<br><br><strong style="color:var(--parchment);">Deeper fish community surveys</strong> &mdash; species and abundance at depth, including ecologically significant species.<br><br><strong style="color:var(--parchment);">Benthic composition at depth</strong> &mdash; substrate type and live coral cover at 10&ndash;20 meters.<br><br><strong style="color:var(--parchment);">Bleaching and damage assessment</strong> &mdash; direct observation at depths where bleaching events often progress differently.</p>
-</div>
-
-<h3 class="serif reveal">Equipment</h3>
-<div class="card-grid reveal">
-<div class="card"><h4>Baseline Field Tools</h4><p>Apera PCO60-Z multiparameter meter, DIY Secchi disk, underwater camera, GPS device, mask, snorkel, fins, SCUBA equipment, and standardized logging format.</p></div>
-<div class="card"><h4>Priority Expansion — Dissolved Oxygen</h4><p>Dissolved oxygen (DO) is the highest-priority expansion measurement. Hypoxic events in enclosed bay systems of the Western Caribbean have caused mass coral mortality frequently misattributed to temperature stress because DO goes unmeasured.</p></div>
-<div class="card"><h4>Further Expansion Tools</h4><p>PAR light meter, depth profiler (thermocline detection), water sampling kit, and additional instrumentation added as partner or sponsor support allows.</p></div>
-<div class="card"><h4>Operational Principle</h4><p>The mission continues with the baseline kit. Support expands what can be measured, but does not determine whether the mission exists.</p></div>
-</div>
-
-<h3 class="serif reveal">Data Management</h3>
-<p class="reveal">All observations are organized into a structured data system built for long-term usability. A master site index maintains a permanent record of every surveyed location. The system is designed for an observation program that runs for decades, not a single expedition.</p>
-
-<h3 class="serif reveal">Data Access &amp; Collaboration</h3>
-<p class="reveal">Collected data will be made available in a controlled-access format to support research collaboration, independent analysis, and institutional partnership. Researchers, conservation organizations, and regional reef managers are invited to provide input on measurement priorities and methodologies.</p>
-<p class="reveal"><a href="citizenscience.html" class="btn-gold">Learn About the Citizen Science Program &rarr;</a></p>
-
-<h3 class="serif reveal">Funding &amp; Expansion Model</h3>
-<div class="card-grid reveal">
-<div class="card"><h4>Baseline Observation System</h4><p>Always active. Visual reef assessment, photo and video documentation, basic environmental observation, and annual repeat-site continuity.</p></div>
-<div class="card"><h4>Supported Expansion</h4><p>More sites, more frequent observations, stronger documentation, dissolved oxygen monitoring, and improved consistency through additional time, tools, and operational support.</p></div>
-<div class="card"><h4>Advanced Testing</h4><p>When funding allows: water sampling, PAR measurement, additional environmental instrumentation, and partner-supported science initiatives.</p></div>
-</div>
-<p class="reveal">This mission is designed to operate continuously. Support does not determine whether it exists &mdash; only how far it can go.</p>
-</div>
-</section>
-
-<section class="bg-midnight border-bottom-gold">
-<div class="container">
-<div class="stat-strip" style="border-left:none;border-right:none;">
-<div class="stat"><span class="stat-num">700+</span><span class="stat-label">Reef Sites</span></div>
-<div class="stat"><span class="stat-num">40</span><span class="stat-label">Countries Covered</span></div>
-<div class="stat"><span class="stat-num">1,000+</span><span class="stat-label">Islands Visited</span></div>
-<div class="stat"><span class="stat-num">1,350+</span><span class="stat-label">Days at Anchor</span></div>
-<div class="stat"><span class="stat-num">2 ft</span><span class="stat-label">Draft &mdash; Goes Anywhere</span></div>
-<div class="stat"><span class="stat-num">10+</span><span class="stat-label">Year Commitment</span></div>
-<div class="stat"><span class="stat-num">0</span><span class="stat-label">Operational Emissions</span></div>
-</div>
-</div>
-</section>
-
-<section class="bg-deep border-bottom-gold">
-<div class="container">
-<div class="section-label reveal">Two Ecosystem Zones</div>
-<h2 class="serif reveal">One Arc. <em>Chronically Undermonitored.</em></h2>
-<div class="gold-rule reveal"></div>
-<div class="four-col reveal">
-  <div class="infobox">
-    <div class="infobox-label">Zone 1 — Northern Arc</div>
-    <h3 class="serif">Mesoamerican Barrier Reef System</h3>
-    <p>The Western Hemisphere's longest barrier reef system, stretching over 700 miles.</p>
-    <div class="route-hover">
-      <span data-info="Northern gateway. Heavily developed coastline, reef pressure from tourism and runoff.">&#127474;&#127485; Mexico</span>
-      <span data-info="Core of the barrier reef system. High coral cover, strong conservation zones.">&#127463;&#127487; Belize</span>
-      <span data-info="Least monitored segment. Limited access, sparse data.">&#127468;&#127481; Guatemala</span>
-      <span data-info="Bay Islands and coastal reefs. High biodiversity with increasing pressure.">&#127469;&#127475; Honduras</span>
+<section>
+  <div class="container">
+    <div class="section-label">Field Research</div>
+    <h1>GROAN&#8482; &mdash; <em>Global Reef &amp; Ocean Analytics Network</em></h1>
+    <div class="gold-rule"></div>
+    <div class="thesis-statement">
+      This research proves that cross-ecosystem causal intelligence &mdash; produced by the Cross-Module Interaction Engine (CMIE) &mdash; enables decisions about ocean systems that single-ecosystem monitoring frameworks are structurally incapable of generating. GROAN is a decision system. Monitoring is its input process. The engine is the mechanism by which better data becomes better decisions.
     </div>
-    <div class="route-info">Hover over a location to see reef characteristics.</div>
+    <p>GROAN has been in independent development for 18 months &mdash; conceived and built prior to any institutional affiliation, without a supervisor, without funding, and without an academic framework. What began as a recreational pursuit is now developing into a formal field research initiative, with the system architecture still in progress and expanding toward larger scientific goals.</p>
   </div>
-  <div class="infobox">
-    <div class="infobox-label">Zone 2 — Southern Arc</div>
-    <h3 class="serif">Extended Caribbean Coastal Ecosystem</h3>
-    <p>A fragmented but ecologically critical system of fringing reefs, patch reefs, mangroves, and seagrass beds.</p>
-    <div class="route-hover">
-      <span data-info="Sparse reef development, sediment-heavy coastal systems, minimal monitoring coverage.">&#127475;&#127470; Nicaragua</span>
-      <span data-info="Small, scattered reef structures with limited data continuity.">&#127464;&#127479; Costa Rica</span>
-      <span data-info="Bocas del Toro system — site of severe 2020 bleaching event (~90% affected, ~50% loss).">&#127477;&#127462; Panama</span>
-      <span data-info="Deep-water influenced coastal reefs with limited shallow reef continuity.">&#127464;&#127476; Colombia</span>
-      <span data-info="Understudied reef systems with minimal recent data.">&#127483;&#127466; Venezuela</span>
-    </div>
-    <div class="route-info">Hover over a location to see reef characteristics.</div>
-  </div>
-  <div class="infobox">
-    <div class="infobox-label">Zone 3 — Eastern Brazilian Reef System</div>
-    <h3 class="serif">Mesophotic South Atlantic Reef System</h3>
-    <p>A 2,000 km reef system defined by depth gradients, endemism, and structural formations rarely observed in Caribbean systems.</p>
-    <div class="route-hover">
-      <span data-info="Primary biodiversity center. Shallow-to-mesophotic transition zone with high coral endemism.">&#127463;&#127479; Abrolhos Bank</span>
-      <span data-info="Mushroom-shaped pinnacles ('chapeir&otilde;es') — structurally unique coral formations.">&#127463;&#127479; Bahia</span>
-      <span data-info="Deeper mesophotic reefs with limited direct observation.">&#127463;&#127479; Mesophotic Zones</span>
-    </div>
-    <div class="route-info">Hover over a location to see reef characteristics.</div>
-  </div>
-  <div class="infobox">
-    <div class="infobox-label">Zone 4 — Caribbean Basin Reef Province</div>
-    <h3 class="serif">Eastern Caribbean Reef System</h3>
-    <p>A continuous island arc stretching from the southern Lesser Antilles to the Bahamas.</p>
-    <div class="route-hover">
-      <span data-info="Southern entry point. Turbid-influenced reefs, strong current systems.">&#127481;&#127481; Trinidad &amp; Tobago</span>
-      <span data-info="Volcanic island reef system with steep drop-offs.">&#127465;&#127474; Dominica</span>
-      <span data-info="Major reef transition zone with extensive coastal systems.">&#127477;&#127479; Puerto Rico</span>
-      <span data-info="One of the largest Caribbean reef systems.">&#127464;&#127482; Cuba</span>
-      <span data-info="Final northern system — shallow banks, blue holes, carbonate dominance.">&#127463;&#127480; Bahamas</span>
-    </div>
-    <div class="route-info">Hover over a location to see reef characteristics.</div>
-  </div>
-</div>
-</div>
 </section>
 
-<section class="bg-midnight border-bottom-gold">
-<div class="container">
-<div class="section-label reveal">Multi-Platform Monitoring</div>
-<h2 class="serif reveal">Integrated Observation System. <em>Multi-Layer Data.</em></h2>
-<div class="gold-rule reveal"></div>
-<div class="card-grid reveal">
-<div class="card"><div class="card-icon">&#128747;</div><h4>Aerial Observation &mdash; FAA Drone</h4><p>FAA-licensed UAV operations support repeat photogrammetry, bleaching documentation, seagrass mapping, mangrove edge assessment, and annual visual comparison of shallow coastal habitats.</p></div>
-<div class="card"><div class="card-icon">&#129367;</div><h4>Surface Surveys &mdash; Reef Monitoring Protocols</h4><p>Standardized shallow-water observation and transect-based survey work targeting fish communities, key invertebrates, and reef condition using established RLS, REEF, and Reef Check process frameworks.</p></div>
-<div class="card"><div class="card-icon">&#128032;</div><h4>Subsurface Observation &mdash; EcoDiver SCUBA Assessment</h4><p>Reef Check-centric SCUBA surveys at selected sites throughout the route. Reef wall documentation, deeper fish community observations, and direct underwater assessment of coral structure.</p></div>
-<div class="card"><div class="card-icon">&#128202;</div><h4>Data Architecture &mdash; Quality Control</h4><p>Longitudinal data design, repeat-site consistency, structured logging, and internal quality control procedures built to support defensible, multi-year reef condition records.</p></div>
-</div>
-<div class="pull-quote reveal">"The scientific gap and the expedition route are the same map."</div>
-</div>
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+  <div class="container">
+    <div class="section-label">The Research Problem</div>
+    <h2>Why Siloed Monitoring <em>Produces Wrong Decisions</em></h2>
+    <div class="gold-rule"></div>
+    <p>Marine science is architecturally fragmented. Research teams monitoring coral reefs, seagrass meadows, kelp forests, mangroves, and marine animal populations operate in separate silos &mdash; collecting data in different formats, using different methodologies, publishing results that arrive weeks or months apart with no cross-ecosystem analysis.</p>
+    <p>The problem is not insufficient data. The problem is insufficient causal understanding. A reef manager looking at thermal stress data and recommending a bleaching intervention may be addressing the symptom while the actual driver &mdash; upstream mangrove loss reducing juvenile fish populations and disrupting trophic balance &mdash; goes undetected in a system that was never designed to see across ecosystem boundaries.</p>
+    <div class="pull-quote">Single-ecosystem monitoring does not produce incomplete intelligence. It produces structurally wrong decisions &mdash; because it cannot identify the correct causal pathway, and therefore cannot identify the correct intervention.</div>
+    <p>The cost is not merely missed observations. It is wrong interventions, misallocated conservation resources, delayed response, and failed ecosystem recovery &mdash; at a scale and frequency that existing frameworks have no mechanism to detect.</p>
+  </div>
 </section>
 
-<section class="bg-deep border-bottom-gold">
-<div class="container">
-<div class="section-label reveal">Data Use &amp; Impact</div>
-<h2 class="serif reveal">Who This Serves. <em>Why It Matters.</em></h2>
-<div class="gold-rule reveal"></div>
-<p class="reveal">The Rim Run&#8482; monitoring system is designed to produce usable field observations that can support scientists, conservation organizations, reef managers, educators, local stakeholders, and future collaborative research efforts throughout the Western Caribbean.</p>
-<p class="reveal">The long-term results sought are clear: a scientifically useful multi-year reef dataset; a practical and repeatable marine monitoring architecture; a disciplined citizen science network; and a body of field-based knowledge capable of supporting cross-border collaboration and better-informed reef stewardship throughout the region.</p>
-</div>
+<section>
+  <div class="container">
+    <div class="section-label">The Data Gap</div>
+    <h2>Beyond the Map &mdash; <em>Why Existing Tools Are Not Enough</em></h2>
+    <div class="gold-rule"></div>
+    <p>The world already has exceptional reef monitoring tools. The Allen Coral Atlas maps benthic habitat across every shallow tropical reef on Earth. NOAA Coral Reef Watch delivers daily thermal stress and bleaching alerts globally. Global Fishing Watch tracks fishing pressure across 70,000 AIS-broadcasting vessels. These are world-class scientific products. GROAN uses all twelve of them.</p>
+    <p>But each of these tools answers a single question about a single variable. None of them answers the question that reef managers and conservation planners actually need answered: <em>given everything happening across this reef system right now, what is the correct action, and why?</em></p>
+    <div class="gap-grid">
+      <div class="gap-col">
+        <div class="gap-col-label">What Existing Tools Provide</div>
+        <h4>Classification &amp; Monitoring</h4>
+        <p>Allen Coral Atlas tells you what kind of reef structure exists. NOAA CRW tells you how thermally stressed it is. GFW tells you how heavily it is fished. Each tool answers its own question accurately. None of them speaks to the others.</p>
+      </div>
+      <div class="gap-col">
+        <div class="gap-col-label">What Is Missing</div>
+        <h4>Integration &amp; Causation</h4>
+        <p>No existing platform integrates these signals into a single causal picture. A reef crest scoring 10 on structural integrity means nothing if DHW is at 8, herbivore biomass is critically depleted, and upstream mangrove loss is driving the trophic collapse.</p>
+      </div>
+      <div class="gap-col gap-groan">
+        <div class="gap-col-label">What GROAN Produces</div>
+        <h4>Decision Intelligence</h4>
+        <p>GROAN integrates 12 data sources simultaneously &mdash; structural baseline, thermal stress, fishing pressure, water quality, in-water field observations &mdash; into a cross-ecosystem Decision Score with a ranked intervention output.</p>
+      </div>
+    </div>
+    <p>The distinction is architectural, not incremental. A monitoring tool tells you the state of a system. A decision system tells you what to do about it and why. GROAN is the latter.</p>
+    <div class="section-label" style="margin-top:2.5rem;">How the 12 Sources Feed One Decision</div>
+    <div class="source-flow">
+      <span class="source-chip">Allen Coral Atlas</span><span class="source-arrow">+</span>
+      <span class="source-chip">NOAA CRW</span><span class="source-arrow">+</span>
+      <span class="source-chip">Global Fishing Watch</span><span class="source-arrow">+</span>
+      <span class="source-chip">Copernicus Marine</span><span class="source-arrow">+</span>
+      <span class="source-chip">NASA Chl-a</span><span class="source-arrow">+</span>
+      <span class="source-chip">HRI / AGRRA</span><span class="source-arrow">+</span>
+      <span class="source-chip">AIMS LTMP</span><span class="source-arrow">+</span>
+      <span class="source-chip">eReefs CSIRO</span><span class="source-arrow">+</span>
+      <span class="source-chip">CORDAP</span><span class="source-arrow">+</span>
+      <span class="source-chip">CRW Virtual Stations</span><span class="source-arrow">+</span>
+      <span class="source-chip">WaveWatch III</span><span class="source-arrow">+</span>
+      <span class="source-chip">Field Obs (GRIN)</span><span class="source-arrow">&rarr;</span>
+      <span class="source-chip chip-output">Decision Score + Intervention</span>
+    </div>
+    </section>
+
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+  <div class="container">
+    <div class="section-label">System Architecture</div>
+    <h2>GROAN &mdash; <em>Five Decision Levels</em></h2>
+    <div class="gold-rule"></div>
+    <p>GROAN is not a monitoring platform. Every component is justified by a single question: does this produce a better decision?</p>
+    <div class="level-stack">
+      <div class="level-item"><div class="level-badge">L5</div><div class="level-name">META-LAYER</div><div class="level-desc">System-of-systems orchestration &mdash; 12 segments governing priority, resource arbitration, temporal and spatial coordination, conflict resolution, and global governance.</div></div>
+      <div class="level-item"><div class="level-badge">L4</div><div class="level-name">DMAP-CAL&#8482;</div><div class="level-desc">Decision Modeling, Analysis, and Probabilistic Control &mdash; Adaptive Logic. 22-segment mathematical decision engine: multi-objective Pareto optimization, Hamiltonian optimal control, Bellman dynamic programming, Kalman filtering, reinforcement learning.</div></div>
+      <div class="level-item thesis-core"><div class="level-badge">L3</div><div class="level-name">CMIE</div><div class="level-desc">Cross-Module Interaction Engine. Detects causal relationships between ecosystems in real time. Produces the cross-ecosystem intelligence that changes the decision. 10 segments, mathematically complete.</div><div class="thesis-tag">Thesis Core</div></div>
+      <div class="level-item"><div class="level-badge">L2</div><div class="level-name">Intelligence Layer</div><div class="level-desc">11 ecosystem intelligence modules: GRIN (reef), GKIN (kelp), GSIN (seagrass), GMIN (mangrove), GMAIN (marine animals), GSMAN (salt marsh), GEIN (estuary), GDSIN (deep sea), GOPEN (pelagic), GPIN (polar), GPLIN (plankton).</div></div>
+      <div class="level-item"><div class="level-badge">L1</div><div class="level-name">MOOP</div><div class="level-desc">Mobile Ocean Observation Platform &mdash; Shamrocket (Hobie Getaway catamaran). The physical decision arm: every deployment is a DMAP-CAL&#8482;-tasked data acquisition act. Rim Run&#8482; launches October 2026.</div></div>
+    </div>
+  </div>
 </section>
 
-<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
-<img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
-</div>
+<section>
+  <div class="container">
+    <div class="section-label">Proof of Concept</div>
+    <h2>The Same Data. <em>A Different Decision.</em></h2>
+    <div class="gold-rule"></div>
+    <p>GROAN claims something harder to prove and more valuable to demonstrate: that for the <em>same event</em>, with the <em>same data</em>, GROAN produces a different and demonstrably superior decision &mdash; because the CMIE identifies the correct causal pathway.</p>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-header">
+          <div class="region">Proof of Concept 1 &mdash; Caribbean / Mesoamerican Reef</div>
+          <div class="title">Mangrove&nbsp;&rarr;&nbsp;Fish&nbsp;&rarr;&nbsp;Reef Cascade</div>
+          <div class="data-source">Data: Mesoamerican Reef &mdash; primary research environment</div>
+        </div>
+        <div class="cascade">GMIN (mangrove loss) &rarr; GMAIN (juvenile fish decline) &rarr; GRIN (reef trophic disruption)</div>
+        <div class="decision-compare">
+          <div class="decision-col"><div class="decision-col-label">Single-Module (GRIN only)</div><div class="decision-col-action">Thermal intervention recommended</div><div class="decision-col-why">Temperature is the measured stressor at the reef. Without cross-module visibility, it is the only causal pathway available.</div></div>
+          <div class="decision-col groan"><div class="decision-col-label">GROAN with CMIE</div><div class="decision-col-action">Upstream mangrove protection</div><div class="decision-col-why">CMIE identifies the actual root cause: mangrove loss is reducing juvenile fish populations and disrupting reef trophic balance. Thermal intervention treats a symptom.</div></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-header">
+          <div class="region">Proof of Concept 2 &mdash; Red Sea</div>
+          <div class="title">Thermal&nbsp;&rarr;&nbsp;Seagrass&nbsp;&rarr;&nbsp;Bleaching Amplification</div>
+          <div class="data-source">Data: Red Sea Research Center &mdash; comparative reference dataset</div>
+        </div>
+        <div class="cascade">Feature Layer (thermal stress) &rarr; GSIN (seagrass collapse) &rarr; GRIN (bleaching amplification)</div>
+        <div class="decision-compare">
+          <div class="decision-col"><div class="decision-col-label">Single-Module (GRIN only)</div><div class="decision-col-action">Standard bleaching watch protocol</div><div class="decision-col-why">Reef thermal stress threshold triggers a bleaching alert. No mechanism exists to detect the seagrass-mediated amplification effect.</div></div>
+          <div class="decision-col groan"><div class="decision-col-label">GROAN with CMIE</div><div class="decision-col-action">Accelerated response, resources pre-positioned</div><div class="decision-col-why">CMIE detects that adjacent seagrass collapse is amplifying bleaching risk and accelerating the timeline. The decision is different because the causal picture is complete.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pull-quote" style="margin-top:2.5rem;">Same reef. Same stress signal. Same data. Different causal understanding. Different intervention. Measurably better outcome. This is the proof.</div>
+  </div>
+</section>
+
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+  <div class="container">
+    <div class="section-label">The Mathematics</div>
+    <h2>The Decision Score <em>Formula</em></h2>
+    <div class="gold-rule"></div>
+    <p>GROAN's decision engine operates on a formally specified, multi-objective optimization framework. The Decision Score formula is the thesis proof in mathematical form.</p>
+    <div class="formula-block">
+      <div class="formula-display"><span class="fv">DS</span> &nbsp;=&nbsp; <span class="fm">&alpha;</span>&middot;<span class="fv">E[Benefit]</span> &nbsp;&minus;&nbsp; <span class="fm">&beta;</span>&middot;<span class="fv">Risk</span> &nbsp;&minus;&nbsp; <span class="fm">&gamma;</span>&middot;<span class="fv">Cost</span> &nbsp;+&nbsp; <span class="fm">&delta;</span>&middot;<span class="fv">Feasibility</span></div>
+      <div class="formula-legend"><span><span class="fv">DS</span> &mdash; Decision Score</span><span><span class="fv">E[Benefit]</span> &mdash; expected ecosystem benefit</span><span><span class="fv">Risk</span> &mdash; probability-weighted failure</span><span><span class="fv">Cost</span> &mdash; resource and operational cost</span><span><span class="fv">Feasibility</span> &mdash; operational and institutional viability</span></div>
+      <div class="formula-caption">Caribbean case: single-module GRIN calculates DS with reef-only causal model &rarr; thermal intervention scores highest. GROAN with CMIE calculates the same DS with cross-ecosystem intelligence &rarr; E[Benefit] of upstream mangrove protection is higher because the correct causal pathway is known &rarr; mangrove protection scores highest. Same formula. Different intelligence. Different decision.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Empirical Foundation</div>
+    <h2>A System with <em>a Launch Date</em></h2>
+    <div class="gold-rule"></div>
+    <p>The Rim Run&#8482; expedition is GROAN Level 1 &mdash; the Mobile Ocean Observation Platform (MOOP), deployed as a deliberate, first-person field validation of every data assumption the system's architecture rests on. The expedition launches October 2026 regardless of institutional affiliation.</p>
+    <div class="stat-row">
+      <div class="stat-item"><span class="stat-num">7</span><div class="stat-label">Countries</div></div>
+      <div class="stat-item"><span class="stat-num">100+</span><div class="stat-label">Reef Sites</div></div>
+      <div class="stat-item"><span class="stat-num">1,500+</span><div class="stat-label">NM per circuit</div></div>
+      <div class="stat-item"><span class="stat-num">Oct 2026</span><div class="stat-label">Launch date</div></div>
+      <div class="stat-item"><span class="stat-num">0</span><div class="stat-label">Carbon emissions</div></div>
+    </div>
+    </section>
+
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+  <div class="container">
+    <div class="section-label">Research Environments</div>
+    <h2>One Primary Field Site. <em>Three Comparative Frameworks.</em></h2>
+    <div class="gold-rule"></div>
+    <p>The Mesoamerican Reef is where the research happens in the field. The Red Sea, Great Barrier Reef, and Coral Triangle are where the comparative data comes from &mdash; existing monitored environments that GROAN draws on to demonstrate that cross-ecosystem causal intelligence is not specific to one ocean basin, one thermal regime, or one governance structure.</p>
+    <div class="card-grid">
+      <div class="card card-primary"><div class="card-role">Primary Research Site</div><h4>Caribbean &mdash; Mesoamerican Reef</h4><p>The field research environment. The Rim Run&#8482; operates 1,500+ nautical miles of the Mesoamerican Reef system annually &mdash; 7 countries, 100+ reef sites, zero carbon. This is where original field data is generated, where the Caribbean MAR cascade proof-of-concept runs, and where GROAN's decision intelligence is validated against real-world reef management outcomes year after year.</p></div>
+      <div class="card"><div class="card-role">Comparative Reference Data</div><h4>Red Sea &mdash</h4><p>Red Sea Research Center provides existing sensor networks and multi-ecosystem monitoring data. GROAN draws on this data to run the seagrass-bleaching amplification proof-of-concept.</p></div>
+      <div class="card"><div class="card-role">Comparative Reference Data</div><h4>Great Barrier Reef &mdash; AIMS / GBRMPA</h4><p>The world's most extensively documented reef system. AIMS's Long-Term Monitoring Program provides 35+ years of continuous reef health data. GROAN uses GBR data for retrospective validation: running the CMIE cascade analysis against known historical outcomes to verify causal inference accuracy.</p></div>
+      <div class="card"><div class="card-role">Comparative Reference Data</div><h4>Coral Triangle &mdash; CTI</h4><p>Indo-Pacific. 76% of all coral species. 6 nations. The most biodiverse marine region on Earth provides the scale validation test: does GROAN's cross-ecosystem causal architecture hold across maximum biodiversity, maximum governance complexity, and a fundamentally different ocean basin?</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">The Researcher</div>
+    <h2>Daniel Roe &mdash; <em>Independent Researcher</em></h2>
+    <div class="gold-rule"></div>
+    <p>GROAN was not commissioned, funded, or assigned. It was built independently over 18 months by one person &mdash; out of genuine curiosity about whether a unified ocean decision intelligence system was theoretically coherent and practically buildable. No institution. No supervisor. No research grant.</p>
+    <p>Intellectual ownership is unambiguous &mdash; all GROAN content, IP, and materials are owned by Nevado Ranch Camp LLC. The institutional partners being approached are being invited into something already coherent, not something speculative.</p>
+    <div class="cred-row">
+      <span class="cred-tag">USCG 200-Ton Master</span>
+      <span class="cred-tag">USN Submariner</span>
+      <span class="cred-tag">Nuclear Qualified</span>
+      <span class="cred-tag">FAA Drone Pilot</span>
+      <span class="cred-tag">LSS Black Belt</span>
+      <span class="cred-tag">MBA &mdash; GWU</span>
+      <span class="cred-tag">MS Health Informatics</span>
+      <span class="cred-tag">PADI Adv. OW</span>
+      <span class="cred-tag">Reef Check EcoDiver (Aug 2026)</span>
+    </div>
+    <p style="margin-top:2rem;font-size:0.9rem;color:var(--fog);font-style:italic;">Currently seeking research collaborators, institutional data partners, and field science supporters. The system deploys October 2026 regardless.</p>
+  </div>
+</section>
+
+<section style="background:rgba(13,21,32,0.6);padding-top:4rem;padding-bottom:4rem;">
+  <div class="container">
+    <div class="cta-block">
+      <h3>Collaborate or Partner</h3>
+      <p>If you are a researcher, institution, or conservation organization working in marine systems science, ocean informatics, causal inference in ecology, or related fields &mdash; and you see what GROAN is attempting to prove &mdash; this is an invitation to be part of it from the beginning.</p>
+      <a class="cta-link" href="mailto:nevadoraiders@gmail.com?subject=GROAN%20Collaboration%20Inquiry">Get in Touch</a>
+      <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--fog);">Daniel Roe &nbsp;&bull;&nbsp; nevadoraiders@gmail.com &nbsp;&bull;&nbsp; (928) 250-9763</p>
+    </div>
+  </div>
+</section>
 
 <footer style="
   background:#080c14;
@@ -434,30 +375,16 @@ p+p{margin-top:1.2rem;}
   });
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.body.classList.add('js-ready');
     var toggle = document.getElementById('nav-toggle');
-    var nav = document.getElementById('main-nav');
-    var navLinks = document.getElementById('nav-links');
-    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
-    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
-    function toggleMenu(e){if(e){e.preventDefault();e.stopPropagation();}if(!navLinks||!toggle)return;if(navLinks.classList.contains('open')){closeMenu();}else{openMenu();}}
-    if(toggle&&navLinks&&nav){
-      toggle.addEventListener('click',toggleMenu,false);
-      navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){closeMenu();});});
-      document.addEventListener('click',function(e){if(!nav.contains(e.target)){closeMenu();}});
+    var nav    = document.getElementById('main-nav');
+    var links  = document.getElementById('nav-links');
+    function closeMenu(){links.classList.remove('open');toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+    function openMenu(){links.classList.add('open');toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+    if(toggle&&links&&nav){
+      toggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();links.classList.contains('open')?closeMenu():openMenu();},false);
+      links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
     }
-    var els=document.querySelectorAll('.reveal');
-    if('IntersectionObserver' in window){
-      var obs=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');obs.unobserve(entry.target);}});},{threshold:0.12});
-      els.forEach(function(el){obs.observe(el);});
-    }else{els.forEach(function(el){el.classList.add('visible');});}
-    document.querySelectorAll('.route-hover').forEach(function(group){
-      var infoBox=group.nextElementSibling;
-      group.querySelectorAll('span').forEach(function(span){
-        span.addEventListener('mouseenter',function(){infoBox.textContent=span.getAttribute('data-info');infoBox.style.opacity=1;});
-        span.addEventListener('mouseleave',function(){infoBox.textContent='Hover over a location to see reef characteristics.';infoBox.style.opacity=0.7;});
-      });
-    });
   });
 </script>
 
