@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Storytellers of the Rim | Catamaran Dan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
+.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.page-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
+.rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:0.02em;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.3em;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1s forwards;}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);opacity:0;max-width:680px;margin:0 auto 2rem;animation:fadeUp 1s ease 1.1s forwards;}
+.hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.4s forwards;}
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border:1px solid rgba(201,168,76,0.15);}
+.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
+.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
+.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin:0;}
+.img-trio img{width:100%;object-fit:cover;height:220px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
+.img-trio img:hover{filter:brightness(0.97) saturate(1.05);}
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;margin-bottom:1.5rem;}
+.cred-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.5rem 0;}
+.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aqua);border:1px solid rgba(41,176,212,0.3);padding:0.3rem 0.9rem;white-space:nowrap;}
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+.theme-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1rem;margin-top:2rem;}
+.theme-card{border:1px solid rgba(201,168,76,0.15);background:rgba(8,12,20,0.45);padding:1.4rem;min-height:225px;}
+.theme-icon{font-size:2rem;margin-bottom:0.6rem;}
+.theme-card h3{font-family:'Cinzel',serif;font-size:1.05rem;color:var(--parchment);line-height:1.25;margin-bottom:0.7rem;}
+.theme-card p{font-size:0.98rem;color:var(--fog);line-height:1.65;}
+.story-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2.5rem;}
+.story-card{background:linear-gradient(180deg,rgba(13,21,32,0.95),rgba(10,15,26,0.98));border:1px solid rgba(201,168,76,0.18);position:relative;overflow:hidden;min-height:330px;display:flex;flex-direction:column;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;}
+.story-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.45);box-shadow:0 18px 50px rgba(0,0,0,0.35);}
+.story-image{height:135px;background:radial-gradient(ellipse at center,rgba(41,176,212,0.18),rgba(10,15,26,0.95)),linear-gradient(135deg,rgba(201,168,76,0.08),rgba(14,77,110,0.25));border-bottom:1px solid rgba(201,168,76,0.12);display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--gold);}
+.story-body{padding:1.4rem;display:flex;flex-direction:column;flex:1;}
+.story-kicker{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.18em;color:var(--aqua);text-transform:uppercase;margin-bottom:0.6rem;}
+.story-title{font-family:'Cinzel',serif;font-size:1.18rem;line-height:1.25;color:var(--parchment);margin-bottom:0.6rem;}
+.story-summary{font-size:0.98rem;line-height:1.65;color:var(--fog);}
+.story-detail{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-top:1rem;}
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+@media(max-width:768px){section{padding:4rem 1.5rem;}nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}.nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}.nav-links.open{display:flex;}.nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}.nav-links a:last-child{border-bottom:none;}.nav-toggle{display:flex;}.two-col{grid-template-columns:1fr;}.stat-strip{grid-template-columns:repeat(2,1fr);}.stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}.stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}.img-trio{grid-template-columns:1fr 1fr;}.img-trio img{height:160px;}}
+@media(max-width:480px){.img-trio{grid-template-columns:1fr;}.stat-strip{grid-template-columns:1fr;}.stat:nth-child(odd){border-right:none;}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+<button aria-expanded="false" aria-label="Toggle navigation" class="nav-toggle" id="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+<div class="nav-links" id="nav-links">
+<a href="index.html">Home</a>
+<a href="rimrun.html">Rim Run™</a>
+<a href="rimrun-caribe.html">Rim Run Caribe™</a>
+<a href="rimrun-pac.html">Rim Run Pac™</a>
+<a class="active" href="storytellers.html">Storytellers</a>
+<a href="expedition.html">Expedition</a>
+<a href="shieldmaiden.html">Shield Maiden</a>
+<a href="lionfish.html">Lion Hunter</a>
+<a href="systems.html">Systems</a>
+<a href="platform.html">Small Cat Platform</a>
+<a href="thelivingsaga.html">The Living Saga™</a>
+<a href="shop.html">Shop</a>
+<a href="gallery.html">Gallery</a>
+<a href="about.html">About</a>
+<a href="legal.html">Legal &amp; IP</a>
+</div>
+</nav>
+<div class="page-hero">
+<div class="rune-overlay"></div>
+<div class="page-hero-content">
+<div class="hero-eyebrow">Oral History • Island Memory • Voices of the Sea</div>
+<h1 class="hero-h1">Storytellers <em>of the Rim</em></h1>
+<div class="hero-rule"></div>
+<p class="hero-sub">Every island has a memory. Every harbor has a voice. Along the Rim Run route, local people will be invited to tell their stories in whatever form they choose.</p>
+<div class="hero-tagline">Real People • Real Places • Real Stories • Connected by the Sea</div>
+</div>
+</div>
+<div style="background:#06090f;padding:1rem 1rem 0;">
+<div class="img-trio reveal">
+<img alt="Reef and island light" src="https://catamarandan.org/belizelight2.jpg"/>
+<img alt="Small catamaran sailing the Rim" src="https://catamarandan.org/nice.jpg"/>
+<img alt="Remote reef anchorage" src="https://catamarandan.org/belizeglovers2.jpg"/>
+</div>
+</div>
+<div style="background:var(--midnight);padding:0 2rem;">
+<div class="container-wide">
+<div class="stat-strip" style="border-left:none;border-right:none;">
+<div class="stat"><span class="stat-num">1</span><span class="stat-label">Boat</span></div>
+<div class="stat"><span class="stat-num">100+</span><span class="stat-label">Harbors &amp; Islands</span></div>
+<div class="stat"><span class="stat-num">∞</span><span class="stat-label">Human Voices</span></div>
+<div class="stat"><span class="stat-num">0</span><span class="stat-label">Scripts</span></div>
+<div class="stat"><span class="stat-num">🌊</span><span class="stat-label">One Sea</span></div>
+</div>
+</div>
+</div>
+<section class="bg-midnight border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">What It Is</div>
+<h2 class="serif reveal">A Living Archive. <em>Carried by the Sea.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">The Storytellers of the Rim is the human voice of the Rim Run expedition. As Catamaran Dan moves from island to island, reef to reef, and harbor to harbor, local people will be invited to share their stories with the world.</p>
+<p class="reveal">The storyteller may be one person, a family, a group of musicians, a dock crew, a village elder, a child, a fisherman, a bartender, a diver, a captain, an artist, or an entire community. The story may be spoken, sung, danced, acted, painted, performed with music, told at night under anchor light, or shared quietly on a dock at sunset.</p>
+<p class="reveal">No storyteller is paid for participation. Their contribution is voluntary. What the project offers is the chance for their voice, culture, humor, pain, memory, and truth to be preserved and presented to the world.</p>
+<div class="infobox reveal">
+<div class="infobox-label">The Promise</div>
+      The storyteller controls the story. Rim Run listens, records, preserves, and carries it forward.
+    </div>
+</div>
+</section>
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">The Philosophy</div>
+<h2 class="serif reveal">Not Content. <em>Memory.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">This project is not reality television, tourism branding, or staged entertainment. It is a growing oral-history archive of real people whose lives are connected to the sea.</p>
+<p class="reveal">Different islands speak different languages, live under different flags, and remember different storms. But throughout the Rim, the same human themes return again and again: family, survival, fishing, music, migration, loss, joy, rebuilding, and love for the water.</p>
+<p class="reveal">The ocean becomes the thread. The stories become the record. Over time, Storytellers of the Rim becomes a human atlas of the Caribbean Basin and the coastal world beyond it.</p>
+<div class="cred-list reveal">
+<span class="cred-tag">Authentic Voices</span>
+<span class="cred-tag">Oral History</span>
+<span class="cred-tag">Maritime Culture</span>
+<span class="cred-tag">Island Memory</span>
+<span class="cred-tag">Storm Survival</span>
+<span class="cred-tag">Music &amp; Performance</span>
+<span class="cred-tag">Reef Communities</span>
+</div>
+</div>
+</section>
+<section class="bg-midnight border-bottom-gold">
+<div class="container-wide">
+<div class="container">
+<div class="section-label reveal">Story Streams</div>
+<h2 class="serif reveal">Ten Windows Into <em>Life Around the Rim.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">Each story stands on its own, but the archive will grow through recurring themes that help visitors travel emotionally through the Rim: reef voices, dock stories, storm memories, island music, old captains, night conversations, and disappearing maritime knowledge.</p>
+</div>
+<div class="theme-list">
+<div class="theme-card reveal"><div class="theme-icon">🪸</div><h3>Voices of the Reef</h3><p>Divers, fishermen, guides, restoration workers, and reef communities speak about abundance, decline, survival, and the underwater places that shaped their lives.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">⚓</div><h3>Stories from the Dock</h3><p>Harbor talk, fuel-dock wisdom, waterfront jokes, marina legends, fishing pier memories, and the stories that only emerge once the boats stop moving.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🥁</div><h3>Songs of the Islands</h3><p>Musicians, singers, dancers, drummers, and performers express island identity through sound, rhythm, movement, ritual, celebration, and improvisation.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🌪️</div><h3>Storm Memories</h3><p>Hurricane stories, lost boats, evacuations, rebuilding, grief, humor, and the generational memory carried by every storm coast.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🐚</div><h3>Children of the Caribbean</h3><p>Young people speak about island life, family, the ocean, climate, dreams, fear, joy, and the future they will inherit.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🌊</div><h3>Women of the Water</h3><p>Captains, mothers, divers, artists, cooks, business owners, market workers, environmental leaders, and grandmothers tell the stories often left out of maritime history.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🧭</div><h3>The Old Captains</h3><p>Traditional navigation, reef passages, storm prediction, forgotten anchorages, maritime legends, and decades of knowledge that cannot be learned from screens.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🌙</div><h3>Night Stories at Anchor</h3><p>Low-light conversations, distant music, lanterns, confessions, laughter, philosophy, rain on fiberglass, and the emotional atmosphere that only exists after dark.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🎣</div><h3>Last Fishermen</h3><p>Handline fishing, lobster diving, wooden boats, instinctive reef knowledge, changing economies, modernization, and traditional maritime culture under pressure.</p></div>
+<div class="theme-card reveal"><div class="theme-icon">🔥</div><h3>Voices After the Storm</h3><p>Recovery, rebuilding, solidarity, hope, and the human spirit that rises after hurricanes, floods, economic collapse, or personal loss.</p></div>
+</div>
+</div>
+</section>
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">How Stories Are Shared</div>
+<h2 class="serif reveal">A Face. A Place. <em>A Voice.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">Each published story will have its own visual space on this page: a still image, a short written summary, the location, the story stream, and a link to watch or listen to the full session.</p>
+<p class="reveal">The page will grow one story at a time. A fisherman in Belize, a dock singer in Curaçao, a grandmother in Roatán, a diver in Bonaire, a child in Panama, a bartender in Trinidad — people who may never meet each other become connected here through one continuous ocean route.</p>
+<div class="infobox reveal">
+<div class="infobox-label">The Public Archive</div>
+      Visitors will be able to move through the stories by island, harbor, category, image, voice, and eventually by map location along the Rim Run route.
+    </div>
+</div>
+</section>
+<section class="bg-midnight border-bottom-gold">
+<div class="container-wide">
+<div class="container">
+<div class="section-label reveal">The Story Experience</div>
+<h2 class="serif reveal">How Each Story <em>Will Feel.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">The finished archive will not feel like a playlist. It will feel like a mosaic of living places. Each story card becomes a doorway into a person, a harbor, an island, a reef, a storm, a song, or a memory.</p>
+</div>
+<div class="story-grid">
+<article class="story-card reveal">
+<div class="story-image">🖼️</div>
+<div class="story-body">
+<div class="story-kicker">Hero Image</div>
+<h3 class="story-title">The First Look</h3>
+<p class="story-summary">A powerful still image from the session becomes the emotional doorway into the story: a face, a dock, a boat, an instrument, a reef, a storm-damaged shore, or a night anchorage.</p>
+<div class="story-detail">Visual Entry Point</div>
+</div>
+</article>
+<article class="story-card reveal">
+<div class="story-image">✍️</div>
+<div class="story-body">
+<div class="story-kicker">Written Summary</div>
+<h3 class="story-title">The Human Hook</h3>
+<p class="story-summary">A short cinematic summary gives visitors context before they watch or listen: who is speaking, where they are, what memory they carry, and why the story matters.</p>
+<div class="story-detail">Searchable &amp; Readable</div>
+</div>
+</article>
+<article class="story-card reveal">
+<div class="story-image">📸</div>
+<div class="story-body">
+<div class="story-kicker">Still Images</div>
+<h3 class="story-title">The World Around Them</h3>
+<p class="story-summary">Supporting stills show the environment surrounding the story: hands, boats, tools, families, docks, reefs, instruments, streets, markets, and the weather of that day.</p>
+<div class="story-detail">Photo Memory</div>
+</div>
+</article>
+<article class="story-card reveal">
+<div class="story-image">▶️</div>
+<div class="story-body">
+<div class="story-kicker">Video / Audio</div>
+<h3 class="story-title">The Voice Itself</h3>
+<p class="story-summary">The full session lives through video or audio, allowing the world to hear the storyteller directly: their pauses, laughter, emotion, music, silence, and truth.</p>
+<div class="story-detail">Watch or Listen</div>
+</div>
+</article>
+<article class="story-card reveal">
+<div class="story-image">📍</div>
+<div class="story-body">
+<div class="story-kicker">Place</div>
+<h3 class="story-title">The Story Has Coordinates</h3>
+<p class="story-summary">Every story belongs to a real place on the Rim: a harbor, beach, reef, village, island, marina, storm refuge, or anchorage where the memory was shared.</p>
+<div class="story-detail">Location Memory</div>
+</div>
+</article>
+<article class="story-card reveal">
+<div class="story-image">🗺️</div>
+<div class="story-body">
+<div class="story-kicker">Route Connection</div>
+<h3 class="story-title">The Rim Becomes a Human Map</h3>
+<p class="story-summary">As the route grows, the stories become a human chart of the Caribbean and coastal world — not just where the boat traveled, but who was heard along the way.</p>
+<div class="story-detail">Living Atlas</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="bg-deep border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Sound &amp; Atmosphere</div>
+<h2 class="serif reveal">The Ocean Is <em>Part of the Soundtrack.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">The project will preserve more than words. It will preserve wind, rain, rigging, surf, insects, harbor noise, underwater breathing, engines shutting down, music drifting across anchorages, and the silence that sometimes says more than speech.</p>
+<p class="reveal">A great story may happen at a waterfront bar in full daylight. Another may happen under red light at anchor while rain moves across the bay. Another may happen through drums, singing, dancing, or a child drawing the ocean as they see it.</p>
+<p class="reveal">Imperfection is part of the identity. A pause, a laugh, a dog barking in the distance, thunder behind the speaker, or waves tapping against the hull are not mistakes. They are proof that the story was alive.</p>
+</div>
+</section>
+<section class="bg-midnight border-bottom-gold">
+<div class="container">
+<div class="section-label reveal">Long-Term Vision</div>
+<h2 class="serif reveal">A Human Atlas <em>of the Rim.</em></h2>
+<div class="gold-rule reveal"></div>
+<p class="reveal">Over time, Storytellers of the Rim can become a digital maritime museum: story tiles, route maps, audio sessions, reef memories, storm testimonies, island songs, old captains, children, women of the water, fishermen, and communities rebuilding after the wind.</p>
+<p class="reveal">Most expeditions document places. This one documents emotional memory. Years from now, some of these recordings may become historically priceless — voices from people and ways of life that may never have been professionally preserved before.</p>
+<div class="infobox reveal">
+<div class="infobox-label">The Heart</div>
+      The ocean connects humanity. Rim Run carries that connection from harbor to harbor, reef to reef, island to island, voice to voice.
+    </div>
+<div style="text-align:center;margin-top:2rem;">
+<a class="btn-gold reveal" href="rimrun.html">Explore Rim Run →</a>
+        
+      <a class="btn-gold reveal" href="gallery.html">View Gallery →</a>
+</div>
+</div>
+</section>
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+<img alt="Better Beachy than Bitchy" class="reveal" src="https://catamarandan.org/better.png" style="max-width:380px;width:90%;display:inline-block;"/>
+<p class="img-caption reveal" style="margin-top:1rem;">Storytellers of the Rim • Catamaran Dan • Nevado Raiders™</p>
+</div>
+<footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
+<div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
+    © <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Storytellers of the Rim, Better Beachy than Bitchy™, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753).  |  <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+</div>
+</footer>
+<script>
+  document.querySelectorAll('.footer-year').forEach(function(el){el.textContent = new Date().getFullYear();});
+  document.body.classList.add('js-ready');
+  (function(){
+    var toggle=document.getElementById('nav-toggle');
+    var nav=document.getElementById('main-nav');
+    var navLinks=document.getElementById('nav-links');
+    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+    if(toggle&&nav&&navLinks){toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});}
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});els.forEach(function(el){obs.observe(el);});}else{els.forEach(function(el){el.classList.add('visible');});}
+  })();
+</script>
+</body>
+</html>
