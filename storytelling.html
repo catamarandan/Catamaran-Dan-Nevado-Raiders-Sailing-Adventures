@@ -32,15 +32,19 @@ h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weig
 h2.serif em{color:var(--gold);font-style:normal;}
 .gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
 p+p{margin-top:1.2rem;}
-.page-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
-.rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
-.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
-.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
-.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:0.02em;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.3em;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
+.page-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 6rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 60%,rgba(14,77,110,0.55) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(26,127,168,0.3) 0%,transparent 50%),radial-gradient(ellipse at 50% 100%,rgba(201,168,76,0.07) 0%,transparent 60%),linear-gradient(180deg,#030608 0%,#0a0f1a 60%,#060d18 100%);}
+.rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.page-hero-content{position:relative;z-index:2;max-width:900px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.4em;color:var(--aqua);text-transform:uppercase;margin-bottom:2rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(3.2rem,9vw,7.5rem);font-weight:900;line-height:0.92;letter-spacing:0.01em;color:var(--parchment);text-shadow:0 0 120px rgba(201,168,76,0.25),0 0 40px rgba(41,176,212,0.1),0 2px 4px rgba(0,0,0,0.9);margin-bottom:0.2em;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
 .hero-h1 em{color:var(--gold);font-style:normal;display:block;}
-.hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1s forwards;}
-.hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);opacity:0;max-width:680px;margin:0 auto 2rem;animation:fadeUp 1s ease 1.1s forwards;}
-.hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.4s forwards;}
+.hero-rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:2.2rem auto;opacity:0;animation:fadeIn 1s ease 0.9s forwards;}
+.hero-sub{font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--parchment);opacity:0;max-width:720px;margin:0 auto 1.5rem;line-height:1.6;animation:fadeUp 1s ease 1s forwards;}
+.hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.25em;color:rgba(201,168,76,0.75);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.3s forwards;line-height:2.2;}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeIn 1.5s ease 2s forwards;}
+.hero-scroll span{font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.3em;color:var(--text-dim);text-transform:uppercase;}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
 .stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border:1px solid rgba(201,168,76,0.15);}
 .stat{padding:2rem 1.2rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
 .stat:last-child{border-right:none;}
@@ -197,8 +201,12 @@ textarea{resize:vertical;min-height:160px;line-height:1.65;}
     <div class="hero-eyebrow">Oral History &#8226; Island Memory &#8226; Voices of the Sea</div>
     <h1 class="hero-h1">Storytellers <em>of the Rim</em></h1>
     <div class="hero-rule"></div>
-    <p class="hero-sub">Every island has a memory. Every harbor has a voice. Along the Rim Run route, local people will be invited to tell their stories in whatever form they choose.</p>
+    <p class="hero-sub">The knowledge that keeps these reefs alive doesn't live in a database. It lives in the people who have fished the same water for three generations — and who have never been asked to share what they know. Until now.</p>
     <div class="hero-tagline">Real People &#8226; Real Places &#8226; Real Stories &#8226; Carried by the Sea</div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
   </div>
 </div>
 <div style="background:#06090f;padding:1rem 1rem 0;">
@@ -223,12 +231,12 @@ textarea{resize:vertical;min-height:160px;line-height:1.65;}
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">What It Is</div>
-    <h2 class="serif reveal">A Living Archive. <em>Carried by the Sea.</em></h2>
+    <h2 class="serif reveal">They've Been Waiting <em>to Be Heard.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">The Storytellers of the Rim is the human voice of the Rim Run expedition. As Catamaran Dan moves from island to island, reef to reef, and harbor to harbor, local people will be invited to share their stories with the world.</p>
-    <p class="reveal">The storyteller may be one person, a family, a group of musicians, a dock crew, a village elder, a child, a fisherman, a bartender, a diver, a captain, an artist, or an entire community. The story may be spoken, sung, danced, acted, painted, performed with music, told at night under anchor light, or shared quietly on a dock at sunset.</p>
-    <p class="reveal">No storyteller is paid for participation. Their contribution is voluntary. What the project offers is the chance for their voice, culture, humor, pain, memory, and truth to be preserved and presented to the world.</p>
-    <div class="infobox reveal"><div class="infobox-label deep">The Promise</div>The storyteller controls the story. Rim Run listens, records, preserves, and carries it forward.</div>
+    <p class="reveal">There is a Gar&iacute;funa elder in Belize who remembers exactly what the reef looked like before the bleaching — not in data, but in the way the fish moved, the color of the water at dawn, the songs the divers sang when the catch was good. That knowledge lives in him. When he's gone, it's gone.</p>
+    <p class="reveal">In the R&iacute;o Dulce canyon, a Q'eqchi' Maya fisherman reads the thermal springs the way a scientist reads a gauge — but his grandfather taught him, and his grandfather's grandfather before that, and no university has ever sent anyone to ask. On Little Corn Island, a grandmother knows every current around the reef by feel, by season, by the behavior of the birds. No chart captures what she knows.</p>
+    <p class="reveal">These are not quaint stories. They are the most accurate ecological records on these coastlines — and they exist only as long as the people who carry them are alive and willing to speak. Shamrocket will stop at every harbor, every dock, every anchorage where someone has something worth saying. And it will listen.</p>
+    <div class="infobox reveal"><div class="infobox-label deep">The Promise</div>The storyteller controls the story. Rim Run listens, records, preserves, and carries it forward — on their terms, with their names, with their community's context intact.</div>
   </div>
 </section>
 <section class="bg-deep border-bottom-gold">
@@ -515,4 +523,5 @@ if(again){again.addEventListener('click',function(e){e.preventDefault();success.
 </script>
 </body>
 </html>
+
 
