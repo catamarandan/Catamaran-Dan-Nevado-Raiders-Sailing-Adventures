@@ -13,18 +13,16 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);overflow:visible;}
-.nav-inner{max-width:1200px;margin:0 auto;padding:1rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;min-height:72px;}
-.nav-check{display:none;}
-.nav-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1.8rem;width:100%;}
-.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
-.nav-links a:hover{color:var(--gold);}
-.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:2rem;top:50%;transform:translateY(-50%);z-index:1002;width:38px;height:38px;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
-.nav-toggle span,.nav-toggle::before,.nav-toggle::after{content:'';display:block;position:absolute;width:24px;height:2px;background:var(--gold);transition:transform 0.3s ease,opacity 0.3s ease;}
-.nav-toggle span{transform:translateY(0);}
-.nav-toggle::before{transform:translateY(-7px);}
-.nav-toggle::after{transform:translateY(7px);}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
+.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;-webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -48,6 +46,8 @@ p+p{margin-top:1.2rem;}
 .portrait-pair img:hover{filter:brightness(0.97) saturate(1.05);}
 .btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
 .btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+.callout{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.callout-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
 .bg-midnight{background:var(--midnight);}
 .bg-deep{background:var(--deep-ocean);}
 .border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
@@ -60,22 +60,14 @@ p+p{margin-top:1.2rem;}
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
-footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
-.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
-.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
-.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
-.footer-contact a{color:var(--aqua);}
 @media(max-width:768px){
-  .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
-  .nav-toggle{display:flex;}
-  .nav-links{position:absolute;top:100%;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;padding:0 1.5rem;max-height:0;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transition:max-height 0.3s ease,opacity 0.25s ease,visibility 0.25s ease,padding 0.25s ease;display:flex;z-index:999;}
-  .nav-check:checked~.nav-links{max-height:1000px;opacity:1;visibility:visible;pointer-events:auto;padding:0.5rem 1.5rem 1rem;}
-  .nav-check:checked+.nav-toggle span{opacity:0;}
-  .nav-check:checked+.nav-toggle::before{transform:translateY(0) rotate(45deg);}
-  .nav-check:checked+.nav-toggle::after{transform:translateY(0) rotate(-45deg);}
-  .nav-links a{display:block;width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
   section{padding:4rem 1.5rem;}
+  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}
   .two-col{grid-template-columns:1fr;gap:2.5rem;}
   .portrait-pair{grid-template-columns:1fr 1fr;}
 }
@@ -84,26 +76,22 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 <body>
 
 <nav id="main-nav">
-  <div class="nav-inner">
-    <input type="checkbox" id="nav-check" class="nav-check" aria-hidden="true">
-    <label for="nav-check" class="nav-toggle" aria-label="Toggle navigation"><span></span></label>
-    <div class="nav-links" id="nav-links">
-      <a href="index.html">Home</a>
-      <a href="rimrun.html">Rim Run&#8482;</a>
-      <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
-      <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-      <a href="storytelling.html">Storytelling</a>
-      <a href="expedition.html">Expedition</a>
-      <a href="shieldmaiden.html">Shield Maiden</a>
-      <a href="lionfish.html">Lion Hunter</a>
-      <a href="systems.html">Systems</a>
-      <a href="platform.html">Small Cat Platform</a>
-      <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-      <a href="shop.html">Shop</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html" class="active">About</a>
-      <a href="legal.html">Legal &amp; IP</a>
-    </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+    <a href="shamrocket.html">Shamrocket</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="storytelling.html">Storytellers</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html" class="active">About</a>
+    <a href="legal.html">Legal &amp; IP</a>
   </div>
 </nav>
 
@@ -165,36 +153,55 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
+    <div class="section-label reveal">First Mate</div>
+    <h2 class="serif reveal">Looking for <em>the Shield Maiden.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">The Rim Run&#8482; is a decade-long expedition and Catamaran Dan is looking for one woman made of the right stuff to share it. Not a passenger. A partner — in seamanship, in judgment, in the life this expedition actually is.</p>
+    <a href="shieldmaiden.html" class="btn-gold reveal">Read the Full Story &rarr;</a>
+  </div>
+</section>
+
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
     <div class="section-label reveal">Contact</div>
     <h2 class="serif reveal">Find Me at the Dock. <em>Or Write First.</em></h2>
     <div class="gold-rule reveal"></div>
     <p class="reveal">Best reached at <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>. If you're at the same marina, even better — come find the Hobie with the blue hull and say hello.</p>
-    <a href="expedition.html" class="btn-gold reveal">See the Expedition &rarr;</a>
   </div>
 </section>
 
-<footer>
-  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
-  <div class="footer-tagline">"Better Beachy than Bitchy&#8482;" — Anchor down.</div>
-  <div class="footer-contact">
-    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
-    &nbsp;&bull;&nbsp; <a href="legal.html">Legal &amp; IP</a>
-  </div>
-  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;color:var(--text-dim);opacity:0.45;margin-top:1.5rem;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC &bull; Arizona Entity ID: 23742753
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+</div>
+
+<footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
 </footer>
 
 <script>
-document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
-document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
   document.body.classList.add('js-ready');
-  var els=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
-    els.forEach(function(el){obs.observe(el);});
-  }else{els.forEach(function(el){el.classList.add('visible');});}
-});
+  (function(){
+    var toggle=document.getElementById('nav-toggle');
+    var nav=document.getElementById('main-nav');
+    var navLinks=document.getElementById('nav-links');
+    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+    if(toggle&&nav&&navLinks){
+      toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+      window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+    }
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
+      els.forEach(function(el){obs.observe(el);});
+    }else{els.forEach(function(el){el.classList.add('visible');});}
+  })();
 </script>
 </body>
 </html>
