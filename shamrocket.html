@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Catamaran Dan</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
+.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
+nav a:hover{color:var(--gold);}
+nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;-webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.cred-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.5rem 0;}
+.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aqua);border:1px solid rgba(41,176,212,0.3);padding:0.3rem 0.9rem;white-space:nowrap;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:3rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
+.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
+.card:hover{background:rgba(14,77,110,0.18);}
+.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
+.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;margin-bottom:1.5rem;}
+.portrait-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.portrait-pair img{width:100%;object-fit:cover;aspect-ratio:3/4;filter:brightness(0.85) saturate(0.88);transition:filter 0.3s;}
+.portrait-pair img:hover{filter:brightness(0.97) saturate(1.05);}
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+.callout{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.callout-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+.page-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
+.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+@media(max-width:768px){
+  section{padding:4rem 1.5rem;}
+  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}
+  .two-col{grid-template-columns:1fr;gap:2.5rem;}
+  .portrait-pair{grid-template-columns:1fr 1fr;}
+}
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+    <a href="shamrocket.html">Shamrocket</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="storytelling.html">Storytellers</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html" class="active">About</a>
+    <a href="legal.html">Legal &amp; IP</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <span class="hero-eyebrow">Catamaran Dan &bull; Ove Ironhand</span>
+    <h1 class="hero-h1">About <em>the Sailor</em></h1>
+    <p class="hero-sub">Adventure expedition sailor. Former Navy submariner. Forty years on the water — and still the happiest when the anchor goes down somewhere new.</p>
+  </div>
+</div>
+
+<section class="bg-midnight border-bottom-gold">
+  <div class="container-wide">
+    <div class="two-col">
+      <div>
+        <div class="section-label reveal">The Man</div>
+        <h2 class="serif reveal">Catamaran Dan — <em>Ove Ironhand</em></h2>
+        <div class="gold-rule reveal"></div>
+        <p class="reveal">Adventure expedition sailor, U.S. Coast Guard–licensed 200-Ton Master, and former Navy submarine watchstander who's been doing genuinely hard things on the water since before most sailing influencers were born. The Blue Rim 5&#8482; Sailing Expedition is his next chapter — and it's the one he's been building toward his whole life.</p>
+        <p class="reveal">The backbone of who he is was formed in the submarine service. When a submarine is submerged, it is a sealed world. No signal. No backup. No one coming to help. Every qualified watchstander owns their domain completely. You solve every problem with what you know and who you are — and that discipline never entirely leaves you. It is exactly how this expedition is designed and run.</p>
+        <p class="reveal">Modern Y-DNA work traces his paternal line through the I1 haplogroup to the Norse voyagers of a thousand years ago. He sails as Ove Ironhand. That combination — submarine discipline, Norse wandering spirit — shapes everything: calm decision-making, conservative risk management, genuine curiosity about the people and coastlines of every port he enters, and a very strong preference for good food, cold drinks, and conversations that go somewhere interesting.</p>
+        <div class="cred-list reveal">
+          <span class="cred-tag">USCG 200-Ton Master</span>
+          <span class="cred-tag">USN Submariner</span>
+          <span class="cred-tag">Qualified in Submarines</span>
+          <span class="cred-tag">ASA Instructor</span>
+          <span class="cred-tag">FAA Drone Pilot</span>
+          <span class="cred-tag">LSS Black Belt</span>
+          <span class="cred-tag">PADI Adv. OW</span>
+          <span class="cred-tag">Blue Nose</span>
+          <span class="cred-tag">Shellback</span>
+          <span class="cred-tag">MBA &middot; GWU</span>
+          <span class="cred-tag">MS Health Informatics</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="portrait-pair">
+          <div><img src="https://catamarandan.org/dan.jpg" alt="Catamaran Dan"/><p class="img-caption">Catamaran Dan</p></div>
+          <div><img src="https://catamarandan.org/ove.jpg" alt="Ove Ironhand"/><p class="img-caption">Ove Ironhand</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Background</div>
+    <h2 class="serif reveal">Forty Years of <em>Doing It for Real.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <div class="card-grid reveal">
+      <div class="card"><h4>On the Water</h4><p>U.S. Navy Submarine Service — Qualified in Submarines, one of the most demanding qualification processes in the U.S. military. Ship's Control At-Sea Watchstander. Blue Nose (Arctic Circle). Shellback (Equator). USCG 200-Ton Master. ASA Sailing Instructor — monohull and multihull. 20+ years teaching sailing. PADI Advanced Open Water Diver. FAA-Licensed Drone Pilot.</p></div>
+      <div class="card"><h4>In the Field</h4><p>This is not a scientist's expedition. It's a sailor's expedition with a reef awareness lens. He observes, photographs, takes notes, and shares what he sees — because he's been in and around the water long enough to know what's changed. No institutional affiliation. No reporting obligations. Just eyes open and paying attention.</p></div>
+      <div class="card"><h4>Everything Else</h4><p>Lean Six Sigma Black Belt. MS Health Informatics — University of Tennessee. MBA — George Washington University. Three decades of technology and project management consulting — clinical decision support, healthcare systems, international program management. The same discipline that builds reliable systems builds reliable expeditions.</p></div>
+      <div class="card"><h4>Base Camp</h4><p>Nevado Ranch, Vernon, Arizona — 6,000 feet in the White Mountains. When he's not on the water, he's here. The ranch is where Shamrocket lives between expeditions, where JAK the wild cottontail has taken up residence near the gate, and where the next adventure gets planned.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">First Mate</div>
+    <h2 class="serif reveal">Looking for <em>the Shield Maiden.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">The Rim Run&#8482; is a decade-long expedition and Catamaran Dan is looking for one woman made of the right stuff to share it. Not a passenger. A partner — in seamanship, in judgment, in the life this expedition actually is.</p>
+    <a href="shieldmaiden.html" class="btn-gold reveal">Read the Full Story &rarr;</a>
+  </div>
+</section>
+
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Contact</div>
+    <h2 class="serif reveal">Find Me at the Dock. <em>Or Write First.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Best reached at <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>. If you're at the same marina, even better — come find the Hobie with the blue hull and say hello.</p>
+  </div>
+</section>
+
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+</div>
+
+<footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
+  document.body.classList.add('js-ready');
+  (function(){
+    var toggle=document.getElementById('nav-toggle');
+    var nav=document.getElementById('main-nav');
+    var navLinks=document.getElementById('nav-links');
+    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+    if(toggle&&nav&&navLinks){
+      toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+      window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+    }
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
+      els.forEach(function(el){obs.observe(el);});
+    }else{els.forEach(function(el){el.classList.add('visible');});}
+  })();
+</script>
+</body>
+</html>
