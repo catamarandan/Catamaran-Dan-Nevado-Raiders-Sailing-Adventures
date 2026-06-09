@@ -47,6 +47,7 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .coming-soon-banner{background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(14,77,110,0.15));border:1px solid rgba(201,168,76,0.25);padding:1.2rem 2rem;text-align:center;margin-bottom:3rem;}
 .coming-soon-banner p{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
 .coming-soon-banner span{color:var(--fog);font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0.04em;text-transform:none;display:block;margin-top:0.3rem;}
+.collection-divider{border:none;border-top:1px solid rgba(201,168,76,0.15);margin:4rem 0 3.5rem;}
 .filter-section{margin-bottom:2.8rem;}
 .filter-row{display:flex;gap:0.7rem;flex-wrap:wrap;align-items:center;margin-bottom:0.75rem;}
 .filter-row:last-child{margin-bottom:0;}
@@ -68,6 +69,7 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .tag{font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.18rem 0.6rem;border:1px solid;}
 .tag-style{color:var(--aqua);border-color:rgba(41,176,212,0.3);}
 .tag-color{color:var(--text-dim);border-color:rgba(201,168,76,0.15);}
+.tag-category{color:var(--gold);border-color:rgba(201,168,76,0.3);}
 .product-name{font-family:'Cinzel',serif;font-size:0.98rem;font-weight:600;color:var(--parchment);margin-bottom:0.5rem;line-height:1.3;}
 .product-desc{font-size:0.9rem;color:var(--fog);line-height:1.65;flex:1;}
 .product-meta{margin-top:1.1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.4rem;}
@@ -113,17 +115,17 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     <div class="nav-links" id="nav-links">
       <a href="index.html">Home</a>
-      <a href="rimrun.html">Rim Run&#8482;</a>
       <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
       <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-      <a href="storytelling.html">Storytellers</a>
-      <a href="shieldmaiden.html">Shieldmaiden</a>
+      <a href="shamrocket.html">Shamrocket</a>
       <a href="lionfish.html">Lion Hunter</a>
+      <a href="shieldmaiden.html">Shield Maiden</a>
+      <a href="storytelling.html">Storytellers</a>
       <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-      <a href="shop.html" class="active">Shop</a>
       <a href="gallery.html">Gallery</a>
+      <a href="shop.html" class="active">Shop</a>
       <a href="about.html">About</a>
-      <a href="legal.html">Legal</a>
+      <a href="legal.html">Legal &amp; IP</a>
     </div>
   </div>
 </nav>
@@ -151,6 +153,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 <section class="bg-deep border-bottom-gold">
   <div class="container-wide">
 
+    <!-- ═══════════════════════════════════════ TEES ═══════════════════════════════════════ -->
     <div class="section-label reveal">The Collection</div>
     <h2 class="serif reveal">Better Beachy Than Bitchy&#8482; <em>Tees.</em></h2>
     <div class="gold-rule reveal"></div>
@@ -158,152 +161,268 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 
     <div class="filter-section reveal">
       <div class="filter-row">
+        <span class="filter-label">Category</span>
+        <button class="filter-btn active" data-filter-cat="all" onclick="filterCat('all',this)">All Items</button>
+        <button class="filter-btn" data-filter-cat="tee" onclick="filterCat('tee',this)">Tees Only</button>
+        <button class="filter-btn" data-filter-cat="hoodie" onclick="filterCat('hoodie',this)">Hoodies Only</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-row">
         <span class="filter-label">Style</span>
-        <button class="filter-btn active" data-style="all" onclick="filterStyle('all',this)">All Styles</button>
-        <button class="filter-btn" data-style="unisex-ss" onclick="filterStyle('unisex-ss',this)">Unisex Short Sleeve</button>
-        <button class="filter-btn" data-style="unisex-ls" onclick="filterStyle('unisex-ls',this)">Unisex Long Sleeve</button>
-        <button class="filter-btn" data-style="womens-ss" onclick="filterStyle('womens-ss',this)">Women's Short Sleeve</button>
-        <button class="filter-btn" data-style="womens-ls" onclick="filterStyle('womens-ls',this)">Women's Long Sleeve</button>
+        <button class="filter-btn active" data-filter-style="all" onclick="filterStyle('all',this)">All Styles</button>
+        <button class="filter-btn" data-filter-style="unisex-ss" onclick="filterStyle('unisex-ss',this)">Unisex Short Sleeve</button>
+        <button class="filter-btn" data-filter-style="unisex-ls" onclick="filterStyle('unisex-ls',this)">Unisex Long Sleeve</button>
+        <button class="filter-btn" data-filter-style="womens-ss" onclick="filterStyle('womens-ss',this)">Women's Short Sleeve</button>
+        <button class="filter-btn" data-filter-style="womens-ls" onclick="filterStyle('womens-ls',this)">Women's Long Sleeve</button>
+        <button class="filter-btn" data-filter-style="unisex-hoodie" onclick="filterStyle('unisex-hoodie',this)">Unisex Hoodie</button>
+        <button class="filter-btn" data-filter-style="womens-hoodie" onclick="filterStyle('womens-hoodie',this)">Women's Hoodie</button>
       </div>
       <div class="filter-divider"></div>
       <div class="filter-row">
         <span class="filter-label">Color</span>
-        <button class="filter-btn active" data-color="all" onclick="filterColor('all',this)">All Colors</button>
-        <button class="filter-btn" data-color="white" onclick="filterColor('white',this)">Classic White</button>
-        <button class="filter-btn" data-color="coral" onclick="filterColor('coral',this)">Reef Coral</button>
-        <button class="filter-btn" data-color="navy" onclick="filterColor('navy',this)">Deep Navy</button>
+        <button class="filter-btn active" data-filter-color="all" onclick="filterColor('all',this)">All Colors</button>
+        <button class="filter-btn" data-filter-color="white" onclick="filterColor('white',this)">Classic White</button>
+        <button class="filter-btn" data-filter-color="coral" onclick="filterColor('coral',this)">Reef Coral</button>
+        <button class="filter-btn" data-filter-color="navy" onclick="filterColor('navy',this)">Deep Navy</button>
+        <button class="filter-btn" data-filter-color="black" onclick="filterColor('black',this)">Black</button>
+        <button class="filter-btn" data-filter-color="heather-gray" onclick="filterColor('heather-gray',this)">Heather Gray</button>
+        <button class="filter-btn" data-filter-color="teal" onclick="filterColor('teal',this)">Teal</button>
       </div>
     </div>
 
-    <div class="results-count reveal"><span id="count-num">12/span> styles shown</div>
+    <div class="results-count reveal"><span id="count-num">22</span> styles shown</div>
 
     <div class="product-grid reveal" id="product-grid">
 
-      <!-- UNISEX SHORT SLEEVE -->
-      <div class="product-card" data-style="unisex-ss" data-color="white">
+      <!-- ─── UNISEX SHORT SLEEVE ─── -->
+      <div class="product-card" data-cat="tee" data-style="unisex-ss" data-color="white">
         <div class="product-img"><img src="mens white short sleeve.png" alt="Unisex Short Sleeve Classic White" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Unisex SS</span><span class="tag tag-color">Classic White</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Unisex SS</span><span class="tag tag-color">Classic White</span></div>
           <div class="product-name">Unisex Short Sleeve — White</div>
           <p class="product-desc">The foundational piece. Clean white, bold back print, unisex relaxed fit that works on everyone.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="unisex-ss" data-color="coral">
+      <div class="product-card" data-cat="tee" data-style="unisex-ss" data-color="coral">
         <div class="product-img"><img src="mens peach short sleeve.png" alt="Unisex Short Sleeve Reef Coral" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Unisex SS</span><span class="tag tag-color">Reef Coral</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Unisex SS</span><span class="tag tag-color">Reef Coral</span></div>
           <div class="product-name">Unisex Short Sleeve — Reef Coral</div>
           <p class="product-desc">Warm coral that catches the light like a sunset on the water. White print, unisex relaxed fit.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="unisex-ss" data-color="navy">
+      <div class="product-card" data-cat="tee" data-style="unisex-ss" data-color="navy">
         <div class="product-img"><img src="mens navy blue short sleeve.png" alt="Unisex Short Sleeve Deep Navy" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Unisex SS</span><span class="tag tag-color">Deep Navy</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Unisex SS</span><span class="tag tag-color">Deep Navy</span></div>
           <div class="product-name">Unisex Short Sleeve — Deep Navy</div>
           <p class="product-desc">Classic nautical palette. Deep navy with gold print — wears as well at the marina as it does anywhere.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <!-- UNISEX LONG SLEEVE -->
-      <div class="product-card" data-style="unisex-ls" data-color="white">
+      <!-- ─── UNISEX LONG SLEEVE ─── -->
+      <div class="product-card" data-cat="tee" data-style="unisex-ls" data-color="white">
         <div class="product-img"><img src="mens white long sleeve.png" alt="Unisex Long Sleeve Classic White" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Unisex LS</span><span class="tag tag-color">Classic White</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Unisex LS</span><span class="tag tag-color">Classic White</span></div>
           <div class="product-name">Unisex Long Sleeve — White</div>
           <p class="product-desc">For early mornings, late evenings, and shoulder-season passages. Same slogan, full sleeve coverage.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="unisex-ls" data-color="coral">
+      <div class="product-card" data-cat="tee" data-style="unisex-ls" data-color="coral">
         <div class="product-img"><img src="mens peach long sleeve.png" alt="Unisex Long Sleeve Reef Coral" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Unisex LS</span><span class="tag tag-color">Reef Coral</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Unisex LS</span><span class="tag tag-color">Reef Coral</span></div>
           <div class="product-name">Unisex Long Sleeve — Reef Coral</div>
           <p class="product-desc">Warm reef coral, full sleeve. The sunset edition — looks right at golden hour on the water or anywhere the vibe calls for it.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="unisex-ls" data-color="navy">
+      <div class="product-card" data-cat="tee" data-style="unisex-ls" data-color="navy">
         <div class="product-img"><img src="mens navy blue long sleeve.png" alt="Unisex Long Sleeve Deep Navy" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Unisex LS</span><span class="tag tag-color">Deep Navy</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Unisex LS</span><span class="tag tag-color">Deep Navy</span></div>
           <div class="product-name">Unisex Long Sleeve — Deep Navy</div>
           <p class="product-desc">Deep navy with gold print, full sleeves. Classic nautical palette built for cooler mornings at anchor and coastal evenings.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <!-- WOMEN'S SHORT SLEEVE -->
-      <div class="product-card" data-style="womens-ss" data-color="white">
+      <!-- ─── WOMEN'S SHORT SLEEVE ─── -->
+      <div class="product-card" data-cat="tee" data-style="womens-ss" data-color="white">
         <div class="product-img"><img src="womens white short sleeve.png" alt="Women's Short Sleeve Classic White" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Women's SS</span><span class="tag tag-color">Classic White</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Women's SS</span><span class="tag tag-color">Classic White</span></div>
           <div class="product-name">Women's Short Sleeve — White</div>
           <p class="product-desc">Tailored women's cut, fitted silhouette. Bold back print, designed to move with you on the water and off it.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="womens-ss" data-color="coral">
+      <div class="product-card" data-cat="tee" data-style="womens-ss" data-color="coral">
         <div class="product-img"><img src="womens peach short sleeve.png" alt="Women's Short Sleeve Reef Coral" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Women's SS</span><span class="tag tag-color">Reef Coral</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Women's SS</span><span class="tag tag-color">Reef Coral</span></div>
           <div class="product-name">Women's Short Sleeve — Reef Coral</div>
           <p class="product-desc">Warm reef coral in a women's fitted cut. White print, tailored silhouette — the beach-ready edition.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="womens-ss" data-color="navy">
+      <div class="product-card" data-cat="tee" data-style="womens-ss" data-color="navy">
         <div class="product-img"><img src="womens navy blue short sleeve.png" alt="Women's Short Sleeve Deep Navy" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Women's SS</span><span class="tag tag-color">Deep Navy</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Women's SS</span><span class="tag tag-color">Deep Navy</span></div>
           <div class="product-name">Women's Short Sleeve — Deep Navy</div>
           <p class="product-desc">Deep navy with gold print in a women's fitted cut. Classic nautical palette — wears as well at the marina as it does anywhere.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <!-- WOMEN'S LONG SLEEVE -->
-      <div class="product-card" data-style="womens-ls" data-color="white">
+      <!-- ─── WOMEN'S LONG SLEEVE ─── -->
+      <div class="product-card" data-cat="tee" data-style="womens-ls" data-color="white">
         <div class="product-img"><img src="womens white long sleeve.png" alt="Women's Long Sleeve Classic White" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Women's LS</span><span class="tag tag-color">Classic White</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Women's LS</span><span class="tag tag-color">Classic White</span></div>
           <div class="product-name">Women's Long Sleeve — White</div>
           <p class="product-desc">Women's fitted long sleeve in classic white. For the cooler passages, the sunrise watch, and every coastal moment that deserves full coverage.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="womens-ls" data-color="coral">
+      <div class="product-card" data-cat="tee" data-style="womens-ls" data-color="coral">
         <div class="product-img"><img src="womens long sleeve reef coral.png" alt="Women's Long Sleeve Reef Coral" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Women's LS</span><span class="tag tag-color">Reef Coral</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Women's LS</span><span class="tag tag-color">Reef Coral</span></div>
           <div class="product-name">Women's Long Sleeve — Reef Coral</div>
           <p class="product-desc">Women's fitted long sleeve in reef coral. Sunset warmth, white print, full coverage — the beach-to-evening edition.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-      <div class="product-card" data-style="womens-ls" data-color="navy">
+      <div class="product-card" data-cat="tee" data-style="womens-ls" data-color="navy">
         <div class="product-img"><img src="womens navy blue long sleeve.png" alt="Women's Long Sleeve Deep Navy" loading="lazy"/></div>
         <div class="product-info">
-          <div class="product-tags"><span class="tag tag-style">Women's LS</span><span class="tag tag-color">Deep Navy</span></div>
+          <div class="product-tags"><span class="tag tag-category">Tee</span><span class="tag tag-style">Women's LS</span><span class="tag tag-color">Deep Navy</span></div>
           <div class="product-name">Women's Long Sleeve — Deep Navy</div>
           <p class="product-desc">Women's fitted long sleeve in deep navy with gold print. The marina sunset edition — exactly right on a dock at golden hour.</p>
           <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
         </div>
       </div>
 
-    </div>
+      <!-- ═══════════════════════════════════════ HOODIES ═══════════════════════════════════════ -->
+
+      <!-- ─── UNISEX HOODIE ─── -->
+      <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="white">
+        <div class="product-img"><img src="hoodie_white_male.png" alt="Unisex Pullover Hoodie Classic White" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Classic White</span></div>
+          <div class="product-name">Unisex Hoodie — White</div>
+          <p class="product-desc">Clean white pullover, bold back print. The attitude, elevated — built for cool mornings on the water and every dock bar after sunset.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="navy">
+        <div class="product-img"><img src="hoodie_navy_male.png" alt="Unisex Pullover Hoodie Deep Navy" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Deep Navy</span></div>
+          <div class="product-name">Unisex Hoodie — Deep Navy</div>
+          <p class="product-desc">Deep navy with gold print — the nautical classic in hoodie form. Right at home from the cockpit to the coastal city.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="black">
+        <div class="product-img"><img src="hoodie_black_male.png" alt="Unisex Pullover Hoodie Black" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Black</span></div>
+          <div class="product-name">Unisex Hoodie — Black</div>
+          <p class="product-desc">Timeless black, gold print. The statement piece — wears everywhere, pairs with everything, and lets the slogan do the talking.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="heather-gray">
+        <div class="product-img"><img src="hoodie_grey_male.png" alt="Unisex Pullover Hoodie Heather Gray" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Heather Gray</span></div>
+          <div class="product-name">Unisex Hoodie — Heather Gray</div>
+          <p class="product-desc">The everyday essential. Heather gray softens the attitude just enough — still the same slogan, still the same unapologetic vibe.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="teal">
+        <div class="product-img"><img src="hoodie_teal_male.png" alt="Unisex Pullover Hoodie Teal" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Teal</span></div>
+          <div class="product-name">Unisex Hoodie — Teal</div>
+          <p class="product-desc">The ocean in a hoodie. Teal with white print — the color of clear Caribbean water, the attitude of someone who lives on it.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <!-- ─── WOMEN'S HOODIE ─── -->
+      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="white">
+        <div class="product-img"><img src="hoodie_white_female.png" alt="Women's Pullover Hoodie Classic White" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Classic White</span></div>
+          <div class="product-name">Women's Hoodie — White</div>
+          <p class="product-desc">Women's cut pullover in classic white. The attitude, the fit, the finish — made for anyone who owns the coast and dresses like it.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="navy">
+        <div class="product-img"><img src="hoodie_navy_female.png" alt="Women's Pullover Hoodie Deep Navy" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Deep Navy</span></div>
+          <div class="product-name">Women's Hoodie — Deep Navy</div>
+          <p class="product-desc">Deep navy, women's cut. Gold print on nautical ground — the marina edition, sized and shaped for her.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="black">
+        <div class="product-img"><img src="hoodie_black_female.png" alt="Women's Pullover Hoodie Black" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Black</span></div>
+          <div class="product-name">Women's Hoodie — Black</div>
+          <p class="product-desc">Black, women's cut, gold print. Sleek and direct — wear it on the boat, wear it in the city, wear it wherever the vibe needs to land.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="heather-gray">
+        <div class="product-img"><img src="hoodie_grey_female.png" alt="Women's Pullover Hoodie Heather Gray" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Heather Gray</span></div>
+          <div class="product-name">Women's Hoodie — Heather Gray</div>
+          <p class="product-desc">Heather gray, women's cut. Effortless, versatile, and still saying exactly what it means — the go-everywhere coastal essential.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="teal">
+        <div class="product-img"><img src="hoodie_teal_female.png" alt="Women's Pullover Hoodie Teal" loading="lazy"/></div>
+        <div class="product-info">
+          <div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Teal</span></div>
+          <div class="product-name">Women's Hoodie — Teal</div>
+          <p class="product-desc">Teal, women's cut. Caribbean water color, coastal confidence — the hoodie that looks like it belongs on the Rim Run.</p>
+          <div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div>
+        </div>
+      </div>
+
+    </div><!-- /product-grid -->
 
     <div id="no-results" style="display:none;text-align:center;padding:4rem 2rem;color:var(--text-dim);font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;">No styles match that combination — try adjusting your filters.</div>
 
@@ -337,31 +456,42 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <div class="footer-logo">Better Beachy Than Bitchy&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
   <div class="footer-tagline">"Wear the attitude. Own the coast."</div>
   <div class="footer-contact"><a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a> &nbsp;&bull;&nbsp; White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
-  <div class="footer-legal">&copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. GROAN&#8482;, DMAP-CAL&#8482;, Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482;, and all associated marks are trademarks or proprietary designations of Nevado Ranch Camp LLC. &nbsp;|&nbsp;<a href="legal.html">Legal Notice</a>&nbsp;|&nbsp;<a href="intellectualproperty.html">Intellectual Property</a></div>
+  <div class="footer-legal">&copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482;, and all associated marks are trademarks or proprietary designations of Nevado Ranch Camp LLC. &nbsp;|&nbsp;<a href="legal.html">Legal &amp; IP</a></div>
 </footer>
 
 <script>
 document.getElementById('footer-year').textContent = new Date().getFullYear();
-var activeStyle = 'all', activeColor = 'all';
+var activeCat = 'all', activeStyle = 'all', activeColor = 'all';
 function applyFilters() {
   var cards = document.querySelectorAll('.product-card'), visible = 0;
   cards.forEach(function(c) {
+    var cm = activeCat === 'all' || c.dataset.cat === activeCat;
     var sm = activeStyle === 'all' || c.dataset.style === activeStyle;
-    var cm = activeColor === 'all' || c.dataset.color === activeColor;
-    if (sm && cm) { c.classList.remove('hidden'); visible++; }
+    var colm = activeColor === 'all' || c.dataset.color === activeColor;
+    if (cm && sm && colm) { c.classList.remove('hidden'); visible++; }
     else { c.classList.add('hidden'); }
   });
   document.getElementById('count-num').textContent = visible;
   document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
 }
-function filterStyle(s, btn) {
-  activeStyle = s;
-  document.querySelectorAll('[data-style]').forEach(function(b){ b.classList.remove('active'); });
+function filterCat(v, btn) {
+  activeCat = v;
+  document.querySelectorAll('[data-filter-cat]').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  // Reset style filter when switching category
+  activeStyle = 'all';
+  document.querySelectorAll('[data-filter-style]').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelector('[data-filter-style="all"]').classList.add('active');
+  applyFilters();
+}
+function filterStyle(v, btn) {
+  activeStyle = v;
+  document.querySelectorAll('[data-filter-style]').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active'); applyFilters();
 }
-function filterColor(c, btn) {
-  activeColor = c;
-  document.querySelectorAll('[data-color]').forEach(function(b){ b.classList.remove('active'); });
+function filterColor(v, btn) {
+  activeColor = v;
+  document.querySelectorAll('[data-filter-color]').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active'); applyFilters();
 }
 document.addEventListener('DOMContentLoaded', function() {
@@ -383,3 +513,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
