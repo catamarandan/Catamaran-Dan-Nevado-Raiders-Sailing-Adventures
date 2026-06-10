@@ -13,21 +13,16 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-
-/* NAV */
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);align-items:center;}
-.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
-nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
-nav a:hover{color:var(--gold);}
-nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-
-/* HAMBURGER */
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
-.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-links{display:flex;gap:1.2rem;justify-content:center;align-items:center;flex-wrap:nowrap;}
+nav a{color:#c8cdd8;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
+nav a:hover{color:#c9a84c;}
+nav a.active{color:#c9a84c;border-bottom-color:#c9a84c;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;}
+.nav-toggle span{display:block;width:24px;height:2px;background:#c9a84c;transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -61,15 +56,14 @@ p+p{margin-top:1.2rem;}
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
-
 @media(max-width:768px){
-section{padding:4rem 1.5rem;}
-nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-.nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
-.nav-links.open{display:flex;}
-.nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-.nav-links a:last-child{border-bottom:none;}
-.nav-toggle{display:flex;}
+  section{padding:4rem 1.5rem;}
+  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
+  .nav-links.open{display:flex;}
+  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}
 }
   </style>
 </head>
@@ -79,16 +73,15 @@ nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run&#8482;</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-    <a href="shamrocket.html">The Shamrocket Cat</a>
-    <a href="storytelling.html">Storytellers</a>
-    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="shamrocket.html">Shamrocket</a>
     <a href="lionfish.html">Lion Hunter</a>
+    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="storytelling.html">Storytellers</a>
     <a href="thelivingsaga.html" class="active">The Living Saga&#8482;</a>
-    <a href="shop.html">Shop</a>
     <a href="gallery.html">Gallery</a>
+    <a href="shop.html">Shop</a>
     <a href="about.html">About</a>
     <a href="legal.html">Legal &amp; IP</a>
   </div>
@@ -180,27 +173,9 @@ nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1
   <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
 </div>
 
-<footer style="
-  background:#080c14;
-  border-top:1px solid rgba(201,168,76,0.15);
-  padding:2rem 1rem;
-  text-align:center;
-">
-  <div style="
-    font-family:'Josefin Sans',sans-serif;
-    font-size:0.68rem;
-    letter-spacing:0.08em;
-    color:#c8cdd8;
-    opacity:0.45;
-    line-height:1.8;
-    max-width:800px;
-    margin:0 auto;
-  ">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved.
-    GROAN, DMAP-CAL, Rim Run Caribe, and all associated frameworks are
-    proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753).
-    &nbsp;|&nbsp;
-    <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+<footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; IP</a>
   </div>
 </footer>
 
@@ -208,7 +183,6 @@ nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1
   document.querySelectorAll('.footer-year').forEach(function(el){
     el.textContent = new Date().getFullYear();
   });
-
   document.body.classList.add('js-ready');
   (function(){
     var toggle=document.getElementById('nav-toggle');
@@ -232,3 +206,4 @@ nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1
 
 </body>
 </html>
+
