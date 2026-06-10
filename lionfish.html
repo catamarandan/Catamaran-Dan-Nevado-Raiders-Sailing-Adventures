@@ -1,85 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Living Saga&#8482; | Catamaran Dan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CD the Lion Hunter | catamarandan.org</title>
+  <meta name="description" content="Catamaran Dan hunts invasive lionfish across the Rim Run Caribe™ circuit — 11 countries from Mexico to Curaçao. Live kill scoreboard and country-by-country regulations guide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Mono:wght@400;500&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet" />
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
-:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
-img{max-width:100%;display:block;}
-a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
-a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
-.nav-links{display:flex;gap:1.2rem;justify-content:center;align-items:center;flex-wrap:nowrap;}
-nav a{color:#c8cdd8;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
-nav a:hover{color:#c9a84c;}
-nav a.active{color:#c9a84c;border-bottom-color:#c9a84c;}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;-webkit-tap-highlight-color:transparent;}
-.nav-toggle span{display:block;width:24px;height:2px;background:#c9a84c;transition:all 0.3s ease;}
-.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.nav-toggle.open span:nth-child(2){opacity:0;}
-.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-section{position:relative;padding:6rem 2rem;}
-.container{max-width:860px;margin:0 auto;}
-.container-wide{max-width:1100px;margin:0 auto;}
-.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
-.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
-h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
-h2.serif em{color:var(--gold);font-style:normal;}
-h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;color:var(--parchment);margin-bottom:0.8rem;}
-.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
-p+p{margin-top:1.2rem;}
-.pull-quote{font-size:clamp(1.1rem,2.2vw,1.5rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
-.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
-.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
-.infobox-label.mid{background:var(--midnight);}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:3rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
-.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
-.card:hover{background:rgba(14,77,110,0.18);}
-.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
-.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
-.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
-.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
-.bg-midnight{background:var(--midnight);}
-.bg-deep{background:var(--deep-ocean);}
-.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
-.page-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
-.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
-.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
-.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
-.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
-.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
-.reveal{opacity:1;transform:none;}
-.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
-.js-ready .reveal.visible{opacity:1;transform:none;}
-@media(max-width:768px){
-  section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-toggle{display:flex;}
-}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ocean:#0a1628;--deep:#060e1c;--sand:#e8d5b0;--sand2:#c4a87a;
+      --ember:#e84c1c;--ember2:#ff6b3d;--spine:#c43a14;--muted:#506070;
+      --glass:rgba(255,255,255,0.04);--border:rgba(232,76,28,0.22);
+      --max:1100px;--radius:3px;--nav-bg:#080c14;--gold:#c9a84c;--fog:#c8cdd8;--aqua:#29b0d4;
+    }
+    body{background:var(--ocean);color:var(--sand);font-family:'DM Mono',monospace;line-height:1.6;-webkit-font-smoothing:antialiased;}
+    nav{background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,0.2);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+    .nav-links{display:flex;gap:1.2rem;justify-content:center;align-items:center;flex-wrap:nowrap;}
+    nav a{color:#c8cdd8;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;text-decoration:none;white-space:nowrap;}
+    nav a:hover{color:#c9a84c;}
+    nav a.active{color:#c9a84c;border-bottom-color:#c9a84c;}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;}
+    .nav-toggle span{display:block;width:24px;height:2px;background:#c9a84c;transition:all 0.3s ease;}
+    .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.open span:nth-child(2){opacity:0;}
+    .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    @media(max-width:768px){
+      nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+      .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;padding:0.5rem 1.5rem 1rem;z-index:999;gap:0;}
+      .nav-links.open{display:flex;}
+      .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+      .nav-links a:last-child{border-bottom:none;}
+      .nav-toggle{display:flex;}
+    }
+    .lf-hero{position:relative;min-height:520px;display:flex;align-items:flex-end;overflow:hidden;background:var(--deep);}
+    .lf-hero-gallery{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;}
+    .lf-hero-gallery img{width:100%;height:100%;object-fit:cover;filter:brightness(0.38) saturate(0.7);transition:filter 0.6s;}
+    .lf-hero-gallery img:hover{filter:brightness(0.55) saturate(0.9);}
+    .lf-hero-gallery::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(6,14,28,0.6) 0%,transparent 30%,transparent 70%,rgba(6,14,28,0.6) 100%),linear-gradient(to top,rgba(6,14,28,0.92) 0%,transparent 55%);pointer-events:none;}
+    .lf-hero-gallery::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(33.33% - 1px),rgba(232,76,28,0.3) calc(33.33% - 1px),rgba(232,76,28,0.3) calc(33.33% + 1px),transparent calc(33.33% + 1px)),linear-gradient(90deg,transparent calc(66.66% - 1px),rgba(232,76,28,0.3) calc(66.66% - 1px),rgba(232,76,28,0.3) calc(66.66% + 1px),transparent calc(66.66% + 1px));pointer-events:none;z-index:1;}
+    .lf-hero-content{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:48px 32px;width:100%;}
+    .lf-eyebrow{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--ember);margin-bottom:14px;opacity:0.9;}
+    .lf-hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,8vw,80px);font-weight:900;line-height:0.95;color:#f5ece0;letter-spacing:-0.02em;margin-bottom:16px;}
+    .lf-hero h1 em{font-style:italic;color:var(--ember2);}
+    .lf-hero-sub{font-family:'Libre Baskerville',serif;font-size:clamp(13px,2vw,16px);color:var(--sand2);font-style:italic;max-width:480px;line-height:1.65;}
+    .lf-main{max-width:var(--max);margin:0 auto;padding:64px 32px;}
+    .lf-intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:80px;}
+    @media(max-width:720px){.lf-intro{grid-template-columns:1fr;}}
+    .lf-intro-text h2{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,32px);font-weight:700;color:#f5ece0;margin-bottom:20px;line-height:1.2;}
+    .lf-intro-text p{font-family:'Libre Baskerville',serif;font-size:15px;line-height:1.85;color:var(--sand2);margin-bottom:16px;}
+    .lf-intro-text p strong{color:var(--ember2);font-weight:700;}
+    .lf-stat-row{display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;}
+    .lf-stat{border-left:2px solid var(--ember);padding-left:14px;}
+    .lf-stat-number{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#f5ece0;line-height:1;}
+    .lf-stat-label{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+    .lf-scoreboard-wrap{margin-bottom:80px;display:flex;justify-content:center;}
+    .lf-scoreboard{background:var(--deep);border:1px solid var(--border);border-radius:var(--radius);max-width:580px;width:100%;padding:48px 40px 40px;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(232,76,28,0.06),0 32px 80px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,255,255,0.04);}
+    .lf-scoreboard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 0%,var(--ember) 50%,transparent 100%);}
+    .lf-spine-art{position:absolute;top:18px;right:22px;display:flex;gap:9px;opacity:0.15;pointer-events:none;}
+    .sb-eyebrow{font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--ember);margin-bottom:8px;}
+    .sb-title{font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,28px);font-weight:900;color:#f5ece0;margin-bottom:4px;line-height:1.1;}
+    .sb-tagline{font-family:'Libre Baskerville',serif;font-style:italic;font-size:13px;color:var(--sand2);margin-bottom:36px;}
+    .sb-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(232,76,28,0.35),transparent);margin-bottom:32px;}
+    .sb-hunter-row{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap;}
+    .sb-hunter-meta{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+    .sb-callsign{font-family:'Playfair Display',serif;font-size:clamp(17px,3.5vw,22px);font-weight:700;color:#f5ece0;line-height:1.2;}
+    .sb-callsign span{color:var(--ember2);font-size:0.75em;}
+    .sb-creds{margin-top:8px;font-size:9px;color:#304050;letter-spacing:0.1em;line-height:1.6;}
+    .sb-count-box{text-align:center;min-width:130px;padding:18px 22px;border:1px solid rgba(232,76,28,0.28);background:rgba(232,76,28,0.06);border-radius:var(--radius);}
+    .sb-count-label{font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .sb-number{font-family:'Playfair Display',serif;font-size:clamp(56px,13vw,78px);font-weight:900;color:#f5ece0;line-height:1;transition:color 0.2s,transform 0.15s;display:block;}
+    .sb-number.flash{color:var(--ember2);transform:scale(1.12);}
+    .sb-count-unit{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);margin-top:6px;}
+    .sb-tally-wrap{margin-bottom:28px;}
+    .sb-tally-label{font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:#304050;text-align:center;margin-bottom:12px;}
+    .sb-tally-marks{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:44px;align-items:center;}
+    .sb-tally-empty{font-size:11px;color:#304050;font-style:italic;}
+    .sb-btn-kill{width:100%;padding:18px;background:var(--ember);color:#fff;border:none;border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background 0.12s,transform 0.1s,box-shadow 0.2s;box-shadow:0 4px 28px rgba(232,76,28,0.28);margin-bottom:10px;}
+    .sb-btn-kill:hover{background:var(--ember2);transform:translateY(-1px);box-shadow:0 8px 36px rgba(232,76,28,0.45);}
+    .sb-btn-kill:active{transform:translateY(1px);}
+    .sb-btn-kill.sb-pulse{animation:sbpulse 0.55s ease-out;}
+    @keyframes sbpulse{0%{box-shadow:0 0 0 0 rgba(232,76,28,0.75);}70%{box-shadow:0 0 0 20px rgba(232,76,28,0);}100%{box-shadow:0 4px 28px rgba(232,76,28,0.28);}}
+    .sb-btn-adj{width:100%;padding:9px;background:transparent;color:#304050;border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:color 0.15s,border-color 0.15s;}
+    .sb-btn-adj:hover{color:var(--muted);border-color:rgba(255,255,255,0.15);}
+    .sb-adj-row{display:flex;gap:8px;margin-top:8px;}
+    .sb-adj-row button{flex:1;padding:10px;background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;transition:all 0.12s;letter-spacing:0.05em;}
+    .sb-adj-row button:hover{color:var(--sand);border-color:rgba(255,255,255,0.2);}
+    .lf-table-section{margin-bottom:80px;}
+    .lf-section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;}
+    .lf-section-head h2{font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,28px);font-weight:700;color:#f5ece0;}
+    .lf-section-head span{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+    .lf-table-scroll{overflow-x:auto;}
+    .lf-table{width:100%;border-collapse:collapse;font-size:12px;min-width:640px;}
+    .lf-table thead tr{background:rgba(232,76,28,0.1);border-bottom:1px solid var(--border);}
+    .lf-table thead th{padding:12px 16px;text-align:left;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);font-weight:500;white-space:nowrap;}
+    .lf-table tbody tr{border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.15s;}
+    .lf-table tbody tr:hover{background:rgba(255,255,255,0.025);}
+    .lf-table td{padding:11px 16px;vertical-align:top;line-height:1.5;}
+    .lf-table td:first-child{font-weight:500;color:#f5ece0;white-space:nowrap;}
+    .badge{display:inline-block;padding:2px 8px;border-radius:2px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;white-space:nowrap;}
+    .badge-green{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.25);}
+    .badge-yellow{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.25);}
+    .badge-red{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);}
+    .lf-table td:last-child{color:var(--muted);font-size:11px;}
+    .lf-legend{display:flex;gap:20px;margin-top:16px;flex-wrap:wrap;}
+    .lf-legend-item{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);}
+    .lf-footer-note{border-top:1px solid rgba(255,255,255,0.06);padding-top:32px;font-family:'Libre Baskerville',serif;font-style:italic;font-size:12px;color:#304050;line-height:1.8;text-align:center;max-width:640px;margin:0 auto 64px;}
+    .lf-footer-note strong{color:var(--muted);font-style:normal;}
+    @media(max-width:600px){
+      .lf-main{padding:40px 20px;}
+      .lf-scoreboard{padding:32px 22px 28px;}
+      .sb-hunter-row{flex-direction:column;align-items:flex-start;}
+    }
   </style>
 </head>
 <body>
 
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
     <a href="shamrocket.html">Shamrocket</a>
-    <a href="lionfish.html">Lion Hunter</a>
+    <a href="lionfish.html" class="active">Lion Hunter</a>
     <a href="shieldmaiden.html">Shield Maiden</a>
     <a href="storytelling.html">Storytellers</a>
-    <a href="thelivingsaga.html" class="active">The Living Saga&#8482;</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
     <a href="gallery.html">Gallery</a>
     <a href="shop.html">Shop</a>
     <a href="about.html">About</a>
@@ -87,117 +138,132 @@ p+p{margin-top:1.2rem;}
   </div>
 </nav>
 
-<div class="page-hero">
-  <div class="page-hero-content">
-    <span class="hero-eyebrow">Blue Rim 5&#8482; &bull; Rim Run&#8482; &bull; Ove Ironhand</span>
-    <h1 class="hero-h1">The Living <em>Saga&#8482;</em></h1>
-    <p class="hero-sub">A Norse navigator. A shallow-draft boat. Thousands of years of voices still speaking from the coastline &mdash; if someone will show up with genuine respect and sit still long enough to hear them.</p>
+<section class="lf-hero">
+  <div class="lf-hero-gallery" aria-hidden="true">
+    <img src="lionfish1.jpg" alt="Lionfish on reef" loading="eager" />
+    <img src="lionfish2.jpg" alt="Lionfish close-up" loading="eager" />
+    <img src="lionfish3.jpg" alt="Catamaran Dan with lionfish" loading="eager" />
   </div>
-</div>
+  <div class="lf-hero-content">
+    <div class="lf-eyebrow">Conservation &middot; Rim Run Caribe&#8482; &middot; Reef Defense</div>
+    <h1>CD the<br /><em>Lion Hunter</em></h1>
+    <p class="lf-hero-sub">One sailor. One trident. Eleven countries. An invasive species that has no business being here.</p>
+  </div>
+</section>
 
 <!-- PHILOSOPHY -->
-<section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">Why</div>
-    <h2 class="serif reveal">Built to Impress <em>One Person.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">People ask who this expedition is meant to impress. The answer is one person &mdash; me. Not the sailing community. Not social media. Not institutions, sponsors, or strangers with opinions about what constitutes a worthy adventure. Three decades of work &mdash; on submarines, in boardrooms, on the water, and in the kind of places that reshape how a man sees the world &mdash; have produced a value set that doesn&rsquo;t need external validation. The standard is internal. Always has been.</p>
-    <p class="reveal">What that means in practice: the planning is meticulous, the preparation is relentless, and the execution is measured against one question &mdash; did I do this right? Not fast. Not impressively. Right. The sea is an honest judge and a poor audience. It doesn&rsquo;t care about the narrative. It rewards preparation, punishes arrogance, and has no interest in anyone&rsquo;s personal brand. That suits this expedition perfectly.</p>
-    <p class="reveal">The highest loyalty here is to humanity itself &mdash; not to a tribe, a nation, a religion, a politics, or an ideology. The mission underneath every mile of this route is the advancement, protection, and survival of human civilization and the natural systems that sustain it. The coastlines are not scenery. The people who live on them are not subjects. They are the point.</p>
-    <div class="pull-quote reveal">This is not performance. It is purpose &mdash; built from the inside out, over thirty years, and now pointed at the water.</div>
+<section style="background:#0d1520;border-bottom:1px solid rgba(201,168,76,0.12);padding:5rem 2rem;">
+  <div style="max-width:860px;margin:0 auto;">
+    <div style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:#29b0d4;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;"><span style="display:inline-block;width:30px;height:1px;background:#29b0d4;flex-shrink:0;"></span>Why</div>
+    <h2 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:#f0e8d0;line-height:1.2;margin-bottom:1.2rem;">Built to Impress <em style="color:#c9a84c;font-style:normal;">One Person.</em></h2>
+    <div style="width:60px;height:2px;background:linear-gradient(90deg,#c9a84c,#a8833a);margin:1.2rem 0 2rem;"></div>
+    <p style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;color:#e8e4da;margin-bottom:1.2rem;">People ask who this expedition is meant to impress. The answer is one person &mdash; me. Not the sailing community. Not social media. Not institutions, sponsors, or strangers with opinions about what constitutes a worthy adventure. Three decades of work &mdash; on submarines, in boardrooms, on the water, and in the kind of places that reshape how a man sees the world &mdash; have produced a value set that doesn&rsquo;t need external validation. The standard is internal. Always has been.</p>
+    <p style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;color:#e8e4da;margin-bottom:1.2rem;">What that means in practice: the planning is meticulous, the preparation is relentless, and the execution is measured against one question &mdash; did I do this right? Not fast. Not impressively. Right. The sea is an honest judge and a poor audience. It doesn&rsquo;t care about the narrative. It rewards preparation, punishes arrogance, and has no interest in anyone&rsquo;s personal brand. That suits this expedition perfectly.</p>
+    <p style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;color:#e8e4da;">The highest loyalty here is to humanity itself &mdash; not to a tribe, a nation, a religion, a politics, or an ideology. The mission underneath every mile of this route is the advancement, protection, and survival of human civilization and the natural systems that sustain it. The lionfish is a direct threat to those systems. That&rsquo;s why the trident goes in.</p>
+    <div style="font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;color:#f0e8d0;border-left:3px solid #c9a84c;padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;font-family:'EB Garamond',Georgia,serif;">This is not performance. It is purpose &mdash; built from the inside out, over thirty years, and now pointed at the water.</div>
   </div>
 </section>
 
-<!-- THE PREMISE -->
-<section class="bg-midnight border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">The Premise</div>
-    <h2 class="serif reveal">Two Worlds. <em>One Ocean Intelligence.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">A thousand years ago, Norse navigators set out from Scandinavia in shallow-draft wooden boats with no charts, no compass, and no certainty about what lay over the horizon. They read the water. They watched the birds. They arrived at coastlines no European had ever seen &mdash; and when they got there, they sat with the people. They traded. They listened. They carried stories home accurately. That was the job. Not conquest. Not extraction. Listening and carrying it true.</p>
-    <div class="pull-quote reveal">&ldquo;He has truly wandered who has traveled widely &mdash; a man who has been nowhere knows nothing.&rdquo;<br/><span style="font-size:0.75em;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;">&mdash; H&aacute;vam&aacute;l, verse 18 &bull; The Sayings of Odin</span></div>
-    <p class="reveal">Catamaran Dan &mdash; sailing as Ove Ironhand, whose Y-DNA bloodline traces through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson &mdash; moves the same way. Shallow draft. Patient landfall. Deep listening. Shamrocket draws twenty-four inches of water and goes where no keeled vessel follows &mdash; up inside the reef, into the mangrove channels, onto the beach itself. Right up to where the people are. Where the knowledge lives. Where the stories are still being kept.</p>
-    <p class="reveal">What the Rim Run&#8482; is building is not a travel record. It is a saga &mdash; the living, accumulating account of what the Caribbean coastline remembers, told by the people who have been keeping the memory for thousands of years, finally heard by someone who understands why memory matters and has the discipline to carry it home without distorting it.</p>
-  </div>
-</section>
+<main class="lf-main">
 
-<!-- THE CIRCUIT — 11 COUNTRIES -->
-<section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">The Circuit</div>
-    <h2 class="serif reveal">Eleven Countries. <em>Thousands of Years of Memory.</em></h2>
-    <div class="gold-rule reveal"></div>
-
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127474;&#127485; Mexico &mdash; Maya &bull; Mestizo &bull; Caribbean Coast</div>
-      <p>The Rim Run&#8482; begins and ends in Mexico&rsquo;s Yucat&aacute;n &mdash; the northern hub where the fleet stages, rests, and prepares. But the Yucat&aacute;n is not simply a logistics stop. The Maya have lived on and around this reef system for thousands of years. Banco Chinchorro, Mexico&rsquo;s largest atoll and the northernmost anchor of the Mesoamerican Barrier Reef, sits in waters the Maya fished and navigated long before any chart existed. The oral record of this coastline &mdash; its currents, its weather patterns, its reef structure &mdash; lives in communities that outsiders rarely sit with long enough to hear. The Rim Run&#8482; sits. Every year. The same communities. The same coastline. The relationship deepens over time in ways a single visit never could.</p>
+  <section class="lf-intro">
+    <div class="lf-intro-text">
+      <h2>The Most Destructive Fish in the Caribbean &mdash; and What One Diver Can Do About It</h2>
+      <p>The lionfish (<em>Pterois volitans</em>) is native to the Indo-Pacific. It has no business being in the Caribbean. It arrived here &mdash; almost certainly through home aquariums dumped into Florida waters &mdash; and has since spread from the Gulf of Mexico to Brazil with <strong>zero natural predators</strong> to check its growth.</p>
+      <p>A single lionfish can reduce the juvenile reef fish population of a coral head by <strong>up to 79% within five weeks</strong>. It eats constantly, breeds year-round, and is completely unafraid of divers &mdash; which makes it uniquely vulnerable to the one intervention that works: a trident, a steady approach, and a clean shot.</p>
+      <p>Removing them by hand is one of the very few direct actions an individual diver can take that immediately and measurably benefits reef health. CD carries a trident on every dive across the entire Rim Run Caribe&#8482; circuit and hunts wherever local law permits &mdash; 11 countries, 2,000+ nautical miles, and every reef in between.</p>
+      <div class="lf-stat-row">
+        <div class="lf-stat"><div class="lf-stat-number">11</div><div class="lf-stat-label">Countries on circuit</div></div>
+        <div class="lf-stat"><div class="lf-stat-number">2,000+</div><div class="lf-stat-label">Nautical miles</div></div>
+        <div class="lf-stat"><div class="lf-stat-number">79%</div><div class="lf-stat-label">Reef fish lost in 5 weeks</div></div>
+      </div>
     </div>
-
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127463;&#127487; Belize &mdash; Garifuna &bull; Maya &bull; Creole</div>
-      <p>Belize is the heart of the Rim Run&#8482; &mdash; the longest stop on the circuit and the place where the expedition finds its rhythm. The Gar&iacute;funa arrived on this coast in 1797 &mdash; not as settlers, but as survivors. Exiled from St. Vincent by the British, 5,000 were loaded onto ships. 2,500 reached Roat&aacute;n alive. Everything they carried was inside them: their language, their music, their spiritual practices, their knowledge of the sea. The <em>d&uuml;g&uuml;</em> ceremony calls the ancestors back to counsel the living. UNESCO recognized this as a Masterpiece of Intangible Heritage. The Rim Run&#8482; recognizes it as a living curriculum &mdash; ecological, navigational, and deeply human &mdash; that deserves to be heard by the world.</p>
+    <div>
+      <img src="lionfish1.jpg" alt="Lionfish on reef" style="width:100%;height:220px;object-fit:cover;border-radius:2px;margin-bottom:3px;display:block;filter:brightness(0.9)saturate(0.95);" />
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+        <img src="lionfish2.jpg" alt="Lionfish spines" style="width:100%;height:140px;object-fit:cover;border-radius:2px;display:block;filter:brightness(0.88)saturate(0.9);" />
+        <img src="lionfish3.jpg" alt="Catamaran Dan, CD the Lion Hunter" style="width:100%;height:140px;object-fit:cover;border-radius:2px;display:block;filter:brightness(0.88)saturate(0.9);" />
+      </div>
     </div>
+  </section>
 
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127468;&#127481; Guatemala &mdash; Q&rsquo;eqchi&rsquo; Maya &bull; Garifuna</div>
-      <p>Guatemala&rsquo;s Caribbean stop is unlike any other on the circuit. Three-hundred-foot limestone walls draped in jungle, howler monkeys announcing passage from somewhere above the canopy, thermal springs bleeding warm mineral water through the cliff faces. To the Q&rsquo;eqchi&rsquo; Maya, the R&iacute;o Dulce canyon is not scenery &mdash; it is sacred geography, a living spiritual corridor that connects the human world to the world below and above. Their knowledge of this place &mdash; its ecology, its spiritual significance, its seasonal behavior &mdash; is carried in oral tradition that is one generation away from disappearing. Someone needs to show up and listen before it does.</p>
+  <section class="lf-scoreboard-wrap">
+    <div class="lf-scoreboard" id="scoreboard">
+      <div class="lf-spine-art">
+        <svg width="5" height="42" viewBox="0 0 5 42"><line x1="2.5" y1="0" x2="2.5" y2="42" stroke="#e84c1c" stroke-width="1.2"/><line x1="2.5" y1="8" x2="2.5" y2="13" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="20" x2="2.5" y2="25" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="32" x2="2.5" y2="37" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <svg width="5" height="42" viewBox="0 0 5 42" style="transform:rotate(8deg)"><line x1="2.5" y1="0" x2="2.5" y2="42" stroke="#e84c1c" stroke-width="1.2"/><line x1="2.5" y1="6" x2="2.5" y2="11" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="18" x2="2.5" y2="23" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="30" x2="2.5" y2="35" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <svg width="5" height="42" viewBox="0 0 5 42" style="transform:rotate(-6deg)"><line x1="2.5" y1="0" x2="2.5" y2="42" stroke="#e84c1c" stroke-width="1.2"/><line x1="2.5" y1="10" x2="2.5" y2="15" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="22" x2="2.5" y2="27" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="34" x2="2.5" y2="39" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <svg width="5" height="42" viewBox="0 0 5 42" style="transform:rotate(14deg)"><line x1="2.5" y1="0" x2="2.5" y2="42" stroke="#e84c1c" stroke-width="1.2"/><line x1="2.5" y1="7" x2="2.5" y2="12" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="19" x2="2.5" y2="24" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="31" x2="2.5" y2="36" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <svg width="5" height="42" viewBox="0 0 5 42" style="transform:rotate(-12deg)"><line x1="2.5" y1="0" x2="2.5" y2="42" stroke="#e84c1c" stroke-width="1.2"/><line x1="2.5" y1="9" x2="2.5" y2="14" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="21" x2="2.5" y2="26" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/><line x1="2.5" y1="33" x2="2.5" y2="38" stroke="#e84c1c" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="sb-eyebrow">Rim Run Caribe&#8482; &middot; Live Conservation Record</div>
+      <div class="sb-title">The Lionfish Scoreboard</div>
+      <div class="sb-tagline">Pterois volitans &mdash; confirmed kills by CD the Lion Hunter</div>
+      <div class="sb-divider"></div>
+      <div class="sb-hunter-row">
+        <div>
+          <div class="sb-hunter-meta">Hunter</div>
+          <div class="sb-callsign">Catamaran Dan<br/><span>// CD the Lion Hunter</span></div>
+          <div class="sb-creds">USCG 200-TON MASTER &middot; USN NUCLEAR SUBMARINER<br/>VESSEL: SHAMROCKET &middot; RIM RUN CARIBE&#8482; 2026+<br/>WEAPON: TRIDENT &middot; THEATRE: 11 COUNTRIES / WESTERN CARIBBEAN</div>
+        </div>
+        <div class="sb-count-box">
+          <div class="sb-count-label">Confirmed Kills</div>
+          <span class="sb-number" id="kill-number">6</span>
+          <div class="sb-count-unit">lionfish</div>
+        </div>
+      </div>
+      <div class="sb-tally-wrap">
+        <div class="sb-tally-label">Kill tally &mdash; one mark per fish</div>
+        <div class="sb-tally-marks" id="tally-display"></div>
+      </div>
+      <button class="sb-btn-kill" id="btn-log" onclick="logKill()">&#10005; &nbsp;&nbsp; LOG A KILL &nbsp;&nbsp; &#10005;</button>
+      <button class="sb-btn-adj" id="btn-adj-toggle" onclick="toggleAdj()">&#9660; &nbsp; adjust count</button>
+      <div class="sb-adj-row" id="adj-row" style="display:none;">
+        <button onclick="removeKill()">&minus; Remove last kill</button>
+        <button onclick="resetKills()">&#8634; Reset to 6</button>
+      </div>
     </div>
+  </section>
 
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127469;&#127475; Honduras &mdash; Garifuna &bull; Bay Islanders &bull; Miskito</div>
-      <p>The Bay Islands hold one of the densest concentrations of oral maritime tradition in the Caribbean. The Gar&iacute;funa navigational tradition &mdash; called <em>&uacute;raga</em> &mdash; describes a system of reef reading that has no written form. Current behavior at specific locations. Bird species as depth indicators. Fish behavior before weather changes. This knowledge was developed over 200 years of Caribbean coastal survival after the exile from St. Vincent &mdash; and it works. The fishermen who carry it are not curiosities. They are scientists. The Rim Run&#8482; treats them that way.</p>
+  <section class="lf-table-section">
+    <div class="lf-section-head">
+      <h2>Hunting Regulations by Country</h2>
+      <span>Rim Run Caribe&#8482; &mdash; 11 Countries</span>
     </div>
-
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127475;&#127470; Nicaragua &mdash; Miskito &bull; Creole &bull; Rama</div>
-      <p>The Corn Islands sit 70 kilometers offshore &mdash; the most exposed, least-sailed stretch of the entire circuit. Little Corn has no vehicles, no paved roads, and one reef that fishing families have worked for generations without any outside agency ever recording what they know about it. The Miskito Kingdom maintained sovereignty from the 1630s through the late 1800s &mdash; entirely dependent on coastal intelligence that only a people who live on the water can develop. That intelligence is still here. It just hasn&rsquo;t been asked about by anyone willing to sit still long enough to hear the answer.</p>
+    <div class="lf-table-scroll">
+      <table class="lf-table">
+        <thead><tr><th>Country</th><th>Status</th><th>Key Conditions &amp; Notes</th></tr></thead>
+        <tbody>
+          <tr><td>&#127474;&#127485; Mexico</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>CONAPESCA fishing license; trident / pole spear permitted; year-round; no bag limit on lionfish</td></tr>
+          <tr><td>&#127463;&#127487; Belize</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>Fisheries license (~$25 BZD); lionfish actively encouraged; multiple organized derbies annually</td></tr>
+          <tr><td>&#127468;&#127481; Guatemala</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>Standard MAGA fishing license; trident fine; avoid R&iacute;o Dulce no-take zones</td></tr>
+          <tr><td>&#127469;&#127475; Honduras</td><td><span class="badge badge-yellow">&#9888; Restricted</span></td><td>Lionfish ONLY; Hawaiian sling only (no spearguns); Roatan Marine Park workshop required (~$50, valid 2 yrs)</td></tr>
+          <tr><td>&#127475;&#127470; Nicaragua</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>INPESCA license; trident permitted; avoid Pearl Cays no-take areas</td></tr>
+          <tr><td>&#127464;&#127479; Costa Rica</td><td><span class="badge badge-yellow">&#9888; Verify</span></td><td>Tourist spearfishing regulated; confirm lionfish exception with INCOPESCA before diving with trident in Cahuita or Manzanillo marine zones</td></tr>
+          <tr><td>&#127477;&#127462; Panama</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>ARAP license (~$20 USD); Bocas del Toro and San Blas / Guna Yala open; respect Kuna Yala autonomous zone protocols</td></tr>
+          <tr><td>&#127464;&#127476; Colombia</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>Fishing license; lionfish removal encouraged nationwide; avoid Tayrona NP no-take boundary; active removal programmes in Islas del Rosario</td></tr>
+          <tr><td>&#127462;&#127484; Aruba</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>No specific spearfishing ban; lionfish removal welcomed; Dutch territory; confirm with DLVV before diving</td></tr>
+          <tr><td>&#127463;&#127478; Bonaire</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>STINAPA dive registration required (~$45/yr); lionfish removal actively encouraged by Bonaire National Marine Park; trident permitted; one of the most organized removal programs in the Caribbean</td></tr>
+          <tr><td>&#127464;&#127484; Cura&ccedil;ao</td><td><span class="badge badge-green">&#10003; Legal</span></td><td>CARMABI dive registration; lionfish removal welcomed; trident fine; Klein Cura&ccedil;ao open; check current marine park boundaries</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127464;&#127479; Costa Rica &mdash; Afro-Caribbean &bull; Bribri &bull; Cab&eacute;car</div>
-      <p>On April 22, 1991, a 7.6 earthquake lifted the Caribbean coast of Costa Rica by 1.5 meters in ninety seconds. Sections of reef that had been underwater for centuries were suddenly exposed. The ecological record of those sections &mdash; what had grown there, how it had changed, what it had looked like &mdash; was held entirely in the memory of the fishing families who had worked those waters. No scientific record existed. The elders of Cahuita knew. Some of them are still alive. The Rim Run&#8482; is coming to listen while that is still true.</p>
+    <div class="lf-legend">
+      <div class="lf-legend-item"><span class="badge badge-green">&#10003; Legal</span> &mdash; Hunt freely with local license / standard permit</div>
+      <div class="lf-legend-item"><span class="badge badge-yellow">&#9888; Restricted</span> &mdash; Legal with specific course, license, or gear constraint</div>
+      <div class="lf-legend-item"><span class="badge badge-red">&#10007; Restricted</span> &mdash; Prohibited or unconfirmed &mdash; verify before deploying trident</div>
     </div>
+  </section>
 
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127477;&#127462; Panama &mdash; Guna &bull; Ng&auml;be-Bugl&eacute; &bull; Afro-Colonial</div>
-      <p>Guna Yala &mdash; the autonomous indigenous territory known to outsiders as San Blas &mdash; is something extraordinary. Three hundred and sixty-five islands. Forty-nine inhabited. Fully self-governing under a system that has operated continuously since before European contact. The Guna Saila sings every evening in the Congress House &mdash; the laws, the history, the decisions of previous Sailas. No document holds what the Saila holds. The first Guna community to be evacuated due to sea-level rise &mdash; Gardi Sugdub &mdash; was relocated in 2025. The elders who remember the old shoreline are alive. Their memory of what the reef looked like before the water started climbing will not be alive for long. The Rim Run&#8482; will be there.</p>
-    </div>
+  <p class="lf-footer-note">
+    Regulations change. This table reflects best available information as of the Rim Run Caribe&#8482; launch date.
+    <strong>Always verify with local fisheries authorities before hunting in any jurisdiction.</strong>
+    When in doubt, the trident stays aboard &mdash; there's always another reef in a country that welcomes the hunt.
+    <br/><br/>
+    <em>Nevado Ranch Camp LLC &middot; catamarandan.org</em>
+  </p>
 
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127464;&#127476; Colombia &mdash; Afro-Colombian &bull; Wayuu &bull; Coastal Communities</div>
-      <p>Colombia&rsquo;s Caribbean coast carries one of the most layered human histories in the hemisphere &mdash; Indigenous, African, Spanish, and everything that emerged from that collision over five centuries. Cartagena&rsquo;s walled city is a UNESCO World Heritage Site, but the living oral tradition is in the fishing communities of Islas del Rosario and the coastal villages of the Sierra Nevada foothills. These are people whose relationship with the sea is measured in generations, not seasons. The Rim Run&#8482; comes to listen to what they know about the water, not to admire the colonial architecture.</p>
-    </div>
-
-    <div class="infobox reveal">
-      <div class="infobox-label">&#127462;&#127484; Aruba &bull; &#127463;&#127478; Bonaire &bull; &#127464;&#127484; Cura&ccedil;ao &mdash; Papiamentu &bull; Dutch Caribbean &bull; Indigenous Arawak</div>
-      <p>The ABC Islands sit at the southern edge of the Caribbean, closer to Venezuela than to any other Caribbean nation, and they carry a culture unlike anything else on the circuit. Papiamentu &mdash; the creole language of the islands &mdash; is spoken by 300,000 people and blends Portuguese, Spanish, Dutch, English, and the language of the Arawak people who were here first. Bonaire&rsquo;s shore diving tradition is among the most developed in the world &mdash; and the local knowledge of reef conditions, fish behavior, and water movement held by the dive community there is a resource the Rim Run&#8482; will document carefully. Cura&ccedil;ao&rsquo;s UNESCO-recognized harbor is a reminder that every piece of this coastline has been shaped by people before any expedition arrived &mdash; and will be shaped by people long after it leaves.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- THE MISSION -->
-<section class="bg-midnight border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">The Mission</div>
-    <h2 class="serif reveal">What the Rim Run&#8482; <em>Is Actually Doing</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">The Rim Run&#8482; is a moving oral history project and reef awareness platform built into the same annual circuit &mdash; a sailing expedition that takes its philosophical mandate from the Norse tradition of the skald: go out, sit with the people who live closest to the water, listen to what they know, and carry it home accurately. Then come back next year and listen again.</p>
-    <p class="reveal">What gets collected belongs first to the people who gave it. What gets shared with the world gets shared on their terms, with their consent, with their names attached and their community&rsquo;s context intact. The Rim Run&#8482; is not an extraction operation. It is an amplification operation &mdash; ensuring that the knowledge, the stories, and the urgent ecological warnings held by these coastal communities reach an audience large enough to matter.</p>
-    <div class="pull-quote reveal">Genuine respect given and received is the currency that opens every door on this circuit. It travels ahead of you. By year three, people on that coastline will be waiting for you to come back &mdash; not because you brought equipment, but because you showed up as a human being who saw them clearly and treated what they know as valuable.</div>
-    <div class="card-grid reveal">
-      <div class="card"><h4>I &mdash; Go There</h4><p>Shamrocket&rsquo;s 24-inch draft gets inside the reef, into the mangrove channels, onto the beach. Where the stories live. Where no research vessel follows.</p></div>
-      <div class="card"><h4>II &mdash; Sit Still</h4><p>The Norse waited out weather. The Rim Run&#8482; waits for trust. Neither is rushed. Both are earned. You cannot collect what you haven&rsquo;t been invited to receive.</p></div>
-      <div class="card"><h4>III &mdash; Listen Correctly</h4><p>What sounds like legend is often ecological data. What sounds like myth is often history. What sounds like a fishing story is often the most accurate reef science on the coastline.</p></div>
-      <div class="card"><h4>IV &mdash; Carry It True</h4><p>The skald&rsquo;s job was accuracy, not entertainment. The story travels as it was given &mdash; with the name of the person who told it, the place it came from, and the community it belongs to.</p></div>
-    </div>
-  </div>
-</section>
-
-<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
-  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
-  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
-</div>
+</main>
 
 <footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
   <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
@@ -206,7 +272,10 @@ p+p{margin-top:1.2rem;}
 </footer>
 
 <script>
-  document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
+  document.querySelectorAll('.footer-year').forEach(function(el){
+    el.textContent = new Date().getFullYear();
+  });
+
   document.body.classList.add('js-ready');
   (function(){
     var toggle=document.getElementById('nav-toggle');
@@ -220,12 +289,41 @@ p+p{margin-top:1.2rem;}
       document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
       window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
     }
-    var els=document.querySelectorAll('.reveal');
-    if('IntersectionObserver' in window){
-      var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
-      els.forEach(function(el){obs.observe(el);});
-    }else{els.forEach(function(el){el.classList.add('visible');});}
   })();
+
+  const STORAGE_KEY='cd-lionfish-kills';
+  const INITIAL=6;
+  function getKills(){try{const v=localStorage.getItem(STORAGE_KEY);return v!==null?parseInt(v,10):INITIAL;}catch{return INITIAL;}}
+  function saveKills(n){try{localStorage.setItem(STORAGE_KEY,String(n));}catch{}}
+  function renderTally(n){
+    const wrap=document.getElementById('tally-display');
+    if(!wrap)return;
+    if(n===0){wrap.innerHTML='<span class="sb-tally-empty">First kill pending\u2026</span>';return;}
+    const groups=[];const full=Math.floor(n/5);const rem=n%5;
+    for(let i=0;i<full;i++)groups.push(5);if(rem>0)groups.push(rem);
+    wrap.innerHTML=groups.map(g=>{
+      const W=g===5?52:8+(g-1)*12+8;const H=40;
+      let svg=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+      for(let i=0;i<Math.min(g,4);i++){svg+=`<line x1="${8+i*12}" y1="4" x2="${8+i*12}" y2="36" stroke="#c4a87a" stroke-width="2" stroke-linecap="round"/>`;}
+      if(g===5)svg+=`<line x1="2" y1="38" x2="${W-2}" y2="2" stroke="#e84c1c" stroke-width="2" stroke-linecap="round"/>`;
+      svg+=`</svg>`;return svg;
+    }).join('');
+  }
+  function animateNumber(el,from,to){
+    const diff=to-from;const steps=Math.min(Math.abs(diff),20);
+    if(steps===0){el.textContent=to;return;}
+    let i=0;el.classList.add('flash');
+    const iv=setInterval(()=>{i++;el.textContent=Math.round(from+diff*i/steps);
+      if(i>=steps){clearInterval(iv);el.textContent=to;setTimeout(()=>el.classList.remove('flash'),300);}
+    },28);
+  }
+  function logKill(){const prev=getKills();const next=prev+1;saveKills(next);animateNumber(document.getElementById('kill-number'),prev,next);renderTally(next);const btn=document.getElementById('btn-log');btn.classList.add('sb-pulse');setTimeout(()=>btn.classList.remove('sb-pulse'),600);}
+  function removeKill(){const prev=getKills();if(prev<=0)return;const next=prev-1;saveKills(next);animateNumber(document.getElementById('kill-number'),prev,next);renderTally(next);}
+  function resetKills(){if(!confirm('Reset kill count to 6?'))return;saveKills(INITIAL);animateNumber(document.getElementById('kill-number'),getKills(),INITIAL);saveKills(INITIAL);setTimeout(()=>renderTally(INITIAL),600);}
+  function toggleAdj(){const row=document.getElementById('adj-row');const btn=document.getElementById('btn-adj-toggle');const shown=row.style.display!=='none';row.style.display=shown?'none':'flex';btn.textContent=shown?'\u25bc  adjust count':'\u25b2  hide';}
+  (function init(){const n=getKills();document.getElementById('kill-number').textContent=n;renderTally(n);})();
 </script>
+
 </body>
 </html>
+
