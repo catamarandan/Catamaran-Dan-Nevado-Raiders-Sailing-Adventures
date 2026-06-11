@@ -51,11 +51,14 @@ nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
     linear-gradient(180deg,rgba(6,9,15,0.25) 0%,transparent 25%,transparent 75%,rgba(6,9,15,0.5) 100%);
   pointer-events:none;z-index:2;
 }
-.hero-image-col img{
-  width:100%;height:100%;object-fit:cover;
+.hero-slides{position:absolute;inset:0;width:100%;height:100%;}
+.hero-slide{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   object-position:center center;
   filter:brightness(0.9) saturate(0.95);
+  opacity:0;transition:opacity 1.2s ease;
 }
+.hero-slide.active{opacity:1;}
 .hero-text-col{
   display:flex;flex-direction:column;justify-content:center;
   padding:6rem 4rem 6rem 3rem;
@@ -197,17 +200,15 @@ p+p{margin-top:1.2rem;}
   </button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run&#8482;</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
     <a href="shamrocket.html" class="active">Shamrocket</a>
-    <a href="storytelling.html">Storytelling</a>
-    <a href="expedition.html">Expedition</a>
-    <a href="shieldmaiden.html">Shield Maiden</a>
     <a href="lionfish.html">Lion Hunter</a>
+    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="storytelling.html">Storytellers</a>
     <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-    <a href="shop.html">Shop</a>
     <a href="gallery.html">Gallery</a>
+    <a href="shop.html">Shop</a>
     <a href="about.html">About</a>
     <a href="legal.html">Legal &amp; IP</a>
   </div>
@@ -218,9 +219,10 @@ p+p{margin-top:1.2rem;}
 \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
 <div class="hero">
   <div class="hero-image-col">
-    <img src="https://catamarandan.org/hobie_getaway.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran"/>
-  <img src="https://catamarandan.org/hobie getaway beach.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran"/>
-  <img src="https://catamarandan.org/hobie getaway people.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran"/>
+    <div class="hero-slides">
+      <img src="https://catamarandan.org/hobie_getaway.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran" class="hero-slide active"/>
+      <img src="https://catamarandan.org/hobie getaway people.jpg" alt="Shamrocket with crew" class="hero-slide"/>
+    </div>
   </div>
   <div class="hero-text-col">
     <div class="hero-eyebrow">Blue Rim 5&#8482; &bull; Expedition Platform &bull; AZ 2626CG</div>
@@ -480,6 +482,17 @@ p+p{margin-top:1.2rem;}
       document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
       window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
     }
+    // Hero slideshow
+    (function(){
+      var slides=document.querySelectorAll('.hero-slide');
+      if(slides.length<2)return;
+      var cur=0;
+      setInterval(function(){
+        slides[cur].classList.remove('active');
+        cur=(cur+1)%slides.length;
+        slides[cur].classList.add('active');
+      },4500);
+    })();
     var els=document.querySelectorAll('.reveal');
     if('IntersectionObserver' in window){
       var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
@@ -490,3 +503,4 @@ p+p{margin-top:1.2rem;}
 
 </body>
 </html>
+
