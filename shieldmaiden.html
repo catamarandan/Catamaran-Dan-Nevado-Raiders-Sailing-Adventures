@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Shield Maiden | Catamaran Dan</title>
-<meta name="description" content="The Rim Run™ expedition needs a first mate. Not a passenger. Not a deckhand. A partner. If you know the water — or are willing to learn it properly — read this."/>
+<meta name="description" content="The Blue Rim 5™ expedition needs a first mate. Not a passenger. Not a deckhand. A partner. 31 countries. 1,302 days. Three expeditions. If that's you, read every word on this page."/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 :root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--text-light:#e8e4da;--text-dim:#9aa0b0;--ember:#c0522a;}
@@ -27,7 +27,7 @@ nav a.active{color:#c9a84c;border-bottom-color:#c9a84c;}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
 .hero-image-col{position:relative;background:#06090f;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .hero-image-col::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,var(--deep-ocean) 100%),linear-gradient(180deg,rgba(6,9,15,0.3) 0%,transparent 30%,transparent 70%,rgba(6,9,15,0.5) 100%);pointer-events:none;z-index:2;}
-.hero-image-col {width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.88) saturate(0.92);}
+.hero-image-col img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.88) saturate(0.92);}
 .hero-text-col{display:flex;flex-direction:column;justify-content:center;padding:6rem 4rem 6rem 3rem;position:relative;z-index:3;}
 .hero-text-col::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,0.4),transparent);}
 .hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--aqua);margin-bottom:2rem;opacity:0;animation:fadeUp 0.9s ease 0.2s forwards;}
@@ -48,6 +48,19 @@ p+p{margin-top:1.3rem;}
 .truth-block{background:linear-gradient(135deg,rgba(14,77,110,0.15),rgba(10,15,26,0.7));border:1px solid rgba(201,168,76,0.18);border-left:3px solid var(--gold);padding:2.5rem 3rem;margin:3rem 0;}
 .truth-block p{font-size:1.05rem;color:var(--fog);line-height:1.8;}
 .truth-block p+p{margin-top:1.1rem;}
+/* EXPEDITION BREAKDOWN */
+.expedition-stack{display:flex;flex-direction:column;gap:1.2rem;margin:2.5rem 0;}
+.exp-block{background:linear-gradient(135deg,rgba(14,77,110,0.14),rgba(10,15,26,0.7));border:1px solid rgba(201,168,76,0.2);border-left:3px solid var(--gold);padding:2rem 2.5rem;}
+.exp-block-label{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.4rem;}
+.exp-block h4{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);margin-bottom:0.5rem;}
+.exp-block h4 em{color:var(--gold);font-style:normal;}
+.exp-block p{font-size:0.97rem;color:var(--fog);line-height:1.7;margin:0;}
+.exp-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-top:0.8rem;}
+.exp-stat{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+.exp-stat strong{color:var(--gold);display:block;font-size:0.85rem;font-family:'Cinzel',serif;letter-spacing:0.05em;}
+.totals-band{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(10,15,26,0.9));border:2px solid rgba(201,168,76,0.35);padding:2rem 2.5rem;margin:2rem 0;display:flex;gap:3rem;flex-wrap:wrap;align-items:center;justify-content:center;text-align:center;}
+.total-item strong{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);display:block;line-height:1;}
+.total-item span{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
 .trait-list{list-style:none;margin:2.5rem 0;display:flex;flex-direction:column;gap:1.2rem;}
 .trait-list li{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start;padding:1.4rem 1.8rem;background:linear-gradient(135deg,rgba(14,77,110,0.12),rgba(10,15,26,0.5));border:1px solid rgba(201,168,76,0.12);transition:border-color 0.3s;}
 .trait-list li:hover{border-color:rgba(201,168,76,0.35);}
@@ -83,6 +96,7 @@ p+p{margin-top:1.3rem;}
   .hero-text-col::before{display:none;}
   .hero-p{margin:0 auto;}
   .offer-grid{grid-template-columns:1fr;}
+  .totals-band{gap:2rem;}
 }
 @media(max-width:768px){
   section{padding:5rem 1.5rem;}
@@ -94,6 +108,8 @@ p+p{margin-top:1.3rem;}
   .nav-toggle{display:flex;}
   .truth-block{padding:2rem 1.8rem;}
   .saga-callout{padding:2rem 1.8rem;}
+  .exp-block{padding:1.5rem 1.8rem;}
+  .exp-stats{gap:1rem;}
 }
 </style>
 </head>
@@ -105,14 +121,14 @@ p+p{margin-top:1.3rem;}
   </button>
   <div class="nav-links" id="nav-links">
     <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run Expedition&#8482</a>
+    <a href="rimrun.html">Rim Run Expedition&#8482;</a>
     <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
     <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
     <a href="shamrocket.html">Shamrocket</a>
     <a href="lionfish.html">Lion Hunter</a>
     <a href="shieldmaiden.html" class="active">Shield Maiden</a>
     <a href="storytelling.html">Storytellers</a>
-    <a href="expeditionlog.html">The Expedition Log</a>
+    <a href="expedition.html">The Expedition Log</a>
     <a href="thelivingsaga.html">The Living Saga&#8482;</a>
     <a href="gallery.html">Gallery</a>
     <a href="shop.html">Shop</a>
@@ -123,14 +139,14 @@ p+p{margin-top:1.3rem;}
 
 <div class="hero">
   <div class="hero-image-col">
-    <img src="shieldmaidenoutline.png" alt="Shield Maiden — Rim Run Expedition"/>
+    <img src="shieldmaidenoutline.png" alt="Shield Maiden — Blue Rim 5™ Expedition"/>
   </div>
   <div class="hero-text-col">
-    <div class="hero-eyebrow">Rim Run&#8482; Expedition &bull; First Mate &bull; Launching October 2026 (Tentative)</div>
+    <div class="hero-eyebrow">Blue Rim 5&#8482; &bull; First Mate &bull; Departing November 1, 2026 &bull; Pensacola, FL</div>
     <h1 class="hero-h1">Are You the <em>Shield Maiden?</em></h1>
     <div class="hero-divider"></div>
-    <p class="hero-p">This is not a casual question. The Rim Run&#8482; is a decade-long sailing expedition through some of the most demanding and most beautiful water in the world. I need a partner — not a passenger. If that’s you, read every word on this page.</p>
-    <div class="hero-tag">Rim Run Caribe&#8482; &bull; Mexico MAR &rarr; ABC Islands &nbsp;&bull;&nbsp; Rim Run Pac&#8482; &bull; Chile &rarr; Sea of Cortez &nbsp;&bull;&nbsp; October 2026 (Tentative)</div>
+    <p class="hero-p">This is not a casual question. The Blue Rim 5&#8482; is a multi-year sailing expedition through some of the most demanding and most beautiful water on earth — 31 countries, 31 flags, 1,302 days minimum. I need a partner, not a passenger. If that's you, read every word on this page.</p>
+    <div class="hero-tag">BEC &bull; Pensacola &rarr; Isla Mujeres &nbsp;&bull;&nbsp; Rim Run Caribe&#8482; &bull; 11 Countries &nbsp;&bull;&nbsp; Rim Run Pac&#8482; &bull; Panama to Victoria BC &nbsp;&bull;&nbsp; Departing November 1, 2026</div>
   </div>
 </div>
 
@@ -140,83 +156,139 @@ p+p{margin-top:1.3rem;}
     <div class="section-label reveal">Why</div>
     <h2 class="serif reveal">Built to Impress <em>One Person.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">People ask who this expedition is meant to impress. The answer is one person — me. Not the sailing community. Not social media. Not institutions, sponsors, or strangers with opinions about what constitutes a worthy adventure. Three decades of work — on submarines, in boardrooms, on the water, and in the kind of places that reshape how a man sees the world — have produced a value set that doesn’t need external validation. The standard is internal. Always has been.</p>
-    <p class="reveal">What that means in practice: the planning is meticulous, the preparation is relentless, and the execution is measured against one question — did I do this right? Not fast. Not impressively. Right. The sea is an honest judge and a poor audience. It doesn’t care about the narrative. It rewards preparation, punishes arrogance, and has no interest in anyone’s personal brand. That suits this expedition perfectly.</p>
-    <p class="reveal">The highest loyalty here is to humanity itself — not to a tribe, a nation, a religion, a politics, or an ideology. The mission underneath every mile of this route is the advancement, protection, and survival of human civilization and the natural systems that sustain it. The Shield Maiden who belongs on this boat understands that instinctively. It doesn’t need to be explained.</p>
+    <p class="reveal">People ask who this expedition is meant to impress. The answer is one person — me. Not the sailing community. Not social media. Not institutions, sponsors, or strangers with opinions about what constitutes a worthy adventure. Three decades of work — on submarines, in boardrooms, on the water, and in the kind of places that reshape how a man sees the world — have produced a value set that doesn't need external validation. The standard is internal. Always has been.</p>
+    <p class="reveal">What that means in practice: the planning is meticulous, the preparation is relentless, and the execution is measured against one question — did I do this right? Not fast. Not impressively. Right. The sea is an honest judge and a poor audience. It doesn't care about the narrative. It rewards preparation, punishes arrogance, and has no interest in anyone's personal brand. That suits this expedition perfectly.</p>
+    <p class="reveal">The highest loyalty here is to humanity itself — not to a tribe, a nation, a religion, a politics, or an ideology. The mission underneath every mile of this route is the advancement, protection, and survival of human civilization and the natural systems that sustain it. The Shield Maiden who belongs on this boat understands that instinctively. It doesn't need to be explained.</p>
     <div class="pull-quote reveal">This is not performance. It is purpose — built from the inside out, over thirty years, and now pointed at the water.</div>
   </div>
 </section>
 
-<section style="background:var(--deep-ocean);">
+<!-- THE FULL SCOPE -->
+<section style="background:var(--deep-ocean);border-bottom:1px solid rgba(201,168,76,0.12);">
+  <div class="container">
+    <div class="section-label reveal">The Mission</div>
+    <h2 class="serif reveal">Three Expeditions. <em>One Life.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">This is not a sailing trip. This is not a sabbatical. This is the Blue Rim 5&#8482; — three sequential expeditions aboard Shamrocket, a 17-foot Hobie Getaway catamaran with a 24-inch draft, built to go places no keelboat ever will. Here is the full scope, unburied.</p>
+
+    <div class="expedition-stack reveal">
+      <div class="exp-block">
+        <div class="exp-block-label">Expedition One</div>
+        <h4>BEC — <em>Bahamas &amp; Eastern Caribbean</em></h4>
+        <p>Departs Palafox Pier, Pensacola, Florida — November 1, 2026. The opening expedition runs through the Bahamas, the full Eastern Caribbean arc, Trinidad &amp; Tobago, the ABC Islands, and completes at Isla Mujeres, Mexico. No schedule. No deadline. Every stop earned.</p>
+        <div class="exp-stats">
+          <div class="exp-stat"><strong>67</strong>Stops</div>
+          <div class="exp-stat"><strong>16</strong>Countries</div>
+          <div class="exp-stat"><strong>412+</strong>Days Minimum</div>
+          <div class="exp-stat"><strong>Pensacola</strong>Departure</div>
+        </div>
+      </div>
+      <div class="exp-block">
+        <div class="exp-block-label">Expedition Two</div>
+        <h4>Rim Run Caribe&#8482; — <em>Western Caribbean Circuit</em></h4>
+        <p>A round-trip circuit departing Puerto Aventuras, Mexico — through Belize, Guatemala, Honduras, Nicaragua, Costa Rica, Panama, Colombia, Aruba, Bonaire, and Cura&ccedil;ao, and back. Shamrocket portages at Panama — never canal transit. The most biodiverse coastal water in the Western Hemisphere.</p>
+        <div class="exp-stats">
+          <div class="exp-stat"><strong>11</strong>Countries</div>
+          <div class="exp-stat"><strong>~330</strong>Days</div>
+          <div class="exp-stat"><strong>Round-Trip</strong>Puerto Aventuras</div>
+        </div>
+      </div>
+      <div class="exp-block">
+        <div class="exp-block-label">Expedition Three</div>
+        <h4>Rim Run Pac&#8482; — <em>Pacific Circuit</em></h4>
+        <p>The Pacific run begins at Panama, portages to the Pacific side, and heads south — Ecuador, Peru, Chile (south terminus), then north through Central America, Mexico Pacific coast, the complete Sea of Cortez, California, Pacific Northwest, and terminates at Victoria, BC. After Pac, Shamrocket returns to Panama and portages back to the Caribbean — where she stays. The true finish line is the Caribbean, lived out for the rest of what remains.</p>
+        <div class="exp-stats">
+          <div class="exp-stat"><strong>79</strong>Stops</div>
+          <div class="exp-stat"><strong>~560</strong>Days</div>
+          <div class="exp-stat"><strong>Panama</strong>to <strong>Victoria BC</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="totals-band reveal">
+      <div class="total-item"><strong>31</strong><span>Countries &amp; Territories</span></div>
+      <div class="total-item"><strong>31</strong><span>Flags</span></div>
+      <div class="total-item"><strong>1,302</strong><span>Days Minimum</span></div>
+      <div class="total-item"><strong>~July 2030</strong><span>La Paz Completion</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REALITY -->
+<section style="background:var(--midnight);border-bottom:1px solid rgba(201,168,76,0.12);">
   <div class="container">
     <div class="section-label reveal">Before Anything Else</div>
     <h2 class="serif reveal">This Life Is <em>Real.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">I’m going to tell you exactly what this is before I tell you why it’s worth it. That’s respect, and it’s how this whole expedition works.</p>
+    <p class="reveal">I'm going to tell you exactly what this is before I tell you why it's worth it. That's respect, and it's how this whole expedition works.</p>
     <div class="truth-block reveal">
-      <p>The Rim Run&#8482; is not a vacation that never ends. It is a working expedition — structured, disciplined, and purpose-driven. We sail eleven countries across the Western Caribbean on a 17-foot Hobie Getaway catamaran. We anchor over reef systems that have barely seen a scientist. We dive. We log data. We come back next year and do it again.</p>
+      <p>The Blue Rim 5&#8482; is not a vacation that never ends. It is a continuous, live-aboard expedition — structured, disciplined, and purpose-driven. We sail 31 countries on a 17-foot Hobie Getaway catamaran. We anchor over reef systems that have barely seen a scientist. We dive. We observe. We move when the weather says move and stay when the place is worth staying.</p>
       <p>Some days are luminous. Some are long and wet and physically demanding. Some anchorages are paradise. Some are sketchy. Weather windows are not suggestions — they are decisions that determine whether you sleep or sail through the night.</p>
-      <p>The boat is small. The ocean is not. The mission is real. There is no support crew. There is no shore team waiting. There are two people on a catamaran, and both of them need to know what they’re doing.</p>
+      <p>The boat is small. The ocean is not. The mission is real. There is no support crew. There is no shore team waiting. There are two people on a catamaran, and both of them need to know what they're doing.</p>
     </div>
     <p class="reveal">If that made you lean forward instead of back — keep reading.</p>
-    <div class="pull-quote reveal">“This is the greatest adventure you will ever have. I need the woman who already knows that — and is asking when we leave, not whether she can handle it.”</div>
+    <div class="pull-quote reveal">"This is the greatest adventure you will ever have. I need the woman who already knows that — and is asking when we leave, not whether she can handle it."</div>
   </div>
 </section>
 
-<section style="background:var(--midnight);border-top:1px solid rgba(201,168,76,0.1);border-bottom:1px solid rgba(201,168,76,0.1);">
+<!-- WHAT YOU BRING -->
+<section style="background:var(--deep-ocean);border-bottom:1px solid rgba(201,168,76,0.12);">
   <div class="container">
     <div class="section-label reveal">What You Bring</div>
     <h2 class="serif reveal">The Woman <em>This Requires.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">I’m not writing a job description. I’m describing a person. If you read this list and recognize yourself, that recognition matters more than any resume.</p>
+    <p class="reveal">I'm not writing a job description. I'm describing a person. If you read this list and recognize yourself, that recognition matters more than any resume.</p>
     <ul class="trait-list reveal">
-      <li><div class="trait-marker">01</div><div class="trait-text"><strong>Seamanship — or the drive to earn it</strong>You don’t need a captain’s license. You need an honest relationship with the water. You’ve sailed, kayaked, crewed, fished, or dived seriously. You understand that the ocean sets the terms. If you’re newer to sailing, you’re not disqualified — but you need to be the kind of person who learns fast, takes instruction without ego, and earns competency through action.</div></li>
+      <li><div class="trait-marker">01</div><div class="trait-text"><strong>Seamanship — or the drive to earn it</strong>You don't need a captain's license. You need an honest relationship with the water. You've sailed, kayaked, crewed, fished, or dived seriously. You understand that the ocean sets the terms. If you're newer to sailing, you're not disqualified — but you need to be the kind of person who learns fast, takes instruction without ego, and earns competency through action.</div></li>
       <li><div class="trait-marker">02</div><div class="trait-text"><strong>Calm under pressure</strong>When conditions change — and they will — I need someone who gets quieter, not louder. Who thinks before they speak and moves with purpose. Panic is contagious on a small boat. Steadiness is more valuable than strength.</div></li>
       <li><div class="trait-marker">03</div><div class="trait-text"><strong>Physical capability and willingness</strong>This is not a charter. You handle lines. You anchor the boat. You dive. You carry equipment. You do it tired. You do it in rain. You do it because the mission requires it and you signed on for the mission.</div></li>
-      <li><div class="trait-marker">04</div><div class="trait-text"><strong>Genuine curiosity about the natural world</strong>The Rim Run&#8482; is a reef science expedition. You don’t need a marine biology degree. You need to actually care what’s happening below the surface — to find a coral formation worth recording, a species worth identifying, a data point worth logging. Intellectual engagement with the mission is not optional.</div></li>
-      <li><div class="trait-marker">05</div><div class="trait-text"><strong>A compass of her own</strong>I’m not looking for someone who follows. I’m looking for someone who navigates. You have your own values, your own judgment, and the backbone to say what you actually think. A partner is someone who challenges a bad idea before we execute it — not after.</div></li>
-      <li><div class="trait-marker">06</div><div class="trait-text"><strong>Comfort with simplicity and closeness</strong>The boat is our world. There is no private suite. There is no off-day from each other. The woman this works for is not claustrophobic in close quarters with someone she trusts — she finds freedom in the simplicity of a life that fits in a waterproof bag.</div></li>
-      <li><div class="trait-marker">07</div><div class="trait-text"><strong>A sense of humor that doesn’t need comfort</strong>Things go sideways. Plans change. Equipment breaks. The woman who’s right for this laughs at the absurdity of the situation before she fixes it. Not because she doesn’t take the mission seriously — because she takes herself lightly enough to stay effective when things get hard.</div></li>
+      <li><div class="trait-marker">04</div><div class="trait-text"><strong>Genuine curiosity about the natural world</strong>The Blue Rim 5&#8482; takes us through some of the most ecologically significant coastal water on earth. You don't need a marine biology degree. You need to actually care what's happening below the surface — to find a coral formation worth recording, a species worth identifying, a moment worth logging. Intellectual engagement with the living ocean is not optional.</div></li>
+      <li><div class="trait-marker">05</div><div class="trait-text"><strong>A compass of her own</strong>I'm not looking for someone who follows. I'm looking for someone who navigates. You have your own values, your own judgment, and the backbone to say what you actually think. A partner is someone who challenges a bad idea before we execute it — not after.</div></li>
+      <li><div class="trait-marker">06</div><div class="trait-text"><strong>Comfort with simplicity and closeness</strong>The boat is our world for 1,302 days minimum. There is no private suite. There is no off-day from each other. The woman this works for is not claustrophobic in close quarters with someone she trusts — she finds freedom in the simplicity of a life that fits in a waterproof bag.</div></li>
+      <li><div class="trait-marker">07</div><div class="trait-text"><strong>A sense of humor that doesn't need comfort</strong>Things go sideways. Plans change. Equipment breaks. The woman who's right for this laughs at the absurdity of the situation before she fixes it. Not because she doesn't take the mission seriously — because she takes herself lightly enough to stay effective when things get hard.</div></li>
+      <li><div class="trait-marker">08</div><div class="trait-text"><strong>Commitment to the full scope</strong>This is not a short passage. This is not a season aboard. This is the Blue Rim 5&#8482; — all three expeditions, 31 countries, the Caribbean and the Pacific and back again. The Shield Maiden who belongs here is not looking for an adventure. She is looking for a life.</div></li>
     </ul>
   </div>
 </section>
 
-<section style="background:var(--deep-ocean);">
+<!-- WHAT YOU GET -->
+<section style="background:var(--midnight);border-bottom:1px solid rgba(201,168,76,0.12);">
   <div class="container">
     <div class="section-label reveal">What You Get</div>
     <h2 class="serif reveal">The Greatest Adventure <em>of Your Life.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">I mean that plainly. Not as a sales pitch. As a statement about what this expedition actually is for the person who’s right for it.</p>
+    <p class="reveal">I mean that plainly. Not as a sales pitch. As a statement about what this expedition actually is for the person who's right for it.</p>
     <div class="offer-grid reveal">
-      <div class="offer-item"><h4>Eleven Countries</h4><p>Mexico to Cura&ccedil;ao — the full Rim Run Caribe&#8482; circuit through some of the most biodiverse coastal water in the Western Hemisphere. Reef systems that have never seen systematic monitoring. Anchorages most sailors never find.</p></div>
-      <div class="offer-item"><h4>Reef Awareness</h4><p>You’re not a tourist on a science expedition. You’re part of the team. You dive. You observe. You engage local communities. Your eyes on the reef matter. That matters.</p></div>
-      <div class="offer-item"><h4>The Living Saga&#8482;</h4><p>The expedition is documented in real time — photos, writing, field notes, the whole arc of it. You are part of a story being told to the world as it happens. Your perspective is part of the record.</p></div>
-      <div class="offer-item"><h4>True Partnership</h4><p>Not a hierarchy. Not a captain and a crew. A two-person team where both people carry the mission and both people carry each other. That’s rare. That’s what this is designed to be.</p></div>
-      <div class="offer-item"><h4>No Schedule</h4><p>We don’t push north in hurricane season. We stay south of 12&deg;N when the weather says stay. If a place is worth an extra month, we give it an extra month. The expedition runs on good judgment, not a calendar.</p></div>
-      <div class="offer-item"><h4>A Life Remembered</h4><p>Most people spend their lives talking about what they might do someday. This is the day. This is the expedition. And twenty years from now, you will know exactly who you were and what you did with the time you had.</p></div>
+      <div class="offer-item"><h4>31 Countries. 31 Flags.</h4><p>The full Blue Rim 5&#8482; — the Bahamas, the Eastern Caribbean, the Western Caribbean circuit, the Pacific coast from Panama to Victoria BC, the Gal&aacute;pagos, the Sea of Cortez, and the Caribbean again to stay. Every flag earned at sea level, on a 17-foot catamaran, two people.</p></div>
+      <div class="offer-item"><h4>The Living Ocean</h4><p>Reef systems that have barely seen a scientist. Whale shark encounters in the Sea of Cortez. Bull sharks in Belize. Humpbacks off Colombia. Galápagos marine iguanas. The Pacific kelp forests. You are not watching this on a screen — you are in it, every day, for years.</p></div>
+      <div class="offer-item"><h4>The Living Saga&#8482;</h4><p>The expedition is documented in real time — photos, writing, field notes, the whole arc of it. You are part of a story being told to the world as it happens. Your perspective is part of the permanent record. The Shield Maiden is not background. She is one of the two protagonists.</p></div>
+      <div class="offer-item"><h4>True Partnership</h4><p>Not a hierarchy. Not a captain and crew. A two-person team where both people carry the mission and both people carry each other. That's rare. That's what this is designed to be — from Pensacola to La Paz and beyond.</p></div>
+      <div class="offer-item"><h4>No Schedule. No Deadline.</h4><p>We don't push north in hurricane season. We stay south of 13&deg;N when the weather says stay. If a place is worth an extra month, we give it an extra month. The expedition runs on good judgment, not a calendar. 1,302 days is the minimum — not the ceiling.</p></div>
+      <div class="offer-item"><h4>A Life Remembered</h4><p>Most people spend their lives talking about what they might do someday. November 1, 2026 is the day. 31 countries is the scope. And twenty years from now, you will know exactly who you were and what you did with the time you had.</p></div>
     </div>
     <div class="saga-callout reveal">
       <div class="saga-callout-label">The Living Saga&#8482;</div>
-      <p>The Rim Run&#8482; is more than an expedition — it is a story being written in real time, one anchorage at a time. The Living Saga&#8482; is the narrative record of everything that happens on the water: the reefs, the places, the people, and the two lives at the center of it. The Shield Maiden is not background. She is one of the two protagonists.</p>
+      <p>The Blue Rim 5&#8482; is more than an expedition — it is a story being written in real time, one anchorage at a time. The Living Saga&#8482; is the narrative record of everything that happens on the water: the reefs, the places, the people, and the two lives at the center of it. The Shield Maiden is not background. She is one of the two protagonists.</p>
       <a href="thelivingsaga.html" class="btn-gold" style="display:inline-block;margin-top:0.5rem;">Read The Living Saga&#8482; &rarr;</a>
     </div>
   </div>
 </section>
 
+<!-- CTA -->
 <div class="cta-block">
-  <div class="section-label reveal" style="justify-content:center;margin-bottom:1.5rem;">If It’s You</div>
+  <div class="section-label reveal" style="justify-content:center;margin-bottom:1.5rem;">If It's You</div>
   <h2 class="reveal">You Already Know <em>Who You Are.</em></h2>
-  <p class="reveal">If you’ve read this far and the answer is yes — not “maybe someday,” not “that sounds interesting” — but a genuine, clear yes — then write to me. Tell me who you are. Tell me what you’ve done on the water. Tell me what draws you to this. I’ll read every word.</p>
+  <p class="reveal">If you've read this far and the answer is yes — not "maybe someday," not "that sounds interesting" — but a genuine, clear yes — then write to me. Tell me who you are. Tell me what you've done on the water. Tell me what draws you to 31 countries and 1,302 days on a 17-foot catamaran. I'll read every word.</p>
   <div class="reveal">
     <a href="mailto:nevadoraiders@gmail.com" class="btn-gold">nevadoraiders@gmail.com</a>
-    <a href="rimrun-caribe.html" class="btn-secondary">See the Route &rarr;</a>
+    <a href="rimrun.html" class="btn-secondary">See the Full Expedition &rarr;</a>
   </div>
-  <p class="reveal" style="margin-top:2.5rem;font-size:0.85rem;color:var(--text-dim);font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">October 2026 (Tentative) &bull; Caribe: Mexico MAR &rarr; ABC Islands &bull; Pac: Chile &rarr; Sea of Cortez, MX &bull; (928) 250-9763</p>
+  <p class="reveal" style="margin-top:2.5rem;font-size:0.85rem;color:var(--text-dim);font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;">Departing November 1, 2026 &bull; Palafox Pier, Pensacola &bull; 31 Countries &bull; 1,302 Days Minimum &bull; (928) 250-9763</p>
 </div>
 
 <footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
   <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; IP</a>
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#174;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; IP</a>
   </div>
 </footer>
 
