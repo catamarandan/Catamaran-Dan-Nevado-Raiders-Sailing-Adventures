@@ -60,53 +60,30 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .art-tagline{font-style:italic;color:var(--fog);font-size:0.97rem;margin-bottom:1.4rem;display:block;}
 
 /* ── ARTIFACT IMAGE WRAPPER ─────────────────────────────────────────────
-   No fixed height, no fixed aspect-ratio — images display at natural size.
-   The flip mechanism uses a wrapper that sizes to the front image naturally.
+   No overflow:hidden. No absolute positioning. CSS grid stacks both images
+   in the same cell — front visible, back hidden, swap on hover.
 ──────────────────────────────────────────────────────────────────────── */
 .artifact-img-wrap{
   width:100%;
   background:#060d18;
   border:1px solid rgba(201,168,76,0.1);
   margin-bottom:1.6rem;
-  overflow:hidden;
-  position:relative;
-  /* No aspect-ratio, no fixed height — image drives the size */
+  display:grid;
 }
-/* FRONT image: natural size, always in flow */
-.artifact-img-wrap img.img-front{
+.artifact-img-wrap img{
+  grid-area:1/1;
   width:100%;
   height:auto;
   display:block;
-  position:relative;
-  z-index:1;
-  transition:opacity 0.5s ease;
-  opacity:1;
-}
-/* BACK image: absolute, fills wrapper exactly */
-.artifact-img-wrap img.img-back{
-  position:absolute;
-  top:0;left:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
-  z-index:2;
-  opacity:0;
   transition:opacity 0.5s ease;
 }
-/* Hover flip — only on cards WITHOUT no-flip */
-.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-front{opacity:0;}
-.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-back{opacity:1;}
+.artifact-img-wrap img.img-front{ opacity:1; }
+.artifact-img-wrap img.img-back{  opacity:0; }
 
-/* Bracelet card — single image, never flip */
-.no-flip-card .artifact-img-wrap img.img-front{
-  opacity:1 !important;
-}
-.no-flip-card:hover .artifact-img-wrap img.img-front{
-  opacity:1 !important;
-}
+.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-front{ opacity:0; }
+.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-back{  opacity:1; }
 
-.img-flip-hint{position:absolute;bottom:0.5rem;right:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.6);z-index:3;pointer-events:none;}
+.img-flip-hint{font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.6);display:block;text-align:right;padding:0.3rem 0 0.8rem;}
 .art-features{list-style:none;margin:0 0 1.6rem;}
 .art-features li{font-family:'Josefin Sans',sans-serif;font-size:0.74rem;letter-spacing:0.08em;color:var(--fog);padding:0.38rem 0;border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:flex-start;gap:0.7rem;}
 .art-features li::before{content:'--';color:var(--gold);flex-shrink:0;}
@@ -258,8 +235,8 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <div class="artifact-img-wrap">
         <img class="img-front" src="necklacefrontfinal.png" alt="Rim Run Expedition Medallion — Front"/>
         <img class="img-back" src="back.png" alt="Rim Run Expedition Medallion — Back"/>
-        <span class="img-flip-hint">Hover to see back</span>
       </div>
+      <span class="img-flip-hint">Hover to see back</span>
       <ul class="art-features">
         <li>Heavy Navajo sterling silver — hand shaped &amp; stamped</li>
         <li>Three high-grade genuine turquoise stones — North Star (top), Departure (lower left), Return (lower right)</li>
@@ -469,6 +446,5 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </body>
 </html>
-
 
 
