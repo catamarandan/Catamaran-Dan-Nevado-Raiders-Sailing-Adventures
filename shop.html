@@ -58,17 +58,55 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .artifact-card h3{font-family:'Cinzel',serif;font-size:1.55rem;font-weight:600;color:var(--parchment);line-height:1.15;margin-bottom:0.3rem;}
 .artifact-card h3 em{color:var(--gold);font-style:normal;}
 .art-tagline{font-style:italic;color:var(--fog);font-size:0.97rem;margin-bottom:1.4rem;display:block;}
-.artifact-img-wrap{width:100%;background:#060d18;border:1px solid rgba(201,168,76,0.1);margin-bottom:1.6rem;overflow:hidden;position:relative;}
-.artifact-img-wrap img{width:100%;height:auto;display:block;transition:opacity 0.5s ease,transform 0.4s ease;}
-.artifact-img-wrap img.img-front{opacity:1;transform:scale(1);position:relative;}
-.artifact-img-wrap img.img-back{opacity:0;transform:scale(1.03);position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;}
-.artifact-card:hover .artifact-img-wrap img.img-front{opacity:0;}
-.artifact-card:hover .artifact-img-wrap img.img-back{opacity:1;transform:scale(1);}
-.no-flip img.img-front{opacity:1 !important;transform:none !important;}
-.artifact-card:hover .no-flip img.img-front{opacity:1 !important;transform:none !important;}
-.no-flip img.img-front{opacity:1 !important;transform:none !important;position:relative !important;}
-.artifact-card:hover .no-flip img.img-front{opacity:1 !important;transform:none !important;}
-.img-flip-hint{position:absolute;bottom:0.5rem;right:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.6);z-index:2;pointer-events:none;}
+
+/* ── ARTIFACT IMAGE WRAPPER ─────────────────────────────────────────────
+   No fixed height, no fixed aspect-ratio — images display at natural size.
+   The flip mechanism uses a wrapper that sizes to the front image naturally.
+──────────────────────────────────────────────────────────────────────── */
+.artifact-img-wrap{
+  width:100%;
+  background:#060d18;
+  border:1px solid rgba(201,168,76,0.1);
+  margin-bottom:1.6rem;
+  overflow:hidden;
+  position:relative;
+  /* No aspect-ratio, no fixed height — image drives the size */
+}
+/* FRONT image: natural size, always in flow */
+.artifact-img-wrap img.img-front{
+  width:100%;
+  height:auto;
+  display:block;
+  position:relative;
+  z-index:1;
+  transition:opacity 0.5s ease;
+  opacity:1;
+}
+/* BACK image: absolute, fills wrapper exactly */
+.artifact-img-wrap img.img-back{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  z-index:2;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+/* Hover flip — only on cards WITHOUT no-flip */
+.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-front{opacity:0;}
+.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-back{opacity:1;}
+
+/* Bracelet card — single image, never flip */
+.no-flip-card .artifact-img-wrap img.img-front{
+  opacity:1 !important;
+}
+.no-flip-card:hover .artifact-img-wrap img.img-front{
+  opacity:1 !important;
+}
+
+.img-flip-hint{position:absolute;bottom:0.5rem;right:0.6rem;font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.6);z-index:3;pointer-events:none;}
 .art-features{list-style:none;margin:0 0 1.6rem;}
 .art-features li{font-family:'Josefin Sans',sans-serif;font-size:0.74rem;letter-spacing:0.08em;color:var(--fog);padding:0.38rem 0;border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:flex-start;gap:0.7rem;}
 .art-features li::before{content:'--';color:var(--gold);flex-shrink:0;}
@@ -212,7 +250,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 
   <div class="artifact-grid reveal">
 
-    <!-- MEDALLION -->
+    <!-- MEDALLION — hover flips to back -->
     <div class="artifact-card">
       <span class="art-label">Men's Artifact &bull; Explorer Totem</span>
       <h3>Rim Run <em>Explorer Necklace</em></h3>
@@ -245,12 +283,12 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <a href="mailto:nevadoraiders@gmail.com?subject=Rim%20Run%20Medallion%20%E2%80%94%20Reserve%20My%20Saga%20Mark" class="btn-gold btn-gold-full">Reserve Your Saga Mark &rarr;</a>
     </div>
 
-    <!-- BRACELET -->
-    <div class="artifact-card">
+    <!-- BRACELET — single image, no flip -->
+    <div class="artifact-card no-flip-card">
       <span class="art-label">Women's Artifact &bull; Explorer Bracelet</span>
       <h3>Rim Run <em>Explorer Bracelet</em></h3>
       <span class="art-tagline">Expedition Elegance. Not Fashion. Legacy.</span>
-      <div class="artifact-img-wrap no-flip">
+      <div class="artifact-img-wrap">
         <img class="img-front" src="bracelet_final.png" alt="Rim Run Explorer Bracelet"/>
       </div>
       <ul class="art-features">
