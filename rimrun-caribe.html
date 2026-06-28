@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rim Run Caribe&#8482; | Catamaran Dan</title>
-  <meta name="description" content="Rim Run Caribe™ — 11 countries, the living Caribbean reef edge from Mexico to the ABC Islands and back. Round-trip from Puerto Aventuras. Zero carbon. No excuses."/>
+  <title>Rim Run Caribe | Catamaran Dan</title>
+  <meta name="description" content="Rim Run Caribe — 11 countries, the Mesoamerican Reef, the living Caribbean reef edge from Mexico to the ABC Islands and back. Round-trip from Puerto Aventuras."/>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 :root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
@@ -14,16 +14,20 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:0.9rem 2rem;display:flex;justify-content:center;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
-.nav-links{display:flex;align-items:center;justify-content:center;gap:1.4rem;flex-wrap:nowrap;}
-nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
-nav a:hover{color:var(--gold);}
-nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;-webkit-tap-highlight-color:transparent;}
+
+/* ── NAV ── */
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:center;min-height:52px;}
+.nav-links{display:flex;align-items:center;flex-wrap:nowrap;gap:0;}
+.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;display:block;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -67,6 +71,18 @@ p+p{margin-top:1.2rem;}
 .bg-midnight{background:var(--midnight);}
 .bg-deep{background:var(--deep-ocean);}
 .border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+
+/* ── MAR CALLOUT ── */
+.mar-block{background:linear-gradient(135deg,rgba(14,77,110,0.25),rgba(10,15,26,0.8));border:2px solid rgba(41,176,212,0.35);border-left:4px solid var(--aqua);padding:3rem 3.5rem;margin:3rem 0;position:relative;}
+.mar-block-label{position:absolute;top:-0.7rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.28em;color:var(--aqua);text-transform:uppercase;}
+.mar-block h3{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:600;color:var(--parchment);margin-bottom:1rem;line-height:1.2;}
+.mar-block h3 em{color:var(--aqua);font-style:normal;}
+.mar-block p{font-size:1.05rem;color:var(--fog);line-height:1.8;}
+.mar-block p+p{margin-top:1.1rem;}
+.mar-stats{display:flex;gap:3rem;flex-wrap:wrap;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(41,176,212,0.2);}
+.mar-stat{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+.mar-stat strong{font-family:'Cinzel',serif;color:var(--aqua);display:block;font-size:1.4rem;line-height:1.2;margin-bottom:0.2rem;}
+
 .page-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
 .rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
 .page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
@@ -81,21 +97,25 @@ p+p{margin-top:1.2rem;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+@media(max-width:900px){
+  .nav-inner{justify-content:flex-end;position:relative;}
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0;z-index:999;}
+  .nav-links.open{display:flex;}
+  .nav-links a{display:block;width:100%;padding:0.7rem 1.5rem;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+}
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;padding:0.8rem 1.5rem;justify-content:flex-end;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:1001;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-toggle{display:flex;}
   .two-col{grid-template-columns:1fr;gap:2.5rem;}
   .stat-strip{grid-template-columns:repeat(2,1fr);}
   .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
   .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
   .img-trio{grid-template-columns:1fr 1fr;}
   .img-pair img,.img-trio img{height:160px;}
-  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  .mar-block{padding:2rem 1.8rem;}
+  .mar-stats{gap:1.5rem;}
 }
 @media(max-width:480px){.img-trio{grid-template-columns:1fr;}}
   </style>
@@ -103,24 +123,26 @@ p+p{margin-top:1.2rem;}
 <body>
 
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run Expedition&#8482</a>
-    <a href="rimrun-caribe.html" class="active">Rim Run Caribe&#8482;</a>
-    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-    <a href="shamrocket.html">Shamrocket</a>
-    <a href="lionfish.html">Lion Hunter</a>
-    <a href="shieldmaiden.html">Shield Maiden</a>
-    <a href="storytelling.html">Storytellers</a>
-    <a href="expeditionlog.html">The Expedition Log</a>
-    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="legal.html">Legal &amp; IP</a>
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="rimrun.html">Rim Run Expedition</a>
+      <a href="rimrun-caribe.html" class="active">Rim Run Caribe</a>
+      <a href="rimrun-pac.html">Rim Run Pac</a>
+      <a href="shamrocket.html">Shamrocket</a>
+      <a href="lionfish.html">Lion Hunter</a>
+      <a href="shieldmaiden.html">Shield Maiden</a>
+      <a href="storytelling.html">Storytellers</a>
+      <a href="expedition.html">Expedition Log</a>
+      <a href="thelivingsaga.html">The Living Saga</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal &amp; IP</a>
+    </div>
   </div>
 </nav>
 
@@ -129,9 +151,9 @@ p+p{margin-top:1.2rem;}
   <div class="rune-overlay"></div>
   <div class="page-hero-content">
     <div class="hero-eyebrow">Caribbean Circuit &bull; Round-Trip from Puerto Aventuras</div>
-    <h1 class="hero-h1">Rim Run <em>Caribe&#8482;</em></h1>
+    <h1 class="hero-h1">Rim Run <em>Caribe</em></h1>
     <div class="hero-rule"></div>
-    <p class="hero-sub">Eleven countries. The living Caribbean reef edge from Mexico to Colombia — plus the ABC Islands and back. The Mesoamerican Barrier Reef, the Blue Hole, R&iacute;o Dulce, the Bay Islands, Guna Yala. One small boat. Zero carbon. Anchor down.</p>
+    <p class="hero-sub">Eleven countries. The Mesoamerican Reef — the second largest barrier reef system on earth — from Mexico to Colombia and the ABC Islands and back. One small catamaran. Zero carbon. Anchor down.</p>
     <div class="hero-tagline">Mexico &bull; Belize &bull; Guatemala &bull; Honduras &bull; Nicaragua &bull; Costa Rica &bull; Panama &bull; Colombia &bull; Aruba &bull; Bonaire &bull; Cura&ccedil;ao</div>
   </div>
 </div>
@@ -139,9 +161,9 @@ p+p{margin-top:1.2rem;}
 <!-- IMAGE TRIO -->
 <div style="background:#06090f;padding:1rem 1rem 0;">
   <div class="img-trio reveal">
-    <img src="https://catamarandan.org/belizelight2.jpg" alt="Lighthouse Reef, Belize"/>
-    <img src="https://catamarandan.org/nice.jpg" alt="Coastal sailing — Caribbean circuit"/>
-    <img src="https://catamarandan.org/belizeglovers2.jpg" alt="Glover's Reef, Belize"/>
+    <img src="belizelight2.jpg" alt="Lighthouse Reef, Belize"/>
+    <img src="nice.jpg" alt="Coastal sailing — Caribbean circuit"/>
+    <img src="belizeglovers2.jpg" alt="Glover's Reef, Belize"/>
   </div>
 </div>
 
@@ -158,10 +180,39 @@ p+p{margin-top:1.2rem;}
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     WHY — THE PHILOSOPHY
-═══════════════════════════════════════ -->
+<!-- THE MESOAMERICAN REEF -->
 <section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Mesoamerican Reef</div>
+    <h2 class="serif reveal">Arizona Goes to <em>the Second Largest Reef on Earth.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Arizona doesn't have a coastline. But it has Catamaran Dan — and on the Rim Run Caribe, Arizona goes to the Mesoamerican Reef.</p>
+    <p class="reveal">The Mesoamerican Reef is the second largest barrier reef system on the planet, second only to Australia's Great Barrier Reef. Stretching over 700 miles along the Caribbean coasts of Mexico, Belize, Guatemala, and Honduras, it is home to more than 65 species of stony coral, 350 species of fish, and some of the last remaining populations of sea turtles, manatees, and whale sharks in the Western Hemisphere. It is one of the most biologically diverse and critically important marine ecosystems on earth.</p>
+    <p class="reveal">It is also one of the most threatened. Coral bleaching from rising sea temperatures. Lionfish invasion decimating native fish populations. Coastal development and agricultural runoff suffocating reef systems that took thousands of years to build. Climate change rewriting the conditions that made this reef possible in the first place.</p>
+
+    <div class="mar-block reveal">
+      <div class="mar-block-label">MAR — Mesoamerican Reef</div>
+      <h3>The Route Runs Through <em>the Heart of It.</em></h3>
+      <p>The Rim Run Caribe doesn't pass near the Mesoamerican Reef — it runs through the heart of it for months at a time. Shamrocket's 24-inch draft puts the expedition inside the barrier reef, on the reef flats, at the patch reefs, in the channels — places no research vessel or charter boat ever reaches. At water level. Eye to eye with what is actually happening down there.</p>
+      <p>Belize alone accounts for roughly 117 days on the circuit — the Blue Hole, Lighthouse Reef, Turneffe Atoll, Glover's Reef, South Water Caye Marine Reserve. Followed by the Bay Islands of Honduras, where whale sharks gather seasonally and visibility regularly exceeds 100 feet. Then Nicaragua's Pearl Cays — essentially unsurveyed. Costa Rica's Cahuita. Panama's Bocas del Toro and the autonomous Guna Yala islands.</p>
+      <p>This is not a flyover. This is sustained, extended, water-level engagement with the Mesoamerican Reef system — stop by stop, season by season, for the full duration of the circuit.</p>
+      <div class="mar-stats">
+        <div class="mar-stat"><strong>700+</strong>Miles of Reef System</div>
+        <div class="mar-stat"><strong>65+</strong>Coral Species</div>
+        <div class="mar-stat"><strong>350+</strong>Fish Species</div>
+        <div class="mar-stat"><strong>#2</strong>Largest on Earth</div>
+        <div class="mar-stat"><strong>117</strong>Days in Belize Alone</div>
+      </div>
+    </div>
+
+    <p class="reveal">Every dive on the circuit, the lionfish trident goes in where local law permits. Every reef system is photographed, GPS-referenced, and logged. No institutional obligations. No data commitments to anyone. Just a qualified observer with a camera, a hookah system, and eyes that have been paying attention to what's below the surface for decades. Arizona's contribution to understanding one of the planet's most vital and endangered ecosystems — one anchorage at a time.</p>
+
+    <div class="pull-quote reveal">Arizona doesn't have a coastline. The Rim Run Caribe is Arizona's coastline — 700 miles of the most spectacular reef system on earth, documented from 24 inches of draft.</div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">Why</div>
     <h2 class="serif reveal">Built to Impress <em>One Person.</em></h2>
@@ -173,15 +224,13 @@ p+p{margin-top:1.2rem;}
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     WHAT IT IS
-═══════════════════════════════════════ -->
-<section class="bg-midnight border-bottom-gold">
+<!-- WHAT IT IS -->
+<section class="bg-deep border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">What It Is</div>
     <h2 class="serif reveal">The Caribbean Circuit. <em>Eleven Countries. One Loop.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">Rim Run Caribe&#8482; is the Caribbean arm of the Blue Rim 5&#8482; expedition — a round-trip circuit from Puerto Aventuras south through seven Central American countries, into Colombia's Caribbean coast, and out to the Dutch ABC Islands of Aruba, Bonaire, and Cura&ccedil;ao before the return. Eleven countries. One unbroken loop. Every significant reef system on the route documented.</p>
+    <p class="reveal">Rim Run Caribe is the Caribbean arm of the Blue Rim 5 expedition — a round-trip circuit from Puerto Aventuras south through seven Central American countries, into Colombia's Caribbean coast, and out to the Dutch ABC Islands of Aruba, Bonaire, and Cura&ccedil;ao before the return. Eleven countries. One unbroken loop. Every significant reef system on the route documented.</p>
     <p class="reveal">This is not a recreational sailing trip with scientific branding bolted on. It is a structured coastal expedition executed from a small catamaran by someone who spent years in environments where there is no margin for sloppiness and no one else to call. Every government fisheries authority is treated as a partner. Every coastal community is entered as a guest who intends to give back more than they take.</p>
     <div class="infobox reveal">
       <div class="infobox-label">Weather Rule — Hard</div>
@@ -189,14 +238,12 @@ p+p{margin-top:1.2rem;}
     </div>
   </div>
   <div class="container-wide reveal" style="margin-top:3rem;">
-    <img src="https://catamarandan.org/anchor2.jpg" alt="Anchor down — the Rim Run way" class="img-banner"/>
+    <img src="anchor2.jpg" alt="Anchor down — the Rim Run way" class="img-banner"/>
     <p class="img-caption">Anchor Down — The Rim Run Way</p>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     4 TIDES CANTINA
-═══════════════════════════════════════ -->
+<!-- 4 TIDES CANTINA -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container-wide">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="reveal">
@@ -216,14 +263,12 @@ p+p{margin-top:1.2rem;}
       <p class="reveal">Every expedition needs a bar. This one was named at Turnagain Arm, Alaska — one of the most geologically dramatic stretches of water in the world, and the place where the Alaska to San Diego run found its rhythm.</p>
       <p class="reveal">Turnagain Arm got its name in 1778 when William Bligh — sailing master for Captain James Cook, later infamous for the Bounty mutiny — was sent to survey the inlet looking for the Northwest Passage. He had to turn around. Twice. He named it Turnagain in exasperation. The arm generates the largest tides in the United States — up to 40 feet — and twice a day those tides collide in the narrow channel and produce one of the largest tidal bore waves on earth: a wall of water up to 10 feet high, moving at up to 15 miles per hour, stretching the full width of the inlet. Local surfers ride it for miles. Harbor seals ride it in. Beluga whales follow.</p>
       <p class="reveal">Four tides. Two bores a day. The same water, returning. That's the bar. Named at the place where Cook had to turn around — because this expedition doesn't.</p>
-      <div class="pull-quote reveal">"Better Beachy Than Bitchy&#8482;" &mdash; Anchor down. Drinks up.</div>
+      <div class="pull-quote reveal">"Better Beachy Than Bitchy&#174;" &mdash; Anchor down. Drinks up.</div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     THE CIRCUIT — 11 COUNTRIES
-═══════════════════════════════════════ -->
+<!-- THE CIRCUIT — 11 COUNTRIES -->
 <section class="bg-deep border-bottom-gold">
   <div class="container-wide">
     <div class="container" style="margin-bottom:2rem;">
@@ -233,7 +278,7 @@ p+p{margin-top:1.2rem;}
       <p class="reveal">From Mexico's Yucat&aacute;n south through Central America, into Colombia's Caribbean coast, and out to the ABC Islands — 2,000+ nautical miles, multiple reef systems, and some of the most scientifically significant and least-surveyed waters in the western hemisphere. The same loop every year, refined each season. No leg hurried. No community passed without a genuine attempt to understand what they know and what the expedition can contribute.</p>
     </div>
     <div class="reveal" style="margin:0 0 4px;">
-      <img src="https://catamarandan.org/bluerim5.png" alt="Rim Run Caribe&#8482; circuit" style="max-width:420px;margin:0 auto;opacity:0.88;display:block;"/>
+      <img src="bluerim5.png" alt="Rim Run Caribe circuit" style="max-width:420px;margin:0 auto;opacity:0.88;display:block;"/>
     </div>
     <div class="container" style="margin-top:2rem;">
       <table class="route-table reveal">
@@ -242,7 +287,7 @@ p+p{margin-top:1.2rem;}
         </thead>
         <tbody>
           <tr><td>&#127474;&#127485; Mexico</td><td>Puerto Aventuras &middot; Cozumel &middot; Xcalak &middot; Banco Chinchorro</td><td>~30</td><td>Northern hub — staging, world-class wall diving, largest coral atoll in the Northern Hemisphere</td></tr>
-          <tr><td>&#127463;&#127487; Belize</td><td>Ambergris &middot; Turneffe &middot; Lighthouse Reef &middot; Blue Hole &middot; Glover's &middot; South Water &middot; Placencia</td><td>~117</td><td>World's 2nd largest barrier reef — the heart of the circuit</td></tr>
+          <tr><td>&#127463;&#127487; Belize</td><td>Ambergris &middot; Turneffe &middot; Lighthouse Reef &middot; Blue Hole &middot; Glover's &middot; South Water &middot; Placencia</td><td>~117</td><td>World's 2nd largest barrier reef — the heart of the Mesoamerican Reef system</td></tr>
           <tr><td>&#127468;&#127481; Guatemala</td><td>Livingston &middot; R&iacute;o Dulce &middot; Lake Izabal</td><td>~35</td><td>Most stunning inland waterway in the Americas — Q'eqchi' Maya oral traditions</td></tr>
           <tr><td>&#127469;&#127475; Honduras</td><td>Cayos Cochinos &middot; Utila &middot; Roat&aacute;n &middot; Guanaja</td><td>~80</td><td>Bay Islands — whale sharks, 100+ ft visibility, Gar&iacute;funa maritime knowledge</td></tr>
           <tr><td>&#127475;&#127470; Nicaragua</td><td>Big Corn Island &middot; Little Corn Island &middot; Pearl Cays</td><td>~29</td><td>Essentially unsurveyed — Miskito reef knowledge still intact</td></tr>
@@ -262,33 +307,31 @@ p+p{margin-top:1.2rem;}
 <div class="country-strip">
   <div class="container-wide">
     <p class="country-label">&#127474;&#127485; Mexico — Yucat&aacute;n &bull; Cozumel &bull; Banco Chinchorro</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/mexico1.jpg" alt="Cozumel reef, Mexico"/><img src="https://catamarandan.org/mexico2.jpg" alt="Banco Chinchorro, Mexico"/><img src="https://catamarandan.org/mexico3.jpg" alt="Yucat&aacute;n coast, Mexico"/></div>
+    <div class="img-trio reveal"><img src="mexico1.jpg" alt="Cozumel reef, Mexico"/><img src="mexico2.jpg" alt="Banco Chinchorro, Mexico"/><img src="mexico3.jpg" alt="Yucat&aacute;n coast, Mexico"/></div>
     <p class="country-label">&#127463;&#127487; Belize — Barrier Reef &bull; Blue Hole &bull; Glover's Reef</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/belizelight2.jpg" alt="Lighthouse Reef, Belize"/><img src="https://catamarandan.org/nice.jpg" alt="Belize coastal sailing"/><img src="https://catamarandan.org/belizeglovers2.jpg" alt="Glover's Reef, Belize"/></div>
+    <div class="img-trio reveal"><img src="belizelight2.jpg" alt="Lighthouse Reef, Belize"/><img src="nice.jpg" alt="Belize coastal sailing"/><img src="belizeglovers2.jpg" alt="Glover's Reef, Belize"/></div>
     <p class="country-label">&#127468;&#127481; Guatemala — R&iacute;o Dulce &bull; Lake Izabal &bull; Livingston</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/guatemala1.jpg" alt="R&iacute;o Dulce, Guatemala"/><img src="https://catamarandan.org/guatemala2.jpg" alt="Lake Izabal, Guatemala"/><img src="https://catamarandan.org/guatemala3.jpg" alt="Livingston, Guatemala"/></div>
+    <div class="img-trio reveal"><img src="guatemala1.jpg" alt="R&iacute;o Dulce, Guatemala"/><img src="guatemala2.jpg" alt="Lake Izabal, Guatemala"/><img src="guatemala3.jpg" alt="Livingston, Guatemala"/></div>
     <p class="country-label">&#127469;&#127475; Honduras — Bay Islands &bull; Roat&aacute;n &bull; Cayos Cochinos</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/hondroa1.jpg" alt="Roat&aacute;n reef, Honduras"/><img src="https://catamarandan.org/hondroa2.jpg" alt="Bay Islands, Honduras"/><img src="https://catamarandan.org/hondguan1.jpg" alt="Cayos Cochinos, Honduras"/></div>
+    <div class="img-trio reveal"><img src="hondroa1.jpg" alt="Roat&aacute;n reef, Honduras"/><img src="hondroa2.jpg" alt="Bay Islands, Honduras"/><img src="hondguan1.jpg" alt="Cayos Cochinos, Honduras"/></div>
     <p class="country-label">&#127475;&#127470; Nicaragua — Corn Islands &bull; Pearl Cays</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/nica1.jpg" alt="Big Corn Island, Nicaragua"/><img src="https://catamarandan.org/nica2.jpg" alt="Pearl Cays, Nicaragua"/><img src="https://catamarandan.org/nica3.jpg" alt="Little Corn Island, Nicaragua"/></div>
+    <div class="img-trio reveal"><img src="nica1.jpg" alt="Big Corn Island, Nicaragua"/><img src="nica2.jpg" alt="Pearl Cays, Nicaragua"/><img src="nica3.jpg" alt="Little Corn Island, Nicaragua"/></div>
     <p class="country-label">&#127464;&#127479; Costa Rica — Tortuguero &bull; Cahuita &bull; Puerto Viejo</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/costarica1.jpg" alt="Tortuguero, Costa Rica"/><img src="https://catamarandan.org/costarica2.jpg" alt="Cahuita reef, Costa Rica"/><img src="https://catamarandan.org/costarica3.jpg" alt="Puerto Viejo, Costa Rica"/></div>
+    <div class="img-trio reveal"><img src="costarica1.jpg" alt="Tortuguero, Costa Rica"/><img src="costarica2.jpg" alt="Cahuita reef, Costa Rica"/><img src="costarica3.jpg" alt="Puerto Viejo, Costa Rica"/></div>
     <p class="country-label">&#127477;&#127462; Panama — Bocas del Toro &bull; San Blas / Guna Yala</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/panama1.jpg" alt="San Blas Islands, Panama"/><img src="https://catamarandan.org/panama2.jpg" alt="Guna Yala, Panama"/><img src="https://catamarandan.org/panama3.jpg" alt="Bocas del Toro, Panama"/></div>
+    <div class="img-trio reveal"><img src="panama1.jpg" alt="San Blas Islands, Panama"/><img src="panama2.jpg" alt="Guna Yala, Panama"/><img src="panama3.jpg" alt="Bocas del Toro, Panama"/></div>
     <p class="country-label">&#127464;&#127476; Colombia — Cartagena &bull; Islas del Rosario &bull; Tayrona</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/colombia1.jpg" alt="Cartagena, Colombia"/><img src="https://catamarandan.org/colombia2.jpg" alt="Islas del Rosario, Colombia"/><img src="https://catamarandan.org/colombia3.jpg" alt="Tayrona, Colombia"/></div>
+    <div class="img-trio reveal"><img src="colombia1.jpg" alt="Cartagena, Colombia"/><img src="colombia2.jpg" alt="Islas del Rosario, Colombia"/><img src="colombia3.jpg" alt="Tayrona, Colombia"/></div>
     <p class="country-label">&#127462;&#127484; Aruba — Oranjestad &bull; Reef Diving &bull; Wrecks</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/aruba1.jpg" alt="Aruba reef diving"/><img src="https://catamarandan.org/aruba2.jpg" alt="Aruba shipwreck"/><img src="https://catamarandan.org/aruba3.jpg" alt="Aruba snorkeling"/></div>
+    <div class="img-trio reveal"><img src="aruba1.jpg" alt="Aruba reef diving"/><img src="aruba2.jpg" alt="Aruba shipwreck"/><img src="aruba3.jpg" alt="Aruba snorkeling"/></div>
     <p class="country-label">&#127463;&#127478; Bonaire — Klein Bonaire &bull; Shore Diving &bull; Lionfish Operations</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/bonaire1.jpg" alt="Bonaire reef snorkeling"/><img src="https://catamarandan.org/bonaire2.jpg" alt="Bonaire coral diving"/><img src="https://catamarandan.org/bonaire3.jpg" alt="Bonaire underwater reef"/></div>
+    <div class="img-trio reveal"><img src="bonaire1.jpg" alt="Bonaire reef snorkeling"/><img src="bonaire2.jpg" alt="Bonaire coral diving"/><img src="bonaire3.jpg" alt="Bonaire underwater reef"/></div>
     <p class="country-label">&#127464;&#127484; Cura&ccedil;ao — Willemstad &bull; Klein Cura&ccedil;ao &bull; Reef Wall</p>
-    <div class="img-trio reveal"><img src="https://catamarandan.org/cura1.jpg" alt="Cura&ccedil;ao reef"/><img src="https://catamarandan.org/cura2.jpg" alt="Cura&ccedil;ao snorkeling"/><img src="https://catamarandan.org/cura3.jpg" alt="Cura&ccedil;ao shipwreck"/></div>
+    <div class="img-trio reveal"><img src="cura1.jpg" alt="Cura&ccedil;ao reef"/><img src="cura2.jpg" alt="Cura&ccedil;ao snorkeling"/><img src="cura3.jpg" alt="Cura&ccedil;ao shipwreck"/></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     THE VESSEL
-═══════════════════════════════════════ -->
+<!-- THE VESSEL -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container-wide">
     <div class="two-col center">
@@ -297,7 +340,7 @@ p+p{margin-top:1.2rem;}
         <h2 class="serif reveal"><em>Shamrocket</em></h2>
         <div class="gold-rule reveal"></div>
         <p class="reveal">A Hobie Getaway catamaran — 17 feet of shoal-draft, wind-powered reef machine. Twenty-four inches of draft means Shamrocket goes places no keelboat can follow: inside the barrier reef, up against the caye, into the mangrove channel, onto the beach itself. Right up to where the people are. Where the stories live. Where the real knowledge is kept.</p>
-        <p class="reveal">Wind and solar only. Zero diesel. Zero carbon. The vessel is not a compromise — it is the philosophy made physical. Small boats. Real seamanship. Cultural access that larger vessels can only admire from a distance. Dive operations run on the Air Line by J Sink E160v2 hookah system — one diver to 60 feet, no tanks, no compressor, no fuel logistics. Clean, quiet, deployable at every stop on the circuit.</p>
+        <p class="reveal">Wind and solar only. Zero diesel. Zero carbon. The vessel is not a compromise — it is the philosophy made physical. Small boats. Real seamanship. Cultural access that larger vessels can only admire from a distance. Dive operations run on the Air Line by J Sink hookah system — one diver to 60 feet, no tanks, no compressor, no fuel logistics. Clean, quiet, deployable at every stop on the circuit.</p>
         <div class="cred-list reveal">
           <span class="cred-tag">Hobie Getaway</span>
           <span class="cred-tag">24" Draft</span>
@@ -309,22 +352,20 @@ p+p{margin-top:1.2rem;}
         <a href="shamrocket.html" class="btn-gold reveal">Full Platform Detail &rarr;</a>
       </div>
       <div class="reveal">
-        <img src="https://catamarandan.org/shamrocket.jpg" alt="Shamrocket — Hobie Getaway" class="img-solo"/>
+        <img src="shamrocket.jpg" alt="Shamrocket — Hobie Getaway" class="img-solo"/>
         <p class="img-caption">Shamrocket — Hobie Getaway &middot; 24" draft</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     REEF AWARENESS
-═══════════════════════════════════════ -->
+<!-- REEF AWARENESS -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">Reef Awareness</div>
     <h2 class="serif reveal">Eyes Open. <em>Every Dive. Every Day.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">The Rim Run Caribe&#8482; carries a reef awareness lens — not a science program with adventure attached, but an adventure expedition by someone who pays attention. Water conditions, coral health, species presence, human impact — all logged, all GPS-referenced, all photographed where it matters. No institutional obligations. No data commitments to anyone. Just a qualified observer with a camera, a hookah system, and decades of experience reading what he's seeing.</p>
+    <p class="reveal">The Rim Run Caribe carries a reef awareness lens — not a science program with adventure attached, but an adventure expedition by someone who pays attention. Water conditions, coral health, species presence, human impact — all logged, all GPS-referenced, all photographed where it matters. No institutional obligations. No data commitments to anyone. Just a qualified observer with a camera, a hookah system, and decades of experience reading what he's seeing.</p>
     <p class="reveal">On every dive where local law permits, the lionfish trident goes in. All removal events documented. These reefs are worth defending. The circuit provides a legitimate, sustained mechanism to do exactly that — stop by stop, year after year, at the same sites.</p>
     <div class="infobox reveal">
       <div class="infobox-label">The Operating Principle</div>
@@ -334,13 +375,13 @@ p+p{margin-top:1.2rem;}
 </section>
 
 <div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
-  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
-  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Rim Run Caribe&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+  <img src="better.png" alt="Better Beachy than Bitchy&#174;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Rim Run Caribe &bull; Catamaran Dan &bull; Nevado Raiders</p>
 </div>
 
 <footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
   <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Nevado Raiders, Shield Maiden, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). Better Beachy Than Bitchy&#174; is a registered trademark of Nevado Ranch Camp LLC. &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
 </footer>
 
@@ -357,7 +398,7 @@ document.body.classList.add('js-ready');
     toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
     nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
     document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
-    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>900)closeMenu();});
   }
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
@@ -368,4 +409,5 @@ document.body.classList.add('js-ready');
 </script>
 </body>
 </html>
+
 
