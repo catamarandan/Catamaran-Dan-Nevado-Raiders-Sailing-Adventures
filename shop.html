@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Shop | Expedition Artifacts &amp; Better Beachy Than Bitchy™ | Catamaran Dan</title>
+<title>Shop | Expedition Artifacts &amp; Better Beachy Than Bitchy&#174; | Catamaran Dan</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 :root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--veteran-red:#8b1a1a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
@@ -13,17 +13,20 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
+
+/* ── NAV ── */
 nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
-.nav-inner{max-width:1200px;margin:0 auto;padding:1rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;}
-.nav-links{display:flex;align-items:center;justify-content:center;gap:1rem 1.5rem;flex-wrap:wrap;}
-.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:center;min-height:52px;}
+.nav-links{display:flex;align-items:center;flex-wrap:nowrap;gap:0;}
+.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;display:block;}
 .nav-links a:hover{color:var(--gold);}
 .nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:2rem;top:50%;transform:translateY(-50%);z-index:1002;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:900px;margin:0 auto;}
 .container-wide{max-width:1140px;margin:0 auto;}
@@ -36,6 +39,7 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .bg-deep{background:var(--deep-ocean);}
 .border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
 .border-top-gold{border-top:1px solid rgba(201,168,76,0.12);}
+
 /* HERO */
 .hero{position:relative;min-height:58vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
 .hero-content{position:relative;z-index:2;max-width:780px;}
@@ -44,10 +48,30 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .hero h1 em{color:var(--gold);font-style:normal;display:block;}
 .hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1s forwards;}
 .hero-sub{font-size:clamp(1rem,2vw,1.2rem);font-style:italic;color:var(--parchment);opacity:0;animation:fadeUp 1s ease 1.1s forwards;}
+
 /* SHOP NAV */
 .shop-nav{background:var(--midnight);border-bottom:1px solid rgba(201,168,76,0.12);padding:1rem 2rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;}
 .shop-nav a{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--fog);transition:color 0.25s;}
 .shop-nav a:hover{color:var(--gold);}
+
+/* ARIZONA PRINT SECTION */
+.arizona-print-band{background:linear-gradient(135deg,rgba(26,46,68,0.4),rgba(10,15,26,0.95));border-bottom:2px solid rgba(201,168,76,0.2);padding:5rem 2rem 4rem;}
+.print-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;max-width:1100px;margin:0 auto 2.5rem;}
+.print-card{background:linear-gradient(160deg,rgba(14,77,110,0.14),rgba(10,15,26,0.8));border:1px solid rgba(201,168,76,0.28);padding:2.5rem 2.5rem 3rem;display:flex;flex-direction:column;transition:border-color 0.3s;}
+.print-card:hover{border-color:rgba(201,168,76,0.55);}
+.print-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:0.5rem;display:block;}
+.print-card h3{font-family:'Cinzel',serif;font-size:1.45rem;font-weight:600;color:var(--parchment);line-height:1.15;margin-bottom:0.3rem;}
+.print-card h3 em{color:var(--gold);font-style:normal;}
+.print-tagline{font-style:italic;color:var(--fog);font-size:0.97rem;margin-bottom:1.4rem;display:block;}
+.print-img-wrap{width:100%;background:#060d18;border:1px solid rgba(201,168,76,0.15);margin-bottom:1.6rem;overflow:hidden;}
+.print-img-wrap img{width:100%;height:auto;display:block;transition:transform 0.4s ease;}
+.print-card:hover .print-img-wrap img{transform:scale(1.02);}
+.print-features{list-style:none;margin:0 0 1.6rem;}
+.print-features li{font-family:'Josefin Sans',sans-serif;font-size:0.74rem;letter-spacing:0.08em;color:var(--fog);padding:0.38rem 0;border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:flex-start;gap:0.7rem;}
+.print-features li::before{content:'--';color:var(--gold);flex-shrink:0;}
+.print-price{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);display:block;margin-top:auto;padding-top:1.2rem;}
+.print-price-note{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:1.2rem;}
+
 /* ARTIFACT SECTION */
 .artifact-hero-band{background:linear-gradient(135deg,rgba(201,168,76,0.06),rgba(10,15,26,0.95));border-bottom:2px solid rgba(201,168,76,0.2);padding:5rem 2rem 4rem;}
 .artifact-intro{max-width:760px;margin:0 auto 3.5rem;text-align:center;}
@@ -58,31 +82,12 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .artifact-card h3{font-family:'Cinzel',serif;font-size:1.55rem;font-weight:600;color:var(--parchment);line-height:1.15;margin-bottom:0.3rem;}
 .artifact-card h3 em{color:var(--gold);font-style:normal;}
 .art-tagline{font-style:italic;color:var(--fog);font-size:0.97rem;margin-bottom:1.4rem;display:block;}
-
-/* ── ARTIFACT IMAGE WRAPPER ─────────────────────────────────────────────
-   No overflow:hidden. No absolute positioning. CSS grid stacks both images
-   in the same cell — front visible, back hidden, swap on hover.
-──────────────────────────────────────────────────────────────────────── */
-.artifact-img-wrap{
-  width:100%;
-  background:#060d18;
-  border:1px solid rgba(201,168,76,0.1);
-  margin-bottom:1.6rem;
-  display:grid;
-}
-.artifact-img-wrap img{
-  grid-area:1/1;
-  width:100%;
-  height:auto;
-  display:block;
-  transition:opacity 0.5s ease;
-}
-.artifact-img-wrap img.img-front{ opacity:1; }
-.artifact-img-wrap img.img-back{  opacity:0; }
-
-.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-front{ opacity:0; }
-.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-back{  opacity:1; }
-
+.artifact-img-wrap{width:100%;background:#060d18;border:1px solid rgba(201,168,76,0.1);margin-bottom:1.6rem;display:grid;}
+.artifact-img-wrap img{grid-area:1/1;width:100%;height:auto;display:block;transition:opacity 0.5s ease;}
+.artifact-img-wrap img.img-front{opacity:1;}
+.artifact-img-wrap img.img-back{opacity:0;}
+.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-front{opacity:0;}
+.artifact-card:not(.no-flip-card):hover .artifact-img-wrap img.img-back{opacity:1;}
 .img-flip-hint{font-family:'Josefin Sans',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.6);display:block;text-align:right;padding:0.3rem 0 0.8rem;}
 .art-features{list-style:none;margin:0 0 1.6rem;}
 .art-features li{font-family:'Josefin Sans',sans-serif;font-size:0.74rem;letter-spacing:0.08em;color:var(--fog);padding:0.38rem 0;border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:flex-start;gap:0.7rem;}
@@ -93,6 +98,7 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;transition:all 0.3s;}
 .btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
 .btn-gold-full{display:block;width:100%;text-align:center;}
+
 /* BUNDLE */
 .bundle-box{background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(10,15,26,0.9));border:2px solid rgba(201,168,76,0.45);padding:3rem 3.5rem;margin:2.5rem auto 0;max-width:1100px;position:relative;text-align:center;}
 .bundle-box::before{content:'FOUNDING CIRCLE -- COMPLETE SET';position:absolute;top:-0.72rem;left:50%;transform:translateX(-50%);background:var(--deep-ocean);padding:0 1.2rem;font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;white-space:nowrap;}
@@ -106,9 +112,11 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .bundle-price{font-family:'Cinzel',serif;font-size:clamp(2.4rem,5vw,3.4rem);color:var(--gold);display:block;line-height:1;}
 .bundle-save{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--aqua);display:block;margin:0.4rem 0 0.8rem;}
 .bundle-vet{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.1em;color:#c47a7a;padding:0.45rem 1.2rem;border:1px solid rgba(139,26,26,0.4);background:rgba(139,26,26,0.1);display:inline-block;margin-bottom:1.4rem;}
+
 /* INFOBOX */
 .infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2rem 2.5rem;margin:2rem auto 0;max-width:1100px;position:relative;}
 .infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+
 /* APPAREL */
 .coming-soon-banner{background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(14,77,110,0.15));border:1px solid rgba(201,168,76,0.25);padding:1.2rem 2rem;text-align:center;margin-bottom:3rem;}
 .coming-soon-banner p{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
@@ -156,17 +164,21 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 .footer-contact a{color:var(--aqua);}
 .footer-legal{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.06em;color:var(--text-dim);opacity:0.55;line-height:1.8;margin-top:1rem;max-width:800px;margin-left:auto;margin-right:auto;}
 .footer-legal a{color:var(--text-dim);}
-@media(max-width:768px){
-  .nav-inner{justify-content:flex-start;padding:0.8rem 1.5rem;min-height:52px;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:99;}
+
+@media(max-width:900px){
+  .nav-inner{justify-content:flex-end;position:relative;}
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0;z-index:999;}
   .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a{display:block;width:100%;padding:0.7rem 1.5rem;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
   .nav-links a:last-child{border-bottom:none;}
-  .nav-toggle{display:flex;right:1.5rem;}
-  section{padding:4rem 1.5rem;}
+  .print-grid{grid-template-columns:1fr;}
   .artifact-grid{grid-template-columns:1fr;}
   .bundle-box{padding:2rem 1.5rem;}
   .bundle-includes{gap:1rem;}
+}
+@media(max-width:768px){
+  section{padding:4rem 1.5rem;}
   .product-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));}
   .filter-btn{font-size:0.62rem;padding:0.3rem 0.75rem;}
   .shop-nav{gap:1rem;}
@@ -181,14 +193,14 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <div class="nav-links" id="nav-links">
       <a href="index.html">Home</a>
       <a href="rimrun.html">Rim Run Expedition</a>
-      <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
-      <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+      <a href="rimrun-caribe.html">Rim Run Caribe</a>
+      <a href="rimrun-pac.html">Rim Run Pac</a>
       <a href="shamrocket.html">Shamrocket</a>
       <a href="lionfish.html">Lion Hunter</a>
       <a href="shieldmaiden.html">Shield Maiden</a>
       <a href="storytelling.html">Storytellers</a>
-      <a href="expedition.html">The Expedition Log</a>
-      <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+      <a href="expedition.html">Expedition Log</a>
+      <a href="thelivingsaga.html">The Living Saga</a>
       <a href="gallery.html">Gallery</a>
       <a href="shop.html" class="active">Shop</a>
       <a href="about.html">About</a>
@@ -200,18 +212,91 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-eyebrow">Expedition Artifacts &bull; Apparel &bull; Nevado Ranch Camp LLC</div>
+    <div class="hero-eyebrow">Expedition Artifacts &bull; Prints &bull; Apparel &bull; Nevado Ranch Camp LLC</div>
     <h1>Wear the Mission. <em>Fund the Voyage.</em></h1>
     <div class="hero-rule"></div>
-    <p class="hero-sub">Handcrafted Navajo silver &amp; turquoise expedition artifacts. Better Beachy Than Bitchy&#174; apparel. Every purchase supports Arizona veterans.</p>
+    <p class="hero-sub">Handcrafted Navajo silver &amp; turquoise expedition artifacts. The Only Arizona print collection. Better Beachy Than Bitchy&#174; apparel. Every purchase supports Arizona veterans.</p>
   </div>
 </section>
 
 <!-- SHOP ANCHOR NAV -->
 <div class="shop-nav">
+  <a href="#arizona-prints">&#9670; Only Arizona Prints</a>
   <a href="#artifacts">&#9670; Expedition Artifacts</a>
   <a href="#apparel">&#9670; Better Beachy Than Bitchy&#174;</a>
   <a href="#notify">&#9670; Get Notified</a>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ONLY ARIZONA PRINTS
+═══════════════════════════════════════ -->
+<div id="arizona-prints" class="arizona-print-band">
+  <div class="artifact-intro reveal">
+    <div class="section-label" style="justify-content:center;">Only Arizona — Print Collection</div>
+    <h2 class="serif">Arizona Doesn't Have a Coastline. <em>I'm Giving It One.</em></h2>
+    <div class="gold-rule" style="margin:1.2rem auto 1.6rem;"></div>
+    <p style="color:var(--fog);">The image that started it all. The Arizona state flag sunburst fills the sky. Nevado Raiders on the sail. A Hobie catamaran flying at speed along a tropical coastline. This is Arizona going to sea — printed on premium canvas or archival photo paper, built to hang on a wall and start a conversation for decades.</p>
+    <p style="color:var(--fog);margin-top:1rem;">Two formats. One statement. From the desert to the deep blue. Only Arizona.</p>
+  </div>
+
+  <div class="print-grid reveal">
+
+    <!-- PORTRAIT PRINT -->
+    <div class="print-card">
+      <span class="print-label">Wall Print &bull; Portrait Format &bull; Limited Edition</span>
+      <h3>Only Arizona — <em>Portrait</em></h3>
+      <span class="print-tagline">The wall version. Built to stop anyone who walks into the room.</span>
+      <div class="print-img-wrap">
+        <img src="only_arizona_print_quality_portrait.png" alt="Only Arizona — Portrait Wall Print"/>
+      </div>
+      <ul class="print-features">
+        <li>Portrait orientation — ideal for wall display</li>
+        <li>Arizona state flag sunburst fills the entire background</li>
+        <li>Nevado Raiders on sail — Arizona identity at full speed</li>
+        <li>Premium canvas gallery wrap or archival photo paper</li>
+        <li>Recommended size: 24 x 36 inches — no frame required on canvas</li>
+        <li>Also available: 16x24 and 11x17 for gifting</li>
+        <li>Rich gold Cinzel typography — three-line headline reads from across the room</li>
+        <li>Certificate of authenticity included</li>
+        <li>Individually numbered limited edition</li>
+      </ul>
+      <span class="art-vet-badge">&#9670; A portion of every sale supports Arizona Veterans</span>
+      <span class="print-price">Price TBD</span>
+      <span class="print-price-note">Canvas gallery wrap &bull; Archival photo paper &bull; Multiple sizes available</span>
+      <a href="mailto:nevadoraiders@gmail.com?subject=Only%20Arizona%20Portrait%20Print%20%E2%80%94%20Inquiry" class="btn-gold btn-gold-full">Inquire About This Print &rarr;</a>
+    </div>
+
+    <!-- LANDSCAPE PRINT -->
+    <div class="print-card">
+      <span class="print-label">Wall Print &bull; Landscape Format &bull; Limited Edition</span>
+      <h3>Only Arizona — <em>Landscape</em></h3>
+      <span class="print-tagline">The wide version. Event backdrop. Statement wall. Pre-launch centerpiece.</span>
+      <div class="print-img-wrap">
+        <img src="only_arizona_print_quality_landscape.png" alt="Only Arizona — Landscape Wall Print"/>
+      </div>
+      <ul class="print-features">
+        <li>Landscape orientation — ideal for wide walls, offices, and event spaces</li>
+        <li>Arizona state flag sunburst across the full panoramic sky</li>
+        <li>Nevado Raiders on sail — Arizona identity at full speed</li>
+        <li>Premium canvas gallery wrap or archival photo paper</li>
+        <li>Recommended size: 36 x 24 inches — no frame required on canvas</li>
+        <li>Also available: 24x16 and 20x13 for desk or smaller walls</li>
+        <li>Ideal for pre-launch event backdrop at larger format (4x6 ft)</li>
+        <li>Certificate of authenticity included</li>
+        <li>Individually numbered limited edition</li>
+      </ul>
+      <span class="art-vet-badge">&#9670; A portion of every sale supports Arizona Veterans</span>
+      <span class="print-price">Price TBD</span>
+      <span class="print-price-note">Canvas gallery wrap &bull; Archival photo paper &bull; Multiple sizes available</span>
+      <a href="mailto:nevadoraiders@gmail.com?subject=Only%20Arizona%20Landscape%20Print%20%E2%80%94%20Inquiry" class="btn-gold btn-gold-full">Inquire About This Print &rarr;</a>
+    </div>
+
+  </div>
+
+  <div class="infobox reveal" style="max-width:1100px;margin:0 auto;">
+    <div class="infobox-label">About the Only Arizona Collection</div>
+    <p style="color:var(--fog);">Every print in the Only Arizona collection is individually numbered and includes a certificate of authenticity. Canvas gallery wraps are production-ready and ship directly to your door. Large-format event prints (4x6 ft and larger) are available by special order for pre-launch events, corporate gifting, and official presentations. Contact <a href="mailto:nevadoraiders@gmail.com" style="color:var(--aqua);">nevadoraiders@gmail.com</a> for sizing, quantity, and pricing.</p>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -227,7 +312,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 
   <div class="artifact-grid reveal">
 
-    <!-- MEDALLION — hover flips to back -->
+    <!-- MEDALLION -->
     <div class="artifact-card">
       <span class="art-label">Men's Artifact &bull; Explorer Totem</span>
       <h3>Rim Run <em>Explorer Necklace</em></h3>
@@ -260,7 +345,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <a href="mailto:nevadoraiders@gmail.com?subject=Rim%20Run%20Medallion%20%E2%80%94%20Reserve%20My%20Saga%20Mark" class="btn-gold btn-gold-full">Reserve Your Saga Mark &rarr;</a>
     </div>
 
-    <!-- BRACELET — single image, no flip -->
+    <!-- BRACELET -->
     <div class="artifact-card no-flip-card">
       <span class="art-label">Women's Artifact &bull; Explorer Bracelet</span>
       <h3>Rim Run <em>Explorer Bracelet</em></h3>
@@ -382,7 +467,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="heather-gray"><div class="product-img"><img src="hoodie grey male.png" alt="Unisex Pullover Hoodie Heather Gray" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Heather Gray</span></div><div class="product-name">Unisex Hoodie — Heather Gray</div><p class="product-desc">The everyday essential. Heather gray softens the attitude just enough.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div></div></div>
       <div class="product-card" data-cat="hoodie" data-style="unisex-hoodie" data-color="teal"><div class="product-img"><img src="hoodie teal male.png" alt="Unisex Pullover Hoodie Teal" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Teal</span></div><div class="product-name">Unisex Hoodie — Teal</div><p class="product-desc">The ocean in a hoodie. Teal with white print — the color of clear Caribbean water.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X · 3X</span><span class="product-status">Coming Soon</span></div></div></div>
       <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="white"><div class="product-img"><img src="hoodie white female.png" alt="Women's Pullover Hoodie Classic White" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Classic White</span></div><div class="product-name">Women's Hoodie — White</div><p class="product-desc">Women's cut pullover in classic white. The attitude, the fit, the finish.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div></div></div>
-      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="navy"><div class="product-img"><img src="hoodie navy female.png" alt="Women's Pullover Hoodie Deep Navy" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Unisex</span><span class="tag tag-color">Deep Navy</span></div><div class="product-name">Women's Hoodie — Deep Navy</div><p class="product-desc">Deep navy, women's cut. Gold print on nautical ground.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div></div></div>
+      <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="navy"><div class="product-img"><img src="hoodie navy female.png" alt="Women's Pullover Hoodie Deep Navy" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Deep Navy</span></div><div class="product-name">Women's Hoodie — Deep Navy</div><p class="product-desc">Deep navy, women's cut. Gold print on nautical ground.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div></div></div>
       <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="black"><div class="product-img"><img src="hoodie black female.png" alt="Women's Pullover Hoodie Black" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Black</span></div><div class="product-name">Women's Hoodie — Black</div><p class="product-desc">Black, women's cut, gold print. Wear it on the boat, wear it in the city.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div></div></div>
       <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="heather-gray"><div class="product-img"><img src="hoodie grey female.png" alt="Women's Pullover Hoodie Heather Gray" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Heather Gray</span></div><div class="product-name">Women's Hoodie — Heather Gray</div><p class="product-desc">Effortless, versatile — the go-everywhere coastal essential.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div></div></div>
       <div class="product-card" data-cat="hoodie" data-style="womens-hoodie" data-color="teal"><div class="product-img"><img src="hoodie teal female.png" alt="Women's Pullover Hoodie Teal" loading="lazy"/></div><div class="product-info"><div class="product-tags"><span class="tag tag-category">Hoodie</span><span class="tag tag-style">Women's</span><span class="tag tag-color">Teal</span></div><div class="product-name">Women's Hoodie — Teal</div><p class="product-desc">Teal, women's cut. Caribbean water color, coastal confidence.</p><div class="product-meta"><span class="product-sizes">XS · S · M · L · XL · 2X</span><span class="product-status">Coming Soon</span></div></div></div>
@@ -411,16 +496,17 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   <div class="container">
     <div class="infobox reveal">
       <div class="infobox-label">Brand &amp; IP Notice</div>
-      <p style="color:var(--fog);font-size:0.95rem;">BETTER BEACHY THAN BITCHY&#174; is a trademark of Nevado Ranch Camp LLC (Arizona Entity ID 23742753), pending registration in International Class 025 (apparel) and International Class 045 (licensing of advertising slogans). Rim Run Expedition Artifacts are proprietary designs of Nevado Ranch Camp LLC. All rights reserved. Unauthorized use is prohibited.</p>
+      <p style="color:var(--fog);font-size:0.95rem;">BETTER BEACHY THAN BITCHY&#174; is a registered trademark of Nevado Ranch Camp LLC (Arizona Entity ID 23742753), filed in International Class 025 (apparel) and International Class 045 (licensing). Rim Run Expedition Artifacts and the Only Arizona print collection are proprietary designs of Nevado Ranch Camp LLC. All rights reserved. Unauthorized reproduction or use is prohibited.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-logo">Rim Run Expedition &bull; Better Beachy Than Bitchy&#174; &bull; Catamaran Dan</div>
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);opacity:0.7;margin-bottom:1rem;">From the Desert to the Deep Blue &mdash; Only Arizona</div>
   <div class="footer-tagline">"Wear the attitude. Own the coast."</div>
-  <div class="footer-contact"><a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a> &nbsp;&bull;&nbsp; White Mountains, AZ &nbsp;&bull;&nbsp; www.catamarandan.org</div>
-  <div class="footer-legal">&copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#174;, and all associated marks are trademarks or proprietary designations of Nevado Ranch Camp LLC. &nbsp;|&nbsp;<a href="legal.html">Legal &amp; IP</a></div>
+  <div class="footer-contact"><a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a> &nbsp;&bull;&nbsp; White Mountains, AZ &nbsp;&bull;&nbsp; catamarandan.org</div>
+  <div class="footer-legal">&copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run, Rim Run Caribe, Rim Run Pac, Nevado Raiders, Shield Maiden, Rim Runner, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC. Better Beachy Than Bitchy&#174; is a registered trademark of Nevado Ranch Camp LLC. &nbsp;|&nbsp;<a href="legal.html">Legal &amp; IP</a></div>
 </footer>
 
 <script>
@@ -439,6 +525,7 @@ document.addEventListener('DOMContentLoaded',function(){
     toggle.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();navLinks.classList.toggle('open');toggle.classList.toggle('open');});
     nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navLinks.classList.remove('open');toggle.classList.remove('open');});});
     document.addEventListener('click',function(e){if(!nav.contains(e.target)){navLinks.classList.remove('open');toggle.classList.remove('open');}});
+    window.addEventListener('resize',function(){if(window.innerWidth>900){navLinks.classList.remove('open');toggle.classList.remove('open');}});
   }
   var els=document.querySelectorAll('.reveal');
   if(els.length&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});els.forEach(function(el){io.observe(el);});}else{els.forEach(function(el){el.classList.add('visible');});}
