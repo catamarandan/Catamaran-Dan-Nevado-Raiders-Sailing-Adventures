@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Only Arizona | Blue Rim 5 Expedition Theme Song | Catamaran Dan</title>
+  <meta name="description" content="Only Arizona — the official theme song of the Blue Rim 5 expedition. Arizona doesn't have a coastline. I'm giving it one. From the desert to the deep blue."/>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+
+/* ── NAV ── */
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:center;min-height:52px;}
+.nav-links{display:flex;align-items:center;flex-wrap:nowrap;gap:0;}
+.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;display:block;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
+.rune-overlay{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;}
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+.hero-arizona{font-family:'Cinzel',serif;font-size:clamp(1.2rem,3vw,2rem);font-weight:600;color:var(--gold);letter-spacing:0.04em;line-height:1.3;margin-bottom:0.8rem;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1;letter-spacing:0.04em;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.3em;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
+.hero h1 em{color:var(--gold);font-style:normal;}
+.hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1.1s forwards;}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);opacity:0;max-width:640px;margin:0 auto 2rem;animation:fadeUp 1s ease 1.2s forwards;}
+.hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.5s forwards;}
+
+/* ── IMAGE ── */
+.arizona-image-wrap{max-width:480px;margin:0 auto;position:relative;}
+.arizona-image-wrap img{width:100%;display:block;box-shadow:0 0 60px rgba(201,168,76,0.15);}
+
+/* ── LYRICS ── */
+.lyrics-wrap{max-width:680px;margin:0 auto;}
+.lyric-section-label{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--aqua);margin:2.5rem 0 0.5rem;display:block;}
+.lyric-note{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;color:var(--text-dim);font-style:italic;margin-bottom:0.8rem;display:block;}
+.lyric-line{font-family:'EB Garamond',Georgia,serif;font-size:1.15rem;color:var(--parchment);line-height:1.6;display:block;}
+.lyric-line.chorus{color:var(--gold);font-size:1.2rem;}
+.lyric-line.bridge{font-style:italic;color:var(--fog);}
+.lyric-line.title-drop{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);text-align:center;display:block;margin:1.5rem 0;letter-spacing:0.08em;}
+.lyric-line.outro{font-style:italic;color:var(--text-dim);}
+.lyric-spacer{display:block;height:1rem;}
+
+/* ── ARRANGEMENT ── */
+.arrangement-grid{display:grid;grid-template-columns:auto 1fr;gap:0;margin:2rem 0;}
+.arr-time{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;color:var(--gold);padding:0.9rem 1.5rem 0.9rem 0;border-right:1px solid rgba(201,168,76,0.2);white-space:nowrap;vertical-align:top;}
+.arr-desc{padding:0.9rem 0 0.9rem 1.5rem;border-bottom:1px solid rgba(201,168,76,0.06);}
+.arr-section{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--parchment);display:block;margin-bottom:0.2rem;}
+.arr-note{font-size:0.92rem;color:var(--fog);}
+
+/* ── COPYRIGHT ── */
+.copyright-box{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2rem 2.5rem;margin:2rem 0;position:relative;}
+.copyright-box-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
+.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
+.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:0.5rem;}
+.footer-arizona{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);opacity:0.7;margin-bottom:1.5rem;}
+.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
+.footer-contact a{color:var(--aqua);}
+.footer-legal{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.06em;color:var(--text-dim);opacity:0.55;line-height:1.8;margin-top:1rem;max-width:800px;margin-left:auto;margin-right:auto;}
+
+@media(max-width:900px){
+  .nav-inner{justify-content:flex-end;position:relative;}
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0;z-index:999;}
+  .nav-links.open{display:flex;}
+  .nav-links a{display:block;width:100%;padding:0.7rem 1.5rem;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .arrangement-grid{grid-template-columns:1fr;}
+  .arr-time{border-right:none;border-bottom:1px solid rgba(201,168,76,0.2);padding:0.5rem 0;}
+  .arr-desc{padding:0.5rem 0 1rem;}
+}
+@media(max-width:768px){section{padding:4rem 1.5rem;}}
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="rimrun.html">Rim Run Expedition</a>
+      <a href="rimrun-caribe.html">Rim Run Caribe</a>
+      <a href="rimrun-pac.html">Rim Run Pac</a>
+      <a href="shamrocket.html">Shamrocket</a>
+      <a href="lionfish.html">Lion Hunter</a>
+      <a href="shieldmaiden.html">Shield Maiden</a>
+      <a href="storytelling.html">Storytellers</a>
+      <a href="expedition.html">Expedition Log</a>
+      <a href="thelivingsaga.html">The Living Saga</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal &amp; IP</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="rune-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Blue Rim 5 &bull; Official Expedition Theme &bull; Copyright 2026 Nevado Ranch Camp LLC</div>
+    <div class="hero-arizona">Arizona doesn't have a coastline — I'm giving it one.</div>
+    <h1>Only <em>Arizona</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">The official theme song of the Blue Rim 5 expedition. Written in the White Mountains of Arizona on a Sunday morning. Copyrighted. Arizona-born. Bound for the sea.</p>
+    <div class="hero-tagline">From the Desert to the Deep Blue &bull; Only Arizona</div>
+  </div>
+</section>
+
+<!-- IMAGE -->
+<section class="bg-midnight border-bottom-gold" style="padding:4rem 2rem;">
+  <div class="arizona-image-wrap reveal">
+    <img src="only_arizona_print_quality_portrait.png" alt="Only Arizona — Arizona doesn't have a coastline. I'm giving it one."/>
+  </div>
+</section>
+
+<!-- THE STORY -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Story</div>
+    <h2 class="serif reveal">A Song Born in the <em>High Desert.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Some songs arrive when you need them. "Only Arizona" arrived on a Sunday morning at Nevado Ranch, 6,500 feet up in the White Mountains of Arizona — in the middle of planning one of the most ambitious sailing expeditions ever attempted.</p>
+    <p class="reveal">The Blue Rim 5 is a 1,302-day journey through 31 countries aboard Shamrocket — a 17-foot Hobie Getaway catamaran departing Pensacola, Florida on November 1, 2026. The expedition runs through the Bahamas and Eastern Caribbean, the full Western Caribbean circuit along the Mesoamerican Reef, and down the Pacific coast of South America to Santiago, Chile — then north to Victoria, BC — then back to Panama where the only question left is what comes next.</p>
+    <p class="reveal">The expedition is built around one defiant idea: Arizona is one of the most beautiful and varied states in the union — sky islands, saguaro desert, red rock canyon country, ancient ruins, and one of the largest veteran populations in America. It has everything. Except a coastline. The Blue Rim 5 changes that. Every stop, every country, every reef, every waterfront bar across 31 countries — Arizona is there. The copper star of the state flag flies from Shamrocket's mast across every sea on the route.</p>
+    <div class="pull-quote reveal">"Only Arizona" is that story told in music — written to open a documentary, premiere at the pre-launch event in the Phoenix Valley, and eventually be recorded at anchor in the Caribbean with the expedition's own percussion aboard.</div>
+  </div>
+</section>
+
+<!-- LYRICS -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Song</div>
+    <h2 class="serif reveal">Only <em>Arizona</em></h2>
+    <div class="gold-rule reveal"></div>
+    <div class="lyrics-wrap reveal">
+
+      <span class="lyric-section-label">[Verse 1]</span>
+      <span class="lyric-note">Light guitar, kick drum enters</span>
+      <span class="lyric-line">Sunrise burnin' on a desert line</span>
+      <span class="lyric-line">Dust in my boots, salt in my mind</span>
+      <span class="lyric-line">People said, "Boy, that sea ain't yours"</span>
+      <span class="lyric-line">But I've been hearin' breakers in canyon walls</span>
+      <span class="lyric-spacer"></span>
+      <span class="lyric-line">Copper star and a blood-red sky</span>
+      <span class="lyric-line">Heat like fire and a sailor's eye</span>
+      <span class="lyric-line">No shoreline here, but I swear it's true</span>
+      <span class="lyric-line">The ocean's been callin' me my whole life through</span>
+
+      <span class="lyric-section-label">[Pre-Chorus]</span>
+      <span class="lyric-note">Toms build</span>
+      <span class="lyric-line">From red rock roads to blue unknown</span>
+      <span class="lyric-line">Carryin' home where I roam</span>
+
+      <span class="lyric-section-label">[Chorus]</span>
+      <span class="lyric-note">Full drums, wide guitars</span>
+      <span class="lyric-line chorus">Arizona doesn't have a coastline</span>
+      <span class="lyric-line chorus">So I'm gonna draw one in my wake tonight</span>
+      <span class="lyric-line chorus">From the desert to the deep blue</span>
+      <span class="lyric-line chorus">Chasin' horizons brave men run to</span>
+      <span class="lyric-spacer"></span>
+      <span class="lyric-line chorus">Raise that flag where it shouldn't fly</span>
+      <span class="lyric-line chorus">Out where the sea meets a western sky</span>
+      <span class="lyric-line chorus">They ask me why… I just grin and say</span>
+      <span class="lyric-line chorus">Only Arizona finds this way</span>
+
+      <span class="lyric-section-label">[Verse 2]</span>
+      <span class="lyric-note">Pull back slightly</span>
+      <span class="lyric-line">Thirty-one flags and a thousand tides</span>
+      <span class="lyric-line">Storm front rollin' and the moon rides high</span>
+      <span class="lyric-line">Reef below and the stars above</span>
+      <span class="lyric-line">Out here fear and freedom fall in love</span>
+      <span class="lyric-spacer"></span>
+      <span class="lyric-line">Every mile is a story told</span>
+      <span class="lyric-line">Every scar turns the water gold</span>
+      <span class="lyric-line">Ain't no map for the road I'm on</span>
+      <span class="lyric-line">Just wind and faith till the break of dawn</span>
+
+      <span class="lyric-section-label">[Bridge]</span>
+      <span class="lyric-note">Strip drums — guitar + cello only. Intimate. Let it breathe.</span>
+      <span class="lyric-line bridge">They told me deserts don't belong at sea</span>
+      <span class="lyric-line bridge">That's alright… neither do I</span>
+      <span class="lyric-line bridge" style="font-weight:600;color:var(--parchment);">But here we are</span>
+
+      <span class="lyric-section-label">[Final Chorus]</span>
+      <span class="lyric-note">Full band, gang vocals. Band drops to silence before the title drop — voice alone.</span>
+      <span class="lyric-line chorus">Arizona doesn't have a coastline</span>
+      <span class="lyric-line chorus">But I'm givin' her one, one wave at a time</span>
+      <span class="lyric-line chorus">From the desert to the deep blue</span>
+      <span class="lyric-line chorus">Carryin' home in everything I do</span>
+      <span class="lyric-spacer"></span>
+      <span class="lyric-line chorus">Raise that flag where the wild winds blow</span>
+      <span class="lyric-line chorus">Further than the world says we should go</span>
+      <span class="lyric-line chorus">And when they ask who sails that far</span>
+      <span class="lyric-line chorus">Tell 'em son…</span>
+
+      <span class="lyric-line title-drop">Only Arizona</span>
+
+      <span class="lyric-section-label">[Outro]</span>
+      <span class="lyric-note">Gang vocals repeating, fading. Let it go slowly.</span>
+      <span class="lyric-line outro">Only Arizona…</span>
+      <span class="lyric-line outro">Only Arizona…</span>
+      <span class="lyric-line outro">Only Arizona…</span>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARRANGEMENT -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Arrangement</div>
+    <h2 class="serif reveal">The Production <em>Vision.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Total runtime approximately 3 minutes 40 seconds. A classic build — start sparse, earn every addition, peak at the final chorus, release in the outro. Nothing enters before it has been earned. Nothing stays past its welcome.</p>
+
+    <div class="arrangement-grid reveal">
+      <div class="arr-time">0:00 – 0:18</div>
+      <div class="arr-desc"><span class="arr-section">Intro</span><span class="arr-note">Low cello drone. Ocean sounds. Single acoustic guitar notes, sparse and deliberate. No drums. The sound of the desert meeting the water.</span></div>
+      <div class="arr-time">0:18 – 0:48</div>
+      <div class="arr-desc"><span class="arr-section">Verse 1</span><span class="arr-note">Light acoustic guitar enters fully. Kick drum joins quietly. Intimate — the voice of one person in a large landscape.</span></div>
+      <div class="arr-time">0:48 – 1:00</div>
+      <div class="arr-desc"><span class="arr-section">Pre-Chorus</span><span class="arr-note">Toms build. The timbau enters for the first time — low and rolling. Two lines that compress the entire expedition into a single idea.</span></div>
+      <div class="arr-time">1:00 – 1:35</div>
+      <div class="arr-desc"><span class="arr-section">Chorus</span><span class="arr-note">Full drums. Wide electric guitar. Bass locked in. Timbau and bongos driving underneath. The declaration lands here.</span></div>
+      <div class="arr-time">1:35 – 2:05</div>
+      <div class="arr-desc"><span class="arr-section">Verse 2</span><span class="arr-note">The band pulls back slightly. The lyric moves from the beginning of the journey to the middle of it — 31 flags, storm fronts, reef systems, fear and freedom at sea.</span></div>
+      <div class="arr-time">2:05 – 2:35</div>
+      <div class="arr-desc"><span class="arr-section">Bridge</span><span class="arr-note">Everything strips away. Guitar and cello only. Three lines. The pause before "But here we are" is the song's emotional center. Let it breathe.</span></div>
+      <div class="arr-time">2:35 – 3:20</div>
+      <div class="arr-desc"><span class="arr-section">Final Chorus</span><span class="arr-note">Full band returns at full power. Gang vocals. The band drops to near silence before "Only Arizona" — voice alone delivers the title, then the group carries the outro home.</span></div>
+      <div class="arr-time">3:20 – 3:40</div>
+      <div class="arr-desc"><span class="arr-section">Outro</span><span class="arr-note">"Only Arizona" repeating. Voices dropping out one by one. Cello and ocean sounds return underneath. The song ends where it began — on the water.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COPYRIGHT -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="copyright-box reveal">
+      <div class="copyright-box-label">Copyright & Ownership</div>
+      <p style="color:var(--fog);font-size:0.95rem;">"Only Arizona" — lyrics and composition — are the intellectual property of Daniel O. Roe / Nevado Ranch Camp LLC. Registered with the United States Copyright Office, Case #1-15195035931. All rights reserved. No reproduction, recording, arrangement, or public performance without written authorization from Nevado Ranch Camp LLC.</p>
+      <p style="color:var(--fog);font-size:0.95rem;margin-top:1rem;">Contact: <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a> &nbsp;&bull;&nbsp; 928-250-9763 &nbsp;&bull;&nbsp; PO Box 338, Vernon, AZ 85940</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Only Arizona &bull; Blue Rim 5 &bull; Catamaran Dan</div>
+  <div class="footer-tagline">"Arizona doesn't have a coastline — I'm giving it one."</div>
+  <div class="footer-arizona">From the Desert to the Deep Blue &mdash; Only Arizona</div>
+  <div class="footer-contact">
+    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
+    &nbsp;&bull;&nbsp; <a href="index.html">catamarandan.org</a>
+    &nbsp;&bull;&nbsp; <a href="legal.html">Legal &amp; IP</a>
+  </div>
+  <div class="footer-legal">&copy; <span id="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. "Only Arizona" lyrics and composition copyright Case #1-15195035931. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Nevado Raiders, Shield Maiden, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC. Better Beachy Than Bitchy&#174; is a registered trademark of Nevado Ranch Camp LLC.</div>
+</footer>
+
+<script>
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+document.body.classList.add('js-ready');
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+  function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>900)closeMenu();});
+  }
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+    els.forEach(function(el){obs.observe(el);});
+  }else{els.forEach(function(el){el.classList.add('visible');});}
+})();
+</script>
+</body>
+</html>
