@@ -65,11 +65,12 @@ h2.serif em{color:var(--gold);font-style:normal;}
 .print-tagline{font-style:italic;color:var(--fog);font-size:0.97rem;margin-bottom:1.4rem;display:block;}
 .print-img-wrap{width:100%;margin-bottom:1.6rem;}
 .framed-print{background:linear-gradient(145deg,#4b341c,#2b1d10);padding:18px;border:6px solid #7a5a2a;box-shadow:inset 0 0 0 2px rgba(201,168,76,0.35),0 12px 28px rgba(0,0,0,0.45);}
-.frame-inner{background:#f4f0e6;padding:14px;border:1px solid rgba(0,0,0,0.18);box-shadow:inset 0 0 12px rgba(0,0,0,0.08);}
-.frame-inner img{width:100%;height:100%;display:block;object-fit:contain;transition:transform 0.4s ease;}
-.framed-print.portrait-frame .frame-inner{aspect-ratio:2/3;}
-.framed-print.landscape-frame .frame-inner{aspect-ratio:3/2;}
-.print-card:hover .frame-inner img{transform:scale(1.02);}
+.frame-inner{background:#f4f0e6;border:1px solid rgba(0,0,0,0.18);box-shadow:inset 0 0 12px rgba(0,0,0,0.08);overflow:hidden;}
+.portrait-frame .frame-inner{aspect-ratio:2/3;padding:14px;}
+.portrait-frame img{width:100%;height:100%;object-fit:contain;display:block;transition:transform 0.4s ease;}
+.landscape-frame .frame-inner{aspect-ratio:16/10;padding:0;}
+.landscape-frame img{width:100%;height:100%;object-fit:cover;object-position:center 58%;display:block;transition:transform 0.4s ease;}
+.print-card:hover .framed-print img{transform:scale(1.02);}
 .print-features{list-style:none;margin:0 0 1.6rem;}
 .print-features li{font-family:'Josefin Sans',sans-serif;font-size:0.74rem;letter-spacing:0.08em;color:var(--fog);padding:0.38rem 0;border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:flex-start;gap:0.7rem;}
 .print-features li::before{content:'--';color:var(--gold);flex-shrink:0;}
@@ -280,7 +281,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <span class="print-tagline">The wide version. Event backdrop. Statement wall. Pre-launch centerpiece.</span>
       <div class="print-img-wrap framed-print landscape-frame">
         <div class="frame-inner">
-          <img src="only arizona print quality landscape.png" alt="Only Arizona — Landscape Wall Print"/>
+          <img src="only arizona print quality portrait.png" alt="Only Arizona — Landscape Wall Print"/>
         </div>
       </div>
       <ul class="print-features">
@@ -376,8 +377,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
      <span class="art-price">Under Cost Review</span>
 <span class="art-price-note">Final production costing in progress &nbsp;&bull;&nbsp; One of a kind &nbsp;&bull;&nbsp; No two ever the same</span>
 <span class="art-vet-badge">&#9670; A portion of every sale supports Arizona Veterans</span>
-<a href="mailto:nevadoraiders@gmail.com?subject=Rim%20Run%20Bracelet%20%E2%80%94%20Pricing%20Inquiry" class="btn-gold btn-gold-full">Request Pricing &rarr;</a>
-    </div>
+<a href="mailto:nevadoraiders@gmail.com?subject=Rim%20Run%20Medallion%20%E2%80%94%20Pricing%20Inquiry" class="btn-gold btn-gold-full">Request Pricing &rarr;</a>
 
   </div>
 
@@ -386,14 +386,14 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <h3>The Complete Set — Both Pieces Together</h3>
     <p>Own the full Rim Run artifact system. Medallion and bracelet at 10% off — both Saga Marks registered to the same Founding Circle account.</p>
     <div class="bundle-includes">
-      <div class="bi-item"><strong>Explorer Totem</strong><span>Men's Medallion — Under Cost Review</span></div>
+      <div class="bi-item"><strong>Explorer Totem</strong><span>Men's Medallion — $499</span></div>
       <div class="bi-plus">+</div>
-      <div class="bi-item"><strong>Explorer Bracelet</strong><span>Women's Piece — Under Cost Review</span></div>
+      <div class="bi-item"><strong>Explorer Bracelet</strong><span>Women's Piece — $575</span></div>
       <div class="bi-plus">=</div>
-      <div class="bi-item"><strong style="color:var(--gold);font-family:'Cinzel',serif;font-size:1.3rem;">Bundle Pricing</strong><span>Pending final production cost</span></div>
+      <div class="bi-item"><strong style="color:var(--gold);font-family:'Cinzel',serif;font-size:1.3rem;">10% Off</strong><span>Save $108</span></div>
     </div>
-    <span class="bundle-price">Under Cost Review</span>
-    <span class="bundle-save">Both Saga Marks Registered Together &bull; Final Bundle Cost Pending &bull; + Tax &amp; Shipping</span>
+    <span class="bundle-price">$966</span>
+    <span class="bundle-save">Save $108 &bull; Both Founding Circle Memberships Included &bull; + Tax &amp; Shipping</span>
     <span class="bundle-vet">&#9670; A portion of every bundle supports Arizona Veterans &#9670;</span><br/>
     <a href="mailto:nevadoraiders@gmail.com?subject=Rim%20Run%20Complete%20Set%20Bundle%20Inquiry" class="btn-gold">Claim the Complete Set &rarr;</a>
   </div>
@@ -542,4 +542,3 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </body>
 </html>
-
