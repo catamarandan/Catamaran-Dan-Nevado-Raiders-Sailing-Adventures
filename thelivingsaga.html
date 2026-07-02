@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Living Saga&#8482; | Catamaran Dan</title>
+  <title>The Living Saga | Catamaran Dan</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
 :root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
@@ -13,13 +13,14 @@ body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamo
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
-.nav-links{display:flex;gap:1.2rem;justify-content:center;align-items:center;flex-wrap:nowrap;}
-nav a{color:#c8cdd8;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
-nav a:hover{color:#c9a84c;}
-nav a.active{color:#c9a84c;border-bottom-color:#c9a84c;}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;-webkit-tap-highlight-color:transparent;}
-.nav-toggle span{display:block;width:24px;height:2px;background:#c9a84c;transition:all 0.3s ease;}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;min-height:56px;}
+.nav-links{display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;gap:1.4rem;}
+.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
@@ -53,45 +54,57 @@ p+p{margin-top:1.2rem;}
 .hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
 .hero-h1 em{color:var(--gold);font-style:normal;display:block;}
 .hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin-top:1rem;opacity:0.85;}
+/* IZZY BAND */
+.izzy-band{background:linear-gradient(135deg,rgba(41,176,212,0.07),rgba(10,15,26,0.9));border-top:1px solid rgba(41,176,212,0.2);border-bottom:1px solid rgba(41,176,212,0.2);padding:5rem 2rem;}
+.izzy-pull{font-family:'Cinzel',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:600;color:var(--aqua);text-align:center;line-height:1.4;margin:2rem auto;max-width:680px;font-style:italic;}
+.song-credit{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-top:0.5rem;}
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
 @media(max-width:768px){
-  section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
+  .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
   .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0.5rem 1.5rem 1rem;z-index:999;}
+  .nav-links.open{display:flex;}
+  .nav-links a{display:block;width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  section{padding:4rem 1.5rem;}
+  .izzy-band{padding:4rem 1.5rem;}
+  .infobox{padding:1.8rem 1.5rem;}
 }
   </style>
 </head>
 <body>
 
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run Expedition&#8482;</a>
-    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
-    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-    <a href="shamrocket.html">Shamrocket</a>
-    <a href="lionfish.html">Lion Hunter</a>
-    <a href="shieldmaiden.html">Shield Maiden</a>
-    <a href="storytelling.html">Storytellers</a>
-    <a href="thelivingsaga.html" class="active">The Living Saga&#8482;</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="legal.html">Legal &amp; IP</a>
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="rimrun.html">Rim Run Expedition</a>
+      <a href="rimrun-caribe.html">Rim Run Caribe</a>
+      <a href="rimrun-pac.html">Rim Run Pac</a>
+      <a href="shamrocket.html">Shamrocket</a>
+      <a href="lionfish.html">Lion Hunter</a>
+      <a href="shieldmaiden.html">Shield Maiden</a>
+      <a href="onlyarizona.html">Expedition Theme Song</a>
+      <a href="storytelling.html">Storytellers</a>
+      <a href="expedition.html">Expedition Log</a>
+      <a href="thelivingsaga.html" class="active">The Living Saga</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal &amp; IP</a>
+    </div>
   </div>
 </nav>
 
 <div class="page-hero">
   <div class="page-hero-content">
-    <span class="hero-eyebrow">Blue Rim 5&#8482; &bull; Rim Run&#8482; &bull; Ove Ironhand</span>
-    <h1 class="hero-h1">The Living <em>Saga&#8482;</em></h1>
+    <span class="hero-eyebrow">Blue Rim 5 &bull; Rim Run &bull; Ove Ironhand</span>
+    <h1 class="hero-h1">The Living <em>Saga</em></h1>
     <p class="hero-sub">A Norse navigator. A shallow-draft boat. Thousands of years of voices still speaking from the coastline &mdash; if someone will show up with genuine respect and sit still long enough to hear them.</p>
   </div>
 </div>
@@ -109,20 +122,36 @@ p+p{margin-top:1.2rem;}
   </div>
 </section>
 
+<!-- IZZY & ALOHA -->
+<div class="izzy-band">
+  <div class="container">
+    <div class="section-label reveal" style="justify-content:center;">The Spirit of the Water</div>
+    <h2 class="serif reveal" style="text-align:center;">Aloha Wasn&rsquo;t Words. <em>It Was Love.</em></h2>
+    <div class="gold-rule reveal" style="margin:1.2rem auto 2rem;"></div>
+    <p class="reveal" style="color:var(--fog);">There is a philosophy underneath this expedition that goes deeper than seamanship, deeper than preparation, deeper than any credential or credential holder. It is the same philosophy that Israel Kamakawiwo&#699;ole carried in his voice for thirty-eight years and left in the water when he went home to the Pacific in 1997. Izzy called it aloha. It is not a greeting. It is not a cultural decoration. It is a way of moving through the world &mdash; to give when nothing is coming back, to carry kindness like a lantern, to leave a little light along your track.</p>
+    <p class="reveal" style="color:var(--fog);">I play baritone ukulele. It was his music that put the instrument in my hands. I cannot say his name the way it deserves to be said &mdash; Hawaiian is still a task beyond me &mdash; but because of Izzy, I now carry aloha in my heart across every reef I dive and every coastline I sail. That is what this expedition is actually made of underneath everything else.</p>
+    <div class="izzy-pull reveal">&ldquo;Aloha wasn&rsquo;t words&hellip; it was love.&rdquo;</div>
+    <p class="song-credit reveal">&mdash; from &ldquo;Please,&rdquo; written by Daniel O. Roe &copy; 2026 Nevado Ranch Camp LLC &mdash; all rights reserved</p>
+    <div style="text-align:center;margin-top:2rem;" class="reveal">
+      <a href="onlyarizona.html" class="btn-gold">Hear the Music &rarr;</a>
+    </div>
+  </div>
+</div>
+
 <!-- THE PREMISE -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Premise</div>
-    <h2 class="serif reveal">Two Worlds. <em>One Ocean Intelligence.</em></h2>
+    <h2 class="serif reveal">Two Worlds. <em>One Ocean.</em></h2>
     <div class="gold-rule reveal"></div>
     <p class="reveal">A thousand years ago, Norse navigators set out from Scandinavia in shallow-draft wooden boats with no charts, no compass, and no certainty about what lay over the horizon. They read the water. They watched the birds. They arrived at coastlines no European had ever seen &mdash; and when they got there, they sat with the people. They traded. They listened. They carried stories home accurately. That was the job. Not conquest. Not extraction. Listening and carrying it true.</p>
     <div class="pull-quote reveal">&ldquo;He has truly wandered who has traveled widely &mdash; a man who has been nowhere knows nothing.&rdquo;<br/><span style="font-size:0.75em;font-family:'Josefin Sans',sans-serif;letter-spacing:0.1em;">&mdash; H&aacute;vam&aacute;l, verse 18 &bull; The Sayings of Odin</span></div>
     <p class="reveal">Catamaran Dan &mdash; sailing as Ove Ironhand, whose Y-DNA bloodline traces through the I1 haplogroup to Thorvald Asvaldsson, Erik the Red, and Leif Erikson &mdash; moves the same way. Shallow draft. Patient landfall. Deep listening. Shamrocket draws twenty-four inches of water and goes where no keeled vessel follows &mdash; up inside the reef, into the mangrove channels, onto the beach itself. Right up to where the people are. Where the knowledge lives. Where the stories are still being kept.</p>
-    <p class="reveal">What the Rim Run&#8482; is building is not a travel record. It is a saga &mdash; the living, accumulating account of what the Caribbean coastline remembers, told by the people who have been keeping the memory for thousands of years, finally heard by someone who understands why memory matters and has the discipline to carry it home without distorting it.</p>
+    <p class="reveal">What the Rim Run is building is not a travel record. It is a saga &mdash; the living, accumulating account of what the Caribbean coastline remembers, told by the people who have been keeping the memory for thousands of years, finally heard by someone who understands why memory matters and has the discipline to carry it home without distorting it.</p>
   </div>
 </section>
 
-<!-- THE CIRCUIT — 11 COUNTRIES -->
+<!-- THE CIRCUIT -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Circuit</div>
@@ -131,47 +160,47 @@ p+p{margin-top:1.2rem;}
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127474;&#127485; Mexico &mdash; Maya &bull; Mestizo &bull; Caribbean Coast</div>
-      <p>The Rim Run&#8482; begins and ends in Mexico&rsquo;s Yucat&aacute;n &mdash; the northern hub where the fleet stages, rests, and prepares. But the Yucat&aacute;n is not simply a logistics stop. The Maya have lived on and around this reef system for thousands of years. Banco Chinchorro, Mexico&rsquo;s largest atoll and the northernmost anchor of the Mesoamerican Barrier Reef, sits in waters the Maya fished and navigated long before any chart existed. The oral record of this coastline &mdash; its currents, its weather patterns, its reef structure &mdash; lives in communities that outsiders rarely sit with long enough to hear. The Rim Run&#8482; sits. Every year. The same communities. The same coastline. The relationship deepens over time in ways a single visit never could.</p>
+      <p>The Rim Run begins and ends in Mexico&rsquo;s Yucat&aacute;n &mdash; the northern hub where the fleet stages, rests, and prepares. But the Yucat&aacute;n is not simply a logistics stop. The Maya have lived on and around this reef system for thousands of years. Banco Chinchorro, Mexico&rsquo;s largest atoll and the northernmost anchor of the Mesoamerican Barrier Reef, sits in waters the Maya fished and navigated long before any chart existed. The oral record of this coastline &mdash; its currents, its weather patterns, its reef structure &mdash; lives in communities that outsiders rarely sit with long enough to hear. The Rim Run sits. Every year. The same communities. The same coastline. The relationship deepens over time in ways a single visit never could.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127463;&#127487; Belize &mdash; Garifuna &bull; Maya &bull; Creole</div>
-      <p>Belize is the heart of the Rim Run&#8482; &mdash; the longest stop on the circuit and the place where the expedition finds its rhythm. The Gar&iacute;funa arrived on this coast in 1797 &mdash; not as settlers, but as survivors. Exiled from St. Vincent by the British, 5,000 were loaded onto ships. 2,500 reached Roat&aacute;n alive. Everything they carried was inside them: their language, their music, their spiritual practices, their knowledge of the sea. The <em>d&uuml;g&uuml;</em> ceremony calls the ancestors back to counsel the living. UNESCO recognized this as a Masterpiece of Intangible Heritage. The Rim Run&#8482; recognizes it as a living curriculum &mdash; ecological, navigational, and deeply human &mdash; that deserves to be heard by the world.</p>
+      <p>Belize is the heart of the Rim Run &mdash; the longest stop on the circuit and the place where the expedition finds its rhythm. The Gar&iacute;funa arrived on this coast in 1797 &mdash; not as settlers, but as survivors. Exiled from St. Vincent by the British, 5,000 were loaded onto ships. 2,500 reached Roat&aacute;n alive. Everything they carried was inside them: their language, their music, their spiritual practices, their knowledge of the sea. The <em>d&uuml;g&uuml;</em> ceremony calls the ancestors back to counsel the living. UNESCO recognized this as a Masterpiece of Intangible Heritage. The Rim Run recognizes it as a living curriculum &mdash; ecological, navigational, and deeply human &mdash; that deserves to be heard by the world.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127468;&#127481; Guatemala &mdash; Q&rsquo;eqchi&rsquo; Maya &bull; Garifuna</div>
-      <p>Guatemala&rsquo;s Caribbean stop is unlike any other on the circuit. Three-hundred-foot limestone walls draped in jungle, howler monkeys announcing passage from somewhere above the canopy, thermal springs bleeding warm mineral water through the cliff faces. To the Q&rsquo;eqchi&rsquo; Maya, the R&iacute;o Dulce canyon is not scenery &mdash; it is sacred geography, a living spiritual corridor that connects the human world to the world below and above. Their knowledge of this place &mdash; its ecology, its spiritual significance, its seasonal behavior &mdash; is carried in oral tradition that is one generation away from disappearing. Someone needs to show up and listen before it does.</p>
+      <p>Guatemala&rsquo;s Caribbean stop is unlike any other on the circuit. Three-hundred-foot limestone walls draped in jungle, howler monkeys announcing passage from somewhere above the canopy, thermal springs bleeding warm mineral water through the cliff faces. To the Q&rsquo;eqchi&rsquo; Maya, the R&iacute;o Dulce canyon is not scenery &mdash; it is sacred geography, a living spiritual corridor that connects the human world to the world below and above. Their knowledge of this place &mdash; its ecology, its spiritual significance, its seasonal behavior &mdash; is carried in oral tradition that is one generation away from disappearing.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127469;&#127475; Honduras &mdash; Garifuna &bull; Bay Islanders &bull; Miskito</div>
-      <p>The Bay Islands hold one of the densest concentrations of oral maritime tradition in the Caribbean. The Gar&iacute;funa navigational tradition &mdash; called <em>&uacute;raga</em> &mdash; describes a system of reef reading that has no written form. Current behavior at specific locations. Bird species as depth indicators. Fish behavior before weather changes. This knowledge was developed over 200 years of Caribbean coastal survival after the exile from St. Vincent &mdash; and it works. The fishermen who carry it are not curiosities. They are scientists. The Rim Run&#8482; treats them that way.</p>
+      <p>The Bay Islands hold one of the densest concentrations of oral maritime tradition in the Caribbean. The Gar&iacute;funa navigational tradition &mdash; called <em>&uacute;raga</em> &mdash; describes a system of reef reading that has no written form. Current behavior at specific locations. Bird species as depth indicators. Fish behavior before weather changes. This knowledge was developed over 200 years of Caribbean coastal survival after the exile from St. Vincent &mdash; and it works. The fishermen who carry it are not curiosities. They are scientists. The Rim Run treats them that way.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127475;&#127470; Nicaragua &mdash; Miskito &bull; Creole &bull; Rama</div>
-      <p>The Corn Islands sit 70 kilometers offshore &mdash; the most exposed, least-sailed stretch of the entire circuit. Little Corn has no vehicles, no paved roads, and one reef that fishing families have worked for generations without any outside agency ever recording what they know about it. The Miskito Kingdom maintained sovereignty from the 1630s through the late 1800s &mdash; entirely dependent on coastal intelligence that only a people who live on the water can develop. That intelligence is still here. It just hasn&rsquo;t been asked about by anyone willing to sit still long enough to hear the answer.</p>
+      <p>The Corn Islands sit 70 kilometers offshore &mdash; the most exposed, least-sailed stretch of the entire circuit. Little Corn has no vehicles, no paved roads, and one reef that fishing families have worked for generations without any outside agency ever recording what they know about it. The Miskito Kingdom maintained sovereignty from the 1630s through the late 1800s &mdash; entirely dependent on coastal intelligence that only a people who live on the water can develop. That intelligence is still here.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127464;&#127479; Costa Rica &mdash; Afro-Caribbean &bull; Bribri &bull; Cab&eacute;car</div>
-      <p>On April 22, 1991, a 7.6 earthquake lifted the Caribbean coast of Costa Rica by 1.5 meters in ninety seconds. Sections of reef that had been underwater for centuries were suddenly exposed. The ecological record of those sections &mdash; what had grown there, how it had changed, what it had looked like &mdash; was held entirely in the memory of the fishing families who had worked those waters. No scientific record existed. The elders of Cahuita knew. Some of them are still alive. The Rim Run&#8482; is coming to listen while that is still true.</p>
+      <p>On April 22, 1991, a 7.6 earthquake lifted the Caribbean coast of Costa Rica by 1.5 meters in ninety seconds. Sections of reef that had been underwater for centuries were suddenly exposed. The ecological record of those sections &mdash; what had grown there, how it had changed, what it had looked like &mdash; was held entirely in the memory of the fishing families who had worked those waters. No scientific record existed. The elders of Cahuita knew. Some of them are still alive. The Rim Run is coming to listen while that is still true.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127477;&#127462; Panama &mdash; Guna &bull; Ng&auml;be-Bugl&eacute; &bull; Afro-Colonial</div>
-      <p>Guna Yala &mdash; the autonomous indigenous territory known to outsiders as San Blas &mdash; is something extraordinary. Three hundred and sixty-five islands. Forty-nine inhabited. Fully self-governing under a system that has operated continuously since before European contact. The Guna Saila sings every evening in the Congress House &mdash; the laws, the history, the decisions of previous Sailas. No document holds what the Saila holds. The first Guna community to be evacuated due to sea-level rise &mdash; Gardi Sugdub &mdash; was relocated in 2025. The elders who remember the old shoreline are alive. Their memory of what the reef looked like before the water started climbing will not be alive for long. The Rim Run&#8482; will be there.</p>
+      <p>Guna Yala &mdash; the autonomous indigenous territory known to outsiders as San Blas &mdash; is something extraordinary. Three hundred and sixty-five islands. Forty-nine inhabited. Fully self-governing under a system that has operated continuously since before European contact. The Guna Saila sings every evening in the Congress House &mdash; the laws, the history, the decisions of previous Sailas. The first Guna community to be evacuated due to sea-level rise &mdash; Gardi Sugdub &mdash; was relocated in 2025. The elders who remember the old shoreline are alive. Their memory of what the reef looked like before the water started climbing will not be alive for long. The Rim Run will be there.</p>
     </div>
 
     <div class="infobox reveal">
       <div class="infobox-label">&#127464;&#127476; Colombia &mdash; Afro-Colombian &bull; Wayuu &bull; Coastal Communities</div>
-      <p>Colombia&rsquo;s Caribbean coast carries one of the most layered human histories in the hemisphere &mdash; Indigenous, African, Spanish, and everything that emerged from that collision over five centuries. Cartagena&rsquo;s walled city is a UNESCO World Heritage Site, but the living oral tradition is in the fishing communities of Islas del Rosario and the coastal villages of the Sierra Nevada foothills. These are people whose relationship with the sea is measured in generations, not seasons. The Rim Run&#8482; comes to listen to what they know about the water, not to admire the colonial architecture.</p>
+      <p>Colombia&rsquo;s Caribbean coast carries one of the most layered human histories in the hemisphere &mdash; Indigenous, African, Spanish, and everything that emerged from that collision over five centuries. These are people whose relationship with the sea is measured in generations, not seasons. The Rim Run comes to listen to what they know about the water, not to admire the colonial architecture.</p>
     </div>
 
     <div class="infobox reveal">
-      <div class="infobox-label">&#127462;&#127484; Aruba &bull; &#127463;&#127478; Bonaire &bull; &#127464;&#127484; Cura&ccedil;ao &mdash; Papiamentu &bull; Dutch Caribbean &bull; Indigenous Arawak</div>
-      <p>The ABC Islands sit at the southern edge of the Caribbean, closer to Venezuela than to any other Caribbean nation, and they carry a culture unlike anything else on the circuit. Papiamentu &mdash; the creole language of the islands &mdash; is spoken by 300,000 people and blends Portuguese, Spanish, Dutch, English, and the language of the Arawak people who were here first. Bonaire&rsquo;s shore diving tradition is among the most developed in the world &mdash; and the local knowledge of reef conditions, fish behavior, and water movement held by the dive community there is a resource the Rim Run&#8482; will document carefully. Cura&ccedil;ao&rsquo;s UNESCO-recognized harbor is a reminder that every piece of this coastline has been shaped by people before any expedition arrived &mdash; and will be shaped by people long after it leaves.</p>
+      <div class="infobox-label">&#127462;&#127484; Aruba &bull; &#127463;&#127478; Bonaire &bull; &#127464;&#127484; Cura&ccedil;ao &mdash; Papiamentu &bull; Dutch Caribbean &bull; Arawak</div>
+      <p>The ABC Islands sit at the southern edge of the Caribbean, closer to Venezuela than to any other Caribbean nation, and they carry a culture unlike anything else on the circuit. Papiamentu &mdash; the creole language of the islands &mdash; is spoken by 300,000 people and blends Portuguese, Spanish, Dutch, English, and the language of the Arawak people who were here first. Bonaire&rsquo;s shore diving tradition is among the most developed in the world. Every piece of this coastline has been shaped by people before any expedition arrived &mdash; and will be shaped by people long after it leaves.</p>
     </div>
 
   </div>
@@ -181,28 +210,40 @@ p+p{margin-top:1.2rem;}
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Mission</div>
-    <h2 class="serif reveal">What the Rim Run&#8482; <em>Is Actually Doing</em></h2>
+    <h2 class="serif reveal">What the Rim Run <em>Is Actually Doing</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">The Rim Run&#8482; is a moving oral history project and reef awareness platform built into the same annual circuit &mdash; a sailing expedition that takes its philosophical mandate from the Norse tradition of the skald: go out, sit with the people who live closest to the water, listen to what they know, and carry it home accurately. Then come back next year and listen again.</p>
-    <p class="reveal">What gets collected belongs first to the people who gave it. What gets shared with the world gets shared on their terms, with their consent, with their names attached and their community&rsquo;s context intact. The Rim Run&#8482; is not an extraction operation. It is an amplification operation &mdash; ensuring that the knowledge, the stories, and the urgent ecological warnings held by these coastal communities reach an audience large enough to matter.</p>
+    <p class="reveal">The Rim Run is a moving oral history project and reef awareness platform built into the same annual circuit &mdash; a sailing expedition that takes its philosophical mandate from the Norse tradition of the skald: go out, sit with the people who live closest to the water, listen to what they know, and carry it home accurately. Then come back next year and listen again.</p>
+    <p class="reveal">What gets collected belongs first to the people who gave it. What gets shared with the world gets shared on their terms, with their consent, with their names attached and their community&rsquo;s context intact. The Rim Run is not an extraction operation. It is an amplification operation &mdash; ensuring that the knowledge, the stories, and the urgent ecological warnings held by these coastal communities reach an audience large enough to matter.</p>
     <div class="pull-quote reveal">Genuine respect given and received is the currency that opens every door on this circuit. It travels ahead of you. By year three, people on that coastline will be waiting for you to come back &mdash; not because you brought equipment, but because you showed up as a human being who saw them clearly and treated what they know as valuable.</div>
     <div class="card-grid reveal">
       <div class="card"><h4>I &mdash; Go There</h4><p>Shamrocket&rsquo;s 24-inch draft gets inside the reef, into the mangrove channels, onto the beach. Where the stories live. Where no research vessel follows.</p></div>
-      <div class="card"><h4>II &mdash; Sit Still</h4><p>The Norse waited out weather. The Rim Run&#8482; waits for trust. Neither is rushed. Both are earned. You cannot collect what you haven&rsquo;t been invited to receive.</p></div>
+      <div class="card"><h4>II &mdash; Sit Still</h4><p>The Norse waited out weather. The Rim Run waits for trust. Neither is rushed. Both are earned. You cannot collect what you haven&rsquo;t been invited to receive.</p></div>
       <div class="card"><h4>III &mdash; Listen Correctly</h4><p>What sounds like legend is often ecological data. What sounds like myth is often history. What sounds like a fishing story is often the most accurate reef science on the coastline.</p></div>
       <div class="card"><h4>IV &mdash; Carry It True</h4><p>The skald&rsquo;s job was accuracy, not entertainment. The story travels as it was given &mdash; with the name of the person who told it, the place it came from, and the community it belongs to.</p></div>
     </div>
   </div>
 </section>
 
+<!-- MUSIC CLOSING BAND -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container" style="text-align:center;">
+    <div class="section-label reveal" style="justify-content:center;">The Expedition in Music</div>
+    <h2 class="serif reveal">Three Songs. <em>One Voyage.</em></h2>
+    <div class="gold-rule reveal" style="margin:1.2rem auto 2rem;"></div>
+    <p class="reveal" style="color:var(--fog);max-width:640px;margin:0 auto 1.5rem;">The Blue Rim 5 expedition has produced three original songs &mdash; all written, composed, and owned by Daniel O. Roe / Nevado Ranch Camp LLC. &copy; 2026 Nevado Ranch Camp LLC. All rights reserved. No reproduction, recording, or public performance without written authorization.</p>
+    <p class="reveal" style="color:var(--fog);max-width:640px;margin:0 auto 2rem;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;">&ldquo;Only Arizona&rdquo; &nbsp;&bull;&nbsp; &ldquo;Naughty, Naughty Norseman&rdquo; &nbsp;&bull;&nbsp; &ldquo;Please&rdquo;</p>
+    <a href="onlyarizona.html" class="btn-gold reveal">Hear the Music &rarr;</a>
+  </div>
+</section>
+
 <div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
-  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
-  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+  <img src="better.png" alt="Better Beachy than Bitchy" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5 &bull; Catamaran Dan &bull; Nevado Raiders</p>
 </div>
 
 <footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
   <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Rim Run&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Blue Rim 5&#8482;, Nevado Raiders&#8482;, Better Beachy Than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; IP</a>
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Nevado Raiders, Shield Maiden, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). "Only Arizona," "Naughty, Naughty Norseman," and "Please" &mdash; lyrics and compositions &mdash; are the intellectual property of Daniel O. Roe / Nevado Ranch Camp LLC. All rights reserved. Better Beachy Than Bitchy&#174; is a registered trademark of Nevado Ranch Camp LLC. &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; IP</a>
   </div>
 </footer>
 
@@ -230,4 +271,5 @@ p+p{margin-top:1.2rem;}
 </script>
 </body>
 </html>
+
 
