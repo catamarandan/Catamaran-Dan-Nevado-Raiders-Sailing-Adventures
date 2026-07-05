@@ -21,6 +21,13 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
 .nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
 .nav-links a:hover{color:var(--gold);}
 .nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-item.dropdown{display:inline-flex;align-items:center;gap:0.25rem;position:relative;}
+.dropdown-caret{background:none;border:none;color:var(--fog);cursor:pointer;font-size:0.62rem;padding:0.2rem;line-height:1;font-family:'Josefin Sans',sans-serif;}
+.dropdown-caret:hover{color:var(--gold);}
+.nav-item.dropdown.open .dropdown-caret{color:var(--gold);}
+.dropdown-menu{display:none;flex-direction:column;position:absolute;top:100%;left:0;background:#0d1520;border:1px solid rgba(201,168,76,0.25);min-width:150px;padding:0.4rem 0;z-index:1001;margin-top:0.4rem;}
+.nav-item.dropdown.open .dropdown-menu{display:flex;}
+.dropdown-menu a{padding:0.55rem 1.1rem;white-space:nowrap;border-bottom:none;}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -118,6 +125,11 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   .nav-links.open{display:flex;padding:0.5rem 1.5rem 1rem;}
   .nav-links a{display:block;width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
   .nav-links a:last-child{border-bottom:none;}
+  .nav-item.dropdown{width:100%;flex-wrap:wrap;justify-content:space-between;}
+  .nav-item.dropdown a{width:auto;flex:1;border-bottom:none;}
+  .dropdown-caret{padding:0.65rem 0.4rem;}
+  .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
+  .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
   section{padding:4rem 1.5rem;}
   .two-col,.two-col.reverse{grid-template-columns:1fr;direction:ltr;gap:2.5rem;}
   .stat-strip{grid-template-columns:repeat(2,1fr);}
@@ -141,7 +153,13 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="index.html" class="active">Home</a>
+      <div class="nav-item dropdown" id="home-dropdown">
+        <a href="index.html" class="active">Home</a>
+        <button class="dropdown-caret" aria-label="Toggle Home submenu" aria-expanded="false">&#9662;</button>
+        <div class="dropdown-menu">
+          <a href="bluemind.html">Blue Mind</a>
+        </div>
+      </div>
       <a href="rimrun.html">Rim Run Expedition&#8482;</a>
       <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
       <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
@@ -433,13 +451,20 @@ document.body.classList.add('js-ready');
   var toggle=document.getElementById('nav-toggle');
   var nav=document.getElementById('main-nav');
   var navLinks=document.getElementById('nav-links');
-  function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+  var homeDrop=document.getElementById('home-dropdown');
+  var homeCaret=homeDrop?homeDrop.querySelector('.dropdown-caret'):null;
+  function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}closeDropdown();}
   function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+  function closeDropdown(){if(homeDrop){homeDrop.classList.remove('open');}if(homeCaret){homeCaret.setAttribute('aria-expanded','false');}}
+  function toggleDropdown(){if(homeDrop){var isOpen=homeDrop.classList.toggle('open');if(homeCaret)homeCaret.setAttribute('aria-expanded',isOpen?'true':'false');}}
   if(toggle&&nav&&navLinks){
     toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
-    nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
     document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
     window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+  if(homeCaret){
+    homeCaret.addEventListener('click',function(e){e.stopPropagation();e.preventDefault();toggleDropdown();});
   }
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
