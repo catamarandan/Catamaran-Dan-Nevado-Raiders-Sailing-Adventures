@@ -88,6 +88,17 @@ p+p{margin-top:1.2rem;}
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
+.sunset-player{margin-top:2rem;padding-top:1.8rem;border-top:1px solid rgba(212,98,42,0.25);text-align:center;}
+.sunset-player p{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--fire);margin-bottom:0.9rem;}
+.sunset-player audio{width:100%;max-width:420px;}
+.ritual-photo-wrap{text-align:center;margin-bottom:2rem;}
+.ritual-photo-wrap img{display:inline-block;max-width:360px;width:100%;border:3px solid var(--fire);outline:1px solid rgba(212,98,42,0.35);outline-offset:6px;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.champagne-alt{margin-top:2.2rem;padding-top:1.8rem;border-top:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center;text-align:left;}
+.champagne-alt img{width:110px;flex-shrink:0;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.5));}
+.champagne-alt-text{max-width:380px;}
+.champagne-alt-text .ca-tag{font-family:'Josefin Sans',sans-serif;font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+.champagne-alt-text p{font-size:0.95rem;color:var(--parchment);line-height:1.7;}
+@media(max-width:480px){.champagne-alt{text-align:center;justify-content:center;}}
 @media(max-width:768px){
   .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
   .nav-toggle{display:flex;}
@@ -306,10 +317,27 @@ p+p{margin-top:1.2rem;}
     <div class="gold-rule reveal"></div>
     <p class="reveal">The adventure is real. The evenings are extraordinary. When the anchor is set and the day is done, the Rim Runner&#8482; gets made. This is not the reward for the expedition. It is the other half of it.</p>
     <div class="rimrunner-ritual reveal">
+      <div class="ritual-photo-wrap">
+        <img src="rimrunner.jpeg" alt="The Rim Runner&#8482;"/>
+      </div>
       <div class="recipe-step"><h5>Glass &amp; Rim</h5><p>Heavy rocks glass with a blue rim band. 2 parts coarse sea salt, 1 part sugar. Wet rim with fresh lime. Fill with fresh ice.</p></div>
       <div class="recipe-step"><h5>Equatorial Blue Base</h5><p>1&frac12; oz white rum &bull; &frac34; oz blue cura&ccedil;ao &bull; 1 oz pineapple juice &bull; &frac12; oz fresh lime juice &bull; 1 oz coconut water &bull; 1&ndash;2 dashes bitters. Shake hard. Strain over ice.</p></div>
       <div class="recipe-step"><h5>The Dark Storm Cloud</h5><p>Float &frac12;&ndash;&frac34; oz dark rum over the back of a spoon. Blue below. Dark above. Do not stir.</p></div>
       <div class="toast-code">"Better Beachy than Bitchy&#8482;" &mdash; Anchor down.</div>
+      <div class="champagne-alt">
+        <img src="veuve clicquot.png" alt="Veuve Clicquot Brut"/>
+        <div class="champagne-alt-text">
+          <span class="ca-tag">Or, If the Moment Calls for Champagne</span>
+          <p>Not every sunset needs a shaker. When the anchor drops on the right kind of evening, this is the bottle that comes out instead &mdash; Veuve Clicquot Brut. Dan's standing preference, no substitutes.</p>
+        </div>
+      </div>
+      <div class="sunset-player">
+        <p>Now Playing &mdash; Sunset</p>
+        <audio controls preload="none">
+          <source src="sunset.mp3" type="audio/mpeg"/>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
     </div>
   </div>
 </section>
@@ -349,3 +377,4 @@ document.body.classList.add('js-ready');
 </script>
 </body>
 </html>
+
