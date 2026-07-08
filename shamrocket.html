@@ -20,19 +20,30 @@ img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
 
-/* \u2500\u2500 NAV \u2500\u2500 */
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
-.nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
-nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;}
-nav a:hover{color:var(--gold);}
-nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;-webkit-tap-highlight-color:transparent;}
+/* NAV */
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;min-height:56px;}
+.nav-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.9rem 1.4rem;row-gap:0.5rem;}
+.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-item.dropdown{display:inline-flex;align-items:center;gap:0.25rem;position:relative;}
+.nav-group-label{background:none;border:none;color:var(--fog);cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;display:inline-flex;align-items:center;gap:0.3rem;white-space:nowrap;transition:color 0.25s;}
+.nav-group-label:hover{color:var(--gold);}
+.nav-item.dropdown.open .nav-group-label{color:var(--gold);}
+.dropdown-caret{background:none;border:none;color:var(--fog);cursor:pointer;font-size:0.62rem;padding:0.2rem;line-height:1;font-family:'Josefin Sans',sans-serif;}
+.dropdown-caret:hover{color:var(--gold);}
+.nav-item.dropdown.open .dropdown-caret{color:var(--gold);}
+.dropdown-menu{display:none;flex-direction:column;position:absolute;top:100%;left:0;background:#0d1520;border:1px solid rgba(201,168,76,0.25);min-width:170px;padding:0.4rem 0;z-index:1001;margin-top:0.4rem;}
+.nav-item.dropdown.open .dropdown-menu{display:flex;}
+.dropdown-menu a{padding:0.55rem 1.1rem;white-space:nowrap;border-bottom:none;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-/* \u2500\u2500 HERO — full-bleed Shamrocket \u2500\u2500 */
+/* HERO — full-bleed Shamrocket */
 .hero{
   min-height:100vh;
   display:grid;
@@ -101,7 +112,7 @@ nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
   padding:0.3rem 0.9rem;white-space:nowrap;
 }
 
-/* \u2500\u2500 LAYOUT \u2500\u2500 */
+/* LAYOUT */
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -113,30 +124,30 @@ h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-we
 .gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
 p+p{margin-top:1.2rem;}
 
-/* \u2500\u2500 STAT STRIP \u2500\u2500 */
+/* STAT STRIP */
 .stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border:1px solid rgba(201,168,76,0.15);}
 .stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
 .stat:last-child{border-right:none;}
 .stat-num{font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
 .stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
 
-/* \u2500\u2500 PULL QUOTE \u2500\u2500 */
+/* PULL QUOTE */
 .pull-quote{font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
 
-/* \u2500\u2500 FEATURE LIST \u2500\u2500 */
+/* FEATURE LIST */
 .feature-list{list-style:none;display:grid;gap:0.6rem;margin:1.5rem 0;}
 .feature-list li{padding:0.7rem 1rem;border-left:2px solid rgba(201,168,76,0.25);color:var(--fog);font-size:0.96rem;}
 .feature-list li strong{color:var(--text-light);}
 
-/* \u2500\u2500 TWO COL \u2500\u2500 */
+/* TWO COL */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
 
-/* \u2500\u2500 INFOBOX \u2500\u2500 */
+/* INFOBOX */
 .infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
 .infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
 .infobox.mid .infobox-label{background:var(--midnight);}
 
-/* \u2500\u2500 CARD GRID (advantages) \u2500\u2500 */
+/* CARD GRID (advantages) */
 .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:2.5rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
 .card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
 .card:hover{background:rgba(14,77,110,0.18);}
@@ -144,7 +155,7 @@ p+p{margin-top:1.2rem;}
 .card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
 .card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
 
-/* \u2500\u2500 SYSTEMS GRID (gear with photos) \u2500\u2500 */
+/* SYSTEMS GRID (gear with photos) */
 .systems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;margin:2.5rem 0;background:rgba(201,168,76,0.08);}
 .system-card{background:var(--midnight);overflow:hidden;transition:background 0.3s;}
 .system-card:hover{background:rgba(14,77,110,0.25);}
@@ -154,12 +165,12 @@ p+p{margin-top:1.2rem;}
 .system-body h3{font-family:'Cinzel',serif;font-size:1.05rem;color:var(--gold);margin-bottom:0.7rem;letter-spacing:0.05em;}
 .system-body p{font-size:0.93rem;color:var(--fog);line-height:1.7;}
 
-/* \u2500\u2500 BG / BORDER \u2500\u2500 */
+/* BG / BORDER */
 .bg-midnight{background:var(--midnight);}
 .bg-deep{background:var(--deep-ocean);}
 .border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
 
-/* \u2500\u2500 REVEAL \u2500\u2500 */
+/* REVEAL */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
@@ -167,7 +178,7 @@ p+p{margin-top:1.2rem;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-/* \u2500\u2500 RESPONSIVE \u2500\u2500 */
+/* RESPONSIVE */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;min-height:auto;}
   .hero-image-col{min-height:60vw;max-height:520px;}
@@ -178,13 +189,19 @@ p+p{margin-top:1.2rem;}
   .hero-specs{justify-content:center;}
 }
 @media(max-width:768px){
-  section{padding:4rem 1.5rem;}
-  nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
-  .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;padding:0.5rem 1.5rem 1rem;z-index:99;}
-  .nav-links.open{display:flex;}
-  .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
+  .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
   .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0 1.5rem;z-index:999;}
+  .nav-links.open{display:flex;padding:0.5rem 1.5rem 1rem;}
+  .nav-links a{display:block;width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-item.dropdown{width:100%;flex-wrap:wrap;justify-content:space-between;}
+  .nav-item.dropdown a,.nav-item.dropdown .nav-group-label{width:auto;flex:1;border-bottom:none;}
+  .nav-group-label{padding:0.65rem 0;}
+  .dropdown-caret{padding:0.65rem 0.4rem;}
+  .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
+  .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+  section{padding:4rem 1.5rem;}
   .two-col{grid-template-columns:1fr;gap:2.5rem;}
   .stat-strip{grid-template-columns:repeat(2,1fr);}
   .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
@@ -195,31 +212,68 @@ p+p{margin-top:1.2rem;}
 <body>
 
 <nav id="main-nav">
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html">Home</a>
-    <a href="rimrun.html">Rim Run Expedition&#8482</a>
-    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
-    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
-    <a href="shamrocket.html" class="active">Shamrocket</a>
-    <a href="lionfish.html">Lion Hunter</a>
-    <a href="shieldmaiden.html">Shield Maiden</a>
-    <a href="storytelling.html">Storytellers</a>
-    <a href="expeditionlog.html">The Expedition Log</a>
-    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-    <a href="onlyarizona.html">Expedition Theme Song</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="legal.html">Legal &amp; IP</a>
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+
+      <div class="nav-item dropdown">
+        <a href="index.html">Home</a>
+        <button class="dropdown-caret" aria-label="Toggle Home submenu" aria-expanded="false">&#9662;</button>
+        <div class="dropdown-menu">
+          <a href="index.html">Home</a>
+          <a href="bluemind.html">Blue Mind</a>
+          <a href="onlyarizona.html">Expedition Music</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Expeditions <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="rimrun.html">Rim Run&#8482;</a>
+          <a href="index.html">Blue Rim 5&#8482;</a>
+          <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+          <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Vessels <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="shamrocket.html" class="active">Shamrocket</a>
+          <a href="shieldmaiden.html">Shield Maiden</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="lionfish.html">Lion Hunter</a>
+          <a href="storytelling.html">Storytellers</a>
+          <a href="expedition.html">Expedition Log</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="videos.html">Videos</a>
+          <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">About <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="about.html">About Catamaran Dan</a>
+          <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+          <a href="legal.html">Legal &amp; Intellectual Property</a>
+        </div>
+      </div>
+
+      <a href="shop.html">Shop</a>
+
+    </div>
   </div>
 </nav>
 
-<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-     HERO — Shamrocket front and center
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- HERO — Shamrocket front and center -->
 <div class="hero">
   <div class="hero-image-col">
     <div class="hero-slides">
@@ -243,7 +297,7 @@ p+p{margin-top:1.2rem;}
   </div>
 </div>
 
-<!-- \u2500\u2500 STAT STRIP \u2500\u2500 -->
+<!-- STAT STRIP -->
 <div style="background:var(--midnight);padding:0 2rem;">
   <div class="container-wide">
     <div class="stat-strip" style="border-left:none;border-right:none;">
@@ -257,9 +311,7 @@ p+p{margin-top:1.2rem;}
   </div>
 </div>
 
-<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-     THE BOAT — Who Shamrocket Is
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- THE BOAT — Who Shamrocket Is -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Vessel</div>
@@ -295,9 +347,7 @@ p+p{margin-top:1.2rem;}
   </div>
 </section>
 
-<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-     THE SLED — DRAGR
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- THE SLED — DRAGR -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">The Sled System</div>
@@ -327,9 +377,7 @@ p+p{margin-top:1.2rem;}
   </div>
 </section>
 
-<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-     SYSTEMS — The Gear
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- SYSTEMS — The Gear -->
 <section class="bg-deep border-bottom-gold">
   <div class="container-wide">
     <div class="container" style="margin-bottom:2rem;">
@@ -392,9 +440,7 @@ p+p{margin-top:1.2rem;}
   </div>
 </section>
 
-<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-     SAFETY — Coastal Discipline
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- SAFETY — Coastal Discipline -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">Operating Philosophy</div>
@@ -424,9 +470,7 @@ p+p{margin-top:1.2rem;}
   </div>
 </section>
 
-<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
-     SEAMANSHIP — Skills
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->
+<!-- SEAMANSHIP — Skills -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
     <div class="section-label reveal">Seamanship</div>
@@ -477,14 +521,50 @@ p+p{margin-top:1.2rem;}
     var toggle=document.getElementById('nav-toggle');
     var nav=document.getElementById('main-nav');
     var navLinks=document.getElementById('nav-links');
-    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
-    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
+    var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
+
+    function closeAllDropdowns(){
+      dropdowns.forEach(function(d){
+        d.classList.remove('open');
+        var caret=d.querySelector('.dropdown-caret');
+        var label=d.querySelector('.nav-group-label');
+        if(caret)caret.setAttribute('aria-expanded','false');
+        if(label)label.setAttribute('aria-expanded','false');
+      });
+    }
+
+    function closeMenu(){
+      if(navLinks)navLinks.classList.remove('open');
+      if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+      closeAllDropdowns();
+    }
+    function openMenu(){
+      if(navLinks)navLinks.classList.add('open');
+      if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+    }
+
     if(toggle&&nav&&navLinks){
       toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
-      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
       document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
       window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
     }
+
+    dropdowns.forEach(function(dropdown){
+      var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
+      if(!trigger)return;
+      trigger.addEventListener('click',function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        var isOpen=dropdown.classList.contains('open');
+        closeAllDropdowns();
+        if(!isOpen){
+          dropdown.classList.add('open');
+          trigger.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
     // Hero slideshow
     (function(){
       var slides=document.querySelectorAll('.hero-slide');
@@ -506,4 +586,3 @@ p+p{margin-top:1.2rem;}
 
 </body>
 </html>
-
