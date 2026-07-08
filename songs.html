@@ -77,6 +77,10 @@ p+p{margin-top:1.2rem;}
 /* OVERVIEW GRID — compact tiles, one per stop */
 .stops-grid-wrap{max-width:1300px;margin:0 auto;padding:3rem 2rem 1rem;}
 .stops-grid-label{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-bottom:1.5rem;}
+.stops-grid-legend{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.4rem;font-family:'Josefin Sans',sans-serif;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-bottom:1.5rem;}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:0.4rem;vertical-align:middle;}
+.legend-dot-green{background:#4ade80;}
+.legend-dot-aqua{background:var(--aqua);}
 .stops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:2px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
 .country-group{display:contents;}
 .country-tile{background:var(--deep-ocean);border:none;cursor:pointer;padding:1.3rem 2.4rem 1.3rem 1.3rem;display:flex;flex-direction:column;align-items:flex-start;gap:0.35rem;text-align:left;font-family:inherit;color:inherit;transition:background 0.2s;position:relative;width:100%;}
@@ -338,6 +342,7 @@ p+p{margin-top:1.2rem;}
 
 <div class="stops-grid-wrap">
   <p class="stops-grid-label">Tap any stop to open its songs &mdash; 24 stops on the BEC</p>
+  <p class="stops-grid-legend"><span class="legend-dot legend-dot-green"></span>Song written &nbsp;&nbsp;<span class="legend-dot legend-dot-aqua"></span>Not yet written</p>
   <div class="stops-grid">
 <div class="country-group">
   <button class="country-tile" onclick="toggleCountry(this)">
