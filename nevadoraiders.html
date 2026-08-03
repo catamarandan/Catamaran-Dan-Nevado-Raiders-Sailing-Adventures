@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nevado Raiders | Catamaran Dan</title>
+  <meta name="description" content="Nevado Raiders — the fleet, the crew, and the Norse heritage behind the Blue Rim 5 expedition."/>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
+a:hover{color:var(--gold);}
+nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;min-height:56px;}
+.nav-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.9rem 1.4rem;row-gap:0.5rem;}
+.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-item.dropdown{display:inline-flex;align-items:center;gap:0.25rem;position:relative;}
+.nav-group-label{background:none;border:none;color:var(--fog);cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;display:inline-flex;align-items:center;gap:0.3rem;white-space:nowrap;transition:color 0.25s;}
+.nav-group-label:hover{color:var(--gold);}
+.nav-item.dropdown.open .nav-group-label{color:var(--gold);}
+.dropdown-caret{background:none;border:none;color:var(--fog);cursor:pointer;font-size:0.62rem;padding:0.2rem;line-height:1;font-family:'Josefin Sans',sans-serif;}
+.dropdown-caret:hover{color:var(--gold);}
+.nav-item.dropdown.open .dropdown-caret{color:var(--gold);}
+.dropdown-menu{display:none;flex-direction:column;position:absolute;top:100%;left:0;background:#0d1520;border:1px solid rgba(201,168,76,0.25);min-width:170px;padding:0.4rem 0;z-index:1001;margin-top:0.4rem;}
+.nav-item.dropdown.open .dropdown-menu{display:flex;}
+.dropdown-menu a{padding:0.55rem 1.1rem;white-space:nowrap;border-bottom:none;}
+.dropdown-menu a.active{color:var(--gold);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.45rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
+.page-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(14,77,110,0.4) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
+.page-hero-content{position:relative;z-index:2;max-width:860px;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin:1rem auto 0;opacity:0.85;}
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;margin-bottom:1.5rem;}
+.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.infobox-label.mid{background:var(--midnight);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.two-col.reverse{direction:rtl;}
+.two-col.reverse>*{direction:ltr;}
+.norse-values{display:flex;flex-wrap:wrap;gap:0.8rem;margin:1.8rem 0;}
+.norse-value{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:0.55rem 1.2rem;}
+.fleet-strip{display:flex;flex-wrap:wrap;gap:0.8rem;margin:1.8rem 0;}
+.fleet-boat{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fog);border:1px solid rgba(41,176,212,0.35);padding:0.55rem 1.2rem;}
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;}
+.img-trio img{width:100%;object-fit:cover;height:220px;filter:brightness(0.86) saturate(0.9);transition:filter 0.3s;}
+.img-trio img:hover{filter:brightness(1) saturate(1.05);}
+.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:2.5rem 0;}
+.img-pair img{width:100%;height:340px;object-fit:cover;object-position:center;background:#050810;filter:brightness(0.9) saturate(0.94);border:1px solid rgba(201,168,76,0.2);}
+@media(max-width:768px){
+  .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0 1.5rem;z-index:999;}
+  .nav-links.open{display:flex;padding:0.5rem 1.5rem 1rem;}
+  .nav-links a{display:block;width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-item.dropdown{width:100%;flex-wrap:wrap;justify-content:space-between;}
+  .nav-item.dropdown a,.nav-item.dropdown .nav-group-label{width:auto;flex:1;border-bottom:none;}
+  .nav-group-label{padding:0.65rem 0;}
+  .dropdown-caret{padding:0.65rem 0.4rem;}
+  .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
+  .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+  section{padding:4rem 1.5rem;}
+  .two-col,.two-col.reverse{grid-template-columns:1fr;direction:ltr;gap:2.5rem;}
+  .img-trio{grid-template-columns:1fr 1fr;}
+  .img-trio img{height:160px;}
+  .img-pair{grid-template-columns:1fr;}
+  .img-pair img{height:300px;}
+}
+@media(max-width:480px){.img-trio{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+
+      <div class="nav-item dropdown">
+        <a href="index.html">Home</a>
+        <button class="dropdown-caret" aria-label="Toggle Home submenu" aria-expanded="false">&#9662;</button>
+        <div class="dropdown-menu">
+          <a href="index.html">Home</a>
+          <a href="bluemind.html">Blue Mind</a>
+          <a href="onlyarizona.html">Expedition Theme Song</a>
+          <a href="songs.html">Songs of the Rim</a>
+          <a href="rimrunner.html">The Rim Runner</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Expeditions <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="rimrun.html">Rim Run</a>
+          <a href="index.html">Blue Rim 5</a>
+          <a href="rimrun-caribe.html">Rim Run Caribe</a>
+          <a href="rimrun-pac.html">Rim Run Pac</a>
+          <a href="supporters.html">Expedition Supporters</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Vessels <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="shamrocket.html">Shamrocket</a>
+          <a href="shieldmaiden.html">Shield Maiden</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="lionfish.html">Lion Hunter</a>
+          <a href="storytelling.html">Storytellers</a>
+          <a href="expedition.html">Expedition Log</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="videos.html">Videos</a>
+          <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">About <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="about.html">About Catamaran Dan</a>
+          <a href="thelivingsaga.html">The Living Saga</a>
+          <a href="nevadoraiders.html" class="active">Nevado Raiders</a>
+          <a href="legal.html">Legal &amp; Intellectual Property</a>
+        </div>
+      </div>
+
+      <a href="shop.html">Shop</a>
+
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <span class="hero-eyebrow">Blue Rim 5 &bull; The Crew</span>
+    <h1 class="hero-h1">Nevado <em>Raiders</em></h1>
+    <p class="hero-sub">A disciplined collection of real sailors on real boats, with a shared operating standard and a genuine appetite for what lies beyond the marina breakwater.</p>
+  </div>
+</div>
+
+<!-- THE VESSEL -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container-wide">
+    <div class="section-label reveal">The Flagship</div>
+    <h2 class="serif reveal">Shamrocket. <em>Getaway.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Hobie Getaway catamaran, 17 feet, 24-inch draft, open trampolines, no cockpit. Rigged and loaded for the long haul — solar, hookah dive gear, fishing rods, jerry cans, and a full camp kit lashed down and ready to move.</p>
+
+    <div class="img-pair reveal">
+      <div>
+        <img src="shamrocket.jpg" alt="Shamrocket under sail on the beach"/>
+        <p class="img-caption">Shamrocket &middot; Under Sail</p>
+      </div>
+      <div>
+        <img src="sideview.jpg" alt="Shamrocket rigged and loaded, side view"/>
+        <p class="img-caption">Rigged &amp; Loaded</p>
+      </div>
+    </div>
+    <div class="img-trio reveal">
+      <img src="front.jpg" alt="Shamrocket bow, rigged for expedition"/>
+      <img src="left.jpg" alt="Shamrocket loaded for expedition"/>
+      <img src="tentsup.jpg" alt="Camp tent set up aboard Shamrocket"/>
+    </div>
+  </div>
+</section>
+
+<!-- CAMP LIFE -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container-wide">
+    <div class="two-col">
+      <div class="reveal">
+        <img src="tentfromfront.jpg" alt="Camp tent aboard Shamrocket, viewed from the bow"/>
+        <p class="img-caption">Anchorage Camp</p>
+      </div>
+      <div>
+        <div class="section-label reveal">Anchor Down</div>
+        <h2 class="serif reveal">Wherever the <em>Anchor Sets.</em></h2>
+        <div class="gold-rule reveal"></div>
+        <p class="reveal">No marina overnight unless there's no alternative. The tent goes up on the trampoline, the gear stows where it's lashed, and camp is wherever the anchor sets that night — beach, cove, or open water.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NORSE HERITAGE -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Where the Name Comes From</div>
+    <h2 class="serif reveal">To Go <em>Viking.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">They were farmers, traders, navigators, and families who crossed cold seas in shallow-draft boats without charts. They used the word <em style="color:var(--gold);">viking</em> as a verb — not a noun. To go viking meant to set out, explore, test skill, take risk, and return changed.</p>
+    <p class="reveal">Nevado Raiders carries that forward. Modern Y-DNA work traces Catamaran Dan's paternal line through Norse seafarers of the 10th century — through Thorvald Asvaldsson, Erik the Red, and Leif Erikson — into the I1 haplogroup common among Scandinavia's working seafarers.</p>
+    <div class="norse-values reveal">
+      <span class="norse-value">Exploration</span>
+      <span class="norse-value">Self-Reliance</span>
+      <span class="norse-value">Celebration</span>
+      <span class="norse-value">Camaraderie</span>
+      <span class="norse-value">Adaptability</span>
+    </div>
+    <div class="pull-quote reveal">One small catamaran. Every anchorage earned at sea level.</div>
+  </div>
+</section>
+
+<!-- THE NEVADO RAIDER CALL -->
+<div style="background:#06090f;padding:2.5rem 1rem;text-align:center;">
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">The Nevado Raider Call</p>
+  <audio controls style="width:100%;max-width:480px;">
+    <source src="nevado_raider_call.mp3" type="audio/mpeg"/>
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+<!-- JOIN THE FLEET -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Join the Fleet</div>
+    <h2 class="serif reveal">Recruit the <em>Nevado Raiders.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">We are assembling a disciplined collection of real sailors on real boats with a shared operating standard and a genuine appetite for what lies beyond the marina breakwater.</p>
+    <div class="fleet-strip reveal">
+      <span class="fleet-boat">Hobie Getaway</span>
+      <span class="fleet-boat">Catalina 22 Sport</span>
+      <span class="fleet-boat">Shoal-Draft Expedition Boats</span>
+      <span class="fleet-boat">Guardian Vessels</span>
+    </div>
+    <a href="mailto:nevadoraiders@gmail.com" class="btn-gold reveal">Join the Fleet — nevadoraiders@gmail.com</a>
+  </div>
+</section>
+
+<!-- OUR SPONSORS -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container-wide">
+    <div class="section-label reveal">Standing Behind the Fleet</div>
+    <h2 class="serif reveal">Expedition <em>Supporters.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <img src="sponsors.jpg" alt="Nevado Raiders supporters" class="reveal" style="width:100%;max-width:640px;margin:1rem auto 0;filter:brightness(0.92) saturate(0.95);"/>
+    <p class="img-caption">The Fleet Has Support</p>
+  </div>
+</section>
+
+<!-- FOOTER IMAGE -->
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+  <img src="better.png" alt="Better Beachy than Bitchy&reg;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+</div>
+
+<footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Better Beachy Than Bitchy&reg;, Nevado Raiders, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
+document.body.classList.add('js-ready');
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
+
+  function closeAllDropdowns(){
+    dropdowns.forEach(function(d){
+      d.classList.remove('open');
+      var caret=d.querySelector('.dropdown-caret');
+      var label=d.querySelector('.nav-group-label');
+      if(caret)caret.setAttribute('aria-expanded','false');
+      if(label)label.setAttribute('aria-expanded','false');
+    });
+  }
+
+  function closeMenu(){
+    if(navLinks)navLinks.classList.remove('open');
+    if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+    closeAllDropdowns();
+  }
+  function openMenu(){
+    if(navLinks)navLinks.classList.add('open');
+    if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+  }
+
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+
+  dropdowns.forEach(function(dropdown){
+    var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
+    if(!trigger)return;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      var isOpen=dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if(!isOpen){
+        dropdown.classList.add('open');
+        trigger.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+    els.forEach(function(el){obs.observe(el);});
+  }else{els.forEach(function(el){el.classList.add('visible');});}
+})();
+</script>
+</body>
+</html>
