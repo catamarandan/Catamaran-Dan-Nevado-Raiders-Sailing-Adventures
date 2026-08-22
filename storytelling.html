@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Storytellers of the Rim | Catamaran Dan</title>
-<style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shamrocket | Catamaran Dan</title>
+  <meta name="description" content="Shamrocket is a Hobie Getaway catamaran with 24-inch draft — the expedition platform for Blue Rim 5™ and the Rim Run circuits. Built for real work in real conditions."/>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
-:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;--input-bg:rgba(14,22,38,0.95);--form-border:rgba(201,168,76,0.28);--form-focus:rgba(41,176,212,0.4);}
+:root{
+  --deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;
+  --caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;
+  --parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;
+  --text-light:#e8e4da;--text-dim:#9aa0b0;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
@@ -36,6 +42,154 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* HERO — full-bleed Shamrocket */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;
+  overflow:hidden;
+}
+.hero-image-col{
+  position:relative;background:#06090f;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.hero-image-col::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,transparent 55%,var(--deep-ocean) 100%),
+    linear-gradient(180deg,rgba(6,9,15,0.25) 0%,transparent 25%,transparent 75%,rgba(6,9,15,0.5) 100%);
+  pointer-events:none;z-index:2;
+}
+.hero-slides{position:absolute;inset:0;width:100%;height:100%;}
+.hero-slide{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center center;
+  filter:brightness(0.9) saturate(0.95);
+  opacity:0;transition:opacity 1.2s ease;
+}
+.hero-slide.active{opacity:1;}
+.hero-text-col{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6rem 4rem 6rem 3rem;
+  position:relative;z-index:3;
+}
+.hero-text-col::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(201,168,76,0.35),transparent);
+}
+.hero-eyebrow{
+  font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--aqua);margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp 0.9s ease 0.2s forwards;
+}
+.hero-h1{
+  font-family:'Cinzel',serif;font-size:clamp(3rem,5.5vw,5rem);
+  font-weight:900;line-height:0.98;color:var(--parchment);
+  text-shadow:0 0 80px rgba(201,168,76,0.25),0 2px 4px rgba(0,0,0,0.9);
+  margin-bottom:0.2em;opacity:0;animation:fadeUp 0.9s ease 0.4s forwards;
+}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;font-size:0.9em;}
+.hero-divider{
+  width:50px;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--old-gold));
+  margin:2rem 0;opacity:0;animation:fadeIn 0.9s ease 0.7s forwards;
+}
+.hero-p{
+  font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;
+  color:var(--fog);line-height:1.75;max-width:480px;
+  opacity:0;animation:fadeUp 0.9s ease 0.8s forwards;
+}
+.hero-specs{
+  display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:2rem;
+  opacity:0;animation:fadeUp 0.9s ease 1s forwards;
+}
+.spec-tag{
+  font-family:'Josefin Sans',sans-serif;font-size:0.68rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--aqua);border:1px solid rgba(41,176,212,0.3);
+  padding:0.3rem 0.9rem;white-space:nowrap;
+}
+
+/* LAYOUT */
+section{position:relative;padding:6rem 2rem;}
+.container{max-width:860px;margin:0 auto;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
+h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
+h2.serif em{color:var(--gold);font-style:normal;}
+h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;color:var(--parchment);margin-bottom:0.8rem;}
+.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
+p+p{margin-top:1.2rem;}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border:1px solid rgba(201,168,76,0.15);}
+.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
+.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
+
+/* PULL QUOTE */
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
+
+/* FEATURE LIST */
+.feature-list{list-style:none;display:grid;gap:0.6rem;margin:1.5rem 0;}
+.feature-list li{padding:0.7rem 1rem;border-left:2px solid rgba(201,168,76,0.25);color:var(--fog);font-size:0.96rem;}
+.feature-list li strong{color:var(--text-light);}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
+
+/* INFOBOX */
+.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
+.infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+.infobox.mid .infobox-label{background:var(--midnight);}
+
+/* CARD GRID (advantages) */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:2.5rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
+.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
+.card:hover{background:rgba(14,77,110,0.18);}
+.card-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
+.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
+.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
+
+/* SYSTEMS GRID (gear with photos) */
+.systems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;margin:2.5rem 0;background:rgba(201,168,76,0.08);}
+.system-card{background:var(--midnight);overflow:hidden;transition:background 0.3s;}
+.system-card:hover{background:rgba(14,77,110,0.25);}
+.system-img{width:100%;height:220px;object-fit:cover;filter:brightness(0.8) saturate(0.9);transition:filter 0.4s;}
+.system-card:hover .system-img{filter:brightness(0.95) saturate(1.1);}
+.system-body{padding:1.8rem 2rem;}
+.system-body h3{font-family:'Cinzel',serif;font-size:1.05rem;color:var(--gold);margin-bottom:0.7rem;letter-spacing:0.05em;}
+.system-body p{font-size:0.93rem;color:var(--fog);line-height:1.7;}
+
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;}
+
+/* BG / BORDER */
+.bg-midnight{background:var(--midnight);}
+.bg-deep{background:var(--deep-ocean);}
+.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
+
+/* REVEAL */
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-image-col{min-height:60vw;max-height:520px;}
+  .hero-image-col::after{background:linear-gradient(180deg,transparent 50%,var(--deep-ocean) 100%);}
+  .hero-text-col{padding:4rem 2rem;text-align:center;}
+  .hero-text-col::before{display:none;}
+  .hero-p{margin:0 auto;}
+  .hero-specs{justify-content:center;}
+}
 @media(max-width:768px){
   .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
   .nav-toggle{display:flex;}
@@ -49,152 +203,16 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
   .dropdown-caret{padding:0.65rem 0.4rem;}
   .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
   .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
-}
-section{position:relative;padding:6rem 2rem;}
-.container{max-width:860px;margin:0 auto;}
-.container-wide{max-width:1100px;margin:0 auto;}
-.section-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--aqua);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
-.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
-h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
-h2.serif em{color:var(--gold);font-style:normal;}
-.gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
-p+p{margin-top:1.2rem;}
-.page-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 6rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 60%,rgba(14,77,110,0.55) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(26,127,168,0.3) 0%,transparent 50%),radial-gradient(ellipse at 50% 100%,rgba(201,168,76,0.07) 0%,transparent 60%),linear-gradient(180deg,#030608 0%,#0a0f1a 60%,#060d18 100%);}
-.rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
-.page-hero-content{position:relative;z-index:2;max-width:900px;display:flex;flex-direction:column;align-items:center;}
-.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.4em;color:var(--aqua);text-transform:uppercase;margin-bottom:2rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
-.hero-h1{font-family:'Cinzel',serif;font-size:clamp(3.2rem,9vw,7.5rem);font-weight:900;line-height:0.92;letter-spacing:0.01em;color:var(--parchment);text-shadow:0 0 120px rgba(201,168,76,0.25),0 0 40px rgba(41,176,212,0.1),0 2px 4px rgba(0,0,0,0.9);margin-bottom:0.2em;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
-.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
-.hero-rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:2.2rem auto;opacity:0;animation:fadeIn 1s ease 0.9s forwards;}
-.hero-sub{font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--parchment);opacity:0;max-width:720px;margin:0 auto 1.5rem;line-height:1.6;animation:fadeUp 1s ease 1s forwards;}
-.hero-tagline{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.25em;color:rgba(201,168,76,0.75);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.3s forwards;line-height:2.2;}
-.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeIn 1.5s ease 2s forwards;}
-.hero-scroll span{font-family:'Josefin Sans',sans-serif;font-size:0.6rem;letter-spacing:0.3em;color:var(--text-dim);text-transform:uppercase;}
-.hero-scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
-@keyframes scrollPulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
-.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border:1px solid rgba(201,168,76,0.15);}
-.stat{padding:2rem 1.2rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
-.stat:last-child{border-right:none;}
-.stat-num{font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
-.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
-.infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
-.infobox-label{position:absolute;top:-0.65rem;left:2rem;padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
-.infobox-label.deep{background:var(--deep-ocean);}
-.infobox-label.mid{background:var(--midnight);}
-.cred-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.5rem 0;}
-.cred-tag{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--aqua);border:1px solid rgba(41,176,212,0.3);padding:0.3rem 0.9rem;white-space:nowrap;}
-.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
-.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
-.theme-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1rem;margin-top:2rem;}
-.theme-card{border:1px solid rgba(201,168,76,0.15);background:rgba(8,12,20,0.45);padding:1.4rem;min-height:225px;}
-.theme-icon{font-size:2rem;margin-bottom:0.6rem;}
-.theme-card h3{font-family:'Cinzel',serif;font-size:1.05rem;color:var(--parchment);line-height:1.25;margin-bottom:0.7rem;}
-.theme-card p{font-size:0.98rem;color:var(--fog);line-height:1.65;}
-.story-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2.5rem;}
-.story-card{background:linear-gradient(180deg,rgba(13,21,32,0.95),rgba(10,15,26,0.98));border:1px solid rgba(201,168,76,0.18);overflow:hidden;min-height:330px;display:flex;flex-direction:column;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;}
-.story-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.45);box-shadow:0 18px 50px rgba(0,0,0,0.35);}
-.story-image{height:135px;background:radial-gradient(ellipse at center,rgba(41,176,212,0.18),rgba(10,15,26,0.95)),linear-gradient(135deg,rgba(201,168,76,0.08),rgba(14,77,110,0.25));border-bottom:1px solid rgba(201,168,76,0.12);display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--gold);}
-.story-body{padding:1.4rem;display:flex;flex-direction:column;flex:1;}
-.story-kicker{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.18em;color:var(--aqua);text-transform:uppercase;margin-bottom:0.6rem;}
-.story-title{font-family:'Cinzel',serif;font-size:1.18rem;line-height:1.25;color:var(--parchment);margin-bottom:0.6rem;}
-.story-summary{font-size:0.98rem;line-height:1.65;color:var(--fog);}
-.story-detail{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-top:1rem;}
-.img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;}
-.img-trio img{width:100%;object-fit:cover;height:220px;filter:brightness(0.82) saturate(0.87);transition:filter 0.3s;}
-.img-trio img:hover{filter:brightness(0.97) saturate(1.05);}
-.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;}
-.reveal{opacity:1;transform:none;}
-.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
-.js-ready .reveal.visible{opacity:1;transform:none;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.bg-midnight{background:var(--midnight);}
-.bg-deep{background:var(--deep-ocean);}
-.border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
-.form-section{background:radial-gradient(ellipse at 15% 0%,rgba(14,77,110,0.2) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(201,168,76,0.07) 0%,transparent 50%),var(--midnight);border-top:1px solid rgba(201,168,76,0.18);border-bottom:1px solid rgba(201,168,76,0.18);}
-.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.15);margin:2.5rem 0;}
-.process-step{background:var(--midnight);padding:1.8rem 1.5rem;text-align:center;}
-.process-num{font-family:'Cinzel',serif;font-size:2.2rem;font-weight:900;color:rgba(201,168,76,0.2);line-height:1;margin-bottom:0.6rem;display:block;}
-.process-step h4{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--parchment);margin-bottom:0.5rem;}
-.process-step p{font-size:0.94rem;color:var(--fog);line-height:1.55;}
-.form-wrapper{background:rgba(8,14,26,0.9);border:1px solid var(--form-border);padding:3rem 3.5rem;position:relative;margin-top:2.5rem;}
-.form-wrapper::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--aqua),var(--gold),transparent);opacity:0.55;}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2rem;}
-.field-group{display:flex;flex-direction:column;gap:0.4rem;}
-.field-group.span-2{grid-column:span 2;}
-label.fl{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--aqua);display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;}
-.req{color:var(--gold);font-size:0.9rem;}
-.hint{color:var(--text-dim);font-size:0.63rem;letter-spacing:0.08em;margin-left:auto;font-style:italic;text-transform:none;}
-input[type=text],input[type=email],input[type=tel],select,textarea{background:var(--input-bg);border:1px solid var(--form-border);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;padding:0.8rem 1.1rem;outline:none;transition:border-color 0.25s,box-shadow 0.25s;width:100%;-webkit-appearance:none;border-radius:0;}
-input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,select:focus,textarea:focus{border-color:var(--aqua);box-shadow:0 0 0 3px var(--form-focus);}
-input::placeholder,textarea::placeholder{color:var(--text-dim);font-style:italic;opacity:0.7;}
-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
-select option{background:#0d1520;color:var(--text-light);}
-textarea{resize:vertical;min-height:160px;line-height:1.65;}
-.ferr{font-family:'Josefin Sans',sans-serif;font-size:0.64rem;letter-spacing:0.1em;color:var(--fire);text-transform:uppercase;display:none;margin-top:0.1rem;}
-.has-error input,.has-error select,.has-error textarea{border-color:var(--fire)!important;box-shadow:0 0 0 2px rgba(212,98,42,0.2)!important;}
-.has-error .ferr{display:block;}
-.char-bar{font-family:'Josefin Sans',sans-serif;font-size:0.63rem;letter-spacing:0.1em;text-align:right;color:var(--text-dim);margin-top:0.2rem;transition:color 0.25s;}
-.char-bar.warn{color:var(--gold);}
-.char-bar.over{color:var(--fire);}
-.fdiv{border:none;border-top:1px solid rgba(201,168,76,0.12);margin:2rem 0;position:relative;}
-.fdiv::after{content:attr(data-label);position:absolute;top:-0.6rem;left:0;background:rgba(8,14,26,0.9);padding:0 0.9rem 0 0;font-family:'Josefin Sans',sans-serif;font-size:0.64rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
-.cb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.55rem;margin-top:0.5rem;}
-.cb-item{display:flex;align-items:flex-start;gap:0.7rem;padding:0.65rem 0.9rem;border:1px solid rgba(201,168,76,0.12);background:rgba(14,22,38,0.6);cursor:pointer;transition:border-color 0.2s,background 0.2s;user-select:none;}
-.cb-item:hover{border-color:rgba(41,176,212,0.35);background:rgba(14,22,38,0.9);}
-.cb-item.on{border-color:rgba(201,168,76,0.4);background:rgba(14,22,38,0.95);}
-.cb-item input[type=checkbox]{width:16px;height:16px;min-width:16px;background:var(--input-bg);border:1px solid var(--form-border);appearance:none;-webkit-appearance:none;cursor:pointer;padding:0;position:relative;margin-top:0.2rem;transition:background 0.2s,border-color 0.2s;flex-shrink:0;}
-.cb-item input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold);}
-.cb-item input[type=checkbox]:checked::after{content:'';position:absolute;top:2px;left:5px;width:4px;height:8px;border:2px solid #0a0f1a;border-top:none;border-left:none;transform:rotate(40deg);}
-.cb-text{font-family:'EB Garamond',Georgia,serif;font-size:1rem;color:var(--fog);line-height:1.4;}
-.cb-text strong{display:block;font-family:'Josefin Sans',sans-serif;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:0.1rem;}
-.rb-row{display:flex;flex-wrap:wrap;gap:0.55rem;margin-top:0.5rem;}
-.rb-item{display:flex;align-items:center;gap:0.5rem;padding:0.45rem 1rem;border:1px solid rgba(201,168,76,0.15);background:rgba(14,22,38,0.6);cursor:pointer;transition:all 0.2s;user-select:none;}
-.rb-item:hover{border-color:rgba(41,176,212,0.4);}
-.rb-item.on{border-color:rgba(201,168,76,0.4);background:rgba(14,22,38,0.9);}
-.rb-item input[type=radio]{width:14px;height:14px;appearance:none;-webkit-appearance:none;border:1px solid var(--form-border);border-radius:50%;background:var(--input-bg);position:relative;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
-.rb-item input[type=radio]:checked{border-color:var(--gold);background:var(--gold);}
-.rb-item input[type=radio]:checked::after{content:'';position:absolute;inset:3px;background:#0a0f1a;border-radius:50%;}
-.rb-label{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fog);}
-.btn-submit{display:flex;align-items:center;justify-content:center;gap:0.8rem;width:100%;background:linear-gradient(135deg,rgba(201,168,76,0.14),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.55);color:var(--gold);font-family:'Josefin Sans',sans-serif;font-size:0.82rem;letter-spacing:0.3em;text-transform:uppercase;padding:1.1rem 2rem;cursor:pointer;transition:all 0.3s;margin-top:2rem;position:relative;overflow:hidden;}
-.btn-submit:hover{border-color:var(--gold);box-shadow:0 0 28px rgba(201,168,76,0.14);}
-.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
-.btn-arrow{font-size:1.1rem;transition:transform 0.3s;}
-.btn-submit:hover .btn-arrow{transform:translateX(5px);}
-.spinner{display:none;width:18px;height:18px;border:2px solid rgba(201,168,76,0.3);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;}
-.btn-submit.loading .spinner{display:block;}
-.btn-submit.loading .btn-text,.btn-submit.loading .btn-arrow{display:none;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.privacy-note{font-family:'Josefin Sans',sans-serif;font-size:0.64rem;letter-spacing:0.1em;color:var(--text-dim);line-height:1.9;text-align:center;margin-top:1.5rem;border-top:1px solid rgba(201,168,76,0.1);padding-top:1.5rem;}
-.privacy-note a{color:var(--text-dim);text-decoration:underline;text-underline-offset:3px;}
-.privacy-note a:hover{color:var(--gold);}
-.form-success{display:none;text-align:center;padding:4rem 2rem;}
-.form-success.show{display:block;animation:fadeUp 0.7s ease forwards;}
-.success-icon{font-size:3.5rem;margin-bottom:1.5rem;}
-.success-h{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2rem);color:var(--parchment);margin-bottom:0.8rem;}
-.success-h em{color:var(--gold);font-style:normal;}
-.success-p{color:var(--fog);font-size:1.05rem;max-width:560px;margin:0 auto 1rem;}
-.success-ref{font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--aqua);margin-top:1rem;}
-@media(max-width:768px){
   section{padding:4rem 1.5rem;}
-  .stat-strip{grid-template-columns:repeat(3,1fr);}
-  .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
-  .stat:nth-child(3n){border-right:none;}
-  .stat:nth-child(3n-1),.stat:nth-child(3n-2){border-right:1px solid rgba(201,168,76,0.15);}
-  .img-trio{grid-template-columns:1fr 1fr;}
-  .img-trio img{height:160px;}
-  .form-wrapper{padding:2rem 1.3rem;}
-  .form-grid{grid-template-columns:1fr;}
-  .field-group.span-2{grid-column:span 1;}
-  .cb-grid{grid-template-columns:1fr;}
-}
-@media(max-width:480px){
-  .img-trio{grid-template-columns:1fr;}
+  .two-col{grid-template-columns:1fr;gap:2.5rem;}
   .stat-strip{grid-template-columns:repeat(2,1fr);}
+  .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
+  .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
 }
-</style>
+  </style>
 </head>
 <body>
+
 <nav id="main-nav">
   <div class="nav-inner">
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -210,6 +228,7 @@ textarea{resize:vertical;min-height:160px;line-height:1.65;}
           <a href="bluemind.html">Blue Mind</a>
           <a href="onlyarizona.html">Expedition Theme Song</a>
           <a href="songs.html">Songs of the Rim</a>
+          <a href="getawayband.html">The Getaway Band</a>
         </div>
       </div>
 
@@ -227,7 +246,7 @@ textarea{resize:vertical;min-height:160px;line-height:1.65;}
       <div class="nav-item dropdown">
         <button class="nav-group-label" aria-expanded="false">Vessels <span class="dropdown-caret-icon">&#9662;</span></button>
         <div class="dropdown-menu">
-          <a href="shamrocket.html">Shamrocket</a>
+          <a href="shamrocket.html" class="active">Shamrocket</a>
           <a href="shieldmaiden.html">Shield Maiden</a>
         </div>
       </div>
@@ -236,7 +255,7 @@ textarea{resize:vertical;min-height:160px;line-height:1.65;}
         <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
         <div class="dropdown-menu">
           <a href="lionfish.html">Lion Hunter</a>
-          <a href="storytelling.html" class="active">Storytellers</a>
+          <a href="storytelling.html">Storytellers</a>
           <a href="expedition.html">Expedition Log</a>
           <a href="gallery.html">Gallery</a>
           <a href="videos.html">Videos</a>
@@ -258,378 +277,372 @@ textarea{resize:vertical;min-height:160px;line-height:1.65;}
     </div>
   </div>
 </nav>
-<div class="page-hero">
-  <div class="rune-overlay"></div>
-  <div class="page-hero-content">
-    <div class="hero-eyebrow">Oral History &#8226; Island Memory &#8226; Voices of the Sea</div>
-    <h1 class="hero-h1">Storytellers <em>of the Rim</em></h1>
-    <div class="hero-rule"></div>
-    <p class="hero-sub">The knowledge that keeps these reefs alive doesn't live in a database. It lives in the people who have fished the same water for three generations — and who have never been asked to share what they know. Until now.</p>
-    <div class="hero-tagline">Real People &#8226; Real Places &#8226; Real Stories &#8226; Carried by the Sea</div>
+
+<!-- HERO — Shamrocket front and center -->
+<div class="hero">
+  <div class="hero-image-col">
+    <div class="hero-slides">
+      <img src="https://catamarandan.org/hobie_getaway.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran" class="hero-slide active"/>
+      <img src="https://catamarandan.org/hobie getaway people.jpg" alt="Shamrocket with crew" class="hero-slide"/>
+    </div>
   </div>
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="hero-scroll-line"></div>
+  <div class="hero-text-col">
+    <div class="hero-eyebrow">Blue Rim 5&#8482; &bull; Expedition Platform &bull; AZ 2626CG</div>
+    <h1 class="hero-h1">Shamrocket<em>Built for This.</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-p">A Hobie Getaway catamaran — 17 feet, 24-inch draft, wind and solar only. She gets into places bigger boats anchor and stare at. Inside the reef. Into the mangrove channel. Onto the beach where the people are and the stories live.</p>
+    <div class="hero-specs">
+      <span class="spec-tag">Hobie Getaway</span>
+      <span class="spec-tag">17 ft LOA</span>
+      <span class="spec-tag">24" Draft</span>
+      <span class="spec-tag">Wind &amp; Solar Only</span>
+      <span class="spec-tag">0 Carbon</span>
+      <span class="spec-tag">AZ 2626CG</span>
+    </div>
   </div>
 </div>
-<div style="background:#06090f;padding:1rem 1rem 0;">
-  <div class="img-trio reveal">
-    <img alt="Reef and island light" src="https://catamarandan.org/belizelight2.jpg"/>
-    <img alt="Small catamaran sailing the Rim" src="https://catamarandan.org/nice.jpg"/>
-    <img alt="Remote reef anchorage" src="https://catamarandan.org/belizeglovers2.jpg"/>
-  </div>
-</div>
+
+<!-- STAT STRIP -->
 <div style="background:var(--midnight);padding:0 2rem;">
   <div class="container-wide">
     <div class="stat-strip" style="border-left:none;border-right:none;">
-      <div class="stat"><span class="stat-num">1</span><span class="stat-label">Boat</span></div>
-      <div class="stat"><span class="stat-num">24</span><span class="stat-label">Countries</span></div>
-      <div class="stat"><span class="stat-num">190+</span><span class="stat-label">Planned Locations</span></div>
-      <div class="stat"><span class="stat-num">1,700+</span><span class="stat-label">Days at Sea</span></div>
-      <div class="stat"><span class="stat-num">&#8734;</span><span class="stat-label">Human Voices</span></div>
-      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Scripts</span></div>
+      <div class="stat"><span class="stat-num">24"</span><span class="stat-label">Draft</span></div>
+      <div class="stat"><span class="stat-num">17 ft</span><span class="stat-label">Length</span></div>
+      <div class="stat"><span class="stat-num">Wind</span><span class="stat-label">Primary Power</span></div>
+      <div class="stat"><span class="stat-num">440W</span><span class="stat-label">Solar Array</span></div>
+      <div class="stat"><span class="stat-num">60 ft</span><span class="stat-label">Dive Depth</span></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Carbon Emissions</span></div>
     </div>
   </div>
 </div>
-<section class="bg-midnight border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">What It Is</div>
-    <h2 class="serif reveal">They've Been Waiting <em>to Be Heard.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">There is a Gar&iacute;funa elder in Belize who remembers exactly what the reef looked like before the bleaching — not in data, but in the way the fish moved, the color of the water at dawn, the songs the divers sang when the catch was good. That knowledge lives in him. When he's gone, it's gone.</p>
-    <p class="reveal">In the R&iacute;o Dulce canyon, a Q'eqchi' Maya fisherman reads the thermal springs the way a scientist reads a gauge — but his grandfather taught him, and his grandfather's grandfather before that, and no university has ever sent anyone to ask. On Little Corn Island, a grandmother knows every current around the reef by feel, by season, by the behavior of the birds. No chart captures what she knows.</p>
-    <p class="reveal">These are not quaint stories. They are the most accurate ecological records on these coastlines — and they exist only as long as the people who carry them are alive and willing to speak. Shamrocket will stop at every harbor, every dock, every anchorage where someone has something worth saying. And it will listen.</p>
-    <div class="infobox reveal"><div class="infobox-label deep">The Promise</div>The storyteller controls the story. Rim Run listens, records, preserves, and carries it forward — on their terms, with their names, with their community's context intact.</div>
-  </div>
-</section>
+
+<!-- THE BOAT — Who Shamrocket Is -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
-    <div class="section-label reveal">The Philosophy</div>
-    <h2 class="serif reveal">Not Content. <em>Memory.</em></h2>
+    <div class="section-label reveal">The Vessel</div>
+    <h2 class="serif reveal">Not a Compromise. <em>The Philosophy Made Physical.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">This project is not reality television, tourism branding, or staged entertainment. It is a growing oral-history archive of real people whose lives are connected to the sea.</p>
-    <p class="reveal">Different islands speak different languages, live under different flags, and remember different storms. But throughout the Rim, the same human themes return again and again: family, survival, fishing, music, migration, loss, joy, rebuilding, and love for the water.</p>
-    <p class="reveal">The ocean becomes the thread. The stories become the record. Over time, Storytellers of the Rim becomes a human atlas of the Caribbean Basin and the coastal world beyond it.</p>
-    <div class="cred-list reveal">
-      <span class="cred-tag">Authentic Voices</span><span class="cred-tag">Oral History</span><span class="cred-tag">Maritime Culture</span><span class="cred-tag">Island Memory</span><span class="cred-tag">Storm Survival</span><span class="cred-tag">Music &amp; Performance</span><span class="cred-tag">Reef Communities</span>
-    </div>
-  </div>
-</section>
-<section class="bg-midnight border-bottom-gold">
-  <div class="container-wide">
-    <div class="container">
-      <div class="section-label reveal">Story Streams</div>
-      <h2 class="serif reveal">Ten Windows Into <em>Life Around the Rim.</em></h2>
-      <div class="gold-rule reveal"></div>
-      <p class="reveal">Each story stands on its own, but the archive will grow through recurring themes that help visitors travel emotionally through the Rim.</p>
-    </div>
-    <div class="theme-list">
-      <div class="theme-card reveal"><div class="theme-icon">&#129424;</div><h3>Voices of the Reef</h3><p>Divers, fishermen, guides, restoration workers, and reef communities speak about abundance, decline, survival, and the underwater places that shaped their lives.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#9875;</div><h3>Stories from the Dock</h3><p>Harbor talk, fuel-dock wisdom, waterfront jokes, marina legends, fishing pier memories, and the stories that only emerge once the boats stop moving.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#129345;</div><h3>Songs of the Islands</h3><p>Musicians, singers, dancers, drummers, and performers express island identity through sound, rhythm, movement, ritual, celebration, and improvisation.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#127754;</div><h3>Storm Memories</h3><p>Hurricane stories, lost boats, evacuations, rebuilding, grief, humor, and the generational memory carried by every storm coast.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#128012;</div><h3>Children of the Caribbean</h3><p>Young people speak about island life, family, the ocean, climate, dreams, fear, joy, and the future they will inherit.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#127754;</div><h3>Women of the Water</h3><p>Captains, mothers, divers, artists, cooks, business owners, market workers, environmental leaders, and grandmothers tell the stories often left out of maritime history.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#129517;</div><h3>The Old Captains</h3><p>Traditional navigation, reef passages, storm prediction, forgotten anchorages, maritime legends, and decades of knowledge that cannot be learned from screens.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#127769;</div><h3>Night Stories at Anchor</h3><p>Low-light conversations, distant music, lanterns, confessions, laughter, philosophy, rain on fiberglass, and the emotional atmosphere that only exists after dark.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#127907;</div><h3>Last Fishermen</h3><p>Handline fishing, lobster diving, wooden boats, instinctive reef knowledge, changing economies, modernization, and traditional maritime culture under pressure.</p></div>
-      <div class="theme-card reveal"><div class="theme-icon">&#128293;</div><h3>Voices After the Storm</h3><p>Recovery, rebuilding, solidarity, hope, and the human spirit that rises after hurricanes, floods, economic collapse, or personal loss.</p></div>
-    </div>
-  </div>
-</section>
-<section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">How Stories Are Shared</div>
-    <h2 class="serif reveal">A Face. A Place. <em>A Voice.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">Each published story will have its own visual space: a still image, a short written summary, the location, the story stream, and a link to watch or listen to the full session.</p>
-    <p class="reveal">A fisherman in Belize, a dock singer in Cura&ccedil;ao, a grandmother in Roat&aacute;n, a diver in Bonaire, a child in Panama, a bartender in Trinidad &mdash; people who may never meet each other become connected through one continuous ocean route.</p>
-    <div class="infobox reveal"><div class="infobox-label deep">The Public Archive</div>Visitors will be able to move through the stories by island, harbor, category, image, and voice &mdash; eventually by map location along the Rim Run route.</div>
-  </div>
-</section>
-<section class="bg-midnight border-bottom-gold">
-  <div class="container-wide">
-    <div class="container">
-      <div class="section-label reveal">The Story Experience</div>
-      <h2 class="serif reveal">How Each Story <em>Will Feel.</em></h2>
-      <div class="gold-rule reveal"></div>
-      <p class="reveal">The finished archive will not feel like a playlist. It will feel like a mosaic of living places. Each story card becomes a doorway into a person, a harbor, an island, a reef, a storm, a song, or a memory.</p>
-    </div>
-    <div class="story-grid">
-      <article class="story-card reveal"><div class="story-image">&#128444;</div><div class="story-body"><div class="story-kicker">Hero Image</div><h3 class="story-title">The First Look</h3><p class="story-summary">A powerful still image becomes the emotional doorway: a face, a dock, a boat, an instrument, a reef, a storm-damaged shore, or a night anchorage.</p><div class="story-detail">Visual Entry Point</div></div></article>
-      <article class="story-card reveal"><div class="story-image">&#9999;</div><div class="story-body"><div class="story-kicker">Written Summary</div><h3 class="story-title">The Human Hook</h3><p class="story-summary">A short cinematic summary gives context before visitors watch or listen: who is speaking, where they are, what memory they carry, and why the story matters.</p><div class="story-detail">Searchable &amp; Readable</div></div></article>
-      <article class="story-card reveal"><div class="story-image">&#9654;</div><div class="story-body"><div class="story-kicker">Video / Audio</div><h3 class="story-title">The Voice Itself</h3><p class="story-summary">The full session through video or audio &mdash; the storyteller&rsquo;s pauses, laughter, emotion, music, silence, and truth heard directly.</p><div class="story-detail">Watch or Listen</div></div></article>
-      <article class="story-card reveal"><div class="story-image">&#128205;</div><div class="story-body"><div class="story-kicker">Place</div><h3 class="story-title">The Story Has Coordinates</h3><p class="story-summary">Every story belongs to a real place: a harbor, beach, reef, village, island, marina, storm refuge, or anchorage where the memory was shared.</p><div class="story-detail">Location Memory</div></div></article>
-      <article class="story-card reveal"><div class="story-image">&#128248;</div><div class="story-body"><div class="story-kicker">Still Images</div><h3 class="story-title">The World Around Them</h3><p class="story-summary">Supporting stills show the environment: hands, boats, tools, families, docks, reefs, instruments, streets, markets, and the weather of that day.</p><div class="story-detail">Photo Memory</div></div></article>
-      <article class="story-card reveal"><div class="story-image">&#128506;</div><div class="story-body"><div class="story-kicker">Route Connection</div><h3 class="story-title">The Rim as a Human Map</h3><p class="story-summary">As the route grows, the stories become a human chart of the Caribbean &mdash; not just where the boat traveled, but who was heard along the way.</p><div class="story-detail">Living Atlas</div></div></article>
-    </div>
-  </div>
-</section>
-<section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">Sound &amp; Atmosphere</div>
-    <h2 class="serif reveal">The Ocean Is <em>Part of the Soundtrack.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">The project will preserve more than words. It will preserve wind, rain, rigging, surf, insects, harbor noise, underwater breathing, engines shutting down, music drifting across anchorages, and the silence that sometimes says more than speech.</p>
-    <p class="reveal">A great story may happen at a waterfront bar in full daylight. Another may happen under red light at anchor while rain moves across the bay. Another may happen through drums, singing, dancing, or a child drawing the ocean as they see it.</p>
-    <p class="reveal">Imperfection is part of the identity. A pause, a laugh, a dog barking in the distance, thunder behind the speaker, or waves tapping against the hull are not mistakes. They are proof that the story was alive.</p>
-  </div>
-</section>
-<section class="form-section" id="tell-your-story">
-  <div class="container">
-    <div class="section-label reveal">Submit Your Story</div>
-    <h2 class="serif reveal">Want to Be <em>Heard?</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">If Shamrocket will pass through your harbor, island, or reef &mdash; and you have a story worth telling &mdash; reach out in advance. Tell me who you are, how to reach you, and what you want to share. No scripts. No auditions. Just a conversation about whether we&rsquo;re a good fit before I arrive.</p>
-    <p class="reveal">I read every submission personally. I cannot guarantee a session with everyone who writes in &mdash; the route and the time it allows will decide that. But every message is considered, and the ones that fit will be waiting when the boat arrives.</p>
-    <div class="process-steps reveal">
-      <div class="process-step"><span class="process-num">01</span><h4>You Submit</h4><p>Fill in the form. Tell me your name, location, contact, and the shape of your story.</p></div>
-      <div class="process-step"><span class="process-num">02</span><h4>I Read It</h4><p>Every submission comes directly to me &mdash; no team, no filter. I&rsquo;ll reply personally if the story fits the route and timing.</p></div>
-      <div class="process-step"><span class="process-num">03</span><h4>We Connect</h4><p>If the route brings me near you and the story resonates, we&rsquo;ll make a plan before I arrive. Simple and direct.</p></div>
-      <div class="process-step"><span class="process-num">04</span><h4>The Story Lives</h4><p>If we meet and you want to tell it, your voice becomes part of the archive &mdash; carried from harbor to harbor around the Rim.</p></div>
-    </div>
-    <div class="form-wrapper reveal" id="form-container">
-      <div class="form-success" id="form-success">
-        <div class="success-icon">&#127754;</div>
-        <h3 class="success-h">Your Story <em>Has Been Received.</em></h3>
-        <p class="success-p">Thank you for reaching out. Your submission has been sent directly to Catamaran Dan. If your story and location fit the route, you&rsquo;ll hear back personally before Shamrocket arrives.</p>
-        <p class="success-p" style="font-style:italic;color:var(--text-dim);">No reply means the timing didn&rsquo;t align &mdash; not that the story wasn&rsquo;t worth telling.</p>
-        <div class="success-ref" id="success-ref"></div>
-        <a class="btn-gold" href="#tell-your-story" id="btn-again" style="display:inline-block;">Submit Another Story &#8594;</a>
+    <p class="reveal">Twenty-four inches of draft. That is the number that makes everything else possible. Shamrocket gets inside the barrier reef, up against the caye, into the mangrove channel, onto the beach itself — right up to where the people are, where the knowledge lives, where the stories are still being kept. A 40-foot passage-maker anchors offshore and stares at all of that. Shamrocket parks on top of it.</p>
+    <p class="reveal">Wind and solar only. Zero diesel. The boat is not a scaled-down version of big-boat cruising. It is the right platform for a long-term commitment to the same reef systems, the same coastlines, the same communities — revisited over time, on the expedition's own terms, with no fixed schedule dictating when.</p>
+
+    <div class="pull-quote reveal">Small boats teach honesty. You learn exactly what you know and exactly what you don't. There is no diesel engine to bail you out and no marina that can always be reached. You solve every problem with what you know and who you are — which is exactly how this expedition is designed.</div>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">🪸</span>
+        <h4>Inside the Reef</h4>
+        <p>24-inch draft opens up reef zones, shallow atolls, mangrove channels, and remote beaches that deeper vessels cannot safely reach. Shamrocket anchors directly over the sites that matter most.</p>
       </div>
-      <form id="story-form" novalidate>
-        <hr class="fdiv" data-label="About You">
-        <div class="form-grid">
-          <div class="field-group" id="fg-name">
-            <label class="fl" for="f-name">Full Name <span class="req">*</span></label>
-            <input type="text" id="f-name" name="name" placeholder="Your full name" autocomplete="name" maxlength="120">
-            <span class="ferr">Please enter your name.</span>
-          </div>
-          <div class="field-group" id="fg-location">
-            <label class="fl" for="f-location">Your Location <span class="req">*</span> <span class="hint">Harbor, island, or town</span></label>
-            <input type="text" id="f-location" name="location" placeholder="e.g. Placencia, Belize" maxlength="150">
-            <span class="ferr">Please tell me where you are.</span>
-          </div>
-          <div class="field-group" id="fg-email">
-            <label class="fl" for="f-email">Email Address <span class="req">*</span></label>
-            <input type="email" id="f-email" name="email" placeholder="your@email.com" autocomplete="email" maxlength="200">
-            <span class="ferr">Please enter a valid email address.</span>
-          </div>
-          <div class="field-group" id="fg-phone">
-            <label class="fl" for="f-phone">Phone / WhatsApp <span class="hint">Optional but preferred</span></label>
-            <input type="tel" id="f-phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel" maxlength="40">
-          </div>
-          <div class="field-group" id="fg-country">
-            <label class="fl" for="f-country">Country <span class="req">*</span></label>
-            <select id="f-country" name="country">
-              <option value="" disabled selected>Select country&hellip;</option>
-              <optgroup label="Caribbean &amp; Central America">
-                <option>Belize</option><option>Colombia</option><option>Costa Rica</option><option>Cuba</option><option>Dominican Republic</option><option>Guatemala</option><option>Honduras</option><option>Jamaica</option><option>Mexico</option><option>Nicaragua</option><option>Panama</option><option>Puerto Rico (US)</option><option>Trinidad &amp; Tobago</option><option>Venezuela</option>
-              </optgroup>
-              <optgroup label="Lesser Antilles">
-                <option>Anguilla</option><option>Antigua &amp; Barbuda</option><option>Aruba</option><option>Barbados</option><option>Bonaire</option><option>British Virgin Islands</option><option>Cura&ccedil;ao</option><option>Dominica</option><option>Grenada</option><option>Guadeloupe</option><option>Martinique</option><option>Montserrat</option><option>Saba</option><option>Saint Kitts &amp; Nevis</option><option>Saint Lucia</option><option>Saint Martin / Sint Maarten</option><option>Saint Vincent &amp; the Grenadines</option><option>Sint Eustatius</option><option>US Virgin Islands</option>
-              </optgroup>
-              <optgroup label="Bahamas &amp; Turks"><option>The Bahamas</option><option>Turks &amp; Caicos</option></optgroup>
-              <optgroup label="Other"><option>United States</option><option>Other</option></optgroup>
-            </select>
-            <span class="ferr">Please select your country.</span>
-          </div>
-          <div class="field-group" id="fg-contact">
-            <label class="fl" for="f-contact">Best Way to Reach You</label>
-            <select id="f-contact" name="contact_pref">
-              <option value="" disabled selected>Choose one&hellip;</option>
-              <option>Email</option><option>WhatsApp</option><option>Phone call</option><option>Text / SMS</option><option>Any of the above</option>
-            </select>
-          </div>
-        </div>
-        <hr class="fdiv" data-label="Your Story">
-        <div class="field-group span-2" id="fg-title" style="margin-bottom:1rem;">
-          <label class="fl" for="f-title">Working Title or Headline <span class="req">*</span> <span class="hint">What would you call it?</span></label>
-          <input type="text" id="f-title" name="story_title" placeholder="e.g. &quot;Fifty Years Fishing the Same Reef&quot; or &quot;The Hurricane That Took Everything&quot;" maxlength="200">
-          <span class="ferr">Give your story a working title.</span>
-        </div>
-        <div class="field-group span-2" id="fg-desc">
-          <label class="fl" for="f-desc">Tell Me What the Story Is About <span class="req">*</span> <span class="hint" id="count-label">0 / 1200</span></label>
-          <textarea id="f-desc" name="story_desc" maxlength="1200" placeholder="Describe what you want to share. Who you are, what happened, what you remember, what you want the world to know. Don't write a script &mdash; just tell me what's there. Rough and honest is better than polished and safe."></textarea>
-          <div class="char-bar" id="count-bar">0 / 1200 characters</div>
-          <span class="ferr">Please describe your story (minimum 80 characters).</span>
-        </div>
-        <div class="field-group span-2" id="fg-streams" style="margin-top:1rem;">
-          <label class="fl">Which Story Streams Fit? <span class="req">*</span> <span class="hint">Check all that apply</span></label>
-          <div class="cb-grid">
-            <label class="cb-item"><input type="checkbox" name="streams" value="Voices of the Reef"><span class="cb-text"><strong>Voices of the Reef</strong>Divers, fishermen, reef communities</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Stories from the Dock"><span class="cb-text"><strong>Stories from the Dock</strong>Harbor talk, waterfront memories</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Songs of the Islands"><span class="cb-text"><strong>Songs of the Islands</strong>Music, performance, rhythm</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Storm Memories"><span class="cb-text"><strong>Storm Memories</strong>Hurricanes, loss, rebuilding</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Children of the Caribbean"><span class="cb-text"><strong>Children of the Caribbean</strong>Young voices, island futures</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Women of the Water"><span class="cb-text"><strong>Women of the Water</strong>Captains, mothers, leaders</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="The Old Captains"><span class="cb-text"><strong>The Old Captains</strong>Traditional knowledge, navigation</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Night Stories at Anchor"><span class="cb-text"><strong>Night Stories at Anchor</strong>Low-light, quiet moments</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Last Fishermen"><span class="cb-text"><strong>Last Fishermen</strong>Traditional fishing, changing seas</span></label>
-            <label class="cb-item"><input type="checkbox" name="streams" value="Voices After the Storm"><span class="cb-text"><strong>Voices After the Storm</strong>Recovery, solidarity, hope</span></label>
-          </div>
-          <span class="ferr" id="stream-err">Please select at least one story stream.</span>
-        </div>
-        <div class="form-grid" style="margin-top:1.5rem;">
-          <div class="field-group" id="fg-format">
-            <label class="fl" for="f-format">How Would You Tell It? <span class="hint">Optional</span></label>
-            <select id="f-format" name="format">
-              <option value="" disabled selected>Choose a format&hellip;</option>
-              <option>Spoken conversation</option><option>Live music or performance</option><option>Spoken word or poetry</option><option>Visual art or craft demonstration</option><option>On the water &mdash; boat, dock, or reef</option><option>Walking tour of a place</option><option>Group or community session</option><option>Not sure yet &mdash; open to ideas</option><option>Other</option>
-            </select>
-          </div>
-          <div class="field-group" id="fg-lang">
-            <label class="fl" for="f-lang">Language(s) <span class="hint">Optional</span></label>
-            <input type="text" id="f-lang" name="language" placeholder="e.g. English, Spanish, Kriol, Papiamentu&hellip;" maxlength="120">
-          </div>
-        </div>
-        <hr class="fdiv" data-label="Anything Else">
-        <div class="field-group span-2" id="fg-source">
-          <label class="fl">How Did You Hear About This?</label>
-          <div class="rb-row">
-            <label class="rb-item"><input type="radio" name="source" value="catamarandan.org"><span class="rb-label">Website</span></label>
-            <label class="rb-item"><input type="radio" name="source" value="Social media"><span class="rb-label">Social Media</span></label>
-            <label class="rb-item"><input type="radio" name="source" value="Word of mouth"><span class="rb-label">Word of Mouth</span></label>
-            <label class="rb-item"><input type="radio" name="source" value="Marina or dock"><span class="rb-label">Marina / Dock</span></label>
-            <label class="rb-item"><input type="radio" name="source" value="Another storyteller"><span class="rb-label">Another Storyteller</span></label>
-            <label class="rb-item"><input type="radio" name="source" value="Other"><span class="rb-label">Other</span></label>
-          </div>
-        </div>
-        <div class="field-group span-2" id="fg-notes" style="margin-top:0.5rem;">
-          <label class="fl" for="f-notes">Anything Else I Should Know <span class="hint">Optional</span></label>
-          <textarea id="f-notes" name="notes" style="min-height:100px;" maxlength="600" placeholder="Best time to reach you, logistical notes, whether others would like to participate, sensitivities about the story &mdash; whatever would help me prepare."></textarea>
-        </div>
-        <div class="field-group span-2" id="fg-consent" style="margin-top:1.2rem;">
-          <label class="cb-item" style="border-color:rgba(201,168,76,0.2);align-items:flex-start;">
-            <input type="checkbox" id="f-consent" name="consent" value="yes" style="margin-top:0.25rem;">
-            <span class="cb-text" style="font-size:0.97rem;line-height:1.6;"><strong>I understand the terms</strong>I&rsquo;m submitting voluntarily. I understand that participation is not guaranteed, that I am not paid for my story, that I retain full control over what I share during any session, and that my contact information will only be used to coordinate this project.</span>
-          </label>
-          <span class="ferr" id="consent-err">Please confirm you understand before submitting.</span>
-        </div>
-        <button type="submit" class="btn-submit" id="btn-submit">
-          <span class="btn-text">Send My Story to Catamaran Dan</span>
-          <span class="btn-arrow">&#8594;</span>
-          <span class="spinner"></span>
-        </button>
-        <p class="privacy-note">Your submission goes directly to <strong>nevadoraiders@gmail.com</strong> &mdash; no marketing list, no third-party sharing, no spam.<br>Submissions are read personally. Not every story will result in a session; the route decides.<br>By submitting you agree to the <a href="legal.html">Terms &amp; Conditions</a> of Nevado Ranch Camp LLC.</p>
-      </form>
+      <div class="card">
+        <span class="card-icon">⛵</span>
+        <h4>Wind First</h4>
+        <p>Sail-driven movement eliminates fuel cost, logistics, and dependence on marina infrastructure. Zero carbon in operation. Every anchorage earned. The vessel is the philosophy made physical.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌍</span>
+        <h4>Trailerable &amp; Shippable</h4>
+        <p>Shamrocket can be broken down, containerized, and reassembled in another region without an ocean crossing. Blue Rim 5&#8482; moves beyond the Caribbean without needing to sail there first.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔄</span>
+        <h4>Built to Return</h4>
+        <p>Lower cost and fewer major systems make a long-term commitment to these coastlines realistic. Rim Run&#8482; is designed to revisit the same harbors and reefs over the years — not on a fixed annual cycle, but as the expedition allows. Continuity is the point, not a calendar.</p>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- NEVADO RAIDERS TIE-IN -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
-    <div class="section-label reveal">Long-Term Vision</div>
-    <h2 class="serif reveal">A Human Atlas <em>of the Rim.</em></h2>
+    <div class="section-label reveal">The Flagship</div>
+    <h2 class="serif reveal">One Boat. <em>One Fleet Behind Her.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">Over time, Storytellers of the Rim can become a digital maritime museum: story tiles, route maps, audio sessions, reef memories, storm testimonies, island songs, old captains, children, women of the water, fishermen, and communities rebuilding after the wind.</p>
-    <p class="reveal">Most expeditions document places. This one documents emotional memory. Years from now, some of these recordings may become historically priceless &mdash; voices from people and ways of life that may never have been professionally preserved before.</p>
-    <div class="infobox reveal"><div class="infobox-label mid">The Heart</div>The ocean connects humanity. Rim Run carries that connection from harbor to harbor, reef to reef, island to island, voice to voice.</div>
-    <div style="text-align:center;margin-top:2rem;">
-      <a class="btn-gold reveal" href="rimrun.html">Explore Rim Run &#8594;</a>&nbsp;&nbsp;
-      <a class="btn-gold reveal" href="gallery.html">View Gallery &#8594;</a>&nbsp;&nbsp;
-      <a class="btn-gold reveal" href="#tell-your-story">Submit Your Story &#8594;</a>
+    <p class="reveal">Shamrocket is the first hull, not the only one. She flies the Nevado Raiders banner — the growing fleet of people who'd rather bring their own boat than watch from shore. Every stop, every anchor party, every reef dive she leads is the model for how the rest of the fleet does it too: no single captain calling every shot, every hull earning a say.</p>
+    <div class="infobox reveal">
+      <div class="infobox-label">The Fleet Anthem</div>
+      "The Nevado Raider Call" is the invitation Shamrocket sails under. <a href="songs.html">Listen on Songs of the Rim &rarr;</a>
     </div>
   </div>
 </section>
+
+<!-- SMALL BOAT OBJECTION -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Already Have a Boat?</div>
+    <h2 class="serif reveal">You Don't Need a <em>Bigger Boat.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">The most common question: "I've got a Hobie 16, a daysailer, something small — I like the idea, but I don't see how that boat gets me out for more than an afternoon."</p>
+    <p class="reveal">Here's the honest answer, straight from what's actually aboard Shamrocket: I converted a Hobie Getaway into an expedition vessel by adding the DRAGR sled — nothing more exotic than that. With it towing behind, I have everything I need to stay out on the water for weeks on end: water, power, galley gear, dive equipment, shelter. All of it carried by the sled, none of it crowding the trampoline.</p>
+    <p class="reveal">Your boat doesn't need to change. It just needs a sled behind it.</p>
+    <div style="margin-top:2.5rem;" class="reveal">
+      <img src="https://catamarandan.org/dragr_sled_with_cover.jpg" alt="DRAGR Expedition Sled — the conversion that turns a small boat into an expedition vessel" style="width:100%;max-width:600px;display:block;margin:0 auto;filter:brightness(0.88) saturate(0.95);"/>
+      <p class="img-caption" style="text-align:center;margin-top:0.6rem;">The DRAGR — What Turns a Daysailer Into an Expedition Vessel</p>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;">
+      <a href="#systems" class="btn-gold reveal" style="display:inline-block;">See the Full Gear Breakdown &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- THE SLED — DRAGR -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Sled System</div>
+    <h2 class="serif reveal">DRAGR — <em>What Changes the Equation.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">The sled is what transforms Shamrocket from a day-sailing platform into a true coastal expedition system. Instead of loading every heavy or bulky item onto the trampoline, the DRAGR carries essential support gear while the sailing platform stays light, efficient, and correctly trimmed.</p>
+
+    <div class="two-col reveal">
+      <div>
+        <p style="color:var(--fog);">Magnum Jet Sled: 71" L &times; 42" W &times; 16" H. HDPE construction with fitted dark-gray canvas cover. Nearly watertight gear storage protecting equipment from spray, rain, mud, and road grit. On-water, DRAGR tows on a 15-foot bridle with an 18-foot safety tether.</p>
+        <p style="color:var(--fog);margin-top:1.2rem;">The 15-foot bridle creates a passive stabilizing effect — the sled trails at a natural interval that reduces side-to-side yaw in following seas. The tether provides the safety backup if the bridle parts. Both lines have been physics-validated for the load and sea states expected on the Rim Run circuits.</p>
+        <div class="pull-quote" style="font-size:1rem;margin-top:2rem;">Small cat plus modular sled is not a workaround. It is the operating model.</div>
+      </div>
+      <div>
+        <h3 class="serif" style="margin-bottom:1rem;">What It Carries</h3>
+        <ul class="feature-list">
+          <li><strong>Water and provisions —</strong> reserve capacity for short-duration independence from marinas.</li>
+          <li><strong>Power systems —</strong> solar panels and auxiliary charging equipment.</li>
+          <li><strong>Cooking gear —</strong> compact galley capability for real daily living.</li>
+          <li><strong>Cold storage —</strong> refrigeration support where needed.</li>
+          <li><strong>Shelter and camp gear —</strong> sleeping, shade, and privacy systems.</li>
+          <li><strong>Dive equipment —</strong> hookah system, fins, masks, and all underwater gear.</li>
+          <li><strong>Safety and expedition essentials —</strong> anchors, ditch bag, rods, and field tools.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEMS — The Gear -->
+<section class="bg-deep border-bottom-gold" id="systems">
+  <div class="container-wide">
+    <div class="container" style="margin-bottom:2rem;">
+      <div class="section-label reveal">Systems &amp; Gear</div>
+      <h2 class="serif reveal">Everything Aboard <em>Earned Its Place.</em></h2>
+      <div class="gold-rule reveal"></div>
+      <p class="reveal">Every piece of gear passes the same test: does it work when everything is wet, tired, and 40 miles from the nearest marina? If it didn't pass, it didn't come. What's listed here is what's aboard — chosen for durability, redundancy, and what it actually contributes when conditions get real.</p>
+    </div>
+    <div class="systems-grid reveal">
+
+      <div class="system-card">
+        <img src="https://catamarandan.org/dragr_sled_with_cover.jpg" alt="DRAGR Expedition Sled" class="system-img"/>
+        <div class="system-body">
+          <h3>DRAGR — Expedition Sled</h3>
+          <p>Magnum Jet Sled with fitted canvas cover. 71" &times; 42" &times; 16". Nearly watertight HDPE shell. Tows on a 15-foot bridle with 18-foot safety tether. The raven that guards the gear — and keeps Shamrocket's trampoline clear for sailing.</p>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <img src="https://catamarandan.org/jackery solar.jpg" alt="Jackery Explorer 2000 v2 — Power" class="system-img"/>
+        <div class="system-body">
+          <h3>Jackery Explorer 2000 v2 — Power</h3>
+          <p>2042Wh LiFePO₄ power station delivering 2200W continuous / 4400W surge. Paired with 2× ZOUPW 220W panels (440W total). Powers navigation, communications, hookah dive system, refrigeration, and all expedition electronics. Charges 0–80% in 66 minutes from shore power. Zero diesel. Zero noise.</p>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <img src="https://catamarandan.org/hookah.jpg" alt="Air Line E160v2 Hookah Dive System" class="system-img"/>
+        <div class="system-body">
+          <h3>Air Line E160v2 — Hookah Dive System</h3>
+          <p>AC-powered hookah delivering continuous breathable air to 60 feet. No tanks. No compressor runs. No fuel logistics. Powers off the Jackery. Deployable at every stop on the circuit — the system that puts the diver on the reef without the tank-hauling logistics across 24 countries.</p>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <img src="https://catamarandan.org/torqeedo.jpg" alt="Torqeedo Electric Outboard" class="system-img"/>
+        <div class="system-body">
+          <h3>Torqeedo — Electric Propulsion</h3>
+          <p>2.5 HP equivalent. 915 Wh integrated lithium battery. Silent direct-drive at 33 dB. Solar-rechargeable. IP67 waterproof. GPS-based range. When the reef needs to be approached quietly, or the mangrove channel calls for stealth — this is the motor that gets you there without announcing it.</p>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <img src="https://catamarandan.org/tent.jpg" alt="Quencha 2-Second Expedition Tent" class="system-img"/>
+        <div class="system-body">
+          <h3>Quencha 2-Second Tent</h3>
+          <p>Rapid-deploy windproof and waterproof shelter. The trampoline is the preferred sleeping platform when conditions allow. When they don't, this deploys in two seconds and you're dry in three. No fuss. No assembly in the dark.</p>
+        </div>
+      </div>
+
+      <div class="system-card">
+        <img src="https://catamarandan.org/shamrocket.jpg" alt="Starlink Mini — Offshore Communications" class="system-img"/>
+        <div class="system-body">
+          <h3>Starlink Mini — Comms &amp; Navigation</h3>
+          <p>Offshore internet and communications, stored in an orange waterproof ditch bag on deck. Paired with Samsung Galaxy Tab Active5 5G running Navionics for primary navigation, and a Garmin inReach on the ditch bag exterior for backup position and two-way messaging when Starlink is stowed.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY — Coastal Discipline -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Operating Philosophy</div>
+    <h2 class="serif reveal">Coastal Discipline. <em>Not Offshore Ambition.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">This platform is built around coastal discipline. Short legs. Daylight arrivals. Daily landing or anchoring. Constant awareness of nearby shelter. An operator with nuclear submarine qualification does not take unnecessary risks — and the platform is designed to stay inside an envelope it can always handle.</p>
+
+    <div class="two-col reveal">
+      <div>
+        <ul class="feature-list">
+          <li><strong>Short coastal legs —</strong> reduced exposure, rested crew, good judgment at arrival.</li>
+          <li><strong>Daylight navigation —</strong> every passage planned for a daylight landfall in good light.</li>
+          <li><strong>Weather first —</strong> the itinerary moves for weather. Not the other way around.</li>
+          <li><strong>Shallow-water options —</strong> 24-inch draft creates escape routes not available to deeper boats.</li>
+          <li><strong>Simple systems —</strong> fewer major systems mean fewer major failures far from help.</li>
+          <li><strong>One crew member always aboard —</strong> proper watch, proper scope, proper respect for the anchorage.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="infobox mid" style="margin:0;">
+          <div class="infobox-label">What This Does Not Claim</div>
+          <p style="color:var(--fog);">No vessel removes risk. Seamanship, judgment, and conservative operation still matter. The point is that within a disciplined coastal envelope, a small catamaran operated by a qualified mariner is a practical and effective platform for a multi-year expedition.</p>
+          <p style="color:var(--fog);margin-top:1.2rem;">The operator holds USN submarine qualification and ASA sailing instructor credentials. The platform is capable. The operator is qualified. The envelope is understood.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEAMANSHIP — Skills -->
+<section class="bg-deep border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">Seamanship</div>
+    <h2 class="serif reveal">Skills That Are <em>Earned on the Water</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">The Rim Run&#8482; is the proving ground. Systems get tested in real conditions. Routines get refined under pressure. Gear earns its place or gets replaced. Preparation replaces bravado. Confidence comes from repetition, not talk.</p>
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">🧭</span>
+        <h4>Natural-Sign Navigation</h4>
+        <p>Bird behavior as depth indicators. Water color over reef versus sand. Current reads at specific landmarks. The same intelligence the Norse used crossing the North Atlantic — applied to hundreds of reef systems and coastal channels.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⛵</span>
+        <h4>Trim Like a Longship</h4>
+        <p>Sail shape, weight distribution, and angle of attack in varying conditions. Shamrocket rewards correct trim with speed and stability. She tells you immediately and honestly when you've got it wrong. There is no keel to hide behind.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏖️</span>
+        <h4>Lee-Shore Drills</h4>
+        <p>Beach landings in surf. Anchoring in coral without damaging it. Getting off a lee shore when conditions change faster than the forecast said they would. Repetition until it is reflex, not thought.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌩️</span>
+        <h4>Rig-Ready Discipline</h4>
+        <p>Preventative maintenance. Gear inspection before every departure. The boat is always ready to go — because conditions don't give you time to prepare after they change. This is the operating standard that keeps people alive far from help.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHAKEDOWN PASSAGE — Turnagain to San Diego -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">The Shakedown Passage</div>
+    <h2 class="serif reveal">Turnagain to San Diego. <em>Before the Rim, the North Pacific.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Before Shamrocket ever points south into the Caribbean, she proves herself on a harder coast. Turnagain Arm, Alaska to San Diego — roughly 2,400 nautical miles, mostly under sail, the electric motor held in reserve for when it's actually needed.</p>
+    <p class="reveal">The route stays close to shelter wherever the coast allows it. Out of Cook Inlet, into Prince William Sound, then the long, protected thread of the Inside Passage down through Southeast Alaska and British Columbia — glaciers, straits, and channels doing most of the work of getting the boat south. The one open stretch that can't be routed around is the run from Icy Bay to Yakutat, timed for a settled weather window and nothing else.</p>
+    <p class="reveal">South of Vancouver Island, the coast opens up. Cape Flattery, the Columbia River bar, the Lost Coast, Point Conception — each one a known hurdle with its own rhythm, taken on its terms rather than a schedule. Staging points along the way give the boat a place to wait out wind and swell before committing.</p>
+
+    <div class="infobox mid reveal">
+      <div class="infobox-label">The Route</div>
+      <p style="color:var(--fog);">Anchorage &rarr; Homer &rarr; Prince William Sound &rarr; Yakutat &rarr; Southeast Alaska Inside Passage (Juneau, Sitka, Ketchikan) &rarr; British Columbia Inside Passage (Prince Rupert, Bella Bella, Port Hardy) &rarr; Vancouver Island &rarr; Neah Bay &rarr; Washington &amp; Oregon coast (Columbia River, Newport, Coos Bay) &rarr; Northern California (Crescent City, Humboldt Bay) &rarr; San Francisco &rarr; Central California (Monterey, Morro Bay) &rarr; Point Conception &rarr; Santa Barbara &rarr; San Diego</p>
+    </div>
+
+    <div class="pull-quote reveal">No fixed schedule. No open-ocean crossings taken by choice. Just a small boat working its way down a big coastline, one weather window at a time.</div>
+  </div>
+</section>
+
+<!-- FOOTER IMAGE -->
 <div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
-  <img alt="Better Beachy than Bitchy" class="reveal" src="https://catamarandan.org/better.png" style="max-width:380px;width:90%;display:inline-block;"/>
-  <p class="img-caption reveal" style="margin-top:1rem;">Storytellers of the Rim&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
+  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
 </div>
+
 <footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
   <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Storytellers of the Rim&#8482;, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="/legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Nevado Raiders, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
 </footer>
+
 <script>
-document.querySelectorAll('.footer-year').forEach(el=>el.textContent=new Date().getFullYear());
-document.body.classList.add('js-ready');
-(function(){
-  var toggle=document.getElementById('nav-toggle');
-  var nav=document.getElementById('main-nav');
-  var navLinks=document.getElementById('nav-links');
-  var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
+  document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
+  document.body.classList.add('js-ready');
+  (function(){
+    var toggle=document.getElementById('nav-toggle');
+    var nav=document.getElementById('main-nav');
+    var navLinks=document.getElementById('nav-links');
+    var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
 
-  function closeAllDropdowns(){
-    dropdowns.forEach(function(d){
-      d.classList.remove('open');
-      var caret=d.querySelector('.dropdown-caret');
-      var label=d.querySelector('.nav-group-label');
-      if(caret)caret.setAttribute('aria-expanded','false');
-      if(label)label.setAttribute('aria-expanded','false');
-    });
-  }
+    function closeAllDropdowns(){
+      dropdowns.forEach(function(d){
+        d.classList.remove('open');
+        var caret=d.querySelector('.dropdown-caret');
+        var label=d.querySelector('.nav-group-label');
+        if(caret)caret.setAttribute('aria-expanded','false');
+        if(label)label.setAttribute('aria-expanded','false');
+      });
+    }
 
-  function closeMenu(){
-    if(navLinks)navLinks.classList.remove('open');
-    if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
-    closeAllDropdowns();
-  }
-  function openMenu(){
-    if(navLinks)navLinks.classList.add('open');
-    if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
-  }
-
-  if(toggle&&nav&&navLinks){
-    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
-    nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
-    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
-    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
-  }
-
-  dropdowns.forEach(function(dropdown){
-    var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
-    if(!trigger)return;
-    trigger.addEventListener('click',function(e){
-      e.stopPropagation();
-      e.preventDefault();
-      var isOpen=dropdown.classList.contains('open');
+    function closeMenu(){
+      if(navLinks)navLinks.classList.remove('open');
+      if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
       closeAllDropdowns();
-      if(!isOpen){
-        dropdown.classList.add('open');
-        trigger.setAttribute('aria-expanded','true');
-      }
-    });
-  });
+    }
+    function openMenu(){
+      if(navLinks)navLinks.classList.add('open');
+      if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+    }
 
-  var els=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');o.unobserve(e.target);}});},{threshold:0.12});els.forEach(el=>obs.observe(el));}else{els.forEach(el=>el.classList.add('visible'));}
-})();
-document.querySelectorAll('.cb-item input[type=checkbox]').forEach(cb=>{cb.addEventListener('change',function(){this.closest('.cb-item').classList.toggle('on',this.checked);});if(cb.checked)cb.closest('.cb-item').classList.add('on');});
-document.querySelectorAll('.rb-item input[type=radio]').forEach(rb=>{rb.addEventListener('change',function(){document.querySelectorAll('.rb-item').forEach(r=>r.classList.remove('on'));this.closest('.rb-item').classList.add('on');});});
-var descEl=document.getElementById('f-desc'),countBar=document.getElementById('count-bar'),countLabel=document.getElementById('count-label');
-function updateCount(){if(!descEl)return;var n=descEl.value.length,max=1200,txt=n+' / '+max;if(countBar){countBar.textContent=txt+' characters';countBar.classList.remove('warn','over');if(n>=max)countBar.classList.add('over');else if(n>=max*0.85)countBar.classList.add('warn');}if(countLabel)countLabel.textContent=txt;}
-if(descEl){descEl.addEventListener('input',updateCount);updateCount();}
-var fmap={name:'f-name',location:'f-location',email:'f-email',country:'f-country',title:'f-title',desc:'f-desc'};
-Object.entries(fmap).forEach(([id,fid])=>{var el=document.getElementById(fid);if(el){['input','change'].forEach(ev=>el.addEventListener(ev,()=>{var fg=document.getElementById('fg-'+id);if(fg)fg.classList.remove('has-error');}));}});
-function validate(){
-  var ok=true;
-  var vals={name:document.getElementById('f-name').value.trim(),location:document.getElementById('f-location').value.trim(),email:document.getElementById('f-email').value.trim(),country:document.getElementById('f-country').value,title:document.getElementById('f-title').value.trim(),desc:document.getElementById('f-desc').value.trim()};
-  var streams=[...document.querySelectorAll('input[name=streams]:checked')].map(el=>el.value);
-  var consent=document.getElementById('f-consent').checked;
-  function chk(id,test){var fg=document.getElementById('fg-'+id);if(fg){if(test)fg.classList.remove('has-error');else{fg.classList.add('has-error');ok=false;}}}
-  chk('name',vals.name.length>=2);chk('location',vals.location.length>=2);chk('email',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vals.email));chk('country',vals.country!=='');chk('title',vals.title.length>=4);chk('desc',vals.desc.length>=80);
-  var sFg=document.getElementById('fg-streams'),sErr=document.getElementById('stream-err');
-  if(streams.length===0){sFg.classList.add('has-error');if(sErr)sErr.style.display='block';ok=false;}else{sFg.classList.remove('has-error');if(sErr)sErr.style.display='none';}
-  var cFg=document.getElementById('fg-consent'),cErr=document.getElementById('consent-err');
-  if(!consent){cFg.classList.add('has-error');if(cErr)cErr.style.display='block';ok=false;}else{cFg.classList.remove('has-error');if(cErr)cErr.style.display='none';}
-  return ok;
-}
-function genRef(){var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r='SOTR-';for(var i=0;i<8;i++)r+=c[Math.floor(Math.random()*c.length)];return r;}
-function buildMailto(ref){
-  var streams=[...document.querySelectorAll('input[name=streams]:checked')].map(el=>el.value).join(', ')||'None selected';
-  var src=(document.querySelector('input[name=source]:checked')||{}).value||'Not specified';
-  var lines=['=== STORYTELLERS OF THE RIM — SUBMISSION ===','','Reference: '+ref,'Date: '+new Date().toUTCString(),'','--- WHO THEY ARE ---','Name: '+document.getElementById('f-name').value.trim(),'Email: '+document.getElementById('f-email').value.trim(),'Phone/WhatsApp: '+(document.getElementById('f-phone').value.trim()||'Not provided'),'Location: '+document.getElementById('f-location').value.trim(),'Country: '+document.getElementById('f-country').value,'Best contact method: '+(document.getElementById('f-contact').value||'Not specified'),'','--- THE STORY ---','Title: '+document.getElementById('f-title').value.trim(),'','Description:',document.getElementById('f-desc').value.trim(),'','Story Streams: '+streams,'Format: '+(document.getElementById('f-format').value||'Not specified'),'Language(s): '+(document.getElementById('f-lang').value.trim()||'Not specified'),'','--- ADDITIONAL ---','How they heard: '+src,'','Additional notes:',(document.getElementById('f-notes').value.trim()||'(none)'),'','--- CONSENT ---','Confirmed: Yes','','============================================'];
-  var name=document.getElementById('f-name').value.trim(),loc=document.getElementById('f-location').value.trim();
-  return 'mailto:nevadoraiders@gmail.com?subject='+encodeURIComponent('Storytellers of the Rim — '+name+' — '+loc+' ['+ref+']')+'&body='+encodeURIComponent(lines.join('\n'));
-}
-var form=document.getElementById('story-form'),btn=document.getElementById('btn-submit'),success=document.getElementById('form-success'),refEl=document.getElementById('success-ref');
-if(form){form.addEventListener('submit',function(e){e.preventDefault();if(!validate()){var first=form.querySelector('.has-error');if(first)first.scrollIntoView({behavior:'smooth',block:'center'});return;}btn.classList.add('loading');btn.disabled=true;var ref=genRef();setTimeout(function(){window.location.href=buildMailto(ref);setTimeout(function(){btn.classList.remove('loading');btn.disabled=false;form.style.display='none';if(refEl)refEl.textContent='Reference: '+ref;success.classList.add('show');success.scrollIntoView({behavior:'smooth',block:'center'});},900);},500);});}
-var again=document.getElementById('btn-again');
-if(again){again.addEventListener('click',function(e){e.preventDefault();success.classList.remove('show');form.style.display='';form.reset();updateCount();document.querySelectorAll('.cb-item').forEach(el=>el.classList.remove('on'));document.querySelectorAll('.rb-item').forEach(el=>el.classList.remove('on'));document.querySelectorAll('.has-error').forEach(el=>el.classList.remove('has-error'));document.getElementById('f-name').focus();document.getElementById('form-container').scrollIntoView({behavior:'smooth',block:'start'});});}
+    if(toggle&&nav&&navLinks){
+      toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+      nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+      window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+    }
+
+    dropdowns.forEach(function(dropdown){
+      var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
+      if(!trigger)return;
+      trigger.addEventListener('click',function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        var isOpen=dropdown.classList.contains('open');
+        closeAllDropdowns();
+        if(!isOpen){
+          dropdown.classList.add('open');
+          trigger.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
+    // Hero slideshow
+    (function(){
+      var slides=document.querySelectorAll('.hero-slide');
+      if(slides.length<2)return;
+      var cur=0;
+      setInterval(function(){
+        slides[cur].classList.remove('active');
+        cur=(cur+1)%slides.length;
+        slides[cur].classList.add('active');
+      },4500);
+    })();
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
+      els.forEach(function(el){obs.observe(el);});
+    }else{els.forEach(function(el){el.classList.add('visible');});}
+  })();
 </script>
+
 </body>
 </html>
-
 
 
 
