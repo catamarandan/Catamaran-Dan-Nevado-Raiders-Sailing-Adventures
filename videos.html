@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Videos from the Blue Rim 5™ Sailing Expedition — coming soon. Catamaran Dan, Nevado Raiders."/>
-<title>Videos — Catamaran Dan &amp; Blue Rim 5&#8482;</title>
-<style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery — Life on the Water | Catamaran Dan</title>
+  <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
-:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--text-light:#e8e4da;--text-dim:#9aa0b0;}
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
@@ -51,26 +50,48 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
   .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
   .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
 }
-
-/* COMING SOON */
-.hero{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.25) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
-.rune-overlay{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;}
-.hero-content{position:relative;z-index:2;max-width:700px;}
-.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;}
-.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:0.02em;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.3em;}
-.hero h1 em{color:var(--gold);font-style:normal;}
-.hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;}
-.hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);max-width:520px;margin:0 auto;}
-
-footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3rem 2rem;text-align:center;}
-.footer-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:var(--parchment);letter-spacing:0.1em;margin-bottom:1rem;}
-.footer-tagline{font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:1.5rem;}
-.footer-contact{font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.1em;color:var(--text-dim);}
-.footer-contact a{color:var(--aqua);}
-</style>
+section{position:relative;padding:6rem 2rem;}
+.container-wide{max-width:1100px;margin:0 auto;}
+.page-hero{min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 3rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 50%,rgba(14,77,110,0.35) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(26,127,168,0.2) 0%,transparent 50%),linear-gradient(180deg,#050810 0%,#0a0f1a 50%,#060d18 100%);}
+.rune-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.page-hero-content{position:relative;z-index:2;max-width:860px;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:0.02em;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.3em;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto;opacity:0;animation:fadeIn 1s ease 1s forwards;}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.3rem);font-style:italic;color:var(--parchment);opacity:0;max-width:640px;margin:0 auto 2rem;animation:fadeUp 1s ease 1.1s forwards;}
+.gallery-filters{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.filter-btn{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--fog);border:1px solid rgba(201,168,76,0.2);padding:0.4rem 1rem;cursor:pointer;background:transparent;transition:all 0.25s;}
+.filter-btn:hover,.filter-btn.active{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,0.06);}
+.gallery-grid{columns:3 280px;gap:6px;}
+.gallery-item{break-inside:avoid;margin-bottom:6px;overflow:hidden;cursor:pointer;position:relative;}
+.gallery-item.hidden{display:none;}
+.gallery-item img{width:100%;display:block;transition:transform 0.4s,filter 0.4s;filter:brightness(0.85) saturate(0.9);}
+.gallery-item:hover img{transform:scale(1.04);filter:brightness(1) saturate(1.1);}
+.gallery-item .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,16,0.7) 0%,transparent 50%);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:1rem;}
+.gallery-item:hover .overlay{opacity:1;}
+.overlay-cat{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(5,8,16,0.95);z-index:999;align-items:center;justify-content:center;padding:2rem;}
+.lightbox.open{display:flex;}
+.lightbox img{max-height:90vh;max-width:90vw;object-fit:contain;}
+.lb-close{position:absolute;top:1.5rem;right:2rem;font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.2em;color:var(--gold);cursor:pointer;text-transform:uppercase;}
+.lb-arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem;color:var(--gold);cursor:pointer;padding:1rem;opacity:0.7;transition:opacity 0.2s;}
+.lb-arrow:hover{opacity:1;}
+.lb-prev{left:1rem;}.lb-next{right:1rem;}
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.bg-deep{background:var(--deep-ocean);}
+.gallery-section{padding:4rem 2rem 6rem;}
+@media(max-width:768px){
+  .gallery-grid{columns:2 180px;}
+}
+@media(max-width:480px){.gallery-grid{columns:1;}}
+  </style>
 </head>
 <body>
-
 <nav id="main-nav">
   <div class="nav-inner">
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -84,6 +105,7 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
         <div class="dropdown-menu">
           <a href="index.html">Home</a>
           <a href="bluemind.html">Blue Mind</a>
+          <a href="onlyarizona.html">Expedition Theme Song</a>
           <a href="songs.html">Songs of the Rim</a>
           <a href="getawayband.html">The Getaway Band</a>
         </div>
@@ -114,8 +136,8 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
           <a href="lionfish.html">Lion Hunter</a>
           <a href="storytelling.html">Storytellers</a>
           <a href="expedition.html">Expedition Log</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="videos.html" class="active">Videos</a>
+          <a href="gallery.html" class="active">Gallery</a>
+          <a href="videos.html">Videos</a>
           <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
         </div>
       </div>
@@ -135,31 +157,93 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
   </div>
 </nav>
 
-<!-- COMING SOON -->
-<section class="hero">
+<div class="page-hero">
   <div class="rune-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Blue Rim 5&#8482; &bull; Video Archive</div>
-    <h1>Coming <em>Soon!</em></h1>
+  <div class="page-hero-content">
+    <div class="hero-eyebrow">Blue Rim 5&#8482; &bull; Rim Run&#8482; &bull; Visual Archive</div>
+    <h1 class="hero-h1">Life on <em>the Water</em></h1>
     <div class="hero-rule"></div>
-    <p class="hero-sub">Video from the water is on its way — departure day, milestone stops, and life aboard Shamrocket. Check back soon.</p>
+    <p class="hero-sub">Forty countries/islands. Seven hundred reef sites. The reefs by day, the anchorages by night, and the places most people will never have the privilege of seeing — documented here for the world.</p>
+  </div>
+</div>
+
+<section class="gallery-section bg-deep">
+  <div class="container-wide">
+    <div class="gallery-filters reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="sea">Sea &amp; Wildlife</button>
+      <button class="filter-btn" data-filter="people">People</button>
+      <button class="filter-btn" data-filter="boat">Boat &amp; Gear</button>
+      <button class="filter-btn" data-filter="places">Places</button>
+    </div>
+    <div class="gallery-grid reveal" id="galleryGrid">
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(0)"><img src="https://catamarandan.org/belizelight1.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(1)"><img src="https://catamarandan.org/belizelight2.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(2)"><img src="https://catamarandan.org/belizelight3.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="boat" onclick="openLightbox(3)"><img src="https://catamarandan.org/shamrocket.jpg"/><div class="overlay"><span class="overlay-cat">Boat &amp; Gear</span></div></div>
+<div class="gallery-item" data-cat="boat" onclick="openLightbox(4)"><img src="https://catamarandan.org/dragr_sled_with_cover.jpg"/><div class="overlay"><span class="overlay-cat">Boat &amp; Gear</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(5)"><img src="https://catamarandan.org/panama1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(6)"><img src="https://catamarandan.org/panama2.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(7)"><img src="https://catamarandan.org/nica1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(8)"><img src="https://catamarandan.org/hondroa1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(9)"><img src="https://catamarandan.org/hondguan1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(10)"><img src="https://catamarandan.org/guatemala1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(11)"><img src="https://catamarandan.org/belizeglovers1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(12)"><img src="https://catamarandan.org/belizeturneffe1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(13)"><img src="https://catamarandan.org/dan.jpg"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(14)"><img src="https://catamarandan.org/ove.jpg"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(15)"><img src="https://catamarandan.org/rim_lightning.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(16)"><img src="https://catamarandan.org/belizesouth1.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(17)"><img src="https://catamarandan.org/panama4.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(18)"><img src="100_0156.JPG"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(19)"><img src="boy.jpg"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(20)"><img src="dolphin.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(21)"><img src="family.jpg"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(22)"><img src="fish.JPG"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="boat" onclick="openLightbox(23)"><img src="hobie now.jpg"/><div class="overlay"><span class="overlay-cat">Boat &amp; Gear</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(24)"><img src="humpback.webp"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(25)"><img src="IMG_0939 (1).JPG"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="boat" onclick="openLightbox(26)"><img src="IMG_1773.JPG"/><div class="overlay"><span class="overlay-cat">Boat &amp; Gear</span></div></div>
+<div class="gallery-item" data-cat="boat" onclick="openLightbox(27)"><img src="IMG_20180416_095600.jpg"/><div class="overlay"><span class="overlay-cat">Boat &amp; Gear</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(28)"><img src="IMG_20180419_162107.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(29)"><img src="IMG_20180501_141927.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(30)"><img src="IMG_20180501_202915.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(31)"><img src="IMG_20181105_100340.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(32)"><img src="IMG_20181108_074517.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(33)"><img src="IMG_20181109_104017.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(34)"><img src="IMG_20190120_145746.jpg"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(35)"><img src="MICR0304.jpg"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(36)"><img src="MICR0313.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(37)"><img src="MICR0314.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="boat" onclick="openLightbox(38)"><img src="paddleboard2.jpg"/><div class="overlay"><span class="overlay-cat">Boat &amp; Gear</span></div></div>
+<div class="gallery-item" data-cat="people" onclick="openLightbox(39)"><img src="people.jpg"/><div class="overlay"><span class="overlay-cat">People</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(40)"><img src="snorkel.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="sea" onclick="openLightbox(41)"><img src="snorkeler2.jpg"/><div class="overlay"><span class="overlay-cat">Sea &amp; Wildlife</span></div></div>
+<div class="gallery-item" data-cat="places" onclick="openLightbox(42)"><img src="tent lights.webp"/><div class="overlay"><span class="overlay-cat">Places</span></div></div>
+    </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-logo">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</div>
-  <div class="footer-tagline">"Better Beachy Than Bitchy&#174;" &mdash; Anchor down.</div>
-  <div class="footer-contact">
-    <a href="mailto:nevadoraiders@gmail.com">nevadoraiders@gmail.com</a>
-    &nbsp;&bull;&nbsp; <a href="legal.html">Legal &amp; IP</a>
-  </div>
-  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;color:var(--text-dim);opacity:0.45;margin-top:1.5rem;max-width:800px;margin-left:auto;margin-right:auto;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5&#8482;, Rim Run Caribe&#8482;, Rim Run Pac&#8482;, Rim Runner&#8482;, Better Beachy Than Bitchy&#174;, Nevado Raiders&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:var(--text-dim);">Legal &amp; Intellectual Property</a>
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" onclick="closeLightbox()">&#10005; Close</span>
+  <span class="lb-arrow lb-prev" onclick="shiftLightbox(-1)">&#8592;</span>
+  <img id="lbImg" src="" alt=""/>
+  <span class="lb-arrow lb-next" onclick="shiftLightbox(1)">&#8594;</span>
+</div>
+
+<div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
+  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;"/>
+</div>
+
+<footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
+  <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
 </footer>
 
 <script>
 document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
+document.body.classList.add('js-ready');
 (function(){
   var toggle=document.getElementById('nav-toggle');
   var nav=document.getElementById('main-nav');
@@ -175,6 +259,7 @@ document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=ne
       if(label)label.setAttribute('aria-expanded','false');
     });
   }
+
   function closeMenu(){
     if(navLinks)navLinks.classList.remove('open');
     if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
@@ -184,12 +269,14 @@ document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=ne
     if(navLinks)navLinks.classList.add('open');
     if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
   }
+
   if(toggle&&nav&&navLinks){
     toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
     nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
     document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
     window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
   }
+
   dropdowns.forEach(function(dropdown){
     var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
     if(!trigger)return;
@@ -204,7 +291,51 @@ document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=ne
       }
     });
   });
+
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+    els.forEach(function(el){obs.observe(el);});
+  }else{els.forEach(function(el){el.classList.add('visible');});}
 })();
+var allItems=Array.from(document.querySelectorAll('.gallery-item'));
+var filterBtns=document.querySelectorAll('.filter-btn');
+filterBtns.forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var filter=this.getAttribute('data-filter');
+    filterBtns.forEach(function(b){b.classList.remove('active');});
+    this.classList.add('active');
+    allItems.forEach(function(item){
+      if(filter==='all'||item.getAttribute('data-cat')===filter){item.classList.remove('hidden');}
+      else{item.classList.add('hidden');}
+    });
+  });
+});
+var visibleImages=[],currentLbIndex=0;
+function getVisibleImages(){return allItems.filter(function(i){return !i.classList.contains('hidden');}).map(function(i){return i.querySelector('img').src;});}
+function openLightbox(idx){
+  visibleImages=getVisibleImages();
+  var src=allItems[idx].querySelector('img').src;
+  currentLbIndex=visibleImages.indexOf(src);
+  if(currentLbIndex===-1){currentLbIndex=0;}
+  document.getElementById('lbImg').src=visibleImages[currentLbIndex];
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+function shiftLightbox(dir){
+  visibleImages=getVisibleImages();
+  if(!visibleImages.length){return;}
+  currentLbIndex=(currentLbIndex+dir+visibleImages.length)%visibleImages.length;
+  document.getElementById('lbImg').src=visibleImages[currentLbIndex];
+}
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this){closeLightbox();}});
+document.addEventListener('keydown',function(e){
+  var lb=document.getElementById('lightbox');
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')shiftLightbox(-1);
+  if(e.key==='ArrowRight')shiftLightbox(1);
+});
 </script>
 </body>
 </html>
