@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Songs for Ukraine's Defenders — Catamaran Dan</title>
+<meta name="description" content="Original songs written for the people defending Ukraine — ground forces, pilots, medics, firefighters, and everyone standing with them. Energy, camaraderie, and remembrance, one unit at a time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Public+Sans:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0E2238;
+    --navy-mid:#163654;
+    --navy-line:#2A4C6E;
+    --gold:#D9A62E;
+    --gold-dim:#B78A22;
+    --parchment:#F4EFE1;
+    --ink:#1B1B18;
+    --ink-soft:#4A463C;
+    --sky:#7FB2D1;
+    --white:#FBFAF6;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Public Sans', -apple-system, sans-serif;
+    line-height:1.6;
+    font-size:17px;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    color:inherit;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:var(--sky);}
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  .col{max-width:680px;}
+
+  /* ---------- SITE NAV ---------- */
+  nav#main-nav{
+    background:#080c14;
+    border-bottom:1px solid rgba(201,168,76,0.2);
+    position:sticky;
+    top:0;
+    z-index:1000;
+  }
+  nav#main-nav .nav-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0.9rem 2rem;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:56px;
+  }
+  nav#main-nav .nav-links{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:0.9rem 1.4rem;
+    row-gap:0.5rem;
+  }
+  nav#main-nav .nav-links a{
+    color:#c8cdd8;
+    font-family:'Josefin Sans', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:0.2rem 0;
+    border-bottom:1px solid transparent;
+    transition:color 0.25s, border-color 0.25s;
+    white-space:nowrap;
+    text-decoration:none;
+  }
+  nav#main-nav .nav-links a:hover{color:#c9a84c;}
+  nav#main-nav .nav-links a.active{color:#c9a84c; border-bottom-color:#c9a84c;}
+  nav#main-nav .nav-item.dropdown{display:inline-flex; align-items:center; gap:0.25rem; position:relative;}
+  nav#main-nav .nav-group-label{
+    background:none; border:none; color:#c8cdd8; cursor:pointer;
+    font-family:'Josefin Sans', sans-serif; font-size:0.72rem; letter-spacing:0.1em;
+    text-transform:uppercase; padding:0.2rem 0; display:inline-flex; align-items:center; gap:0.3rem;
+    white-space:nowrap; transition:color 0.25s;
+  }
+  nav#main-nav .nav-group-label:hover{color:#c9a84c;}
+  nav#main-nav .nav-item.dropdown.open .nav-group-label{color:#c9a84c;}
+  nav#main-nav .dropdown-caret{
+    background:none; border:none; color:#c8cdd8; cursor:pointer; font-size:0.62rem;
+    padding:0.2rem; line-height:1; font-family:'Josefin Sans', sans-serif;
+  }
+  nav#main-nav .dropdown-caret:hover{color:#c9a84c;}
+  nav#main-nav .nav-item.dropdown.open .dropdown-caret{color:#c9a84c;}
+  nav#main-nav .dropdown-menu{
+    display:none; flex-direction:column; position:absolute; top:100%; left:0;
+    background:#0d1520; border:1px solid rgba(201,168,76,0.25); min-width:170px;
+    padding:0.4rem 0; z-index:1001; margin-top:0.4rem;
+  }
+  nav#main-nav .nav-item.dropdown.open .dropdown-menu{display:flex;}
+  nav#main-nav .dropdown-menu a{padding:0.55rem 1.1rem; white-space:nowrap; border-bottom:none;}
+  nav#main-nav .nav-toggle{
+    display:none; background:none; border:none; cursor:pointer; padding:0.4rem;
+    position:absolute; right:1.5rem; top:50%; transform:translateY(-50%); z-index:1002;
+    flex-direction:column; gap:5px; -webkit-tap-highlight-color:transparent;
+  }
+  nav#main-nav .nav-toggle span{display:block; width:24px; height:2px; background:#c9a84c; transition:all 0.3s ease;}
+  nav#main-nav .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  nav#main-nav .nav-toggle.open span:nth-child(2){opacity:0;}
+  nav#main-nav .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media(max-width:768px){
+    nav#main-nav .nav-inner{justify-content:flex-end; padding:0.8rem 1.5rem; min-height:52px;}
+    nav#main-nav .nav-toggle{display:flex;}
+    nav#main-nav .nav-links{
+      display:none; position:absolute; top:100%; left:0; right:0; width:100%;
+      background:#080c14; border-bottom:1px solid rgba(201,168,76,0.2);
+      flex-direction:column; align-items:flex-start; gap:0; padding:0 1.5rem; z-index:999;
+    }
+    nav#main-nav .nav-links.open{display:flex; padding:0.5rem 1.5rem 1rem;}
+    nav#main-nav .nav-links a{display:block; width:100%; padding:0.65rem 0; border-bottom:1px solid rgba(201,168,76,0.08); font-size:0.82rem;}
+    nav#main-nav .nav-links a:last-child{border-bottom:none;}
+    nav#main-nav .nav-item.dropdown{width:100%; flex-wrap:wrap; justify-content:space-between;}
+    nav#main-nav .nav-item.dropdown a, nav#main-nav .nav-item.dropdown .nav-group-label{width:auto; flex:1; border-bottom:none;}
+    nav#main-nav .nav-group-label{padding:0.65rem 0;}
+    nav#main-nav .dropdown-caret{padding:0.65rem 0.4rem;}
+    nav#main-nav .dropdown-menu{position:static; border:none; background:transparent; padding:0 0 0 1.2rem; margin-top:0; width:100%;}
+    nav#main-nav .dropdown-menu a{padding:0.55rem 0; border-bottom:1px solid rgba(201,168,76,0.08);}
+  }
+
+  /* ---------- WIP BANNER ---------- */
+  .wip-banner{
+    background:#3A2A07;
+    color:var(--gold);
+    text-align:center;
+    padding:12px 20px;
+    font-size:0.92rem;
+    font-weight:600;
+    border-bottom:2px solid var(--gold);
+  }
+  .wip-banner span{
+    color:#E8D9AE;
+    font-weight:400;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(217,166,46,0.18), transparent 60%),
+      linear-gradient(180deg, var(--navy-deep) 0%, #0A1B2E 100%);
+    color:var(--white);
+    padding:88px 0 96px;
+    text-align:center;
+  }
+  .hero-kicker{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:1.05rem;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    line-height:1.1;
+    max-width:18ch;
+    margin:0 auto;
+  }
+  .hero-sub{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    color:#C9D2DC;
+    font-size:1.15rem;
+    margin:18px auto 0;
+  }
+  .hero p.lede{
+    margin:26px auto 0;
+    max-width:60ch;
+    font-size:1.08rem;
+    color:#D8DEE6;
+  }
+
+  /* ---------- TRACK LIST ---------- */
+  section.tracks{padding:70px 0;}
+  .track-row{
+    border-top:1px solid var(--navy-line);
+    padding:34px 0;
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  .track-row:last-child{border-bottom:1px solid var(--navy-line);}
+  .track-num{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    font-weight:600;
+    color:var(--gold);
+    line-height:1;
+  }
+  .track-name{
+    font-size:1.35rem;
+    margin-bottom:6px;
+  }
+  .track-style{
+    font-family:'Josefin Sans', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:12px;
+    display:block;
+  }
+  .track-desc{
+    color:var(--ink-soft);
+    max-width:60ch;
+    margin-bottom:18px;
+  }
+  audio.track-audio{
+    width:100%;
+    max-width:440px;
+    display:block;
+  }
+  .track-cover{
+    width:100%;
+    max-width:280px;
+    display:block;
+    margin-bottom:20px;
+    border:1px solid rgba(0,0,0,0.15);
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  }
+  .track-file{
+    font-family:'Josefin Sans', sans-serif;
+    font-size:0.72rem;
+    color:#9AA6B0;
+    margin-top:8px;
+  }
+
+  /* ---------- MEMORIAL TRACK ---------- */
+  .track-row.memorial{
+    background:var(--navy-deep);
+    color:var(--white);
+    margin:0 -28px;
+    padding:44px 28px;
+    border-top:none;
+    border-bottom:none;
+  }
+  .track-row.memorial .track-name{color:var(--white);}
+  .track-row.memorial .track-desc{color:#C9D2DC;}
+  .track-row.memorial .track-num{color:var(--gold);}
+
+  /* ---------- FINALE TRACK ---------- */
+  .track-row.finale{
+    background:var(--gold);
+    color:#1A1204;
+    margin:0 -28px;
+    padding:44px 28px;
+    border-top:none;
+    border-bottom:none;
+  }
+  .track-row.finale .track-name{color:#1A1204;}
+  .track-row.finale .track-desc{color:#3A2A07;}
+  .track-row.finale .track-num{color:#1A1204;}
+  .track-row.finale .track-style{color:#5A4210;}
+  .track-row.finale .track-file{color:#5A4210;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#0A1B2E;
+    color:#8FA0B3;
+    padding:48px 0 40px;
+    font-size:0.85rem;
+  }
+  footer .col{max-width:760px;}
+  footer a{color:#B9C6D3;}
+  footer .flag{
+    display:inline-block;
+    width:20px; height:14px;
+    background:linear-gradient(180deg, #4E8FD1 50%, var(--gold) 50%);
+    margin-right:8px;
+    vertical-align:middle;
+    border:1px solid rgba(255,255,255,0.15);
+  }
+  footer .sign{
+    color:var(--white);
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    margin-bottom:18px;
+    font-size:1.05rem;
+  }
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <div class="nav-item dropdown">
+        <a href="index.html">Home</a>
+        <button class="dropdown-caret" aria-label="Toggle Home submenu" aria-expanded="false">&#9662;</button>
+        <div class="dropdown-menu">
+          <a href="index.html">Home</a>
+          <a href="bluemind.html">Blue Mind</a>
+          <a href="onlyarizona.html">Expedition Theme Song</a>
+          <a href="songs.html">Songs of the Rim</a>
+          <a href="getawayband.html">The Getaway Band</a>
+          <a href="poetry.html">Poetry of the Rim</a>
+        </div>
+      </div>
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Expeditions <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="rimrun.html">Rim Run&#8482;</a>
+          <a href="index.html">Blue Rim 5&#8482;</a>
+          <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+          <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+          <a href="supporters.html">Expedition Supporters</a>
+        </div>
+      </div>
+      <a href="shamrocket.html">Shamrocket</a>
+      <a href="shieldmaiden.html">Shield Maiden</a>
+      <a href="hope_for_ukraine.html">Hope For Ukraine</a>
+      <a href="ukraine_defenders_songs.html" class="active">Songs For The Defenders</a>
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="lionfish.html">Lion Hunter</a>
+          <a href="storytelling.html">Storytellers</a>
+          <a href="expedition.html">Expedition Log</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="videos.html">Videos</a>
+          <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
+        </div>
+      </div>
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">About <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="about.html">About Catamaran Dan</a>
+          <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+          <a href="legal.html">Legal &amp; Intellectual Property</a>
+        </div>
+      </div>
+      <a href="shop.html">Shop</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wip-banner">NOT LIVE — WORK IN PROGRESS <span>· Tracks are being recorded. Audio players below will go quiet until each file is uploaded under its listed filename.</span></div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="hero-kicker">Catamaran Dan · For Hope For Ukraine</p>
+    <h1>Songs for Ukraine's Defenders</h1>
+    <p class="hero-sub">Пісні для Захисників України</p>
+    <p class="lede" style="margin-bottom:6px;">Чотирнадцять оригінальних пісень, кожна написана для окремої групи людей, що стоять між Україною та війною — це не данина пам'яті, покликана викликати жаль, а музика з тією енергією, гумором, витримкою та братерством, якими ці люди живуть насправді. Голосно там, де має бути голосно, тихо — лише там, де інакше не можна.</p>
+    <p class="lede" style="margin-top:0; color:#B7C0CC;">Fourteen original tracks, each written for a different group standing between Ukraine and the war — not tributes meant to make anyone feel sorry for them, but music with the energy, humor, grit, and camaraderie those people actually live with. Loud where it should be loud, quiet only where it has to be.</p>
+  </div>
+</header>
+
+<main>
+  <section class="tracks">
+    <div class="wrap col" style="max-width:720px;">
+
+      <div class="track-row">
+        <div class="track-num">01</div>
+        <div>
+          <h2 class="track-name">Ground Forces / Infantry</h2>
+          <p style="font-family:'Fraunces', serif; font-style:italic; color:var(--ink-soft); margin:0 0 12px;">Земля Під Ногами — "Ground Beneath Our Feet"</p>
+          <span class="track-style">Driving guitar rock</span>
+          <img class="track-cover" src="ground-forces-cover.png" alt="Земля Під Ногами — Ground Beneath Our Feet. Soldiers raising beer mugs and cheering in front of a Ukrainian flag at sunset, amid war-damaged ruins and supply crates reading Good People, Hard Days, Still Here.">
+          <p class="track-desc">Camaraderie, holding the line together, and the release of finally getting off it. Built for the walk back from the front, not the walk toward it — the kind of song a squad puts on when everyone's still standing.</p>
+          <audio class="track-audio" controls>
+            <source src="ground-forces.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">02</div>
+        <div>
+          <h2 class="track-name">Ukrainian Air Force — Pilots &amp; Aircrews</h2>
+          <span class="track-style">Fast, high-flying rock with swagger</span>
+          <p class="track-desc">Speed, altitude, and the specific confidence of people who fly for a living. A song for the ready room and the runway — camaraderie with an edge of showing off, because pilots earn that.</p>
+          <audio class="track-audio" controls>
+            <source src="air-force.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: air-force.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">03</div>
+        <div>
+          <h2 class="track-name">Air-Defense Crews</h2>
+          <span class="track-style">Steady, watchful rock with a rising chorus</span>
+          <p class="track-desc">For the people watching the sky over Ukrainian cities so everyone else doesn't have to. Vigilance set to music — tense in the verses, triumphant every time something doesn't get through.</p>
+          <audio class="track-audio" controls>
+            <source src="air-defense.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: air-defense.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">04</div>
+        <div>
+          <h2 class="track-name">Drone / UAV Crews</h2>
+          <span class="track-style">Electronic-rock / dance-rock, guitar driven</span>
+          <p class="track-desc">A modern edge for a modern job — synth pulse layered under real guitars, built for the crews running a very different kind of war than the one their grandfathers fought.</p>
+          <audio class="track-audio" controls>
+            <source src="drone-crews.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: drone-crews.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">05</div>
+        <div>
+          <h2 class="track-name">Combat Medics &amp; Medical Brigades</h2>
+          <span class="track-style">Tough, energetic rock — not a sad song</span>
+          <p class="track-desc">For medics, nurses, doctors, and casualty teams. Deliberately not a tearjerker — these are people who move fast and stay steady under the worst conditions imaginable, and the song moves like they do.</p>
+          <audio class="track-audio" controls>
+            <source src="combat-medics.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: combat-medics.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">06</div>
+        <div>
+          <h2 class="track-name">Firefighters &amp; Emergency Rescue Crews</h2>
+          <span class="track-style">Urgent, propulsive rock</span>
+          <p class="track-desc">For the people who run toward the fire while everyone else is running the other way. Built around forward motion — no hesitation in the arrangement, because there's none in the job.</p>
+          <audio class="track-audio" controls>
+            <source src="firefighters.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: firefighters.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">07</div>
+        <div>
+          <h2 class="track-name">Armor / Tank Crews</h2>
+          <span class="track-style">Heavy, mechanical-feeling rock, huge groove</span>
+          <p class="track-desc">Rhythmic and weighty, built around a groove that feels like tracks turning over. This one sits low and heavy the whole way through — a song with mass to it.</p>
+          <audio class="track-audio" controls>
+            <source src="armor-crews.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: armor-crews.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">08</div>
+        <div>
+          <h2 class="track-name">Artillery Crews</h2>
+          <span class="track-style">Thunderous drums and bass — powerful rock, not metal</span>
+          <p class="track-desc">Built on low end and impact rather than distortion and speed — powerful without tipping into metal. The drums do the heavy lifting here, the way the crews do.</p>
+          <audio class="track-audio" controls>
+            <source src="artillery.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: artillery.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">09</div>
+        <div>
+          <h2 class="track-name">Combat Engineers &amp; Demining Teams</h2>
+          <span class="track-style">Steady, purposeful rock</span>
+          <p class="track-desc">For the people who clear the way, repair what's broken, and build what's needed next. Methodical rather than frantic — patience set to a beat, for a job where patience keeps people alive.</p>
+          <audio class="track-audio" controls>
+            <source src="combat-engineers.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: combat-engineers.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">10</div>
+        <div>
+          <h2 class="track-name">Reconnaissance / Scouts</h2>
+          <span class="track-style">Darker, cooler, faster rock — nighttime energy</span>
+          <p class="track-desc">Lower light, higher tempo, a little more attitude. This one moves like it's trying not to be heard — built for the people whose whole job is seeing without being seen.</p>
+          <audio class="track-audio" controls>
+            <source src="reconnaissance.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: reconnaissance.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">11</div>
+        <div>
+          <h2 class="track-name">Logistics &amp; Support Crews</h2>
+          <span class="track-style">Rolling, road-worthy rock</span>
+          <p class="track-desc">For the drivers, mechanics, supply personnel, and maintenance crews who keep everyone else moving. Nobody writes enough songs for this group — this one has their back.</p>
+          <audio class="track-audio" controls>
+            <source src="logistics-support.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: logistics-support.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-num">12</div>
+        <div>
+          <h2 class="track-name">Wounded &amp; Recovering Service Members</h2>
+          <span class="track-style">Determined, rising rock — recovery, not pity</span>
+          <p class="track-desc">An "I'm still here" song, not a sympathy song. Built around strength and the slow, stubborn work of getting back on your feet — earned energy, not manufactured sadness.</p>
+          <audio class="track-audio" controls>
+            <source src="wounded-recovering.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: wounded-recovering.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row memorial">
+        <div class="track-num">13</div>
+        <div>
+          <h2 class="track-name">Fallen Comrades &amp; Those Who Carry Their Memory</h2>
+          <span class="track-style">Slow, deliberate — the one place this list stops moving fast</span>
+          <p class="track-desc">This is where the tempo drops on purpose. A song for the friend who didn't come back, and for the people who carry that memory forward — quiet, honest, and given the space the rest of this list doesn't take.</p>
+          <audio class="track-audio" controls>
+            <source src="fallen-comrades.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: fallen-comrades.mp3</p>
+        </div>
+      </div>
+
+      <div class="track-row finale">
+        <div class="track-num">14</div>
+        <div>
+          <h2 class="track-name">Everybody Together</h2>
+          <span class="track-style">The big singalong — friendship, survival, getting home</span>
+          <p class="track-desc">Soldiers, pilots, medics, firefighters, rescuers, and everyone in support, all in the same room. This is the closing anthem — raise a glass, survive another day, and one day, get home. Built to be sung, not just heard.</p>
+          <audio class="track-audio" controls>
+            <source src="everybody-together.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <p class="track-file">Expected file: everybody-together.mp3</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap col">
+    <p class="sign"><span class="flag"></span>Catamaran Dan — Nevado Ranch Camp LLC</p>
+    <p>These songs are written to stand alongside <a href="hope_for_ukraine.html">Hope For Ukraine</a>'s work — original music, not affiliated with or endorsed by any branch of Ukraine's armed forces or emergency services. All compositions are the intellectual property of Daniel O. Roe / Nevado Ranch Camp LLC.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
+  function closeAllDropdowns(){
+    dropdowns.forEach(function(d){
+      d.classList.remove('open');
+      var caret=d.querySelector('.dropdown-caret');
+      var label=d.querySelector('.nav-group-label');
+      if(caret)caret.setAttribute('aria-expanded','false');
+      if(label)label.setAttribute('aria-expanded','false');
+    });
+  }
+  function closeMenu(){
+    if(navLinks)navLinks.classList.remove('open');
+    if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+    closeAllDropdowns();
+  }
+  function openMenu(){
+    if(navLinks)navLinks.classList.add('open');
+    if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+  }
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+  dropdowns.forEach(function(dropdown){
+    var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
+    if(!trigger)return;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      var isOpen=dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if(!isOpen){
+        dropdown.classList.add('open');
+        trigger.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
