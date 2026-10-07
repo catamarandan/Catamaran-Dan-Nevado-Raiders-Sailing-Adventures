@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L11 Invasive Species — Data Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 1.56%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 11 · Invasive Species</div>
+        <h1 class="lesson-title">Data Collection</h1>
+        <div class="lesson-subtitle">Recolección de Datos sobre Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="0" y1="100" x2="380" y2="100"/>
+          <line x1="0" y1="215" x2="380" y2="215"/>
+          <line x1="190" y1="30" x2="190" y2="100"/>
+        </g>
+
+        <!-- DATA PIPELINE -->
+        <g font-family="monospace" font-size="7" text-anchor="middle" letter-spacing="0.08em">
+          <rect x="36" y="44" width="64" height="32" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+          <text x="68" y="58" fill="rgba(26,200,200,0.8)">UW SLATE</text>
+          <text x="68" y="68" fill="rgba(138,184,204,0.5)" font-size="6">in the water</text>
+
+          <rect x="118" y="44" width="64" height="32" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+          <text x="150" y="58" fill="rgba(26,200,200,0.8)">DATASHEET</text>
+          <text x="150" y="68" fill="rgba(138,184,204,0.5)" font-size="6">same day</text>
+
+          <rect x="200" y="44" width="64" height="32" rx="2" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.4)" stroke-width="0.8"/>
+          <text x="232" y="58" fill="rgba(26,200,200,0.8)">DATABASE</text>
+          <text x="232" y="68" fill="rgba(138,184,204,0.5)" font-size="6">+ metadata</text>
+
+          <rect x="282" y="44" width="64" height="32" rx="2" fill="rgba(240,180,41,0.08)" stroke="rgba(240,180,41,0.45)" stroke-width="0.8"/>
+          <text x="314" y="58" fill="rgba(240,180,41,0.85)">ANALYSIS</text>
+          <text x="314" y="68" fill="rgba(138,184,204,0.5)" font-size="6">trends · models</text>
+        </g>
+
+        <!-- PIPELINE ARROWS -->
+        <g stroke="rgba(26,200,200,0.5)" stroke-width="1">
+          <line x1="100" y1="60" x2="113" y2="60"/>
+          <line x1="182" y1="60" x2="195" y2="60"/>
+          <line x1="264" y1="60" x2="277" y2="60"/>
+        </g>
+        <g fill="rgba(26,200,200,0.5)">
+          <polygon points="113,57 113,63 118,60"/>
+          <polygon points="195,57 195,63 200,60"/>
+          <polygon points="277,57 277,63 282,60"/>
+        </g>
+
+        <!-- QA CHECKPOINTS -->
+        <g fill="rgba(240,180,41,0.85)">
+          <polygon points="109,86 114,91 109,96 104,91"/>
+          <polygon points="191,86 196,91 191,96 186,91"/>
+          <polygon points="273,86 278,91 273,96 268,91"/>
+        </g>
+        <g fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="6" text-anchor="middle">
+          <text x="109" y="84">QA</text>
+          <text x="191" y="84">QA</text>
+          <text x="273" y="84">QA</text>
+        </g>
+
+        <!-- RECORD TABLE -->
+        <g font-family="monospace" font-size="7">
+          <!-- header row -->
+          <rect x="36" y="110" width="310" height="14" fill="rgba(26,200,200,0.1)"/>
+          <g fill="rgba(26,200,200,0.75)" letter-spacing="0.08em">
+            <text x="42" y="120">SITE</text>
+            <text x="100" y="120">DEPTH m</text>
+            <text x="160" y="120">TL mm</text>
+            <text x="214" y="120">SEX</text>
+            <text x="250" y="120">TIME</text>
+            <text x="296" y="120">FLAG</text>
+          </g>
+
+          <!-- row lines -->
+          <g stroke="rgba(26,200,200,0.1)" stroke-width="0.5">
+            <line x1="36" y1="140" x2="346" y2="140"/>
+            <line x1="36" y1="156" x2="346" y2="156"/>
+            <line x1="36" y1="172" x2="346" y2="172"/>
+            <line x1="36" y1="188" x2="346" y2="188"/>
+            <line x1="36" y1="204" x2="346" y2="204"/>
+          </g>
+
+          <!-- rows -->
+          <g fill="rgba(232,244,248,0.6)">
+            <text x="42" y="135">MAR-04</text><text x="100" y="135">18</text><text x="160" y="135">284</text><text x="214" y="135">F</text><text x="250" y="135">07:12</text>
+            <text x="42" y="151">MAR-04</text><text x="100" y="151">22</text><text x="160" y="151">311</text><text x="214" y="151">M</text><text x="250" y="151">07:20</text>
+          </g>
+
+          <!-- flagged row -->
+          <rect x="36" y="157" width="310" height="14" fill="rgba(232,96,64,0.1)"/>
+          <g fill="rgba(232,96,64,0.9)">
+            <text x="42" y="167">MAR-07</text><text x="100" y="167">34</text><text x="160" y="167">3120</text><text x="214" y="167">F</text><text x="250" y="167">17:48</text>
+            <text x="296" y="167">CHECK TL</text>
+          </g>
+
+          <!-- zero-count row -->
+          <rect x="36" y="173" width="310" height="14" fill="rgba(26,200,200,0.06)"/>
+          <g fill="rgba(184,240,236,0.75)">
+            <text x="42" y="183">MAR-09</text><text x="100" y="183">15</text><text x="160" y="183">—</text><text x="214" y="183">—</text><text x="250" y="183">08:05</text>
+            <text x="296" y="183">ZERO</text>
+          </g>
+
+          <g fill="rgba(232,244,248,0.6)">
+            <text x="42" y="199">MAR-11</text><text x="100" y="199">41</text><text x="160" y="199">265</text><text x="214" y="199">M</text><text x="250" y="199">18:02</text>
+          </g>
+        </g>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <polygon points="4,0 8,4 4,8 0,4" fill="rgba(240,180,41,0.85)"/>
+          <text x="12" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">QA checkpoint</text>
+          <rect x="84" y="0" width="12" height="8" fill="rgba(232,96,64,0.25)"/>
+          <text x="100" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Flagged entry</text>
+          <rect x="172" y="0" width="12" height="8" fill="rgba(26,200,200,0.15)"/>
+          <text x="188" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Zero record (kept)</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="236" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">DATA PIPELINE  ·  QA / QC</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Field methods determine <em>how</em> observations are made; data collection determines whether those observations survive as reliable, usable science. Good invasive-species data share four qualities. They are <em>standardized</em> — every team uses the same fields, units, and definitions, so records from different sites and years can be combined. They carry <em>metadata</em> — the date, time, location, depth, method, search effort, and observer behind every record, without which numbers cannot be interpreted. They include <em>absences</em> — a survey that found zero invaders is as valuable as one that found fifty, because trends and distribution maps depend on knowing where a species was looked for and not found. And they pass through <em>quality assurance and quality control (QA/QC)</em> — transcribing field slates the same day, double-checking entries, and flagging impossible values before data enter a database. Finally, data must be archived and shared in accessible formats, so that a single team's dives can contribute to regional monitoring long after the expedition ends.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los métodos de campo determinan <em>cómo</em> se realizan las observaciones; la recolección de datos determina si esas observaciones sobreviven como ciencia confiable y útil. Los buenos datos sobre especies invasoras comparten cuatro cualidades. Están <em>estandarizados</em>: todos los equipos usan los mismos campos, unidades y definiciones, de modo que los registros de distintos sitios y años puedan combinarse. Incluyen <em>metadatos</em>: la fecha, hora, ubicación, profundidad, método, esfuerzo de búsqueda y observador detrás de cada registro, sin los cuales los números no pueden interpretarse. Incluyen <em>ausencias</em>: un muestreo que no encontró invasores es tan valioso como uno que encontró cincuenta, porque las tendencias y los mapas de distribución dependen de saber dónde se buscó una especie y no se encontró. Y pasan por <em>aseguramiento y control de calidad (AC/CC)</em>: transcribir las pizarras de campo el mismo día, verificar dos veces las entradas y señalar valores imposibles antes de que los datos ingresen a una base de datos. Por último, los datos deben archivarse y compartirse en formatos accesibles, para que las inmersiones de un solo equipo contribuyan al monitoreo regional mucho después de que termine la expedición.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Across the Mesoamerican Reef, lionfish data are collected by scientists, park rangers, dive operators, fishers, and volunteers. That diversity is a strength only when everyone records the same information in the same way.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Core fields:</strong> Each lionfish record should include site, GPS position, date, time, depth, habitat type, survey method, search effort, total length (mm), weight, sex, and observer — plus stomach contents when specimens are dissected.</li>
+        <li><strong>Regional protocols:</strong> Reef monitoring across the MAR commonly follows standardized methods such as <strong>AGRRA</strong> (Atlantic and Gulf Rapid Reef Assessment), allowing lionfish counts to sit alongside coral, fish, and algae data in regional reef health assessments.</li>
+        <li><strong>Recording absences:</strong> Sites surveyed with no lionfish found must still be logged as zero counts. Without them, removal success cannot be measured and maps overstate how widespread lionfish are.</li>
+        <li><strong>Sharing:</strong> Occurrence records can be submitted to public databases such as the USGS Nonindigenous Aquatic Species database and volunteer programs such as REEF, connecting local dives to the broader record of the invasion across the <strong>MAR corridor</strong>.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          En todo el Arrecife Mesoamericano, los datos sobre el pez león son recolectados por científicos, guardaparques, operadores de buceo, pescadores y voluntarios. Esa diversidad solo es una fortaleza cuando todos registran la misma información de la misma manera.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Campos básicos:</strong> Cada registro de pez león debe incluir sitio, posición GPS, fecha, hora, profundidad, tipo de hábitat, método de muestreo, esfuerzo de búsqueda, longitud total (mm), peso, sexo y observador, además del contenido estomacal cuando se disecan los especímenes.</li>
+        <li><strong>Protocolos regionales:</strong> El monitoreo arrecifal en el SAM suele seguir métodos estandarizados como <strong>AGRRA</strong> (Evaluación Rápida de Arrecifes del Atlántico y el Golfo), lo que permite que los conteos de pez león se integren con datos de coral, peces y algas en las evaluaciones regionales de salud arrecifal.</li>
+        <li><strong>Registro de ausencias:</strong> Los sitios muestreados sin encontrar pez león deben registrarse igualmente como conteos de cero. Sin ellos, no se puede medir el éxito de la remoción y los mapas exageran la extensión del pez león.</li>
+        <li><strong>Intercambio:</strong> Los registros de presencia pueden enviarse a bases de datos públicas como la base de datos de Especies Acuáticas No Nativas del USGS y a programas de voluntarios como REEF, conectando las inmersiones locales con el registro más amplio de la invasión a lo largo del <strong>corredor del SAM</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why should a survey that finds zero lionfish still be recorded?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It is not necessary; only positive sightings matter</li>
+            <li><span class="opt-letter">B.</span> Absence data are needed to measure trends, removal success, and true distribution</li>
+            <li><span class="opt-letter">C.</span> Zero records are required only for coral surveys</li>
+            <li><span class="opt-letter">D.</span> Recording zeros increases the average density</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Without absences, trends and maps are biased toward presence.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué debe registrarse un muestreo que no encontró ningún pez león?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> No es necesario; solo importan los avistamientos positivos</li>
+            <li><span class="opt-letter">B.</span> Los datos de ausencia son necesarios para medir tendencias, el éxito de la remoción y la distribución real</li>
+            <li><span class="opt-letter">C.</span> Los registros de cero solo se requieren en muestreos de coral</li>
+            <li><span class="opt-letter">D.</span> Registrar ceros aumenta la densidad promedio</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Sin ausencias, las tendencias y los mapas se sesgan hacia la presencia.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Which of the following is an example of metadata for a lionfish survey record?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The color pattern of the lionfish</li>
+            <li><span class="opt-letter">B.</span> The species of native fish seen nearby</li>
+            <li><span class="opt-letter">C.</span> The date, time, location, method, and observer behind the count</li>
+            <li><span class="opt-letter">D.</span> The diver's opinion of the reef's beauty</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Metadata describe how, when, where, and by whom data were collected.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál de los siguientes es un ejemplo de metadatos de un registro de muestreo de pez león?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El patrón de color del pez león</li>
+            <li><span class="opt-letter">B.</span> Las especies de peces nativos vistas cerca</li>
+            <li><span class="opt-letter">C.</span> La fecha, hora, ubicación, método y observador detrás del conteo</li>
+            <li><span class="opt-letter">D.</span> La opinión del buzo sobre la belleza del arrecife</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Los metadatos describen cómo, cuándo, dónde y quién recolectó los datos.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 A datasheet lists a lionfish with a total length of 3,120 mm. What is the correct QA/QC response?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Enter it as recorded; field data should never be changed</li>
+            <li><span class="opt-letter">B.</span> Delete the entire survey</li>
+            <li><span class="opt-letter">C.</span> Flag the value as implausible and verify it against the original slate before entry</li>
+            <li><span class="opt-letter">D.</span> Replace it with the average length from other fish</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Impossible values are flagged and checked against the source, not guessed or ignored.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Una hoja de datos registra un pez león con una longitud total de 3,120 mm. ¿Cuál es la respuesta correcta de AC/CC?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Ingresarlo tal como está; los datos de campo nunca deben modificarse</li>
+            <li><span class="opt-letter">B.</span> Eliminar todo el muestreo</li>
+            <li><span class="opt-letter">C.</span> Señalar el valor como inverosímil y verificarlo con la pizarra original antes de ingresarlo</li>
+            <li><span class="opt-letter">D.</span> Reemplazarlo con la longitud promedio de otros peces</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Los valores imposibles se señalan y se verifican con la fuente, sin adivinarlos ni ignorarlos.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 11 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L11 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
