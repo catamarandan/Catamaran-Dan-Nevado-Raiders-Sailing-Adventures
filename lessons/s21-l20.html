@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L20 Invasive Species — Regional Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 2.84%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 20 · Invasive Species</div>
+        <h1 class="lesson-title">Regional Systems</h1>
+        <div class="lesson-subtitle">Sistemas Regionales para Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- NESTED GOVERNANCE RINGS -->
+        <circle cx="190" cy="128" r="92" fill="rgba(4,41,74,0.25)" stroke="rgba(138,184,204,0.3)" stroke-width="0.8"/>
+        <circle cx="190" cy="128" r="74" fill="rgba(10,110,138,0.12)" stroke="rgba(26,200,200,0.3)" stroke-width="0.8"/>
+        <circle cx="190" cy="128" r="56" fill="rgba(10,110,138,0.14)" stroke="rgba(240,180,41,0.45)" stroke-width="1"/>
+        <circle cx="190" cy="128" r="38" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.45)" stroke-width="0.8"/>
+        <circle cx="190" cy="128" r="20" fill="rgba(232,96,64,0.18)" stroke="rgba(232,96,64,0.6)" stroke-width="0.8"/>
+
+        <!-- RING LABELS -->
+        <g font-family="monospace" text-anchor="middle" letter-spacing="0.08em">
+          <text x="190" y="46" fill="rgba(138,184,204,0.7)" font-size="6.5">GLOBAL · IMO · CBD</text>
+          <text x="190" y="64" fill="rgba(26,200,200,0.7)" font-size="6.5">WIDER CARIBBEAN · CARTAGENA · ICRI</text>
+          <text x="190" y="82" fill="rgba(240,180,41,0.85)" font-size="6.5">MAR · TULUM 1997 · MAR FUND</text>
+          <text x="190" y="102" fill="rgba(26,200,200,0.85)" font-size="6.5">MX · BZ · GT · HN</text>
+          <text x="190" y="126" fill="rgba(232,96,64,0.9)" font-size="6.5">LOCAL</text>
+          <text x="190" y="135" fill="rgba(232,96,64,0.7)" font-size="5.5">divers · fishers</text>
+        </g>
+
+        <!-- COUNTRY NODES ON NATIONAL RING -->
+        <g fill="rgba(26,200,200,0.85)">
+          <circle cx="152" cy="128" r="2.5"/>
+          <circle cx="228" cy="128" r="2.5"/>
+          <circle cx="190" cy="166" r="2.5"/>
+          <circle cx="163" cy="155" r="2.5"/>
+        </g>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="0.6" stroke-dasharray="2,2">
+          <line x1="152" y1="128" x2="163" y2="155"/>
+          <line x1="163" y1="155" x2="190" y2="166"/>
+          <line x1="190" y1="166" x2="228" y2="128"/>
+          <line x1="228" y1="128" x2="152" y2="128"/>
+        </g>
+
+        <!-- DATA UP (left) -->
+        <line x1="62" y1="200" x2="62" y2="62" stroke="rgba(26,200,200,0.6)" stroke-width="1.2"/>
+        <polygon points="59,62 65,62 62,55" fill="rgba(26,200,200,0.6)"/>
+        <text x="62" y="212" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="6.5" text-anchor="middle">DATA</text>
+        <text x="62" y="221" fill="rgba(26,200,200,0.55)" font-family="monospace" font-size="6.5" text-anchor="middle">REPORTS</text>
+
+        <!-- POLICY DOWN (right) -->
+        <line x1="318" y1="55" x2="318" y2="193" stroke="rgba(240,180,41,0.6)" stroke-width="1.2"/>
+        <polygon points="315,193 321,193 318,200" fill="rgba(240,180,41,0.6)"/>
+        <text x="318" y="212" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="6.5" text-anchor="middle">POLICY</text>
+        <text x="318" y="221" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">FUNDING</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 236)">
+          <circle cx="4" cy="4" r="2.5" fill="rgba(26,200,200,0.85)"/>
+          <text x="10" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">MAR nation</text>
+          <line x1="72" y1="4" x2="90" y2="4" stroke="rgba(26,200,200,0.3)" stroke-width="0.6" stroke-dasharray="2,2"/>
+          <text x="94" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Shared protocols</text>
+          <circle cx="182" cy="4" r="4" fill="none" stroke="rgba(240,180,41,0.45)" stroke-width="1"/>
+          <text x="190" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Governance level</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="236" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">NESTED GOVERNANCE  ·  MAR</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Marine invaders do not respect national borders. Larvae drift on shared currents, ships cross jurisdictions daily, and a population controlled in one country can be resupplied from its neighbor. Effective response therefore depends on <em>regional systems</em> — linked networks of institutions, agreements, monitoring programs, and data platforms that operate across borders. These systems are <em>nested</em>: global conventions set broad standards, regional agreements coordinate neighboring countries, national agencies write and enforce laws, and local communities, dive operators, and fishers carry out much of the work on the water. Strong regional systems share several features: <em>harmonized protocols</em> so that data from every country can be combined; <em>shared databases and early-warning networks</em> so that a new sighting in one place alerts managers elsewhere; <em>joint strategies</em> that align goals and priorities; and <em>sustainable financing and capacity-building</em> so that smaller nations and communities can participate fully. When these elements work together, information flows up from the field, and policy and resources flow back down to where they are needed.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los invasores marinos no respetan las fronteras nacionales. Las larvas derivan en corrientes compartidas, los buques cruzan jurisdicciones a diario y una población controlada en un país puede ser reabastecida desde su vecino. Por ello, una respuesta eficaz depende de <em>sistemas regionales</em>: redes vinculadas de instituciones, acuerdos, programas de monitoreo y plataformas de datos que operan más allá de las fronteras. Estos sistemas están <em>anidados</em>: los convenios globales establecen normas generales, los acuerdos regionales coordinan a los países vecinos, las agencias nacionales redactan y aplican las leyes, y las comunidades locales, los operadores de buceo y los pescadores realizan gran parte del trabajo en el agua. Los sistemas regionales sólidos comparten varias características: <em>protocolos armonizados</em> para que los datos de cada país puedan combinarse; <em>bases de datos compartidas y redes de alerta temprana</em> para que un nuevo avistamiento en un lugar alerte a los administradores de otros; <em>estrategias conjuntas</em> que alinean objetivos y prioridades; y <em>financiamiento sostenible y fortalecimiento de capacidades</em> para que las naciones y comunidades más pequeñas puedan participar plenamente. Cuando estos elementos funcionan en conjunto, la información fluye desde el campo hacia arriba, y la política y los recursos regresan hacia donde se necesitan.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Mesoamerican Reef is shared by four nations — Mexico, Belize, Guatemala, and Honduras — and has one of the most developed regional cooperation systems of any reef in the Caribbean, built on agreements that predate the lionfish invasion.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>MAR cooperation:</strong> The 1997 <strong>Tulum Declaration</strong> committed all four countries to manage the reef as a single shared system. That foundation now supports regional bodies such as the <strong>MAR Fund</strong>, which channels conservation finance across borders, and the <strong>Healthy Reefs Initiative</strong>, which publishes regional reef health report cards.</li>
+        <li><strong>Wider Caribbean frameworks:</strong> The <strong>Cartagena Convention</strong> and its Protocol on Specially Protected Areas and Wildlife (SPAW) provide the regional legal umbrella, and the International Coral Reef Initiative's regional lionfish control strategy, adopted in 2013, set shared goals for the invasion.</li>
+        <li><strong>Science networks:</strong> The Gulf and Caribbean Fisheries Institute (GCFI) and similar networks connect researchers, managers, and fishers through conferences, working groups, and shared protocols for lionfish monitoring and removal.</li>
+        <li><strong>Global links:</strong> Global agreements such as the IMO Ballast Water Management Convention and the Convention on Biological Diversity set the outer standards that regional and national rules across the <strong>MAR corridor</strong> build upon.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Arrecife Mesoamericano es compartido por cuatro naciones — México, Belice, Guatemala y Honduras — y cuenta con uno de los sistemas de cooperación regional más desarrollados de cualquier arrecife del Caribe, construido sobre acuerdos anteriores a la invasión del pez león.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Cooperación en el SAM:</strong> La <strong>Declaración de Tulum</strong> de 1997 comprometió a los cuatro países a manejar el arrecife como un sistema único y compartido. Esa base sostiene hoy a organismos regionales como el <strong>Fondo SAM (MAR Fund)</strong>, que canaliza financiamiento para la conservación entre fronteras, y la <strong>Iniciativa Arrecifes Saludables</strong>, que publica reportes regionales sobre la salud del arrecife.</li>
+        <li><strong>Marcos del Gran Caribe:</strong> El <strong>Convenio de Cartagena</strong> y su Protocolo relativo a las Áreas y Flora y Fauna Silvestres Especialmente Protegidas (SPAW) proporcionan el marco jurídico regional, y la estrategia regional de control del pez león de la Iniciativa Internacional sobre los Arrecifes de Coral, adoptada en 2013, estableció metas compartidas frente a la invasión.</li>
+        <li><strong>Redes científicas:</strong> El Instituto de Pesquerías del Golfo y del Caribe (GCFI) y redes similares conectan a investigadores, administradores y pescadores mediante conferencias, grupos de trabajo y protocolos compartidos para el monitoreo y la remoción del pez león.</li>
+        <li><strong>Vínculos globales:</strong> Acuerdos globales como el Convenio de la OMI sobre la Gestión del Agua de Lastre y el Convenio sobre la Diversidad Biológica establecen las normas generales sobre las que se construyen las reglas regionales y nacionales a lo largo del <strong>corredor del SAM</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which 1997 agreement committed Mexico, Belize, Guatemala, and Honduras to manage the Mesoamerican Reef as a shared system?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The Tulum Declaration</li>
+            <li><span class="opt-letter">B.</span> The Kyoto Protocol</li>
+            <li><span class="opt-letter">C.</span> The Ramsar Convention</li>
+            <li><span class="opt-letter">D.</span> The Paris Agreement</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — The Tulum Declaration founded regional cooperation on the MAR.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué acuerdo de 1997 comprometió a México, Belice, Guatemala y Honduras a manejar el Arrecife Mesoamericano como un sistema compartido?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La Declaración de Tulum</li>
+            <li><span class="opt-letter">B.</span> El Protocolo de Kioto</li>
+            <li><span class="opt-letter">C.</span> La Convención de Ramsar</li>
+            <li><span class="opt-letter">D.</span> El Acuerdo de París</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — La Declaración de Tulum fundó la cooperación regional en el SAM.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why are harmonized monitoring protocols important in a regional system?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> They allow each country to use completely different methods</li>
+            <li><span class="opt-letter">B.</span> They let data from different countries be combined and compared</li>
+            <li><span class="opt-letter">C.</span> They eliminate the need for national agencies</li>
+            <li><span class="opt-letter">D.</span> They are required only for terrestrial species</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Shared methods make regional datasets comparable and usable.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué son importantes los protocolos de monitoreo armonizados en un sistema regional?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Permiten que cada país use métodos completamente distintos</li>
+            <li><span class="opt-letter">B.</span> Permiten combinar y comparar los datos de distintos países</li>
+            <li><span class="opt-letter">C.</span> Eliminan la necesidad de agencias nacionales</li>
+            <li><span class="opt-letter">D.</span> Solo se requieren para especies terrestres</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los métodos compartidos hacen que los datos regionales sean comparables y útiles.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 In a nested governance system, the IMO Ballast Water Management Convention operates at which level?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Local</li>
+            <li><span class="opt-letter">B.</span> National</li>
+            <li><span class="opt-letter">C.</span> Regional (MAR only)</li>
+            <li><span class="opt-letter">D.</span> Global</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: D — IMO conventions set global standards for international shipping.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En un sistema de gobernanza anidado, ¿en qué nivel opera el Convenio de la OMI sobre la Gestión del Agua de Lastre?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Local</li>
+            <li><span class="opt-letter">B.</span> Nacional</li>
+            <li><span class="opt-letter">C.</span> Regional (solo el SAM)</li>
+            <li><span class="opt-letter">D.</span> Global</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: D — Los convenios de la OMI establecen normas globales para el transporte marítimo internacional.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 20 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L20 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
