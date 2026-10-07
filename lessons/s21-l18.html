@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L18 Invasive Species — Applications</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 2.56%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 18 · Invasive Species</div>
+        <h1 class="lesson-title">Applications</h1>
+        <div class="lesson-subtitle">Aplicaciones en el Manejo de Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8"/>
+            <stop offset="50%" stop-color="#f0b429"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- STAGE BANDS -->
+        <rect x="41" y="40" width="69" height="164" fill="rgba(26,200,200,0.06)"/>
+        <rect x="110" y="40" width="70" height="164" fill="rgba(184,240,236,0.04)"/>
+        <rect x="180" y="40" width="80" height="164" fill="rgba(240,180,41,0.05)"/>
+        <rect x="260" y="40" width="100" height="164" fill="rgba(232,96,64,0.06)"/>
+        <g stroke="rgba(26,200,200,0.15)" stroke-width="0.6" stroke-dasharray="3,3">
+          <line x1="110" y1="40" x2="110" y2="204"/>
+          <line x1="180" y1="40" x2="180" y2="204"/>
+          <line x1="260" y1="40" x2="260" y2="204"/>
+        </g>
+
+        <!-- STAGE LABELS -->
+        <g font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.08em">
+          <text x="75" y="52" fill="rgba(26,200,200,0.75)">PREVENTION</text>
+          <text x="145" y="52" fill="rgba(184,240,236,0.65)">ERADICATION</text>
+          <text x="220" y="52" fill="rgba(240,180,41,0.75)">CONTAINMENT</text>
+          <text x="310" y="52" fill="rgba(232,96,64,0.8)">LONG-TERM</text>
+          <text x="310" y="61" fill="rgba(232,96,64,0.8)">MANAGEMENT</text>
+        </g>
+
+        <!-- AXES -->
+        <g stroke="rgba(26,200,200,0.4)" stroke-width="1">
+          <line x1="40" y1="40" x2="40" y2="205"/>
+          <line x1="40" y1="205" x2="362" y2="205"/>
+        </g>
+        <text x="26" y="125" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="middle" transform="rotate(-90 26 125)">AREA INVADED</text>
+        <text x="360" y="216" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="end">TIME →</text>
+
+        <!-- INVASION CURVE -->
+        <path d="M41,200 C80,199 105,196 125,188 C150,176 170,140 195,110 C220,82 250,76 280,74 C310,73 335,73 360,73"
+              fill="none" stroke="url(#curveGrad)" stroke-width="2.2"/>
+
+        <!-- COST / EFFORT STEPS -->
+        <path d="M41,196 L110,196 L110,186 L180,186 L180,166 L260,166 L260,132 L360,132"
+              fill="none" stroke="rgba(240,180,41,0.6)" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="356" y="127" fill="rgba(240,180,41,0.75)" font-family="monospace" font-size="7" text-anchor="end">COST OF CONTROL $$$$</text>
+        <text x="46" y="192" fill="rgba(240,180,41,0.65)" font-family="monospace" font-size="7">$</text>
+
+        <!-- LIONFISH MARKER -->
+        <circle cx="300" cy="73" r="4" fill="none" stroke="rgba(232,244,248,0.85)" stroke-width="1.2"/>
+        <circle cx="300" cy="73" r="1.6" fill="rgba(232,244,248,0.85)"/>
+        <line x1="300" y1="77" x2="300" y2="98" stroke="rgba(232,244,248,0.4)" stroke-width="0.8"/>
+        <text x="300" y="107" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="7" text-anchor="middle">LIONFISH · MAR</text>
+        <text x="300" y="116" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">today</text>
+
+        <!-- RETURN ON INVESTMENT ARROW -->
+        <line x1="60" y1="150" x2="60" y2="80" stroke="rgba(26,200,200,0.6)" stroke-width="1"/>
+        <polygon points="57,80 63,80 60,74" fill="rgba(26,200,200,0.6)"/>
+        <text x="66" y="92" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6.5">HIGHEST</text>
+        <text x="66" y="101" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6.5">RETURN</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="url(#curveGrad)" stroke-width="2.2"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Area invaded</text>
+          <line x1="90" y1="4" x2="108" y2="4" stroke="rgba(240,180,41,0.6)" stroke-width="1.2" stroke-dasharray="4,3"/>
+          <text x="112" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Cost of control</text>
+          <circle cx="190" cy="4" r="3" fill="none" stroke="rgba(232,244,248,0.85)" stroke-width="1.2"/>
+          <text x="197" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Current position</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="236" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">THE INVASION CURVE</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Invasion science matters because it can be applied — to protect ecosystems, economies, and communities. The guiding framework is the <em>invasion curve</em>: as an invader spreads, the options for dealing with it narrow and the cost of control rises. <em>Prevention</em> — stopping introductions through regulation of the aquarium trade, ballast water, and hull fouling — offers the highest return. If prevention fails, <em>early detection and rapid response (EDRR)</em> may allow <em>eradication</em> while populations are still small and localized. Once an invader is widespread, the goals shift to <em>containment</em> and then <em>long-term management</em>: suppressing populations at high-value sites to protect native species and habitats. Applied programs combine science with policy, economics, and people. Removal is strengthened by commercial markets that reward harvest, community engagement that builds public support, education that changes behavior, and the monitoring that measures whether any of it works. Effective application is therefore not a single action but a coordinated system linking research, regulation, industry, and local communities.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La ciencia de las invasiones importa porque puede aplicarse — para proteger ecosistemas, economías y comunidades. El marco de referencia es la <em>curva de invasión</em>: a medida que un invasor se extiende, las opciones para enfrentarlo se reducen y el costo del control aumenta. La <em>prevención</em> — evitar introducciones mediante la regulación del comercio de acuarios, el agua de lastre y la bioincrustación en cascos — ofrece el mayor retorno. Si la prevención falla, la <em>detección temprana y respuesta rápida (DTRR)</em> puede permitir la <em>erradicación</em> mientras las poblaciones aún son pequeñas y localizadas. Una vez que el invasor está ampliamente distribuido, los objetivos cambian a la <em>contención</em> y luego al <em>manejo de largo plazo</em>: suprimir las poblaciones en sitios de alto valor para proteger las especies y los hábitats nativos. Los programas aplicados combinan la ciencia con la política, la economía y las personas. La remoción se fortalece con mercados comerciales que recompensan la captura, la participación comunitaria que genera apoyo público, la educación que cambia comportamientos y el monitoreo que mide si todo ello funciona. Por lo tanto, una aplicación eficaz no es una acción aislada, sino un sistema coordinado que vincula la investigación, la regulación, la industria y las comunidades locales.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Lionfish are too widespread and too deep across the Mesoamerican Reef for eradication to be realistic. The region's applied response therefore focuses on long-term management — suppressing lionfish where it matters most and turning removal into lasting community benefit.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Commercial markets:</strong> Promoting lionfish as a food fish in Mexico, Belize, and Honduras gives fishers and restaurants a financial incentive to remove it, turning a management cost into an income source.</li>
+        <li><strong>Livelihood products:</strong> Community programs craft jewelry and crafts from lionfish fins and spines, adding value to each fish removed and creating income for coastal families, particularly women's cooperatives.</li>
+        <li><strong>Targeted suppression:</strong> Managers prioritize removal at marine protected areas, spawning aggregation sites, nursery habitats, and high-value dive sites, where reducing lionfish delivers the greatest benefit to native fish.</li>
+        <li><strong>Prevention and policy:</strong> The lionfish lesson strengthens support for regional controls on the aquarium trade and for ballast-water standards under the IMO Ballast Water Management Convention, aimed at stopping the next marine invader before it reaches the <strong>MAR corridor</strong>.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El pez león está demasiado extendido y a demasiada profundidad en el Arrecife Mesoamericano como para que la erradicación sea realista. Por ello, la respuesta aplicada de la región se centra en el manejo de largo plazo: suprimir al pez león donde más importa y convertir la remoción en un beneficio duradero para las comunidades.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Mercados comerciales:</strong> Promover el pez león como pescado de consumo en México, Belice y Honduras ofrece a pescadores y restaurantes un incentivo económico para removerlo, convirtiendo un costo de manejo en una fuente de ingresos.</li>
+        <li><strong>Productos para el sustento:</strong> Programas comunitarios elaboran joyería y artesanías con las aletas y espinas del pez león, agregando valor a cada pez removido y generando ingresos para familias costeras, en particular cooperativas de mujeres.</li>
+        <li><strong>Supresión dirigida:</strong> Los administradores priorizan la remoción en áreas marinas protegidas, sitios de agregación reproductiva, hábitats de crianza y sitios de buceo de alto valor, donde reducir el pez león genera el mayor beneficio para los peces nativos.</li>
+        <li><strong>Prevención y política:</strong> La lección del pez león fortalece el apoyo a los controles regionales sobre el comercio de acuarios y a las normas de agua de lastre del Convenio de la OMI sobre la Gestión del Agua de Lastre, orientados a detener al próximo invasor marino antes de que llegue al <strong>corredor del SAM</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 According to the invasion curve, which management stage offers the highest return on investment?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Prevention</li>
+            <li><span class="opt-letter">B.</span> Containment</li>
+            <li><span class="opt-letter">C.</span> Long-term management</li>
+            <li><span class="opt-letter">D.</span> All stages cost the same</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Stopping an introduction costs far less than controlling an established invader.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Según la curva de invasión, ¿qué etapa de manejo ofrece el mayor retorno de la inversión?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Prevención</li>
+            <li><span class="opt-letter">B.</span> Contención</li>
+            <li><span class="opt-letter">C.</span> Manejo de largo plazo</li>
+            <li><span class="opt-letter">D.</span> Todas las etapas cuestan lo mismo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Evitar una introducción cuesta mucho menos que controlar un invasor establecido.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why is the management goal for lionfish in the MAR suppression rather than eradication?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Lionfish cause no ecological harm</li>
+            <li><span class="opt-letter">B.</span> Lionfish are too widespread and occur too deep for complete removal to be realistic</li>
+            <li><span class="opt-letter">C.</span> Eradication is illegal in all MAR countries</li>
+            <li><span class="opt-letter">D.</span> Lionfish populations are already declining naturally to zero</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — At the long-term management stage, the goal is to reduce impacts at priority sites.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué el objetivo de manejo del pez león en el SAM es la supresión y no la erradicación?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El pez león no causa ningún daño ecológico</li>
+            <li><span class="opt-letter">B.</span> El pez león está demasiado extendido y habita a demasiada profundidad para que su remoción total sea realista</li>
+            <li><span class="opt-letter">C.</span> La erradicación es ilegal en todos los países del SAM</li>
+            <li><span class="opt-letter">D.</span> Las poblaciones de pez león ya están disminuyendo naturalmente hasta cero</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — En la etapa de manejo de largo plazo, el objetivo es reducir los impactos en sitios prioritarios.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 How does creating a commercial market for lionfish support invasive species management?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It encourages farming lionfish to increase supply</li>
+            <li><span class="opt-letter">B.</span> It replaces the need for any monitoring</li>
+            <li><span class="opt-letter">C.</span> It gives fishers a financial incentive to remove lionfish from the reef</li>
+            <li><span class="opt-letter">D.</span> It protects lionfish from overfishing</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Market demand turns removal from a cost into an income source.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cómo apoya al manejo de especies invasoras la creación de un mercado comercial para el pez león?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Fomenta el cultivo del pez león para aumentar la oferta</li>
+            <li><span class="opt-letter">B.</span> Elimina la necesidad de cualquier monitoreo</li>
+            <li><span class="opt-letter">C.</span> Da a los pescadores un incentivo económico para remover el pez león del arrecife</li>
+            <li><span class="opt-letter">D.</span> Protege al pez león de la sobrepesca</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La demanda del mercado convierte la remoción de un costo en una fuente de ingresos.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 18 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L18 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
