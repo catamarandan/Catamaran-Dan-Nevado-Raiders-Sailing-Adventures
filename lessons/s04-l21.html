@@ -1,1 +1,680 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S04·L21 Geological Oceanography — MAR Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 16.62%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 04 · Lesson 21 · Geological Oceanography</div>
+        <h1 class="lesson-title">MAR Focus</h1>
+        <div class="lesson-subtitle">Oceanografía Geológica — Enfoque SAM</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Advanced</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#0a6e8a" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="rockGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5a4a35" stop-opacity="0.75"/>
+            <stop offset="100%" stop-color="#2a2018" stop-opacity="0.9"/>
+          </linearGradient>
+          <linearGradient id="plumeGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#b08050" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#b08050" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="115" x2="380" y2="115"/>
+          <line x1="0" y1="165" x2="380" y2="165"/>
+          <line x1="0" y1="215" x2="380" y2="215"/>
+          <line x1="76" y1="45" x2="76" y2="260"/>
+          <line x1="152" y1="45" x2="152" y2="260"/>
+          <line x1="228" y1="45" x2="228" y2="260"/>
+          <line x1="304" y1="45" x2="304" y2="260"/>
+        </g>
+
+        <!-- DEPTH LABELS (schematic, not to scale) -->
+        <text x="8" y="69" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.08em">0 m</text>
+        <text x="8" y="109" fill="rgba(26,200,200,0.4)" font-family="monospace" font-size="7" letter-spacing="0.08em">200m</text>
+        <text x="8" y="159" fill="rgba(26,200,200,0.3)" font-family="monospace" font-size="7" letter-spacing="0.08em">2km</text>
+        <text x="8" y="209" fill="rgba(26,200,200,0.2)" font-family="monospace" font-size="7" letter-spacing="0.08em">5km+</text>
+
+        <!-- SEA SURFACE -->
+        <path d="M36,65 C70,60 104,70 138,65 C172,60 206,70 240,65 C274,60 308,70 342,65 L368,65 L368,47 L36,47 Z"
+              fill="url(#waveGrad)" opacity="0.35"/>
+        <path d="M36,65 C70,60 104,70 138,65 C172,60 206,70 240,65 C274,60 308,70 342,65"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+
+        <!-- SEAFLOOR PROFILE: coast · shelf · reef · slope · trough · rise -->
+        <path d="M36,58 L52,66 L70,76 L110,80 L150,82 L160,72 L166,74 L172,86 L190,110 L215,145 L245,180 L275,198 L300,222 L318,232 L336,214 L352,196 L368,190 L368,260 L36,260 Z"
+              fill="url(#rockGrad)"/>
+        <path d="M36,58 L52,66 L70,76 L110,80 L150,82 L160,72 L166,74 L172,86 L190,110 L215,145 L245,180 L275,198 L300,222 L318,232 L336,214 L352,196 L368,190"
+              fill="none" stroke="rgba(240,180,41,0.75)" stroke-width="1.4"/>
+
+        <!-- SEDIMENT LAYERS -->
+        <g fill="none" stroke="rgba(245,233,208,0.22)" stroke-width="0.8" stroke-dasharray="3,3">
+          <path d="M70,86 L150,90 L172,96 L192,120 L217,154 L247,188 L278,206 L302,229"/>
+          <path d="M70,98 L150,102 L174,108 L196,132 L221,165 L251,198 L282,216"/>
+          <path d="M70,112 L150,116 L176,122 L200,146 L226,178 L256,208"/>
+        </g>
+
+        <!-- ZONE LABELS -->
+        <text x="104" y="76" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.1em">SHELF</text>
+        <text x="236" y="150" fill="rgba(26,200,200,0.45)" font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.1em">SLOPE</text>
+        <text x="318" y="186" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.1em">TROUGH</text>
+        <text x="163" y="68" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="6" text-anchor="middle">REEF</text>
+
+        <!-- SHELF BREAK INDICATOR -->
+        <line x1="172" y1="86" x2="172" y2="60" stroke="rgba(240,180,41,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="168" y="100" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="6" text-anchor="end">SHELF BREAK</text>
+
+        <!-- LESSON OVERLAY -->
+        <path d="M150,82 L160,72 L166,74 L172,86" fill="rgba(232,96,64,0.25)" stroke="rgba(232,96,64,0.8)" stroke-width="1.4"/>
+        <g stroke="rgba(232,96,64,0.8)" stroke-width="0.8" fill="none"><path d="M154,78 l-3,-5 M159,74 l1,-6 M164,74 l3,-5"/></g>
+        <text x="200" y="80" fill="rgba(232,96,64,0.85)" font-family="monospace" font-size="6.5">REEF FRAMEWORK</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 240)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="rgba(240,180,41,0.75)" stroke-width="1.4"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Bathymetry</text>
+          <line x1="95" y1="4" x2="113" y2="4" stroke="rgba(245,233,208,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="117" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Sediment</text>
+          <line x1="175" y1="4" x2="193" y2="4" stroke="rgba(232,96,64,0.8)" stroke-width="1.2"/>
+          <text x="197" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Lesson focus</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="300" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">MESOAMERICAN REEF  ·  FRAMEWORK</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          The Mesoamerican Reef System is not a single reef but a mosaic of reef types assembled over a complex geological foundation. Along roughly 1,000 km of coastline it includes <em>fringing reefs</em> that grow close to shore on narrow shelves, a long <em>barrier reef</em> separated from the mainland by a lagoon, offshore <em>atolls</em> and atoll-like banks that rise from deep water, and <em>patch reefs</em> scattered through lagoons. Each type reflects the interplay of antecedent topography, shelf width, sea-level history, wave exposure, and sediment supply. Understanding the MAR as a geological system explains why reef types change along its length, why some areas are naturally more resilient to sediment stress, and why management approaches must vary from place to place.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El Sistema Arrecifal Mesoamericano no es un solo arrecife, sino un mosaico de tipos de arrecife formados sobre una base geológica compleja. A lo largo de aproximadamente 1,000 km de costa incluye <em>arrecifes bordeantes</em> que crecen cerca de la costa en plataformas estrechas, una larga <em>barrera arrecifal</em> separada del continente por una laguna, <em>atolones</em> y bancos tipo atolón alejados de la costa que se elevan desde aguas profundas, y <em>parches arrecifales</em> dispersos en las lagunas. Cada tipo refleja la interacción entre la topografía antecedente, el ancho de la plataforma, la historia del nivel del mar, la exposición al oleaje y el aporte de sedimentos. Comprender el SAM como un sistema geológico explica por qué los tipos de arrecife cambian a lo largo de su extensión, por qué algunas áreas son naturalmente más resilientes al estrés por sedimentos y por qué los enfoques de manejo deben variar de un lugar a otro.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          From Isla Contoy at the tip of the Yucatán to the Bay Islands of Honduras, the MAR traces a geological transect across a carbonate platform, a faulted shelf, and the edge of an active plate boundary.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Quintana Roo</strong>: fringing reefs on a narrow shelf, with submarine groundwater springs discharging from the karst aquifer close to reefs.</li>
+        <li><strong>Banco Chinchorro</strong> (Mexico): a large atoll-like carbonate bank rising from deep water offshore of southern Quintana Roo.</li>
+        <li><strong>Belize</strong>: the longest barrier reef in the Western Hemisphere, plus Turneffe, Lighthouse, and Glover's atolls on fault-block highs.</li>
+        <li><strong>Bay Islands</strong>: fringing reefs ringing steep islands that drop quickly toward the Cayman Trough, with little shelf to buffer them.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Desde Isla Contoy, en la punta de Yucatán, hasta las Islas de la Bahía de Honduras, el SAM recorre un transecto geológico a través de una plataforma carbonatada, una plataforma fracturada por fallas y el borde de un límite de placas activo.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Quintana Roo</strong>: arrecifes bordeantes en una plataforma estrecha, con manantiales submarinos de agua subterránea que descargan del acuífero kárstico cerca de los arrecifes.</li>
+        <li><strong>Banco Chinchorro</strong> (México): un gran banco carbonatado tipo atolón que se eleva desde aguas profundas frente al sur de Quintana Roo.</li>
+        <li><strong>Belice</strong>: la barrera arrecifal más larga del hemisferio occidental, además de los atolones Turneffe, Lighthouse y Glover's sobre altos de bloques de falla.</li>
+        <li><strong>Islas de la Bahía</strong>: arrecifes bordeantes que rodean islas de laderas abruptas que descienden rápidamente hacia la Fosa del Caimán, con poca plataforma que los amortigüe.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which reef type is separated from the mainland by a lagoon?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Fringing reef</li>
+            <li><span class="opt-letter">B.</span> Barrier reef</li>
+            <li><span class="opt-letter">C.</span> Patch reef</li>
+            <li><span class="opt-letter">D.</span> Spur reef</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Barrier reefs grow offshore with a lagoon between the reef and the coast.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué tipo de arrecife está separado del continente por una laguna?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Arrecife bordeante</li>
+            <li><span class="opt-letter">B.</span> Barrera arrecifal</li>
+            <li><span class="opt-letter">C.</span> Parche arrecifal</li>
+            <li><span class="opt-letter">D.</span> Arrecife de espolón</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las barreras arrecifales crecen mar adentro con una laguna entre el arrecife y la costa.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why are the reefs of Quintana Roo mainly fringing reefs?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The shelf is narrow, so reefs grow close to shore</li>
+            <li><span class="opt-letter">B.</span> Water is too cold farther offshore</li>
+            <li><span class="opt-letter">C.</span> Rivers deliver heavy sediment far offshore</li>
+            <li><span class="opt-letter">D.</span> They are all artificial</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — A narrow shelf provides little room for a lagoon, so reefs develop near the coastline.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué los arrecifes de Quintana Roo son principalmente bordeantes?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La plataforma es estrecha, por lo que los arrecifes crecen cerca de la costa</li>
+            <li><span class="opt-letter">B.</span> El agua es demasiado fría mar adentro</li>
+            <li><span class="opt-letter">C.</span> Los ríos llevan mucho sedimento mar adentro</li>
+            <li><span class="opt-letter">D.</span> Todos son artificiales</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Una plataforma estrecha deja poco espacio para una laguna, por lo que los arrecifes se desarrollan cerca de la costa.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 What controls the location of the Belize atolls?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Recent volcanic eruptions</li>
+            <li><span class="opt-letter">B.</span> Fault-bounded crustal blocks rising from deep water</li>
+            <li><span class="opt-letter">C.</span> Tidal currents only</li>
+            <li><span class="opt-letter">D.</span> Artificial dredging</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The atolls sit on tectonically controlled fault-block highs separated by deep channels.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué controla la ubicación de los atolones de Belice?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Erupciones volcánicas recientes</li>
+            <li><span class="opt-letter">B.</span> Bloques de corteza delimitados por fallas que se elevan desde aguas profundas</li>
+            <li><span class="opt-letter">C.</span> Solo las corrientes de marea</li>
+            <li><span class="opt-letter">D.</span> Dragados artificiales</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los atolones se asientan sobre altos de bloques de falla controlados tectónicamente, separados por canales profundos.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 04 · Lesson 117 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S04 · L21 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
