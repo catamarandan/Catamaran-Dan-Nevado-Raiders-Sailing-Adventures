@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L10 Invasive Species — Field Methods</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 1.42%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 10 · Invasive Species</div>
+        <h1 class="lesson-title">Field Methods</h1>
+        <div class="lesson-subtitle">Métodos de Campo para Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <pattern id="ledgeHatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="5" stroke="rgba(138,184,204,0.25)" stroke-width="1.2"/>
+          </pattern>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="0" y1="70" x2="380" y2="70"/>
+          <line x1="0" y1="130" x2="380" y2="130"/>
+          <line x1="0" y1="190" x2="380" y2="190"/>
+          <line x1="100" y1="30" x2="100" y2="215"/>
+          <line x1="200" y1="30" x2="200" y2="215"/>
+          <line x1="300" y1="30" x2="300" y2="215"/>
+        </g>
+
+        <!-- REEF STRUCTURE (plan view) -->
+        <g fill="rgba(10,110,138,0.18)" stroke="rgba(26,200,200,0.25)" stroke-width="0.8">
+          <path d="M70,92 C90,78 130,82 140,100 C150,118 120,128 98,124 C76,120 58,106 70,92 Z"/>
+          <path d="M175,140 C190,126 230,128 240,146 C250,164 220,176 196,170 C176,166 162,154 175,140 Z"/>
+          <path d="M275,88 C295,76 330,84 334,102 C338,120 312,126 292,120 C272,114 262,98 275,88 Z"/>
+          <path d="M40,150 C55,142 80,146 82,160 C84,174 62,178 48,172 C36,166 32,156 40,150 Z"/>
+        </g>
+
+        <!-- LEDGES / OVERHANGS (cryptic habitat) -->
+        <g fill="url(#ledgeHatch)" stroke="rgba(138,184,204,0.3)" stroke-width="0.6">
+          <path d="M104,118 C114,122 126,120 134,112 L138,118 C128,128 112,130 100,124 Z"/>
+          <path d="M210,166 C222,168 232,162 238,154 L242,160 C234,172 218,176 204,172 Z"/>
+          <path d="M296,116 C308,120 322,116 330,108 L334,114 C324,124 306,126 292,122 Z"/>
+        </g>
+
+        <!-- BELT BOUNDARIES -->
+        <rect x="40" y="100" width="300" height="60" fill="rgba(26,200,200,0.05)"/>
+        <line x1="40" y1="100" x2="340" y2="100" stroke="rgba(26,200,200,0.45)" stroke-width="1" stroke-dasharray="5,3"/>
+        <line x1="40" y1="160" x2="340" y2="160" stroke="rgba(26,200,200,0.45)" stroke-width="1" stroke-dasharray="5,3"/>
+
+        <!-- TRANSECT TAPE -->
+        <line x1="40" y1="130" x2="340" y2="130" stroke="rgba(240,180,41,0.85)" stroke-width="1.6"/>
+        <g stroke="rgba(240,180,41,0.85)" stroke-width="1">
+          <line x1="40" y1="126" x2="40" y2="134"/>
+          <line x1="115" y1="127" x2="115" y2="133"/>
+          <line x1="190" y1="127" x2="190" y2="133"/>
+          <line x1="265" y1="127" x2="265" y2="133"/>
+          <line x1="340" y1="126" x2="340" y2="134"/>
+        </g>
+        <text x="344" y="133" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="7">TAPE</text>
+
+        <!-- BELT WIDTH INDICATOR -->
+        <g stroke="rgba(26,200,200,0.6)" stroke-width="0.8">
+          <line x1="352" y1="100" x2="352" y2="160"/>
+          <line x1="348" y1="100" x2="356" y2="100"/>
+          <line x1="348" y1="160" x2="356" y2="160"/>
+        </g>
+        <text x="350" y="94" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="7" text-anchor="middle">BELT</text>
+
+        <!-- DIVER SWIM PATH -->
+        <path d="M44,140 C80,148 110,112 150,118 C190,124 210,150 250,146 C290,142 310,116 330,120"
+              fill="none" stroke="rgba(184,240,236,0.35)" stroke-width="1" stroke-dasharray="2,3"/>
+        <polygon points="330,116 330,124 337,120" fill="rgba(184,240,236,0.5)"/>
+        <text x="44" y="152" fill="rgba(184,240,236,0.5)" font-family="monospace" font-size="6.5">DIVER PATH</text>
+
+        <!-- DETECTED LIONFISH (open water / reef top) -->
+        <g fill="rgba(26,200,200,0.9)">
+          <circle cx="88" cy="108" r="3"/>
+          <circle cx="160" cy="138" r="3"/>
+          <circle cx="226" cy="142" r="3"/>
+          <circle cx="306" cy="104" r="3"/>
+        </g>
+
+        <!-- MISSED LIONFISH (under ledges) -->
+        <g fill="none" stroke="rgba(232,96,64,0.85)" stroke-width="1.2">
+          <circle cx="120" cy="122" r="3"/>
+          <circle cx="224" cy="166" r="3"/>
+          <circle cx="314" cy="117" r="3"/>
+        </g>
+
+        <!-- OUTSIDE BELT (not counted) -->
+        <g fill="rgba(138,184,204,0.35)">
+          <circle cx="110" cy="84" r="2.5"/>
+          <circle cx="60" cy="166" r="2.5"/>
+        </g>
+
+        <!-- DISTANCE SCALE -->
+        <g transform="translate(40, 196)">
+          <line x1="0" y1="0" x2="300" y2="0" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+          <g fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" text-anchor="middle">
+            <text x="0" y="10">0 m</text>
+            <text x="75" y="10">10</text>
+            <text x="150" y="10">20</text>
+            <text x="225" y="10">30</text>
+            <text x="300" y="10">40 m</text>
+          </g>
+        </g>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <circle cx="4" cy="4" r="3" fill="rgba(26,200,200,0.9)"/>
+          <text x="11" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Detected</text>
+          <circle cx="64" cy="4" r="3" fill="none" stroke="rgba(232,96,64,0.85)" stroke-width="1.2"/>
+          <text x="71" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Missed (cryptic)</text>
+          <circle cx="152" cy="4" r="2.5" fill="rgba(138,184,204,0.35)"/>
+          <text x="159" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Outside belt</text>
+          <rect x="222" y="0" width="12" height="8" fill="url(#ledgeHatch)" stroke="rgba(138,184,204,0.3)" stroke-width="0.6"/>
+          <text x="238" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Ledge</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="236" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">BELT TRANSECT  ·  PLAN VIEW</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Field methods are the tools researchers use to detect, count, measure, and remove invasive species in the real environment. Underwater, the core survey techniques are <em>belt transects</em> (counting individuals within a fixed width along a measured tape), <em>timed or roving searches</em> (a set period of focused searching across a site), and <em>stationary point counts</em>. Each method trades area covered against search thoroughness. A central concept is <em>detection probability</em> — the chance that an individual actually present is seen. Cryptic species that hide in crevices are routinely undercounted, so good protocols standardize time of day, search effort, diver training, and habitat recorded, allowing results to be corrected and compared. Beyond counting, field teams collect specimens for size, sex, and diet analysis, log depth and GPS position, and increasingly use tools such as environmental DNA (eDNA) sampling to detect invaders before they are seen. Consistent, well-documented field methods are what turn individual dives into usable scientific data.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los métodos de campo son las herramientas que los investigadores usan para detectar, contar, medir y remover especies invasoras en el entorno real. Bajo el agua, las técnicas básicas de muestreo son los <em>transectos de banda</em> (contar individuos dentro de un ancho fijo a lo largo de una cinta medida), las <em>búsquedas cronometradas o itinerantes</em> (un periodo definido de búsqueda enfocada en un sitio) y los <em>conteos en puntos fijos</em>. Cada método equilibra el área cubierta frente a la minuciosidad de la búsqueda. Un concepto central es la <em>probabilidad de detección</em>: la posibilidad de que un individuo realmente presente sea observado. Las especies crípticas que se esconden en grietas se subestiman de forma rutinaria, por lo que los buenos protocolos estandarizan la hora del día, el esfuerzo de búsqueda, la capacitación de los buzos y el hábitat registrado, lo que permite corregir y comparar los resultados. Además de contar, los equipos de campo recolectan especímenes para analizar talla, sexo y dieta, registran la profundidad y la posición GPS, y cada vez más utilizan herramientas como el muestreo de ADN ambiental (ADNa) para detectar invasores antes de que sean vistos. Los métodos de campo consistentes y bien documentados son los que convierten cada inmersión en datos científicos útiles.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Lionfish fieldwork along the Mesoamerican Reef combines scientific survey with active removal. Every dive is both a data-collection opportunity and a management action — but only if methods are standardized and every fish is properly recorded.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Detection:</strong> Lionfish shelter under ledges and in crevices during the day and become more active and exposed at dawn and dusk. Surveys should record time of day and include a deliberate search of overhangs, or densities will be underestimated.</li>
+        <li><strong>Removal:</strong> Pole spears and Hawaiian slings combined with puncture-proof containment devices are the standard removal tools. Local regulations vary by country and marine protected area, so permits and approved gear must be confirmed before culling.</li>
+        <li><strong>Specimen data:</strong> Each removed fish should be logged with total length, weight, sex, depth, habitat type, and GPS position; stomach contents reveal which native species are being eaten at each site.</li>
+        <li><strong>Safety:</strong> Lionfish spines are venomous. Field teams carry puncture-resistant gloves, and standard first aid for a sting is immersion in water as hot as can be tolerated without scalding, followed by medical evaluation.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El trabajo de campo con el pez león en el Arrecife Mesoamericano combina el muestreo científico con la remoción activa. Cada inmersión es a la vez una oportunidad de recolección de datos y una acción de manejo, pero solo si los métodos están estandarizados y cada pez se registra correctamente.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Detección:</strong> El pez león se refugia bajo salientes y en grietas durante el día y se vuelve más activo y expuesto al amanecer y al atardecer. Los muestreos deben registrar la hora del día e incluir una búsqueda deliberada en las salientes; de lo contrario, las densidades se subestimarán.</li>
+        <li><strong>Remoción:</strong> Los arpones de vara y las hawaianas, combinados con contenedores resistentes a perforaciones, son las herramientas de remoción estándar. Las regulaciones locales varían según el país y el área marina protegida, por lo que deben confirmarse los permisos y el equipo autorizado antes de la remoción.</li>
+        <li><strong>Datos del espécimen:</strong> Cada pez removido debe registrarse con su longitud total, peso, sexo, profundidad, tipo de hábitat y posición GPS; el contenido estomacal revela qué especies nativas están siendo depredadas en cada sitio.</li>
+        <li><strong>Seguridad:</strong> Las espinas del pez león son venenosas. Los equipos de campo usan guantes resistentes a perforaciones, y el primer auxilio estándar ante una picadura es sumergir la zona en agua tan caliente como se tolere sin quemarse, seguido de una evaluación médica.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 In field surveys, "detection probability" refers to:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The chance that an invasive species will arrive at a new site</li>
+            <li><span class="opt-letter">B.</span> The chance that an individual actually present is seen by the observer</li>
+            <li><span class="opt-letter">C.</span> The percentage of a reef covered by live coral</li>
+            <li><span class="opt-letter">D.</span> The likelihood that a removed fish is female</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Imperfect detection means visual counts can underestimate true abundance.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En los muestreos de campo, la "probabilidad de detección" se refiere a:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La posibilidad de que una especie invasora llegue a un nuevo sitio</li>
+            <li><span class="opt-letter">B.</span> La posibilidad de que un individuo realmente presente sea visto por el observador</li>
+            <li><span class="opt-letter">C.</span> El porcentaje de un arrecife cubierto por coral vivo</li>
+            <li><span class="opt-letter">D.</span> La probabilidad de que un pez removido sea hembra</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La detección imperfecta implica que los conteos visuales pueden subestimar la abundancia real.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why should lionfish surveys record time of day and include a deliberate search of ledges and overhangs?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Lionfish shelter in crevices by day and are more exposed at dawn and dusk</li>
+            <li><span class="opt-letter">B.</span> Lionfish only feed at midday in open sand</li>
+            <li><span class="opt-letter">C.</span> Ledges are the only place lionfish can be legally removed</li>
+            <li><span class="opt-letter">D.</span> Time of day has no effect on lionfish behavior</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Cryptic daytime sheltering lowers detection unless effort and timing are standardized.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué los muestreos de pez león deben registrar la hora del día e incluir una búsqueda deliberada en salientes y repisas?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El pez león se refugia en grietas durante el día y está más expuesto al amanecer y al atardecer</li>
+            <li><span class="opt-letter">B.</span> El pez león solo se alimenta al mediodía en arena abierta</li>
+            <li><span class="opt-letter">C.</span> Las salientes son el único lugar donde el pez león puede removerse legalmente</li>
+            <li><span class="opt-letter">D.</span> La hora del día no tiene efecto en el comportamiento del pez león</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — El refugio críptico diurno reduce la detección si el esfuerzo y el horario no se estandarizan.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 What is the standard first aid for a lionfish spine sting in the field?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Apply ice to the wound immediately</li>
+            <li><span class="opt-letter">B.</span> Rinse with vinegar and continue diving</li>
+            <li><span class="opt-letter">C.</span> Immerse in water as hot as tolerable without scalding, then seek medical evaluation</li>
+            <li><span class="opt-letter">D.</span> Apply a tight tourniquet above the wound</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Hot-water immersion helps break down the heat-sensitive venom; follow with medical care.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál es el primer auxilio estándar ante una picadura de espina de pez león en el campo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Aplicar hielo en la herida de inmediato</li>
+            <li><span class="opt-letter">B.</span> Enjuagar con vinagre y continuar buceando</li>
+            <li><span class="opt-letter">C.</span> Sumergir en agua tan caliente como se tolere sin quemarse y luego buscar evaluación médica</li>
+            <li><span class="opt-letter">D.</span> Aplicar un torniquete apretado por encima de la herida</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La inmersión en agua caliente ayuda a desactivar el veneno sensible al calor; después, buscar atención médica.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 10 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L10 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
