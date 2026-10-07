@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L25 Invasive Species — Restoration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 3.55%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 25 · Invasive Species</div>
+        <h1 class="lesson-title">Restoration</h1>
+        <div class="lesson-subtitle">Restauración tras las Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="40" y1="100" x2="360" y2="100"/>
+          <line x1="40" y1="140" x2="360" y2="140"/>
+          <line x1="40" y1="180" x2="360" y2="180"/>
+          <line x1="120" y1="40" x2="120" y2="205"/>
+          <line x1="200" y1="40" x2="200" y2="205"/>
+          <line x1="280" y1="40" x2="280" y2="205"/>
+        </g>
+
+        <!-- REFERENCE CONDITION BAND -->
+        <rect x="41" y="52" width="319" height="18" fill="rgba(26,200,200,0.07)"/>
+        <text x="356" y="48" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="6.5" text-anchor="end" letter-spacing="0.1em">REFERENCE CONDITION</text>
+
+        <!-- AXES -->
+        <g stroke="rgba(26,200,200,0.4)" stroke-width="1">
+          <line x1="40" y1="40" x2="40" y2="205"/>
+          <line x1="40" y1="205" x2="362" y2="205"/>
+        </g>
+        <text x="26" y="125" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="middle" transform="rotate(-90 26 125)">ECOSYSTEM CONDITION</text>
+        <text x="360" y="216" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="end">TIME →</text>
+
+        <!-- EVENT MARKERS -->
+        <line x1="100" y1="40" x2="100" y2="205" stroke="rgba(232,96,64,0.4)" stroke-width="1" stroke-dasharray="2,3"/>
+        <text x="104" y="84" fill="rgba(232,96,64,0.75)" font-family="monospace" font-size="6.5">INVASION</text>
+        <line x1="180" y1="40" x2="180" y2="205" stroke="rgba(240,180,41,0.45)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="184" y="194" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="6.5">CONTROL</text>
+        <line x1="205" y1="40" x2="205" y2="205" stroke="rgba(26,200,200,0.35)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="209" y="194" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="6.5">RESTORATION</text>
+
+        <!-- PRE-INVASION + DECLINE -->
+        <path d="M41,61 L100,61 C120,62 135,90 150,130 C160,155 170,168 180,170"
+              fill="none" stroke="rgba(232,244,248,0.7)" stroke-width="1.8"/>
+
+        <!-- TRAJECTORY A: CONTROL + ACTIVE RESTORATION -->
+        <path d="M180,170 C210,150 245,90 280,76 C310,68 335,66 360,65"
+              fill="none" stroke="rgba(26,200,200,0.9)" stroke-width="1.8"/>
+        <text x="356" y="80" fill="rgba(26,200,200,0.85)" font-family="monospace" font-size="6.5" text-anchor="end">CONTROL + ACTIVE</text>
+
+        <!-- TRAJECTORY B: CONTROL ONLY (PASSIVE RECOVERY) -->
+        <path d="M180,170 C220,166 270,140 300,124 C325,114 345,110 360,108"
+              fill="none" stroke="rgba(240,180,41,0.85)" stroke-width="1.6" stroke-dasharray="5,3"/>
+        <text x="356" y="122" fill="rgba(240,180,41,0.85)" font-family="monospace" font-size="6.5" text-anchor="end">CONTROL ONLY</text>
+
+        <!-- TRAJECTORY C: NO ACTION (ALTERNATIVE STATE) -->
+        <path d="M180,170 C220,173 280,176 360,178"
+              fill="none" stroke="rgba(232,96,64,0.8)" stroke-width="1.6" stroke-dasharray="2,3"/>
+        <text x="356" y="172" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="6.5" text-anchor="end">NO ACTION · DEGRADED STATE</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="rgba(26,200,200,0.9)" stroke-width="1.8"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Active</text>
+          <line x1="60" y1="4" x2="78" y2="4" stroke="rgba(240,180,41,0.85)" stroke-width="1.6" stroke-dasharray="5,3"/>
+          <text x="82" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Passive</text>
+          <line x1="126" y1="4" x2="144" y2="4" stroke="rgba(232,96,64,0.8)" stroke-width="1.6" stroke-dasharray="2,3"/>
+          <text x="148" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">No action</text>
+          <rect x="204" y="0" width="12" height="8" fill="rgba(26,200,200,0.12)"/>
+          <text x="220" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Reference</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="250" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">RECOVERY TRAJECTORIES</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Controlling an invader is not the same as restoring the ecosystem it damaged. Removal stops further harm, but native populations, habitats, and ecological functions may not return on their own. Invasions can leave <em>legacy effects</em> — depleted prey populations, lost herbivores, altered habitat — and other stressors may keep a system locked in a degraded <em>alternative state</em>. Restoration ecology distinguishes two broad approaches. <em>Passive restoration</em> removes the stressor and allows natural recovery, which works when native sources remain nearby and conditions are favorable. <em>Active restoration</em> intervenes directly — replanting corals, seagrass, or mangroves, protecting key species, or rebuilding habitat structure — to speed recovery or overcome barriers that would otherwise prevent it. Effective programs follow a deliberate sequence: <em>control</em> the invader to a level where it no longer drives decline, <em>reduce co-occurring stressors</em> such as pollution and overfishing, <em>restore</em> structure and function, and <em>monitor</em> against a reference condition while guarding against reinvasion. Restoration succeeds when the recovered system can sustain itself, not merely when the invader is gone.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Controlar a un invasor no es lo mismo que restaurar el ecosistema que dañó. La remoción detiene el daño adicional, pero las poblaciones nativas, los hábitats y las funciones ecológicas pueden no recuperarse por sí solos. Las invasiones pueden dejar <em>efectos heredados</em> — poblaciones de presas agotadas, herbívoros perdidos, hábitat alterado — y otros factores de estrés pueden mantener al sistema atrapado en un <em>estado alternativo</em> degradado. La ecología de la restauración distingue dos enfoques generales. La <em>restauración pasiva</em> elimina el factor de estrés y permite la recuperación natural, lo que funciona cuando quedan fuentes nativas cercanas y las condiciones son favorables. La <em>restauración activa</em> interviene directamente — replantando corales, pastos marinos o manglares, protegiendo especies clave o reconstruyendo la estructura del hábitat — para acelerar la recuperación o superar barreras que de otro modo la impedirían. Los programas eficaces siguen una secuencia deliberada: <em>controlar</em> al invasor hasta un nivel en que ya no provoque el deterioro, <em>reducir los factores de estrés concurrentes</em> como la contaminación y la sobrepesca, <em>restaurar</em> la estructura y la función, y <em>monitorear</em> frente a una condición de referencia mientras se previene la reinvasión. La restauración tiene éxito cuando el sistema recuperado puede sostenerse por sí mismo, no solo cuando el invasor desaparece.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Across the Mesoamerican Reef, lionfish control is increasingly linked with active reef restoration — because newly restored reefs attract the young native fish that lionfish prey on most heavily.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Native prey recovery:</strong> Experiments in the Bahamas found that keeping lionfish below site-specific threshold densities allowed native prey fish biomass to increase substantially, showing that targeted removal can open the door to recovery.</li>
+        <li><strong>Coral restoration:</strong> Programs such as Fragments of Hope in Belize grow and outplant threatened <em>Acropora</em> corals. Pairing outplant sites with regular lionfish removal protects the juvenile fish that shelter in new coral structure.</li>
+        <li><strong>Herbivore protection:</strong> Belize banned the harvest of parrotfish in 2009 to protect grazers that control algae, a fisheries measure that supports both coral recovery and resilience against further invasion impacts.</li>
+        <li><strong>Rapid response funding:</strong> Quintana Roo's reef insurance program, launched in 2019, funds trained reef brigades to repair damage after major hurricanes, a model for keeping restoration on track across the <strong>MAR corridor</strong>.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          En todo el Arrecife Mesoamericano, el control del pez león se vincula cada vez más con la restauración arrecifal activa, porque los arrecifes recién restaurados atraen a los peces nativos juveniles que el pez león depreda con mayor intensidad.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Recuperación de presas nativas:</strong> Experimentos en las Bahamas encontraron que mantener al pez león por debajo de densidades umbral específicas de cada sitio permitió que la biomasa de peces presa nativos aumentara de forma considerable, lo que demuestra que la remoción dirigida puede abrir paso a la recuperación.</li>
+        <li><strong>Restauración coralina:</strong> Programas como Fragments of Hope en Belice cultivan y trasplantan corales <em>Acropora</em> amenazados. Combinar los sitios de trasplante con remoción regular del pez león protege a los peces juveniles que se refugian en la nueva estructura coralina.</li>
+        <li><strong>Protección de herbívoros:</strong> Belice prohibió la captura de peces loro en 2009 para proteger a los herbívoros que controlan las algas, una medida pesquera que favorece tanto la recuperación coralina como la resiliencia frente a nuevos impactos de las invasiones.</li>
+        <li><strong>Financiamiento de respuesta rápida:</strong> El programa de seguro arrecifal de Quintana Roo, iniciado en 2019, financia brigadas arrecifales capacitadas para reparar daños tras huracanes fuertes, un modelo para mantener la restauración en marcha a lo largo del <strong>corredor del SAM</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why might removing an invasive species fail to restore the ecosystem on its own?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Removed invaders always return within days</li>
+            <li><span class="opt-letter">B.</span> Legacy effects and other stressors can hold the system in a degraded state</li>
+            <li><span class="opt-letter">C.</span> Native species cannot live where invaders once lived</li>
+            <li><span class="opt-letter">D.</span> Ecosystems never change after an invasion</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Lost functions and co-occurring stressors can block natural recovery.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué la remoción de una especie invasora podría no bastar por sí sola para restaurar el ecosistema?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los invasores removidos siempre regresan en cuestión de días</li>
+            <li><span class="opt-letter">B.</span> Los efectos heredados y otros factores de estrés pueden mantener al sistema en un estado degradado</li>
+            <li><span class="opt-letter">C.</span> Las especies nativas no pueden vivir donde antes vivían los invasores</li>
+            <li><span class="opt-letter">D.</span> Los ecosistemas nunca cambian después de una invasión</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las funciones perdidas y los factores de estrés concurrentes pueden bloquear la recuperación natural.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Outplanting nursery-grown corals at a reef site after lionfish removal is an example of:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Passive restoration</li>
+            <li><span class="opt-letter">B.</span> Active restoration</li>
+            <li><span class="opt-letter">C.</span> Surveillance monitoring</li>
+            <li><span class="opt-letter">D.</span> Prevention</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Direct intervention to rebuild habitat is active restoration.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Trasplantar corales cultivados en vivero a un sitio arrecifal después de remover el pez león es un ejemplo de:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Restauración pasiva</li>
+            <li><span class="opt-letter">B.</span> Restauración activa</li>
+            <li><span class="opt-letter">C.</span> Monitoreo de vigilancia</li>
+            <li><span class="opt-letter">D.</span> Prevención</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La intervención directa para reconstruir el hábitat es restauración activa.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why did Belize ban the harvest of parrotfish in 2009?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Parrotfish are an invasive species</li>
+            <li><span class="opt-letter">B.</span> Parrotfish are toxic to eat</li>
+            <li><span class="opt-letter">C.</span> To protect grazers that control algae and support coral recovery</li>
+            <li><span class="opt-letter">D.</span> To increase lionfish populations</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Herbivores keep algae in check, giving corals room to recover.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué Belice prohibió la captura de peces loro en 2009?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los peces loro son una especie invasora</li>
+            <li><span class="opt-letter">B.</span> Los peces loro son tóxicos para el consumo</li>
+            <li><span class="opt-letter">C.</span> Para proteger a los herbívoros que controlan las algas y favorecer la recuperación coralina</li>
+            <li><span class="opt-letter">D.</span> Para aumentar las poblaciones de pez león</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Los herbívoros mantienen controladas las algas y dan espacio a los corales para recuperarse.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 25 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L25 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
