@@ -1,1 +1,681 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S04·L11 Geological Oceanography — Data Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 15.2%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 04 · Lesson 11 · Geological Oceanography</div>
+        <h1 class="lesson-title">Data Collection</h1>
+        <div class="lesson-subtitle">Oceanografía Geológica — Recolección de Datos</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1ac8c8" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#0a6e8a" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="rockGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5a4a35" stop-opacity="0.75"/>
+            <stop offset="100%" stop-color="#2a2018" stop-opacity="0.9"/>
+          </linearGradient>
+          <linearGradient id="plumeGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#b08050" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#b08050" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="0" y1="65" x2="380" y2="65"/>
+          <line x1="0" y1="115" x2="380" y2="115"/>
+          <line x1="0" y1="165" x2="380" y2="165"/>
+          <line x1="0" y1="215" x2="380" y2="215"/>
+          <line x1="76" y1="45" x2="76" y2="260"/>
+          <line x1="152" y1="45" x2="152" y2="260"/>
+          <line x1="228" y1="45" x2="228" y2="260"/>
+          <line x1="304" y1="45" x2="304" y2="260"/>
+        </g>
+
+        <!-- DEPTH LABELS (schematic, not to scale) -->
+        <text x="8" y="69" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.08em">0 m</text>
+        <text x="8" y="109" fill="rgba(26,200,200,0.4)" font-family="monospace" font-size="7" letter-spacing="0.08em">200m</text>
+        <text x="8" y="159" fill="rgba(26,200,200,0.3)" font-family="monospace" font-size="7" letter-spacing="0.08em">2km</text>
+        <text x="8" y="209" fill="rgba(26,200,200,0.2)" font-family="monospace" font-size="7" letter-spacing="0.08em">5km+</text>
+
+        <!-- SEA SURFACE -->
+        <path d="M36,65 C70,60 104,70 138,65 C172,60 206,70 240,65 C274,60 308,70 342,65 L368,65 L368,47 L36,47 Z"
+              fill="url(#waveGrad)" opacity="0.35"/>
+        <path d="M36,65 C70,60 104,70 138,65 C172,60 206,70 240,65 C274,60 308,70 342,65"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+
+        <!-- SEAFLOOR PROFILE: coast · shelf · reef · slope · trough · rise -->
+        <path d="M36,58 L52,66 L70,76 L110,80 L150,82 L160,72 L166,74 L172,86 L190,110 L215,145 L245,180 L275,198 L300,222 L318,232 L336,214 L352,196 L368,190 L368,260 L36,260 Z"
+              fill="url(#rockGrad)"/>
+        <path d="M36,58 L52,66 L70,76 L110,80 L150,82 L160,72 L166,74 L172,86 L190,110 L215,145 L245,180 L275,198 L300,222 L318,232 L336,214 L352,196 L368,190"
+              fill="none" stroke="rgba(240,180,41,0.75)" stroke-width="1.4"/>
+
+        <!-- SEDIMENT LAYERS -->
+        <g fill="none" stroke="rgba(245,233,208,0.22)" stroke-width="0.8" stroke-dasharray="3,3">
+          <path d="M70,86 L150,90 L172,96 L192,120 L217,154 L247,188 L278,206 L302,229"/>
+          <path d="M70,98 L150,102 L174,108 L196,132 L221,165 L251,198 L282,216"/>
+          <path d="M70,112 L150,116 L176,122 L200,146 L226,178 L256,208"/>
+        </g>
+
+        <!-- ZONE LABELS -->
+        <text x="104" y="76" fill="rgba(26,200,200,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.1em">SHELF</text>
+        <text x="236" y="150" fill="rgba(26,200,200,0.45)" font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.1em">SLOPE</text>
+        <text x="318" y="186" fill="rgba(138,184,204,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.1em">TROUGH</text>
+        <text x="163" y="68" fill="rgba(240,180,41,0.7)" font-family="monospace" font-size="6" text-anchor="middle">REEF</text>
+
+        <!-- SHELF BREAK INDICATOR -->
+        <line x1="172" y1="86" x2="172" y2="60" stroke="rgba(240,180,41,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="168" y="100" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="6" text-anchor="end">SHELF BREAK</text>
+
+        <!-- LESSON OVERLAY -->
+        <rect x="118" y="80" width="6" height="40" fill="rgba(232,96,64,0.2)" stroke="rgba(232,96,64,0.8)" stroke-width="1"/>
+        <g stroke="rgba(232,96,64,0.8)" stroke-width="0.6"><line x1="118" y1="90" x2="124" y2="90"/><line x1="118" y1="100" x2="124" y2="100"/><line x1="118" y1="110" x2="124" y2="110"/></g>
+        <line x1="121" y1="62" x2="121" y2="80" stroke="rgba(232,96,64,0.8)" stroke-width="0.8" stroke-dasharray="2,2"/>
+        <text x="128" y="118" fill="rgba(232,96,64,0.85)" font-family="monospace" font-size="6.5">SEDIMENT CORE</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 240)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="rgba(240,180,41,0.75)" stroke-width="1.4"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Bathymetry</text>
+          <line x1="95" y1="4" x2="113" y2="4" stroke="rgba(245,233,208,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="117" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Sediment</text>
+          <line x1="175" y1="4" x2="193" y2="4" stroke="rgba(232,96,64,0.8)" stroke-width="1.2"/>
+          <text x="197" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Lesson focus</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="300" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">SAMPLING DESIGN  ·  METADATA</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Data collection is where scientific value is won or lost. A sound <em>sampling design</em> defines the question, the population of sites, the number of replicates, and how sites are selected — random, stratified, or along a gradient. Every sample must carry <em>metadata</em>: precise GPS position, depth, date and time, collector, method, and conditions. A documented <em>chain of custody</em> records who handled a sample from collection to lab. <em>Quality assurance</em> includes calibrated instruments, field blanks, duplicate samples, and standardized protocols so data collected by different teams can be compared. Timing matters as well: sampling only during calm weather, for instance, will miss the storm and flood events that often dominate geological change.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La recolección de datos es donde se gana o se pierde el valor científico. Un <em>diseño de muestreo</em> sólido define la pregunta, el conjunto de sitios, el número de réplicas y cómo se seleccionan los sitios: al azar, estratificados o a lo largo de un gradiente. Cada muestra debe llevar <em>metadatos</em>: posición GPS precisa, profundidad, fecha y hora, recolector, método y condiciones. Una <em>cadena de custodia</em> documentada registra quién manipuló la muestra desde su recolección hasta el laboratorio. El <em>aseguramiento de la calidad</em> incluye instrumentos calibrados, blancos de campo, muestras duplicadas y protocolos estandarizados para que los datos de distintos equipos puedan compararse. El momento también importa: muestrear solo con buen tiempo, por ejemplo, dejará fuera las tormentas e inundaciones que con frecuencia dominan el cambio geológico.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Because the Mesoamerican Reef spans four countries — Mexico, Belize, Guatemala, and Honduras — geological data are only useful at corridor scale when every team records positions, units, methods, and timing in compatible ways.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Sampling should bracket the <strong>rainy season</strong> (roughly June to November), when river discharge and sediment delivery peak across the southern MAR.</li>
+        <li><strong>Pre- and post-storm sampling</strong> at the same georeferenced stations is the most direct way to measure hurricane impacts on sediment and reef structure.</li>
+        <li><strong>Stratified designs</strong> — e.g., fore reef, reef crest, back reef, lagoon — prevent one habitat from dominating results simply because it is easiest to reach.</li>
+        <li>Standardized units (mg cm⁻² d⁻¹ for sedimentation, % carbonate, φ for grain size) allow <strong>cross-border comparison</strong> of datasets.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Como el Arrecife Mesoamericano abarca cuatro países — México, Belice, Guatemala y Honduras —, los datos geológicos solo son útiles a escala de corredor cuando cada equipo registra posiciones, unidades, métodos y tiempos de forma compatible.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El muestreo debe abarcar la <strong>temporada de lluvias</strong> (aproximadamente de junio a noviembre), cuando la descarga de los ríos y el aporte de sedimentos alcanzan su máximo en el sur del SAM.</li>
+        <li>El <strong>muestreo antes y después de una tormenta</strong> en las mismas estaciones georreferenciadas es la forma más directa de medir los impactos de los huracanes en el sedimento y la estructura arrecifal.</li>
+        <li>Los <strong>diseños estratificados</strong> — p. ej., talud arrecifal, cresta, arrecife posterior, laguna — evitan que un hábitat domine los resultados solo por ser el más accesible.</li>
+        <li>Las unidades estandarizadas (mg cm⁻² d⁻¹ para sedimentación, % de carbonato, φ para tamaño de grano) permiten la <strong>comparación transfronteriza</strong> de los conjuntos de datos.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What is the purpose of a chain-of-custody record?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> To track who handled a sample from collection through analysis</li>
+            <li><span class="opt-letter">B.</span> To measure the length of a rugosity chain</li>
+            <li><span class="opt-letter">C.</span> To list the species found at a site</li>
+            <li><span class="opt-letter">D.</span> To calibrate a GPS receiver</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Chain of custody documents every transfer of a sample, protecting data integrity.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál es el propósito de un registro de cadena de custodia?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Dar seguimiento a quién manipuló una muestra desde su recolección hasta su análisis</li>
+            <li><span class="opt-letter">B.</span> Medir la longitud de una cadena de rugosidad</li>
+            <li><span class="opt-letter">C.</span> Enumerar las especies encontradas en un sitio</li>
+            <li><span class="opt-letter">D.</span> Calibrar un receptor GPS</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — La cadena de custodia documenta cada transferencia de una muestra, protegiendo la integridad de los datos.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 A team samples sediment only on calm, sunny days. What bias does this introduce?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> No bias, since weather is irrelevant to sediment</li>
+            <li><span class="opt-letter">B.</span> It underrepresents storm and flood conditions when much sediment transport occurs</li>
+            <li><span class="opt-letter">C.</span> It overestimates carbonate content everywhere</li>
+            <li><span class="opt-letter">D.</span> It makes GPS positions less accurate</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Calm-weather-only sampling misses the high-energy events that move the most sediment.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un equipo muestrea sedimento solo en días tranquilos y soleados. ¿Qué sesgo introduce esto?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Ninguno, porque el clima es irrelevante para el sedimento</li>
+            <li><span class="opt-letter">B.</span> Subrepresenta las condiciones de tormenta e inundación, cuando ocurre gran parte del transporte de sedimento</li>
+            <li><span class="opt-letter">C.</span> Sobreestima el contenido de carbonato en todas partes</li>
+            <li><span class="opt-letter">D.</span> Hace menos precisas las posiciones GPS</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Muestrear solo con buen tiempo deja fuera los eventos de alta energía que mueven más sedimento.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Which practice most improves comparability of data collected by teams in different MAR countries?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Each team inventing its own units</li>
+            <li><span class="opt-letter">B.</span> Using standardized protocols, units, and metadata fields</li>
+            <li><span class="opt-letter">C.</span> Sampling only within one country</li>
+            <li><span class="opt-letter">D.</span> Avoiding replication</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Shared protocols and units make independent datasets directly comparable.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué práctica mejora más la comparabilidad de los datos recolectados por equipos de distintos países del SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Que cada equipo invente sus propias unidades</li>
+            <li><span class="opt-letter">B.</span> Usar protocolos, unidades y campos de metadatos estandarizados</li>
+            <li><span class="opt-letter">C.</span> Muestrear solo dentro de un país</li>
+            <li><span class="opt-letter">D.</span> Evitar las réplicas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los protocolos y unidades compartidos hacen que los conjuntos de datos independientes sean directamente comparables.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 04 · Lesson 107 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S04 · L11 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
