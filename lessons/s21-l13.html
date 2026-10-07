@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L13 Invasive Species — Spatial Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 1.85%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 13 · Invasive Species</div>
+        <h1 class="lesson-title">Spatial Patterns</h1>
+        <div class="lesson-subtitle">Patrones Espaciales de las Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="shelfGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0a6e8a" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#020c17" stop-opacity="0.6"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- CROSS-SHELF ZONES (plan view, shore at left) -->
+        <rect x="36" y="40" width="320" height="130" fill="url(#shelfGrad)"/>
+        <rect x="36" y="40" width="44" height="130" fill="rgba(70,140,90,0.14)"/>
+        <rect x="215" y="40" width="20" height="130" fill="rgba(245,233,208,0.07)"/>
+
+        <!-- zone boundaries -->
+        <g stroke="rgba(26,200,200,0.15)" stroke-width="0.6" stroke-dasharray="3,3">
+          <line x1="80" y1="40" x2="80" y2="170"/>
+          <line x1="160" y1="40" x2="160" y2="170"/>
+          <line x1="215" y1="40" x2="215" y2="170"/>
+          <line x1="235" y1="40" x2="235" y2="170"/>
+          <line x1="300" y1="40" x2="300" y2="170"/>
+        </g>
+
+        <!-- zone labels -->
+        <g font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.08em">
+          <text x="58" y="36" fill="rgba(140,200,150,0.6)">MANGROVE</text>
+          <text x="120" y="36" fill="rgba(26,200,200,0.55)">LAGOON</text>
+          <text x="187" y="36" fill="rgba(26,200,200,0.55)">BACK REEF</text>
+          <text x="225" y="36" fill="rgba(245,233,208,0.55)">CREST</text>
+          <text x="267" y="36" fill="rgba(26,200,200,0.55)">FORE REEF</text>
+          <text x="328" y="36" fill="rgba(138,184,204,0.55)">WALL</text>
+        </g>
+
+        <!-- PATCH REEFS IN LAGOON -->
+        <g fill="rgba(10,110,138,0.25)" stroke="rgba(26,200,200,0.3)" stroke-width="0.7">
+          <ellipse cx="105" cy="75" rx="14" ry="10"/>
+          <ellipse cx="138" cy="135" rx="12" ry="9"/>
+        </g>
+
+        <!-- LIONFISH OCCURRENCES (clumped) -->
+        <g fill="rgba(232,96,64,0.85)">
+          <!-- mangrove edge -->
+          <circle cx="74" cy="62" r="2"/>
+          <circle cx="76" cy="128" r="2"/>
+          <!-- patch reef clusters -->
+          <circle cx="100" cy="72" r="2"/><circle cx="108" cy="77" r="2"/><circle cx="104" cy="80" r="2"/><circle cx="111" cy="71" r="2"/>
+          <circle cx="135" cy="133" r="2"/><circle cx="141" cy="137" r="2"/><circle cx="137" cy="139" r="2"/>
+          <!-- back reef -->
+          <circle cx="182" cy="95" r="2"/><circle cx="196" cy="140" r="2"/>
+          <!-- fore reef cluster -->
+          <circle cx="252" cy="70" r="2"/><circle cx="258" cy="74" r="2"/><circle cx="255" cy="79" r="2"/>
+          <circle cx="276" cy="118" r="2"/><circle cx="282" cy="122" r="2"/><circle cx="279" cy="127" r="2"/><circle cx="286" cy="116" r="2"/>
+          <!-- wall / deep -->
+          <circle cx="312" cy="58" r="2"/><circle cx="318" cy="63" r="2"/><circle cx="324" cy="57" r="2"/><circle cx="320" cy="69" r="2"/>
+          <circle cx="330" cy="98" r="2"/><circle cx="337" cy="103" r="2"/><circle cx="333" cy="108" r="2"/>
+          <circle cx="314" cy="146" r="2"/><circle cx="321" cy="150" r="2"/><circle cx="317" cy="156" r="2"/><circle cx="342" cy="140" r="2"/>
+        </g>
+
+        <!-- SOURCE → SINK -->
+        <path d="M322,86 C305,92 292,96 272,98" fill="none" stroke="rgba(240,180,41,0.75)" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <polygon points="272,95 272,101 266,98" fill="rgba(240,180,41,0.75)"/>
+        <text x="341" y="88" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="6.5" text-anchor="middle">SOURCE</text>
+        <text x="251" y="101" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="6.5" text-anchor="middle">SINK</text>
+
+        <!-- RELATIVE DENSITY BARS -->
+        <g fill="rgba(232,96,64,0.45)">
+          <rect x="50" y="199" width="16" height="6"/>
+          <rect x="112" y="195" width="16" height="10"/>
+          <rect x="179" y="197" width="16" height="8"/>
+          <rect x="219" y="203" width="12" height="2"/>
+          <rect x="259" y="187" width="16" height="18"/>
+          <rect x="320" y="181" width="16" height="24"/>
+        </g>
+        <line x1="36" y1="205" x2="356" y2="205" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <text x="40" y="186" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="6.5" letter-spacing="0.1em">RELATIVE DENSITY</text>
+        <text x="356" y="216" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="end">SHORE  →  OPEN SEA</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <circle cx="4" cy="4" r="2" fill="rgba(232,96,64,0.85)"/>
+          <text x="10" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Lionfish record</text>
+          <ellipse cx="96" cy="4" rx="7" ry="4" fill="rgba(10,110,138,0.25)" stroke="rgba(26,200,200,0.3)" stroke-width="0.7"/>
+          <text x="107" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Patch reef</text>
+          <line x1="164" y1="4" x2="182" y2="4" stroke="rgba(240,180,41,0.75)" stroke-width="1.2" stroke-dasharray="4,2"/>
+          <text x="186" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Resupply</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="250" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">CROSS-SHELF  ·  DISTRIBUTION</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Invasive species are almost never spread evenly across a landscape. Their <em>spatial pattern</em> — how individuals are arranged in space — reveals the processes that shape the invasion. Ecologists describe three basic dispersion patterns: <em>clumped</em>, where individuals aggregate around resources or shelter; <em>random</em>, where position is independent of other individuals; and <em>uniform</em>, where competition spaces individuals evenly. At larger scales, patterns appear as <em>gradients</em> along depth, distance from shore, or habitat type, and as <em>hotspots</em> where densities are far above average. A key concept is <em>spatial autocorrelation</em>: sites close together tend to be more similar than distant ones, which means nearby samples are not fully independent and must be analyzed accordingly. Spatial patterns also reveal <em>source-sink dynamics</em> — some areas produce surplus offspring that resupply others where mortality exceeds reproduction. Tools such as GIS mapping, density surfaces, and spatial statistics allow researchers to detect these patterns and target management where it matters most.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Las especies invasoras casi nunca se distribuyen de manera uniforme en el paisaje. Su <em>patrón espacial</em> — cómo se disponen los individuos en el espacio — revela los procesos que dan forma a la invasión. Los ecólogos describen tres patrones básicos de dispersión: <em>agregado</em>, donde los individuos se concentran alrededor de recursos o refugios; <em>aleatorio</em>, donde la posición es independiente de otros individuos; y <em>uniforme</em>, donde la competencia espacia a los individuos de forma regular. A escalas mayores, los patrones aparecen como <em>gradientes</em> según la profundidad, la distancia a la costa o el tipo de hábitat, y como <em>puntos críticos</em> donde las densidades superan con creces el promedio. Un concepto clave es la <em>autocorrelación espacial</em>: los sitios cercanos tienden a ser más parecidos que los lejanos, lo que significa que las muestras próximas no son totalmente independientes y deben analizarse en consecuencia. Los patrones espaciales también revelan <em>dinámicas fuente-sumidero</em>: algunas áreas producen crías excedentes que reabastecen otras donde la mortalidad supera a la reproducción. Herramientas como el mapeo con SIG, las superficies de densidad y la estadística espacial permiten a los investigadores detectar estos patrones y dirigir el manejo donde más importa.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Mesoamerican Reef offers a full cross-shelf sequence — mangroves, seagrass lagoons, patch reefs, back reef, reef crest, fore reef, and deep walls — and lionfish occupy nearly all of it. Their spatial pattern across that sequence is anything but even.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Clumped dispersion:</strong> Lionfish aggregate around structure — ledges, overhangs, patch reefs, and wrecks — often with several individuals sharing a single shelter, while open sand and seagrass between structures hold few or none.</li>
+        <li><strong>Cross-shelf gradient:</strong> Densities are typically lower in lagoons and on the shallow back reef and higher on the fore reef and deep walls, where structure is abundant and removal effort is limited.</li>
+        <li><strong>Nursery habitats:</strong> Juvenile lionfish use mangrove edges and lagoon patch reefs, so these habitats can act as early-life refuges that feed adult populations on the outer reef.</li>
+        <li><strong>Source-sink pattern:</strong> Deep, rarely culled reefs act as sources that resupply shallow, regularly culled sites — a pattern that only becomes visible when surveys span the full depth and habitat range of the <strong>MAR corridor</strong>.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Arrecife Mesoamericano ofrece una secuencia completa a través de la plataforma — manglares, lagunas de pastos marinos, arrecifes de parche, arrecife posterior, cresta arrecifal, arrecife frontal y paredes profundas — y el pez león ocupa casi toda. Su patrón espacial a lo largo de esa secuencia es todo menos uniforme.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Dispersión agregada:</strong> El pez león se concentra alrededor de estructuras — salientes, repisas, arrecifes de parche y naufragios — a menudo con varios individuos compartiendo un mismo refugio, mientras que la arena abierta y los pastos marinos entre estructuras albergan pocos o ninguno.</li>
+        <li><strong>Gradiente a través de la plataforma:</strong> Las densidades suelen ser menores en las lagunas y en el arrecife posterior somero, y mayores en el arrecife frontal y las paredes profundas, donde abunda la estructura y el esfuerzo de remoción es limitado.</li>
+        <li><strong>Hábitats de crianza:</strong> Los juveniles de pez león usan los bordes de manglar y los arrecifes de parche lagunares, por lo que estos hábitats pueden funcionar como refugios en etapas tempranas que alimentan las poblaciones adultas del arrecife exterior.</li>
+        <li><strong>Patrón fuente-sumidero:</strong> Los arrecifes profundos, rara vez sometidos a remoción, actúan como fuentes que reabastecen los sitios someros con remoción regular — un patrón que solo se hace visible cuando los muestreos abarcan todo el rango de profundidades y hábitats del <strong>corredor del SAM</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Lionfish gathering under ledges and patch reefs, with few found on open sand, is an example of which dispersion pattern?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Uniform</li>
+            <li><span class="opt-letter">B.</span> Random</li>
+            <li><span class="opt-letter">C.</span> Clumped</li>
+            <li><span class="opt-letter">D.</span> Linear</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Aggregation around shelter and structure is a clumped pattern.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 El pez león concentrado bajo salientes y arrecifes de parche, con pocos individuos en arena abierta, es un ejemplo de ¿qué patrón de dispersión?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Uniforme</li>
+            <li><span class="opt-letter">B.</span> Aleatorio</li>
+            <li><span class="opt-letter">C.</span> Agregado</li>
+            <li><span class="opt-letter">D.</span> Lineal</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La concentración alrededor de refugios y estructuras es un patrón agregado.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Spatial autocorrelation means that:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sites close together tend to be more similar than distant sites</li>
+            <li><span class="opt-letter">B.</span> Every site has exactly the same density</li>
+            <li><span class="opt-letter">C.</span> GPS coordinates are recorded automatically</li>
+            <li><span class="opt-letter">D.</span> Invasive species avoid areas they have already occupied</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Nearby samples are not fully independent and must be analyzed accordingly.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 La autocorrelación espacial significa que:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los sitios cercanos tienden a ser más parecidos que los sitios lejanos</li>
+            <li><span class="opt-letter">B.</span> Todos los sitios tienen exactamente la misma densidad</li>
+            <li><span class="opt-letter">C.</span> Las coordenadas GPS se registran automáticamente</li>
+            <li><span class="opt-letter">D.</span> Las especies invasoras evitan las áreas que ya han ocupado</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Las muestras cercanas no son totalmente independientes y deben analizarse en consecuencia.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 In a source-sink pattern along the MAR, which areas most likely act as lionfish "sources"?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Shallow dive sites culled every week</li>
+            <li><span class="opt-letter">B.</span> Deep, rarely culled reefs that produce surplus offspring</li>
+            <li><span class="opt-letter">C.</span> Open sand flats with no structure</li>
+            <li><span class="opt-letter">D.</span> Beaches above the high-tide line</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Unmanaged deep reefs produce surplus lionfish that resupply culled sites.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En un patrón fuente-sumidero en el SAM, ¿qué áreas tienen más probabilidad de actuar como "fuentes" de pez león?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sitios de buceo someros con remoción semanal</li>
+            <li><span class="opt-letter">B.</span> Arrecifes profundos, rara vez sometidos a remoción, que producen crías excedentes</li>
+            <li><span class="opt-letter">C.</span> Planicies de arena abierta sin estructura</li>
+            <li><span class="opt-letter">D.</span> Playas por encima de la línea de marea alta</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los arrecifes profundos sin manejo producen peces león excedentes que reabastecen los sitios con remoción.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 13 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L13 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
