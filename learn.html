@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Learn Along With Me/Aprende Conmigo | Catamaran Dan</title>
-  <meta name="description" content="Learn Along With Me — bilingual oceanography and reef science lessons from the Blue Rim 5™ expedition." />
+  <meta name="description" content="Learn Along With Me — bilingual oceanography and reef science lessons for the Rim Run expedition." />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -17,42 +17,24 @@
     html{scroll-behavior:smooth;}
     body{font-family:'DM Sans',Arial,sans-serif;background:radial-gradient(circle at top,rgba(79,195,220,.12),transparent 30%),linear-gradient(180deg,#07131d 0%,#081722 35%,#0b1e2d 100%);color:var(--text);line-height:1.55;}
     a{color:var(--text);text-decoration:none;}
-    /* NAV */
-nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;min-height:56px;}
-.nav-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.9rem 1.4rem;row-gap:0.5rem;}
-.nav-links a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;white-space:nowrap;}
-.nav-links a:hover{color:var(--gold);}
-.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
-.nav-item.dropdown{display:inline-flex;align-items:center;gap:0.25rem;position:relative;}
-.nav-group-label{background:none;border:none;color:var(--fog);cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0;display:inline-flex;align-items:center;gap:0.3rem;white-space:nowrap;transition:color 0.25s;}
-.nav-group-label:hover{color:var(--gold);}
-.nav-item.dropdown.open .nav-group-label{color:var(--gold);}
-.dropdown-caret{background:none;border:none;color:var(--fog);cursor:pointer;font-size:0.62rem;padding:0.2rem;line-height:1;font-family:'Josefin Sans',sans-serif;}
-.dropdown-caret:hover{color:var(--gold);}
-.nav-item.dropdown.open .dropdown-caret{color:var(--gold);}
-.dropdown-menu{display:none;flex-direction:column;position:absolute;top:100%;left:0;background:#0d1520;border:1px solid rgba(201,168,76,0.25);min-width:170px;padding:0.4rem 0;z-index:1001;margin-top:0.4rem;}
-.nav-item.dropdown.open .dropdown-menu{display:flex;}
-.dropdown-menu a{padding:0.55rem 1.1rem;white-space:nowrap;border-bottom:none;}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
-.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
-.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.nav-toggle.open span:nth-child(2){opacity:0;}
-.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-@media(max-width:768px){
-  .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
-  .nav-toggle{display:flex;}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;width:100%;background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;gap:0;padding:0 1.5rem;z-index:999;}
-  .nav-links.open{display:flex;padding:0.5rem 1.5rem 1rem;}
-  .nav-links a{display:block;width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-item.dropdown{width:100%;flex-wrap:wrap;justify-content:space-between;}
-  .nav-item.dropdown a,.nav-item.dropdown .nav-group-label{width:auto;flex:1;border-bottom:none;}
-  .nav-group-label{padding:0.65rem 0;}
-  .dropdown-caret{padding:0.65rem 0.4rem;}
-  .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
-  .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
-}
+    nav{background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 2rem;display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);align-items:center;}
+    .nav-links{display:flex;gap:1.8rem;justify-content:center;align-items:center;flex-wrap:wrap;}
+    nav a{color:var(--fog);font-family:'Josefin Sans',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0;border-bottom:1px solid transparent;transition:color 0.25s,border-color 0.25s;text-decoration:none;white-space:nowrap;}
+    nav a:hover{color:var(--gold);}
+    nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;flex-direction:column;gap:5px;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
+    .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
+    .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle.open span:nth-child(2){opacity:0;}
+    .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    @media(max-width:768px){
+      nav{position:sticky;top:0;flex-direction:row;align-items:center;padding:0.8rem 1.5rem;justify-content:space-between;flex-wrap:nowrap;}
+      .nav-links{display:none;position:absolute;top:52px;left:0;right:0;background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;align-items:flex-start;padding:0.5rem 1.5rem 1rem;z-index:999;gap:0;}
+      .nav-links.open{display:flex;}
+      .nav-links a{width:100%;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.82rem;}
+      .nav-links a:last-child{border-bottom:none;}
+      .nav-toggle{display:flex;}
+    }
     .hero{position:relative;overflow:hidden;border-bottom:1px solid rgba(121,227,241,.14);}
     .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.5)),radial-gradient(circle at 20% 15%,rgba(79,195,220,.25),transparent 24%),radial-gradient(circle at 80% 10%,rgba(255,209,102,.18),transparent 18%),linear-gradient(180deg,#13364b 0%,#0d2536 42%,#081722 100%);}
     .hero-inner{position:relative;max-width:var(--max);margin:0 auto;padding:72px 20px 68px;}
@@ -97,64 +79,29 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
 <body>
 
 <nav id="main-nav">
-  <div class="nav-inner">
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-links" id="nav-links">
-
-      <div class="nav-item dropdown">
-        <a href="index.html">Home</a>
-        <button class="dropdown-caret" aria-label="Toggle Home submenu" aria-expanded="false">&#9662;</button>
-        <div class="dropdown-menu">
-          <a href="index.html">Home</a>
-          <a href="bluemind.html">Blue Mind</a>
-          <a href="onlyarizona.html">Expedition Theme Song</a>
-          <a href="songs.html">Songs of the Rim</a>
-          <a href="getawayband.html">The Getaway Band</a>
-        <a href="poetry.html">Poetry of the Rim</a>
-        </div>
-      </div>
-
-      <div class="nav-item dropdown">
-        <button class="nav-group-label" aria-expanded="false">Expeditions <span class="dropdown-caret-icon">&#9662;</span></button>
-        <div class="dropdown-menu">
-          <a href="index.html">Blue Rim 5&#8482;</a>
-          <a href="groan.html">GROAN&#8482; Field Research</a>
-          <a href="learn.html" class="active">Learn With Me</a>
-          <a href="supporters.html">Expedition Supporters</a>
-        </div>
-      </div>
-
-      <a href="shamrocket.html">Shamrocket</a>
-      <a href="shieldmaiden.html">Shield Maiden</a>
-
-      <div class="nav-item dropdown">
-        <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
-        <div class="dropdown-menu">
-          <a href="lionfish.html">Lion Hunter</a>
-          <a href="storytelling.html">Storytellers</a>
-          <a href="expedition.html">What&rsquo;s Ahead</a>
-          <a href="expeditionlog.html">Expedition Log</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="videos.html">Videos</a>
-          <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
-          <a href="rimrunner.html">The Rim Runner&#8482;</a>
-        </div>
-      </div>
-
-      <div class="nav-item dropdown">
-        <button class="nav-group-label" aria-expanded="false">About <span class="dropdown-caret-icon">&#9662;</span></button>
-        <div class="dropdown-menu">
-          <a href="about.html">About Catamaran Dan</a>
-          <a href="thelivingsaga.html">The Living Saga&#8482;</a>
-          <a href="legal.html">Legal &amp; Intellectual Property</a>
-        </div>
-      </div>
-
-      <a href="shop.html">Shop</a>
-
-    </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rimrun.html">Rim Run&#8482;</a>
+    <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+    <a href="rimrun-pac.html">Rim Run Pac&#8482;</a>
+    <a href="expedition.html">Expedition</a>
+    <a href="shieldmaiden.html">Shield Maiden</a>
+    <a href="lionfish.html">Lion Hunter</a>
+    <a href="systems.html">Systems</a>
+    <a href="science.html">The Science</a>
+    <a href="decision-system.html">Field Research Collaboration</a>
+    <a href="platform.html">Small Cat Platform</a>
+    <a href="learn.html" class="active">Learn Along With Me/Aprende Conmigo</a>
+    <a href="citizenscience.html">Citizen Science/Ciencia Ciudadana</a>
+    <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+    <a href="support.html">Support</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="legal.html">Legal &amp; IP</a>
   </div>
 </nav>
 
@@ -162,7 +109,7 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
   <div class="hero-inner">
     <div class="hero-kicker">Bilingual Reef Science &middot; EN / ES</div>
     <h1>Learn Along With Me/Aprende Conmigo</h1>
-    <p>704 bilingual lessons across 22 sections — oceanography, reef science, and real-world coastal observation, learned on the water as Blue Rim 5&#8482; works the reefs of the Bahamas and the Florida and Atlantic coast. New lessons are added as the expedition progresses. / 704 lecciones biling&uuml;es en 22 secciones — oceanograf&iacute;a, ciencias arrecifales y observaci&oacute;n costera del mundo real, aprendidas en el agua mientras Blue Rim 5&#8482; recorre los arrecifes de las Bahamas y la costa de Florida y el Atl&aacute;ntico. Se agregan nuevas lecciones a medida que avanza la expedici&oacute;n.</p>
+    <p>704 bilingual lessons across 22 sections — oceanography, reef science, and real-world coastal observation tied directly to the Mesoamerican Reef and the eleven-country Rim Run Caribe&#8482; corridor. New lessons are added as the expedition progresses. / 704 lecciones biling&uuml;es en 22 secciones — oceanograf&iacute;a, ciencias arrecifales y observaci&oacute;n costera del mundo real vinculadas directamente al Arrecife Mesoamericano y al corredor Rim Run Caribe&#8482; de once pa&iacute;ses. Se agregan nuevas lecciones a medida que avanza la expedici&oacute;n.</p>
   </div>
 </header>
 
@@ -208,50 +155,14 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
     var toggle=document.getElementById('nav-toggle');
     var nav=document.getElementById('main-nav');
     var navLinks=document.getElementById('nav-links');
-    var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
-
-    function closeAllDropdowns(){
-      dropdowns.forEach(function(d){
-        d.classList.remove('open');
-        var caret=d.querySelector('.dropdown-caret');
-        var label=d.querySelector('.nav-group-label');
-        if(caret)caret.setAttribute('aria-expanded','false');
-        if(label)label.setAttribute('aria-expanded','false');
-      });
-    }
-
-    function closeMenu(){
-      if(navLinks)navLinks.classList.remove('open');
-      if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
-      closeAllDropdowns();
-    }
-    function openMenu(){
-      if(navLinks)navLinks.classList.add('open');
-      if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
-    }
-
+    function closeMenu(){if(navLinks)navLinks.classList.remove('open');if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}}
+    function openMenu(){if(navLinks)navLinks.classList.add('open');if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}}
     if(toggle&&nav&&navLinks){
       toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
-      nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+      nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
       document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
       window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
     }
-
-    dropdowns.forEach(function(dropdown){
-      var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
-      if(!trigger)return;
-      trigger.addEventListener('click',function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        var isOpen=dropdown.classList.contains('open');
-        closeAllDropdowns();
-        if(!isOpen){
-          dropdown.classList.add('open');
-          trigger.setAttribute('aria-expanded','true');
-        }
-      });
-    });
-
   })();
 
   const liveLessons = new Set([
