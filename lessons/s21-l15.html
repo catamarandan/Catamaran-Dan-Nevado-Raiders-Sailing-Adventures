@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S15·L21 Invasive Species — Variability</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 2.98%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 15 · Lesson 21 · Invasive Species</div>
+        <h1 class="lesson-title">Variability</h1>
+        <div class="lesson-subtitle">Variabilidad de las Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <linearGradient id="boomGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1ac8c8"/>
+            <stop offset="55%" stop-color="#f0b429"/>
+            <stop offset="100%" stop-color="#e86040"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="40" y1="70" x2="360" y2="70"/>
+          <line x1="40" y1="110" x2="360" y2="110"/>
+          <line x1="40" y1="150" x2="360" y2="150"/>
+          <line x1="40" y1="190" x2="360" y2="190"/>
+          <line x1="120" y1="40" x2="120" y2="205"/>
+          <line x1="200" y1="40" x2="200" y2="205"/>
+          <line x1="280" y1="40" x2="280" y2="205"/>
+        </g>
+
+        <!-- AXES -->
+        <g stroke="rgba(26,200,200,0.4)" stroke-width="1">
+          <line x1="40" y1="40" x2="40" y2="205"/>
+          <line x1="40" y1="205" x2="362" y2="205"/>
+        </g>
+        <text x="26" y="125" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="middle" transform="rotate(-90 26 125)">POPULATION DENSITY</text>
+        <text x="360" y="216" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="end">TIME SINCE INTRODUCTION →</text>
+
+        <!-- PHASE BANDS -->
+        <rect x="41" y="40" width="85" height="164" fill="rgba(26,200,200,0.04)"/>
+        <rect x="126" y="40" width="106" height="164" fill="rgba(240,180,41,0.04)"/>
+        <rect x="232" y="40" width="128" height="164" fill="rgba(232,96,64,0.04)"/>
+        <text x="83" y="52" fill="rgba(26,200,200,0.55)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">LAG</text>
+        <text x="179" y="52" fill="rgba(240,180,41,0.6)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">BOOM</text>
+        <text x="296" y="52" fill="rgba(232,96,64,0.6)" font-family="monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.12em">PLATEAU / BUST</text>
+
+        <!-- VARIABILITY ENVELOPE (site-to-site spread) -->
+        <path d="M41,196 C80,194 110,190 130,182 C155,170 172,100 196,62 C208,48 220,46 234,50 C260,56 300,72 360,78 L360,166 C340,169 320,170 300,160 C275,148 255,96 234,86 C220,82 210,90 202,102 C178,142 158,198 130,201 C110,203 80,203 41,203 Z"
+              fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+
+        <!-- MEAN TRAJECTORY: LAG → BOOM -->
+        <path d="M41,200 C80,199 110,197 130,192 C155,185 175,120 200,80 C210,68 220,64 232,66"
+              fill="none" stroke="url(#boomGrad)" stroke-width="2"/>
+
+        <!-- BRANCH A: PLATEAU -->
+        <path d="M232,66 C255,74 280,92 360,96"
+              fill="none" stroke="rgba(26,200,200,0.7)" stroke-width="1.6" stroke-dasharray="4,3"/>
+
+        <!-- BRANCH B: BUST -->
+        <path d="M232,66 C255,72 275,130 300,145 C320,155 340,152 360,150"
+              fill="none" stroke="rgba(232,96,64,0.75)" stroke-width="1.6" stroke-dasharray="2,3"/>
+
+        <!-- MANAGEMENT INTERVENTION MARKER -->
+        <line x1="252" y1="40" x2="252" y2="205" stroke="rgba(240,180,41,0.45)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="256" y="64" fill="rgba(240,180,41,0.75)" font-family="monospace" font-size="7">CULLING</text>
+        <text x="256" y="73" fill="rgba(240,180,41,0.55)" font-family="monospace" font-size="7">BEGINS</text>
+
+        <!-- FIELD SURVEY POINTS (individual sites) -->
+        <g fill="rgba(184,240,236,0.6)">
+          <circle cx="60" cy="201" r="1.8"/>
+          <circle cx="82" cy="198" r="1.8"/>
+          <circle cx="104" cy="200" r="1.8"/>
+          <circle cx="138" cy="186" r="1.8"/>
+          <circle cx="150" cy="168" r="1.8"/>
+          <circle cx="162" cy="150" r="1.8"/>
+          <circle cx="172" cy="126" r="1.8"/>
+          <circle cx="184" cy="98" r="1.8"/>
+          <circle cx="194" cy="86" r="1.8"/>
+          <circle cx="208" cy="60" r="1.8"/>
+          <circle cx="220" cy="78" r="1.8"/>
+          <circle cx="240" cy="58" r="1.8"/>
+          <circle cx="268" cy="104" r="1.8"/>
+          <circle cx="284" cy="82" r="1.8"/>
+          <circle cx="296" cy="138" r="1.8"/>
+          <circle cx="312" cy="92" r="1.8"/>
+          <circle cx="326" cy="156" r="1.8"/>
+          <circle cx="340" cy="100" r="1.8"/>
+          <circle cx="352" cy="146" r="1.8"/>
+        </g>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="url(#boomGrad)" stroke-width="2"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Mean</text>
+          <line x1="52" y1="4" x2="70" y2="4" stroke="rgba(26,200,200,0.7)" stroke-width="1.6" stroke-dasharray="4,3"/>
+          <text x="74" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Plateau</text>
+          <line x1="116" y1="4" x2="134" y2="4" stroke="rgba(232,96,64,0.75)" stroke-width="1.6" stroke-dasharray="2,3"/>
+          <text x="138" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Bust</text>
+          <circle cx="172" cy="4" r="1.8" fill="rgba(184,240,236,0.6)"/>
+          <text x="178" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Site surveys</text>
+          <rect x="236" y="0" width="12" height="8" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.15)" stroke-width="0.6"/>
+          <text x="252" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Spread</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="236" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">INVASION DYNAMICS  ·  VARIABILITY</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Invasive species rarely behave uniformly. Once established outside their native range, their populations vary widely across <em>space</em> and <em>time</em> — dense on one reef and sparse on the next, booming for a decade and then stabilizing or collapsing. This variability is driven by four broad factors: <em>propagule pressure</em> (the number and frequency of individuals introduced), environmental conditions such as temperature, depth, and habitat complexity, <em>biotic resistance</em> from native predators, competitors, and pathogens, and human intervention through removal and management. Many invasions follow a recognizable sequence: a lag phase of low and often undetected abundance, a period of rapid exponential growth, and then either a plateau or a boom-bust decline. Understanding this variability is essential for monitoring — a single survey is only a snapshot, and management decisions built on regional averages can miss the sites, depths, and seasons where an invader is truly thriving.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Las especies invasoras rara vez se comportan de manera uniforme. Una vez establecidas fuera de su área de distribución nativa, sus poblaciones varían ampliamente en el <em>espacio</em> y en el <em>tiempo</em>: densas en un arrecife y escasas en el siguiente, en auge durante una década y luego estabilizándose o colapsando. Esta variabilidad está impulsada por cuatro factores generales: la <em>presión de propágulos</em> (el número y la frecuencia de individuos introducidos), las condiciones ambientales como la temperatura, la profundidad y la complejidad del hábitat, la <em>resistencia biótica</em> de depredadores, competidores y patógenos nativos, y la intervención humana mediante la remoción y el manejo. Muchas invasiones siguen una secuencia reconocible: una fase de latencia con abundancia baja y a menudo no detectada, un periodo de crecimiento exponencial rápido y, después, una meseta o un declive de auge y colapso. Comprender esta variabilidad es esencial para el monitoreo: un solo muestreo es apenas una instantánea, y las decisiones de manejo basadas en promedios regionales pueden pasar por alto los sitios, las profundidades y las temporadas donde un invasor realmente prospera.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Indo-Pacific lionfish (<em>Pterois volitans</em> and <em>P. miles</em>) are the defining marine invasion of the Western Caribbean. First recorded along the Mesoamerican Reef around 2008–2009, they spread through the entire MAR within a few years — yet their abundance differs sharply from site to site and from year to year.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Depth:</strong> Lionfish densities are frequently higher on deeper reefs, below the 30–40 m range where divers and spearfishers can routinely cull — turning mesophotic reefs into breeding refuges that resupply shallow sites.</li>
+        <li><strong>Management:</strong> Sustained removal programs in Mexico, Belize, and Honduras — including derbies and emerging commercial fisheries — have measurably lowered local shallow-reef densities, but numbers rebound quickly when effort stops.</li>
+        <li><strong>Reproduction &amp; dispersal:</strong> Females can spawn every few days year-round, releasing buoyant egg masses; larvae drift with the <strong>Caribbean Current</strong>, so recruitment at any site depends partly on source populations upstream.</li>
+        <li><strong>Habitat:</strong> Abundance tracks structural complexity — reef ledges, wrecks, and mangrove edges hold more lionfish than flat, low-relief bottom — so surveys across the <strong>MAR corridor</strong> must be stratified by habitat and depth to capture true variability.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El pez león del Indo-Pacífico (<em>Pterois volitans</em> y <em>P. miles</em>) es la invasión marina más representativa del Caribe Occidental. Registrado por primera vez en el Arrecife Mesoamericano alrededor de 2008–2009, se extendió por todo el SAM en pocos años; sin embargo, su abundancia varía marcadamente de un sitio a otro y de un año a otro.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Profundidad:</strong> Las densidades del pez león suelen ser mayores en arrecifes profundos, por debajo del rango de 30–40 m donde buzos y pescadores submarinos pueden capturarlo de forma rutinaria, lo que convierte a los arrecifes mesofóticos en refugios reproductivos que reabastecen los sitios someros.</li>
+        <li><strong>Manejo:</strong> Los programas sostenidos de remoción en México, Belice y Honduras — incluidos torneos y pesquerías comerciales emergentes — han reducido de forma medible las densidades locales en arrecifes someros, pero las poblaciones se recuperan rápidamente cuando cesa el esfuerzo.</li>
+        <li><strong>Reproducción y dispersión:</strong> Las hembras pueden desovar cada pocos días durante todo el año, liberando masas de huevos flotantes; las larvas son arrastradas por la <strong>Corriente del Caribe</strong>, por lo que el reclutamiento en cualquier sitio depende en parte de las poblaciones fuente corriente arriba.</li>
+        <li><strong>Hábitat:</strong> La abundancia sigue la complejidad estructural — salientes arrecifales, naufragios y bordes de manglar albergan más peces león que los fondos planos de bajo relieve — por lo que los muestreos en el <strong>corredor del SAM</strong> deben estratificarse por hábitat y profundidad para capturar la variabilidad real.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which sequence best describes the population trajectory of many biological invasions?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Rapid growth, then a lag phase, then local extinction</li>
+            <li><span class="opt-letter">B.</span> A lag phase of low abundance, exponential growth, then a plateau or decline</li>
+            <li><span class="opt-letter">C.</span> Constant, steady growth with no fluctuation</li>
+            <li><span class="opt-letter">D.</span> An immediate peak followed by permanent equilibrium</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Invasions typically show lag, then boom, then plateau or bust.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué secuencia describe mejor la trayectoria poblacional de muchas invasiones biológicas?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Crecimiento rápido, luego una fase de latencia y después extinción local</li>
+            <li><span class="opt-letter">B.</span> Una fase de latencia con baja abundancia, crecimiento exponencial y luego una meseta o declive</li>
+            <li><span class="opt-letter">C.</span> Crecimiento constante y estable sin fluctuaciones</li>
+            <li><span class="opt-letter">D.</span> Un pico inmediato seguido de un equilibrio permanente</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Las invasiones suelen mostrar latencia, auge y luego meseta o colapso.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why are lionfish densities often higher on deeper reefs in the Western Caribbean?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Deeper water is warmer than shallow water</li>
+            <li><span class="opt-letter">B.</span> Deeper reefs lie beyond routine culling depths, creating refuge populations</li>
+            <li><span class="opt-letter">C.</span> Lionfish cannot survive in shallow water</li>
+            <li><span class="opt-letter">D.</span> Native predators are more abundant at depth</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Mesophotic reefs escape regular culling and act as breeding refuges.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué las densidades del pez león suelen ser mayores en los arrecifes profundos del Caribe Occidental?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El agua profunda es más cálida que el agua somera</li>
+            <li><span class="opt-letter">B.</span> Los arrecifes profundos están fuera del alcance de la remoción rutinaria, lo que crea poblaciones refugio</li>
+            <li><span class="opt-letter">C.</span> El pez león no puede sobrevivir en aguas someras</li>
+            <li><span class="opt-letter">D.</span> Los depredadores nativos son más abundantes en profundidad</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los arrecifes mesofóticos escapan de la remoción regular y funcionan como refugios reproductivos.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 In invasion ecology, the term "propagule pressure" refers to:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Water pressure acting on larvae at depth</li>
+            <li><span class="opt-letter">B.</span> Competitive pressure from native species</li>
+            <li><span class="opt-letter">C.</span> The number and frequency of individuals introduced to a new area</li>
+            <li><span class="opt-letter">D.</span> Fishing pressure applied through culling programs</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Propagule pressure is the quantity and frequency of introductions.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En ecología de invasiones, el término "presión de propágulos" se refiere a:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La presión del agua que actúa sobre las larvas en profundidad</li>
+            <li><span class="opt-letter">B.</span> La presión competitiva de las especies nativas</li>
+            <li><span class="opt-letter">C.</span> El número y la frecuencia de individuos introducidos en una nueva área</li>
+            <li><span class="opt-letter">D.</span> La presión pesquera aplicada mediante programas de remoción</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La presión de propágulos es la cantidad y frecuencia de las introducciones.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 15 · Lesson 21 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S15 · L21 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
