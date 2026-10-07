@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L21 Invasive Species — MAR Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 2.98%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 21 · Invasive Species</div>
+        <h1 class="lesson-title">MAR Focus</h1>
+        <div class="lesson-subtitle">Especies Invasoras en el Arrecife Mesoamericano</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- LAND (schematic) -->
+        <path d="M0,24 L150,24 C146,58 138,90 128,115 C122,135 115,155 112,170 C116,180 125,185 140,188 C180,192 240,190 340,186 L340,222 L0,222 Z"
+              fill="rgba(245,233,208,0.06)" stroke="rgba(245,233,208,0.25)" stroke-width="0.8"/>
+
+        <!-- COUNTRY LABELS -->
+        <g font-family="monospace" font-size="8" letter-spacing="0.15em" fill="rgba(245,233,208,0.45)" text-anchor="middle">
+          <text x="70" y="72">MEXICO</text>
+          <text x="78" y="140">BELIZE</text>
+          <text x="66" y="200">GUATEMALA</text>
+          <text x="240" y="210">HONDURAS</text>
+        </g>
+        <!-- approximate borders -->
+        <g stroke="rgba(245,233,208,0.18)" stroke-width="0.6" stroke-dasharray="2,3">
+          <line x1="20" y1="105" x2="133" y2="102"/>
+          <line x1="100" y1="105" x2="100" y2="175"/>
+          <line x1="20" y1="175" x2="114" y2="175"/>
+          <line x1="140" y1="188" x2="140" y2="222"/>
+        </g>
+
+        <!-- BARRIER REEF LINE -->
+        <path d="M168,26 C163,58 154,92 145,118 C140,134 136,150 133,166"
+              fill="none" stroke="rgba(232,96,64,0.7)" stroke-width="1.6" stroke-dasharray="3,2"/>
+
+        <!-- ISLANDS / ATOLLS -->
+        <g fill="rgba(10,110,138,0.3)" stroke="rgba(26,200,200,0.55)" stroke-width="0.8">
+          <ellipse cx="176" cy="44" rx="5" ry="9"/>
+          <ellipse cx="190" cy="86" rx="7" ry="11"/>
+          <ellipse cx="182" cy="124" rx="5" ry="8"/>
+          <ellipse cx="168" cy="144" rx="5" ry="7"/>
+          <ellipse cx="222" cy="170" rx="9" ry="3"/>
+          <ellipse cx="246" cy="167" rx="9" ry="3"/>
+          <ellipse cx="268" cy="171" rx="6" ry="2.5"/>
+          <ellipse cx="296" cy="179" rx="4" ry="2"/>
+        </g>
+
+        <!-- PROTECTED AREA / KEY SITE MARKERS -->
+        <g fill="rgba(240,180,41,0.9)">
+          <circle cx="176" cy="44" r="2"/>
+          <circle cx="190" cy="86" r="2"/>
+          <circle cx="148" cy="108" r="2"/>
+          <circle cx="182" cy="124" r="2"/>
+          <circle cx="168" cy="144" r="2"/>
+          <circle cx="246" cy="167" r="2"/>
+          <circle cx="296" cy="179" r="2"/>
+        </g>
+        <g font-family="monospace" font-size="6" fill="rgba(232,244,248,0.65)">
+          <text x="184" y="42">COZUMEL</text>
+          <text x="200" y="84">BANCO</text>
+          <text x="200" y="92">CHINCHORRO</text>
+          <text x="152" y="106" text-anchor="start">HOL CHAN</text>
+          <text x="190" y="124">LIGHTHOUSE</text>
+          <text x="176" y="150">GLOVER'S</text>
+          <text x="228" y="160">BAY ISLANDS</text>
+          <text x="302" y="176">CAYOS</text>
+          <text x="302" y="183">COCHINOS</text>
+        </g>
+
+        <!-- CARIBBEAN CURRENT -->
+        <path d="M368,132 C310,124 250,116 222,88 C206,70 200,50 202,30"
+              fill="none" stroke="rgba(26,200,200,0.6)" stroke-width="1.4"/>
+        <polygon points="199,32 205,32 202,25" fill="rgba(26,200,200,0.6)"/>
+        <text x="300" y="116" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="6.5" letter-spacing="0.08em">CARIBBEAN CURRENT</text>
+
+        <!-- REEF LENGTH NOTE -->
+        <text x="356" y="38" fill="rgba(232,96,64,0.75)" font-family="monospace" font-size="6.5" text-anchor="end">MAR · ~1,000 km</text>
+        <text x="356" y="47" fill="rgba(138,184,204,0.45)" font-family="monospace" font-size="6" text-anchor="end">schematic · not to scale</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 236)">
+          <line x1="0" y1="4" x2="18" y2="4" stroke="rgba(232,96,64,0.7)" stroke-width="1.6" stroke-dasharray="3,2"/>
+          <text x="22" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Barrier reef</text>
+          <circle cx="96" cy="4" r="2" fill="rgba(240,180,41,0.9)"/>
+          <text x="102" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Key protected site</text>
+          <line x1="196" y1="4" x2="214" y2="4" stroke="rgba(26,200,200,0.6)" stroke-width="1.4"/>
+          <text x="218" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Current</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="236" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">MESOAMERICAN REEF  ·  SITES</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          This lesson brings the section together by focusing every concept on one system: the Mesoamerican Reef (MAR). Stretching roughly 1,000 km from the northern tip of the Yucatán Peninsula to the Bay Islands of Honduras, the MAR is the largest barrier reef in the Western Hemisphere and is shared by Mexico, Belize, Guatemala, and Honduras. Its lionfish invasion illustrates nearly every principle covered so far: <em>variability</em> among sites and depths, <em>spatial and temporal patterns</em> shaped by habitat and time, <em>field methods</em> and <em>data collection</em> that turn dives into evidence, <em>analysis and modeling</em> that set removal targets, and <em>regional systems</em> that coordinate four nations. The MAR also shows that invasions never act alone. Lionfish add pressure to a reef already stressed by coral bleaching, disease, nutrient pollution, overfishing, and seasonal sargassum influxes. Understanding these <em>cumulative impacts</em> — and how one stressor amplifies another — is the key to managing invasive species not as an isolated problem, but as part of protecting the health and resilience of the entire reef system.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Esta lección integra la sección al enfocar cada concepto en un solo sistema: el Arrecife Mesoamericano (SAM). Con una extensión aproximada de 1,000 km desde el extremo norte de la Península de Yucatán hasta las Islas de la Bahía en Honduras, el SAM es el arrecife de barrera más grande del hemisferio occidental y es compartido por México, Belice, Guatemala y Honduras. Su invasión por pez león ilustra casi todos los principios vistos hasta ahora: la <em>variabilidad</em> entre sitios y profundidades, los <em>patrones espaciales y temporales</em> moldeados por el hábitat y el tiempo, los <em>métodos de campo</em> y la <em>recolección de datos</em> que convierten las inmersiones en evidencia, el <em>análisis y la modelación</em> que fijan metas de remoción, y los <em>sistemas regionales</em> que coordinan a cuatro naciones. El SAM también demuestra que las invasiones nunca actúan solas. El pez león añade presión a un arrecife ya afectado por el blanqueamiento coralino, las enfermedades, la contaminación por nutrientes, la sobrepesca y las llegadas estacionales de sargazo. Comprender estos <em>impactos acumulativos</em> — y cómo un factor de estrés amplifica a otro — es la clave para manejar las especies invasoras no como un problema aislado, sino como parte de la protección de la salud y la resiliencia de todo el sistema arrecifal.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          On the MAR, lionfish management is concentrated where it can do the most good — in a network of marine protected areas stretching from Cozumel and Banco Chinchorro in Mexico, through Hol Chan, Lighthouse Reef, and Glover's Reef in Belize, to the Bay Islands and Cayos Cochinos in Honduras.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Cumulative stressors:</strong> Since 2018, stony coral tissue loss disease has spread through the Mexican Caribbean and beyond, while recurring sargassum influxes degrade nearshore water quality. Lionfish predation compounds these pressures on an already weakened system.</li>
+        <li><strong>Herbivore protection:</strong> Lionfish prey on small reef fishes, including juvenile parrotfish and other grazers. Losing herbivores can allow algae to overgrow corals recovering from bleaching or disease, linking an invasive predator to coral decline.</li>
+        <li><strong>Native predators:</strong> Some studies suggested that large groupers could help control lionfish, while broader regional analyses found little effect at natural densities. With native predators depleted by fishing, human removal remains the primary control tool.</li>
+        <li><strong>Integrated management:</strong> The most effective approach on the <strong>MAR corridor</strong> combines lionfish removal with fisheries protection for herbivores and groupers, water-quality improvement, and coral restoration — treating invasive species as one part of overall reef resilience.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          En el SAM, el manejo del pez león se concentra donde puede generar mayor beneficio: en una red de áreas marinas protegidas que se extiende desde Cozumel y Banco Chinchorro en México, pasando por Hol Chan, Lighthouse Reef y Glover's Reef en Belice, hasta las Islas de la Bahía y Cayos Cochinos en Honduras.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Factores de estrés acumulativos:</strong> Desde 2018, la enfermedad de pérdida de tejido de corales duros se ha extendido por el Caribe mexicano y más allá, mientras que las llegadas recurrentes de sargazo deterioran la calidad del agua costera. La depredación del pez león agrava estas presiones sobre un sistema ya debilitado.</li>
+        <li><strong>Protección de herbívoros:</strong> El pez león depreda pequeños peces arrecifales, incluidos peces loro juveniles y otros herbívoros. La pérdida de herbívoros puede permitir que las algas cubran a los corales que se recuperan del blanqueamiento o de enfermedades, lo que vincula a un depredador invasor con el deterioro coralino.</li>
+        <li><strong>Depredadores nativos:</strong> Algunos estudios sugirieron que los meros grandes podrían ayudar a controlar al pez león, mientras que análisis regionales más amplios encontraron poco efecto en densidades naturales. Con los depredadores nativos reducidos por la pesca, la remoción humana sigue siendo la principal herramienta de control.</li>
+        <li><strong>Manejo integrado:</strong> El enfoque más eficaz en el <strong>corredor del SAM</strong> combina la remoción del pez león con la protección pesquera de herbívoros y meros, la mejora de la calidad del agua y la restauración coralina, tratando a las especies invasoras como parte de la resiliencia general del arrecife.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which four countries share the Mesoamerican Reef?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Mexico, Cuba, Belize, and Jamaica</li>
+            <li><span class="opt-letter">B.</span> Mexico, Belize, Guatemala, and Honduras</li>
+            <li><span class="opt-letter">C.</span> Belize, Honduras, Nicaragua, and Costa Rica</li>
+            <li><span class="opt-letter">D.</span> Mexico, Guatemala, El Salvador, and Panama</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The MAR runs from Mexico's Yucatán to the Bay Islands of Honduras.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué cuatro países comparten el Arrecife Mesoamericano?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> México, Cuba, Belice y Jamaica</li>
+            <li><span class="opt-letter">B.</span> México, Belice, Guatemala y Honduras</li>
+            <li><span class="opt-letter">C.</span> Belice, Honduras, Nicaragua y Costa Rica</li>
+            <li><span class="opt-letter">D.</span> México, Guatemala, El Salvador y Panamá</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El SAM se extiende desde Yucatán, México, hasta las Islas de la Bahía, Honduras.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 How can lionfish predation contribute to coral decline on the MAR?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Lionfish feed directly on coral tissue</li>
+            <li><span class="opt-letter">B.</span> Lionfish spread stony coral tissue loss disease</li>
+            <li><span class="opt-letter">C.</span> By eating juvenile herbivores, lionfish can allow algae to overgrow stressed corals</li>
+            <li><span class="opt-letter">D.</span> Lionfish raise water temperature on the reef</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Fewer grazers means more algae competing with recovering corals.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cómo puede la depredación del pez león contribuir al deterioro coralino en el SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El pez león se alimenta directamente del tejido coralino</li>
+            <li><span class="opt-letter">B.</span> El pez león propaga la enfermedad de pérdida de tejido de corales duros</li>
+            <li><span class="opt-letter">C.</span> Al comer herbívoros juveniles, el pez león puede permitir que las algas cubran a corales estresados</li>
+            <li><span class="opt-letter">D.</span> El pez león eleva la temperatura del agua en el arrecife</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Menos herbívoros significa más algas compitiendo con los corales en recuperación.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does human removal remain the primary lionfish control tool on the MAR?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Evidence that native predators control lionfish is mixed, and those predators are depleted by fishing</li>
+            <li><span class="opt-letter">B.</span> Native predators are legally protected from eating lionfish</li>
+            <li><span class="opt-letter">C.</span> Lionfish have no natural mortality of any kind</li>
+            <li><span class="opt-letter">D.</span> Chemical control is required by regional law</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Without reliable natural control, targeted removal fills the gap.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué la remoción humana sigue siendo la principal herramienta de control del pez león en el SAM?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La evidencia de que los depredadores nativos controlan al pez león es mixta, y esos depredadores están reducidos por la pesca</li>
+            <li><span class="opt-letter">B.</span> Los depredadores nativos tienen prohibido por ley comer pez león</li>
+            <li><span class="opt-letter">C.</span> El pez león no tiene ningún tipo de mortalidad natural</li>
+            <li><span class="opt-letter">D.</span> El control químico es obligatorio por ley regional</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Sin un control natural confiable, la remoción dirigida cubre ese vacío.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 21 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L21 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
