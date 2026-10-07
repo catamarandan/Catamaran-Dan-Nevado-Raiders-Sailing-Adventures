@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L24 Invasive Species — Indicators</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 3.41%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 24 · Invasive Species</div>
+        <h1 class="lesson-title">Indicators</h1>
+        <div class="lesson-subtitle">Indicadores de Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- SCORECARD HEADER ROW -->
+        <rect x="36" y="34" width="310" height="16" fill="rgba(26,200,200,0.1)"/>
+        <g font-family="monospace" font-size="6.5" letter-spacing="0.1em" fill="rgba(26,200,200,0.75)">
+          <text x="42" y="45">TYPE</text>
+          <text x="72" y="45">INDICATOR</text>
+          <text x="222" y="45">5-YR TREND</text>
+          <text x="306" y="45">STATUS</text>
+        </g>
+
+        <!-- ROW SEPARATORS -->
+        <g stroke="rgba(26,200,200,0.1)" stroke-width="0.5">
+          <line x1="36" y1="76" x2="346" y2="76"/>
+          <line x1="36" y1="102" x2="346" y2="102"/>
+          <line x1="36" y1="128" x2="346" y2="128"/>
+          <line x1="36" y1="154" x2="346" y2="154"/>
+          <line x1="36" y1="180" x2="346" y2="180"/>
+          <line x1="36" y1="206" x2="346" y2="206"/>
+        </g>
+
+        <!-- TYPE BADGES -->
+        <g font-family="monospace" font-size="7" text-anchor="middle">
+          <rect x="40" y="56" width="20" height="12" rx="2" fill="rgba(232,96,64,0.15)" stroke="rgba(232,96,64,0.5)" stroke-width="0.6"/>
+          <text x="50" y="65" fill="rgba(232,96,64,0.9)">P</text>
+          <rect x="40" y="82" width="20" height="12" rx="2" fill="rgba(26,200,200,0.12)" stroke="rgba(26,200,200,0.5)" stroke-width="0.6"/>
+          <text x="50" y="91" fill="rgba(26,200,200,0.9)">S</text>
+          <rect x="40" y="108" width="20" height="12" rx="2" fill="rgba(26,200,200,0.12)" stroke="rgba(26,200,200,0.5)" stroke-width="0.6"/>
+          <text x="50" y="117" fill="rgba(26,200,200,0.9)">S</text>
+          <rect x="40" y="134" width="20" height="12" rx="2" fill="rgba(184,240,236,0.1)" stroke="rgba(184,240,236,0.45)" stroke-width="0.6"/>
+          <text x="50" y="143" fill="rgba(184,240,236,0.9)">I</text>
+          <rect x="40" y="160" width="20" height="12" rx="2" fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.5)" stroke-width="0.6"/>
+          <text x="50" y="169" fill="rgba(240,180,41,0.9)">R</text>
+          <rect x="40" y="186" width="20" height="12" rx="2" fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.5)" stroke-width="0.6"/>
+          <text x="50" y="195" fill="rgba(240,180,41,0.9)">R</text>
+        </g>
+
+        <!-- INDICATOR NAMES -->
+        <g font-family="monospace" font-size="7" fill="rgba(232,244,248,0.7)">
+          <text x="72" y="65">New species at ports</text>
+          <text x="72" y="91">Lionfish density /100 m²</text>
+          <text x="72" y="117">Lionfish mean length</text>
+          <text x="72" y="143">Herbivore biomass</text>
+          <text x="72" y="169">Removal effort (hrs)</text>
+          <text x="72" y="195">% priority sites managed</text>
+        </g>
+
+        <!-- SPARKLINES -->
+        <g fill="none" stroke-width="1.3">
+          <polyline stroke="rgba(26,200,200,0.8)" points="222,64 236,62 250,66 264,64 278,67 292,66"/>
+          <polyline stroke="rgba(240,180,41,0.85)" points="222,82 236,84 250,87 264,89 278,90 292,92"/>
+          <polyline stroke="rgba(26,200,200,0.8)" points="222,108 236,110 250,113 264,115 278,117 292,118"/>
+          <polyline stroke="rgba(232,96,64,0.85)" points="222,140 236,139 250,141 264,140 278,141 292,142"/>
+          <polyline stroke="rgba(26,200,200,0.8)" points="222,172 236,170 250,167 264,165 278,162 292,160"/>
+          <polyline stroke="rgba(240,180,41,0.85)" points="222,197 236,196 250,194 264,193 278,192 292,191"/>
+        </g>
+
+        <!-- STATUS LIGHTS -->
+        <g>
+          <circle cx="318" cy="62" r="5" fill="rgba(26,200,200,0.85)"/>
+          <circle cx="318" cy="88" r="5" fill="rgba(240,180,41,0.85)"/>
+          <circle cx="318" cy="114" r="5" fill="rgba(26,200,200,0.85)"/>
+          <circle cx="318" cy="140" r="5" fill="rgba(232,96,64,0.85)"/>
+          <circle cx="318" cy="166" r="5" fill="rgba(26,200,200,0.85)"/>
+          <circle cx="318" cy="192" r="5" fill="rgba(240,180,41,0.85)"/>
+        </g>
+
+        <text x="346" y="218" fill="rgba(138,184,204,0.45)" font-family="monospace" font-size="6" text-anchor="end">illustrative values</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(40, 232)">
+          <text x="0" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">P Pressure · S State · I Impact · R Response</text>
+          <circle cx="226" cy="4" r="3" fill="rgba(26,200,200,0.85)"/>
+          <text x="232" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Good</text>
+          <circle cx="262" cy="4" r="3" fill="rgba(240,180,41,0.85)"/>
+          <text x="268" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Fair</text>
+          <circle cx="296" cy="4" r="3" fill="rgba(232,96,64,0.85)"/>
+          <text x="302" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Poor</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="250" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">INDICATOR SCORECARD</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Monitoring produces large volumes of data; <em>indicators</em> distill that data into a small set of measurable values that tell managers and the public how a system is doing. A widely used framework organizes indicators into <em>pressure</em>, <em>state</em>, <em>impact</em>, and <em>response</em>. Pressure indicators track the forces driving invasions, such as the number of new species detected at ports. State indicators describe the invader itself — its distribution, density, biomass, or size structure. Impact indicators measure effects on the native ecosystem, such as declines in prey fish or herbivores. Response indicators record what society is doing about it — removal effort, regulations enforced, or the share of priority sites under management. Good indicators are <em>measurable</em> with available methods, <em>sensitive</em> enough to detect real change, <em>responsive</em> to management actions, <em>cost-effective</em> to collect repeatedly, and <em>easy to communicate</em>. Indicators become most powerful when paired with <em>targets and thresholds</em>, often displayed as color-coded scorecards that show at a glance whether conditions are good, fair, or poor and whether management is moving them in the right direction.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El monitoreo produce grandes volúmenes de datos; los <em>indicadores</em> condensan esos datos en un pequeño conjunto de valores medibles que informan a los administradores y al público sobre el estado de un sistema. Un marco ampliamente utilizado organiza los indicadores en <em>presión</em>, <em>estado</em>, <em>impacto</em> y <em>respuesta</em>. Los indicadores de presión siguen las fuerzas que impulsan las invasiones, como el número de nuevas especies detectadas en los puertos. Los indicadores de estado describen al invasor en sí: su distribución, densidad, biomasa o estructura de tallas. Los indicadores de impacto miden los efectos sobre el ecosistema nativo, como la disminución de peces presa o herbívoros. Los indicadores de respuesta registran lo que la sociedad está haciendo al respecto: el esfuerzo de remoción, las regulaciones aplicadas o la proporción de sitios prioritarios bajo manejo. Los buenos indicadores son <em>medibles</em> con los métodos disponibles, lo bastante <em>sensibles</em> para detectar cambios reales, <em>responden</em> a las acciones de manejo, son <em>rentables</em> de recolectar repetidamente y <em>fáciles de comunicar</em>. Los indicadores alcanzan su mayor utilidad cuando se combinan con <em>metas y umbrales</em>, a menudo presentados en tableros con código de colores que muestran de un vistazo si las condiciones son buenas, regulares o malas y si el manejo las está llevando en la dirección correcta.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The Mesoamerican Reef already has one of the best-known indicator systems in the Caribbean: the Healthy Reefs Initiative's regional report card. Invasive-species indicators work best when they are built to sit alongside it.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Reef Health Index:</strong> The Healthy Reefs Initiative grades MAR reefs using four core indicators — coral cover, fleshy macroalgae cover, herbivorous fish biomass, and commercial fish biomass — each scored on a color-coded scale from very good to critical.</li>
+        <li><strong>Lionfish indicators:</strong> Lionfish density, mean length, and CPUE serve as practical state indicators. Collected at the same sites as the Reef Health Index, they can be interpreted directly against herbivore and fish biomass trends.</li>
+        <li><strong>Response indicators:</strong> Removal hours, number of trained cullers, and the percentage of priority MPAs with active lionfish programs track whether management effort is sufficient and where it is falling short.</li>
+        <li><strong>Global targets:</strong> Target 6 of the Kunming-Montreal Global Biodiversity Framework calls for reducing the introduction and establishment of invasive alien species by at least 50% by 2030 — giving countries along the <strong>MAR corridor</strong> a shared benchmark for pressure indicators.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          El Arrecife Mesoamericano ya cuenta con uno de los sistemas de indicadores más conocidos del Caribe: el reporte regional de la Iniciativa Arrecifes Saludables. Los indicadores de especies invasoras funcionan mejor cuando se diseñan para complementarlo.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Índice de Salud Arrecifal:</strong> La Iniciativa Arrecifes Saludables califica los arrecifes del SAM con cuatro indicadores principales — cobertura de coral, cobertura de macroalgas carnosas, biomasa de peces herbívoros y biomasa de peces comerciales — cada uno evaluado en una escala de colores que va de muy bueno a crítico.</li>
+        <li><strong>Indicadores del pez león:</strong> La densidad, la talla media y la CPUE del pez león sirven como indicadores de estado prácticos. Recolectados en los mismos sitios que el Índice de Salud Arrecifal, pueden interpretarse directamente frente a las tendencias de biomasa de herbívoros y peces.</li>
+        <li><strong>Indicadores de respuesta:</strong> Las horas de remoción, el número de personas capacitadas para la captura y el porcentaje de AMP prioritarias con programas activos contra el pez león permiten evaluar si el esfuerzo de manejo es suficiente y dónde se queda corto.</li>
+        <li><strong>Metas globales:</strong> La Meta 6 del Marco Mundial de Biodiversidad de Kunming-Montreal pide reducir la introducción y el establecimiento de especies exóticas invasoras en al menos un 50% para 2030, lo que brinda a los países del <strong>corredor del SAM</strong> una referencia común para los indicadores de presión.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 In the pressure-state-impact-response framework, lionfish density on a reef is which type of indicator?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Pressure</li>
+            <li><span class="opt-letter">B.</span> State</li>
+            <li><span class="opt-letter">C.</span> Impact</li>
+            <li><span class="opt-letter">D.</span> Response</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Density describes the current condition of the invader itself.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 En el marco presión-estado-impacto-respuesta, la densidad del pez león en un arrecife es ¿qué tipo de indicador?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Presión</li>
+            <li><span class="opt-letter">B.</span> Estado</li>
+            <li><span class="opt-letter">C.</span> Impacto</li>
+            <li><span class="opt-letter">D.</span> Respuesta</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La densidad describe la condición actual del propio invasor.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Which combination of qualities makes an indicator most useful to managers?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Expensive, rarely measured, and highly technical</li>
+            <li><span class="opt-letter">B.</span> Measurable, sensitive to change, responsive to management, and cost-effective</li>
+            <li><span class="opt-letter">C.</span> Unchanging over time regardless of conditions</li>
+            <li><span class="opt-letter">D.</span> Based only on expert opinion without field data</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Useful indicators can be measured repeatedly and reflect real change.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué combinación de cualidades hace que un indicador sea más útil para los administradores?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Costoso, medido rara vez y altamente técnico</li>
+            <li><span class="opt-letter">B.</span> Medible, sensible al cambio, que responde al manejo y rentable</li>
+            <li><span class="opt-letter">C.</span> Invariable en el tiempo sin importar las condiciones</li>
+            <li><span class="opt-letter">D.</span> Basado solo en la opinión de expertos sin datos de campo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los indicadores útiles pueden medirse repetidamente y reflejan cambios reales.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Target 6 of the Kunming-Montreal Global Biodiversity Framework calls for what reduction in invasive species introduction and establishment by 2030?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> At least 10%</li>
+            <li><span class="opt-letter">B.</span> At least 25%</li>
+            <li><span class="opt-letter">C.</span> At least 50%</li>
+            <li><span class="opt-letter">D.</span> 100% — complete elimination</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The global target is a reduction of at least 50% by 2030.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 La Meta 6 del Marco Mundial de Biodiversidad de Kunming-Montreal pide ¿qué reducción en la introducción y el establecimiento de especies invasoras para 2030?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Al menos 10%</li>
+            <li><span class="opt-letter">B.</span> Al menos 25%</li>
+            <li><span class="opt-letter">C.</span> Al menos 50%</li>
+            <li><span class="opt-letter">D.</span> 100% — eliminación total</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La meta global es una reducción de al menos 50% para 2030.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 24 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L24 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
