@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L17 Invasive Species — Modeling</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 2.41%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 17 · Invasive Species</div>
+        <h1 class="lesson-title">Modeling</h1>
+        <div class="lesson-subtitle">Modelación de las Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- Grid lines -->
+        <g stroke="rgba(26,200,200,0.07)" stroke-width="0.5">
+          <line x1="40" y1="70" x2="360" y2="70"/>
+          <line x1="40" y1="110" x2="360" y2="110"/>
+          <line x1="40" y1="150" x2="360" y2="150"/>
+          <line x1="40" y1="190" x2="360" y2="190"/>
+          <line x1="104" y1="40" x2="104" y2="205"/>
+          <line x1="168" y1="40" x2="168" y2="205"/>
+          <line x1="232" y1="40" x2="232" y2="205"/>
+          <line x1="296" y1="40" x2="296" y2="205"/>
+        </g>
+
+        <!-- AXES -->
+        <g stroke="rgba(26,200,200,0.4)" stroke-width="1">
+          <line x1="40" y1="40" x2="40" y2="205"/>
+          <line x1="40" y1="205" x2="362" y2="205"/>
+        </g>
+        <text x="26" y="125" fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" letter-spacing="0.12em" text-anchor="middle" transform="rotate(-90 26 125)">ADULT DENSITY</text>
+        <g fill="rgba(26,200,200,0.5)" font-family="monospace" font-size="7" text-anchor="middle">
+          <text x="40" y="215">0</text>
+          <text x="104" y="215">2</text>
+          <text x="168" y="215">4</text>
+          <text x="232" y="215">6</text>
+          <text x="296" y="215">8</text>
+          <text x="360" y="215">10 yr</text>
+        </g>
+
+        <!-- CARRYING CAPACITY -->
+        <line x1="40" y1="54" x2="360" y2="54" stroke="rgba(232,96,64,0.3)" stroke-width="0.8" stroke-dasharray="2,3"/>
+        <text x="44" y="51" fill="rgba(232,96,64,0.55)" font-family="monospace" font-size="6.5">CARRYING CAPACITY (K)</text>
+
+        <!-- UNCERTAINTY BAND (no-removal scenario) -->
+        <path d="M40,146 C100,108 150,56 220,50 C280,47 320,46 360,46 L360,70 C320,70 280,72 220,76 C150,86 100,134 40,154 Z"
+              fill="rgba(232,96,64,0.08)"/>
+
+        <!-- SCENARIO: NO REMOVAL -->
+        <path d="M40,150 C100,120 150,70 220,62 C280,58 320,57 360,57"
+              fill="none" stroke="rgba(232,96,64,0.8)" stroke-width="1.8"/>
+        <text x="356" y="80" fill="rgba(232,96,64,0.75)" font-family="monospace" font-size="7" text-anchor="end">0% REMOVAL</text>
+
+        <!-- SCENARIO: 15% MONTHLY -->
+        <path d="M40,150 C100,135 160,105 240,100 C300,98 330,98 360,98"
+              fill="none" stroke="rgba(240,180,41,0.8)" stroke-width="1.6" stroke-dasharray="5,3"/>
+        <text x="356" y="93" fill="rgba(240,180,41,0.75)" font-family="monospace" font-size="7" text-anchor="end">15% / MONTH</text>
+
+        <!-- SCENARIO: THRESHOLD -->
+        <path d="M40,150 L360,148"
+              fill="none" stroke="rgba(184,240,236,0.7)" stroke-width="1.4" stroke-dasharray="2,3"/>
+        <text x="356" y="143" fill="rgba(184,240,236,0.75)" font-family="monospace" font-size="7" text-anchor="end">~27% / MONTH · THRESHOLD</text>
+
+        <!-- SCENARIO: 40% MONTHLY -->
+        <path d="M40,150 C100,165 180,185 260,192 C300,195 330,196 360,196"
+              fill="none" stroke="rgba(26,200,200,0.85)" stroke-width="1.6"/>
+        <text x="356" y="188" fill="rgba(26,200,200,0.75)" font-family="monospace" font-size="7" text-anchor="end">40% / MONTH</text>
+
+        <!-- START POINT -->
+        <circle cx="40" cy="150" r="2.5" fill="rgba(232,244,248,0.8)"/>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <text x="0" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Lines: projected density under monthly adult removal</text>
+          <rect x="248" y="1" width="12" height="8" fill="rgba(232,96,64,0.08)"/>
+          <text x="264" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Uncertainty</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="250" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">POPULATION MODEL  ·  SCENARIOS</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Models allow scientists to ask questions about invasions that cannot be answered by observation alone: <em>where</em> an invader could spread, <em>how fast</em> its population will grow, and <em>what</em> level of management would be needed to control it. Three families of models are central to invasion ecology. <em>Species distribution models</em> link known occurrences to environmental variables such as temperature, depth, and habitat to map where conditions are suitable. <em>Population models</em> use birth, growth, and mortality rates to project abundance through time and to test management scenarios. <em>Dispersal and connectivity models</em> couple ocean-current data with larval biology to simulate how offspring travel between sites. Every model is a simplification built on assumptions, so its outputs carry uncertainty. Good practice means stating those assumptions, quantifying uncertainty, and validating predictions against independent field data — which is why careful, standardized surveys remain the foundation on which every useful model is built.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los modelos permiten a los científicos plantear preguntas sobre las invasiones que no pueden responderse solo con la observación: <em>dónde</em> podría dispersarse un invasor, <em>qué tan rápido</em> crecerá su población y <em>qué</em> nivel de manejo se necesitaría para controlarlo. Tres familias de modelos son centrales en la ecología de invasiones. Los <em>modelos de distribución de especies</em> vinculan los registros conocidos con variables ambientales como la temperatura, la profundidad y el hábitat para mapear dónde las condiciones son adecuadas. Los <em>modelos poblacionales</em> usan tasas de natalidad, crecimiento y mortalidad para proyectar la abundancia en el tiempo y evaluar escenarios de manejo. Los <em>modelos de dispersión y conectividad</em> combinan datos de corrientes oceánicas con la biología larval para simular cómo viajan las crías entre sitios. Todo modelo es una simplificación basada en supuestos, por lo que sus resultados conllevan incertidumbre. La buena práctica implica declarar esos supuestos, cuantificar la incertidumbre y validar las predicciones con datos de campo independientes; por eso, los muestreos cuidadosos y estandarizados siguen siendo la base sobre la que se construye todo modelo útil.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          The lionfish invasion is one of the most heavily modeled marine invasions in the world, and those models now shape how removal programs along the Mesoamerican Reef set targets, choose sites, and measure success.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Population models:</strong> A widely cited demographic model estimated that roughly <strong>27% of adult lionfish</strong> would need to be removed every month to drive a population into decline — a benchmark that shows why occasional derbies alone cannot control the invasion.</li>
+        <li><strong>Connectivity models:</strong> Biophysical simulations that release virtual larvae into modeled currents have reproduced the observed spread of lionfish through the Caribbean, showing how the <strong>Caribbean Current</strong> carried the invasion westward and into the Gulf of Mexico.</li>
+        <li><strong>Distribution models:</strong> Because lionfish tolerate a wide range of depths and habitats but are limited by cold water, temperature-based models predict suitable habitat across virtually the entire MAR, from shallow mangroves to mesophotic reefs.</li>
+        <li><strong>Field validation:</strong> Model projections are only as good as the data behind them. Standardized density, size, and depth surveys across the <strong>MAR corridor</strong> are what allow these models to be tested, recalibrated, and trusted by managers.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          La invasión del pez león es una de las invasiones marinas más modeladas del mundo, y esos modelos ahora determinan cómo los programas de remoción en el Arrecife Mesoamericano fijan metas, eligen sitios y miden el éxito.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Modelos poblacionales:</strong> Un modelo demográfico ampliamente citado estimó que sería necesario remover aproximadamente el <strong>27% de los peces león adultos</strong> cada mes para llevar una población al declive — una referencia que muestra por qué los torneos ocasionales por sí solos no pueden controlar la invasión.</li>
+        <li><strong>Modelos de conectividad:</strong> Las simulaciones biofísicas que liberan larvas virtuales en corrientes modeladas han reproducido la dispersión observada del pez león en el Caribe, mostrando cómo la <strong>Corriente del Caribe</strong> llevó la invasión hacia el oeste y hacia el Golfo de México.</li>
+        <li><strong>Modelos de distribución:</strong> Como el pez león tolera una amplia gama de profundidades y hábitats pero está limitado por el agua fría, los modelos basados en la temperatura predicen hábitat adecuado en prácticamente todo el SAM, desde manglares someros hasta arrecifes mesofóticos.</li>
+        <li><strong>Validación en campo:</strong> Las proyecciones de un modelo solo son tan buenas como los datos que las respaldan. Los muestreos estandarizados de densidad, talla y profundidad a lo largo del <strong>corredor del SAM</strong> son los que permiten evaluar, recalibrar y dar confianza a estos modelos ante los administradores.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What does a species distribution model (SDM) primarily predict?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The exact number of individuals at every site</li>
+            <li><span class="opt-letter">B.</span> Where environmental conditions are suitable for a species</li>
+            <li><span class="opt-letter">C.</span> The genetic origin of an invasive population</li>
+            <li><span class="opt-letter">D.</span> The cost of a removal program</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — SDMs link occurrences to environmental variables to map suitable habitat.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué predice principalmente un modelo de distribución de especies (MDE)?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El número exacto de individuos en cada sitio</li>
+            <li><span class="opt-letter">B.</span> Dónde las condiciones ambientales son adecuadas para una especie</li>
+            <li><span class="opt-letter">C.</span> El origen genético de una población invasora</li>
+            <li><span class="opt-letter">D.</span> El costo de un programa de remoción</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los MDE vinculan registros con variables ambientales para mapear el hábitat adecuado.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 A widely cited lionfish population model estimated what approximate monthly removal of adults is needed to cause population decline?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 5%</li>
+            <li><span class="opt-letter">B.</span> 27%</li>
+            <li><span class="opt-letter">C.</span> 60%</li>
+            <li><span class="opt-letter">D.</span> 90%</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Roughly 27% of adults removed monthly was the modeled decline threshold.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 Un modelo poblacional del pez león ampliamente citado estimó ¿qué porcentaje mensual aproximado de remoción de adultos se necesita para causar el declive de la población?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 5%</li>
+            <li><span class="opt-letter">B.</span> 27%</li>
+            <li><span class="opt-letter">C.</span> 60%</li>
+            <li><span class="opt-letter">D.</span> 90%</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Remover aproximadamente el 27% de los adultos cada mes fue el umbral de declive modelado.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why must invasive species models be validated with independent field data?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Models are simplifications whose assumptions and predictions must be tested against reality</li>
+            <li><span class="opt-letter">B.</span> Field data are required to make the model run faster</li>
+            <li><span class="opt-letter">C.</span> Validation removes all uncertainty from model outputs</li>
+            <li><span class="opt-letter">D.</span> Models cannot be published without field photographs</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Validation tests a model's assumptions and predictions against observed conditions.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Por qué los modelos de especies invasoras deben validarse con datos de campo independientes?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los modelos son simplificaciones cuyos supuestos y predicciones deben contrastarse con la realidad</li>
+            <li><span class="opt-letter">B.</span> Los datos de campo son necesarios para que el modelo se ejecute más rápido</li>
+            <li><span class="opt-letter">C.</span> La validación elimina toda la incertidumbre de los resultados del modelo</li>
+            <li><span class="opt-letter">D.</span> Los modelos no pueden publicarse sin fotografías de campo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — La validación contrasta los supuestos y predicciones del modelo con las condiciones observadas.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 17 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L17 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
