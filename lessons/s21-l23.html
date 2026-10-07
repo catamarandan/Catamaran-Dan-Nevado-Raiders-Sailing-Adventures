@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S21·L23 Invasive Species — Monitoring Methods</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --sand:       #f5e9d0;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4, 41, 74, 0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+
+  /* ── SVG ILLUSTRATION ── */
+  .header-visual {
+    background: #020c17;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── LECTURE PANEL ── */
+  .lecture-panel {
+    padding: 32px 36px;
+    border-right: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+
+  .lang-block { margin-bottom: 24px; }
+
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+
+  /* ── CARIBBEAN PANEL ── */
+  .caribbean-panel {
+    padding: 32px 36px;
+    background: rgba(10,110,138,0.05);
+  }
+
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .caribbean-highlight p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ocean-foam);
+    font-weight: 300;
+  }
+
+  .region-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ── MCQ SECTION ── */
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+
+  .mcq-options {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    width: 3.27%;
+    height: 100%;
+    background: var(--ocean-cyan);
+    border-radius: 1px;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+
+  body {
+    padding: 16px 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .body {
+    display: block;
+  }
+
+  .lecture-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(26,200,200,0.1);
+  }
+
+  .caribbean-panel {
+    border-top: 2px solid rgba(26,200,200,0.3);
+    margin-top: 20px;
+    padding-top: 24px;
+  }
+
+  .mcq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 21 · Lesson 23 · Invasive Species</div>
+        <h1 class="lesson-title">Monitoring Methods</h1>
+        <div class="lesson-subtitle">Métodos de Monitoreo de Especies Invasoras</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Intermediate</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+      </div>
+    </div>
+
+    <!-- SVG SCIENTIFIC ILLUSTRATION -->
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#041828"/>
+            <stop offset="100%" stop-color="#020c14"/>
+          </linearGradient>
+          <pattern id="naHatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="5" stroke="rgba(138,184,204,0.12)" stroke-width="1.2"/>
+          </pattern>
+        </defs>
+
+        <!-- Background -->
+        <rect width="380" height="260" fill="url(#seaGrad)"/>
+
+        <!-- COLUMN LABELS (habitat strata) -->
+        <g font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.08em">
+          <text x="100" y="44" fill="rgba(140,200,150,0.7)">MANGROVE</text>
+          <text x="160" y="44" fill="rgba(26,200,200,0.7)">SEAGRASS</text>
+          <text x="220" y="44" fill="rgba(26,200,200,0.7)">BACK REEF</text>
+          <text x="280" y="44" fill="rgba(232,96,64,0.75)">FORE / WALL</text>
+        </g>
+
+        <!-- ROW LABELS (depth strata) -->
+        <g font-family="monospace" font-size="6.5" text-anchor="end" fill="rgba(26,200,200,0.55)">
+          <text x="64" y="70">0–10 m</text>
+          <text x="64" y="105">10–30 m</text>
+          <text x="64" y="140">30–60 m</text>
+          <text x="64" y="175">60–100 m</text>
+        </g>
+
+        <!-- GRID CELLS -->
+        <g fill="rgba(10,110,138,0.08)" stroke="rgba(26,200,200,0.2)" stroke-width="0.6">
+          <rect x="70" y="50" width="60" height="35"/>
+          <rect x="130" y="50" width="60" height="35"/>
+          <rect x="190" y="50" width="60" height="35"/>
+          <rect x="250" y="50" width="60" height="35"/>
+          <rect x="130" y="85" width="60" height="35"/>
+          <rect x="190" y="85" width="60" height="35"/>
+          <rect x="250" y="85" width="60" height="35"/>
+          <rect x="190" y="120" width="60" height="35"/>
+          <rect x="250" y="120" width="60" height="35"/>
+          <rect x="250" y="155" width="60" height="35"/>
+        </g>
+
+        <!-- HABITAT NOT PRESENT AT DEPTH -->
+        <g fill="url(#naHatch)" stroke="rgba(138,184,204,0.12)" stroke-width="0.6">
+          <rect x="70" y="85" width="60" height="35"/>
+          <rect x="70" y="120" width="60" height="35"/>
+          <rect x="70" y="155" width="60" height="35"/>
+          <rect x="130" y="120" width="60" height="35"/>
+          <rect x="130" y="155" width="60" height="35"/>
+          <rect x="190" y="155" width="60" height="35"/>
+        </g>
+
+        <!-- STRATIFIED SURVEY SITES -->
+        <g fill="rgba(240,180,41,0.9)">
+          <circle cx="85" cy="62" r="2.5"/><circle cx="110" cy="75" r="2.5"/>
+          <circle cx="145" cy="60" r="2.5"/><circle cx="168" cy="76" r="2.5"/>
+          <circle cx="202" cy="64" r="2.5"/><circle cx="228" cy="77" r="2.5"/>
+          <circle cx="262" cy="60" r="2.5"/><circle cx="292" cy="74" r="2.5"/>
+          <circle cx="150" cy="98" r="2.5"/><circle cx="172" cy="110" r="2.5"/>
+          <circle cx="198" cy="95" r="2.5"/><circle cx="224" cy="111" r="2.5"/>
+          <circle cx="260" cy="99" r="2.5"/><circle cx="290" cy="108" r="2.5"/>
+          <circle cx="212" cy="136" r="2.5"/>
+          <circle cx="258" cy="130" r="2.5"/><circle cx="288" cy="142" r="2.5"/>
+          <circle cx="264" cy="168" r="2.5"/><circle cx="294" cy="178" r="2.5"/>
+        </g>
+
+        <!-- METHOD BANDS (by depth) -->
+        <rect x="316" y="50" width="54" height="70" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.35)" stroke-width="0.7"/>
+        <rect x="316" y="120" width="54" height="35" fill="rgba(240,180,41,0.08)" stroke="rgba(240,180,41,0.4)" stroke-width="0.7"/>
+        <rect x="316" y="155" width="54" height="35" fill="rgba(232,96,64,0.08)" stroke="rgba(232,96,64,0.45)" stroke-width="0.7"/>
+        <g font-family="monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.08em">
+          <text x="343" y="83" fill="rgba(26,200,200,0.8)">SCUBA</text>
+          <text x="343" y="92" fill="rgba(26,200,200,0.55)">SURVEYS</text>
+          <text x="343" y="136" fill="rgba(240,180,41,0.85)">TECH</text>
+          <text x="343" y="145" fill="rgba(240,180,41,0.6)">DIVING</text>
+          <text x="343" y="171" fill="rgba(232,96,64,0.85)">ROV</text>
+          <text x="343" y="180" fill="rgba(232,96,64,0.6)">VIDEO</text>
+        </g>
+        <text x="343" y="44" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">METHOD</text>
+
+        <!-- EARLY DETECTION NOTE -->
+        <text x="70" y="205" fill="rgba(184,240,236,0.6)" font-family="monospace" font-size="6.5">+ PORTS &amp; MARINAS: eDNA · SETTLEMENT PLATES</text>
+
+        <!-- LEGEND -->
+        <g transform="translate(42, 232)">
+          <circle cx="4" cy="4" r="2.5" fill="rgba(240,180,41,0.9)"/>
+          <text x="10" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Survey site</text>
+          <rect x="70" y="0" width="12" height="8" fill="rgba(10,110,138,0.15)" stroke="rgba(26,200,200,0.3)" stroke-width="0.6"/>
+          <text x="86" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Stratum</text>
+          <rect x="130" y="0" width="12" height="8" fill="url(#naHatch)" stroke="rgba(138,184,204,0.2)" stroke-width="0.6"/>
+          <text x="146" y="7" fill="rgba(232,244,248,0.45)" font-family="monospace" font-size="7">Habitat absent at depth</text>
+        </g>
+
+        <!-- TITLE BADGE -->
+        <rect x="36" y="0" width="300" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="44" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="0.15em">STRATIFIED DESIGN  ·  DEPTH × HABITAT</text>
+
+        <!-- Decorative corner marks -->
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,0 L12,0 L12,6"/>
+          <path d="M380,0 L368,0 L368,6"/>
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div><!-- /header -->
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── LECTURE TEXT ── -->
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Field methods describe how a single survey is done; <em>monitoring</em> is the long-term program that decides where, when, how often, and why those surveys are repeated. Invasive-species monitoring falls into three types. <em>Surveillance monitoring</em> searches for new invaders at high-risk entry points before they establish. <em>Status-and-trend monitoring</em> revisits fixed sites at regular intervals to track how established invaders change over time. <em>Effectiveness monitoring</em> measures whether a management action, such as removal, is achieving its goal. Good programs begin with clear objectives and a <em>sampling design</em> — often <em>stratified</em>, dividing the area into habitat and depth zones so every important stratum is sampled. A <em>power analysis</em> before monitoring begins determines how many sites and visits are needed to detect a meaningful change. Modern programs combine diver surveys with newer tools: <em>environmental DNA (eDNA)</em> to detect species from water samples, <em>settlement plates</em> and artificial structures to catch arriving organisms, and <em>remotely operated vehicles (ROVs)</em> and video to reach depths beyond diver limits. Monitoring must also be <em>adaptive</em>, refining methods as new information arrives.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los métodos de campo describen cómo se realiza un muestreo individual; el <em>monitoreo</em> es el programa de largo plazo que decide dónde, cuándo, con qué frecuencia y por qué se repiten esos muestreos. El monitoreo de especies invasoras se divide en tres tipos. El <em>monitoreo de vigilancia</em> busca nuevos invasores en puntos de entrada de alto riesgo antes de que se establezcan. El <em>monitoreo de estado y tendencia</em> revisita sitios fijos a intervalos regulares para seguir cómo cambian los invasores establecidos con el tiempo. El <em>monitoreo de efectividad</em> mide si una acción de manejo, como la remoción, está logrando su objetivo. Los buenos programas comienzan con objetivos claros y un <em>diseño de muestreo</em> — a menudo <em>estratificado</em>, dividiendo el área en zonas de hábitat y profundidad para que cada estrato importante sea muestreado. Un <em>análisis de potencia</em> antes de iniciar el monitoreo determina cuántos sitios y visitas se necesitan para detectar un cambio significativo. Los programas modernos combinan los muestreos con buzos con herramientas nuevas: el <em>ADN ambiental (ADNa)</em> para detectar especies a partir de muestras de agua, las <em>placas de asentamiento</em> y estructuras artificiales para captar organismos recién llegados, y los <em>vehículos operados a distancia (ROV)</em> y el video para alcanzar profundidades fuera del alcance de los buzos. El monitoreo también debe ser <em>adaptativo</em>, perfeccionando los métodos a medida que surge nueva información.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── WESTERN CARIBBEAN APPLICATION ── -->
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <!-- ENGLISH -->
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          On the Mesoamerican Reef, monitoring must cover a long corridor, a wide range of habitats, and depths from mangrove roots to mesophotic walls — while staying affordable enough to repeat year after year across four countries.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li><strong>Fixed-site network:</strong> Permanent monitoring sites stratified by habitat and depth, revisited at standard intervals and aligned with existing regional reef monitoring sites, allow lionfish trends to be read alongside coral, fish, and algae data.</li>
+        <li><strong>Reaching the deep:</strong> Because lionfish refuges extend below recreational diving limits, ROVs, drop cameras, and trained technical divers are used to survey mesophotic reefs that standard programs would otherwise miss.</li>
+        <li><strong>Surveillance at entry points:</strong> Settlement plates, structures on piers and buoys, and eDNA water sampling at cruise ports and marinas provide early warning for watch-list species such as invasive seagrass and corals.</li>
+        <li><strong>Community monitoring:</strong> Trained dive operators, fishers, and volunteers multiply coverage along the <strong>MAR corridor</strong>, logging sightings and removals with standardized forms that feed directly into regional datasets.</li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <!-- SPANISH -->
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          En el Arrecife Mesoamericano, el monitoreo debe cubrir un corredor extenso, una gran variedad de hábitats y profundidades que van desde las raíces de manglar hasta las paredes mesofóticas — y mantenerse lo bastante accesible para repetirse año tras año en cuatro países.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li><strong>Red de sitios fijos:</strong> Los sitios permanentes de monitoreo estratificados por hábitat y profundidad, revisitados a intervalos estándar y alineados con los sitios regionales de monitoreo arrecifal existentes, permiten interpretar las tendencias del pez león junto con los datos de coral, peces y algas.</li>
+        <li><strong>Alcanzar lo profundo:</strong> Como los refugios del pez león se extienden por debajo de los límites del buceo recreativo, se usan ROV, cámaras de caída y buzos técnicos capacitados para muestrear arrecifes mesofóticos que los programas estándar no alcanzarían.</li>
+        <li><strong>Vigilancia en puntos de entrada:</strong> Las placas de asentamiento, las estructuras en muelles y boyas, y el muestreo de ADNa en puertos de cruceros y marinas proporcionan alerta temprana para especies de la lista de vigilancia, como pastos marinos y corales invasores.</li>
+        <li><strong>Monitoreo comunitario:</strong> Operadores de buceo, pescadores y voluntarios capacitados multiplican la cobertura a lo largo del <strong>corredor del SAM</strong>, registrando avistamientos y remociones con formularios estandarizados que alimentan directamente las bases de datos regionales.</li>
+      </ul>
+    </div>
+
+    <!-- ── MCQ SECTION ── -->
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <!-- Q1 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which type of monitoring is designed to find new invaders at entry points before they become established?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Effectiveness monitoring</li>
+            <li><span class="opt-letter">B.</span> Status-and-trend monitoring</li>
+            <li><span class="opt-letter">C.</span> Surveillance monitoring</li>
+            <li><span class="opt-letter">D.</span> Retrospective monitoring</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — Surveillance targets high-risk sites to detect arrivals early.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué tipo de monitoreo está diseñado para encontrar nuevos invasores en los puntos de entrada antes de que se establezcan?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Monitoreo de efectividad</li>
+            <li><span class="opt-letter">B.</span> Monitoreo de estado y tendencia</li>
+            <li><span class="opt-letter">C.</span> Monitoreo de vigilancia</li>
+            <li><span class="opt-letter">D.</span> Monitoreo retrospectivo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La vigilancia se enfoca en sitios de alto riesgo para detectar llegadas a tiempo.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 What is the purpose of a power analysis before a monitoring program begins?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> To calculate the electricity needed for underwater lights</li>
+            <li><span class="opt-letter">B.</span> To determine how many sites and visits are needed to detect a meaningful change</li>
+            <li><span class="opt-letter">C.</span> To rank divers by experience level</li>
+            <li><span class="opt-letter">D.</span> To guarantee the program will find a decline</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Power analysis sets the sampling effort needed for reliable conclusions.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Cuál es el propósito de un análisis de potencia antes de iniciar un programa de monitoreo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Calcular la electricidad necesaria para las luces subacuáticas</li>
+            <li><span class="opt-letter">B.</span> Determinar cuántos sitios y visitas se necesitan para detectar un cambio significativo</li>
+            <li><span class="opt-letter">C.</span> Clasificar a los buzos por nivel de experiencia</li>
+            <li><span class="opt-letter">D.</span> Garantizar que el programa encontrará un declive</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El análisis de potencia define el esfuerzo de muestreo necesario para obtener conclusiones confiables.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Which tool is best suited to survey lionfish on mesophotic reefs below recreational diving limits?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Snorkel surveys</li>
+            <li><span class="opt-letter">B.</span> Shoreline walking counts</li>
+            <li><span class="opt-letter">C.</span> Remotely operated vehicles (ROVs) with video</li>
+            <li><span class="opt-letter">D.</span> Settlement plates in the intertidal zone</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — ROVs extend surveys to depths that standard divers cannot safely reach.</div>
+          <div style="height:10px;border-top:1px solid rgba(26,200,200,0.1);margin:10px 0 8px;"></div>
+          <div class="mcq-q" style="font-weight:300;color:rgba(232,244,248,0.75);">🇲🇽 ¿Qué herramienta es la más adecuada para muestrear el pez león en arrecifes mesofóticos por debajo de los límites del buceo recreativo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Muestreos con esnórquel</li>
+            <li><span class="opt-letter">B.</span> Conteos caminando por la costa</li>
+            <li><span class="opt-letter">C.</span> Vehículos operados a distancia (ROV) con video</li>
+            <li><span class="opt-letter">D.</span> Placas de asentamiento en la zona intermareal</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — Los ROV extienden los muestreos a profundidades que los buzos estándar no pueden alcanzar con seguridad.</div>
+        </div>
+
+      </div><!-- /mcq-grid -->
+    </div><!-- /mcq-section -->
+
+    <!-- ── FOOTER ── -->
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 21 · Lesson 23 of 704</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S21 · L23 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /card -->
+</body>
+</html>
