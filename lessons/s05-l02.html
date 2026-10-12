@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L02 Marine Ecology — Core Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1a2a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(26,200,200,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2);
+  }
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 260px;
+    border-bottom: 1px solid rgba(26,200,200,0.15);
+  }
+  .header-text {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #020f1e 0%, #04294a 100%);
+  }
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.15;
+    margin: 8px 0 4px;
+  }
+  .lesson-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ocean-foam);
+    opacity: 0.7;
+  }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(26,200,200,0.3);
+    color: var(--ocean-cyan);
+    background: rgba(26,200,200,0.06);
+  }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ocean-cyan);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent);
+  }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .lecture-text {
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232,244,248,0.82);
+  }
+  .lang-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent);
+    margin: 20px 0;
+  }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight {
+    background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3));
+    border-left: 3px solid var(--ocean-cyan);
+    border-radius: 0 3px 3px 0;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(26,200,200,0.07);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .region-list li::before {
+    content: '›';
+    color: var(--ocean-cyan);
+    font-size: 14px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section {
+    grid-column: 1 / -1;
+    padding: 28px 36px 36px;
+    background: rgba(2,15,30,0.6);
+    border-top: 1px solid rgba(26,200,200,0.1);
+  }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card {
+    background: rgba(4,41,74,0.25);
+    border: 1px solid rgba(26,200,200,0.1);
+    border-radius: 3px;
+    padding: 18px;
+  }
+  .mcq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ocean-cyan);
+    margin-bottom: 10px;
+  }
+  .mcq-q {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    font-weight: 500;
+    min-height: 50px;
+  }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li {
+    font-size: 11px;
+    color: rgba(232,244,248,0.65);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 6px 10px;
+    background: rgba(26,200,200,0.1);
+    border-left: 2px solid var(--ocean-cyan);
+    color: var(--ocean-cyan);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 36px;
+    background: rgba(2,15,30,0.8);
+    border-top: 1px solid rgba(26,200,200,0.08);
+  }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .progress-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(26,200,200,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(138,184,204,0.4);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 02 · Marine Ecology</div>
+        <h1 class="lesson-title">Core Principles</h1>
+        <div class="lesson-subtitle">Principios Fundamentales de la Ecología Marina</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">CORE PRINCIPLES  ·  INTERACTIONS</text>
+        <!-- Consumer-resource loop -->
+        <circle cx="120" cy="140" r="36" fill="none" stroke="rgba(26,200,200,0.4)" stroke-width="1"/>
+        <circle cx="260" cy="140" r="36" fill="none" stroke="rgba(240,180,41,0.4)" stroke-width="1"/>
+        <text x="120" y="137" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8" text-anchor="middle">Herbivore</text>
+        <text x="120" y="149" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="7" text-anchor="middle">grazing</text>
+        <text x="260" y="137" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8" text-anchor="middle">Algae</text>
+        <text x="260" y="149" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="7" text-anchor="middle">growth</text>
+        <path d="M156,128 L224,128" stroke="rgba(232,96,64,0.7)" stroke-width="1.2"/>
+        <path d="M218,124 L226,128 L218,132" stroke="rgba(232,96,64,0.7)" fill="none"/>
+        <text x="190" y="120" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="7" text-anchor="middle">removes</text>
+        <path d="M224,152 L156,152" stroke="rgba(26,200,200,0.5)" stroke-width="1"/>
+        <path d="M162,148 L154,152 L162,156" stroke="rgba(26,200,200,0.5)" fill="none"/>
+        <text x="190" y="168" fill="rgba(26,200,200,0.7)" font-family="monospace" font-size="7" text-anchor="middle">supports</text>
+        <!-- Connectivity dots -->
+        <text x="190" y="206" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7" text-anchor="middle">larval dispersal links habitats</text>
+        <circle cx="50" cy="235" r="4" fill="rgba(26,200,200,0.5)"/>
+        <circle cx="140" cy="235" r="4" fill="rgba(26,200,200,0.5)"/>
+        <circle cx="230" cy="235" r="4" fill="rgba(26,200,200,0.5)"/>
+        <circle cx="320" cy="235" r="4" fill="rgba(26,200,200,0.5)"/>
+        <path d="M54,235 L136,235 M144,235 L226,235 M234,235 L316,235" stroke="rgba(26,200,200,0.35)" stroke-width="1" stroke-dasharray="3,3"/>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Several core principles recur across marine ecosystems. <em>Competition</em> occurs when organisms draw on the same limited resource, such as light, space or nutrients, and it shapes which species can persist together. <em>Predation and grazing</em> control the abundance of prey and can determine whether a community is dominated by one group or many. <em>Symbiosis</em>, such as the partnership between reef-building corals and their photosynthetic algae, links organisms so that the fate of one affects the other. <em>Disturbance</em>, from storms, heat waves or disease, removes organisms and opens space, and the recovery that follows depends on the species that remain nearby. Many marine animals also have a dispersing larval stage, so <em>connectivity</em> between habitats depends on ocean currents that carry eggs and larvae from one place to another. Together these principles explain why ecosystems change through time and why a healthy habitat can depend on the condition of distant ones.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Varios principios fundamentales se repiten en los ecosistemas marinos. La <em>competencia</em> ocurre cuando los organismos utilizan el mismo recurso limitado, como luz, espacio o nutrientes, y determina qué especies pueden coexistir. La <em>depredación y el pastoreo</em> controlan la abundancia de las presas y pueden decidir si una comunidad está dominada por un grupo o por muchos. La <em>simbiosis</em>, como la asociación entre los corales formadores de arrecife y sus algas fotosintéticas, vincula a los organismos de modo que el destino de uno afecta al otro. La <em>perturbación</em>, causada por tormentas, olas de calor o enfermedades, elimina organismos y deja espacio libre, y la recuperación posterior depende de las especies que permanecen cerca. Muchos animales marinos además tienen una fase larvaria dispersiva, así que la <em>conectividad</em> entre hábitats depende de las corrientes oceánicas que transportan huevos y larvas de un lugar a otro. En conjunto, estos principios explican por qué los ecosistemas cambian con el tiempo y por qué un hábitat sano puede depender del estado de otros lejanos.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          On Caribbean reefs, grazing and competition between corals and algae are central to reef health. Reef condition depends on whether herbivores keep algae in check while corals remain in place.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Parrotfish and small urchins graze algae from reef surfaces. In a 2013 study of 12 fringing reefs in Bocas del Toro, Panama, small grazers (the urchin <em>Echinometra viridis</em> and the parrotfish <em>Scarus iseri</em>) kept algae from taking over after a coral die-off.</li>
+        <li>Overfishing of large herbivorous fish, together with disease that killed long-spined <em>Diadema</em> urchins, has allowed algal growth on Caribbean reefs.</li>
+        <li>Currents such as the Caribbean and Yucatán currents carry larvae mainly northward along the Mesoamerican Barrier Reef System, and reefs there retain few of their own larvae, so upstream reefs matter for recruitment. Connectivity is inferred from currents and drifter tracks, not measured directly. <span class="verify">[Verify: larval survival and recruitment rates]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          En los arrecifes del Caribe, el pastoreo y la competencia entre corales y algas son centrales para la salud del arrecife. Su estado depende de que los herbívoros mantengan a raya las algas mientras los corales permanecen en su lugar.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Los peces loro y los erizos pequeños pastorean algas de las superficies del arrecife. En un estudio de 2013 en 12 arrecifes costeros de Bocas del Toro, Panamá, los herbívoros pequeños (el erizo <em>Echinometra viridis</em> y el pez loro <em>Scarus iseri</em>) impidieron que las algas dominaran tras una mortalidad masiva de coral.</li>
+        <li>La sobrepesca de peces herbívoros grandes, junto con una enfermedad que mató a los erizos <em>Diadema</em> de púas largas, ha permitido el crecimiento de algas en los arrecifes del Caribe.</li>
+        <li>Corrientes como la del Caribe y la de Yucatán transportan las larvas sobre todo hacia el norte a lo largo del Sistema Arrecifal Mesoamericano, y los arrecifes retienen pocas de sus propias larvas, así que los arrecifes situados aguas arriba importan para el reclutamiento. La conectividad se infiere de las corrientes y de trayectorias de boyas, no se mide directamente. <span class="verify">[Verificar: supervivencia larvaria y tasas de reclutamiento]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Competition between organisms occurs when:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Two species eat the same prey</li>
+            <li><span class="opt-letter">B.</span> Organisms draw on the same limited resource</li>
+            <li><span class="opt-letter">C.</span> One species produces food for another</li>
+            <li><span class="opt-letter">D.</span> Larvae are carried by a current</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Competition involves organisms sharing a resource that is in limited supply.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 La competencia entre organismos ocurre cuando:</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Dos especies comen la misma presa</li>
+            <li><span class="opt-letter">B.</span> Los organismos utilizan el mismo recurso limitado</li>
+            <li><span class="opt-letter">C.</span> Una especie produce alimento para otra</li>
+            <li><span class="opt-letter">D.</span> Una corriente transporta las larvas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La competencia implica que los organismos comparten un recurso que tiene oferta limitada.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does grazing by parrotfish matter to coral reefs?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It adds nitrogen to the water</li>
+            <li><span class="opt-letter">B.</span> It removes algae, creating space for coral recruits to settle</li>
+            <li><span class="opt-letter">C.</span> It increases the salinity of the reef</li>
+            <li><span class="opt-letter">D.</span> It replaces corals with sponges</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Grazing keeps algae from covering surfaces that corals need to colonize.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué es importante el pastoreo de los peces loro para los arrecifes de coral?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Agrega nitrógeno al agua</li>
+            <li><span class="opt-letter">B.</span> Elimina algas y deja espacio para que se asienten los corales juveniles</li>
+            <li><span class="opt-letter">C.</span> Aumenta la salinidad del arrecife</li>
+            <li><span class="opt-letter">D.</span> Reemplaza los corales por esponjas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El pastoreo evita que las algas cubran superficies que los corales necesitan para colonizar.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 What links the health of one reef to the supply of young animals on another?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Symbiosis between corals and algae</li>
+            <li><span class="opt-letter">B.</span> Larval dispersal carried by ocean currents</li>
+            <li><span class="opt-letter">C.</span> Competition for light at the surface</li>
+            <li><span class="opt-letter">D.</span> Seasonal changes in air temperature</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Connectivity through larval dispersal links habitats across distances.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Qué vincula la salud de un arrecife con la llegada de juveniles a otro?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La simbiosis entre corales y algas</li>
+            <li><span class="opt-letter">B.</span> La dispersión larvaria transportada por las corrientes oceánicas</li>
+            <li><span class="opt-letter">C.</span> La competencia por la luz en la superficie</li>
+            <li><span class="opt-letter">D.</span> Los cambios estacionales de la temperatura del aire</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La conectividad por dispersión larvaria une hábitats a distancia.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 02 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L02 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
