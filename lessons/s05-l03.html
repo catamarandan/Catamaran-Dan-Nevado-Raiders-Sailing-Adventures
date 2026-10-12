@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L03 Marine Ecology — Systems Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 03 · Marine Ecology</div>
+        <h1 class="lesson-title">Systems Overview</h1>
+        <div class="lesson-subtitle">Panorama de los Sistemas Marinos</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">SYSTEM  ·  FLOWS  ·  FEEDBACK</text>
+        <!-- Compartments -->
+        <rect x="30" y="50" width="100" height="44" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.5)"/>
+        <text x="80" y="68" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8" text-anchor="middle">Atmosphere</text>
+        <text x="80" y="82" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="7" text-anchor="middle">CO2 · heat</text>
+        <rect x="250" y="50" width="100" height="44" fill="rgba(10,110,138,0.2)" stroke="rgba(26,200,200,0.5)"/>
+        <text x="300" y="68" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8" text-anchor="middle">Surface ocean</text>
+        <text x="300" y="82" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="7" text-anchor="middle">plankton · gases</text>
+        <rect x="140" y="160" width="100" height="44" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.5)"/>
+        <text x="190" y="178" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8" text-anchor="middle">Deep ocean</text>
+        <text x="190" y="192" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="7" text-anchor="middle">stored carbon</text>
+        <!-- Flows -->
+        <path d="M132,72 L248,72" stroke="rgba(26,200,200,0.7)" stroke-width="1.2"/>
+        <path d="M242,68 L250,72 L242,76" stroke="rgba(26,200,200,0.7)" fill="none"/>
+        <text x="190" y="66" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="7" text-anchor="middle">gas exchange</text>
+        <path d="M300,96 L240,160" stroke="rgba(240,180,41,0.6)" stroke-width="1" stroke-dasharray="3,3"/>
+        <path d="M250,96 L190,160" stroke="rgba(240,180,41,0.6)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="282" y="140" fill="rgba(240,180,41,0.8)" font-family="monospace" font-size="7">sinking organic matter</text>
+        <!-- Feedback loop -->
+        <path d="M30,200 C10,160 10,110 30,95" fill="none" stroke="rgba(232,96,64,0.6)" stroke-width="1"/>
+        <text x="8" y="150" fill="rgba(232,96,64,0.8)" font-family="monospace" font-size="6.5">feedback</text>
+        <text x="30" y="240" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">Components exchange energy and matter</text>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          A marine ecosystem is best understood as a system: a set of components linked by flows of energy and matter. The components include living organisms, the water and sediments they occupy, and the chemical and physical conditions that shape them. Energy enters through photosynthesis and leaves as heat. Matter, including carbon, nitrogen and phosphorus, cycles between organisms, water, sediments and the atmosphere. Because these components are connected, a change in one can spread to others. Feedback loops can amplify or dampen change. The ocean is a major example: it takes up carbon dioxide from the atmosphere, roughly 2.4 billion tonnes of carbon per year over 2008–2017, which is about a fifth to a quarter of human emissions. Some of that carbon sinks into the deep ocean as organic matter, where it can stay for long periods. Systems thinking helps explain why effects of a single disturbance often show up far from where it started.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Un ecosistema marino se entiende mejor como un sistema: un conjunto de componentes unidos por flujos de energía y materia. Los componentes incluyen a los organismos vivos, el agua y los sedimentos que ocupan, y las condiciones químicas y físicas que los moldean. La energía entra por la fotosíntesis y sale en forma de calor. La materia, incluidos el carbono, el nitrógeno y el fósforo, circula entre los organismos, el agua, los sedimentos y la atmósfera. Como estos componentes están conectados, un cambio en uno puede extenderse a otros. Los circuitos de retroalimentación pueden amplificar o amortiguar el cambio. El océano es un ejemplo importante: absorbe dióxido de carbono de la atmósfera, unas 2.400 millones de toneladas de carbono por año entre 2008 y 2017, lo que equivale a una quinta parte o un cuarto de las emisiones humanas. Parte de ese carbono se hunde hacia el océano profundo como materia orgánica, donde puede permanecer durante largos periodos. El pensamiento sistémico ayuda a explicar por qué los efectos de una sola perturbación suelen aparecer lejos de donde comenzó.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Mesoamerican coastal habitats form one connected system. Changes in one part, such as a river or a coral die-off, can affect neighboring habitats through water movement and the animals that move between them.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Currents along the Mesoamerican Barrier Reef System carry larvae mainly northward and retain few of them locally, so reefs depend on supply from upstream reefs and habitats. Connectivity is inferred from currents and drifter tracks, not measured directly. <span class="verify">[Verify: larval survival and recruitment rates]</span></li>
+        <li>In Bocas del Toro, Panama, a 2010 hypoxia-linked mass coral mortality left large areas of dead coral substrate, and small grazers then kept algae from dominating those surfaces.</li>
+        <li>Coastal rivers deliver nutrients and sediment that affect lagoons, seagrass beds and reefs together, so a land-based change can reach several habitats at once. <span class="verify">[Verify: site-specific Belize or Yucatán data]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los hábitats costeros mesoamericanos forman un sistema conectado. Los cambios en una parte, como un río o la muerte masiva de corales, pueden afectar a los hábitats vecinos mediante el movimiento del agua y de los animales que se desplazan entre ellos.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Las corrientes a lo largo del Sistema Arrecifal Mesoamericano transportan las larvas sobre todo hacia el norte y retienen pocas localmente, así que los arrecifes dependen del suministro de arrecifes y hábitats situados aguas arriba. La conectividad se infiere de corrientes y trayectorias de boyas, no se mide directamente. <span class="verify">[Verificar: supervivencia larvaria y tasas de reclutamiento]</span></li>
+        <li>En Bocas del Toro, Panamá, una mortalidad masiva de coral ligada a la hipoxia en 2010 dejó grandes áreas de sustrato coralino muerto, y después pequeños herbívoros impidieron que las algas dominaran esas superficies.</li>
+        <li>Los ríos costeros aportan nutrientes y sedimentos que afectan a lagunas, pastos marinos y arrecifes al mismo tiempo, de modo que un cambio en tierra puede llegar a varios hábitats a la vez. <span class="verify">[Verificar: datos específicos de Belice o Yucatán]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 In a systems view of an ecosystem, what links the components?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Only the shared temperature of the water</li>
+            <li><span class="opt-letter">B.</span> Flows of energy and matter between them</li>
+            <li><span class="opt-letter">C.</span> The depth of the seafloor alone</li>
+            <li><span class="opt-letter">D.</span> Identical species in every habitat</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Components are linked by flows of energy and matter.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 En una visión sistémica de un ecosistema, ¿qué une a los componentes?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Solo la temperatura compartida del agua</li>
+            <li><span class="opt-letter">B.</span> Flujos de energía y materia entre ellos</li>
+            <li><span class="opt-letter">C.</span> Solo la profundidad del fondo marino</li>
+            <li><span class="opt-letter">D.</span> Las mismas especies en todos los hábitats</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Los componentes están unidos por flujos de energía y materia.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 According to the 2008–2017 carbon budget, roughly what share of human CO2 emissions does the ocean take up?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> About 2%</li>
+            <li><span class="opt-letter">B.</span> About a fifth to a quarter</li>
+            <li><span class="opt-letter">C.</span> About three-quarters</li>
+            <li><span class="opt-letter">D.</span> None</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The ocean takes up about 2.4 GtC/yr, roughly 22% of total emissions.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según el presupuesto de carbono 2008–2017, ¿qué proporción aproximada de las emisiones humanas de CO2 absorbe el océano?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Alrededor del 2%</li>
+            <li><span class="opt-letter">B.</span> Alrededor de una quinta parte o un cuarto</li>
+            <li><span class="opt-letter">C.</span> Alrededor de tres cuartos</li>
+            <li><span class="opt-letter">D.</span> Ninguna</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El océano absorbe unas 2,4 GtC/año, cerca del 22% de las emisiones totales.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why can a disturbance on one Mesoamerican reef affect reefs far away?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Reefs share a single set of fish that never move</li>
+            <li><span class="opt-letter">B.</span> Currents carry larvae between reefs, so recruitment depends on upstream sources</li>
+            <li><span class="opt-letter">C.</span> Coral cannot survive outside one reef</li>
+            <li><span class="opt-letter">D.</span> Air temperature changes only in one place</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Larval transport along currents links reefs, so losses upstream can reduce supply downstream.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué una perturbación en un arrecife mesoamericano puede afectar a arrecifes lejanos?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los arrecifes comparten un solo grupo de peces que nunca se mueve</li>
+            <li><span class="opt-letter">B.</span> Las corrientes transportan larvas entre arrecifes, así que el reclutamiento depende de fuentes situadas aguas arriba</li>
+            <li><span class="opt-letter">C.</span> El coral no puede sobrevivir fuera de un arrecife</li>
+            <li><span class="opt-letter">D.</span> La temperatura del aire cambia solo en un lugar</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El transporte larvario por corrientes une arrecifes, así que las pérdidas aguas arriba pueden reducir el suministro aguas abajo.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 03 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L03 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
