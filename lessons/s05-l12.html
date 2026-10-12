@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L12 Marine Ecology — Data Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 12 · Marine Ecology</div>
+        <h1 class="lesson-title">Data Analysis</h1>
+        <div class="lesson-subtitle">Análisis de Datos en Ecología Marina</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">RAW  →  SUMMARY  →  INFERENCE</text>
+        <!-- Bars showing a change over time -->
+        <rect x="50" y="150" width="40" height="70" fill="rgba(26,200,200,0.35)"/>
+        <rect x="110" y="120" width="40" height="100" fill="rgba(26,200,200,0.35)"/>
+        <rect x="170" y="90" width="40" height="130" fill="rgba(26,200,200,0.35)"/>
+        <rect x="230" y="150" width="40" height="70" fill="rgba(240,180,41,0.45)"/>
+        <rect x="290" y="170" width="40" height="50" fill="rgba(240,180,41,0.45)"/>
+        <path d="M30,220 L350,220" stroke="rgba(138,184,204,0.5)"/>
+        <text x="50" y="236" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">year 1</text>
+        <text x="230" y="236" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">year 2</text>
+        <text x="30" y="50" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="7">Compare, then ask what the</text>
+        <text x="30" y="62" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="7">data can and cannot show</text>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Data analysis turns records into answers, but the answers are only as strong as the reasoning behind them. The first step is summarizing the data: averages, percentages and ranges show what was observed, and comparisons show how it differs between sites, depths or years. A change is only meaningful if it is larger than the natural variation between samples, so ecologists look at spread as well as averages. The next step is inference: deciding what the pattern implies about cause. This is the hardest step, because a correlation between two things does not show that one causes the other. Studies covering short periods can also miss long-term trends. A good analysis states its assumptions, reports its uncertainty, and makes clear which conclusions the data support and which they do not.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          El análisis de datos convierte registros en respuestas, pero las respuestas solo son tan sólidas como el razonamiento que las sostiene. El primer paso es resumir los datos: promedios, porcentajes y rangos muestran qué se observó, y las comparaciones muestran cómo difiere entre sitios, profundidades o años. Un cambio solo es significativo si es mayor que la variación natural entre muestras, por eso los ecólogos miran la dispersión además de los promedios. El siguiente paso es la inferencia: decidir qué implica el patrón sobre sus causas. Este es el paso más difícil, porque una correlación entre dos cosas no demuestra que una cause la otra. Los estudios de periodos cortos también pueden no captar tendencias a largo plazo. Un buen análisis indica sus supuestos, informa su incertidumbre y deja claro qué conclusiones sostienen los datos y cuáles no.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Caribbean reef data show how analysis can support or limit conclusions. Large-scale summaries reveal major declines, while local studies show mechanisms that need careful interpretation.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Gardner et al. (2003) summarized Caribbean reef surveys and reported that average hard coral cover fell by about 80%, from roughly 50% to 10%, over three decades. This is a regional summary, so local values vary.</li>
+        <li>A review of Diadema antillarum found that current urchin densities are about 12% of pre-die-off levels, and that the loss of this grazer contributed to a shift to algae-dominated reefs. The link is a reasoned inference supported by observed changes, not a single controlled experiment. <span class="verify">[Verify: strength of the evidence in the review]</span></li>
+        <li>A Panamanian study of 12 fringing reefs was based on fieldwork from July to November 2013, a short window that cannot by itself show long-term trends. <span class="verify">[Verify: study duration and sampling design]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los datos de arrecifes del Caribe muestran cómo el análisis puede sostener o limitar las conclusiones. Los resúmenes a gran escala revelan declives importantes, mientras que los estudios locales muestran mecanismos que requieren una interpretación cuidadosa.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Gardner et al. (2003) resumieron censos de arrecifes del Caribe y reportaron que la cobertura media de coral duro disminuyó cerca de un 80%, de unos 50% a 10%, en tres décadas. Es un resumen regional, así que los valores locales varían.</li>
+        <li>Una revisión sobre Diadema antillarum encontró que las densidades actuales del erizo son cerca del 12% de los niveles previos a la mortalidad, y que la pérdida de este herbívoro contribuyó al cambio hacia arrecifes dominados por algas. El vínculo es una inferencia razonada, apoyada en cambios observados, no un único experimento controlado. <span class="verify">[Verificar: solidez de la evidencia de la revisión]</span></li>
+        <li>Un estudio panameño de 12 arrecifes costeros se basó en trabajo de campo de julio a noviembre de 2013, un periodo corto que por sí solo no puede mostrar tendencias a largo plazo. <span class="verify">[Verificar: duración y diseño de muestreo del estudio]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does an analysis look at spread as well as averages?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> A change matters only if it is larger than natural variation between samples</li>
+            <li><span class="opt-letter">B.</span> Averages are always wrong</li>
+            <li><span class="opt-letter">C.</span> Spread shows the colour of the data</li>
+            <li><span class="opt-letter">D.</span> Spread replaces the need for sampling</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Spread shows whether an observed change exceeds natural variation.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué un análisis mira la dispersión además de los promedios?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Un cambio solo importa si es mayor que la variación natural entre muestras</li>
+            <li><span class="opt-letter">B.</span> Los promedios siempre están mal</li>
+            <li><span class="opt-letter">C.</span> La dispersión muestra el color de los datos</li>
+            <li><span class="opt-letter">D.</span> La dispersión reemplaza la necesidad de muestrear</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — La dispersión muestra si un cambio observado supera la variación natural.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does a correlation between two variables not prove that one causes the other?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Both may be driven by a third factor, or the link may be coincidental</li>
+            <li><span class="opt-letter">B.</span> Correlations are always negative</li>
+            <li><span class="opt-letter">C.</span> Causes cannot exist in ecology</li>
+            <li><span class="opt-letter">D.</span> Correlations only apply to fish</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Two variables can move together because of a third factor or by chance.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué una correlación entre dos variables no demuestra que una cause la otra?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Ambas pueden estar impulsadas por un tercer factor, o la relación puede ser casual</li>
+            <li><span class="opt-letter">B.</span> Las correlaciones siempre son negativas</li>
+            <li><span class="opt-letter">C.</span> En ecología no pueden existir causas</li>
+            <li><span class="opt-letter">D.</span> Las correlaciones solo se aplican a los peces</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Dos variables pueden moverse juntas por un tercer factor o por azar.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why can a short study miss long-term trends?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> A brief window may capture only part of natural cycles or changes</li>
+            <li><span class="opt-letter">B.</span> Long-term trends do not exist in the ocean</li>
+            <li><span class="opt-letter">C.</span> Short studies always have more data</li>
+            <li><span class="opt-letter">D.</span> Trends only appear in summer</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — A short window may not represent the full range of variation over time.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué un estudio corto puede no captar tendencias a largo plazo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Un periodo breve puede captar solo una parte de los ciclos o cambios naturales</li>
+            <li><span class="opt-letter">B.</span> Las tendencias a largo plazo no existen en el océano</li>
+            <li><span class="opt-letter">C.</span> Los estudios cortos siempre tienen más datos</li>
+            <li><span class="opt-letter">D.</span> Las tendencias solo aparecen en verano</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Un periodo corto puede no representar toda la variación a lo largo del tiempo.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 12 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L12 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
