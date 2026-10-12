@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L09 Marine Ecology — Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 09 · Marine Ecology</div>
+        <h1 class="lesson-title">Tools</h1>
+        <div class="lesson-subtitle">Herramientas de la Ecología Marina</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">CTD  ·  SENSORS  ·  DERIVED VALUES</text>
+        <!-- CTD body -->
+        <rect x="150" y="40" width="80" height="120" rx="6" fill="rgba(10,110,138,0.2)" stroke="rgba(26,200,200,0.6)"/>
+        <text x="190" y="100" fill="rgba(232,244,248,0.8)" font-family="monospace" font-size="9" text-anchor="middle">CTD</text>
+        <text x="190" y="114" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">sensor package</text>
+        <!-- Sensor outputs -->
+        <path d="M150,70 L60,70" stroke="rgba(232,96,64,0.7)" stroke-width="1"/>
+        <text x="30" y="66" fill="rgba(232,96,64,0.85)" font-family="monospace" font-size="7">Temperature</text>
+        <path d="M150,100 L60,100" stroke="rgba(240,180,41,0.7)" stroke-width="1"/>
+        <text x="30" y="96" fill="rgba(240,180,41,0.85)" font-family="monospace" font-size="7">Conductivity</text>
+        <path d="M150,130 L60,130" stroke="rgba(26,200,200,0.7)" stroke-width="1"/>
+        <text x="30" y="126" fill="rgba(26,200,200,0.85)" font-family="monospace" font-size="7">Pressure</text>
+        <!-- Derived -->
+        <path d="M230,100 L290,100" stroke="rgba(138,184,204,0.6)" stroke-width="1"/>
+        <rect x="290" y="60" width="80" height="80" fill="rgba(4,41,74,0.4)" stroke="rgba(138,184,204,0.4)"/>
+        <text x="330" y="90" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="7" text-anchor="middle">Derived:</text>
+        <text x="330" y="104" fill="rgba(232,244,248,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">salinity</text>
+        <text x="330" y="116" fill="rgba(232,244,248,0.6)" font-family="monospace" font-size="6.5" text-anchor="middle">depth</text>
+        <text x="30" y="230" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">Measured values are converted into the variables ecologists use</text>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Marine ecologists rely on instruments that turn the ocean into measurable data. The <em>CTD</em>, which stands for conductivity, temperature and depth, is among the most widely used. It is a package of electronic sensors that tracks how conductivity and temperature change with depth. Conductivity is not measured as salinity directly: salinity is derived from conductivity together with the temperature and pressure of the same water. Depth is derived from pressure, using the density of the water, which itself depends on temperature and salinity. CTDs are often mounted on a metal frame called a rosette, which can also hold water-sampling bottles, so that one lowering collects physical data and water samples together. Other tools, such as underwater cameras and photo-quadrats, record biological information in the field. Knowing what each instrument actually measures, and what is calculated from it, is essential for interpreting the data correctly.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los ecólogos marinos dependen de instrumentos que convierten el océano en datos medibles. El <em>CTD</em>, que significa conductividad, temperatura y profundidad, es uno de los más usados. Es un conjunto de sensores electrónicos que registra cómo cambian la conductividad y la temperatura con la profundidad. La salinidad no se mide directamente: se deriva de la conductividad junto con la temperatura y la presión del mismo agua. La profundidad se deriva de la presión, usando la densidad del agua, que a su vez depende de la temperatura y la salinidad. Los CTD suelen montarse sobre un marco metálico llamado roseta, que también puede sostener botellas para tomar muestras de agua, de modo que una sola bajada recoge datos físicos y muestras. Otras herramientas, como las cámaras submarinas y los fotocuadrados, registran información biológica en el campo. Saber qué mide realmente cada instrumento, y qué se calcula a partir de él, es esencial para interpretar bien los datos.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Field tools in the Western Caribbean combine physical instruments with biological survey methods. Together they let researchers link water conditions to the reefs, seagrass and mangroves they study.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>A CTD profile shows how temperature changes with depth, which helps locate the thermocline and assess heat stress on shallow reefs. <span class="verify">[Verify: CTD profiles from Mesoamerican reef sites]</span></li>
+        <li>Photo-quadrats taken at 2.5 m intervals along a 50 m transect, as in Reef Life Survey methods, record the bottom cover that supports reef organisms.</li>
+        <li>Dissolved oxygen measurements help explain low-oxygen events such as the 2010 hypoxia-linked coral mortality in Bocas del Toro, Panama. <span class="verify">[Verify: which oxygen measurements were taken in that event]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Las herramientas de campo en el Caribe Occidental combinan instrumentos físicos con métodos biológicos de censo. Juntos permiten vincular las condiciones del agua con los arrecifes, pastos marinos y manglares que se estudian.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Un perfil de CTD muestra cómo cambia la temperatura con la profundidad, lo que ayuda a localizar la termoclina y a evaluar el estrés térmico en arrecifes someros. <span class="verify">[Verificar: perfiles de CTD de sitios de arrecife mesoamericanos]</span></li>
+        <li>Los fotocuadrados tomados cada 2,5 m a lo largo de un transecto de 50 m, como en los métodos de Reef Life Survey, registran la cobertura del fondo que sostiene a los organismos del arrecife.</li>
+        <li>Las mediciones de oxígeno disuelto ayudan a explicar eventos de bajo oxígeno, como la mortalidad de coral de 2010 ligada a la hipoxia en Bocas del Toro, Panamá. <span class="verify">[Verificar: qué mediciones de oxígeno se tomaron en ese evento]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What does a CTD directly measure?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Conductivity, temperature and pressure</li>
+            <li><span class="opt-letter">B.</span> Salinity, depth and chlorophyll directly</li>
+            <li><span class="opt-letter">C.</span> Fish abundance</li>
+            <li><span class="opt-letter">D.</span> Wave height</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — The CTD's sensors measure conductivity, temperature and pressure.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Qué mide directamente un CTD?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Conductividad, temperatura y presión</li>
+            <li><span class="opt-letter">B.</span> Salinidad, profundidad y clorofila directamente</li>
+            <li><span class="opt-letter">C.</span> La abundancia de peces</li>
+            <li><span class="opt-letter">D.</span> La altura de las olas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Los sensores del CTD miden conductividad, temperatura y presión.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 How is salinity obtained from a CTD?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Salinity is read directly from a salt sensor</li>
+            <li><span class="opt-letter">B.</span> It is derived from conductivity together with temperature and pressure</li>
+            <li><span class="opt-letter">C.</span> It is taken from the sea surface only</li>
+            <li><span class="opt-letter">D.</span> It is estimated from fish counts</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Salinity is derived from conductivity, temperature and pressure of the same water.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Cómo se obtiene la salinidad a partir de un CTD?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Se lee directamente de un sensor de sal</li>
+            <li><span class="opt-letter">B.</span> Se deriva de la conductividad junto con la temperatura y la presión</li>
+            <li><span class="opt-letter">C.</span> Se toma solo de la superficie del mar</li>
+            <li><span class="opt-letter">D.</span> Se estima a partir de conteos de peces</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La salinidad se deriva de la conductividad, la temperatura y la presión del mismo agua.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why is a CTD often mounted on a rosette?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> So one lowering can also carry water-sampling bottles</li>
+            <li><span class="opt-letter">B.</span> To make the instrument float</li>
+            <li><span class="opt-letter">C.</span> To measure the wind</li>
+            <li><span class="opt-letter">D.</span> To replace the sensors</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — A rosette frame can hold sampling bottles along with the CTD.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué un CTD suele montarse en una roseta?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Para que una sola bajada también lleve botellas de muestreo de agua</li>
+            <li><span class="opt-letter">B.</span> Para que el instrumento flote</li>
+            <li><span class="opt-letter">C.</span> Para medir el viento</li>
+            <li><span class="opt-letter">D.</span> Para reemplazar los sensores</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — El marco de roseta puede llevar botellas de muestreo junto con el CTD.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 09 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L09 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
