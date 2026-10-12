@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L24 Marine Ecology — Indicators</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 24 · Marine Ecology</div>
+        <h1 class="lesson-title">Indicators</h1>
+        <div class="lesson-subtitle">Indicadores</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">MEASURE  ·  SUMMARIZE  ·  COMPARE</text>
+        <!-- Gauge-style indicator panels -->
+        <g fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="1">
+          <rect x="30" y="50" width="90" height="120" rx="3"/>
+          <rect x="145" y="50" width="90" height="120" rx="3"/>
+          <rect x="260" y="50" width="90" height="120" rx="3"/>
+        </g>
+        <text x="40" y="70" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8">Coral cover</text>
+        <text x="40" y="150" fill="#1ac8c8" font-family="monospace" font-size="18">%</text>
+        <text x="155" y="70" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8">Fish biomass</text>
+        <text x="155" y="150" fill="#1ac8c8" font-family="monospace" font-size="18">kg</text>
+        <text x="270" y="70" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8">Heat stress</text>
+        <text x="270" y="150" fill="#f0b429" font-family="monospace" font-size="18">DHW</text>
+        <text x="30" y="200" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">Each indicator summarizes one aspect of reef condition.</text>
+        <text x="30" y="216" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">No single indicator describes the whole reef.</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          An <em>indicator</em> is a measurable variable that summarizes one aspect of an ecosystem's condition. Good indicators are chosen because they respond to the process of interest, can be measured repeatably, and are interpretable by managers. Coral cover, the percentage of the seabed covered by live coral, is a widely used indicator of reef condition, and it can be estimated from photo-quadrats. Fish biomass indicates the size and abundance of reef fishes, which reflects fishing pressure and habitat condition. Heat-stress indicators, such as degree heating weeks, measure accumulated thermal stress that can lead to coral bleaching. Indicators are not interchangeable: a reef can have high coral cover and low fish biomass, or the reverse, so several indicators are usually reported together. Their values are interpreted against baselines and reference sites, not against an absolute standard.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Un <em>indicador</em> es una variable medible que resume un aspecto del estado de un ecosistema. Los buenos indicadores se eligen porque responden al proceso de interés, pueden medirse de forma repetible y son interpretables por quienes manejan el recurso. La cobertura de coral, es decir, el porcentaje del fondo marino cubierto por coral vivo, es un indicador muy usado del estado del arrecife, y puede estimarse a partir de fotocuadrados. La biomasa de peces indica el tamaño y la abundancia de los peces de arrecife, lo que refleja la presión pesquera y el estado del hábitat. Los indicadores de estrés térmico, como las semanas de calentamiento por grado, miden el estrés térmico acumulado que puede provocar blanqueamiento del coral. Los indicadores no son intercambiables: un arrecife puede tener alta cobertura de coral y baja biomasa de peces, o al revés, por lo que suelen reportarse varios indicadores juntos. Sus valores se interpretan frente a líneas base y sitios de referencia, no frente a un estándar absoluto.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Caribbean coral cover has declined sharply over recent decades, and heat-stress indicators explain part of the recent loss, but the two are not measured at the same scale.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Gardner et al. (2003, Science) reported that average hard coral cover on Caribbean reefs fell by 80%, from about 50% to 10%, over three decades, and that the rate of loss slowed in the past decade compared with the 1980s. The abstract does not state the number of reefs or taxa analyzed. <span class="verify">[Verify: sites and years in the meta-analysis]</span></li>
+        <li>NOAA Coral Reef Watch uses degree heating weeks (DHW) on a 0–20 °C-weeks scale. Bleaching risk begins at 4 °C-weeks, reef-wide bleaching with mortality of heat-sensitive corals is likely by 8, and severe multi-species mortality is a risk at 16 or more.</li>
+        <li>Coral cover and DHW are satellite-linked only for heat stress; cover and fish biomass still require field surveys. Mesoamerican reef cover and biomass values for specific sites are not included here. <span class="verify">[Verify: current regional site values]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          La cobertura de coral en el Caribe ha disminuido de forma marcada en las últimas décadas, y los indicadores de estrés térmico explican parte de la pérdida reciente, pero ambos no se miden a la misma escala.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Gardner et al. (2003, Science) reportaron que la cobertura media de coral duro en los arrecifes del Caribe bajó 80%, de unos 50% a 10%, en tres décadas, y que la tasa de pérdida se desaceleró en la última década en comparación con los años ochenta. El resumen no indica el número de arrecifes ni de taxa analizados. <span class="verify">[Verificar: sitios y años del metaanálisis]</span></li>
+        <li>El Coral Reef Watch de la NOAA usa semanas de calentamiento por grado (DHW) en una escala de 0 a 20 °C-semana. El riesgo de blanqueamiento empieza en 4 °C-semana, el blanqueamiento generalizado con mortalidad de corales sensibles al calor es probable en 8, y la mortalidad severa de varias especies es un riesgo a partir de 16.</li>
+        <li>La cobertura y la biomasa de peces requieren censos de campo; los productos satelitales solo cubren el estrés térmico. No se incluyen aquí valores regionales de cobertura o biomasa para sitios específicos. <span class="verify">[Verificar: valores regionales actuales por sitio]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why are several indicators usually reported together?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Each indicator describes only one aspect of reef condition</li>
+            <li><span class="opt-letter">B.</span> Indicators are always identical</li>
+            <li><span class="opt-letter">C.</span> One indicator is always enough</li>
+            <li><span class="opt-letter">D.</span> Indicators measure the same thing</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — A reef can have high coral cover and low fish biomass, so one indicator does not describe the whole reef.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué suelen reportarse varios indicadores juntos?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Cada indicador describe solo un aspecto del estado del arrecife</li>
+            <li><span class="opt-letter">B.</span> Los indicadores siempre son idénticos</li>
+            <li><span class="opt-letter">C.</span> Un solo indicador siempre basta</li>
+            <li><span class="opt-letter">D.</span> Los indicadores miden lo mismo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Un arrecife puede tener alta cobertura de coral y baja biomasa de peces, así que un solo indicador no describe todo el arrecife.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 On the Coral Reef Watch DHW scale, at what value does bleaching risk begin?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 1 °C-weeks</li>
+            <li><span class="opt-letter">B.</span> 4 °C-weeks</li>
+            <li><span class="opt-letter">C.</span> 12 °C-weeks</li>
+            <li><span class="opt-letter">D.</span> 20 °C-weeks</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — NOAA states that there is a risk of coral bleaching when DHW reaches 4 °C-weeks.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 En la escala DHW de Coral Reef Watch, ¿en qué valor comienza el riesgo de blanqueamiento?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 1 °C-semana</li>
+            <li><span class="opt-letter">B.</span> 4 °C-semanas</li>
+            <li><span class="opt-letter">C.</span> 12 °C-semanas</li>
+            <li><span class="opt-letter">D.</span> 20 °C-semanas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La NOAA indica que hay riesgo de blanqueamiento cuando el DHW alcanza 4 °C-semanas.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 According to Gardner et al. (2003), what happened to average hard coral cover on Caribbean reefs over three decades?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It increased by 80%</li>
+            <li><span class="opt-letter">B.</span> It was unchanged</li>
+            <li><span class="opt-letter">C.</span> It fell by 80%, from about 50% to 10%</li>
+            <li><span class="opt-letter">D.</span> It fell by 20%, from about 80% to 60%</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The abstract reports an 80% reduction, from about 50% to 10% cover, in three decades.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según Gardner et al. (2003), ¿qué ocurrió con la cobertura media de coral duro en los arrecifes del Caribe en tres décadas?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Aumentó 80%</li>
+            <li><span class="opt-letter">B.</span> No cambió</li>
+            <li><span class="opt-letter">C.</span> Bajó 80%, de unos 50% a 10%</li>
+            <li><span class="opt-letter">D.</span> Bajó 20%, de unos 80% a 60%</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El resumen reporta una reducción de 80%, de unos 50% a 10% de cobertura, en tres décadas.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 24 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L24 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
