@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L18 Marine Ecology — Applications</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 18 · Marine Ecology</div>
+        <h1 class="lesson-title">Applications</h1>
+        <div class="lesson-subtitle">Aplicaciones de la Ecología Marina</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">SCIENCE  →  ALERT  →  MANAGEMENT</text>
+        <rect x="20" y="70" width="100" height="60" fill="rgba(10,110,138,0.2)" stroke="rgba(26,200,200,0.5)"/>
+        <text x="70" y="96" fill="rgba(232,244,248,0.8)" font-family="monospace" font-size="7.5" text-anchor="middle">Monitoring</text>
+        <text x="70" y="112" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">standard surveys</text>
+        <rect x="140" y="70" width="100" height="60" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.5)"/>
+        <text x="190" y="96" fill="rgba(232,244,248,0.8)" font-family="monospace" font-size="7.5" text-anchor="middle">Forecast</text>
+        <text x="190" y="112" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">heat stress alerts</text>
+        <rect x="260" y="70" width="100" height="60" fill="rgba(232,96,64,0.1)" stroke="rgba(232,96,64,0.5)"/>
+        <text x="310" y="96" fill="rgba(232,244,248,0.8)" font-family="monospace" font-size="7.5" text-anchor="middle">Decision</text>
+        <text x="310" y="112" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">where to act</text>
+        <path d="M120,100 L140,100" stroke="rgba(26,200,200,0.6)" stroke-width="1.2"/>
+        <path d="M240,100 L260,100" stroke="rgba(26,200,200,0.6)" stroke-width="1.2"/>
+        <path d="M310,130 L310,170 L70,170 L70,130" stroke="rgba(138,184,204,0.5)" stroke-width="1" stroke-dasharray="3,3" fill="none"/>
+        <text x="190" y="186" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="7" text-anchor="middle">results feed back into monitoring</text>
+        <text x="30" y="232" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">Ecology is useful when it informs decisions</text>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Marine ecology matters most when it informs decisions. Its applications include monitoring the condition of habitats, forecasting events such as heat stress, assessing the effects of human activity, and designing protected areas and fisheries rules. Each application follows the same logic: measure consistently, interpret carefully, and act on what the evidence supports. Monitoring provides the baseline against which change is judged. Forecasts give managers time to respond, although their value depends on accuracy and on clear communication of uncertainty. Management actions, such as protecting grazers or reducing nutrient inputs, should be evaluated afterwards, so that the results feed back into future decisions. Applied ecology also requires honesty about what the data cannot yet show, since premature conclusions can lead to poor choices.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La ecología marina importa más cuando informa las decisiones. Sus aplicaciones incluyen el monitoreo del estado de los hábitats, el pronóstico de eventos como el estrés térmico, la evaluación de los efectos de la actividad humana y el diseño de áreas protegidas y normas pesqueras. Cada aplicación sigue la misma lógica: medir de forma consistente, interpretar con cuidado y actuar según lo que sostiene la evidencia. El monitoreo aporta la línea base contra la que se juzga el cambio. Los pronósticos dan a los gestores tiempo para responder, aunque su valor depende de su precisión y de comunicar con claridad la incertidumbre. Las medidas de manejo, como proteger a los herbívoros o reducir los aportes de nutrientes, deben evaluarse después, para que los resultados retroalimenten las decisiones futuras. La ecología aplicada también exige honestidad sobre lo que los datos aún no pueden mostrar, porque las conclusiones prematuras pueden llevar a malas decisiones.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Applied ecology in the Western Caribbean connects monitoring, forecasting and management across the Mesoamerican Barrier Reef System, about 1,126 km long across four countries.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>NOAA Coral Reef Watch turns temperature data into bleaching alerts at 4 and 8 degree heating weeks, giving reef managers a basis for timing responses.</li>
+        <li>Standardized protocols such as the Reef Life Survey 50 m transect, with fish counted in 5 m bands and invertebrates in 1 m bands, let managers compare reefs across sites and years. <span class="verify">[Verify: which Mesoamerican managers use these protocols]</span></li>
+        <li>Because the Mesoamerican reef region shows northward larval transport with low local retention, management of one reef may need to account for conditions upstream. Connectivity is inferred from currents and drifters, not measured directly. <span class="verify">[Verify: how this is applied in current reef management plans]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          La ecología aplicada en el Caribe Occidental conecta el monitoreo, el pronóstico y la gestión en todo el Sistema Arrecifal Mesoamericano, de unos 1.126 km de largo a través de cuatro países.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El Coral Reef Watch de la NOAA convierte datos de temperatura en alertas de blanqueamiento a 4 y 8 semanas de calentamiento, dando a los gestores de arrecifes una base para programar sus respuestas.</li>
+        <li>Protocolos estandarizados como el transecto de 50 m de Reef Life Survey, con peces contados en bandas de 5 m e invertebrados en bandas de 1 m, permiten a los gestores comparar arrecifes entre sitios y años. <span class="verify">[Verificar: qué gestores mesoamericanos usan estos protocolos]</span></li>
+        <li>Como la región del arrecife mesoamericano muestra transporte larvario hacia el norte con baja retención local, la gestión de un arrecife puede necesitar considerar las condiciones aguas arriba. La conectividad se infiere de corrientes y boyas, no se mide directamente. <span class="verify">[Verificar: cómo se aplica esto en los planes de manejo actuales]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Why does applied marine ecology follow up management actions with evaluation?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> So results can feed back into future decisions</li>
+            <li><span class="opt-letter">B.</span> So that actions never need changing</li>
+            <li><span class="opt-letter">C.</span> So that data are not collected</li>
+            <li><span class="opt-letter">D.</span> Evaluation is never needed</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Evaluation shows whether an action worked and informs later choices.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué la ecología aplicada evalúa las medidas de manejo después de aplicarlas?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Para que los resultados retroalimenten las decisiones futuras</li>
+            <li><span class="opt-letter">B.</span> Para que las medidas nunca tengan que cambiar</li>
+            <li><span class="opt-letter">C.</span> Para que no se recojan datos</li>
+            <li><span class="opt-letter">D.</span> La evaluación nunca es necesaria</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — La evaluación muestra si una medida funcionó e informa elecciones posteriores.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 What does NOAA Coral Reef Watch provide to reef managers?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Bleaching alerts based on heat stress thresholds</li>
+            <li><span class="opt-letter">B.</span> Fish species names</li>
+            <li><span class="opt-letter">C.</span> Salinity readings at every reef</li>
+            <li><span class="opt-letter">D.</span> Tide tables only</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Coral Reef Watch issues bleaching alerts from heat stress measures.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Qué ofrece el Coral Reef Watch de la NOAA a los gestores de arrecifes?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Alertas de blanqueamiento basadas en umbrales de estrés térmico</li>
+            <li><span class="opt-letter">B.</span> Nombres de especies de peces</li>
+            <li><span class="opt-letter">C.</span> Lecturas de salinidad en cada arrecife</li>
+            <li><span class="opt-letter">D.</span> Solo tablas de mareas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — El Coral Reef Watch emite alertas de blanqueamiento a partir de medidas de estrés térmico.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why do standardized survey protocols help managers?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> They let managers compare reefs across sites and years</li>
+            <li><span class="opt-letter">B.</span> They remove the need for field work</li>
+            <li><span class="opt-letter">C.</span> They make all reefs look the same</li>
+            <li><span class="opt-letter">D.</span> They replace management decisions</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Consistent methods make data comparable across places and time.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué los protocolos estandarizados de censo ayudan a los gestores?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Permiten comparar arrecifes entre sitios y años</li>
+            <li><span class="opt-letter">B.</span> Eliminan la necesidad del trabajo de campo</li>
+            <li><span class="opt-letter">C.</span> Hacen que todos los arrecifes parezcan iguales</li>
+            <li><span class="opt-letter">D.</span> Reemplazan las decisiones de manejo</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Los métodos consistentes hacen comparables los datos entre lugares y tiempos.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 18 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L18 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
