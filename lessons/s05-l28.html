@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L28 Marine Ecology — Restoration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 28 · Marine Ecology</div>
+        <h1 class="lesson-title">Restoration</h1>
+        <div class="lesson-subtitle">Restauración</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">OBJECTIVE  ·  METHOD  ·  MONITOR</text>
+        <!-- Restoration cycle -->
+        <circle cx="190" cy="130" r="70" fill="none" stroke="rgba(26,200,200,0.4)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <text x="152" y="124" fill="#1ac8c8" font-family="monospace" font-size="9">Set clear</text>
+        <text x="152" y="138" fill="#1ac8c8" font-family="monospace" font-size="9">objectives</text>
+        <text x="30" y="72" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8">Outplant</text>
+        <text x="290" y="72" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8">Monitor</text>
+        <text x="30" y="222" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">Projects without objectives or standard monitoring</text>
+        <text x="30" y="236" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">are hard to judge as successes or failures.</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          <em>Restoration</em> is the deliberate effort to return a degraded ecosystem toward a reference state, or toward a state that provides comparable function. Coral restoration uses methods such as coral gardening, in which fragments are grown in nurseries and then outplanted to degraded reefs. A systematic review by Boström-Einarsson et al. (2020) describes eight restoration methods and reports survival of outplanted corals between 60 and 70% in the projects it summarizes. The same review finds that most projects are small, with a median restored area of 100 m², that 60% of projects monitored sites for less than 18 months, and that many projects lacked clear objectives and standardized monitoring. Restoration results are therefore hard to judge unless objectives are set in advance and outcomes are measured with consistent methods over longer periods.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La <em>restauración</em> es el esfuerzo deliberado por devolver un ecosistema degradado hacia un estado de referencia, o hacia un estado que proporcione funciones comparables. La restauración de coral usa métodos como el cultivo de coral, en el que fragmentos se cultivan en viveros y luego se trasplantan a arrecifes degradados. Una revisión sistemática de Boström-Einarsson et al. (2020) describe ocho métodos de restauración y reporta una supervivencia de los corales trasplantados de entre 60 y 70% en los proyectos que resume. La misma revisión encuentra que la mayoría de los proyectos son pequeños, con un área restaurada mediana de 100 m², que 60% de los proyectos monitorearon sus sitios durante menos de 18 meses, y que muchos carecían de objetivos claros y de un monitoreo estandarizado. Por ello, los resultados de la restauración son difíciles de juzgar a menos que los objetivos se fijen de antemano y los resultados se midan con métodos consistentes durante periodos más largos.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Caribbean restoration projects face the same constraints as the global sample: small areas, short monitoring periods, and objectives that are not always defined in advance.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Boström-Einarsson et al. (2020) is a global review; its survival range and project-size figures are not Caribbean-specific. The survival range is taken from a secondary summary of the paper and should be checked against the full article. <span class="verify">[Verify: survival range and project statistics in the full PLoS ONE article]</span></li>
+        <li>Gardner et al. (2003) reported an 80% decline in average Caribbean hard coral cover over three decades, which is the scale of loss that restoration must address. <span class="verify">[Verify: whether the decline figure applies to the Mesoamerican sites in question]</span></li>
+        <li>Mesoamerican restoration sites, species and outcomes are not listed here. <span class="verify">[Verify: regional restoration programs and sources]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los proyectos de restauración en el Caribe enfrentan las mismas limitaciones que la muestra global: áreas pequeñas, periodos de monitoreo cortos y objetivos que no siempre se definen de antemano.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Boström-Einarsson et al. (2020) es una revisión global; sus cifras de supervivencia y tamaño de proyecto no son específicas del Caribe. El rango de supervivencia proviene de un resumen secundario del artículo y debe verificarse contra el texto completo. <span class="verify">[Verificar: rango de supervivencia y estadísticas de proyectos en el artículo completo de PLoS ONE]</span></li>
+        <li>Gardner et al. (2003) reportaron una caída de 80% en la cobertura media de coral duro del Caribe en tres décadas, la escala de pérdida que la restauración debe atender. <span class="verify">[Verificar: si la cifra de caída aplica a los sitios mesoamericanos en cuestión]</span></li>
+        <li>Los sitios, especies y resultados de restauración mesoamericanos no se enumeran aquí. <span class="verify">[Verificar: programas regionales de restauración y fuentes]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What did Boström-Einarsson et al. (2020) identify as a common shortcoming of restoration projects?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Clear and achievable objectives</li>
+            <li><span class="opt-letter">B.</span> Standardized monitoring and reporting</li>
+            <li><span class="opt-letter">C.</span> Lack of clear objectives and standardized monitoring</li>
+            <li><span class="opt-letter">D.</span> Projects that are all longer than ten years</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The review lists a lack of clear and achievable objectives and of standardized monitoring and reporting as shortcomings.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Qué identificó Boström-Einarsson et al. (2020) como una deficiencia común de los proyectos de restauración?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Objetivos claros y alcanzables</li>
+            <li><span class="opt-letter">B.</span> Monitoreo y reporte estandarizados</li>
+            <li><span class="opt-letter">C.</span> Falta de objetivos claros y de monitoreo estandarizado</li>
+            <li><span class="opt-letter">D.</span> Proyectos que duran más de diez años</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La revisión señala como deficiencias la falta de objetivos claros y alcanzables, y de monitoreo y reporte estandarizados.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 What does coral gardening involve?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Growing coral fragments in nurseries and outplanting them to degraded reefs</li>
+            <li><span class="opt-letter">B.</span> Removing all coral from a reef</li>
+            <li><span class="opt-letter">C.</span> Painting coral skeletons</li>
+            <li><span class="opt-letter">D.</span> Moving reefs to deeper water</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Coral gardening grows fragments in nurseries and then outplants them to degraded reefs.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿En qué consiste el cultivo de coral?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Cultivar fragmentos de coral en viveros y trasplantarlos a arrecifes degradados</li>
+            <li><span class="opt-letter">B.</span> Retirar todo el coral de un arrecife</li>
+            <li><span class="opt-letter">C.</span> Pintar esqueletos de coral</li>
+            <li><span class="opt-letter">D.</span> Trasladar arrecifes a aguas más profundas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — El cultivo de coral cultiva fragmentos en viveros y luego los trasplanta a arrecifes degradados.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why are restoration results hard to judge, according to the review's findings?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Objectives are set in advance and monitored for decades</li>
+            <li><span class="opt-letter">B.</span> Many projects lack clear objectives and most monitor for under 18 months</li>
+            <li><span class="opt-letter">C.</span> Most projects cover thousands of square metres</li>
+            <li><span class="opt-letter">D.</span> Survival is always 100%</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The review reports 60% of projects monitored for less than 18 months, and many lacked clear objectives.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según los hallazgos de la revisión, ¿por qué los resultados de la restauración son difíciles de juzgar?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los objetivos se fijan de antemano y se monitorean durante décadas</li>
+            <li><span class="opt-letter">B.</span> Muchos proyectos carecen de objetivos claros y la mayoría se monitorea menos de 18 meses</li>
+            <li><span class="opt-letter">C.</span> La mayoría de los proyectos cubren miles de metros cuadrados</li>
+            <li><span class="opt-letter">D.</span> La supervivencia siempre es de 100%</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La revisión reporta que 60% de los proyectos se monitorearon menos de 18 meses, y muchos carecían de objetivos claros.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 28 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L28 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
