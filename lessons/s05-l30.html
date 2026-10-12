@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L30 Marine Ecology — Advanced Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 30 · Marine Ecology</div>
+        <h1 class="lesson-title">Advanced Concepts</h1>
+        <div class="lesson-subtitle">Conceptos Avanzados</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Advanced</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">ALTERNATIVE STATES  ·  RESILIENCE</text>
+        <!-- Two basins with a threshold between them -->
+        <path d="M30,80 Q90,80 110,150 Q130,200 190,200 Q250,200 270,150 Q290,80 350,80" fill="none" stroke="rgba(26,200,200,0.5)" stroke-width="2"/>
+        <circle cx="90" cy="120" r="7" fill="#1ac8c8"/>
+        <text x="60" y="108" fill="#1ac8c8" font-family="monospace" font-size="8">Coral-dominated</text>
+        <circle cx="290" cy="120" r="7" fill="#f08060"/>
+        <text x="235" y="108" fill="#f08060" font-family="monospace" font-size="8">Algae-dominated</text>
+        <path d="M190,60 L190,190" stroke="rgba(240,180,41,0.5)" stroke-dasharray="4,4"/>
+        <text x="160" y="52" fill="#f0b429" font-family="monospace" font-size="8">Threshold</text>
+        <text x="30" y="232" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">Reduced resilience can allow a shift to another stable state.</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Advanced ecological theory asks how systems respond to disturbance and whether they can settle into different stable states. A reef may remain dominated by corals under one set of conditions and shift toward fleshy algae under another. Nyström et al. (2000) describe such a phase shift on Caribbean reefs, from hard coral to fleshy algae dominance, driven by a combination of natural disturbances such as hurricanes and disease and human pressures such as overfishing. The paper argues that the loss of herbivore diversity reduced the reef's resilience, and that a reef with reduced resilience is more likely to shift into another stable state. The concept of <em>resilience</em> here refers to the capacity of a system to absorb disturbance and remain in its prior state, not to a guarantee of recovery. Because shifts can be hard to reverse, advanced analysis emphasizes thresholds, feedbacks and the conditions that maintain each state.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          La teoría ecológica avanzada pregunta cómo responden los sistemas a las perturbaciones y si pueden estabilizarse en distintos estados estables. Un arrecife puede seguir dominado por corales bajo un conjunto de condiciones y desplazarse hacia algas carnosas bajo otro. Nyström et al. (2000) describen un cambio de fase en los arrecifes del Caribe, de dominio de coral duro a dominio de algas carnosas, impulsado por una combinación de perturbaciones naturales, como los huracanes y las enfermedades, y de presiones humanas, como la sobrepesca. El artículo sostiene que la pérdida de diversidad de herbívoros redujo la resiliencia del arrecife, y que un arrecife con menor resiliencia tiene más probabilidades de desplazarse hacia otro estado estable. Aquí, <em>resiliencia</em> se refiere a la capacidad de un sistema para absorber perturbaciones y permanecer en su estado previo, no a una garantía de recuperación. Como los cambios pueden ser difíciles de revertir, el análisis avanzado enfatiza los umbrales, las retroalimentaciones y las condiciones que mantienen cada estado.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Caribbean reefs provide a well-studied case of a shift from coral to algal dominance, and the mechanisms are still debated in detail.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Nyström et al. (2000) describe a Caribbean phase shift from hard coral to fleshy algae dominance and link it to loss of herbivore diversity. These statements come from the paper's body and Box 1; its abstract was not available for direct quotation. <span class="verify">[Verify: the paper's abstract and the Caribbean site data in Box 1]</span></li>
+        <li>Gardner et al. (2003) reported an 80% decline in average Caribbean hard coral cover over three decades, consistent with the scale of change a phase shift would produce. The abstract does not assign the decline to a shift mechanism. <span class="verify">[Verify: whether the meta-analysis discusses phase shifts]</span></li>
+        <li>Hughes (2003) states that human impacts on reefs are increasing in diversity, frequency and scale, which bears on how resilience is lost. <span class="verify">[Verify: Mesoamerican-specific phase-shift evidence]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los arrecifes del Caribe ofrecen un caso bien estudiado de cambio de dominio de coral a algas, y sus mecanismos aún se debaten en detalle.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Nyström et al. (2000) describen un cambio de fase caribeño de dominio de coral duro a dominio de algas carnosas y lo vinculan con la pérdida de diversidad de herbívoros. Estas afirmaciones provienen del cuerpo del artículo y del Recuadro 1; el resumen no estaba disponible para citarlo directamente. <span class="verify">[Verificar: resumen del artículo y datos de sitios caribeños en el Recuadro 1]</span></li>
+        <li>Gardner et al. (2003) reportaron una caída de 80% en la cobertura media de coral duro del Caribe en tres décadas, coherente con la escala de cambio que produciría un cambio de fase. El resumen no atribuye la caída a un mecanismo de cambio de estado. <span class="verify">[Verificar: si el metaanálisis analiza los cambios de fase]</span></li>
+        <li>Hughes (2003) indica que los impactos humanos sobre los arrecifes aumentan en diversidad, frecuencia y escala, lo que influye en cómo se pierde la resiliencia. <span class="verify">[Verificar: evidencia de cambio de fase específica de Mesoamérica]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What phase shift do Nyström et al. (2000) describe on Caribbean reefs?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> From fleshy algae dominance to hard coral dominance</li>
+            <li><span class="opt-letter">B.</span> From hard coral dominance to fleshy algae dominance</li>
+            <li><span class="opt-letter">C.</span> From sand to seagrass dominance</li>
+            <li><span class="opt-letter">D.</span> No phase shift is described</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The paper describes a shift from hard coral to fleshy algae dominance.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Qué cambio de fase describen Nyström et al. (2000) en los arrecifes del Caribe?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> De dominio de algas carnosas a dominio de coral duro</li>
+            <li><span class="opt-letter">B.</span> De dominio de coral duro a dominio de algas carnosas</li>
+            <li><span class="opt-letter">C.</span> De arena a dominio de pastos marinos</li>
+            <li><span class="opt-letter">D.</span> No describen ningún cambio de fase</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El artículo describe un cambio de dominio de coral duro a dominio de algas carnosas.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 According to Nyström et al. (2000), what reduced the Caribbean reef's resilience?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> A gain in herbivore diversity</li>
+            <li><span class="opt-letter">B.</span> The loss of diversity within the herbivore group</li>
+            <li><span class="opt-letter">C.</span> Increased coral cover</li>
+            <li><span class="opt-letter">D.</span> Cooler water temperatures</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The paper states that the loss of diversity within the functional group of herbivores resulted in reduced resilience.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según Nyström et al. (2000), ¿qué redujo la resiliencia del arrecife caribeño?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Un aumento de la diversidad de herbívoros</li>
+            <li><span class="opt-letter">B.</span> La pérdida de diversidad dentro del grupo de herbívoros</li>
+            <li><span class="opt-letter">C.</span> Un aumento de la cobertura de coral</li>
+            <li><span class="opt-letter">D.</span> Aguas más frías</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El artículo indica que la pérdida de diversidad dentro del grupo funcional de herbívoros resultó en menor resiliencia.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 In this lesson, what does "resilience" mean?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> A guarantee that a system will recover</li>
+            <li><span class="opt-letter">B.</span> The capacity of a system to absorb disturbance and remain in its prior state</li>
+            <li><span class="opt-letter">C.</span> The number of species in a reef</li>
+            <li><span class="opt-letter">D.</span> The depth at which corals grow</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Resilience here means the capacity to absorb disturbance and stay in the prior state, not a guarantee of recovery.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 En esta lección, ¿qué significa "resiliencia"?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Una garantía de que un sistema se recuperará</li>
+            <li><span class="opt-letter">B.</span> La capacidad de un sistema para absorber perturbaciones y permanecer en su estado previo</li>
+            <li><span class="opt-letter">C.</span> El número de especies en un arrecife</li>
+            <li><span class="opt-letter">D.</span> La profundidad a la que crecen los corales</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — Aquí resiliencia significa la capacidad de absorber perturbaciones y mantenerse en el estado previo, no una garantía de recuperación.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 30 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L30 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
