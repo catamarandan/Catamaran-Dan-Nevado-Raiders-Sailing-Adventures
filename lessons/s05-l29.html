@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L29 Marine Ecology — Comparative Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 29 · Marine Ecology</div>
+        <h1 class="lesson-title">Comparative Systems</h1>
+        <div class="lesson-subtitle">Sistemas Comparados</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">MANGROVE  ·  SEAGRASS  ·  REEF</text>
+        <!-- Three habitats in a connected sequence -->
+        <rect x="30" y="60" width="90" height="120" rx="4" fill="rgba(26,200,200,0.08)" stroke="rgba(26,200,200,0.5)"/>
+        <text x="40" y="120" fill="#1ac8c8" font-family="monospace" font-size="9">Mangrove</text>
+        <text x="40" y="136" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8">nursery</text>
+        <rect x="145" y="60" width="90" height="120" rx="4" fill="rgba(240,180,41,0.06)" stroke="rgba(240,180,41,0.5)"/>
+        <text x="155" y="120" fill="#f0b429" font-family="monospace" font-size="9">Seagrass</text>
+        <text x="155" y="136" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8">transition</text>
+        <rect x="260" y="60" width="90" height="120" rx="4" fill="rgba(232,96,64,0.06)" stroke="rgba(232,96,64,0.5)"/>
+        <text x="270" y="120" fill="#f08060" font-family="monospace" font-size="9">Coral reef</text>
+        <text x="270" y="136" fill="rgba(232,244,248,0.7)" font-family="monospace" font-size="8">adult habitat</text>
+        <path d="M120,120 L145,120" stroke="rgba(26,200,200,0.6)" stroke-width="1.5"/>
+        <path d="M235,120 L260,120" stroke="rgba(26,200,200,0.6)" stroke-width="1.5"/>
+        <text x="30" y="216" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">Fish move between habitats across life stages.</text>
+        <text x="30" y="232" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">Connectivity links systems that are often studied apart.</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Comparative studies place different coastal ecosystems side by side to ask how their structure and function differ, and how they depend on one another. Coral reefs, mangroves and seagrass beds are often studied separately, but many reef fishes use more than one of them during their lives. In the Caribbean, Mumby et al. (2004) found that the biomass of several commercially important reef fish species more than doubled when adult habitat was connected to mangroves. The paper describes mangroves as an intermediate nursery habitat that may increase the survivorship of young fish, and it names <em>Scarus guacamaia</em>, the largest herbivorous fish in the Atlantic, as functionally dependent on mangroves. Comparisons like this show that the value of one ecosystem can depend on the condition of another, so management that treats systems in isolation may miss these links.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los estudios comparativos colocan lado a lado distintos ecosistemas costeros para preguntar cómo difieren su estructura y su función, y cómo dependen unos de otros. Los arrecifes de coral, los manglares y los pastos marinos suelen estudiarse por separado, pero muchos peces de arrecife usan más de uno de ellos a lo largo de su vida. En el Caribe, Mumby et al. (2004) encontraron que la biomasa de varias especies de peces de arrecife de importancia comercial se duplicó más que en los sitios sin hábitat adulto conectado a manglares. El artículo describe a los manglares como un hábitat intermedio de cría que puede aumentar la supervivencia de los peces juveniles, y menciona a <em>Scarus guacamaia</em>, el pez herbívoro más grande del Atlántico, como dependiente funcionalmente de los manglares. Comparaciones como esta muestran que el valor de un ecosistema puede depender del estado de otro, por lo que un manejo que trate los sistemas aislados puede pasar por alto estos vínculos.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Caribbean reefs are often linked to nearby mangroves and seagrass beds, so the health of one system can affect the others.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>Mumby et al. (2004) reported that adult reef fish biomass more than doubled for several commercially important species when adult habitat was connected to mangroves. The abstract does not give exact percentages or name all species. <span class="verify">[Verify: full-paper species list and fold-change values]</span></li>
+        <li>Jackson et al. (2001) describe overfishing as the earliest pervasive disturbance to coastal ecosystems. Comparative losses of mangroves and seagrass in the Mesoamerican region are not quantified here. <span class="verify">[Verify: regional mangrove and seagrass loss data and sources]</span></li>
+        <li>Gardner et al. (2003) reported an 80% decline in average Caribbean hard coral cover over three decades, which shows the reef side of the comparison. <span class="verify">[Verify: whether the reef decline is linked to adjacent habitat condition]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los arrecifes del Caribe suelen estar conectados con manglares y pastos marinos cercanos, por lo que la salud de un sistema puede afectar a los demás.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>Mumby et al. (2004) reportaron que la biomasa de peces adultos de arrecife se duplicó más para varias especies de importancia comercial cuando el hábitat adulto estaba conectado a manglares. El resumen no da porcentajes exactos ni nombra todas las especies. <span class="verify">[Verificar: lista completa de especies y valores de cambio en el artículo completo]</span></li>
+        <li>Jackson et al. (2001) describen la sobrepesca como la perturbación generalizada más temprana en los ecosistemas costeros. Las pérdidas comparadas de manglares y pastos marinos en la región mesoamericana no se cuantifican aquí. <span class="verify">[Verificar: datos regionales de pérdida de manglares y pastos marinos y fuentes]</span></li>
+        <li>Gardner et al. (2003) reportaron una caída de 80% en la cobertura media de coral duro del Caribe en tres décadas, que muestra el lado arrecifal de la comparación. <span class="verify">[Verificar: si la caída del arrecife se relaciona con el estado de hábitats adyacentes]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 According to Mumby et al. (2004), what happened to reef fish biomass when adult habitat was connected to mangroves?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> It fell by half</li>
+            <li><span class="opt-letter">B.</span> It was unchanged</li>
+            <li><span class="opt-letter">C.</span> It more than doubled for several commercially important species</li>
+            <li><span class="opt-letter">D.</span> It increased only in deep water</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — The abstract reports that the biomass of several commercially important species more than doubled when adult habitat was connected to mangroves.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según Mumby et al. (2004), ¿qué ocurrió con la biomasa de peces de arrecife cuando el hábitat adulto estaba conectado a manglares?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Se redujo a la mitad</li>
+            <li><span class="opt-letter">B.</span> No cambió</li>
+            <li><span class="opt-letter">C.</span> Se duplicó más para varias especies de importancia comercial</li>
+            <li><span class="opt-letter">D.</span> Aumentó solo en aguas profundas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — El resumen reporta que la biomasa de varias especies de importancia comercial se duplicó más cuando el hábitat adulto estaba conectado a manglares.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 How does Mumby et al. (2004) describe the role of mangroves for young fish?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> As a predator of juvenile fish</li>
+            <li><span class="opt-letter">B.</span> As an intermediate nursery habitat that may increase survivorship</li>
+            <li><span class="opt-letter">C.</span> As a source of ocean acidification</li>
+            <li><span class="opt-letter">D.</span> As a barrier that blocks all fish movement</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The paper describes mangroves as an intermediate nursery habitat that may increase the survivorship of young fish.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según Mumby et al. (2004), ¿cómo describen el papel de los manglares para los peces juveniles?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Como depredador de peces juveniles</li>
+            <li><span class="opt-letter">B.</span> Como un hábitat intermedio de cría que puede aumentar la supervivencia</li>
+            <li><span class="opt-letter">C.</span> Como fuente de acidificación oceánica</li>
+            <li><span class="opt-letter">D.</span> Como una barrera que bloquea todo movimiento de peces</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El artículo describe a los manglares como un hábitat intermedio de cría que puede aumentar la supervivencia de los peces juveniles.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why do comparative studies matter for management?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The value of one ecosystem can depend on the condition of another</li>
+            <li><span class="opt-letter">B.</span> Ecosystems never interact</li>
+            <li><span class="opt-letter">C.</span> Each habitat should be managed in complete isolation</li>
+            <li><span class="opt-letter">D.</span> Only the deepest habitats matter</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Comparisons show that habitats are linked, so managing one in isolation can miss effects on the others.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué importan los estudios comparativos para el manejo?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> El valor de un ecosistema puede depender del estado de otro</li>
+            <li><span class="opt-letter">B.</span> Los ecosistemas nunca interactúan</li>
+            <li><span class="opt-letter">C.</span> Cada hábitat debe manejarse en completo aislamiento</li>
+            <li><span class="opt-letter">D.</span> Solo importan los hábitats más profundos</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Las comparaciones muestran que los hábitats están vinculados, por lo que manejar uno aislado puede pasar por alto efectos sobre los demás.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 29 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L29 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
