@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L07 Marine Ecology — Drivers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 07 · Marine Ecology</div>
+        <h1 class="lesson-title">Drivers</h1>
+        <div class="lesson-subtitle">Factores que Impulsan los Ecosistemas Marinos</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">DRIVERS  ·  TEMPERATURE  ·  NUTRIENTS  ·  LIGHT</text>
+        <!-- Driver boxes feeding ecosystem -->
+        <rect x="20" y="50" width="100" height="36" fill="rgba(232,96,64,0.12)" stroke="rgba(232,96,64,0.5)"/>
+        <text x="70" y="66" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8" text-anchor="middle">Temperature</text>
+        <text x="70" y="78" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">heat stress</text>
+        <rect x="20" y="105" width="100" height="36" fill="rgba(240,180,41,0.1)" stroke="rgba(240,180,41,0.5)"/>
+        <text x="70" y="121" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8" text-anchor="middle">Nutrients</text>
+        <text x="70" y="133" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">runoff · upwelling</text>
+        <rect x="20" y="160" width="100" height="36" fill="rgba(26,200,200,0.1)" stroke="rgba(26,200,200,0.5)"/>
+        <text x="70" y="176" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8" text-anchor="middle">Currents</text>
+        <text x="70" y="188" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">larvae · nutrients</text>
+        <!-- Ecosystem -->
+        <rect x="200" y="90" width="150" height="80" fill="rgba(10,110,138,0.15)" stroke="rgba(26,200,200,0.5)"/>
+        <text x="275" y="128" fill="rgba(232,244,248,0.8)" font-family="monospace" font-size="9" text-anchor="middle">Ecosystem</text>
+        <text x="275" y="142" fill="rgba(232,244,248,0.5)" font-family="monospace" font-size="6.5" text-anchor="middle">responses</text>
+        <path d="M122,68 L198,110" stroke="rgba(232,96,64,0.6)" stroke-width="1"/>
+        <path d="M122,123 L198,128" stroke="rgba(240,180,41,0.6)" stroke-width="1"/>
+        <path d="M122,178 L198,146" stroke="rgba(26,200,200,0.6)" stroke-width="1"/>
+        <text x="30" y="236" fill="rgba(138,184,204,0.6)" font-family="monospace" font-size="7">External forces change conditions that organisms respond to</text>
+        <g stroke="rgba(26,200,200,0.3)" stroke-width="1" fill="none">
+          <path d="M0,260 L12,260 L12,254"/>
+          <path d="M380,260 L368,260 L368,254"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          Drivers are the external forces that change conditions in a marine ecosystem. The main physical and chemical drivers include temperature, light, nutrient supply, currents, salinity and oxygen. Temperature is among the most consequential. Reef-building corals, for example, bleach when water temperatures stay above a threshold for long enough: NOAA's Coral Reef Watch defines the bleaching threshold as the maximum monthly mean sea surface temperature plus 1 °C, and tracks accumulated heat stress in degree heating weeks. Nutrients are another key driver, supplied by upwelling from deep water, by river runoff, and by atmospheric deposition. Currents move nutrients, larvae and heat, so a driver acting in one place can influence organisms far away. Because drivers act together, their combined effects are often larger than any single one. Understanding which drivers dominate in a given place is the first step in predicting how an ecosystem will respond.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Los <em>factores impulsores</em> son las fuerzas externas que cambian las condiciones de un ecosistema marino. Los principales factores físicos y químicos incluyen la temperatura, la luz, el suministro de nutrientes, las corrientes, la salinidad y el oxígeno. La temperatura es de las más determinantes. Los corales formadores de arrecife, por ejemplo, se blanquean cuando la temperatura del agua se mantiene por encima de un umbral durante el tiempo suficiente: el Coral Reef Watch de la NOAA define el umbral de blanqueamiento como la temperatura superficial media mensual máxima más 1 °C, y registra el estrés térmico acumulado en semanas de calentamiento (degree heating weeks). Los nutrientes son otro factor clave, aportados por la surgencia desde aguas profundas, la escorrentía de los ríos y la deposición atmosférica. Las corrientes mueven nutrientes, larvas y calor, así que un factor que actúa en un lugar puede influir en organismos muy alejados. Como los factores actúan en conjunto, sus efectos combinados suelen ser mayores que los de cualquiera por separado. Entender qué factores dominan en un lugar es el primer paso para predecir cómo responderá un ecosistema.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          In the Western Caribbean, temperature, nutrients and oxygen interact as drivers of reef condition. Heat stress can lead to bleaching, while nutrient inputs and low oxygen can add to stress on corals.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>NOAA Coral Reef Watch issues bleaching alerts when accumulated heat stress reaches 4 degree heating weeks (Alert Level 1) and 8 degree heating weeks (Alert Level 2), each also requiring a HotSpot of at least 1 °C above the maximum monthly mean.</li>
+        <li>In Bocas del Toro, Panama, a 2010 mass coral mortality linked to hypoxia (low oxygen) showed how oxygen can act as a driver alongside temperature. <span class="verify">[Verify: role of temperature in that event]</span></li>
+        <li>Nutrient inputs from coastal rivers and runoff are a regional driver of algal growth on reefs. <span class="verify">[Verify: site-specific nutrient data for Belize, Yucatán or Honduras]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          En el Caribe Occidental, la temperatura, los nutrientes y el oxígeno interactúan como factores que determinan el estado de los arrecifes. El estrés térmico puede provocar blanqueamiento, mientras que los aportes de nutrientes y el bajo oxígeno pueden sumar estrés a los corales.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El Coral Reef Watch de la NOAA emite alertas de blanqueamiento cuando el estrés térmico acumulado alcanza 4 semanas de calentamiento (nivel de alerta 1) y 8 semanas de calentamiento (nivel de alerta 2), y ambas requieren además un HotSpot de al menos 1 °C por encima de la temperatura media mensual máxima.</li>
+        <li>En Bocas del Toro, Panamá, una mortalidad masiva de coral en 2010 ligada a la hipoxia (bajo oxígeno) mostró cómo el oxígeno puede actuar como factor junto con la temperatura. <span class="verify">[Verificar: papel de la temperatura en ese evento]</span></li>
+        <li>Los aportes de nutrientes de los ríos costeros y la escorrentía son un factor regional del crecimiento de algas en los arrecifes. <span class="verify">[Verificar: datos de nutrientes de cada sitio en Belice, Yucatán o Honduras]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 What is a driver in an ecosystem?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> An external force that changes conditions organisms respond to</li>
+            <li><span class="opt-letter">B.</span> A species that is always dominant</li>
+            <li><span class="opt-letter">C.</span> A fixed boundary of a habitat</li>
+            <li><span class="opt-letter">D.</span> A type of food web</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Drivers are external forces that change ecosystem conditions.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Qué es un factor impulsor en un ecosistema?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Una fuerza externa que cambia las condiciones a las que responden los organismos</li>
+            <li><span class="opt-letter">B.</span> Una especie que siempre es dominante</li>
+            <li><span class="opt-letter">C.</span> Un límite fijo de un hábitat</li>
+            <li><span class="opt-letter">D.</span> Un tipo de red trófica</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Los factores impulsores son fuerzas externas que cambian las condiciones del ecosistema.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 According to NOAA Coral Reef Watch, what defines the coral bleaching threshold?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> The minimum monthly sea surface temperature minus 1 °C</li>
+            <li><span class="opt-letter">B.</span> The maximum monthly mean sea surface temperature plus 1 °C</li>
+            <li><span class="opt-letter">C.</span> The average salinity of the water</li>
+            <li><span class="opt-letter">D.</span> The depth of the thermocline</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — The bleaching threshold is the maximum monthly mean SST plus 1 °C.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según el Coral Reef Watch de la NOAA, ¿qué define el umbral de blanqueamiento del coral?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> La temperatura superficial mínima mensual menos 1 °C</li>
+            <li><span class="opt-letter">B.</span> La temperatura superficial media mensual máxima más 1 °C</li>
+            <li><span class="opt-letter">C.</span> La salinidad media del agua</li>
+            <li><span class="opt-letter">D.</span> La profundidad de la termoclina</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — El umbral de blanqueamiento es la temperatura superficial media mensual máxima más 1 °C.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 Why can a driver acting in one place affect organisms far away?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Currents move nutrients, larvae and heat across distances</li>
+            <li><span class="opt-letter">B.</span> Organisms cannot move at all</li>
+            <li><span class="opt-letter">C.</span> Light travels only in straight lines underwater</li>
+            <li><span class="opt-letter">D.</span> Salinity is the same everywhere in the ocean</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Currents transport nutrients, larvae and heat, linking distant locations.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué un factor que actúa en un lugar puede afectar a organismos lejanos?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Las corrientes transportan nutrientes, larvas y calor a distancia</li>
+            <li><span class="opt-letter">B.</span> Los organismos no pueden moverse en absoluto</li>
+            <li><span class="opt-letter">C.</span> La luz viaja solo en línea recta bajo el agua</li>
+            <li><span class="opt-letter">D.</span> La salinidad es igual en todo el océano</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Las corrientes transportan nutrientes, larvas y calor, y vinculan lugares distantes.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 07 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L07 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
