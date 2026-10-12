@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S05·L25 Marine Ecology — Stressors</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #020f1e;
+    --ocean-mid:  #04294a;
+    --ocean-teal: #0a6e8a;
+    --ocean-cyan: #1ac8c8;
+    --ocean-foam: #b8f0ec;
+    --coral:      #e86040;
+    --gold:       #f0b429;
+    --text-light: #e8f4f8;
+    --text-dim:   #8ab8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1a2a; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'DM Sans', sans-serif; }
+  .card { width: 100%; max-width: 960px; background: var(--ocean-deep); border: 1px solid rgba(26,200,200,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 0 60px rgba(4,41,74,0.8), 0 0 120px rgba(10,110,138,0.2); }
+  .header { display: grid; grid-template-columns: 1fr 380px; min-height: 260px; border-bottom: 1px solid rgba(26,200,200,0.15); }
+  .header-text { padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #020f1e 0%, #04294a 100%); }
+  .breadcrumb { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ocean-cyan); text-transform: uppercase; opacity: 0.8; }
+  .lesson-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--text-light); line-height: 1.15; margin: 8px 0 4px; }
+  .lesson-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: var(--ocean-foam); opacity: 0.7; }
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; border: 1px solid rgba(26,200,200,0.3); color: var(--ocean-cyan); background: rgba(26,200,200,0.06); }
+  .tag.coral { border-color: rgba(232,96,64,0.4); color: #f08060; background: rgba(232,96,64,0.06); }
+  .tag.gold  { border-color: rgba(240,180,41,0.4); color: var(--gold); background: rgba(240,180,41,0.06); }
+  .tag.draft { border-color: rgba(240,180,41,0.6); color: var(--gold); background: rgba(240,180,41,0.12); }
+  .header-visual { background: #020c17; position: relative; overflow: hidden; }
+  .header-visual svg { width: 100%; height: 100%; display: block; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; }
+  .lecture-panel { padding: 32px 36px; border-right: 1px solid rgba(26,200,200,0.1); }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-cyan); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .panel-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(26,200,200,0.3), transparent); }
+  .lang-block { margin-bottom: 24px; }
+  .lang-flag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .lecture-text { font-size: 12.5px; font-weight: 300; line-height: 1.75; color: rgba(232,244,248,0.82); }
+  .lang-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(26,200,200,0.2), transparent); margin: 20px 0; }
+  .caribbean-panel { padding: 32px 36px; background: rgba(10,110,138,0.05); }
+  .caribbean-highlight { background: linear-gradient(135deg, rgba(10,110,138,0.18), rgba(4,41,74,0.3)); border-left: 3px solid var(--ocean-cyan); border-radius: 0 3px 3px 0; padding: 14px 16px; margin-bottom: 20px; }
+  .caribbean-highlight p { font-size: 12px; line-height: 1.7; color: var(--ocean-foam); font-weight: 300; }
+  .region-list { list-style: none; margin-top: 10px; }
+  .region-list li { font-size: 11.5px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid rgba(26,200,200,0.07); display: flex; gap: 10px; line-height: 1.5; }
+  .region-list li::before { content: '›'; color: var(--ocean-cyan); font-size: 14px; line-height: 1.3; flex-shrink: 0; }
+  .verify { color: var(--gold); font-family: 'DM Mono', monospace; font-size: 10px; }
+  .mcq-section { grid-column: 1 / -1; padding: 28px 36px 36px; background: rgba(2,15,30,0.6); border-top: 1px solid rgba(26,200,200,0.1); }
+  .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 16px; }
+  .mcq-card { background: rgba(4,41,74,0.25); border: 1px solid rgba(26,200,200,0.1); border-radius: 3px; padding: 18px; }
+  .mcq-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--ocean-cyan); margin-bottom: 10px; }
+  .mcq-q { font-size: 12px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; font-weight: 500; min-height: 50px; }
+  .mcq-q.es { font-weight: 300; color: rgba(232,244,248,0.75); }
+  .mcq-options { list-style: none; margin-bottom: 12px; }
+  .mcq-options li { font-size: 11px; color: rgba(232,244,248,0.65); padding: 4px 0; display: flex; gap: 8px; line-height: 1.4; }
+  .opt-letter { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); flex-shrink: 0; }
+  .mcq-answer { font-family: 'DM Mono', monospace; font-size: 10px; padding: 6px 10px; background: rgba(26,200,200,0.1); border-left: 2px solid var(--ocean-cyan); color: var(--ocean-cyan); letter-spacing: 0.05em; line-height: 1.5; }
+  .mcq-divider { height: 10px; border-top: 1px solid rgba(26,200,200,0.1); margin: 10px 0 8px; }
+  .footer { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 36px; background: rgba(2,15,30,0.8); border-top: 1px solid rgba(26,200,200,0.08); }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.15em; text-transform: uppercase; }
+  .progress-bar { width: 200px; height: 2px; background: rgba(26,200,200,0.1); border-radius: 1px; overflow: hidden; }
+  .progress-fill { width: 0%; height: 100%; background: var(--ocean-cyan); border-radius: 1px; }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(138,184,204,0.4); letter-spacing: 0.1em; }
+  @media (max-width: 900px) {
+    body { padding: 16px 10px; }
+    .header { grid-template-columns: 1fr; }
+    .body { display: block; }
+    .lecture-panel { border-right: none; border-bottom: 1px solid rgba(26,200,200,0.1); }
+    .caribbean-panel { border-top: 2px solid rgba(26,200,200,0.3); padding-top: 24px; }
+    .mcq-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .progress-bar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="header-text">
+      <div>
+        <div class="breadcrumb">Section 05 · Lesson 25 · Marine Ecology</div>
+        <h1 class="lesson-title">Stressors</h1>
+        <div class="lesson-subtitle">Factores de Estrés</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Introductory</span>
+        <span class="tag coral">Western Caribbean</span>
+        <span class="tag gold">Bilingual EN · ES</span>
+        <span class="tag">3 MCQs</span>
+        <span class="tag draft">Draft · Verify</span>
+      </div>
+    </div>
+
+    <div class="header-visual">
+      <svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="260" fill="#031523"/>
+        <rect x="0" y="0" width="200" height="22" fill="rgba(2,15,30,0.7)"/>
+        <text x="8" y="14" fill="rgba(26,200,200,0.8)" font-family="monospace" font-size="9" letter-spacing="1.5">LOCAL  ·  GLOBAL  ·  COMBINED</text>
+        <!-- Two stressor layers acting on one reef -->
+        <rect x="30" y="50" width="320" height="60" rx="3" fill="rgba(240,180,41,0.08)" stroke="rgba(240,180,41,0.5)"/>
+        <text x="44" y="72" fill="#f0b429" font-family="monospace" font-size="9">LOCAL STRESSORS</text>
+        <text x="44" y="92" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8">fishing · sediment · nutrients · pollution</text>
+        <rect x="30" y="125" width="320" height="60" rx="3" fill="rgba(232,96,64,0.08)" stroke="rgba(232,96,64,0.5)"/>
+        <text x="44" y="147" fill="#f08060" font-family="monospace" font-size="9">GLOBAL STRESSORS</text>
+        <text x="44" y="167" fill="rgba(232,244,248,0.75)" font-family="monospace" font-size="8">ocean warming · ocean acidification</text>
+        <path d="M190,190 L190,205" stroke="rgba(26,200,200,0.6)" stroke-width="1.5"/>
+        <text x="30" y="225" fill="rgba(138,184,204,0.7)" font-family="monospace" font-size="8">Reef condition = response to both layers together.</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="lecture-panel">
+      <div class="panel-label">Lecture Text</div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇺🇸 English</div>
+        <p class="lecture-text">
+          A <em>stressor</em> is an environmental or human-caused factor that reduces the health, growth, survival or function of organisms. Stressors are commonly divided into <em>local</em> stressors, which act at the scale of a reef or coastline, such as fishing, sediment input, nutrient enrichment and pollution, and <em>global</em> stressors, which act across ocean basins, such as ocean warming and ocean acidification. Local stressors can be managed directly. Global stressors cannot be reduced by local management alone. Human impacts on coral reefs are increasing in diversity, frequency and scale, and projected increases in carbon dioxide and temperature over the next 50 years are expected to exceed conditions under which reefs have flourished over the past half-million years. Because stressors often act together, the response of a reef depends on the combined effect of both layers, not on any single factor.
+        </p>
+      </div>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-block">
+        <div class="lang-flag">🇲🇽 Español</div>
+        <p class="lecture-text">
+          Un <em>factor de estrés</em> es un factor ambiental o causado por el ser humano que reduce la salud, el crecimiento, la supervivencia o la función de los organismos. Los factores de estrés suelen dividirse en <em>locales</em>, que actúan a la escala de un arrecife o de una costa, como la pesca, el aporte de sedimentos, el enriquecimiento de nutrientes y la contaminación, y <em>globales</em>, que actúan a escala de cuencas oceánicas, como el calentamiento del océano y la acidificación oceánica. Los factores locales pueden manejarse directamente. Los factores globales no pueden reducirse solo con manejo local. Los impactos humanos sobre los arrecifes de coral aumentan en diversidad, frecuencia y escala, y se proyecta que los incrementos de dióxido de carbono y temperatura en los próximos 50 años superen las condiciones en las que los arrecifes han prosperado durante el último medio millón de años. Como los factores de estrés suelen actuar juntos, la respuesta de un arrecife depende del efecto combinado de ambas capas, no de un solo factor.
+        </p>
+      </div>
+    </div>
+
+    <div class="caribbean-panel">
+      <div class="panel-label">Western Caribbean Application · Aplicación en el Caribe Occidental</div>
+
+      <div class="lang-flag" style="margin-bottom:10px;">🇺🇸 English</div>
+      <div class="caribbean-highlight">
+        <p>
+          Caribbean reefs face both local and global stressors. Heat stress is a global stressor that local management cannot prevent, and its effects can be compounded by local conditions.
+        </p>
+      </div>
+      <ul class="region-list" style="margin-bottom:20px;">
+        <li>NOAA Coral Reef Watch identifies accumulated heat stress as a driver of bleaching: risk begins at 4 °C-weeks of degree heating weeks (DHW) and reef-wide bleaching with mortality of heat-sensitive corals is likely by 8 °C-weeks.</li>
+        <li>Gardner et al. (2003) reported an 80% decline in average Caribbean hard coral cover over three decades. The paper's abstract does not attribute the decline to a single stressor. <span class="verify">[Verify: which stressors the meta-analysis attributes the decline to]</span></li>
+        <li>Local stressors on Mesoamerican reefs (fishing pressure, sediment and nutrient inputs from coastal runoff) are discussed in the course but site-level data are not included here. <span class="verify">[Verify: regional local-stressor data and sources]</span></li>
+      </ul>
+
+      <div class="lang-divider"></div>
+
+      <div class="lang-flag" style="margin: 12px 0 10px;">🇲🇽 Español</div>
+      <div class="caribbean-highlight">
+        <p>
+          Los arrecifes del Caribe enfrentan factores de estrés locales y globales. El estrés térmico es un factor global que el manejo local no puede prevenir, y sus efectos pueden agravarse por condiciones locales.
+        </p>
+      </div>
+      <ul class="region-list">
+        <li>El Coral Reef Watch de la NOAA identifica la acumulación de estrés térmico como causa del blanqueamiento: el riesgo empieza en 4 °C-semanas de semanas de calentamiento por grado (DHW), y el blanqueamiento generalizado con mortalidad de corales sensibles al calor es probable en 8 °C-semanas.</li>
+        <li>Gardner et al. (2003) reportaron una caída de 80% en la cobertura media de coral duro del Caribe en tres décadas. El resumen del artículo no atribuye la caída a un solo factor. <span class="verify">[Verificar: a qué factores atribuye el metaanálisis la caída]</span></li>
+        <li>Los factores locales en los arrecifes mesoamericanos (presión pesquera, aporte de sedimentos y nutrientes por escorrentía costera) se tratan en el curso, pero aquí no se incluyen datos por sitio. <span class="verify">[Verificar: datos regionales de factores locales y fuentes]</span></li>
+      </ul>
+    </div>
+
+    <div class="mcq-section">
+      <div class="panel-label">Assessment — Multiple Choice Questions</div>
+
+      <div class="mcq-grid">
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  01 / 03</div>
+          <div class="mcq-q">🇺🇸 Which of these is a global stressor?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Sediment input from coastal runoff</li>
+            <li><span class="opt-letter">B.</span> Ocean acidification</li>
+            <li><span class="opt-letter">C.</span> Fishing pressure on a single reef</li>
+            <li><span class="opt-letter">D.</span> Nutrient enrichment from a river</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: B — Ocean acidification acts across ocean basins, while the other options act at reef or coastal scale.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Cuál de estos es un factor de estrés global?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Aporte de sedimentos por escorrentía costera</li>
+            <li><span class="opt-letter">B.</span> Acidificación oceánica</li>
+            <li><span class="opt-letter">C.</span> Presión pesquera sobre un solo arrecife</li>
+            <li><span class="opt-letter">D.</span> Enriquecimiento de nutrientes de un río</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: B — La acidificación oceánica actúa a escala de cuencas, mientras que las demás opciones actúan a escala de arrecife o costa.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  02 / 03</div>
+          <div class="mcq-q">🇺🇸 Why can local management not fully protect a reef from global stressors?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Global stressors act across ocean basins beyond local control</li>
+            <li><span class="opt-letter">B.</span> Local management never affects reefs</li>
+            <li><span class="opt-letter">C.</span> Global stressors are always beneficial</li>
+            <li><span class="opt-letter">D.</span> Reefs have no stressors</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: A — Global stressors such as warming and acidification operate at scales that local management cannot control.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 ¿Por qué el manejo local no puede proteger completamente un arrecife de los factores globales?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> Los factores globales actúan a escala de cuencas, fuera del control local</li>
+            <li><span class="opt-letter">B.</span> El manejo local nunca afecta a los arrecifes</li>
+            <li><span class="opt-letter">C.</span> Los factores globales siempre son benéficos</li>
+            <li><span class="opt-letter">D.</span> Los arrecifes no tienen factores de estrés</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: A — Factores globales como el calentamiento y la acidificación operan a escalas que el manejo local no controla.</div>
+        </div>
+
+        <div class="mcq-card">
+          <div class="mcq-num">QUESTION  03 / 03</div>
+          <div class="mcq-q">🇺🇸 According to NOAA Coral Reef Watch, at what degree heating weeks value is reef-wide bleaching with heat-sensitive coral mortality likely?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 1 °C-weeks</li>
+            <li><span class="opt-letter">B.</span> 4 °C-weeks</li>
+            <li><span class="opt-letter">C.</span> 8 °C-weeks</li>
+            <li><span class="opt-letter">D.</span> 20 °C-weeks</li>
+          </ul>
+          <div class="mcq-answer">✓  ANSWER: C — NOAA states that by 8 °C-weeks, reef-wide bleaching with mortality of heat-sensitive corals is likely.</div>
+          <div class="mcq-divider"></div>
+          <div class="mcq-q es">🇲🇽 Según el Coral Reef Watch de la NOAA, ¿a qué valor de semanas de calentamiento por grado es probable el blanqueamiento generalizado con mortalidad de corales sensibles al calor?</div>
+          <ul class="mcq-options">
+            <li><span class="opt-letter">A.</span> 1 °C-semana</li>
+            <li><span class="opt-letter">B.</span> 4 °C-semanas</li>
+            <li><span class="opt-letter">C.</span> 8 °C-semanas</li>
+            <li><span class="opt-letter">D.</span> 20 °C-semanas</li>
+          </ul>
+          <div class="mcq-answer">✓  RESPUESTA: C — La NOAA indica que a 8 °C-semanas es probable el blanqueamiento generalizado con mortalidad de corales sensibles al calor.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Mesoamerican Reef Curriculum · Section 05 · Lesson 25 · Global index [TBD] of 704 · DRAFT — facts checked, expert review pending</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div class="footer-right">S05 · L25 · EN/ES · MCQ ×3</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
