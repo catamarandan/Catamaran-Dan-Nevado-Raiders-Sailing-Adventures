@@ -3,24 +3,17 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shamrocket | Catamaran Dan</title>
-  <meta name="description" content="Shamrocket is a Hobie Getaway catamaran with 24-inch draft — the expedition platform for Blue Rim 5™, sailed by Catamaran Dan and his Shield Maiden through Bahamas winters and Florida and Atlantic summers. Built for real work in real conditions."/>
+  <title>The Rim Runner — Sunset Protocol | Catamaran Dan</title>
+  <meta name="description" content="The Rim Runner. Sunset Protocol. The ritual cocktail of the Blue Rim 5 expedition — born on the equatorial Pacific in 1984. Recipe, origin, and variations."/>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap');
-:root{
-  --deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;
-  --caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;
-  --parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;
-  --text-light:#e8e4da;--text-dim:#9aa0b0;
-}
+:root{--deep-ocean:#0a0f1a;--midnight:#0d1520;--reef-blue:#0e4d6e;--caribbean:#1a7fa8;--aqua:#29b0d4;--gold:#c9a84c;--old-gold:#a8833a;--parchment:#f0e8d0;--fog:#c8cdd8;--fire:#d4622a;--text-light:#e8e4da;--text-dim:#9aa0b0;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--deep-ocean);color:var(--text-light);font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;line-height:1.8;overflow-x:hidden;}
 img{max-width:100%;display:block;}
 a{color:var(--aqua);text-decoration:none;transition:color 0.25s;}
 a:hover{color:var(--gold);}
-
-/* NAV */
 nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:1000;backdrop-filter:blur(8px);}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0.9rem 2rem;position:relative;display:flex;align-items:center;justify-content:center;min-height:56px;}
 .nav-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.9rem 1.4rem;row-gap:0.5rem;}
@@ -37,82 +30,12 @@ nav{background:#080c14;border-bottom:1px solid rgba(201,168,76,0.2);position:sti
 .dropdown-menu{display:none;flex-direction:column;position:absolute;top:100%;left:0;background:#0d1520;border:1px solid rgba(201,168,76,0.25);min-width:170px;padding:0.4rem 0;z-index:1001;margin-top:0.4rem;}
 .nav-item.dropdown.open .dropdown-menu{display:flex;}
 .dropdown-menu a{padding:0.55rem 1.1rem;white-space:nowrap;border-bottom:none;}
+.dropdown-menu a.active{color:var(--gold);}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.4rem;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);z-index:1002;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s ease;}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-toggle.open span:nth-child(2){opacity:0;}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-/* HERO — full-bleed Shamrocket */
-.hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  position:relative;
-  overflow:hidden;
-}
-.hero-image-col{
-  position:relative;background:#06090f;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-}
-.hero-image-col::after{
-  content:'';position:absolute;inset:0;
-  background:
-    linear-gradient(90deg,transparent 55%,var(--deep-ocean) 100%),
-    linear-gradient(180deg,rgba(6,9,15,0.25) 0%,transparent 25%,transparent 75%,rgba(6,9,15,0.5) 100%);
-  pointer-events:none;z-index:2;
-}
-.hero-slides{position:absolute;inset:0;width:100%;height:100%;}
-.hero-slide{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:center center;
-  filter:brightness(0.9) saturate(0.95);
-  opacity:0;transition:opacity 1.2s ease;
-}
-.hero-slide.active{opacity:1;}
-.hero-text-col{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:6rem 4rem 6rem 3rem;
-  position:relative;z-index:3;
-}
-.hero-text-col::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:1px;
-  background:linear-gradient(180deg,transparent,rgba(201,168,76,0.35),transparent);
-}
-.hero-eyebrow{
-  font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.35em;
-  text-transform:uppercase;color:var(--aqua);margin-bottom:1.8rem;
-  opacity:0;animation:fadeUp 0.9s ease 0.2s forwards;
-}
-.hero-h1{
-  font-family:'Cinzel',serif;font-size:clamp(3rem,5.5vw,5rem);
-  font-weight:900;line-height:0.98;color:var(--parchment);
-  text-shadow:0 0 80px rgba(201,168,76,0.25),0 2px 4px rgba(0,0,0,0.9);
-  margin-bottom:0.2em;opacity:0;animation:fadeUp 0.9s ease 0.4s forwards;
-}
-.hero-h1 em{color:var(--gold);font-style:normal;display:block;font-size:0.9em;}
-.hero-divider{
-  width:50px;height:2px;
-  background:linear-gradient(90deg,var(--gold),var(--old-gold));
-  margin:2rem 0;opacity:0;animation:fadeIn 0.9s ease 0.7s forwards;
-}
-.hero-p{
-  font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;
-  color:var(--fog);line-height:1.75;max-width:480px;
-  opacity:0;animation:fadeUp 0.9s ease 0.8s forwards;
-}
-.hero-specs{
-  display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:2rem;
-  opacity:0;animation:fadeUp 0.9s ease 1s forwards;
-}
-.spec-tag{
-  font-family:'Josefin Sans',sans-serif;font-size:0.68rem;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--aqua);border:1px solid rgba(41,176,212,0.3);
-  padding:0.3rem 0.9rem;white-space:nowrap;
-}
-
-/* LAYOUT */
 section{position:relative;padding:6rem 2rem;}
 .container{max-width:860px;margin:0 auto;}
 .container-wide{max-width:1100px;margin:0 auto;}
@@ -120,76 +43,39 @@ section{position:relative;padding:6rem 2rem;}
 .section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--aqua);flex-shrink:0;}
 h2.serif{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--parchment);line-height:1.2;margin-bottom:1.2rem;}
 h2.serif em{color:var(--gold);font-style:normal;}
-h3.serif{font-family:'Cinzel',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;color:var(--parchment);margin-bottom:0.8rem;}
 .gold-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--old-gold));margin:1.2rem 0 2rem;}
 p+p{margin-top:1.2rem;}
-
-/* STAT STRIP */
-.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border:1px solid rgba(201,168,76,0.15);}
-.stat{padding:2rem 1.5rem;border-right:1px solid rgba(201,168,76,0.15);text-align:center;}
-.stat:last-child{border-right:none;}
-.stat-num{font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--gold);line-height:1;display:block;}
-.stat-label{font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;display:block;}
-
-/* PULL QUOTE */
-.pull-quote{font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
-
-/* FEATURE LIST */
-.feature-list{list-style:none;display:grid;gap:0.6rem;margin:1.5rem 0;}
-.feature-list li{padding:0.7rem 1rem;border-left:2px solid rgba(201,168,76,0.25);color:var(--fog);font-size:0.96rem;}
-.feature-list li strong{color:var(--text-light);}
-
-/* TWO COL */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
-
-/* INFOBOX */
+.pull-quote{font-size:clamp(1.1rem,2.2vw,1.45rem);font-style:italic;color:var(--parchment);border-left:3px solid var(--gold);padding-left:1.8rem;margin:2.5rem 0;line-height:1.55;}
+.page-hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 70%,rgba(212,98,42,0.22) 0%,transparent 60%),linear-gradient(180deg,#050810 0%,#0a0f1a 100%);}
+.page-hero-content{position:relative;z-index:2;max-width:860px;}
+.hero-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--aqua);text-transform:uppercase;margin-bottom:1.5rem;display:block;}
+.hero-h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;color:var(--parchment);text-shadow:0 0 80px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.8);margin-bottom:0.4em;}
+.hero-h1 em{color:var(--gold);font-style:normal;display:block;}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--parchment);max-width:640px;margin:1rem auto 0;opacity:0.85;}
+.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:0.5rem;margin-bottom:1.5rem;}
 .infobox{background:linear-gradient(135deg,rgba(14,77,110,0.2),rgba(10,15,26,0.6));border:1px solid rgba(201,168,76,0.2);padding:2.2rem 2.8rem;margin:2.5rem 0;position:relative;}
 .infobox-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
-.infobox.mid .infobox-label{background:var(--midnight);}
-
-/* CARD GRID (advantages) */
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin:2.5rem 0;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);}
-.card{background:var(--deep-ocean);padding:2.2rem 2rem;transition:background 0.3s;}
-.card:hover{background:rgba(14,77,110,0.18);}
-.card-icon{font-size:1.8rem;margin-bottom:1rem;display:block;}
-.card h4{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:0.06em;margin-bottom:0.7rem;}
-.card p{font-size:0.96rem;color:var(--fog);line-height:1.75;}
-
-/* SYSTEMS GRID (gear with photos) */
-.systems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;margin:2.5rem 0;background:rgba(201,168,76,0.08);}
-.system-card{background:var(--midnight);overflow:hidden;transition:background 0.3s;}
-.system-card:hover{background:rgba(14,77,110,0.25);}
-.system-img{width:100%;height:220px;object-fit:cover;filter:brightness(0.8) saturate(0.9);transition:filter 0.4s;}
-.system-card:hover .system-img{filter:brightness(0.95) saturate(1.1);}
-.system-body{padding:1.8rem 2rem;}
-.system-body h3{font-family:'Cinzel',serif;font-size:1.05rem;color:var(--gold);margin-bottom:0.7rem;letter-spacing:0.05em;}
-.system-body p{font-size:0.93rem;color:var(--fog);line-height:1.7;}
-
-.img-caption{font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;}
-
-/* BG / BORDER */
+.infobox-label.mid{background:var(--midnight);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.two-col.reverse{direction:rtl;}
+.two-col.reverse>*{direction:ltr;}
+.rimrunner-ritual{background:linear-gradient(135deg,rgba(212,98,42,0.08),rgba(10,15,26,0.6));border:1px solid rgba(212,98,42,0.25);padding:2.5rem 3rem;margin:3rem 0;position:relative;}
+.rimrunner-ritual .rr-label{position:absolute;top:-0.65rem;left:2rem;background:var(--deep-ocean);padding:0 0.8rem;font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.25em;color:var(--fire);}
+.rimrunner-ritual.mid .rr-label{background:var(--midnight);}
+.recipe-step{border-left:2px solid rgba(212,98,42,0.4);padding-left:1.5rem;margin:1.2rem 0;}
+.recipe-step h5{font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.18em;color:var(--fire);text-transform:uppercase;margin-bottom:0.4rem;}
+.recipe-step p{font-size:0.95rem;color:var(--parchment);}
+.toast-code{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);margin-top:1.5rem;font-style:italic;text-align:center;}
+.btn-gold{display:inline-block;font-family:'Josefin Sans',sans-serif;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:0.75rem 2rem;margin-top:2rem;transition:all 0.3s;}
+.btn-gold:hover{background:rgba(201,168,76,0.1);border-color:var(--gold);}
 .bg-midnight{background:var(--midnight);}
 .bg-deep{background:var(--deep-ocean);}
 .border-bottom-gold{border-bottom:1px solid rgba(201,168,76,0.12);}
-
-/* REVEAL */
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;min-height:auto;}
-  .hero-image-col{min-height:60vw;max-height:520px;}
-  .hero-image-col::after{background:linear-gradient(180deg,transparent 50%,var(--deep-ocean) 100%);}
-  .hero-text-col{padding:4rem 2rem;text-align:center;}
-  .hero-text-col::before{display:none;}
-  .hero-p{margin:0 auto;}
-  .hero-specs{justify-content:center;}
-}
+.rimrunner-media{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:2.5rem 0;}
+.rimrunner-media img{width:100%;height:340px;object-fit:cover;object-position:center;background:#050810;filter:brightness(0.9) saturate(0.94);border:1px solid rgba(201,168,76,0.2);}
 @media(max-width:768px){
   .nav-inner{justify-content:flex-end;padding:0.8rem 1.5rem;min-height:52px;}
   .nav-toggle{display:flex;}
@@ -204,10 +90,10 @@ p+p{margin-top:1.2rem;}
   .dropdown-menu{position:static;border:none;background:transparent;padding:0 0 0 1.2rem;margin-top:0;width:100%;}
   .dropdown-menu a{padding:0.55rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
   section{padding:4rem 1.5rem;}
-  .two-col{grid-template-columns:1fr;gap:2.5rem;}
-  .stat-strip{grid-template-columns:repeat(2,1fr);}
-  .stat{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
-  .stat:nth-child(odd){border-right:1px solid rgba(201,168,76,0.15);}
+  .two-col,.two-col.reverse{grid-template-columns:1fr;direction:ltr;gap:2.5rem;}
+  .rimrunner-ritual{padding:2rem 1.5rem;}
+  .rimrunner-media{grid-template-columns:1fr;}
+  .rimrunner-media img{height:300px;}
 }
   </style>
 </head>
@@ -228,23 +114,21 @@ p+p{margin-top:1.2rem;}
           <a href="bluemind.html">Blue Mind</a>
           <a href="onlyarizona.html">Expedition Theme Song</a>
           <a href="songs.html">Songs of the Rim</a>
-          <a href="getawayband.html">The Getaway Band</a>
-        <a href="poetry.html">Poetry of the Rim</a>
+          <a href="poetry.html">Poetry of the Rim</a>
         </div>
       </div>
 
       <div class="nav-item dropdown">
         <button class="nav-group-label" aria-expanded="false">Expeditions <span class="dropdown-caret-icon">&#9662;</span></button>
         <div class="dropdown-menu">
-          <a href="index.html">Blue Rim 5&#8482;</a>
-          <a href="groan.html">GROAN&#8482; Field Research</a>
+          <a href="index.html">Blue Rim 5</a>
+          <a href="groan.html">GROAN Field Research</a>
           <a href="learn.html">Learn With Me</a>
           <a href="supporters.html">Expedition Supporters</a>
         </div>
       </div>
 
-      <a href="shamrocket.html" class="active">Shamrocket</a>
-      <a href="shieldmaiden.html">Shield Maiden</a>
+      <a href="shamrocket.html">Shamrocket</a>
 
       <div class="nav-item dropdown">
         <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
@@ -256,7 +140,7 @@ p+p{margin-top:1.2rem;}
           <a href="gallery.html">Gallery</a>
           <a href="videos.html">Videos</a>
           <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
-          <a href="rimrunner.html">The Rim Runner&#8482;</a>
+          <a href="rimrunner.html" class="active">The Rim Runner&#8482;</a>
         </div>
       </div>
 
@@ -264,7 +148,7 @@ p+p{margin-top:1.2rem;}
         <button class="nav-group-label" aria-expanded="false">About <span class="dropdown-caret-icon">&#9662;</span></button>
         <div class="dropdown-menu">
           <a href="about.html">About Catamaran Dan</a>
-          <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+          <a href="thelivingsaga.html">The Living Saga</a>
           <a href="legal.html">Legal &amp; Intellectual Property</a>
         </div>
       </div>
@@ -275,379 +159,213 @@ p+p{margin-top:1.2rem;}
   </div>
 </nav>
 
-<!-- HERO — Shamrocket front and center -->
-<div class="hero">
-  <div class="hero-image-col">
-    <div class="hero-slides">
-      <img src="https://catamarandan.org/hobie_getaway.jpg" alt="Shamrocket — Hobie Getaway expedition catamaran" class="hero-slide active"/>
-      <img src="https://catamarandan.org/hobie getaway people.jpg" alt="Shamrocket with crew" class="hero-slide"/>
-    </div>
-  </div>
-  <div class="hero-text-col">
-    <div class="hero-eyebrow">Blue Rim 5&#8482; &bull; Expedition Platform &bull; AZ 2626CG</div>
-    <h1 class="hero-h1">Shamrocket<em>Built for This.</em></h1>
-    <div class="hero-divider"></div>
-    <p class="hero-p">A Hobie Getaway catamaran — 17 feet, 24-inch draft, wind and solar only. She gets into places bigger boats anchor and stare at. Inside the reef. Into the mangrove channel. Onto the beach where the people are and the stories live.</p>
-    <div class="hero-specs">
-      <span class="spec-tag">Hobie Getaway</span>
-      <span class="spec-tag">17 ft LOA</span>
-      <span class="spec-tag">2 Aboard</span>
-      <span class="spec-tag">24" Draft</span>
-      <span class="spec-tag">Wind &amp; Solar Only</span>
-      <span class="spec-tag">0 Carbon</span>
-      <span class="spec-tag">AZ 2626CG</span>
-    </div>
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <span class="hero-eyebrow">Blue Rim 5 &bull; The Ritual</span>
+    <h1 class="hero-h1">The Rim Runner —<br/><em>Sunset Protocol</em></h1>
+    <p class="hero-sub">Anchor down. Day done. This is not the reward for the expedition. It is the other half of it.</p>
   </div>
 </div>
 
-<!-- STAT STRIP -->
-<div style="background:var(--midnight);padding:0 2rem;">
-  <div class="container-wide">
-    <div class="stat-strip" style="border-left:none;border-right:none;">
-      <div class="stat"><span class="stat-num">24"</span><span class="stat-label">Draft</span></div>
-      <div class="stat"><span class="stat-num">17 ft</span><span class="stat-label">Length</span></div>
-      <div class="stat"><span class="stat-num">Wind</span><span class="stat-label">Primary Power</span></div>
-      <div class="stat"><span class="stat-num">440W</span><span class="stat-label">Solar Array</span></div>
-      <div class="stat"><span class="stat-num">60 ft</span><span class="stat-label">Dive Depth</span></div>
-      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Carbon Emissions</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- THE BOAT — Who Shamrocket Is -->
+<!-- ORIGIN -->
 <section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">The Vessel</div>
-    <h2 class="serif reveal">Not a Compromise. <em>The Philosophy Made Physical.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">Twenty-four inches of draft. That is the number that makes everything else possible. Shamrocket gets inside the barrier reef, up against the cay, into the mangrove channel, onto the beach itself — right up to where the people are, where the knowledge lives, where the stories are still being kept. A 40-foot passage-maker anchors offshore and stares at all of that. Shamrocket parks on top of it.</p>
-    <p class="reveal">Wind and solar only. Zero diesel. The boat is not a scaled-down version of big-boat cruising. It is the right platform for a long-term commitment to the same reef systems, the same coastlines, the same communities — revisited over time, on the expedition's own terms, with no fixed schedule dictating when.</p>
-
-    <div class="pull-quote reveal">Small boats teach honesty. You learn exactly what you know and exactly what you don't. There is no diesel engine to bail you out and no marina that can always be reached. You solve every problem with what you know and who you are — which is exactly how this expedition is designed.</div>
-
-    <div class="card-grid reveal">
-      <div class="card">
-        <span class="card-icon">🪸</span>
-        <h4>Inside the Reef</h4>
-        <p>24-inch draft opens up reef zones, shallow atolls, mangrove channels, and remote beaches that deeper vessels cannot safely reach. Shamrocket anchors directly over the sites that matter most.</p>
+  <div class="container-wide">
+    <div class="two-col">
+      <div>
+        <div class="section-label reveal">Where It Started</div>
+        <h2 class="serif reveal">1984. <em>The Storm That Started It All.</em></h2>
+        <div class="gold-rule reveal"></div>
+        <p class="reveal">Born on a blue-sky equatorial Pacific day in 1984 that turned dark, wet, and alive — then cleared just as fast. Blue water underneath. A dark cloud rolling in on top. Gone within the hour, sky clear again by sundown. The drink is built the same way the day happened: equatorial blue on the bottom, storm cloud floated on top, never stirred together.</p>
+        <p class="reveal">Every stop on the Blue Rim 5 ends the same way that day did — anchor down, storm passed, sky clear. The Rim Runner is the toast that marks it.</p>
       </div>
-      <div class="card">
-        <span class="card-icon">⛵</span>
-        <h4>Wind First</h4>
-        <p>Sail-driven movement eliminates fuel cost, logistics, and dependence on marina infrastructure. Zero carbon in operation. Every anchorage earned. The vessel is the philosophy made physical.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🌍</span>
-        <h4>Trailerable &amp; Shippable</h4>
-        <p>Shamrocket can be trailered, broken down, or containerized and reassembled in another region without an ocean crossing. The expedition can move to new water without needing to sail there first.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🔄</span>
-        <h4>Built to Return</h4>
-        <p>Lower cost and fewer major systems make a long-term commitment to these coastlines realistic. Blue Rim 5&#8482; is built around returning — Bahamas winters, Florida and Atlantic summers, the same harbors and reefs season after season. Continuity is the point, not a calendar.</p>
+      <div class="reveal">
+        <img src="rim_lightning.jpg" alt="Rim Lightning — 1984, the storm that started it all" style="filter:brightness(0.86) saturate(0.9);"/>
+        <p class="img-caption">Rim Lightning &middot; 1984 &middot; The Origin</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NEVADO RAIDERS TIE-IN -->
+<!-- THE VIDEO -->
 <section class="bg-midnight border-bottom-gold">
   <div class="container">
-    <div class="section-label reveal">The Flagship</div>
-    <h2 class="serif reveal">One Boat. <em>One Fleet Behind Her.</em></h2>
+    <div class="section-label reveal">Watch It Made</div>
+    <h2 class="serif reveal">The Origin. <em>The Build.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">Shamrocket is the first hull, not the only one. She flies the Nevado Raiders banner — the growing fleet of people who'd rather bring their own boat than watch from shore. Every stop, every anchor party, every reef dive she leads is the model for how the rest of the fleet does it too: no single captain calling every shot, every hull earning a say.</p>
-    <p class="reveal">Shamrocket sails with two aboard — but Blue Rim 5&#8482; doesn't have to stop at one boat. Got a trailerable boat — beach cat, small cruiser, daysailer, anything you can launch and recover yourself? Come run a leg with the fleet. You don't have to sail the whole thing to be part of it.</p>
+    <p class="reveal">The story behind the storm, and how the Rim Runner gets built — glass, rim, blue base, dark float. Video coming soon.</p>
+    <div class="reveal" style="margin-top:2rem;aspect-ratio:16/9;width:100%;background:#050810;border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;">
+      <!-- VIDEO PLACEHOLDER — replace this div with a <video> or embed tag once the video file/link is ready -->
+      <span style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">Video Coming Soon</span>
+    </div>
+    <p class="img-caption" style="margin-top:0.8rem;">The Rim Runner &middot; Origin &amp; How to Make It</p>
+  </div>
+</section>
+
+<!-- THE RITUAL -->
+<section class="bg-midnight border-bottom-gold">
+  <div class="container">
+    <div class="section-label reveal">When the Anchor Goes Down</div>
+    <h2 class="serif reveal">The Recipe. <em>The Protocol.</em></h2>
+    <div class="gold-rule reveal"></div>
+    <p class="reveal">Heavy rocks glass. Blue-rimmed. Salt-and-sugar rim. Equatorial blue base over fresh ice. Dark rum floated on top like the storm cloud it's named after.</p>
+
     <div class="infobox reveal">
-      <div class="infobox-label">The Fleet Anthem</div>
-      "The Nevado Raider Call" is the invitation Shamrocket sails under. <a href="songs.html">Listen on Songs of the Rim &rarr;</a>
+      <div class="infobox-label mid">An Expedition Measured in Experiences</div>
+      <p style="color:var(--fog);">The Bahamas &amp; Eastern Caribbean Expedition is far more than a 397-day sailing adventure. It is an immersive journey through the waterfront culture of the Caribbean Basin, encompassing approximately 66 destinations and hundreds of authentic experiences across marinas, yacht clubs, waterfront restaurants, dock bars, beach bars, live music venues, snorkeling reefs, dive sites, and historic coastal communities.</p>
+      <p style="color:var(--fog);">Rather than simply passing through each destination, the expedition is designed to experience it — to meet local sailors, musicians, chefs, artists, divers, historians, conservationists, and the people whose lives are shaped by the sea. Every harbor offers new stories to tell, every island introduces a new culture to explore, and every stop creates opportunities to share those experiences with a worldwide audience through live broadcasts from the field.</p>
+      <p style="color:var(--fog);">By the expedition's completion, the Captain's Master File is expected to include references to more than 400 waterfront bars and restaurants, over 150 marinas and boating facilities, and hundreds of snorkeling and diving locations — making it one of the most comprehensive social and recreational cruising guides ever assembled for a small expedition vessel.</p>
+      <p style="color:var(--fog);">For premium rum and bourbon brands, this represents far more than product placement. It is the opportunity to become part of hundreds of authentic waterfront experiences — sunset anchorages, dockside celebrations, live music, island festivals, conversations with fellow cruisers, and unforgettable evenings shared in some of the world's most iconic boating destinations. Rather than interrupting the adventure, your brand becomes a natural part of the coastal lifestyle that millions of boating and travel enthusiasts aspire to experience.</p>
+      <p style="color:var(--parchment);font-style:italic;">The Rim Runner is actively seeking a spirits sponsor to join the expedition for the BEC and beyond.</p>
+      <div style="display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;text-align:center;margin-top:2rem;">
+        <div>
+          <span style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;color:var(--gold);display:block;line-height:1;">66</span>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);">Destinations</span>
+        </div>
+        <div>
+          <span style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;color:var(--gold);display:block;line-height:1;">400+</span>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);">Bars &amp; Restaurants</span>
+        </div>
+        <div>
+          <span style="font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;color:var(--gold);display:block;line-height:1;">150+</span>
+          <span style="font-family:'Josefin Sans',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);">Marinas &amp; Facilities</span>
+        </div>
+      </div>
     </div>
-    <div style="text-align:center;margin-top:1.5rem;">
-      <a href="index.html#fleet" class="btn-gold reveal" style="display:inline-block;">Meet the Fleet &rarr;</a>
+
+    <div class="rimrunner-media reveal">
+      <div>
+        <img src="rimrunner.jpg" alt="The Rim Runner cocktail"/>
+        <p class="img-caption">The Rim Runner</p>
+      </div>
+      <div>
+        <img src="rim_glass.png" alt="The Rim Runner glass"/>
+        <p class="img-caption">The Glass</p>
+      </div>
+    </div>
+
+    <div class="rimrunner-ritual mid reveal">
+      <div class="rr-label">The Rim Runner &mdash; Classic</div>
+      <div class="recipe-step"><h5>Glass &amp; Rim</h5><p>Heavy rocks glass with a blue rim band. 2 parts coarse sea salt, 1 part sugar. Wet rim with fresh lime. Fill with fresh ice.</p></div>
+      <div class="recipe-step"><h5>Equatorial Blue Base</h5><p>1&frac12; oz white rum &bull; &frac34; oz blue cura&ccedil;ao &bull; 1 oz pineapple juice &bull; &frac12; oz fresh lime juice &bull; 1 oz coconut water &bull; 1&ndash;2 dashes bitters. Shake hard. Strain over ice.</p></div>
+      <div class="recipe-step"><h5>The Dark Storm Cloud</h5><p>Float &frac12;&ndash;&frac34; oz dark rum over the back of a spoon. Blue below. Dark above. Salt and sky at the rim. Do not stir.</p></div>
+      <div class="toast-code">"Better Beachy than Bitchy&reg;" &mdash; Anchor down.</div>
+    </div>
+
+    <div class="rimrunner-ritual mid reveal" style="border-color:rgba(201,168,76,0.3);">
+      <div class="rr-label" style="color:var(--gold);">Bourbon Storm</div>
+      <div class="recipe-step"><h5>Glass &amp; Rim</h5><p>Same rocks glass, rimmed with 2 parts coarse sea salt, 1 part sugar &mdash; wet with fresh orange instead of lime. Fill with fresh ice.</p></div>
+      <div class="recipe-step"><h5>Equatorial Amber Base</h5><p>1&frac12; oz bourbon (90&ndash;100 proof) &bull; &frac34; oz blue cura&ccedil;ao &bull; 1 oz pineapple juice &bull; &frac12; oz fresh lemon juice &bull; 1 oz coconut water &bull; 2 dashes Angostura bitters. Shake hard. Strain over ice.</p></div>
+      <div class="recipe-step"><h5>The Dark Barrel Cloud</h5><p>Float &frac12;&ndash;&frac34; oz cask-strength or barrel-proof bourbon over the back of a spoon. Same physics as the dark rum float &mdash; higher proof sits rather than sinks. The bourbon is the star &mdash; the first nose, first sip, and finish all live in that top layer.</p></div>
+      <div class="toast-code">Rim Runner &mdash; Bourbon Storm</div>
+    </div>
+
+    <div class="rimrunner-ritual mid reveal" style="border-color:rgba(41,176,212,0.3);">
+      <div class="rr-label" style="color:var(--aqua);">Rim Runner Zero &mdash; Non-Alcoholic</div>
+      <div class="recipe-step"><h5>Glass &amp; Rim</h5><p>Same rocks glass. Same salt-and-sugar rim, wet with fresh lime. Same fresh ice.</p></div>
+      <div class="recipe-step"><h5>Equatorial Blue Base</h5><p>Pineapple juice &bull; coconut water &bull; orange juice &bull; fresh lime &bull; blue cura&ccedil;ao syrup (non-alcoholic). Shake hard. Strain over ice.</p></div>
+      <div class="recipe-step"><h5>The Storm Band</h5><p>Float iced tea or cola on top as the storm band. Same glass. Same rim. Same protocol &mdash; nobody sits out the toast.</p></div>
+      <div class="toast-code">Rim Runner Zero</div>
+    </div>
+
+    <div class="infobox reveal">
+      <div class="infobox-label">The Toast Code</div>
+      <p style="color:var(--fog);">First drink: face the horizon — "Better Beachy than Bitchy&reg;". Second: "Better beachy than busted." Empty glass: one tap on the bar or the rail. "Anchor down."</p>
+    </div>
+
+    <div class="infobox reveal">
+      <div class="infobox-label">On the Playlist</div>
+      <p style="color:var(--fog);margin-bottom:1.2rem;">The Rim Runner anthem — stadium island-rock, sunset-protocol energy, made for the moment the anchor goes down.</p>
+      <audio controls style="width:100%;">
+        <source src="rim_runner.mp3" type="audio/mpeg"/>
+        Your browser does not support the audio element.
+      </audio>
     </div>
   </div>
 </section>
 
-<!-- SMALL BOAT OBJECTION -->
+<!-- SOME NIGHTS -->
 <section class="bg-deep border-bottom-gold">
   <div class="container">
-    <div class="section-label reveal">Already Have a Boat?</div>
-    <h2 class="serif reveal">You Don't Need a <em>Bigger Boat.</em></h2>
+    <div class="section-label reveal">Not Every Night</div>
+    <h2 class="serif reveal">Some Nights, <em>It's Champagne.</em></h2>
     <div class="gold-rule reveal"></div>
-    <p class="reveal">The most common question: "I've got a Hobie 16, a daysailer, something small — I like the idea, but I don't see how that boat gets me out for more than an afternoon."</p>
-    <p class="reveal">Here's the honest answer, straight from what's actually aboard Shamrocket: I converted a Hobie Getaway into an expedition vessel by adding the DRAGR sled — nothing more exotic than that. With it towing behind, we have everything we need to stay out on the water for weeks on end: water, power, galley gear, dive equipment, shelter. All of it carried by the sled, none of it crowding the trampoline.</p>
-    <p class="reveal">Your boat doesn't need to change. It just needs a sled behind it.</p>
-    <div style="margin-top:2.5rem;" class="reveal">
-      <img src="https://catamarandan.org/dragr_sled_with_cover.jpg" alt="DRAGR Expedition Sled — the conversion that turns a small boat into an expedition vessel" style="width:100%;max-width:600px;display:block;margin:0 auto;filter:brightness(0.88) saturate(0.95);"/>
-      <p class="img-caption" style="text-align:center;margin-top:0.6rem;">The DRAGR — What Turns a Daysailer Into an Expedition Vessel</p>
-    </div>
-    <div style="text-align:center;margin-top:1.5rem;">
-      <a href="#systems" class="btn-gold reveal" style="display:inline-block;">See the Full Gear Breakdown &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- THE SLED — DRAGR -->
-<section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">The Sled System</div>
-    <h2 class="serif reveal">DRAGR — <em>What Changes the Equation.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">The sled is what transforms Shamrocket from a day-sailing platform into a true coastal expedition system. Instead of loading every heavy or bulky item onto the trampoline, the DRAGR carries essential support gear while the sailing platform stays light, efficient, and correctly trimmed.</p>
-
-    <div class="two-col reveal">
-      <div>
-        <p style="color:var(--fog);">Magnum Jet Sled: 71" L &times; 42" W &times; 16" H. HDPE construction with fitted dark-gray canvas cover. Nearly watertight gear storage protecting equipment from spray, rain, mud, and road grit. On-water, DRAGR tows on a 15-foot bridle with an 18-foot safety tether.</p>
-        <p style="color:var(--fog);margin-top:1.2rem;">The 15-foot bridle creates a passive stabilizing effect — the sled trails at a natural interval that reduces side-to-side yaw in following seas. The tether provides the safety backup if the bridle parts. Both lines have been physics-validated for the load and sea states expected on the Blue Rim 5&#8482; route.</p>
-        <div class="pull-quote" style="font-size:1rem;margin-top:2rem;">Small cat plus modular sled is not a workaround. It is the operating model.</div>
-      </div>
-      <div>
-        <h3 class="serif" style="margin-bottom:1rem;">What It Carries</h3>
-        <ul class="feature-list">
-          <li><strong>Water and provisions —</strong> reserve capacity for short-duration independence from marinas.</li>
-          <li><strong>Power systems —</strong> solar panels and auxiliary charging equipment.</li>
-          <li><strong>Cooking gear —</strong> compact galley capability for real daily living.</li>
-          <li><strong>Cold storage —</strong> refrigeration support where needed.</li>
-          <li><strong>Shelter and camp gear —</strong> sleeping, shade, and privacy systems.</li>
-          <li><strong>Dive equipment —</strong> hookah system, fins, masks, and all underwater gear.</li>
-          <li><strong>Safety and expedition essentials —</strong> anchors, ditch bag, rods, and field tools.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SYSTEMS — The Gear -->
-<section class="bg-deep border-bottom-gold" id="systems">
-  <div class="container-wide">
-    <div class="container" style="margin-bottom:2rem;">
-      <div class="section-label reveal">Systems &amp; Gear</div>
-      <h2 class="serif reveal">Everything Aboard <em>Earned Its Place.</em></h2>
-      <div class="gold-rule reveal"></div>
-      <p class="reveal">Every piece of gear passes the same test: does it work when everything is wet, tired, and 40 miles from the nearest marina? If it didn't pass, it didn't come. What's listed here is what's aboard — chosen for durability, redundancy, and what it actually contributes when conditions get real.</p>
-    </div>
-    <div class="systems-grid reveal">
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/dragr_sled_with_cover.jpg" alt="DRAGR Expedition Sled" class="system-img"/>
-        <div class="system-body">
-          <h3>DRAGR — Expedition Sled</h3>
-          <p>Magnum Jet Sled with fitted canvas cover. 71" &times; 42" &times; 16". Nearly watertight HDPE shell. Tows on a 15-foot bridle with 18-foot safety tether. The raven that guards the gear — and keeps Shamrocket's trampoline clear for sailing.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/jackery solar.jpg" alt="Jackery Explorer 2000 v2 — Power" class="system-img"/>
-        <div class="system-body">
-          <h3>Jackery Explorer 2000 v2 — Power</h3>
-          <p>2042Wh LiFePO₄ power station delivering 2200W continuous / 4400W surge. Paired with 2× ZOUPW 220W panels (440W total). Powers navigation, communications, hookah dive system, refrigeration, and all expedition electronics. Charges 0–80% in 66 minutes from shore power. Zero diesel. Zero noise.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/hookah.jpg" alt="Air Line E160v2 Hookah Dive System" class="system-img"/>
-        <div class="system-body">
-          <h3>Air Line E160v2 — Hookah Dive System</h3>
-          <p>AC-powered hookah delivering continuous breathable air to 60 feet. No tanks. No compressor runs. No fuel logistics. Powers off the Jackery. Deployable at every stop along the route — the system that puts divers on the reef without the tank-hauling logistics, season after season.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/torqeedo.jpg" alt="Torqeedo Electric Outboard" class="system-img"/>
-        <div class="system-body">
-          <h3>Torqeedo — Electric Propulsion</h3>
-          <p>2.5 HP equivalent. 915 Wh integrated lithium battery. Silent direct-drive at 33 dB. Solar-rechargeable. IP67 waterproof. GPS-based range. When the reef needs to be approached quietly, or the mangrove channel calls for stealth — this is the motor that gets you there without announcing it.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/tent.jpg" alt="Quencha 2-Second Expedition Tent" class="system-img"/>
-        <div class="system-body">
-          <h3>Quencha 2-Second Tent</h3>
-          <p>Rapid-deploy windproof and waterproof shelter. The trampoline is the preferred sleeping platform when conditions allow. When they don't, this deploys in two seconds and you're dry in three. No fuss. No assembly in the dark.</p>
-        </div>
-      </div>
-
-      <div class="system-card">
-        <img src="https://catamarandan.org/shamrocket.jpg" alt="Starlink Mini — Offshore Communications" class="system-img"/>
-        <div class="system-body">
-          <h3>Starlink Mini — Comms &amp; Navigation</h3>
-          <p>Offshore internet and communications, stored in an orange waterproof ditch bag on deck. Paired with Samsung Galaxy Tab Active5 5G running Navionics for primary navigation, and a Garmin inReach on the ditch bag exterior for backup position and two-way messaging when Starlink is stowed.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SAFETY — Coastal Discipline -->
-<section class="bg-midnight border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">Operating Philosophy</div>
-    <h2 class="serif reveal">Coastal Discipline. <em>Not Offshore Ambition.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">This platform is built around coastal discipline. Short legs. Daylight arrivals. Daily landing or anchoring. Constant awareness of nearby shelter. An operator with nuclear submarine qualification does not take unnecessary risks — and the platform is designed to stay inside an envelope it can always handle.</p>
-
-    <div class="two-col reveal">
-      <div>
-        <ul class="feature-list">
-          <li><strong>Short coastal legs —</strong> reduced exposure, rested crew, good judgment at arrival.</li>
-          <li><strong>Daylight navigation —</strong> every passage planned for a daylight landfall in good light.</li>
-          <li><strong>Weather first —</strong> the itinerary moves for weather. Not the other way around.</li>
-          <li><strong>Shallow-water options —</strong> 24-inch draft creates escape routes not available to deeper boats.</li>
-          <li><strong>Simple systems —</strong> fewer major systems mean fewer major failures far from help.</li>
-          <li><strong>Two aboard —</strong> shared watches, shared work, and a second set of eyes on every decision.</li>
-          <li><strong>One crew member always aboard —</strong> proper watch, proper scope, proper respect for the anchorage.</li>
-        </ul>
-      </div>
-      <div>
-        <div class="infobox mid" style="margin:0;">
-          <div class="infobox-label">What This Does Not Claim</div>
-          <p style="color:var(--fog);">No vessel removes risk. Seamanship, judgment, and conservative operation still matter. The point is that within a disciplined coastal envelope, a small catamaran operated by a qualified mariner is a practical and effective platform for a multi-year expedition.</p>
-          <p style="color:var(--fog);margin-top:1.2rem;">The operator holds USN submarine qualification and ASA sailing instructor credentials. The platform is capable. The operator is qualified. The envelope is understood.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SEAMANSHIP — Skills -->
-<section class="bg-deep border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">Seamanship</div>
-    <h2 class="serif reveal">Skills That Are <em>Earned on the Water</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">Blue Rim 5&#8482; is the proving ground. Systems get tested in real conditions. Routines get refined under pressure. Gear earns its place or gets replaced. Preparation replaces bravado. Confidence comes from repetition, not talk.</p>
-    <div class="card-grid reveal">
-      <div class="card">
-        <span class="card-icon">🧭</span>
-        <h4>Natural-Sign Navigation</h4>
-        <p>Bird behavior as depth indicators. Water color over reef versus sand. Current reads at specific landmarks. The same intelligence the Norse used crossing the North Atlantic — applied to hundreds of reef systems and coastal channels.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">⛵</span>
-        <h4>Trim Like a Longship</h4>
-        <p>Sail shape, weight distribution, and angle of attack in varying conditions. Shamrocket rewards correct trim with speed and stability. She tells you immediately and honestly when you've got it wrong. There is no keel to hide behind.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🏖️</span>
-        <h4>Lee-Shore Drills</h4>
-        <p>Beach landings in surf. Anchoring in coral without damaging it. Getting off a lee shore when conditions change faster than the forecast said they would. Repetition until it is reflex, not thought.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🌩️</span>
-        <h4>Rig-Ready Discipline</h4>
-        <p>Preventative maintenance. Gear inspection before every departure. The boat is always ready to go — because conditions don't give you time to prepare after they change. This is the operating standard that keeps people alive far from help.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SHAKEDOWN PASSAGE — Turnagain to San Diego -->
-<section class="bg-midnight border-bottom-gold">
-  <div class="container">
-    <div class="section-label reveal">The Shakedown Passage</div>
-    <h2 class="serif reveal">Turnagain to San Diego. <em>Before the Rim, the North Pacific.</em></h2>
-    <div class="gold-rule reveal"></div>
-    <p class="reveal">Before Shamrocket ever points south into the Caribbean, she proves herself on a harder coast. Turnagain Arm, Alaska to San Diego — roughly 2,400 nautical miles, mostly under sail, the electric motor held in reserve for when it's actually needed.</p>
-    <p class="reveal">The route stays close to shelter wherever the coast allows it. Out of Cook Inlet, into Prince William Sound, then the long, protected thread of the Inside Passage down through Southeast Alaska and British Columbia — glaciers, straits, and channels doing most of the work of getting the boat south. The one open stretch that can't be routed around is the run from Icy Bay to Yakutat, timed for a settled weather window and nothing else.</p>
-    <p class="reveal">South of Vancouver Island, the coast opens up. Cape Flattery, the Columbia River bar, the Lost Coast, Point Conception — each one a known hurdle with its own rhythm, taken on its terms rather than a schedule. Staging points along the way give the boat a place to wait out wind and swell before committing.</p>
-
-    <div class="infobox mid reveal">
-      <div class="infobox-label">The Route</div>
-      <p style="color:var(--fog);">Anchorage &rarr; Homer &rarr; Prince William Sound &rarr; Yakutat &rarr; Southeast Alaska Inside Passage (Juneau, Sitka, Ketchikan) &rarr; British Columbia Inside Passage (Prince Rupert, Bella Bella, Port Hardy) &rarr; Vancouver Island &rarr; Neah Bay &rarr; Washington &amp; Oregon coast (Columbia River, Newport, Coos Bay) &rarr; Northern California (Crescent City, Humboldt Bay) &rarr; San Francisco &rarr; Central California (Monterey, Morro Bay) &rarr; Point Conception &rarr; Santa Barbara &rarr; San Diego</p>
-    </div>
-
-    <div class="pull-quote reveal">No fixed schedule. No open-ocean crossings taken by choice. Just a small boat working its way down a big coastline, one weather window at a time.</div>
+    <p class="reveal">Most nights it's the Rim Runner. Some nights — a milestone stop, a hard-won crossing, a country flag added to the count — call for something with a cork. Either way, the ritual is the same: anchor down, day done, toast earned.</p>
+    <img src="veuve_clicquot.png" alt="Champagne toast aboard Shamrocket" class="reveal" style="max-width:420px;width:90%;margin:2rem auto 0;object-fit:contain;"/>
+    <p class="img-caption">Some Nights, It's Champagne</p>
+    <a href="index.html" class="btn-gold reveal">See the Expedition &rarr;</a>
   </div>
 </section>
 
 <!-- FOOTER IMAGE -->
 <div style="text-align:center;padding:3rem 2rem;background:var(--deep-ocean);">
-  <img src="https://catamarandan.org/better.png" alt="Better Beachy than Bitchy&#8482;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
-  <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.16em;color:var(--text-dim);text-transform:uppercase;text-align:center;margin-top:1rem;" class="reveal">Blue Rim 5&#8482; &bull; Catamaran Dan &bull; Nevado Raiders&#8482;</p>
+  <img src="better.png" alt="Better Beachy than Bitchy&reg;" style="max-width:380px;width:90%;display:inline-block;" class="reveal"/>
 </div>
 
 <footer style="background:#080c14;border-top:1px solid rgba(201,168,76,0.15);padding:2rem 1rem;text-align:center;">
   <div style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.08em;color:#c8cdd8;opacity:0.45;line-height:1.8;max-width:800px;margin:0 auto;">
-    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Nevado Raiders, Better Beachy than Bitchy&#8482;, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
+    &copy; <span class="footer-year"></span> Nevado Ranch Camp LLC. All rights reserved. Blue Rim 5, Rim Run Caribe, Rim Run Pac, Rim Runner, Better Beachy Than Bitchy&reg;, Nevado Raiders, and all associated expedition frameworks are proprietary to Nevado Ranch Camp LLC (Arizona Entity ID: 23742753). &nbsp;|&nbsp; <a href="legal.html" style="color:#c8cdd8;text-decoration:none;">Legal &amp; Intellectual Property</a>
   </div>
 </footer>
 
 <script>
-  document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
-  document.body.classList.add('js-ready');
-  (function(){
-    var toggle=document.getElementById('nav-toggle');
-    var nav=document.getElementById('main-nav');
-    var navLinks=document.getElementById('nav-links');
-    var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
+document.querySelectorAll('.footer-year').forEach(function(el){el.textContent=new Date().getFullYear();});
+document.body.classList.add('js-ready');
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
 
-    function closeAllDropdowns(){
-      dropdowns.forEach(function(d){
-        d.classList.remove('open');
-        var caret=d.querySelector('.dropdown-caret');
-        var label=d.querySelector('.nav-group-label');
-        if(caret)caret.setAttribute('aria-expanded','false');
-        if(label)label.setAttribute('aria-expanded','false');
-      });
-    }
-
-    function closeMenu(){
-      if(navLinks)navLinks.classList.remove('open');
-      if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
-      closeAllDropdowns();
-    }
-    function openMenu(){
-      if(navLinks)navLinks.classList.add('open');
-      if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
-    }
-
-    if(toggle&&nav&&navLinks){
-      toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
-      nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
-      document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
-      window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
-    }
-
-    dropdowns.forEach(function(dropdown){
-      var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
-      if(!trigger)return;
-      trigger.addEventListener('click',function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        var isOpen=dropdown.classList.contains('open');
-        closeAllDropdowns();
-        if(!isOpen){
-          dropdown.classList.add('open');
-          trigger.setAttribute('aria-expanded','true');
-        }
-      });
+  function closeAllDropdowns(){
+    dropdowns.forEach(function(d){
+      d.classList.remove('open');
+      var caret=d.querySelector('.dropdown-caret');
+      var label=d.querySelector('.nav-group-label');
+      if(caret)caret.setAttribute('aria-expanded','false');
+      if(label)label.setAttribute('aria-expanded','false');
     });
+  }
 
-    // Hero slideshow
-    (function(){
-      var slides=document.querySelectorAll('.hero-slide');
-      if(slides.length<2)return;
-      var cur=0;
-      setInterval(function(){
-        slides[cur].classList.remove('active');
-        cur=(cur+1)%slides.length;
-        slides[cur].classList.add('active');
-      },4500);
-    })();
-    var els=document.querySelectorAll('.reveal');
-    if('IntersectionObserver' in window){
-      var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');o.unobserve(entry.target);}});},{threshold:0.12});
-      els.forEach(function(el){obs.observe(el);});
-    }else{els.forEach(function(el){el.classList.add('visible');});}
-  })();
+  function closeMenu(){
+    if(navLinks)navLinks.classList.remove('open');
+    if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+    closeAllDropdowns();
+  }
+  function openMenu(){
+    if(navLinks)navLinks.classList.add('open');
+    if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+  }
+
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+
+  dropdowns.forEach(function(dropdown){
+    var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
+    if(!trigger)return;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      var isOpen=dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if(!isOpen){
+        dropdown.classList.add('open');
+        trigger.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+    els.forEach(function(el){obs.observe(el);});
+  }else{els.forEach(function(el){el.classList.add('visible');});}
+})();
 </script>
-
-</body>
-</html>
-
-
 </body>
 </html>
 
