@@ -132,6 +132,67 @@ p+p{margin-top:1.2rem;}
   <meta name="robots" content="noindex, nofollow"/>
 </head>
 <body>
+<nav id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+
+      <div class="nav-item dropdown">
+        <a href="index.html">Home</a>
+        <button class="dropdown-caret" aria-label="Toggle Home submenu" aria-expanded="false">&#9662;</button>
+        <div class="dropdown-menu">
+          <a href="index.html">Home</a>
+          <a href="bluemind.html">Blue Mind</a>
+          <a href="onlyarizona.html">Expedition Theme Song</a>
+          <a href="songs.html">Songs of the Rim</a>
+          <a href="getawayband.html">The Getaway Band</a>
+        <a href="poetry.html">Poetry of the Rim</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Expeditions <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="index.html">Blue Rim 5&#8482;</a>
+          <a href="rimrun-caribe.html">Rim Run Caribe&#8482;</a>
+          <a href="groan.html">GROAN&#8482; Field Research</a>
+          <a href="learn.html">Learn With Me</a>
+          <a href="supporters.html">Expedition Supporters</a>
+        </div>
+      </div>
+
+      <a href="shamrocket.html">Shamrocket</a>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">Adventure <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="lionfish.html">Lion Hunter</a>
+          <a href="storytelling.html">Storytellers</a>
+          <a href="expedition.html">What&rsquo;s Ahead</a>
+          <a href="expeditionlog.html">Expedition Log</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="videos.html">Videos</a>
+          <a href="shamrocketgalleygarden.html">Shamrocket Galley Garden</a>
+          <a href="rimrunner.html">The Rim Runner&#8482;</a>
+        </div>
+      </div>
+
+      <div class="nav-item dropdown">
+        <button class="nav-group-label" aria-expanded="false">About <span class="dropdown-caret-icon">&#9662;</span></button>
+        <div class="dropdown-menu">
+          <a href="about.html">About Catamaran Dan</a>
+          <a href="thelivingsaga.html">The Living Saga&#8482;</a>
+          <a href="legal.html">Legal &amp; Intellectual Property</a>
+        </div>
+      </div>
+
+      <a href="shop.html">Shop</a>
+
+    </div>
+  </div>
+</nav>
 
 <div style="max-width:900px;margin:0 auto;padding:3rem 2rem 1rem;">
   <p style="font-family:'Josefin Sans',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">
@@ -806,5 +867,52 @@ p+p{margin-top:1.2rem;}
   <a href="songs.html" style="font-family:'Josefin Sans',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">&larr; Back to Songs of the Rim</a>
 </footer>
 
+<script>
+(function(){
+  var toggle=document.getElementById('nav-toggle');
+  var nav=document.getElementById('main-nav');
+  var navLinks=document.getElementById('nav-links');
+  var dropdowns=Array.prototype.slice.call(document.querySelectorAll('.nav-item.dropdown'));
+
+  function closeAllDropdowns(){
+    dropdowns.forEach(function(d){
+      d.classList.remove('open');
+      var caret=d.querySelector('.dropdown-caret');
+      var label=d.querySelector('.nav-group-label');
+      if(caret)caret.setAttribute('aria-expanded','false');
+      if(label)label.setAttribute('aria-expanded','false');
+    });
+  }
+  function closeMenu(){
+    if(navLinks)navLinks.classList.remove('open');
+    if(toggle){toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+    closeAllDropdowns();
+  }
+  function openMenu(){
+    if(navLinks)navLinks.classList.add('open');
+    if(toggle){toggle.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+  }
+  if(toggle&&nav&&navLinks){
+    toggle.addEventListener('click',function(e){e.stopPropagation();if(navLinks.classList.contains('open'))closeMenu();else openMenu();});
+    nav.querySelectorAll('.nav-links > a, .dropdown-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+    document.addEventListener('click',function(e){if(!nav.contains(e.target))closeMenu();});
+    window.addEventListener('resize',function(){if(window.innerWidth>768)closeMenu();});
+  }
+  dropdowns.forEach(function(dropdown){
+    var trigger=dropdown.querySelector('.dropdown-caret')||dropdown.querySelector('.nav-group-label');
+    if(!trigger)return;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      e.preventDefault();
+      var isOpen=dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if(!isOpen){
+        dropdown.classList.add('open');
+        trigger.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
