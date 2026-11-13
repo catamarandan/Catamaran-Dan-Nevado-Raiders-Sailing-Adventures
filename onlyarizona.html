@@ -112,6 +112,12 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
 .footer-contact a{color:var(--aqua);}
 .footer-legal{font-family:'Josefin Sans',sans-serif;font-size:0.62rem;letter-spacing:0.06em;color:var(--text-dim);opacity:0.55;line-height:1.8;margin-top:1rem;max-width:800px;margin-left:auto;margin-right:auto;}
 @media(max-width:768px){section{padding:4rem 1.5rem;}.izzy-header{padding:4rem 1.5rem;}}
+/* ONLY ARIZONA FLAG PLAYER — full image shown, never cropped; player sits over the open sky on the left */
+.flag-player{position:relative;max-width:860px;margin:2rem auto 0;border:1px solid rgba(201,168,76,0.3);box-shadow:0 0 60px rgba(201,168,76,0.15);}
+.flag-player img{width:100%;height:auto;display:block;}
+.flag-player-controls{position:absolute;left:3%;top:37%;width:36%;min-width:260px;background:rgba(10,15,26,0.72);border:1px solid rgba(201,168,76,0.45);border-radius:40px;padding:0.4rem;}
+.flag-player-controls audio{width:100%;display:block;}
+@media(max-width:700px){.flag-player-controls{position:static;width:100%;min-width:0;border-radius:0;border:none;border-top:1px solid rgba(201,168,76,0.45);background:var(--midnight);padding:0.6rem;}}
   </style>
 </head>
 <body>
@@ -219,10 +225,15 @@ footer{background:#040710;border-top:1px solid rgba(201,168,76,0.12);padding:3re
     <h2 class="serif reveal">Only <em>Arizona</em></h2>
     <div class="gold-rule reveal" style="margin-left:auto;margin-right:auto;"></div>
     <p class="reveal">Lyrics and composition are copyrighted and not published publicly. Press play to hear the track.</p>
-    <audio controls controlsList="nodownload" preload="none" class="reveal" style="margin-top:1.5rem;max-width:480px;width:100%;">
-      <source src="only-arizona.mp3" type="audio/mpeg"/>
-      Your browser does not support the audio element.
-    </audio>
+    <div class="flag-player reveal">
+      <img src="onlyarizona.png" alt="Shamrocket under sail beneath the Arizona flag — Arizona doesn't have a coastline. I'm giving it one." width="1672" height="941"/>
+      <div class="flag-player-controls">
+        <audio controls controlsList="nodownload" preload="none">
+          <source src="only-arizona.mp3" type="audio/mpeg"/>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -309,6 +320,7 @@ document.body.classList.add('js-ready');
 </script>
 </body>
 </html>
+
 
 
 
