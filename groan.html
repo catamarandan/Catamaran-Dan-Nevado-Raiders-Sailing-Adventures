@@ -112,8 +112,10 @@
 </div>
 <div class="thermal-controls">
 <label for="thermal-region">Explore a region</label>
-<select id="thermal-region"><option value="global">Global ocean</option><option value="redsea">Red Sea</option><option value="triangle">Coral Triangle</option><option value="pacific">Pacific Ocean</option><option value="caribbean">Caribbean</option></select>
-<label for="thermal-zoom">Zoom</label><input id="thermal-zoom" type="range" min="1" max="5" step="0.1" value="1">
+<select id="thermal-region"><option value="global">Global ocean</option><option value="redsea">Red Sea</option><option value="triangle">Coral Triangle</option><option value="pacific">Pacific Ocean</option><option value="americasPacific">Pacific Americas · Alaska to Tierra del Fuego</option><option value="americasAtlantic">Atlantic Americas · Tierra del Fuego to Newfoundland</option><option value="caribbean">Caribbean</option><option value="mediterranean">Mediterranean</option><option value="florida">Florida &amp; US East Coast</option></select>
+<label for="thermal-zoom">Zoom · <output id="thermal-zoom-level" for="thermal-zoom">1.0×</output></label><input id="thermal-zoom" type="range" min="1" max="12" step="0.1" value="1">
+<div class="thermal-actions"><button id="thermal-zoom-out" type="button" aria-label="Zoom out">− Zoom out</button><button id="thermal-zoom-in" type="button" aria-label="Zoom in">+ Zoom in</button></div>
+<button id="thermal-detail" type="button">Load finer detail here</button><p class="thermal-caption">Center an area by dragging or inspecting coordinates, then load its native 0.05° temperature grid. Zoom continuously from 1× to 12×; magnification alone does not add source resolution.</p>
 <div class="thermal-actions"><button id="thermal-spin" type="button" aria-pressed="false">Rotate globe</button><button id="thermal-home" type="button">Recenter</button></div>
 <label for="thermal-date">Observation date</label><input id="thermal-date" type="date" required min="2024-11-22">
 <div class="thermal-actions"><button id="thermal-latest" type="button">Latest available</button><button id="thermal-refresh" type="button">Refresh source</button></div>
@@ -129,9 +131,17 @@
 </div>
 <p id="thermal-resolution" class="thermal-caption"></p>
 <p id="thermal-count" class="thermal-caption"></p>
+<div class="thermal-trends" aria-labelledby="thermal-trend-title">
+<h3 id="thermal-trend-title">Warmer, cooler or little change?</h3>
+<p id="thermal-trend-status" role="status">Select a location to compare its temperature.</p>
+<button id="thermal-compare" type="button">Compare dates at this location</button>
+<div class="thermal-trend-scroll"><table><caption id="thermal-trend-caption">Temperature changes at the selected sample cell</caption><thead><tr><th scope="col">Compare with</th><th scope="col">Earlier temperature</th><th scope="col">Change to selected date</th></tr></thead><tbody id="thermal-trend-rows"></tbody></table></div>
+<p class="thermal-caption">These are differences between daily observations at the same source grid cell, not a statistical trend or forecast. “Little change” means within ±0.10°C, a display threshold rather than a confidence limit. Seasonal changes can influence the result. Missing observations are not estimated; comparisons before November 22, 2024 are unavailable.</p>
+<p class="thermal-caption">El Niño and La Niña describe sustained tropical-Pacific conditions. Local warming or cooling alone does not establish either. <a href="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/">See NOAA’s Relative Oceanic Niño Index and its seasonal context.</a></p>
+</div>
 <details class="thermal-source"><summary>Source, dates and coverage</summary><div>
 <p>NOAA Coral Reef Watch CoralTemp v3.1, served through the PacIOOS daily 5-km dataset. Source variable: <strong>CRW_SST</strong>; native units: <strong>Celsius</strong>. Observation times are UTC. Numerical labels are rounded to two decimal places; the source values remain unchanged.</p>
-<p>The global view samples every 1° for efficient loading. Regional views request finer samples, down to NOAA’s 0.05° grid in the Red Sea. Sample spacing is shown above. Missing values remain missing. This display is not a navigation chart or a forecast.</p>
+<p>The global view samples every 1° for efficient loading. Regional views request finer samples, down to NOAA’s 0.05° grid in the Red Sea or with “Load finer detail here”. Sample spacing is shown above. Missing values remain missing. This display is not a navigation chart or a forecast.</p>
 <p>History starts November 22, 2024. Selecting a date retrieves that observation from the source; a successful display does not by itself confirm that a permanent GROAN archive has been stored.</p>
 <p><a href="https://www.pacioos.hawaii.edu/metadata/dhw_5km.html">Dataset description and attribution</a> · <a href="https://coralreefwatch.noaa.gov/product/5km/index_5km_sst.php">NOAA temperature product</a> · <a id="thermal-source-json" href="https://pae-paha.pacioos.hawaii.edu/erddap/griddap/dhw_5km.html">Displayed global source records</a> · <a href="https://www.naturalearthdata.com/about/terms-of-use/">Geography: Natural Earth</a></p>
 </div></details>

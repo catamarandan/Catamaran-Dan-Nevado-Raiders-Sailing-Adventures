@@ -22,3 +22,17 @@ assert.throws(() => parseGrid(change(p => p.table.rows[1][0] = '2026-11-20T12:00
 assert.throws(() => parseGrid(tiny, {expectedDate:'2025-11-21'}));
 assert.throws(() => parseGrid(change(p => p.table.rows.reverse())));
 console.log('PASS: source values, coordinates, date bounds, nulls, units, sentinel values, mixed dates, grid order and dateline wrap.');
+
+const { comparisonDates, temperatureChange, localBoxes, VIEWS } = await import('../groan-ui/thermal-data.mjs');
+assert.deepEqual(comparisonDates('2026-11-21').map(x=>x.date), ['2026-11-14','2026-10-22','2025-11-21']);
+assert.equal(comparisonDates('2024-02-29')[2].date, '2023-02-28');
+assert.deepEqual(temperatureChange(29.5,29), {delta:.5,label:'Warmer'});
+assert.equal(temperatureChange(29,29.5).label, 'Cooler');
+assert.equal(temperatureChange(29.1,29).label, 'Little change');
+assert.equal(temperatureChange(29,null).delta, null);
+assert.equal(temperatureChange(null,29).delta, null);
+assert.equal(localBoxes(5,179).length,2);
+assert.equal(localBoxes(5,-179).length,2);
+assert.ok(VIEWS.americasPacific.boxes[0][0]>=72 && VIEWS.americasPacific.boxes[0][1]<=-58);
+assert.ok(VIEWS.americasAtlantic.boxes[0][0]>=60 && VIEWS.americasAtlantic.boxes[0][1]<=-58);
+console.log('PASS: dated comparisons, leap years, missing values, change labels and Americas/dateline coverage.');
