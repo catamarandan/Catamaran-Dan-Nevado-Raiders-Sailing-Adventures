@@ -25,8 +25,8 @@ listings, caller-selected object paths, private manifests or upload operations.
 Its activation requires the new Worker version to be promoted in Cloudflare.
 
 `groan-ui/archive-dashboard.json` is a published fallback snapshot. The page
-loads both sources and selects the newest successful export; it explicitly labels
-snapshot use, generation time, covered dates and missing days. The fallback is
+renders the first successful source immediately while checking the other, then selects the newest successful export without replacing a newer loaded record with an older one; it explicitly labels
+snapshot use, generation time, observation age in UTC calendar days, covered dates and missing days. The fallback is
 updated by publishing a new verified artifact from the private archive workflow;
 it is not claimed to update automatically. Routine automatic freshness uses the
 Worker endpoint after promotion. No summary is manufactured when both fail.

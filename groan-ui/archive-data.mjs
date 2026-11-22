@@ -5,6 +5,26 @@ export function newestArchive(candidates) {
     || Date.parse(b.data.generated_at)-Date.parse(a.data.generated_at)
     || Number(b.live)-Number(a.live))[0];
 }
+// Render each successful source as it arrives; retain a newer previously loaded export.
+export async function collectArchives(sources, onUpdate, previous = null) {
+  const candidates = previous ? [previous] : [];
+  let pending = sources.length, received = 0;
+  await Promise.all(sources.map(async ({read, live}) => {
+    try { candidates.push({data: await read(), live}); received++; }
+    catch { /* A failed source must not hide another valid summary. */ }
+    finally {
+      pending--;
+      onUpdate({selected: candidates.length ? newestArchive(candidates) : null, pending, received});
+    }
+  }));
+}
+export function archiveFreshness(data, now = Date.now()) {
+  const latest = data.days.at(-1).date;
+  const today = new Date(now).toISOString().slice(0,10);
+  const age = Math.floor((Date.parse(today) - Date.parse(latest)) / DAY);
+  const observed = age < 0 ? 'ahead of this device’s UTC date; check the device clock' : age === 0 ? 'today, UTC' : `${age} day${age === 1 ? '' : 's'} before today, UTC`;
+  return `Newest archived observation: ${latest} (${observed}). These are daily satellite-derived observations, not an instantaneous temperature feed.`;
+}
 export function validateArchive(data) {
   if (data?.schema_version !== 1 || data.method !== 'regional-sst-sampled-area-mean-v1' || data.native_units !== 'degrees_Celsius'
       || !Array.isArray(data.regions) || !data.regions.length || !Array.isArray(data.days) || !data.days.length

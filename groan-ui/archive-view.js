@@ -1,7 +1,7 @@
-import {ARCHIVE_API, newestArchive, validateArchive, seriesFor, movingMean, recentChange, lineSegments, csvFor} from './archive-data.mjs';
+import {ARCHIVE_API, collectArchives, archiveFreshness, validateArchive, seriesFor, movingMean, recentChange, lineSegments, csvFor} from './archive-data.mjs';
 const $=id=>document.getElementById(id);
 const root=$('archive-history');
-let data, loadVersion=0;
+let data, selectedArchive, loadVersion=0;
 if(root) start().catch(()=>{$('archive-status').textContent='Archive summaries could not be loaded. No observations have been invented. Please try Refresh archive.';});
 async function request(url) {
   const controller = new AbortController(), timeout=setTimeout(()=>controller.abort(),12000);
@@ -13,25 +13,36 @@ async function load() {
   $('archive-refresh').disabled=true;
   $('archive-status').textContent='Checking the archive summary…';
   try {
-    // The published snapshot works even while the separate archive API is unavailable.
-    const results=await Promise.allSettled([request(new URL('./archive-dashboard.json',import.meta.url)), request(ARCHIVE_API)]);
-    if(version!==loadVersion)return;
-    const available=results.flatMap((r,i)=>r.status==='fulfilled'?[{data:r.value,live:i===1}]:[]);
-    if(!available.length)throw Error('No archive summary');
-    const selected=newestArchive(available);data=selected.data;
-    const region=$('archive-region').value, comparison=$('archive-comparison').value;
-    $('archive-region').replaceChildren();$('archive-comparison').replaceChildren(new Option('No second region',''));
-    for(const r of data.regions) {$('archive-region').add(new Option(r.name,r.id));$('archive-comparison').add(new Option(r.name,r.id));}
-    $('archive-region').value=data.regions.some(r=>r.id===region)?region:'caribbean';
-    $('archive-comparison').value=data.regions.some(r=>r.id===comparison)?comparison:'';
-    $('archive-status').textContent=(selected.live?'Connected to the archive summary. ':'Using the published archive snapshot; a newer archive export could not be confirmed. ')+
-      `Summary generated ${new Date(data.generated_at).toLocaleString(undefined,{timeZone:'UTC'})} UTC. Refresh checks for a newer published summary.`;
-    render();
-  } catch(error) {
-    $('archive-status').textContent=data?'Refresh unavailable. The previously loaded archive summary and its dates remain visible.':'Archive summaries unavailable. Please try Refresh archive.';
-    if(!data) for(const id of ['archive-days','archive-dates','archive-storage','archive-latest','archive-direction']) $(id).textContent='Unavailable';
+    await collectArchives([
+      {read:()=>request(new URL('./archive-dashboard.json',import.meta.url)),live:false},
+      {read:()=>request(ARCHIVE_API),live:true}
+    ], ({selected,pending,received})=>{
+      if(version!==loadVersion)return;
+      if(!selected) {
+        if(!pending){
+          $('archive-status').textContent='Archive summaries unavailable. Please try Refresh archive.';
+          for(const id of ['archive-days','archive-dates','archive-storage','archive-latest','archive-direction']) $(id).textContent='Unavailable';
+        }
+        return;
+      }
+      if(data!==selected.data) {
+        data=selected.data;
+        const region=$('archive-region').value, comparison=$('archive-comparison').value;
+        $('archive-region').replaceChildren();$('archive-comparison').replaceChildren(new Option('No second region',''));
+        for(const r of data.regions) {$('archive-region').add(new Option(r.name,r.id));$('archive-comparison').add(new Option(r.name,r.id));}
+        $('archive-region').value=data.regions.some(r=>r.id===region)?region:'caribbean';
+        $('archive-comparison').value=data.regions.some(r=>r.id===comparison)?comparison:'';
+        render();
+      }
+      selectedArchive=selected;
+      const source=selected.live?'Showing a summary retrieved from the archive connection. ':'Showing the published archive snapshot. ';
+      const check=pending?'Checking for a newer summary… ':received?'Archive check finished; showing the newest available export. ':'Refresh unavailable; retaining the previously loaded export. ';
+      $('archive-status').textContent=source+check+`Summary generated ${new Date(data.generated_at).toLocaleString(undefined,{timeZone:'UTC'})} UTC.`;
+      $('archive-freshness').textContent=archiveFreshness(data);
+    }, selectedArchive);
   } finally {if(version===loadVersion)$('archive-refresh').disabled=false;}
 }
+
 async function start(){
   $('archive-refresh').addEventListener('click',load);
   for(const id of ['archive-region','archive-comparison','archive-span','archive-inspect-date']) $(id).addEventListener('change',()=>{if(data)render();});
