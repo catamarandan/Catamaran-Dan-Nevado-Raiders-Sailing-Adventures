@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {availableDate,mapURL,nativeURL,parseNative,LAYERS,REGIONS} from '../groan-ui/environment-data.mjs';
+assert.equal(availableDate('2026-01-01/2026-11-01/P16D','2026-11-20'),'2026-11-01');
+assert.equal(availableDate('2026-11-01/2026-11-06/P1D,2026-11-08/2026-11-17/P1D','2026-11-07'),'2026-11-06');
+assert.throws(()=>availableDate('2024-01-01/2024-11-20/P1D','2024-11-22'));
+assert.throws(()=>availableDate('2024-01-01/2026-11-20/P1D','2024-11-21'));
+const u=new URL(mapURL(LAYERS.rainfall,'2026-11-21',REGIONS.amazon.box));assert.equal(u.searchParams.get('BBOX'),'-22,-82,7,-44');assert.equal(u.searchParams.get('TIME'),'2026-11-21');
+assert.ok(decodeURIComponent(nativeURL(LAYERS.currents,'2026-11-21')).includes('T00:00:00Z'));
+const fixture={table:{columnNames:['time','latitude','longitude','u_current','v_current'],columnUnits:['UTC','degrees_north','degrees_east','m/s','m/s'],rows:[['2026-11-21T00:00:00Z',20,-60,.3,.4],['2026-11-21T00:00:00Z',20,-59,null,.4]]}};
+const parsed=parseNative(fixture,LAYERS.currents);assert.equal(parsed.rows[0].value,.5);assert.equal(parsed.rows[1].value,null);assert.equal(parsed.rows[0].u,.3);
+const invalid=structuredClone(fixture);invalid.table.columnUnits[3]='knots';assert.throws(()=>parseNative(invalid,LAYERS.currents));
+const stale=structuredClone(fixture);stale.table.rows[0][0]='2014-09-26T00:00:00Z';assert.throws(()=>parseNative(stale,LAYERS.currents));
+assert.ok(REGIONS.amazon.box[0]<=-80&&REGIONS.amazon.box[2]>=-48&&REGIONS.amazon.box[1]<=-20&&REGIONS.amazon.box[3]>=5);
+console.log('PASS: availability gaps, composites, fixed history start, geographic axes, native units, missing values, derived current speed and Amazon extent.');
