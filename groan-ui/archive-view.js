@@ -26,12 +26,18 @@ async function load() {
         return;
       }
       if(data!==selected.data) {
+        const classroomPreset=!data && new URLSearchParams(location.search).get('activity')==='caribbean-mediterranean';
         data=selected.data;
         const region=$('archive-region').value, comparison=$('archive-comparison').value;
         $('archive-region').replaceChildren();$('archive-comparison').replaceChildren(new Option('No second region',''));
         for(const r of data.regions) {$('archive-region').add(new Option(r.name,r.id));$('archive-comparison').add(new Option(r.name,r.id));}
         $('archive-region').value=data.regions.some(r=>r.id===region)?region:'caribbean';
         $('archive-comparison').value=data.regions.some(r=>r.id===comparison)?comparison:'';
+        if(classroomPreset) {
+          $('archive-region').value='caribbean';
+          $('archive-comparison').value='mediterranean';
+          $('archive-span').value='365';
+        }
         render();
       }
       selectedArchive=selected;
